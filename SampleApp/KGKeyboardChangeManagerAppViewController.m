@@ -45,6 +45,10 @@
     [self setupKeyboardObservers];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return YES;
+}
+
 - (void)setupKeyboardObservers{
     self.keyboardChangeIdentifier =
     [[KGKeyboardChangeManager sharedManager] addObserverForKeyboardChangedWithSetupBlock:^(BOOL show, CGRect keyboardRect){
