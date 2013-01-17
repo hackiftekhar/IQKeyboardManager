@@ -51,29 +51,30 @@
 
 - (void)setupKeyboardObservers{
     self.keyboardChangeIdentifier =
-    [[KGKeyboardChangeManager sharedManager] addObserverForKeyboardChangedWithSetupBlock:^(BOOL show, CGRect keyboardRect){
-        CGRect keyboardFrameViewRect = self.keyboardFrameView.frame;
-        keyboardFrameViewRect.size.width = CGRectGetWidth(keyboardRect);
-        if(show){
-            keyboardFrameViewRect.size.height = 0;
-            keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds);
-        }else{
-            keyboardFrameViewRect.size.height = CGRectGetHeight(keyboardRect);
-            keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds)-CGRectGetHeight(keyboardFrameViewRect);
-        }
-        keyboardFrameViewRect.origin.y -= 2; // poke the view up 2 pts so we can see it above the keyboard
-        self.keyboardFrameView.frame = keyboardFrameViewRect;
-    } andAnimationBlock:^(BOOL show, CGRect keyboardRect){
-        CGRect keyboardFrameViewRect = self.keyboardFrameView.frame;
-        if(show){
-            keyboardFrameViewRect.size.height = CGRectGetHeight(keyboardRect);
-            keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds)-CGRectGetHeight(keyboardFrameViewRect);
-        }else{
-            keyboardFrameViewRect.size.height = 0;
-            keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds);
-        }
-        keyboardFrameViewRect.origin.y -= 2; // poke the view up 2 pts so we can see it above the keyboard
-        self.keyboardFrameView.frame = keyboardFrameViewRect;
+    [[KGKeyboardChangeManager sharedManager]
+     addObserverForKeyboardChangedWithBlock:^(BOOL show, CGRect keyboardRect, NSTimeInterval animationDuration, UIViewAnimationCurve animationCurve) {
+         __block CGRect keyboardFrameViewRect = self.keyboardFrameView.frame;
+         keyboardFrameViewRect.size.width = CGRectGetWidth(keyboardRect);
+         if(show){
+             keyboardFrameViewRect.size.height = 0;
+             keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds);
+         }else{
+             keyboardFrameViewRect.size.height = CGRectGetHeight(keyboardRect);
+             keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds)-CGRectGetHeight(keyboardFrameViewRect);
+         }
+         self.keyboardFrameView.frame = keyboardFrameViewRect;
+
+         [KGKeyboardChangeManager animateWithWithDuration:animationDuration animationCurve:animationCurve andAnimation:^{
+             if(show){
+                 keyboardFrameViewRect.size.height = CGRectGetHeight(keyboardRect);
+                 keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds)-CGRectGetHeight(keyboardFrameViewRect);
+             }else{
+                 keyboardFrameViewRect.size.height = 0;
+                 keyboardFrameViewRect.origin.y = CGRectGetHeight(self.view.bounds);
+             }
+             keyboardFrameViewRect.origin.y -= 2; // poke the view up 2 pts so we can see it above the keyboard
+             self.keyboardFrameView.frame = keyboardFrameViewRect;
+         }];
     }];
 
     self.keyboardOrientationIdentifier =

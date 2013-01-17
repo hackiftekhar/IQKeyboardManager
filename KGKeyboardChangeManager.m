@@ -8,9 +8,6 @@
 
 #import "KGKeyboardChangeManager.h"
 
-NSString *const kChangeSetupBlockKey = @"KGKeyboardChangeManagerChangeSetupBlockKey";
-NSString *const kChangeAnimationBlockKey = @"KGKeyboardChangeManagerChangeAnimationBlockKey";
-
 @interface KGKeyboardChangeManager()
 @property (strong, atomic) NSMutableDictionary *changeCallbacks;
 @property (strong, atomic) NSMutableDictionary *orientationCallbacks;
@@ -70,17 +67,10 @@ NSString *const kChangeAnimationBlockKey = @"KGKeyboardChangeManagerChangeAnimat
     return identifier;
 }
 
-- (id)addObserverForKeyboardChangedWithSetupBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)setupBlock andAnimationBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)animationBlock{
+- (id)addObserverForKeyboardChangedWithBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)block{
     NSString *identifier = [[NSProcessInfo processInfo] globallyUniqueString];
-    NSMutableDictionary *callbacks = [NSMutableDictionary dictionary];
-    if(setupBlock){
-        callbacks[kChangeSetupBlockKey] = setupBlock;
-    }
-    if(animationBlock){
-        callbacks[kChangeAnimationBlockKey] = animationBlock;
-    }
-    if([callbacks count]){
-        self.changeCallbacks[identifier] = [NSDictionary dictionaryWithDictionary:callbacks];
+    if(block){
+        self.changeCallbacks[identifier] = block;
     }
     return identifier;
 }
@@ -139,25 +129,11 @@ NSString *const kChangeAnimationBlockKey = @"KGKeyboardChangeManagerChangeAnimat
             }
         }];
     }else{
-        [self.changeCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary *obj, BOOL *stop){
-            KGKeyboardChangeManagerKeyboardChangedBlock setupBlock = obj[kChangeSetupBlockKey];
-            if(setupBlock){
-                setupBlock(show, newKeyboardEndFrame);
+        [self.changeCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, KGKeyboardChangeManagerKeyboardChangedBlock block, BOOL *stop){
+            if(block){
+                block(show, newKeyboardEndFrame, animationDuration, animationCurve);
             }
         }];
-        
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView setAnimationCurve:animationCurve];
-
-        [self.changeCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary *obj, BOOL *stop){
-            KGKeyboardChangeManagerKeyboardChangedBlock animationBlock = obj[kChangeAnimationBlockKey];
-            if(animationBlock){
-                animationBlock(show, newKeyboardEndFrame);
-            }
-        }];
-
-        [UIView commitAnimations];
     }
 }
 
@@ -176,6 +152,24 @@ NSString *const kChangeAnimationBlockKey = @"KGKeyboardChangeManagerChangeAnimat
 - (void)keyboardDidShow:(NSNotification *)notification{
     self.keyboardShowing = YES;
     self.orientationChange = NO;
+}
+
+#pragma mark - Animation helper methods
+
++ (void)animateWithWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve andAnimation:(void(^)())animationBlock{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    if(animationBlock){
+        animationBlock();
+    }
+    [UIView commitAnimations];
+}
+
++ (void)animateWithWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve animation:(void(^)())animationBlock andCompletion:(void(^)(BOOL finished))completionBlock{
+    [UIView animateWithDuration:animationDuration delay:0
+                        options:animationCurve|UIViewAnimationOptionBeginFromCurrentState
+                     animations:animationBlock completion:completionBlock];
 }
 
 @end

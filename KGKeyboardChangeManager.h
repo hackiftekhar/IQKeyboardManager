@@ -11,7 +11,8 @@
 @interface KGKeyboardChangeManager : NSObject
 
 typedef void (^KGKeyboardChangeManagerKeyboardOrientationBlock)(CGRect keyboardRect);
-typedef void (^KGKeyboardChangeManagerKeyboardChangedBlock)(BOOL show, CGRect keyboardRect);
+typedef void (^KGKeyboardChangeManagerKeyboardChangedBlock)
+(BOOL show, CGRect keyboardRect, NSTimeInterval animationDuration, UIViewAnimationCurve animationCurve);
 
 @property (nonatomic, readonly, getter=isKeyboardShowing) BOOL keyboardShowing;
 
@@ -20,13 +21,21 @@ typedef void (^KGKeyboardChangeManagerKeyboardChangedBlock)(BOOL show, CGRect ke
 // This block is run whenever the orientation of the keyboard changes.
 - (id)addObserverForKeyboardOrientationChangedWithBlock:(KGKeyboardChangeManagerKeyboardOrientationBlock)block;
 
-// The setup block is run before the animation block, this block can be used to configure anything that
-// will be animated in the animation block. The animation block will be animated along with the keyboard animation.
-- (id)addObserverForKeyboardChangedWithSetupBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)setupBlock
-                                andAnimationBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)animationBlock;
+// This block is run whenever the keyboard is shown or hidden.
+- (id)addObserverForKeyboardChangedWithBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)block;
 
 // Observers should be removed so they are not run when the keyboard changes.
 - (void)removeObserverWithKeyboardOrientationIdentifier:(id)identifier;
 - (void)removeObserverWithKeyboardChangedIdentifier:(id)identifier;
+
+// Animation helper methods
++ (void)animateWithWithDuration:(NSTimeInterval)animationDuration
+                 animationCurve:(UIViewAnimationCurve)animationCurve
+                   andAnimation:(void(^)())animationBlock;
+
++ (void)animateWithWithDuration:(NSTimeInterval)animationDuration
+                 animationCurve:(UIViewAnimationCurve)animationCurve
+                      animation:(void(^)())animationBlock
+                  andCompletion:(void(^)(BOOL finished))completionBlock;
 
 @end
