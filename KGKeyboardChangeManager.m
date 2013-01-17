@@ -12,7 +12,7 @@
 @property (strong, atomic) NSMutableDictionary *changeCallbacks;
 @property (strong, atomic) NSMutableDictionary *orientationCallbacks;
 @property (nonatomic, readwrite, getter=isKeyboardShowing) BOOL keyboardShowing;
-@property (nonatomic) BOOL orientationChange;
+@property (nonatomic) BOOL orientationChange, didBecomeActive;
 @end
 
 @implementation KGKeyboardChangeManager
@@ -49,7 +49,11 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(orientationDidChange:)
      name:UIDeviceOrientationDidChangeNotification object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(didBecomeActive:)
+     name:UIApplicationDidBecomeActiveNotification object:nil];
+
     return self;
 }
 
@@ -83,11 +87,23 @@
     [self.changeCallbacks removeObjectForKey:identifier];
 }
 
+- (void)didBecomeActive:(NSNotification *)notification{
+    self.didBecomeActive = YES;
+}
+
 #pragma mark - Orientation
 
 - (void)orientationDidChange:(NSNotification *)notification{
     if(self.isKeyboardShowing){
         self.orientationChange = YES;
+    }
+
+    // This code is here to undo orientationDidChange setting
+    // orientationChange = YES when the app is returning to active.
+    // If this is not done the code will think it is responding to an orientaion change
+    if(self.didBecomeActive){
+        self.orientationChange = NO;
+        self.didBecomeActive = NO;
     }
 }
 
