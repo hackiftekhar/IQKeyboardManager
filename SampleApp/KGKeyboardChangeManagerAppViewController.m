@@ -89,10 +89,8 @@
 }
 
 - (void)dealloc{
-    [[KGKeyboardChangeManager sharedManager]
-     removeObserverWithKeyboardChangedIdentifier:self.keyboardChangeIdentifier];
-    [[KGKeyboardChangeManager sharedManager]
-     removeObserverWithKeyboardOrientationIdentifier:self.keyboardOrientationIdentifier];
+    [[KGKeyboardChangeManager sharedManager] removeObserverWithIdentifier:self.keyboardChangeIdentifier];
+    [[KGKeyboardChangeManager sharedManager] removeObserverWithIdentifier:self.keyboardOrientationIdentifier];
 }
 
 @end
