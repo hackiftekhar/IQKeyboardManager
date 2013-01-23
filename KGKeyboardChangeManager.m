@@ -79,11 +79,8 @@
     return identifier;
 }
 
-- (void)removeObserverWithKeyboardOrientationIdentifier:(id)identifier{
+- (void)removeObserverWithIdentifier:(id)identifier{
     [self.orientationCallbacks removeObjectForKey:identifier];
-}
-
-- (void)removeObserverWithKeyboardChangedIdentifier:(id)identifier{
     [self.changeCallbacks removeObjectForKey:identifier];
 }
 

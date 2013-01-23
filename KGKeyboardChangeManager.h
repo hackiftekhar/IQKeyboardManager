@@ -25,8 +25,7 @@ typedef void (^KGKeyboardChangeManagerKeyboardChangedBlock)
 - (id)addObserverForKeyboardChangedWithBlock:(KGKeyboardChangeManagerKeyboardChangedBlock)block;
 
 // Observers should be removed so they are not run when the keyboard changes.
-- (void)removeObserverWithKeyboardOrientationIdentifier:(id)identifier;
-- (void)removeObserverWithKeyboardChangedIdentifier:(id)identifier;
+- (void)removeObserverWithIdentifier:(id)identifier;
 
 // Animation helper methods
 + (void)animateWithWithDuration:(NSTimeInterval)animationDuration
