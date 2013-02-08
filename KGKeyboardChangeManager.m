@@ -80,8 +80,10 @@
 }
 
 - (void)removeObserverWithIdentifier:(id)identifier{
-    [self.orientationCallbacks removeObjectForKey:identifier];
-    [self.changeCallbacks removeObjectForKey:identifier];
+    if(identifier){
+        [self.orientationCallbacks removeObjectForKey:identifier];
+        [self.changeCallbacks removeObjectForKey:identifier];
+    }
 }
 
 - (void)didBecomeActive:(NSNotification *)notification{
