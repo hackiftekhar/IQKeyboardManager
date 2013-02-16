@@ -25,11 +25,12 @@
     appFrameView.backgroundColor = [UIColor redColor];
     [self.view addSubview:appFrameView];
 
-    UIView *keyboardFrameView = self.keyboardFrameView =
+    UIView *keyboardFrameView =
     [[UIView alloc] initWithFrame:CGRectZero];
     keyboardFrameView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:keyboardFrameView];
-
+    self.keyboardFrameView = keyboardFrameView;
+    
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 200, 32)];
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.keyboardAppearance = UIKeyboardAppearanceAlert;
