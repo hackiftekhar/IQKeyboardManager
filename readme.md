@@ -8,6 +8,6 @@ Be sure to check out the sample project for an example of how to match a view to
 # About
 
 * Supports iOS 5+
-* By [David Keegan](http://twitter.com/_kgn)
+* By [David Keegan](http://davidkeegan.com)
 * MIT License
 
