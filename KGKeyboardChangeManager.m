@@ -130,10 +130,10 @@
     }else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight){
         newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
         newKeyboardEndFrame.size.height = CGRectGetWidth(keyboardEndFrame);
-        newKeyboardEndFrame.origin.y = CGRectGetWidth([[UIScreen mainScreen] bounds])-CGRectGetHeight(newKeyboardEndFrame);
+        newKeyboardEndFrame.origin.y = CGRectGetWidth([[UIScreen mainScreen] bounds])-CGRectGetMaxX(keyboardEndFrame);
     }else if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
         newKeyboardEndFrame = keyboardEndFrame;
-        newKeyboardEndFrame.origin.y = CGRectGetHeight([[UIScreen mainScreen] bounds])-CGRectGetHeight(newKeyboardEndFrame);
+        newKeyboardEndFrame.origin.y = CGRectGetHeight([[UIScreen mainScreen] bounds])-CGRectGetMaxY(keyboardEndFrame);
     }
 
     // Call the appropriate callback
