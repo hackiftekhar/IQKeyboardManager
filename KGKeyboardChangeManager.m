@@ -12,7 +12,7 @@
 @property (strong, atomic) NSMutableDictionary *changeCallbacks;
 @property (strong, atomic) NSMutableDictionary *orientationCallbacks;
 @property (nonatomic, readwrite, getter=isKeyboardShowing) BOOL keyboardShowing;
-@property (nonatomic) BOOL orientationChange, didBecomeActive;
+@property (nonatomic) UIDeviceOrientation orientation;
 @end
 
 @implementation KGKeyboardChangeManager
@@ -33,7 +33,8 @@
 
     self.changeCallbacks = [NSMutableDictionary dictionary];
     self.orientationCallbacks = [NSMutableDictionary dictionary];
-
+    self.orientation = [self deviceOrientation];
+    
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(keyboardWillShown:)
      name:UIKeyboardWillShowNotification object:nil];
@@ -47,12 +48,8 @@
      addObserver:self selector:@selector(keyboardDidHide:)
      name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(orientationDidChange:)
+     addObserver:self selector:@selector(deviceOrientationDidChange:)
      name:UIDeviceOrientationDidChangeNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(didBecomeActive:)
-     name:UIApplicationDidBecomeActiveNotification object:nil];
 
     return self;
 }
@@ -86,24 +83,35 @@
     }
 }
 
-- (void)didBecomeActive:(NSNotification *)notification{
-    self.didBecomeActive = YES;
-}
-
 #pragma mark - Orientation
 
-- (void)orientationDidChange:(NSNotification *)notification{
-    if(self.isKeyboardShowing){
-        self.orientationChange = YES;
-    }
+- (void)deviceOrientationDidChange:(NSNotification *)notification{
+    self.orientation = [self deviceOrientation];
+}
 
-    // This code is here to undo orientationDidChange setting
-    // orientationChange = YES when the app is returning to active.
-    // If this is not done the code will think it is responding to an orientaion change
-    if(self.didBecomeActive){
-        self.orientationChange = NO;
-        self.didBecomeActive = NO;
+- (BOOL)orientationChanged{
+    return (self.orientation != [self deviceOrientation]);
+}
+
+- (UIDeviceOrientation)deviceOrientation{
+    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+    if(deviceOrientation == UIDeviceOrientationUnknown){
+        switch([[UIApplication sharedApplication] statusBarOrientation]){
+            case UIInterfaceOrientationPortrait:
+                deviceOrientation = UIDeviceOrientationPortrait;
+                break;
+            case UIInterfaceOrientationLandscapeLeft: // left and right are different
+                deviceOrientation = UIDeviceOrientationLandscapeRight;
+                break;
+            case UIInterfaceOrientationLandscapeRight: // left and right are different
+                deviceOrientation = UIDeviceOrientationLandscapeLeft;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                deviceOrientation = UIDeviceOrientationPortraitUpsideDown;
+                break;
+        }
     }
+    return deviceOrientation;
 }
 
 #pragma mark - Keyboard
@@ -119,25 +127,38 @@
     [userInfo[UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
 
     // The keyboard frame is in portrait space
-    CGRect newKeyboardEndFrame = CGRectZero;    
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if(interfaceOrientation == UIInterfaceOrientationPortrait){
-        newKeyboardEndFrame = keyboardEndFrame;
-    }else if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
-        newKeyboardEndFrame.origin.y = CGRectGetMinX(keyboardEndFrame);
-        newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
-        newKeyboardEndFrame.size.height = CGRectGetWidth(keyboardEndFrame);
-    }else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight){
-        newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
-        newKeyboardEndFrame.size.height = CGRectGetWidth(keyboardEndFrame);
-        newKeyboardEndFrame.origin.y = CGRectGetWidth([[UIScreen mainScreen] bounds])-CGRectGetMaxX(keyboardEndFrame);
-    }else if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
-        newKeyboardEndFrame = keyboardEndFrame;
-        newKeyboardEndFrame.origin.y = CGRectGetHeight([[UIScreen mainScreen] bounds])-CGRectGetMaxY(keyboardEndFrame);
+    CGRect newKeyboardEndFrame = CGRectZero;
+    switch([self deviceOrientation]){
+        case UIDeviceOrientationPortrait:{
+            newKeyboardEndFrame = keyboardEndFrame;
+            break;
+        }
+        case UIDeviceOrientationLandscapeLeft:{
+            newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
+            newKeyboardEndFrame.size.height = CGRectGetWidth(keyboardEndFrame);
+            newKeyboardEndFrame.origin.y = CGRectGetWidth([[UIScreen mainScreen] bounds])-CGRectGetMaxX(keyboardEndFrame);            
+            break;
+        }
+        case UIDeviceOrientationLandscapeRight:{
+            newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
+            newKeyboardEndFrame.size.height = CGRectGetWidth(keyboardEndFrame);
+            newKeyboardEndFrame.origin.y = CGRectGetMinX(keyboardEndFrame);
+            break;
+        }
+        case UIDeviceOrientationPortraitUpsideDown:{
+            newKeyboardEndFrame = keyboardEndFrame;
+            newKeyboardEndFrame.origin.y = CGRectGetHeight([[UIScreen mainScreen] bounds])-CGRectGetMaxY(keyboardEndFrame);
+            break;
+        }
+        case UIDeviceOrientationUnknown:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
+            NSAssert(NO, @"Should not get here...");
+            break;
     }
 
     // Call the appropriate callback
-    if(self.orientationChange){
+    if([self orientationChanged]){
         [self.orientationCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, KGKeyboardChangeManagerKeyboardOrientationBlock block, BOOL *stop){
             if(block){
                 block(newKeyboardEndFrame);
@@ -153,7 +174,9 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification{
-    [self keyboardDidChange:notification show:NO];
+    if(![self orientationChanged]){
+        [self keyboardDidChange:notification show:NO];
+    }
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification{
@@ -166,22 +189,21 @@
 
 - (void)keyboardDidShow:(NSNotification *)notification{
     self.keyboardShowing = YES;
-    self.orientationChange = NO;
 }
 
 #pragma mark - Animation helper methods
 
 + (void)animateWithWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve andAnimation:(void(^)())animationBlock{
+    NSParameterAssert(animationBlock != nil);
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:animationCurve];
-    if(animationBlock){
-        animationBlock();
-    }
+    animationBlock();
     [UIView commitAnimations];
 }
 
 + (void)animateWithWithDuration:(NSTimeInterval)animationDuration animationCurve:(UIViewAnimationCurve)animationCurve animation:(void(^)())animationBlock andCompletion:(void(^)(BOOL finished))completionBlock{
+    NSParameterAssert(animationBlock != nil);
     [UIView animateWithDuration:animationDuration delay:0
                         options:animationCurve|UIViewAnimationOptionBeginFromCurrentState
                      animations:animationBlock completion:completionBlock];
