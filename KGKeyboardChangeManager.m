@@ -123,6 +123,9 @@
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     if(interfaceOrientation == UIInterfaceOrientationPortrait){
         newKeyboardEndFrame = keyboardEndFrame;
+        if(!show){
+            newKeyboardEndFrame.origin.y = MIN(newKeyboardEndFrame.origin.y, CGRectGetHeight([[UIScreen mainScreen] bounds]));
+        }
     }else if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
         newKeyboardEndFrame.origin.y = CGRectGetMinX(keyboardEndFrame);
         newKeyboardEndFrame.size.width = CGRectGetHeight(keyboardEndFrame);
