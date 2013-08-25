@@ -13,3 +13,4 @@ Just drag and drop IQKeyboardManager and IQSegmentedNextPrevious classes in your
 Feature:-
 1) Support Device Orientation.
 2) Easy integration.
+3) UITextField Category for easily adding Next/Previous and Done button as Keyboard UIToolBar.
