@@ -35,6 +35,11 @@
 //Call it on your AppDelegate;
 +(void)installKeyboardManager;
 
++(void)setTextFieldDistanceFromKeyboard:(CGFloat)distance;  /*can't be less than zero. Default is 10.0*/
+
++(void)enableKeyboardManger;    /*default enabled*/
+
++(void)disableKeyboardManager;
 
 @end
 

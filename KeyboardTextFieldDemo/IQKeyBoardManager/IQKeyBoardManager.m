@@ -28,7 +28,16 @@
 //Singleton object.
 static IQKeyBoardManager *kbManager;
 
+@interface IQKeyBoardManager()
+
+@property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
+@property(nonatomic, assign) BOOL isEnabled;
+
+@end
+
 @implementation IQKeyBoardManager
+@synthesize keyboardDistanceFromTextField;
+@synthesize isEnabled;
 
 #pragma mark - Initializing
 //Call it on our App Delegate.
@@ -37,7 +46,52 @@ static IQKeyBoardManager *kbManager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         kbManager = [[IQKeyBoardManager alloc] init];
+        [IQKeyBoardManager enableKeyboardManger];
     });
+}
+
++(void)setTextFieldDistanceFromKeyboard:(CGFloat)distance
+{
+    kbManager.keyboardDistanceFromTextField = MAX(distance, 0);
+}
+
++(void)enableKeyboardManger
+{
+    if (kbManager.isEnabled == NO)
+    {
+        kbManager.isEnabled = YES;
+        /*Registering for keyboard notification*/
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+        /*Registering for textField notification*/
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(textFieldDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(textFieldDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
+        
+        /*Registering for textView notification*/
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(textViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(textViewdDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
+        NSLog(@"Keyboard Manager enabled");
+    }
+    else
+    {
+        NSLog(@"Keyboard Manager already enabled");
+    }
+}
+
++(void)disableKeyboardManager
+{
+    if (kbManager.isEnabled == YES)
+    {
+        kbManager.isEnabled = NO;
+        [[NSNotificationCenter defaultCenter] removeObserver:kbManager];
+        NSLog(@"Keyboard Manager desabled");
+    }
+    else
+    {
+        NSLog(@"Keyboard Manger already desabled");
+    }
 }
 
 //Initialize only once
@@ -47,18 +101,8 @@ static IQKeyBoardManager *kbManager;
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            /*Registering for keyboard notification*/
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-            
-            /*Registering for textField notification*/
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
-            
-            /*Registering for textView notification*/
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewdDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
+            keyboardDistanceFromTextField = 10.0;
+            isEnabled = NO;
             animationDuration = 0.25;
         });
     }
@@ -74,269 +118,6 @@ static IQKeyBoardManager *kbManager;
     }];
 }
 
-#pragma mark - Device Orientation Supported logic
-//Setting rootViewController's frame according to deviceOrientation.
--(void)handleLandscapeRightWithKeyboardNotification:(NSNotification*)aNotification
-{
-    //Getting UserInfo.
-    NSDictionary* info = [aNotification userInfo];
-    
-    //Getting UIKeyboardSize.
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    
-    //Adding 10 more height to keyboard.
-    kbSize.width += 10;
-    
-    //Getting KeyWindow object.
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    
-    //Converting Rectangle according to window bounds.
-    CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
-    //Getting RootViewRect.
-    CGRect rootViewRect = window.rootViewController.view.frame;
-    //Getting Application Frame.
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    //Calculate movement which should be scrolled.
-    float move = kbSize.width-CGRectGetMinX(textFieldViewRect);
-    
-    //If textField is showing on screen(i.e. y origin is positive.
-    if (CGRectGetMaxX(textFieldViewRect)<=CGRectGetWidth(appFrame))
-    {
-        //If move is positive, Then Keyboard must be hiding our textField object. 
-        if(move >= 0)
-        {
-            //Adjusting rootView controller frame.
-            rootViewRect.origin.x += move;
-            [self setRootViewFrame:rootViewRect];
-        }
-        //Else if our rootViewController frame's y is negative(Disturbed).
-        else if(CGRectGetMinX(rootViewRect)>CGRectGetMinX(appFrame))
-        {
-            //Calculating disturbed distance.
-            CGFloat disturbDistance = CGRectGetMinX(appFrame)-CGRectGetMinX(rootViewRect);
-            
-            //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-            rootViewRect.origin.x += move>disturbDistance?move:disturbDistance;
- 
-            if (CGRectGetMinX(rootViewRect) == CGRectGetMinX(appFrame))
-                [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-            else
-                [self setRootViewFrame:rootViewRect];
-        }
-    }
-    //Else if our rootViewController frame's y is negative(Disturbed).
-    else if(CGRectGetMinX(rootViewRect)>CGRectGetMinX(appFrame))
-    {
-        //Calculating disturbed distance.
-        CGFloat disturbDistance = CGRectGetMinX(appFrame)-CGRectGetMinX(rootViewRect);
-        
-        //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-        rootViewRect.origin.x += move>disturbDistance?move:disturbDistance;
-        
-        if (CGRectGetMinX(rootViewRect) == CGRectGetMinX(appFrame))
-            [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-        else
-            [self setRootViewFrame:rootViewRect];
-    }
-}
-
--(void)handleLandscapeLeftWithKeyboardNotification:(NSNotification*)aNotification
-{
-    //Getting UserInfo.
-    NSDictionary* info = [aNotification userInfo];
-    
-    //Getting UIKeyboardSize.
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    
-    //Adding 10 more height to keyboard.
-    kbSize.width += 10;
-    
-    //Getting KeyWindow object.
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    
-    //Converting Rectangle according to window bounds.
-    CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
-    //Getting RootViewRect.
-    CGRect rootViewRect = window.rootViewController.view.frame;
-    //Getting Application Frame.
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    //Calculate movement which should be scrolled.
-    float move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
-    
-    //If textField is showing on screen(i.e. y origin is positive.
-    if (CGRectGetMinX(textFieldViewRect)>=CGRectGetMinX(appFrame))
-    {
-        //If move is positive, Then Keyboard must be hiding our textField object. 
-        if(move >= 0)
-        {
-            //Adjusting rootView controller frame.
-            rootViewRect.origin.x -= move;
-            [self setRootViewFrame:rootViewRect];
-        }
-        //Else if our rootViewController frame's y is negative(Disturbed).
-        else if(CGRectGetMinX(rootViewRect)<CGRectGetMinX(appFrame))
-        {
-            //Calculating disturbed distance.
-            CGFloat disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(appFrame);
-            
-            //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-            rootViewRect.origin.x -= move>disturbDistance?move:disturbDistance;
-  
-            if (CGRectGetMinX(rootViewRect) == CGRectGetMinX(appFrame))
-                [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-            else
-                [self setRootViewFrame:rootViewRect];
-        }
-    }
-    //Else if our rootViewController frame's y is negative(Disturbed).
-    else if(CGRectGetMinX(rootViewRect)<CGRectGetMinX(appFrame))
-    {
-        //Calculating disturbed distance.
-        CGFloat disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(appFrame);
-        
-        //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-        rootViewRect.origin.x -= move>disturbDistance?move:disturbDistance;
-        
-        if (CGRectGetMinX(rootViewRect) == CGRectGetMinX(appFrame))
-            [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-        else
-            [self setRootViewFrame:rootViewRect];
-    }
-}
-
--(void)handlePortraitWithKeyboardNotification:(NSNotification*)aNotification
-{
-    //Getting UserInfo.
-    NSDictionary* info = [aNotification userInfo];
-    
-    //Getting UIKeyboardSize.
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    
-    //Adding 10 more height to keyboard.
-    kbSize.height += 10;
-    
-    //Getting KeyWindow object.
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    
-    //Converting Rectangle according to window bounds.
-    CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
-    //Getting RootViewRect.
-    CGRect rootViewRect = window.rootViewController.view.frame;
-    //Getting Application Frame.
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    //Calculate movement which should be scrolled.
-    float move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
-    
-    //If textField is showing on screen(i.e. y origin is positive.
-    if (CGRectGetMinY(textFieldViewRect)>=CGRectGetMinY(appFrame))
-    {
-        //If move is positive, Then Keyboard must be hiding our textField object. 
-        if(move >= 0)
-        {
-            //Adjusting rootView controller frame.
-            rootViewRect.origin.y -= move;
-            [self setRootViewFrame:rootViewRect];
-        }
-        //Else if our rootViewController frame's y is negative(Disturbed).
-        else if(CGRectGetMinY(rootViewRect)<CGRectGetMinY(appFrame))
-        {
-            //Calculating disturbed distance.
-            CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
-            
-            //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-            rootViewRect.origin.y -= move>disturbDistance?move:disturbDistance;
-            
-            if (CGRectGetMinY(rootViewRect) == CGRectGetMinY(appFrame))
-                [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-            else
-                [self setRootViewFrame:rootViewRect];
-        }
-    }
-    //Else if our rootViewController frame's y is negative(Disturbed).
-    else if(CGRectGetMinY(rootViewRect)<CGRectGetMinY(appFrame))
-    {
-        //Calculating disturbed distance.
-        CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
-        
-        //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-        rootViewRect.origin.y -= move>disturbDistance?move:disturbDistance;
-        
-        if (CGRectGetMinY(rootViewRect) == CGRectGetMinY(appFrame))
-            [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-        else
-            [self setRootViewFrame:rootViewRect];
-    }
-}
-
--(void)handlePortraitUpsideDownWithKeyboardNotification:(NSNotification*)aNotification
-{
-    //Getting UserInfo.
-    NSDictionary* info = [aNotification userInfo];
-    
-    //Getting UIKeyboardSize.
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    
-    //Adding 10 more height to keyboard.
-    kbSize.height += 10;
-    
-    //Getting KeyWindow object.
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-
-    //Converting Rectangle according to window bounds.
-    CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
-    //Getting RootViewRect.
-    CGRect rootViewRect = window.rootViewController.view.frame;
-    //Getting Application Frame.
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    //Calculate movement which should be scrolled.
-    float move = kbSize.height-CGRectGetMinY(textFieldViewRect);
-    
-    //If textField is showing on screen(i.e. y origin is positive.
-    if (CGRectGetMaxY(textFieldViewRect)<=CGRectGetHeight(appFrame))
-    {
-        //If move is positive, Then Keyboard must be hiding our textField object. 
-        if(move >= 0)
-        {
-            //Adjusting rootView controller frame.
-            rootViewRect.origin.y += move;
-            [self setRootViewFrame:rootViewRect];
-        }
-        //Else if our rootViewController frame's y is negative(Disturbed).
-        else if(CGRectGetMinY(rootViewRect)>CGRectGetMinY(appFrame))
-        {
-            //Calculating disturbed distance.
-            CGFloat disturbDistance = CGRectGetMinY(appFrame)-CGRectGetMinY(rootViewRect);
-            
-            //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-            rootViewRect.origin.y += move>disturbDistance?move:disturbDistance;
-            
-            if (CGRectGetMinY(rootViewRect) == CGRectGetMinY(appFrame))
-                [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-            else
-                [self setRootViewFrame:rootViewRect];
-       }
-    }
-    //Else if our rootViewController frame's y is negative(Disturbed).
-    else if(CGRectGetMinY(rootViewRect)>CGRectGetMinY(appFrame))
-    {
-        //Calculating disturbed distance.
-        CGFloat disturbDistance = CGRectGetMinY(appFrame)-CGRectGetMinY(rootViewRect);
-        
-        //Adding movement or disturbed distance to origin.(Don't be trapped on this calculation)
-        rootViewRect.origin.y += move>disturbDistance?move:disturbDistance;
-        
-        if (CGRectGetMinY(rootViewRect) == CGRectGetMinY(appFrame))
-            [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
-        else
-            [self setRootViewFrame:rootViewRect];
-    }
-}
-
-
 #pragma mark - UIKeyboad Delegate methods
 // Keyboard Will hide. So setting rootViewController to it's default frame.
 - (void)keyboardWillHide:(NSNotification*)aNotification
@@ -346,9 +127,16 @@ static IQKeyBoardManager *kbManager;
     {
         animationDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
-
+    
+    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    
+    if([[[UIApplication sharedApplication] keyWindow].rootViewController isKindOfClass:[UINavigationController class]])
+    {
+        appFrame = [[UIApplication sharedApplication] keyWindow].frame;
+    }
+    
     //Setting rootViewController frame to it's original position.
-    [self setRootViewFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self setRootViewFrame:appFrame];
 }
 
 //UIKeyboard Did shown. Adjusting RootViewController's frame according to device orientation.
@@ -360,23 +148,108 @@ static IQKeyBoardManager *kbManager;
         animationDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
     
+    
+    //Getting KeyWindow object.
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    //Getting RootViewController's view.
+    UIViewController *rootController = window.rootViewController;
+    //Getting UIKeyboardSize.
+    CGSize kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    //Converting Rectangle according to window bounds.
+    CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
+    //Getting RootViewRect.
+    CGRect rootViewRect = rootController.view.frame;
+    
+    CGFloat move;
+
     switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationLandscapeLeft:
-            [self handleLandscapeLeftWithKeyboardNotification:aNotification];
+            kbSize.width += 10;
+            move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            [self handleLandscapeRightWithKeyboardNotification:aNotification];
+            kbSize.width += 10;
+            move = kbSize.width-CGRectGetMinX(textFieldViewRect);
             break;
         case UIInterfaceOrientationPortrait:
-            [self handlePortraitWithKeyboardNotification:aNotification];
-            break;
+            kbSize.height += 10;
+            move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
+           break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            [self handlePortraitUpsideDownWithKeyboardNotification:aNotification];
+            kbSize.height += 10;
+            move = kbSize.height-CGRectGetMinY(textFieldViewRect);
             break;
         default:
             break;
     }
+    
+    
+    //Move positive = textField is hidden.
+    //Move negative = textField is showing.
+    
+    //Positive or zero.
+    if (move>=0)
+    {
+        switch ([[UIApplication sharedApplication] statusBarOrientation])
+        {
+            case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
+            case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
+            case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
+            case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
+            default:    break;
+        }
+        
+        [self setRootViewFrame:rootViewRect];
+    }
+    //Negative
+    else
+    {
+        CGRect appFrame;
+        if([rootController isKindOfClass:[UINavigationController class]])
+            appFrame = window.frame;
+        else if ([rootController isKindOfClass:[UIViewController class]])
+            appFrame = [[UIScreen mainScreen] applicationFrame];
+        
+
+        CGFloat disturbDistance;
+        
+        switch ([[UIApplication sharedApplication] statusBarOrientation])
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+                disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(appFrame);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                disturbDistance = CGRectGetMinX(appFrame)-CGRectGetMinX(rootViewRect);
+                break;
+            case UIInterfaceOrientationPortrait:
+                disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                disturbDistance = CGRectGetMinY(appFrame)-CGRectGetMinY(rootViewRect);
+                break;
+            default:
+                break;
+        }
+
+        //Move Negative = frame disturbed.
+        //Move positive or frame not disturbed.
+        if(disturbDistance<0)
+        {
+            switch ([[UIApplication sharedApplication] statusBarOrientation])
+            {
+                case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
+                case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
+                case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
+                case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
+                default:    break;
+            }
+            
+            [self setRootViewFrame:rootViewRect];
+        }
+    }
+    
 }
 
 - (void)keyboardDidShow:(NSNotification*)aNotification
@@ -445,20 +318,20 @@ static IQKeyBoardManager *kbManager;
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
-
-   //Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
+    
+    //Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
     UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     //Create a button to show on phoneNumber keyboard to resign it. Adding a selector to resign it.
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
-
+    
     IQSegmentedNextPrevious *segControl = [[IQSegmentedNextPrevious alloc] initWithTarget:target previousSelector:previousAction nextSelector:nextAction];
-//
+    //
     UIBarButtonItem *segButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
-
+    
     //Adding button to toolBar.
     [toolbar setItems:[NSArray arrayWithObjects: segButton,nilButton,doneButton, nil]];
-//    [toolbar setItems:[NSArray arrayWithObjects: previousButton,nextButton,nilButton,doneButton, nil]];
+    //    [toolbar setItems:[NSArray arrayWithObjects: previousButton,nextButton,nilButton,doneButton, nil]];
     
     //Setting toolbar to textFieldPhoneNumber keyboard.
     [self setInputAccessoryView:toolbar];

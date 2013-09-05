@@ -23,6 +23,11 @@
 {
     [super viewDidLoad];
     
+    [self.navigationItem setTitle:@"IQKeyboard"];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStyleBordered target:self action:@selector(enableKeyboardManger:)]];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Desable" style:UIBarButtonItemStyleBordered target:self action:@selector(disableKeyboardManager:)]];
+    
     for (int i=0; i<numTextFields; i++)
     {        
         UITextField *textField = (UITextField*)[self.view viewWithTag:100+i];
@@ -30,6 +35,24 @@
         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousClicked:) nextAction:@selector(nextClicked:) doneAction:@selector(doneClicked:)];
     }
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+//    [self.view.window.rootViewController.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+}
+
+-(void)enableKeyboardManger:(UIBarButtonItem*)barButton
+{
+    [IQKeyBoardManager enableKeyboardManger];
+}
+
+-(void)disableKeyboardManager:(UIBarButtonItem*)barButton
+{
+    [IQKeyBoardManager disableKeyboardManager];
+}
+
 
 -(void)previousClicked:(UISegmentedControl*)segmentedControl
 {
@@ -77,11 +100,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
