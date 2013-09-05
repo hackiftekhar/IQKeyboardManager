@@ -166,19 +166,19 @@ static IQKeyBoardManager *kbManager;
     switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationLandscapeLeft:
-            kbSize.width += 10;
+            kbSize.width += keyboardDistanceFromTextField;
             move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            kbSize.width += 10;
+            kbSize.width += keyboardDistanceFromTextField;
             move = kbSize.width-CGRectGetMinX(textFieldViewRect);
             break;
         case UIInterfaceOrientationPortrait:
-            kbSize.height += 10;
+            kbSize.height += keyboardDistanceFromTextField;
             move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
            break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            kbSize.height += 10;
+            kbSize.height += keyboardDistanceFromTextField;
             move = kbSize.height-CGRectGetMinY(textFieldViewRect);
             break;
         default:
