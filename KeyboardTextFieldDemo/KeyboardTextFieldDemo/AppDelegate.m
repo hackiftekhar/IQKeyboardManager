@@ -24,7 +24,7 @@
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
 
     //Case 1. UIViewController as rootViewController.
-    if (true)
+    if (false)
     {
         self.window.rootViewController = self.viewController;
     }
