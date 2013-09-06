@@ -9,7 +9,7 @@
 
 @implementation ViewController
 
-#define numTextFields 11
+#define numTextFields 10
 
 - (void)didReceiveMemoryWarning
 {
@@ -34,6 +34,21 @@
         textField.delegate = self;
         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousClicked:) nextAction:@selector(nextClicked:) doneAction:@selector(doneClicked:)];
     }
+    
+    if (!self.navigationController)
+    {
+        [buttonPop setHidden:YES];
+        [buttonPush setHidden:YES];
+        [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
+    }
+    else if(self.navigationController.viewControllers.count ==1)
+    {
+        [buttonPop setHidden:YES];
+    }
+//    else if(self.navigationController.viewControllers.count>1)
+//    {
+//        
+//    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -129,4 +144,36 @@
 //    return UIInterfaceOrientationMaskAll;
 //}
 
+- (IBAction)pushClicked:(id)sender
+{
+    ViewController *controller = [[ViewController alloc] init];
+    NSLog(@"Push:%@",controller);
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)presentClicked:(id)sender {
+    
+    if (self.navigationController)
+    {
+        ViewController *controller = [[ViewController alloc] init];
+        NSLog(@"Present:%@",controller);
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"Dismiss:%@",self);
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+
+}
+- (void)viewDidUnload {
+    buttonPop = nil;
+    buttonPop = nil;
+    buttonPush = nil;
+    buttonPresent = nil;
+    [super viewDidUnload];
+}
+- (IBAction)popClicked:(id)sender {
+}
 @end

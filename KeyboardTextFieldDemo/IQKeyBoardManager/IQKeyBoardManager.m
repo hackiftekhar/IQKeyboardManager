@@ -109,12 +109,25 @@ static IQKeyBoardManager *kbManager;
     return self;
 }
 
++ (UIViewController*) topMostController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController)
+        topController = topController.presentedViewController;
+    
+    return topController;
+}
+
+
 #pragma mark - Helper Animation function
 //Helper function to manipulate RootViewController's frame with animation.
 -(void)setRootViewFrame:(CGRect)frame
 {
+    UIViewController *controller = [IQKeyBoardManager topMostController];
     [UIView animateWithDuration:animationDuration animations:^{
-        [textFieldView.window.rootViewController.view setFrame:frame];
+        [controller.view setFrame:frame];
+//        [textFieldView.window.rootViewController.view setFrame:frame];
     }];
 }
 
@@ -130,7 +143,9 @@ static IQKeyBoardManager *kbManager;
     
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
-    if([[[UIApplication sharedApplication] keyWindow].rootViewController isKindOfClass:[UINavigationController class]])
+    
+    
+    if([[IQKeyBoardManager topMostController] isKindOfClass:[UINavigationController class]])
     {
         appFrame = [[UIApplication sharedApplication] keyWindow].frame;
     }
@@ -152,7 +167,7 @@ static IQKeyBoardManager *kbManager;
     //Getting KeyWindow object.
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     //Getting RootViewController's view.
-    UIViewController *rootController = window.rootViewController;
+    UIViewController *rootController = [IQKeyBoardManager topMostController];
     //Getting UIKeyboardSize.
     CGSize kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
