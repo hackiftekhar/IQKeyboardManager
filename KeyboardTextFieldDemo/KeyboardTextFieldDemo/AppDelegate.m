@@ -32,6 +32,7 @@
     else
     {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+        [navController.navigationBar setTintColor:[UIColor clearColor]];
         self.window.rootViewController = navController;
     }
 
