@@ -352,4 +352,27 @@ static IQKeyBoardManager *kbManager;
     [self setInputAccessoryView:toolbar];
 }
 
+-(void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled
+{
+    UIToolbar *inputView = (UIToolbar*)[self inputAccessoryView];
+    
+    if ([inputView isKindOfClass:[UIToolbar class]] && [[inputView items] count]>0)
+    {
+        UIBarButtonItem *barButtonItem = (UIBarButtonItem*)[[inputView items] objectAtIndex:0];
+        
+        if ([barButtonItem isKindOfClass:[UIBarButtonItem class]] && [barButtonItem customView] != nil)
+        {
+            UISegmentedControl *segmentedControl = (UISegmentedControl*)[barButtonItem customView];
+            
+            if ([segmentedControl isKindOfClass:[UISegmentedControl class]] && [segmentedControl numberOfSegments]>1)
+            {
+                [segmentedControl setEnabled:isPreviousEnabled forSegmentAtIndex:0];
+
+                [segmentedControl setEnabled:isNextEnabled forSegmentAtIndex:1];
+            }
+        }
+    }
+}
+
+
 @end

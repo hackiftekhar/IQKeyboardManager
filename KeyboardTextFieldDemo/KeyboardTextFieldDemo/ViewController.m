@@ -33,6 +33,17 @@
         UITextField *textField = (UITextField*)[self.view viewWithTag:100+i];
         textField.delegate = self;
         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousClicked:) nextAction:@selector(nextClicked:) doneAction:@selector(doneClicked:)];
+        
+        //First textField
+        if (i == 0)
+        {
+            [textField setEnablePrevious:NO next:YES];
+        }
+        //Last textField
+        else if(i== numTextFields-1)
+        {
+            [textField setEnablePrevious:YES next:NO];
+        }
     }
     
     if (!self.navigationController)
@@ -45,17 +56,11 @@
     {
         [buttonPop setHidden:YES];
     }
-//    else if(self.navigationController.viewControllers.count>1)
-//    {
-//        
-//    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-//    [self.view.window.rootViewController.view setFrame:[[UIScreen mainScreen] applicationFrame]];
 }
 
 -(void)enableKeyboardManger:(UIBarButtonItem*)barButton
@@ -83,28 +88,6 @@
 {
     [self.view endEditing:YES];
 }
-
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    selectedTextFieldTag = textField.tag;
-
-    if (textField.tag == 100)
-    {
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:NO forSegmentAtIndex:0];
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:YES forSegmentAtIndex:1];
-    }
-    else if(textField.tag == (100+(numTextFields-1)))
-    {
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:YES forSegmentAtIndex:0];
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:NO forSegmentAtIndex:1];
-    }
-    else
-    {
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:YES forSegmentAtIndex:0];
-        [(UISegmentedControl*)[(UIBarButtonItem*)[[(UIToolbar*)textField.inputAccessoryView items] objectAtIndex:0] customView] setEnabled:YES forSegmentAtIndex:1];
-    }
-}
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -144,36 +127,44 @@
 //    return UIInterfaceOrientationMaskAll;
 //}
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    selectedTextFieldTag = textField.tag;
+}
+
 - (IBAction)pushClicked:(id)sender
 {
     ViewController *controller = [[ViewController alloc] init];
-    NSLog(@"Push:%@",controller);
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (IBAction)presentClicked:(id)sender {
-    
+- (IBAction)presentClicked:(id)sender
+{
     if (self.navigationController)
     {
         ViewController *controller = [[ViewController alloc] init];
-        NSLog(@"Present:%@",controller);
-        
+        [controller setModalPresentationStyle:arc4random()%4];
+        [controller setModalTransitionStyle:arc4random()%4];
         [self presentViewController:controller animated:YES completion:nil];
     }
     else
     {
-        NSLog(@"Dismiss:%@",self);
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-
 }
-- (void)viewDidUnload {
+
+- (void)viewDidUnload
+{
     buttonPop = nil;
     buttonPop = nil;
     buttonPush = nil;
     buttonPresent = nil;
     [super viewDidUnload];
 }
-- (IBAction)popClicked:(id)sender {
+
+- (IBAction)popClicked:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 @end
