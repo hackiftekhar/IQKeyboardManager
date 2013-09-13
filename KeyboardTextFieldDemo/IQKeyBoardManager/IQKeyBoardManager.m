@@ -112,10 +112,10 @@ static IQKeyBoardManager *kbManager;
 + (UIViewController*) topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
+
     while (topController.presentedViewController)
         topController = topController.presentedViewController;
-    
+
     return topController;
 }
 
@@ -127,7 +127,6 @@ static IQKeyBoardManager *kbManager;
     UIViewController *controller = [IQKeyBoardManager topMostController];
     [UIView animateWithDuration:animationDuration animations:^{
         [controller.view setFrame:frame];
-//        [textFieldView.window.rootViewController.view setFrame:frame];
     }];
 }
 
@@ -143,11 +142,24 @@ static IQKeyBoardManager *kbManager;
     
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
-    
-    
-    if([[IQKeyBoardManager topMostController] isKindOfClass:[UINavigationController class]])
+    UIViewController *controller = [IQKeyBoardManager topMostController];
+
+    if([controller isKindOfClass:[UINavigationController class]])
     {
         appFrame = [[UIApplication sharedApplication] keyWindow].frame;
+    }
+    else
+    {
+        if ([controller modalPresentationStyle] == UIModalPresentationFormSheet ||
+            [controller modalPresentationStyle] == UIModalPresentationPageSheet)
+        {
+            appFrame.origin = CGPointZero;
+            appFrame.size = controller.view.frame.size;
+        }
+        else
+        {
+            appFrame.size = controller.view.frame.size;
+        }
     }
     
     //Setting rootViewController frame to it's original position.
@@ -163,7 +175,6 @@ static IQKeyBoardManager *kbManager;
         animationDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
     
-    
     //Getting KeyWindow object.
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     //Getting RootViewController's view.
@@ -177,8 +188,11 @@ static IQKeyBoardManager *kbManager;
     CGRect rootViewRect = rootController.view.frame;
     
     CGFloat move;
+    //Move positive = textField is hidden.
+    //Move negative = textField is showing.
 
-    switch ([[UIApplication sharedApplication] statusBarOrientation])
+    //Common for both normal and special cases.
+    switch (rootController.interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
             kbSize.width += keyboardDistanceFromTextField;
@@ -191,7 +205,7 @@ static IQKeyBoardManager *kbManager;
         case UIInterfaceOrientationPortrait:
             kbSize.height += keyboardDistanceFromTextField;
             move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
-           break;
+            break;
         case UIInterfaceOrientationPortraitUpsideDown:
             kbSize.height += keyboardDistanceFromTextField;
             move = kbSize.height-CGRectGetMinY(textFieldViewRect);
@@ -199,72 +213,99 @@ static IQKeyBoardManager *kbManager;
         default:
             break;
     }
-    
-    
-    //Move positive = textField is hidden.
-    //Move negative = textField is showing.
-    
-    //Positive or zero.
-    if (move>=0)
+
+    //Special case.
+    if ([[IQKeyBoardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
+        [[IQKeyBoardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
     {
-        switch ([[UIApplication sharedApplication] statusBarOrientation])
+        //Positive or zero.
+        if (move>=0)
         {
-            case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
-            case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
-            case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
-            case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
-            default:    break;
+            //We should only manipulate y.
+            rootViewRect.origin.y -= move;  
+            [self setRootViewFrame:rootViewRect];
         }
-        
-        [self setRootViewFrame:rootViewRect];
+        //Negative
+        else
+        {
+            CGRect appFrame = CGRectMake(0, 0, rootViewRect.size.width, rootViewRect.size.height);
+            CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
+
+            //Move Negative = frame disturbed.
+            //Move positive or frame not disturbed.
+            if(disturbDistance<0)
+            {
+                rootViewRect.origin.y -= MAX(move, disturbDistance); 
+                [self setRootViewFrame:rootViewRect];
+            }
+        }
     }
-    //Negative
     else
     {
-        CGRect appFrame;
-        if([rootController isKindOfClass:[UINavigationController class]])
-            appFrame = window.frame;
-        else if ([rootController isKindOfClass:[UIViewController class]])
-            appFrame = [[UIScreen mainScreen] applicationFrame];
-        
-
-        CGFloat disturbDistance;
-        
-        switch ([[UIApplication sharedApplication] statusBarOrientation])
+        //Positive or zero.
+        if (move>=0)
         {
-            case UIInterfaceOrientationLandscapeLeft:
-                disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(appFrame);
-                break;
-            case UIInterfaceOrientationLandscapeRight:
-                disturbDistance = CGRectGetMinX(appFrame)-CGRectGetMinX(rootViewRect);
-                break;
-            case UIInterfaceOrientationPortrait:
-                disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                disturbDistance = CGRectGetMinY(appFrame)-CGRectGetMinY(rootViewRect);
-                break;
-            default:
-                break;
-        }
-
-        //Move Negative = frame disturbed.
-        //Move positive or frame not disturbed.
-        if(disturbDistance<0)
-        {
-            switch ([[UIApplication sharedApplication] statusBarOrientation])
+            //        switch ([[UIApplication sharedApplication] statusBarOrientation])
+            switch (rootController.interfaceOrientation)
             {
-                case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
-                case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
-                case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
-                case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
+                case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
+                case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
+                case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
+                case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
                 default:    break;
             }
             
             [self setRootViewFrame:rootViewRect];
         }
-    }
-    
+        //Negative
+        else
+        {
+            CGRect appFrame;
+            if([rootController isKindOfClass:[UINavigationController class]])
+                appFrame = window.frame;
+            else if ([rootController isKindOfClass:[UIViewController class]])
+                appFrame = [[UIScreen mainScreen] applicationFrame];
+            
+            
+            CGFloat disturbDistance;
+            
+            //        switch ([[UIApplication sharedApplication] statusBarOrientation])
+            switch (rootController.interfaceOrientation)
+            {
+                case UIInterfaceOrientationLandscapeLeft:
+                    disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(appFrame);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    disturbDistance = CGRectGetMinX(appFrame)-CGRectGetMinX(rootViewRect);
+                    break;
+                case UIInterfaceOrientationPortrait:
+                    disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(appFrame);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    disturbDistance = CGRectGetMinY(appFrame)-CGRectGetMinY(rootViewRect);
+                    break;
+                default:
+                    break;
+            }
+            
+            //Move Negative = frame disturbed.
+            //Move positive or frame not disturbed.
+            if(disturbDistance<0)
+            {
+                //            switch ([[UIApplication sharedApplication] statusBarOrientation])
+                switch (rootController.interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
+                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
+                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
+                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
+                    default:    break;
+                }
+                
+                [self setRootViewFrame:rootViewRect];
+            }
+        }
+    }    
 }
 
 - (void)keyboardDidShow:(NSNotification*)aNotification

@@ -140,17 +140,48 @@
 
 - (IBAction)presentClicked:(id)sender
 {
-    if (self.navigationController)
-    {
-        ViewController *controller = [[ViewController alloc] init];
-        [controller setModalPresentationStyle:arc4random()%4];
-        [controller setModalTransitionStyle:arc4random()%4];
-        [self presentViewController:controller animated:YES completion:nil];
+    @try {
+        if (self.navigationController)
+        {
+            ViewController *controller = [[ViewController alloc] init];
+            
+            [controller setModalTransitionStyle:arc4random()%4];
+
+            //TransitionStylePartialCurl can only be presented by FullScreen style.
+            if (controller.modalTransitionStyle == UIModalTransitionStylePartialCurl)
+                controller.modalPresentationStyle = UIModalPresentationFullScreen;
+            else
+                controller.modalPresentationStyle = arc4random()%4;
+            
+            if ([self respondsToSelector:@selector(presentViewController:animated:completion:)])
+            {
+                [self presentViewController:controller animated:YES completion:nil];
+            }
+            else
+            {
+                [self presentModalViewController:controller animated:YES];
+            }
+            
+        }
+        else
+        {
+            if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+            {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else
+            {
+                [self dismissModalViewControllerAnimated:YES];
+            }
+        }
     }
-    else
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
+    @catch (NSException *exception) {
+        NSLog(@"Exception:%@",exception);
     }
+    @finally {
+
+    }
+    
 }
 
 - (void)viewDidUnload
