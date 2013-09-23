@@ -140,30 +140,21 @@ static IQKeyBoardManager *kbManager;
         animationDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
     
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect resetFrame;
     
     UIViewController *controller = [IQKeyBoardManager topMostController];
-
+    
     if([controller isKindOfClass:[UINavigationController class]])
     {
-        appFrame = [[UIApplication sharedApplication] keyWindow].frame;
+        resetFrame = [[UIApplication sharedApplication] keyWindow].frame;
     }
     else
     {
-        if ([controller modalPresentationStyle] == UIModalPresentationFormSheet ||
-            [controller modalPresentationStyle] == UIModalPresentationPageSheet)
-        {
-            appFrame.origin = CGPointZero;
-            appFrame.size = controller.view.frame.size;
-        }
-        else
-        {
-            appFrame.size = controller.view.frame.size;
-        }
+        resetFrame = CGRectMake(0, 0, controller.view.frame.size.width, controller.view.frame.size.height);
     }
     
     //Setting rootViewController frame to it's original position.
-    [self setRootViewFrame:appFrame];
+    [self setRootViewFrame:resetFrame];
 }
 
 //UIKeyboard Did shown. Adjusting RootViewController's frame according to device orientation.
