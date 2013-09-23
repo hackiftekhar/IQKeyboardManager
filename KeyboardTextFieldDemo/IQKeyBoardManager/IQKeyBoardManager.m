@@ -152,7 +152,7 @@ static IQKeyBoardManager *kbManager;
     {
         resetFrame = CGRectMake(0, 0, controller.view.frame.size.width, controller.view.frame.size.height);
     }
-    
+
     //Setting rootViewController frame to it's original position.
     [self setRootViewFrame:resetFrame];
 }
