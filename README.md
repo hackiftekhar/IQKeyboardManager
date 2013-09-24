@@ -15,6 +15,9 @@ Feature:-
 1) Support Device Orientation.
 2) Easy integration.
 3) UITextField Category for easily adding Next/Previous and Done button as Keyboard UIToolBar.
+4) Enable/Desable Keyboard Manager with Class methods.
+5) Enable/Desable Next/Previous with Category methods.
+6) Autohandle in Whole application without any extra work or code.
 
 Contribution and Thanks
 -----------------------
