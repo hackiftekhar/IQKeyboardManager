@@ -8,7 +8,7 @@ You can use IQKeyboardManager to fix this issue with just one line of code:-
 [IQKeyBoardManager installKeyboardManager];
 
 
-Just drag and drop IQKeyboardManager and IQSegmentedNextPrevious classes in your project. In your appDelegate write just one line of code. This will handle all UITextField/UITextView covering problem.
+Just drag and drop IQKeyboardManager class in your project. In your appDelegate write just one line of code. This will handle all UITextField/UITextView covering problem.
 
 
 Feature:-
