@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyBoardManager.m */; };
-		AFF236C217CA224400760F6C /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236C017CA224400760F6C /* IQSegmentedNextPrevious.m */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -17,15 +16,13 @@
 		C0B63BAC1781FAB1008D3B64 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAB1781FAB1008D3B64 /* main.m */; };
 		C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */; };
 		C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BB21781FAB1008D3B64 /* ViewController.m */; };
-		C0B63BB61781FAB1008D3B64 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B63BB41781FAB1008D3B64 /* ViewController.xib */; };
+		C0FAECC817F2351700962F68 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FAECC717F2351700962F68 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AFF236BD17CA224400760F6C /* IQKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyBoardManager.h; sourceTree = "<group>"; };
 		AFF236BE17CA224400760F6C /* IQKeyBoardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyBoardManager.m; sourceTree = "<group>"; };
-		AFF236BF17CA224400760F6C /* IQSegmentedNextPrevious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQSegmentedNextPrevious.h; sourceTree = "<group>"; };
-		AFF236C017CA224400760F6C /* IQSegmentedNextPrevious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQSegmentedNextPrevious.m; sourceTree = "<group>"; };
 		C0B63B9B1781FAB1008D3B64 /* KeyboardTextFieldDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardTextFieldDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C0B63BA11781FAB1008D3B64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,7 +35,7 @@
 		C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C0B63BB11781FAB1008D3B64 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C0B63BB21781FAB1008D3B64 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C0B63BB51781FAB1008D3B64 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		C0FAECC717F2351700962F68 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +57,6 @@
 			children = (
 				AFF236BD17CA224400760F6C /* IQKeyBoardManager.h */,
 				AFF236BE17CA224400760F6C /* IQKeyBoardManager.m */,
-				AFF236BF17CA224400760F6C /* IQSegmentedNextPrevious.h */,
-				AFF236C017CA224400760F6C /* IQSegmentedNextPrevious.m */,
 			);
 			path = IQKeyBoardManager;
 			sourceTree = "<group>";
@@ -102,7 +97,7 @@
 				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
 				C0B63BB11781FAB1008D3B64 /* ViewController.h */,
 				C0B63BB21781FAB1008D3B64 /* ViewController.m */,
-				C0B63BB41781FAB1008D3B64 /* ViewController.xib */,
+				C0FAECC717F2351700962F68 /* ViewController.xib */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -171,8 +166,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
-				C0B63BB61781FAB1008D3B64 /* ViewController.xib in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
+				C0FAECC817F2351700962F68 /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +182,6 @@
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
 				C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */,
 				AFF236C117CA224400760F6C /* IQKeyBoardManager.m in Sources */,
-				AFF236C217CA224400760F6C /* IQSegmentedNextPrevious.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,14 +194,6 @@
 				C0B63BA91781FAB1008D3B64 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C0B63BB41781FAB1008D3B64 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C0B63BB51781FAB1008D3B64 /* en */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -238,7 +224,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -261,7 +247,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -274,7 +260,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -287,7 +273,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
