@@ -26,20 +26,33 @@
 
 @interface IQKeyBoardManager : NSObject
 {
+    //Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations;
+    BOOL isKeyboardShowing;
+    
+    //To save rootViewController.view.frame.
+    CGRect topViewBeginRect;
+    
     //TextField or TextView object.
     UIView *textFieldView;
     
+    //To save keyboard animation duration.
     CGFloat animationDuration;
 }
 
-//Call it on your AppDelegate;
+//Call it on your AppDelegate to initialize keyboardManager;
 +(void)installKeyboardManager;
 
+//To set keyboard distance from textField
 +(void)setTextFieldDistanceFromKeyboard:(CGFloat)distance;  /*can't be less than zero. Default is 10.0*/
 
+//Enable keyboard manager.
 +(void)enableKeyboardManger;    /*default enabled*/
 
+//Desable keyboard manager.
 +(void)disableKeyboardManager;
+
+//return YES if keyboard manager is enabled.
++(BOOL)isEnabled;
 
 @end
 
