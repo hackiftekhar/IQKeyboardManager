@@ -4,8 +4,7 @@ Keyboard TextField Manager
 Often while developing an app, We ran into an issues where the iPhone UIKeyboard slide up and cover the UITextField/UITextView.
 
 <br/>
-![Alt text](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KeyboardTextFieldDemo/Image/iOS_Simulator_Screen_shot_Sep_26__2013_2.21.06_AM.png)
-<br/>
+<img src="KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png"/>
 <br/>
 
 
