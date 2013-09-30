@@ -21,6 +21,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+/*
+ 
+ /-----------------------------------------------------------------------------------------------------------\
+ \-----------------------------------------------------------------------------------------------------------/
+ |                                          iOS UINotification Mechanism                                    |
+ /-----------------------------------------------------------------------------------------------------------\
+ \-----------------------------------------------------------------------------------------------------------/
+ 
+ 1) Begin Editing:-         When TextField begin editing.
+ 2) End Editing:-           When TextField end editing.
+ 3) Switch TextField:-      When Keyboard Switch from a TextField to another TextField.
+ 3) Orientation Change:-    When Device Orientation Change.
+ 
+ 
+ 
+ 
+ 
+ Begin Editing
+ -------------------------------------------------           -------------------------------------------------   UITextFieldTextDidBeginEditingNotification  | --------> |          UIKeyboardWillShowNotification       |
+ -------------------------------------------------           -------------------------------------------------
+                        ^------------------------Switch TextField--------^      ^
+                        |                                                       |
+                        |                                                       |
+                        | Switch TextField                                      | Orientation Change
+                        |                                                       |
+                        |                                                       |
+                        |                                                       |
+ -------------------------------------------------           -------------------------------------------------
+ |   UITextFieldTextDidEndEditingNotification    | <-------- |          UIKeyboardWillHideNotification       |
+ -------------------------------------------------           -------------------------------------------------
+ End Editing
+ 
+ 
+ 
+ /-----------------------------------------------------------------------------------------------------------\
+ \-----------------------------------------------------------------------------------------------------------/
+ */
+
 
 #import "IQKeyBoardManager.h"
 
@@ -314,6 +352,7 @@ static IQKeyBoardManager *kbManager;
     }    
 }
 
+
 #pragma mark - UITextField Delegate methods
 //Fetching UITextField object from notification.
 -(void)textFieldDidBeginEditing:(NSNotification*)notification
@@ -338,6 +377,13 @@ static IQKeyBoardManager *kbManager;
 //Fetching UITextView object from notification.
 -(void)textViewDidBeginEditing:(NSNotification*)notification
 {
+    //If keyboard is not showing(At the beginning only). We should save rootViewRect.
+    if (isKeyboardShowing == NO)
+    {
+        UIViewController *rootController = [IQKeyBoardManager topMostController];
+        topViewBeginRect = rootController.view.frame;
+    }
+    
     textFieldView = notification.object;
 }
 
