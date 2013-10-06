@@ -105,7 +105,7 @@ static IQKeyBoardManager *kbManager;
     {
         kbManager.isEnabled = YES;
         /*Registering for keyboard notification*/
-         [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+         [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
         /*Registering for textField notification*/
@@ -130,11 +130,11 @@ static IQKeyBoardManager *kbManager;
     {
         kbManager.isEnabled = NO;
         [[NSNotificationCenter defaultCenter] removeObserver:kbManager];
-        NSLog(@"Keyboard Manager desabled");
+        NSLog(@"Keyboard Manager disabled");
     }
     else
     {
-        NSLog(@"Keyboard Manger already desabled");
+        NSLog(@"Keyboard Manger already disabled");
     }
 }
 
@@ -210,7 +210,7 @@ static IQKeyBoardManager *kbManager;
 }
 
 //UIKeyboard Did shown. Adjusting RootViewController's frame according to device orientation.
--(void)keyboardWillShow:(NSNotification*)aNotification
+-(void)keyboardDidShow:(NSNotification*)aNotification
 {
     //Boolean to know keyboard is showing/hiding
     isKeyboardShowing = YES;
