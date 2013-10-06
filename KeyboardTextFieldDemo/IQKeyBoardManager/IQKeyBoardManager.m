@@ -130,11 +130,11 @@ static IQKeyBoardManager *kbManager;
     {
         kbManager.isEnabled = NO;
         [[NSNotificationCenter defaultCenter] removeObserver:kbManager];
-        NSLog(@"Keyboard Manager desabled");
+        NSLog(@"Keyboard Manager disabled");
     }
     else
     {
-        NSLog(@"Keyboard Manger already desabled");
+        NSLog(@"Keyboard Manger already disabled");
     }
 }
 
