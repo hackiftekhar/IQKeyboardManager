@@ -209,7 +209,7 @@ static IQKeyBoardManager *kbManager;
     [self setRootViewFrame:topViewBeginRect];
 }
 
-//UIKeyboard Did shown. Adjusting RootViewController's frame according to device orientation.
+//UIKeyboard Did show
 -(void)keyboardDidShow:(NSNotification*)aNotification
 {
     //Getting keyboard animation duration
@@ -218,6 +218,25 @@ static IQKeyBoardManager *kbManager;
     //Getting UIKeyboardSize.
     kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
+    //Adding Keyboard distance from textField.
+    switch ([IQKeyBoardManager topMostController].interfaceOrientation)
+    {
+        case UIInterfaceOrientationLandscapeLeft:
+            kbSize.width += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            kbSize.width += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationPortrait:
+            kbSize.height += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            kbSize.height += keyboardDistanceFromTextField;
+            break;
+        default:
+            break;
+    }
+
     [self adjustFrameWithDuration:duration];
 }
 
@@ -246,23 +265,19 @@ static IQKeyBoardManager *kbManager;
     //Move positive = textField is hidden.
     //Move negative = textField is showing.
 
-    //Adding Keyboard distance from textField and calculating move position. Common for both normal and special cases.
+    //Calculating move position. Common for both normal and special cases.
     switch (rootController.interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            kbSize.width += keyboardDistanceFromTextField;
             move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            kbSize.width += keyboardDistanceFromTextField;
             move = kbSize.width-CGRectGetMinX(textFieldViewRect);
             break;
         case UIInterfaceOrientationPortrait:
-            kbSize.height += keyboardDistanceFromTextField;
             move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            kbSize.height += keyboardDistanceFromTextField;
             move = kbSize.height-CGRectGetMinY(textFieldViewRect);
             break;
         default:
@@ -359,7 +374,6 @@ static IQKeyBoardManager *kbManager;
     }    
 }
 
-
 #pragma mark - UITextField Delegate methods
 //Fetching UITextField object from notification.
 -(void)textFieldDidBeginEditing:(NSNotification*)notification
@@ -378,13 +392,6 @@ static IQKeyBoardManager *kbManager;
 //Fetching UITextView object from notification.
 -(void)textViewDidBeginEditing:(NSNotification*)notification
 {
-    //If keyboard is not showing(At the beginning only). We should save rootViewRect.
-    if (isKeyboardShowing == NO)
-    {
-        UIViewController *rootController = [IQKeyBoardManager topMostController];
-        topViewBeginRect = rootController.view.frame;
-    }
-    
     textFieldView = notification.object;
     [self commonDidBeginEditing];
 }
