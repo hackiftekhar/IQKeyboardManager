@@ -209,18 +209,46 @@ static IQKeyBoardManager *kbManager;
     [self setRootViewFrame:topViewBeginRect];
 }
 
-//UIKeyboard Did shown. Adjusting RootViewController's frame according to device orientation.
+//UIKeyboard Did show
 -(void)keyboardDidShow:(NSNotification*)aNotification
 {
+    //Getting keyboard animation duration
+    CGFloat duration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    //Getting UIKeyboardSize.
+    kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    //Adding Keyboard distance from textField.
+    switch ([IQKeyBoardManager topMostController].interfaceOrientation)
+    {
+        case UIInterfaceOrientationLandscapeLeft:
+            kbSize.width += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            kbSize.width += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationPortrait:
+            kbSize.height += keyboardDistanceFromTextField;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            kbSize.height += keyboardDistanceFromTextField;
+            break;
+        default:
+            break;
+    }
+
+    [self adjustFrameWithDuration:duration];
+}
+
+//UIKeyboard Did show. Adjusting RootViewController's frame according to device orientation.
+-(void)adjustFrameWithDuration:(CGFloat)aDuration {
     //Boolean to know keyboard is showing/hiding
     isKeyboardShowing = YES;
     
-    //Getting keyboard animation duration
-    CGFloat aDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (aDuration!= 0.0f)
     {
         //Setitng keyboard animation duration
-        animationDuration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        animationDuration = aDuration;
     }
     
     //Getting KeyWindow object.
@@ -228,8 +256,6 @@ static IQKeyBoardManager *kbManager;
     //Getting RootViewController's view.
     UIViewController *rootController = [IQKeyBoardManager topMostController];
     
-    //Getting UIKeyboardSize.
-    CGSize kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     //Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [textFieldView.superview convertRect:textFieldView.frame toView:window];
     //Getting RootViewRect.
@@ -239,23 +265,19 @@ static IQKeyBoardManager *kbManager;
     //Move positive = textField is hidden.
     //Move negative = textField is showing.
 
-    //Adding Keyboard distance from textField and calculating move position. Common for both normal and special cases.
+    //Calculating move position. Common for both normal and special cases.
     switch (rootController.interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            kbSize.width += keyboardDistanceFromTextField;
             move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            kbSize.width += keyboardDistanceFromTextField;
             move = kbSize.width-CGRectGetMinX(textFieldViewRect);
             break;
         case UIInterfaceOrientationPortrait:
-            kbSize.height += keyboardDistanceFromTextField;
             move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            kbSize.height += keyboardDistanceFromTextField;
             move = kbSize.height-CGRectGetMinY(textFieldViewRect);
             break;
         default:
@@ -352,19 +374,12 @@ static IQKeyBoardManager *kbManager;
     }    
 }
 
-
 #pragma mark - UITextField Delegate methods
 //Fetching UITextField object from notification.
 -(void)textFieldDidBeginEditing:(NSNotification*)notification
 {
-    //If keyboard is not showing(At the beginning only). We should save rootViewRect.
-    if (isKeyboardShowing == NO)
-    {
-        UIViewController *rootController = [IQKeyBoardManager topMostController];
-        topViewBeginRect = rootController.view.frame;
-   }
-    
     textFieldView = notification.object;
+    [self commonDidBeginEditing];
 }
 
 //Removing fetched object.
@@ -377,14 +392,8 @@ static IQKeyBoardManager *kbManager;
 //Fetching UITextView object from notification.
 -(void)textViewDidBeginEditing:(NSNotification*)notification
 {
-    //If keyboard is not showing(At the beginning only). We should save rootViewRect.
-    if (isKeyboardShowing == NO)
-    {
-        UIViewController *rootController = [IQKeyBoardManager topMostController];
-        topViewBeginRect = rootController.view.frame;
-    }
-    
     textFieldView = notification.object;
+    [self commonDidBeginEditing];
 }
 
 //Removing fetched object.
@@ -393,10 +402,22 @@ static IQKeyBoardManager *kbManager;
     textFieldView = nil;
 }
 
+// Common code to perform on begin editing
+-(void)commonDidBeginEditing {
+    if (isKeyboardShowing)
+    {
+        // keyboard is already showing. adjust frame.
+        [self adjustFrameWithDuration:0];
+    }
+    else
+    {
+        //keyboard is not showing(At the beginning only). We should save rootViewRect.
+        UIViewController *rootController = [IQKeyBoardManager topMostController];
+        topViewBeginRect = rootController.view.frame;
+    }
+}
+
 @end
-
-
-
 
 
 /*Additional Function*/
