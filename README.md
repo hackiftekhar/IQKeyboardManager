@@ -34,10 +34,10 @@ Contribution and Thanks
 -----------------------
 1) Diego Ramirez
 
-2)mrvincenzo
+2) mrvincenzo
 https://github.com/mrvincenzo
 
-3)heefan
+3) heefan
 https://github.com/heefan
 
 
