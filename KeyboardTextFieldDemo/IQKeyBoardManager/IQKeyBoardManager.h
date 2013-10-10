@@ -38,6 +38,9 @@
     
     //To save keyboard animation duration.
     CGFloat animationDuration;
+  
+    // To save keyboard size
+    CGSize kbSize;
 }
 
 //Call it on your AppDelegate to initialize keyboardManager;
