@@ -33,3 +33,13 @@ Just drag and drop IQKeyboardManager class in your project. In your appDelegate 
 Contribution and Thanks
 -----------------------
 1) Diego Ramirez
+
+2)mrvincenzo
+https://github.com/mrvincenzo
+
+3)heefan
+https://github.com/heefan
+
+
+
+
