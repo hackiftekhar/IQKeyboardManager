@@ -103,6 +103,9 @@ static IQKeyBoardManager *kbManager;
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 @property(nonatomic, assign) BOOL isEnabled;
 
+-(void)adjustFrameWithDuration:(CGFloat)aDuration;
+-(void)commonDidBeginEditing;
+
 @end
 
 @implementation IQKeyBoardManager
@@ -137,7 +140,7 @@ static IQKeyBoardManager *kbManager;
     {
         kbManager.isEnabled = YES;
         /*Registering for keyboard notification*/
-         [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:kbManager selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
         /*Registering for textField notification*/
@@ -226,6 +229,11 @@ static IQKeyBoardManager *kbManager;
 // Keyboard Will hide. So setting rootViewController to it's default frame.
 - (void)keyboardWillHide:(NSNotification*)aNotification
 {
+    if (textFieldView == nil)
+    {
+        return;
+    }
+    
     //Boolean to know keyboard is showing/hiding
     isKeyboardShowing = NO;
     
@@ -241,8 +249,8 @@ static IQKeyBoardManager *kbManager;
     [self setRootViewFrame:topViewBeginRect];
 }
 
-//UIKeyboard Did show
--(void)keyboardDidShow:(NSNotification*)aNotification
+//UIKeyboard Will show
+-(void)keyboardWillShow:(NSNotification*)aNotification
 {
     //Getting keyboard animation duration
     CGFloat duration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -273,7 +281,13 @@ static IQKeyBoardManager *kbManager;
 }
 
 //UIKeyboard Did show. Adjusting RootViewController's frame according to device orientation.
--(void)adjustFrameWithDuration:(CGFloat)aDuration {
+-(void)adjustFrameWithDuration:(CGFloat)aDuration
+{
+    if (textFieldView == nil)
+    {
+        return;
+    }
+    
     //Boolean to know keyboard is showing/hiding
     isKeyboardShowing = YES;
     
@@ -435,7 +449,8 @@ static IQKeyBoardManager *kbManager;
 }
 
 // Common code to perform on begin editing
--(void)commonDidBeginEditing {
+-(void)commonDidBeginEditing
+{
     if (isKeyboardShowing)
     {
         // keyboard is already showing. adjust frame.
@@ -446,6 +461,9 @@ static IQKeyBoardManager *kbManager;
         //keyboard is not showing(At the beginning only). We should save rootViewRect.
         UIViewController *rootController = [IQKeyBoardManager topMostController];
         topViewBeginRect = rootController.view.frame;
+
+        // keyboard is not showing. adjust frame.
+        [self adjustFrameWithDuration:animationDuration];
     }
 }
 
@@ -453,7 +471,7 @@ static IQKeyBoardManager *kbManager;
 
 
 /*Additional Function*/
-@implementation UITextField(ToolbarOnKeyboard)
+@implementation UIView (ToolbarOnKeyboard)
 
 #pragma mark - Toolbar on UIKeyboard
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action
@@ -472,8 +490,11 @@ static IQKeyBoardManager *kbManager;
     //Adding button to toolBar.
     [toolbar setItems:[NSArray arrayWithObjects: nilButton,doneButton, nil]];
     
-    //Setting toolbar to textFieldPhoneNumber keyboard.
-    [self setInputAccessoryView:toolbar];
+    if ([self respondsToSelector:@selector(setInputAccessoryView:)])
+    {
+        //Setting toolbar to textFieldPhoneNumber keyboard.
+        [(UITextField*)self setInputAccessoryView:toolbar];
+    }
 }
 
 -(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction
@@ -497,8 +518,11 @@ static IQKeyBoardManager *kbManager;
     [toolbar setItems:[NSArray arrayWithObjects: segButton,nilButton,doneButton, nil]];
     //    [toolbar setItems:[NSArray arrayWithObjects: previousButton,nextButton,nilButton,doneButton, nil]];
     
-    //Setting toolbar to textFieldPhoneNumber keyboard.
-    [self setInputAccessoryView:toolbar];
+    if ([self respondsToSelector:@selector(setInputAccessoryView:)])
+    {
+        //Setting toolbar to textFieldPhoneNumber keyboard.
+        [(UITextField*)self setInputAccessoryView:toolbar];
+    }
 }
 
 -(void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled

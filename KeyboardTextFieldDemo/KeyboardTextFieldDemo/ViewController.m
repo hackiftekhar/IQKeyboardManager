@@ -73,7 +73,6 @@
     [IQKeyBoardManager disableKeyboardManager];
 }
 
-
 -(void)previousClicked:(UISegmentedControl*)segmentedControl
 {
     [(UITextField*)[self.view viewWithTag:selectedTextFieldTag-1] becomeFirstResponder];
@@ -126,6 +125,11 @@
 //- (NSUInteger)supportedInterfaceOrientations{
 //    return UIInterfaceOrientationMaskAll;
 //}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    selectedTextFieldTag = textView.tag;
+}
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {

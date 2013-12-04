@@ -16,6 +16,8 @@
 		C0B63BAC1781FAB1008D3B64 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAB1781FAB1008D3B64 /* main.m */; };
 		C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */; };
 		C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BB21781FAB1008D3B64 /* ViewController.m */; };
+		C0DB7D0A184FBA6000F5C892 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DB7D08184FBA6000F5C892 /* WebViewController.m */; };
+		C0DB7D0B184FBA6000F5C892 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DB7D09184FBA6000F5C892 /* WebViewController.xib */; };
 		C0FAECC817F2351700962F68 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FAECC717F2351700962F68 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,9 @@
 		C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C0B63BB11781FAB1008D3B64 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C0B63BB21781FAB1008D3B64 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C0DB7D07184FBA6000F5C892 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		C0DB7D08184FBA6000F5C892 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		C0DB7D09184FBA6000F5C892 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		C0FAECC717F2351700962F68 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +103,9 @@
 				C0B63BB11781FAB1008D3B64 /* ViewController.h */,
 				C0B63BB21781FAB1008D3B64 /* ViewController.m */,
 				C0FAECC717F2351700962F68 /* ViewController.xib */,
+				C0DB7D07184FBA6000F5C892 /* WebViewController.h */,
+				C0DB7D08184FBA6000F5C892 /* WebViewController.m */,
+				C0DB7D09184FBA6000F5C892 /* WebViewController.xib */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -168,6 +176,7 @@
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
 				C0FAECC817F2351700962F68 /* ViewController.xib in Resources */,
+				C0DB7D0B184FBA6000F5C892 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +191,7 @@
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
 				C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */,
 				AFF236C117CA224400760F6C /* IQKeyBoardManager.m in Sources */,
+				C0DB7D0A184FBA6000F5C892 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

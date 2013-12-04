@@ -7,6 +7,7 @@
 #import "AppDelegate.h"
 #import "IQKeyBoardManager.h"
 #import "ViewController.h"
+#import "WebViewController.h"
 
 @implementation AppDelegate
 
@@ -18,10 +19,10 @@
     [IQKeyBoardManager installKeyboardManager];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
 
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    //Uncomment-Comment this line to test on WebView.
+    self.viewController = [[ViewController alloc] init];
+//    self.viewController = [[WebViewController alloc] init];
 
     //Case 1. UIViewController as rootViewController.
     if (false)
