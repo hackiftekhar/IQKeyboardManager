@@ -106,6 +106,11 @@ static IQKeyBoardManager *kbManager;
 -(void)adjustFrameWithDuration:(CGFloat)aDuration;
 -(void)commonDidBeginEditing;
 
+-(void)keyboardWillShow:(NSNotification*)aNotification;
+- (void)keyboardWillHide:(NSNotification*)aNotification;
+-(void)textFieldDidBeginEditing:(NSNotification*)notification;
+-(void)textViewdDidEndEditing:(NSNotification*)notification;
+
 @end
 
 @implementation IQKeyBoardManager
@@ -547,6 +552,13 @@ static IQKeyBoardManager *kbManager;
     }
 }
 
+
+@end
+
+
+@interface IQSegmentedNextPrevious ()
+
+- (void)segmentedControlHandler:(IQSegmentedNextPrevious*)sender;
 
 @end
 
