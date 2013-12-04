@@ -34,12 +34,12 @@
         textField.delegate = self;
         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousClicked:) nextAction:@selector(nextClicked:) doneAction:@selector(doneClicked:)];
         
-        //First textField
+        // First textField
         if (i == 0)
         {
             [textField setEnablePrevious:NO next:YES];
         }
-        //Last textField
+        // Last textField
         else if(i== numTextFields-1)
         {
             [textField setEnablePrevious:YES next:NO];
@@ -118,13 +118,13 @@
     return YES;
 }
 
-//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+// - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
 //    return UIInterfaceOrientationMaskAll;
-//}
+// }
 //
-//- (NSUInteger)supportedInterfaceOrientations{
+// - (NSUInteger)supportedInterfaceOrientations{
 //    return UIInterfaceOrientationMaskAll;
-//}
+// }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -151,7 +151,7 @@
             
             [controller setModalTransitionStyle:arc4random()%4];
 
-            //TransitionStylePartialCurl can only be presented by FullScreen style.
+            // TransitionStylePartialCurl can only be presented by FullScreen style.
             if (controller.modalTransitionStyle == UIModalTransitionStylePartialCurl)
                 controller.modalPresentationStyle = UIModalPresentationFullScreen;
             else

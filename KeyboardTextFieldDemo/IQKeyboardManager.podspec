@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "IQKeyboardManager"
-  s.version      = "1.0"
+  s.version      = "1.1"
   s.summary      = "Keyboard TextField Manager. We called it 'IQKeyboardManager."
 
   s.description  = <<-DESC
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/hackiftekhar/IQKeyboardManager.git", :tag => "v1.0" }
+  s.source       = { :git => "https://github.com/hackiftekhar/IQKeyboardManager.git", :tag => "v1.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

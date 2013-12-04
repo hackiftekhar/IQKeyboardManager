@@ -27,35 +27,35 @@
 /*****************IQKeyBoardManager***********************/
 @interface IQKeyBoardManager : NSObject
 {
-    //Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations;
+    // Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations;
     BOOL isKeyboardShowing;
     
-    //To save rootViewController.view.frame.
+    // To save rootViewController.view.frame.
     CGRect topViewBeginRect;
     
-    //TextField or TextView object.
+    // TextField or TextView object.
     UIView *textFieldView;
     
-    //To save keyboard animation duration.
+    // To save keyboard animation duration.
     CGFloat animationDuration;
   
     // To save keyboard size
     CGSize kbSize;
 }
 
-//Call it on your AppDelegate to initialize keyboardManager;
+// Call it on your AppDelegate to initialize keyboardManager;
 +(void)installKeyboardManager;
 
-//To set keyboard distance from textField
-+(void)setTextFieldDistanceFromKeyboard:(CGFloat)distance;  /*can't be less than zero. Default is 10.0*/
+// To set keyboard distance from textField
++(void)setTextFieldDistanceFromKeyboard:(CGFloat)distance;  // can't be less than zero. Default is 10.0
 
-//Enable keyboard manager.
-+(void)enableKeyboardManger;    /*default enabled*/
+// Enable keyboard manager.
++(void)enableKeyboardManger;    // default enabled
 
-//Desable keyboard manager.
+// Disable keyboard manager.
 +(void)disableKeyboardManager;
 
-//return YES if keyboard manager is enabled.
+// return YES if keyboard manager is enabled.
 +(BOOL)isEnabled;
 
 @end
@@ -64,13 +64,13 @@
 /*****************UITextField***********************/
 @interface UIView (ToolbarOnKeyboard)
 
-//Helper functions to add Done button on keyboard.
+// Helper functions to add Done button on keyboard.
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action;
 
-//Helper function to add SegmentedNextPrevious and Done button on keyboard.
+// Helper function to add SegmentedNextPrevious and Done button on keyboard.
 -(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction;
 
-//Helper methods to enable and desable previous next buttons.
+// Helper methods to enable and desable previous next buttons.
 -(void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled;
 
 
