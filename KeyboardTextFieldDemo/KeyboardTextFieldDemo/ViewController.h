@@ -6,7 +6,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UITextFieldDelegate>
+@interface ViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 {    
     NSInteger selectedTextFieldTag;
     

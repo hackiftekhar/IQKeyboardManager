@@ -62,7 +62,7 @@
 
 
 /*****************UITextField***********************/
-@interface UITextField (ToolbarOnKeyboard)
+@interface UIView (ToolbarOnKeyboard)
 
 //Helper functions to add Done button on keyboard.
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action;
