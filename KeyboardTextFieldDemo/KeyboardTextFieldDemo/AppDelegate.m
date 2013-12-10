@@ -5,7 +5,7 @@
 
 
 #import "AppDelegate.h"
-#import "IQKeyBoardManager.h"
+#import "IQKeyboardManager.h"
 #import "ViewController.h"
 #import "WebViewController.h"
 
