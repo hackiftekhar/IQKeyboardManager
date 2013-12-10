@@ -65,12 +65,12 @@
 
 -(void)enableKeyboardManger:(UIBarButtonItem*)barButton
 {
-    [IQKeyBoardManager enableKeyboardManger];
+    [IQKeyboardManager enableKeyboardManger];
 }
 
 -(void)disableKeyboardManager:(UIBarButtonItem*)barButton
 {
-    [IQKeyBoardManager disableKeyboardManager];
+    [IQKeyboardManager disableKeyboardManager];
 }
 
 -(void)previousClicked:(UISegmentedControl*)segmentedControl
