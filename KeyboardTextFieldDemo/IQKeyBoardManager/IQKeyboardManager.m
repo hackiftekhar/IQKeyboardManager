@@ -92,7 +92,7 @@
  */
 
 
-#import "IQKeyBoardManager.h"
+#import "IQKeyboardManager.h"
 
 //  Singleton object.
 static IQKeyboardManager *kbManager;

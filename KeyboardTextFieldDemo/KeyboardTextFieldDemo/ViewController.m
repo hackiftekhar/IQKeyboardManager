@@ -5,7 +5,7 @@
 
 
 #import "ViewController.h"
-#import "IQKeyBoardManager.h"
+#import "IQKeyboardManager.h"
 
 @implementation ViewController
 

@@ -31,7 +31,7 @@
  
     @since iOS (5.0 and later), ARC Required
  
-    @class IQKeyBoardManager
+    @class IQKeyboardManager
  
     @abstract Keyboard TextField/TextView Manager
  */
