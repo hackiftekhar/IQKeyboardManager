@@ -26,7 +26,7 @@
     [self.navigationItem setTitle:@"IQKeyboard"];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStyleBordered target:self action:@selector(enableKeyboardManger:)]];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Desable" style:UIBarButtonItemStyleBordered target:self action:@selector(disableKeyboardManager:)]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStyleBordered target:self action:@selector(disableKeyboardManager:)]];
     
     for (int i=0; i<numTextFields; i++)
     {        

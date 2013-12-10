@@ -77,7 +77,7 @@
 /*!
     @method disableKeyboardManager
  
-    @abstract Desable the keyboard manager. Default is enabled.
+    @abstract Disable the keyboard manager. Default is enabled.
  */
 + (void)disableKeyboardManager;
 
@@ -155,7 +155,7 @@
 /*!
     @method setEnablePrevious:next:
  
-    @abstract Helper function to enable and desable previous next buttons.
+    @abstract Helper function to enable and disable previous next buttons.
  
     @param isPreviousEnabled: BOOL to enable/disable previous button on keyboard.
  

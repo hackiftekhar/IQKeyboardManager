@@ -458,7 +458,7 @@ static IQKeyboardManager *kbManager;
 
 -(void)dealloc
 {
-    //  Desable the keyboard manager.
+    //  Disable the keyboard manager.
     [IQKeyboardManager disableKeyboardManager];
 }
 
