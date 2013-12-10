@@ -1,6 +1,6 @@
 //
-//  keyBoardManager.m
-//
+// KeyboardManager.h
+// https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
