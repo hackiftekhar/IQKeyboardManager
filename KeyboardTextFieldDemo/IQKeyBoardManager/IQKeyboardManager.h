@@ -22,6 +22,22 @@
 // THE SOFTWARE.
 
 
+/*!
+	@enum IQAutoToolbarManageBehaviour
+ 
+	@abstract AutoToolbar manage settings.
+
+	@const IQAutoToolbarBySubviews Creates Toolbar according to subview's hirarchy of Textfield's in view.
+
+	@const IQAutoToolbarByTag Creates Toolbar according to tag property of TextField's.
+ */
+typedef enum IQAutoToolbarManageBehaviour
+{
+	IQAutoToolbarBySubviews,
+	IQAutoToolbarByTag,
+	
+}IQAutoToolbarManageBehaviour;
+
 #import <Foundation/Foundation.h>
 
 /*!
@@ -49,6 +65,19 @@
  */
 @property(nonatomic, assign, getter = isEnabled) BOOL enable;
 
+/*!
+	@property automanageEnable
+ 
+	@abstract Automatic manages the UIToolbar functionality. Default is NO.
+ */
+@property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
+
+/*!
+	@property toolbarManageStyle
+ 
+	@abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
+ */
+@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
 /*!
 	@method sharedManager

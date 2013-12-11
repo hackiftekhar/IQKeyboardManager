@@ -9,8 +9,6 @@
 
 @implementation ViewController
 
-#define numTextFields 10
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -27,25 +25,7 @@
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStylePlain target:self action:@selector(enableKeyboardManger:)]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain target:self action:@selector(disableKeyboardManager:)]];
-    
-    for (int i=0; i<numTextFields; i++)
-    {        
-        UITextField *textField = (UITextField*)[self.view viewWithTag:100+i];
-        textField.delegate = self;
-        [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousClicked:) nextAction:@selector(nextClicked:) doneAction:@selector(doneClicked:)];
-        
-        // First textField
-        if (i == 0)
-        {
-            [textField setEnablePrevious:NO next:YES];
-        }
-        // Last textField
-        else if(i== numTextFields-1)
-        {
-            [textField setEnablePrevious:YES next:NO];
-        }
-    }
-    
+  
     if (!self.navigationController)
     {
         [buttonPop setHidden:YES];
@@ -71,21 +51,6 @@
 -(void)disableKeyboardManager:(UIBarButtonItem*)barButton
 {
     [[IQKeyboardManager sharedManager] setEnable:NO];
-}
-
--(void)previousClicked:(UISegmentedControl*)segmentedControl
-{
-    [(UITextField*)[self.view viewWithTag:selectedTextFieldTag-1] becomeFirstResponder];
-}
-
--(void)nextClicked:(UISegmentedControl*)segmentedControl
-{
-    [(UITextField*)[self.view viewWithTag:selectedTextFieldTag+1] becomeFirstResponder];
-}
-
--(void)doneClicked:(UIBarButtonItem*)barButton
-{
-    [self.view endEditing:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
