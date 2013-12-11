@@ -24,9 +24,9 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"IQKeyboard"];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStyleBordered target:self action:@selector(enableKeyboardManger:)]];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStylePlain target:self action:@selector(enableKeyboardManger:)]];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStyleBordered target:self action:@selector(disableKeyboardManager:)]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain target:self action:@selector(disableKeyboardManager:)]];
     
     for (int i=0; i<numTextFields; i++)
     {        
@@ -65,12 +65,12 @@
 
 -(void)enableKeyboardManger:(UIBarButtonItem*)barButton
 {
-    [IQKeyboardManager enableKeyboardManger];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
 -(void)disableKeyboardManager:(UIBarButtonItem*)barButton
 {
-    [IQKeyboardManager disableKeyboardManager];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
 }
 
 -(void)previousClicked:(UISegmentedControl*)segmentedControl
