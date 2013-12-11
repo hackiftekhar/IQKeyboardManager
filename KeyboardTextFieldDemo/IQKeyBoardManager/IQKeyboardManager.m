@@ -597,11 +597,11 @@
 	//iOS 7 check.
 	if ([[UIToolbar class] instancesRespondToSelector:@selector(barTintColor)])
 	{
-		UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"UIButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
+		UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
 		[prev setTintColor:[UIColor blackColor]];
 		UIBarButtonItem *fixed =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 		[fixed setWidth:23];
-		UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"UIButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
+		UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
 		[next setTintColor:[UIColor blackColor]];
 		[items addObject:prev];
 		[items addObject:fixed];
