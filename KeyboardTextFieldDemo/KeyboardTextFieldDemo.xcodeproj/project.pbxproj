@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
-		C0917F2518587EF500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F2318587EF500B9FD31 /* IQButtonBarArrowRight@2x.png */; };
-		C0917F2618587EF500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F2418587EF500B9FD31 /* IQButtonBarArrowLeft@2x.png */; };
+		C0917F291858821500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F271858821500B9FD31 /* IQButtonBarArrowLeft@2x.png */; };
+		C0917F2A1858821500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F281858821500B9FD31 /* IQButtonBarArrowRight@2x.png */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -27,8 +27,8 @@
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AFF236BD17CA224400760F6C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
 		AFF236BE17CA224400760F6C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
-		C0917F2318587EF500B9FD31 /* IQButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
-		C0917F2418587EF500B9FD31 /* IQButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
+		C0917F271858821500B9FD31 /* IQButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
+		C0917F281858821500B9FD31 /* IQButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		C0B63B9B1781FAB1008D3B64 /* KeyboardTextFieldDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardTextFieldDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C0B63BA11781FAB1008D3B64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,8 +64,8 @@
 		AFF236BC17CA224400760F6C /* IQKeyBoardManager */ = {
 			isa = PBXGroup;
 			children = (
-				C0917F2318587EF500B9FD31 /* IQButtonBarArrowRight@2x.png */,
-				C0917F2418587EF500B9FD31 /* IQButtonBarArrowLeft@2x.png */,
+				C0917F271858821500B9FD31 /* IQButtonBarArrowLeft@2x.png */,
+				C0917F281858821500B9FD31 /* IQButtonBarArrowRight@2x.png */,
 				AFF236BD17CA224400760F6C /* IQKeyboardManager.h */,
 				AFF236BE17CA224400760F6C /* IQKeyboardManager.m */,
 			);
@@ -188,9 +188,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
-				C0917F2618587EF500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */,
-				C0917F2518587EF500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */,
+				C0917F2A1858821500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
+				C0917F291858821500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */,
 				C0FAECC817F2351700962F68 /* ViewController.xib in Resources */,
 				C0DB7D0B184FBA6000F5C892 /* WebViewController.xib in Resources */,
 			);
