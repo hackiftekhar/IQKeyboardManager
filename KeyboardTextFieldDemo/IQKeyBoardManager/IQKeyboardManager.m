@@ -98,6 +98,12 @@
 
 //  Private helper methods
 - (void)adjustFrame;
+-(void)addToolbarIfRequired;
+
+-(void)previousAction:(UISegmentedControl*)segmentedControl;
+-(void)nextAction:(UISegmentedControl*)segmentedControl;
+-(void)doneAction:(UIBarButtonItem*)barButton;
+
 
 //  Private function to get topMost ViewController object.
 + (UIViewController*) topMostController;
@@ -133,11 +139,17 @@
 	
     /*! To save keyboardWillShowNotification. Needed for enable keyboard functionality */
 	NSNotification *kbShowNotification;
+    
+    //New variable
+    UIScrollView *lastScrollView;
+    CGPoint startingContentOffset;
 }
 
 
 @synthesize enable = _enable;
 @synthesize enableAutoToolbar = _enableAutoToolbar;
+@synthesize keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
+@synthesize toolbarManageBehaviour = _toolbarManageBehaviour;
 
 #pragma mark - Initializing functions
 
@@ -248,8 +260,24 @@
 	_keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
 }
 
-#pragma mark - Helper function
+#pragma mark - new methods
++(UIScrollView*)superScrollView:(UIView*)view
+{
+    UIView *superview = view.superview;
+    
+    while (superview)
+    {
+        if ([superview isKindOfClass:[UIScrollView class]])   
+        {            
+            return (UIScrollView*)superview;
+        }
+        else    superview = superview.superview;
+    }
+    
+    return nil;
+}
 
+#pragma mark - Helper function
 //  Function to get topMost ViewController object.
 + (UIViewController*) topMostController
 {
@@ -321,8 +349,63 @@
             break;
     }
 	
+    //  New code
+    //  Getting it's superScrollView.
+    UIScrollView *superScrollView = [IQKeyboardManager superScrollView:textFieldView];
+
+    while (superScrollView)
+    {
+        //Getting textFieldViewRect
+        CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:superScrollView];
+        
+        //If scrollView is scrollable to show TextField.
+        if (textFieldViewRect.origin.y>move)
+        {
+            break;
+        }
+        //Getting it's superScrollView.
+        else
+        {
+            superScrollView = [IQKeyboardManager superScrollView:superScrollView];
+        }
+    }
+
+    //If there was a lastScrollView.
+    if (lastScrollView) 
+    {
+        //If we can't find current superScrollView, then setting lastScrollView to it's original form.
+        if (superScrollView == nil)
+        {
+            [lastScrollView setContentOffset:startingContentOffset animated:YES];
+            lastScrollView = nil;
+            startingContentOffset = CGPointZero;
+        }
+        //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
+        if (superScrollView != lastScrollView)
+        {
+            [lastScrollView setContentOffset:startingContentOffset animated:YES];
+            lastScrollView = superScrollView;
+            startingContentOffset = superScrollView.contentOffset;
+        }
+    }
+    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
+    else if(superScrollView)
+    {
+        lastScrollView = superScrollView;
+        startingContentOffset = superScrollView.contentOffset;
+    }
+
+    //  Special case for ScrollView.
+    //  If we found lastScrollView then setting it's contentOffset to show textField.
+    if (lastScrollView)
+    {
+        [lastScrollView setContentOffset:CGPointMake(lastScrollView.contentOffset.x, lastScrollView.contentOffset.y - MIN(lastScrollView.contentOffset.y,-move)) animated:YES];
+    }
+    //  New code end.
+
+    
     //  Special case for iPad modalPresentationStyle.
-    if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
+    else if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
         [[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
     {
         //  Positive or zero.
@@ -434,6 +517,9 @@
         animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
 	
+    [lastScrollView setContentOffset:startingContentOffset animated:YES];
+    lastScrollView = nil;
+    startingContentOffset = CGPointZero;
     //  Setting rootViewController frame to it's original position.
     [self setRootViewFrame:topViewBeginRect];
 }
