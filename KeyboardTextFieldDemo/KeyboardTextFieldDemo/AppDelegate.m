@@ -8,6 +8,7 @@
 #import "IQKeyboardManager.h"
 #import "ViewController.h"
 #import "WebViewController.h"
+#import "ScrollViewController.h"
 
 @implementation AppDelegate
 
@@ -31,9 +32,9 @@
     // Uncomment-Comment this line to test on WebView.
     self.viewController = [[ViewController alloc] init];
 //    self.viewController = [[WebViewController alloc] init];
-
+//    self.viewController = [[ScrollViewController alloc] init];
     // Case 1. UIViewController as rootViewController.
-    if (false)
+    if (true)
     {
         self.window.rootViewController = self.viewController;
     }

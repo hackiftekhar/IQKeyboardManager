@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
+		C00EAA6F1858D5A500968DE2 /* ScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00EAA6D1858D5A500968DE2 /* ScrollViewController.xib */; };
+		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
+		C07E20BC18590085001699A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B718590085001699A8 /* ViewController.m */; };
+		C07E20BD18590085001699A8 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07E20B818590085001699A8 /* ViewController.xib */; };
+		C07E20BE18590085001699A8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20BA18590085001699A8 /* WebViewController.m */; };
+		C07E20BF18590085001699A8 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07E20BB18590085001699A8 /* WebViewController.xib */; };
+		C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20C1185900BD001699A8 /* TextFieldViewController.m */; };
+		C07E20C4185900BD001699A8 /* TextFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07E20C2185900BD001699A8 /* TextFieldViewController.xib */; };
 		C0917F291858821500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F271858821500B9FD31 /* IQButtonBarArrowLeft@2x.png */; };
 		C0917F2A1858821500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0917F281858821500B9FD31 /* IQButtonBarArrowRight@2x.png */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
@@ -17,16 +25,24 @@
 		C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */; };
 		C0B63BAC1781FAB1008D3B64 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAB1781FAB1008D3B64 /* main.m */; };
 		C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */; };
-		C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BB21781FAB1008D3B64 /* ViewController.m */; };
-		C0DB7D0A184FBA6000F5C892 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DB7D08184FBA6000F5C892 /* WebViewController.m */; };
-		C0DB7D0B184FBA6000F5C892 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DB7D09184FBA6000F5C892 /* WebViewController.xib */; };
-		C0FAECC817F2351700962F68 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FAECC717F2351700962F68 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AFF236BD17CA224400760F6C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
 		AFF236BE17CA224400760F6C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
+		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		C00EAA6D1858D5A500968DE2 /* ScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollViewController.xib; sourceTree = "<group>"; };
+		C07E20B41858FF54001699A8 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
+		C07E20B618590085001699A8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C07E20B718590085001699A8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C07E20B818590085001699A8 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		C07E20B918590085001699A8 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		C07E20BA18590085001699A8 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		C07E20BB18590085001699A8 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		C07E20C0185900BD001699A8 /* TextFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldViewController.h; sourceTree = "<group>"; };
+		C07E20C1185900BD001699A8 /* TextFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
+		C07E20C2185900BD001699A8 /* TextFieldViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldViewController.xib; sourceTree = "<group>"; };
 		C0917F271858821500B9FD31 /* IQButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
 		C0917F281858821500B9FD31 /* IQButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IQButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		C0B63B9B1781FAB1008D3B64 /* KeyboardTextFieldDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardTextFieldDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,12 +55,6 @@
 		C0B63BAD1781FAB1008D3B64 /* KeyboardTextFieldDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyboardTextFieldDemo-Prefix.pch"; sourceTree = "<group>"; };
 		C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C0B63BB11781FAB1008D3B64 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C0B63BB21781FAB1008D3B64 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C0DB7D07184FBA6000F5C892 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
-		C0DB7D08184FBA6000F5C892 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		C0DB7D09184FBA6000F5C892 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
-		C0FAECC717F2351700962F68 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,12 +124,18 @@
 			children = (
 				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,
 				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
-				C0B63BB11781FAB1008D3B64 /* ViewController.h */,
-				C0B63BB21781FAB1008D3B64 /* ViewController.m */,
-				C0FAECC717F2351700962F68 /* ViewController.xib */,
-				C0DB7D07184FBA6000F5C892 /* WebViewController.h */,
-				C0DB7D08184FBA6000F5C892 /* WebViewController.m */,
-				C0DB7D09184FBA6000F5C892 /* WebViewController.xib */,
+				C07E20B618590085001699A8 /* ViewController.h */,
+				C07E20B718590085001699A8 /* ViewController.m */,
+				C07E20B818590085001699A8 /* ViewController.xib */,
+				C07E20C0185900BD001699A8 /* TextFieldViewController.h */,
+				C07E20C1185900BD001699A8 /* TextFieldViewController.m */,
+				C07E20C2185900BD001699A8 /* TextFieldViewController.xib */,
+				C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */,
+				C07E20B41858FF54001699A8 /* ScrollViewController.m */,
+				C00EAA6D1858D5A500968DE2 /* ScrollViewController.xib */,
+				C07E20B918590085001699A8 /* WebViewController.h */,
+				C07E20BA18590085001699A8 /* WebViewController.m */,
+				C07E20BB18590085001699A8 /* WebViewController.xib */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -191,8 +207,10 @@
 				C0917F2A1858821500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
 				C0917F291858821500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */,
-				C0FAECC817F2351700962F68 /* ViewController.xib in Resources */,
-				C0DB7D0B184FBA6000F5C892 /* WebViewController.xib in Resources */,
+				C00EAA6F1858D5A500968DE2 /* ScrollViewController.xib in Resources */,
+				C07E20BD18590085001699A8 /* ViewController.xib in Resources */,
+				C07E20BF18590085001699A8 /* WebViewController.xib in Resources */,
+				C07E20C4185900BD001699A8 /* TextFieldViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,9 +223,11 @@
 			files = (
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
-				C0B63BB31781FAB1008D3B64 /* ViewController.m in Sources */,
 				AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */,
-				C0DB7D0A184FBA6000F5C892 /* WebViewController.m in Sources */,
+				C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */,
+				C07E20BC18590085001699A8 /* ViewController.m in Sources */,
+				C07E20BE18590085001699A8 /* WebViewController.m in Sources */,
+				C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
