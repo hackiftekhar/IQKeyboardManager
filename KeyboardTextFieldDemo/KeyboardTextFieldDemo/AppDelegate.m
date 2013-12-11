@@ -29,8 +29,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // Uncomment-Comment this line to test on WebView.
-//    self.viewController = [[ViewController alloc] init];
-    self.viewController = [[WebViewController alloc] init];
+    self.viewController = [[ViewController alloc] init];
+//    self.viewController = [[WebViewController alloc] init];
 
     // Case 1. UIViewController as rootViewController.
     if (false)
