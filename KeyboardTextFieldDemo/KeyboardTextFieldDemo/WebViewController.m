@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.facebook.com"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gmail.com"]];
     [_webView loadRequest:request];
     
     // Do any additional setup after loading the view from its nib.

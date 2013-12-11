@@ -16,13 +16,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	//Enabling keyboard manager
     [[IQKeyboardManager sharedManager] setEnable:YES];
-    
+
+	//Enabling autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
+	[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+
+	//Setting toolbar behavious to IQAutoToolbarBySubviews. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
+	[[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+
+	//Creatin UIWindow.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // Uncomment-Comment this line to test on WebView.
-    self.viewController = [[ViewController alloc] init];
-//    self.viewController = [[WebViewController alloc] init];
+//    self.viewController = [[ViewController alloc] init];
+    self.viewController = [[WebViewController alloc] init];
 
     // Case 1. UIViewController as rootViewController.
     if (false)

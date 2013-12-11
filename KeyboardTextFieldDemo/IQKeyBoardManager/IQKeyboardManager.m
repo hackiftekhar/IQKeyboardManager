@@ -23,72 +23,72 @@
 
 /*
  
-/---------------------------------------------------------------------------------------------------\
-\---------------------------------------------------------------------------------------------------/
-|                                   iOS NSNotification Mechanism                                    |
-/---------------------------------------------------------------------------------------------------\
-\---------------------------------------------------------------------------------------------------/
-
+ /---------------------------------------------------------------------------------------------------\
+ \---------------------------------------------------------------------------------------------------/
+ |                                   iOS NSNotification Mechanism                                    |
+ /---------------------------------------------------------------------------------------------------\
+ \---------------------------------------------------------------------------------------------------/
+ 
  1) Begin Editing:-         When TextField begin editing.
  2) End Editing:-           When TextField end editing.
  3) Switch TextField:-      When Keyboard Switch from a TextField to another TextField.
  3) Orientation Change:-    When Device Orientation Change.
-
+ 
  
  ----------------------------------------------------------------------------------------------------------------------------------------------
-=============
+ =============
  UITextField
-=============
+ =============
  
-                                            Begin Editing                                Begin Editing
+ Begin Editing                                Begin Editing
  --------------------------------------------           ----------------------------------           ---------------------------------
  |UITextFieldTextDidBeginEditingNotification| --------> | UIKeyboardWillShowNotification | --------> | UIKeyboardDidShowNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
-                        ^                  Switch TextField             ^               Switch TextField 
-                        |                                               |
-                        |                                               |
-                        | Switch TextField                              | Orientation Change
-                        |                                               |
-                        |                                               |
-                        |                                               |
+ ^                  Switch TextField             ^               Switch TextField
+ |                                               |
+ |                                               |
+ | Switch TextField                              | Orientation Change
+ |                                               |
+ |                                               |
+ |                                               |
  --------------------------------------------           ----------------------------------           ---------------------------------
  | UITextFieldTextDidEndEditingNotification | <-------- | UIKeyboardWillHideNotification | --------> | UIKeyboardDidHideNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
-                        |                    End Editing                                                             ^
-                        |                                                                                            |
-                        |--------------------End Editing-------------------------------------------------------------|
+ |                    End Editing                                                             ^
+ |                                                                                            |
+ |--------------------End Editing-------------------------------------------------------------|
  
  
-----------------------------------------------------------------------------------------------------------------------------------------------
+ ----------------------------------------------------------------------------------------------------------------------------------------------
  =============
  UITextView
  =============
-                       |-------------------Switch TextView--------------------------------------------------------------|
-                       | |------------------Begin Editing-------------------------------------------------------------| |
-                       | |                                                                                            | |
-                       v |                  Begin Editing                               Switch TextView               v |
+ |-------------------Switch TextView--------------------------------------------------------------|
+ | |------------------Begin Editing-------------------------------------------------------------| |
+ | |                                                                                            | |
+ v |                  Begin Editing                               Switch TextView               v |
  --------------------------------------------           ----------------------------------           ---------------------------------
  | UITextViewTextDidBeginEditingNotification| <-------- | UIKeyboardWillShowNotification | --------> | UIKeyboardDidShowNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
-                                                                        ^
-                                                                        |
-                        |------------------------Switch TextView--------|
-                        |                                               | Orientation Change
-                        |                                               |
-                        |                                               |
-                        |                                               |
+ ^
+ |
+ |------------------------Switch TextView--------|
+ |                                               | Orientation Change
+ |                                               |
+ |                                               |
+ |                                               |
  --------------------------------------------           ----------------------------------           ---------------------------------
  | UITextViewTextDidEndEditingNotification  | <-------- | UIKeyboardWillHideNotification |           | UIKeyboardDidHideNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
-                        |                    End Editing                                                             ^
-                        |                                                                                            |
-                        |--------------------End Editing-------------------------------------------------------------|
+ |                    End Editing                                                             ^
+ |                                                                                            |
+ |--------------------End Editing-------------------------------------------------------------|
  
  
  ----------------------------------------------------------------------------------------------------------------------------------------------
  
-/---------------------------------------------------------------------------------------------------\
-\---------------------------------------------------------------------------------------------------/
+ /---------------------------------------------------------------------------------------------------\
+ \---------------------------------------------------------------------------------------------------/
  */
 
 
@@ -137,6 +137,7 @@
 
 
 @synthesize enable = _enable;
+@synthesize enableAutoToolbar = _enableAutoToolbar;
 
 #pragma mark - Initializing functions
 
@@ -165,7 +166,7 @@
 			
 			//  Enabling keyboard manager.
 			[self setEnable:YES];
-
+			
             animationDuration = 0.25;
         });
     }
@@ -177,7 +178,7 @@
 {
 	//Singleton instance
 	static IQKeyboardManager *kbManager;
-
+	
 	//Dispatching it once.
 	static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -185,7 +186,7 @@
 		//  Initializing keyboard manger.
         kbManager = [[IQKeyboardManager alloc] initUniqueInstance];
     });
-
+	
 	//Returning kbManager.
 	return kbManager;
 }
@@ -217,10 +218,10 @@
     {
 		//Sending a fake notification for keyboardWillHide to retain view's original frame.
 		[self keyboardWillHide:nil];
-
+		
 		//Setting NO to _enable.
 		_enable = enable;
-
+		
         NSLog(@"Keyboard Manager disabled");
     }
 	//If already disabled.
@@ -418,7 +419,7 @@
 	if (aNotification != nil)	kbShowNotification = nil;
 	
 	if (_enable == NO)	return;
-
+	
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.
     if (textFieldView == nil)   return;
     
@@ -432,7 +433,7 @@
         //  Setitng keyboard animation duration
         animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
-
+	
     //  Setting rootViewController frame to it's original position.
     [self setRootViewFrame:topViewBeginRect];
 }
@@ -441,7 +442,7 @@
 -(void)keyboardWillShow:(NSNotification*)aNotification
 {
 	kbShowNotification = aNotification;
-
+	
 	if (_enable == NO)	return;
 	
     //  Getting keyboard animation duration
@@ -471,7 +472,7 @@
         default:
             break;
     }
-
+	
     [self adjustFrame];
 }
 
@@ -490,7 +491,10 @@
     textFieldView = notification.object;
     
 	if (_enable == NO)	return;
-
+	
+	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
+	if (_enableAutoToolbar)	[self addToolbarIfRequired];
+	
     if (isKeyboardShowing == NO)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
@@ -502,10 +506,121 @@
     [self adjustFrame];
 }
 
+//Resigning textField.
 - (void)resignFirstResponder
 {
 	[textFieldView resignFirstResponder];
 }
+
+//return YES. If autoToolbar is enabled.
+-(BOOL)isEnableAutoToolbar
+{
+	return _enableAutoToolbar;
+}
+
+//	Get all UITextField/UITextView siblings of textFieldView.
+-(NSArray*)responderViews
+{
+	//	Getting all siblings
+	NSArray *siblings = textFieldView.superview.subviews;
+
+	//Array of (UITextField/UITextView's).
+	NSMutableArray *textFields = [[NSMutableArray alloc] init];
+	
+	for (UITextField *textField in siblings)
+		if ([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]])
+			[textFields addObject:textField];
+	
+	//If autoToolbar behaviour is bySubviews, then returning it.
+	if (_toolbarManageBehaviour == IQAutoToolbarBySubviews)
+	{
+		return textFields;
+	}
+	//If autoToolbar behaviour is by tag, then sorting it according to tag property.
+	else if (_toolbarManageBehaviour == IQAutoToolbarByTag)
+	{
+		return [textFields sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+
+			if ([(UIView*)obj1 tag] < [(UIView*)obj2 tag])	return NSOrderedAscending;
+			
+			else if ([(UIView*)obj1 tag] > [(UIView*)obj2 tag])	return NSOrderedDescending;
+			
+			else	return NSOrderedSame;
+		}];
+	}
+	else
+		return nil;
+}
+
+-(void)addToolbarIfRequired
+{
+	//	Getting all the sibling textFields.
+	NSArray *siblings = [self responderViews];
+	
+	//	If only one object is found, then adding only Done button.
+	if (siblings.count==1)
+	{
+		if (![[siblings objectAtIndex:0] inputAccessoryView])
+		{
+			[[siblings objectAtIndex:0] addDoneOnKeyboardWithTarget:self action:@selector(doneAction:)];
+		}
+	}
+	else
+	{
+		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
+		for (UITextField *textField in siblings)
+		{
+			if (![textField inputAccessoryView])
+			{
+				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+			}
+			
+			//	If firstTextField, then previous should not be enabled.
+			if ([siblings objectAtIndex:0] == textField)
+			{
+				[textField setEnablePrevious:NO next:YES];
+			}
+			//	If lastTextField then next should not be enaled.
+			else if ([siblings lastObject] == textField)
+			{
+				[textField setEnablePrevious:YES next:NO];
+			}
+		}
+	}
+}
+
+//	Previous button action.
+-(void)previousAction:(UISegmentedControl*)segmentedControl
+{
+	//Getting all responder view's.
+	NSArray *textFields = [self responderViews];
+	
+	//Getting index of current textField.
+	NSUInteger index = [textFields indexOfObject:textFieldView];
+	
+	//If it is not first textField. then it's previous object becomeFirstResponder.
+	if (index > 0)	[[textFields objectAtIndex:index-1] becomeFirstResponder];
+}
+
+//	Next button action.
+-(void)nextAction:(UISegmentedControl*)segmentedControl
+{
+	//Getting all responder view's.
+	NSArray *textFields = [self responderViews];
+	
+	//Getting index of current textField.
+	NSUInteger index = [textFields indexOfObject:textFieldView];
+	
+	//If it is not last textField. then it's next object becomeFirstResponder.
+	if (index < textFields.count-1)	[[textFields objectAtIndex:index+1] becomeFirstResponder];
+}
+
+//	Done button action. Resigning current textField.
+-(void)doneAction:(UIBarButtonItem*)barButton
+{
+    [self resignFirstResponder];
+}
+
 @end
 
 
@@ -537,7 +652,7 @@
 	{
 		[toolbar setBarStyle:UIBarStyleBlackTranslucent];
 	}
-
+	
     //  Adding button to toolBar.
     [toolbar setItems:[NSArray arrayWithObjects: nilButton,doneButton, nil]];
     
@@ -572,7 +687,7 @@
 	{
 		[toolbar setBarStyle:UIBarStyleBlackTranslucent];
 	}
-
+	
     //  Adding button to toolBar.
     [toolbar setItems:[NSArray arrayWithObjects:cancelButton,nilButton,doneButton, nil]];
     
@@ -617,7 +732,7 @@
 		UIBarButtonItem *segButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
 		[items addObject:segButton];
 	}
-
+	
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
     UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -677,7 +792,6 @@
 		}
     }
 }
-
 
 @end
 
