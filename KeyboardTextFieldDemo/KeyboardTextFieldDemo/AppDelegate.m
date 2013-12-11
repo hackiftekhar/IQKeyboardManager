@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [IQKeyboardManager installKeyboardManager];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -33,7 +33,8 @@
     else
     {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-        [navController.navigationBar setTintColor:[UIColor clearColor]];
+		[navController.navigationBar setTranslucent:NO];
+		[navController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
         self.window.rootViewController = navController;
     }
 

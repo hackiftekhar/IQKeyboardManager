@@ -25,66 +25,46 @@
 #import <Foundation/Foundation.h>
 
 /*!
-    @author Iftekhar Qurashi | https://github.com/hackiftekhar | hack.iftekhar@gmail.com
+    @author Iftekhar Qurashi
  
-    @see https://github.com/hackiftekhar/IQKeyboardManager
- 
-    @since iOS (5.0 and later), ARC Required
+	@related hack.iftekhar@gmail.com
  
     @class IQKeyboardManager
  
-    @abstract Keyboard TextField/TextView Manager
+	@abstract Keyboard TextField/TextView Manager
  */
 @interface IQKeyboardManager : NSObject
-{
-	/*! Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
-    BOOL isKeyboardShowing;
-    
-	/*! To save rootViewController.view.frame. */
-    CGRect topViewBeginRect;
-    
-	/*! TextField or TextView object. */
-    UIView *textFieldView;
-    
-	/*! To save keyboard animation duration. */
-    CGFloat animationDuration;
-    
-    /*! To save keyboard size */
-    CGSize kbSize;
-}
 
 /*!
-    @method installKeyboardManager
+	@property keyboardDistanceFromTextField
  
-    @abstract Call it on your AppDelegate to initialize keyboardManager.
+	@abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.
  */
-+ (void)installKeyboardManager;
+@property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
 /*!
-    @method setTextFieldDistanceFromKeyboard:
+	@property enable
  
-    @abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.
+	@abstract enable/disable the keyboard manager. Default is YES.
  */
-+ (void)setTextFieldDistanceFromKeyboard:(CGFloat)distance;
+@property(nonatomic, assign, getter = isEnabled) BOOL enable;
+
 
 /*!
-    @method enableKeyboardManger
+	@method sharedManager
  
-    @abstract Enable the keyboard manager. Default is enabled.
+	@abstract Returns the default singleton instance.
  */
-+ (void)enableKeyboardManger;
++ (IQKeyboardManager*)sharedManager;
+
 
 /*!
-    @method disableKeyboardManager
+	@method resignFirstResponder
  
-    @abstract Disable the keyboard manager. Default is enabled.
+	@abstract Resigns currently first responder field.
  */
-+ (void)disableKeyboardManager;
+- (void)resignFirstResponder;
 
-/*!
-    @return Return YES if keyboard manager is enabled, otherwise NO.
- */
-+ (BOOL)isEnabled;
 
 /*!
     @method init
@@ -104,7 +84,7 @@
 
 
 /*!
-    @category IQKeyboardToolbar
+	@category UIView (IQKeyboardToolbar)
  
     @since iOS (5.0 and later), ARC Required
 
@@ -167,7 +147,7 @@
 
 
 /*!
-    @class IQSegmentedNextPrevious
+	@class IQSegmentedNextPrevious
  
     @since iOS (5.0 and later)
  
