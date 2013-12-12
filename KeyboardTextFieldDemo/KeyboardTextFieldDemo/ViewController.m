@@ -1,170 +1,49 @@
 //
 //  ViewController.m
+//  KeyboardTextFieldDemo
 //
-//  Created by Mohd Iftekhar Qurashi on 01/07/13.
-
+//  Created by Mohd Iftekhar Qurashi on 11/12/13.
+//  Copyright (c) 2013 Canopus. All rights reserved.
+//
 
 #import "ViewController.h"
-#import "IQKeyboardManager.h"
+
+#import "TextFieldViewController.h"
+#import "ScrollViewController.h"
+#import "WebViewController.h"
 
 @implementation ViewController
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationItem setTitle:@"IQKeyboard"];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStylePlain target:self action:@selector(enableKeyboardManger:)]];
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain target:self action:@selector(disableKeyboardManager:)]];
-  
-    if (!self.navigationController)
-    {
-        [buttonPop setHidden:YES];
-        [buttonPush setHidden:YES];
-        [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
-    }
-    else if(self.navigationController.viewControllers.count ==1)
-    {
-        [buttonPop setHidden:YES];
-    }
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(IBAction)textFieldExampleClicked:(id)sender
 {
-    [super viewDidAppear:animated];
+    TextFieldViewController *obj = [[TextFieldViewController alloc] init];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
--(void)enableKeyboardManger:(UIBarButtonItem*)barButton
+-(IBAction)scrollViewExampleClicked:(id)sender
 {
-    [[IQKeyboardManager sharedManager] setEnable:YES];
+    ScrollViewController *obj = [[ScrollViewController alloc] init];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
--(void)disableKeyboardManager:(UIBarButtonItem*)barButton
+-(IBAction)webViewExampleClicked:(id)sender
 {
-    [[IQKeyboardManager sharedManager] setEnable:NO];
+    WebViewController *obj = [[WebViewController alloc] init];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    // Return YES for supported orientations
     return YES;
-}
-
-- (BOOL)shouldAutorotate{
-    return YES;
-}
-
-// - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-//    return UIInterfaceOrientationMaskAll;
-// }
-//
-// - (NSUInteger)supportedInterfaceOrientations{
-//    return UIInterfaceOrientationMaskAll;
-// }
-
--(void)textViewDidBeginEditing:(UITextView *)textView
-{
-    selectedTextFieldTag = textView.tag;
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    selectedTextFieldTag = textField.tag;
-}
-
-- (IBAction)pushClicked:(id)sender
-{
-    ViewController *controller = [[ViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (IBAction)presentClicked:(id)sender
-{
-    @try {
-        if (self.navigationController)
-        {
-            ViewController *controller = [[ViewController alloc] init];
-            
-            [controller setModalTransitionStyle:arc4random()%4];
-
-            // TransitionStylePartialCurl can only be presented by FullScreen style.
-            if (controller.modalTransitionStyle == UIModalTransitionStylePartialCurl)
-                controller.modalPresentationStyle = UIModalPresentationFullScreen;
-            else
-                controller.modalPresentationStyle = arc4random()%4;
-            
-            if ([self respondsToSelector:@selector(presentViewController:animated:completion:)])
-            {
-                [self presentViewController:controller animated:YES completion:nil];
-            }
-            else
-            {
-                [self presentModalViewController:controller animated:YES];
-            }
-            
-        }
-        else
-        {
-            if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
-            {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else
-            {
-                [self dismissModalViewControllerAnimated:YES];
-            }
-        }
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Exception:%@",exception);
-    }
-    @finally {
-
-    }
-    
-}
-
-- (void)viewDidUnload
-{
-    buttonPop = nil;
-    buttonPop = nil;
-    buttonPush = nil;
-    buttonPresent = nil;
-    [super viewDidUnload];
-}
-
-- (IBAction)popClicked:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -9,22 +9,8 @@
 #import "WebViewController.h"
 
 @implementation WebViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+    UIActivityIndicatorView *activity;
 }
 
 #pragma mark - View lifecycle
@@ -36,21 +22,27 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gmail.com"]];
     [_webView loadRequest:request];
     
-    // Do any additional setup after loading the view from its nib.
+    activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [activity setHidesWhenStopped:YES];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activity];
 }
 
-- (void)viewDidUnload
+- (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    _webView = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [activity startAnimating];
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [activity stopAnimating];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [activity stopAnimating];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 @end

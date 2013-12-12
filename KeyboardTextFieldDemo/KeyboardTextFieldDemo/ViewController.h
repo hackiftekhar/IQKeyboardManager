@@ -6,18 +6,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
-{    
-    NSInteger selectedTextFieldTag;
-    
-    IBOutlet UIButton *buttonPop;
-    IBOutlet UIButton *buttonPush;
-    IBOutlet UIButton *buttonPresent;
-     
-}
-- (IBAction)popClicked:(id)sender;
-- (IBAction)pushClicked:(id)sender;
-- (IBAction)presentClicked:(id)sender;
+@interface ViewController : UIViewController
+{
 
+}
+
+-(IBAction)textFieldExampleClicked:(id)sender;
+-(IBAction)scrollViewExampleClicked:(id)sender;
+-(IBAction)webViewExampleClicked:(id)sender;
 
 @end
