@@ -19,7 +19,7 @@
 {
 	//Enabling keyboard manager
     [[IQKeyboardManager sharedManager] setEnable:YES];
-
+    [[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:15];
 	//Enabling autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
 	[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 
@@ -31,22 +31,12 @@
 
     // Uncomment-Comment this line to test on WebView.
     self.viewController = [[ViewController alloc] init];
-//    self.viewController = [[WebViewController alloc] init];
-//    self.viewController = [[ScrollViewController alloc] init];
-    // Case 1. UIViewController as rootViewController.
-    if (true)
-    {
-        self.window.rootViewController = self.viewController;
-    }
-    // Case 2. UINavigationController as rootViewController.
-    else
-    {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-		[navController.navigationBar setTranslucent:NO];
-		[navController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
-        self.window.rootViewController = navController;
-    }
 
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    [navController.navigationBar setTranslucent:NO];
+    [navController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    self.window.rootViewController = navController;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

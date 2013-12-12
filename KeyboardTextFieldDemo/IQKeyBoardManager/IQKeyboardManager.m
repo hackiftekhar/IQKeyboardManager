@@ -353,22 +353,22 @@
     //  Getting it's superScrollView.
     UIScrollView *superScrollView = [IQKeyboardManager superScrollView:textFieldView];
 
-    while (superScrollView)
-    {
-        //Getting textFieldViewRect
-        CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:superScrollView];
-        
-        //If scrollView is scrollable to show TextField.
-        if (textFieldViewRect.origin.y>move)
-        {
-            break;
-        }
-        //Getting it's superScrollView.
-        else
-        {
-            superScrollView = [IQKeyboardManager superScrollView:superScrollView];
-        }
-    }
+//    while (superScrollView)
+//    {
+//        //Getting textFieldViewRect
+//        CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:superScrollView];
+//        
+//        //If scrollView is scrollable to show TextField.
+//        if (textFieldViewRect.origin.y>move)
+//        {
+//            break;
+//        }
+//        //Getting it's superScrollView.
+//        else
+//        {
+//            superScrollView = [IQKeyboardManager superScrollView:superScrollView];
+//        }
+//    }
 
     //If there was a lastScrollView.
     if (lastScrollView) 
@@ -399,13 +399,30 @@
     //  If we found lastScrollView then setting it's contentOffset to show textField.
     if (lastScrollView)
     {
-        [lastScrollView setContentOffset:CGPointMake(lastScrollView.contentOffset.x, lastScrollView.contentOffset.y - MIN(lastScrollView.contentOffset.y,-move)) animated:YES];
+        UIView *lastView = textFieldView;
+        UIScrollView *superScrollView = lastScrollView;
+        
+        while (move>0 && superScrollView)
+        {
+            CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
+            
+            CGFloat shouldOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-move);
+            shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y-5);   //-5 is for good UI.
+            
+            move -= (shouldOffsetY-superScrollView.contentOffset.y);
+            [superScrollView setContentOffset:CGPointMake(superScrollView.contentOffset.x, shouldOffsetY) animated:YES];
+
+            //  Getting it's superScrollView.
+            lastView = superScrollView;
+            superScrollView = [IQKeyboardManager superScrollView:lastView];
+            
+        }
     }
     //  New code end.
 
     
     //  Special case for iPad modalPresentationStyle.
-    else if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
+    if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
         [[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
     {
         //  Positive or zero.
@@ -614,7 +631,7 @@
 	NSMutableArray *textFields = [[NSMutableArray alloc] init];
 	
 	for (UITextField *textField in siblings)
-		if ([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]])
+		if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
 			[textFields addObject:textField];
 	
 	//If autoToolbar behaviour is bySubviews, then returning it.
@@ -659,17 +676,17 @@
 			if (![textField inputAccessoryView])
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
-			}
-			
-			//	If firstTextField, then previous should not be enabled.
-			if ([siblings objectAtIndex:0] == textField)
-			{
-				[textField setEnablePrevious:NO next:YES];
-			}
-			//	If lastTextField then next should not be enaled.
-			else if ([siblings lastObject] == textField)
-			{
-				[textField setEnablePrevious:YES next:NO];
+
+                //	If firstTextField, then previous should not be enabled.
+                if ([siblings objectAtIndex:0] == textField)
+                {
+                    [textField setEnablePrevious:NO next:YES];
+                }
+                //	If lastTextField then next should not be enaled.
+                else if ([siblings lastObject] == textField)
+                {
+                    [textField setEnablePrevious:YES next:NO];
+                }
 			}
 		}
 	}
