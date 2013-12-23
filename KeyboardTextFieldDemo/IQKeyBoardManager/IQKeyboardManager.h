@@ -66,11 +66,18 @@ typedef enum IQAutoToolbarManageBehaviour
 @property(nonatomic, assign, getter = isEnabled) BOOL enable;
 
 /*!
-	@property automanageEnable
+    @property enableAutoToolbar
  
-	@abstract Automatic manages the UIToolbar functionality. Default is NO.
+    @abstract Automatic manages the UIToolbar functionality. Default is NO.
  */
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
+
+/*!
+ @property resignOnTouchOutside
+ 
+ @abstract Resigns Keyboard on touching outside of UITextField/View. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldResignOnTouchOutside;
 
 /*!
 	@property toolbarManageStyle
@@ -82,7 +89,7 @@ typedef enum IQAutoToolbarManageBehaviour
 /*!
 	@method sharedManager
  
-	@abstract Returns the default singleton instance.
+	@return Returns the default singleton instance.
  */
 + (IQKeyboardManager*)sharedManager;
 
@@ -108,6 +115,20 @@ typedef enum IQAutoToolbarManageBehaviour
     @abstract Should create only one instance of class. Should not call new.
  */
 + (id)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use class methods")));
+
+/*!
+    @method topMostController
+ 
+    @return Returns the current Top Most ViewController in hierarchy.
+ */
++ (UIViewController*) topMostController;
+
+/*!
+    @method superScrollView:
+ 
+    @return Returns the UIScrollView object if any found in view's upper hierarchy.
+ */
++ (UIScrollView*)superScrollView:(UIView*)view;
 
 @end
 

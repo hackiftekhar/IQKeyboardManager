@@ -94,7 +94,7 @@
 
 #import "IQKeyboardManager.h"
 
-@interface IQKeyboardManager()
+@interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
 //  Private helper methods
 - (void)adjustFrame;
@@ -117,6 +117,8 @@
 - (void)textFieldViewDidBeginEditing:(NSNotification*)notification;
 - (void)textFieldViewDidEndEditing:(NSNotification*)notification;
 
+- (void)tapRecognized:(UITapGestureRecognizer*)gesture;
+
 @end
 
 @implementation IQKeyboardManager
@@ -137,20 +139,25 @@
     /*! To save keyboard size */
     CGSize kbSize;
 	
-    /*! To save keyboardWillShowNotification. Needed for enable keyboard functionality */
+    /*! To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
 	NSNotification *kbShowNotification;
     
-    //New variable
+    /*! Variable to save lastScrollView that was scrolled. */
     UIScrollView *lastScrollView;
+    
+    /*! lastScrollView's initial contentOffset. */
     CGPoint startingContentOffset;
+    
+    /*! TapGesture to resign keyboard on view's touch*/
+    UITapGestureRecognizer *tapGesture;
 }
 
 
-@synthesize enable = _enable;
-@synthesize enableAutoToolbar = _enableAutoToolbar;
-@synthesize keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
-@synthesize toolbarManageBehaviour = _toolbarManageBehaviour;
-
+@synthesize enable                          = _enable;
+@synthesize enableAutoToolbar               = _enableAutoToolbar;
+@synthesize keyboardDistanceFromTextField   = _keyboardDistanceFromTextField;
+@synthesize toolbarManageBehaviour          = _toolbarManageBehaviour;
+@synthesize shouldResignOnTouchOutside      = _shouldResignOnTouchOutside;
 #pragma mark - Initializing functions
 
 //  Singleton Object Initialization.
@@ -173,13 +180,14 @@
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
 			
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            [tapGesture setDelegate:self];
+
             //  Default settings
 			[self setKeyboardDistanceFromTextField:10.0];
-			
-			//  Enabling keyboard manager.
-			[self setEnable:YES];
-			
             animationDuration = 0.25;
+            
+            [self setShouldResignOnTouchOutside:NO];
         });
     }
     return self;
@@ -260,7 +268,8 @@
 	_keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
 }
 
-#pragma mark - new methods
+#pragma mark - Helper Class Methods
+
 +(UIScrollView*)superScrollView:(UIView*)view
 {
     UIView *superview = view.superview;
@@ -277,7 +286,6 @@
     return nil;
 }
 
-#pragma mark - Helper function
 //  Function to get topMost ViewController object.
 + (UIViewController*) topMostController
 {
@@ -291,6 +299,7 @@
     return topController;
 }
 
+#pragma mark - Private Methods
 //  Helper function to manipulate RootViewController's frame with animation.
 -(void)setRootViewFrame:(CGRect)frame
 {
@@ -583,6 +592,7 @@
 //  Removing fetched object.
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
+    [textFieldView.window removeGestureRecognizer:tapGesture];
     //Setting object to nil
     textFieldView = nil;
 }
@@ -595,6 +605,8 @@
     
 	if (_enable == NO)	return;
 	
+    [textFieldView.window addGestureRecognizer:tapGesture];
+    
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if (_enableAutoToolbar)	[self addToolbarIfRequired];
 	
@@ -609,11 +621,35 @@
     [self adjustFrame];
 }
 
+#pragma mark AutoResign methods
+
+
+-(void)setShouldResignOnTouchOutside:(BOOL)shouldResignOnTouchOutside
+{
+    _shouldResignOnTouchOutside = shouldResignOnTouchOutside;
+    [tapGesture setEnabled:_shouldResignOnTouchOutside];
+}
+
+- (void)tapRecognized:(UITapGestureRecognizer*)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        [gesture.view endEditing:YES];
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
+}
+
 //Resigning textField.
 - (void)resignFirstResponder
 {
 	[textFieldView resignFirstResponder];
 }
+
+#pragma mark AutoToolbar methods
 
 //return YES. If autoToolbar is enabled.
 -(BOOL)isEnableAutoToolbar

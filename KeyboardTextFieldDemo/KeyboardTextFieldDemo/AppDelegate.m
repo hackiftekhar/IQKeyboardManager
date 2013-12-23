@@ -26,10 +26,12 @@
 	//Setting toolbar behavious to IQAutoToolbarBySubviews. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
 	[[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarBySubviews];
 
+    //Resign textField if touched outside of UITextField/UITextView.
+    [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
+    
 	//Creatin UIWindow.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    // Uncomment-Comment this line to test on WebView.
     self.viewController = [[ViewController alloc] init];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
