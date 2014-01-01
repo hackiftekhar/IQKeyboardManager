@@ -1,7 +1,7 @@
 Keyboard TextField Manager
 ==========================
 
-Often while developing an app, We ran into an issues where the iPhone UIKeyboard slide up and cover the UITextField/UITextView.
+Often while developing an app, We ran into an issues where the iPhone UIKeyboard slide up and cover the `UITextField/UITextView`.
 
 ## Screen Shot
 ![image](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)
@@ -9,7 +9,7 @@ Often while developing an app, We ran into an issues where the iPhone UIKeyboard
 
 Usage
 ---
-Just drag and drop IQKeyboardManager class in your project. In your appDelegate.m write just one line of code. This will handle all UITextField/UITextView covering problem.
+Just drag and drop `IQKeyboardManager` class in your project. In your `appDelegate.m` write just one line of code. This will handle all UITextField/UITextView covering problem.
 
 ```  objc
 //AppDelegate.m
@@ -55,11 +55,11 @@ Just drag and drop IQKeyboardManager class in your project. In your appDelegate.
  
  2) Easy integration.
 
- 3) UITextField Category for easily adding Next/Previous and Done button as Keyboard UIToolBar, even automatic with 'EnableAutomaticToolbar' boolean.
+ 3) `UIView` Category for easily adding Next/Previous and Done button as Keyboard UIToolBar, even automatic with `EnableAutomaticToolbar` boolean.
 
  4) Enable/Disable Keyboard Manager when needed.
 
- 5) Enable/Disable Next/Previous with Category methods, even automatic with 'EnableAutomaticToolbar' boolean.
+ 5) Enable/Disable Next/Previous with Category methods, even automatic with `EnableAutomaticToolbar` boolean.
 
  6) Set keyboard distance from textFields.
  
@@ -69,5 +69,5 @@ Just drag and drop IQKeyboardManager class in your project. In your appDelegate.
 
  9) Autohandle in Whole application without any extra work or code.
 
- 10) Manage UITextView's frame when it's hight is too large to fit on screen with 'canAdjustTextView' boolean.
+ 10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
  
