@@ -34,6 +34,12 @@ Just drag and drop IQKeyboardManager class in your project. In your appDelegate.
     //(Optional)Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hirarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
     //[[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarBySubviews];
 
+    //(Optional)Resign textField if touched outside of UITextField/UITextView.
+    //[[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
+    
+    //(Optional)Giving permission to modify TextView's frame
+    //[[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
+
     [self.window makeKeyAndVisible];
     return YES;
 }
