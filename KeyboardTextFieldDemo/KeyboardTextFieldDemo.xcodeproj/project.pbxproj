@@ -14,6 +14,8 @@
 		C07E20BE18590085001699A8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20BA18590085001699A8 /* WebViewController.m */; };
 		C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20C1185900BD001699A8 /* TextFieldViewController.m */; };
 		C07E20C4185900BD001699A8 /* TextFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07E20C2185900BD001699A8 /* TextFieldViewController.xib */; };
+		C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */; };
+		C080A59418740EFF0088441B /* TextViewSpecialCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C080A59218740EFF0088441B /* TextViewSpecialCaseViewController.xib */; };
 		C0827BAD185A24C90012EE91 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0827BAC185A24C90012EE91 /* ViewController.xib */; };
 		C0827BBE185A2A360012EE91 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0827BBD185A2A360012EE91 /* ViewController.m */; };
 		C0827BC1185A2B540012EE91 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0827BC0185A2B540012EE91 /* WebViewController.xib */; };
@@ -40,6 +42,9 @@
 		C07E20C0185900BD001699A8 /* TextFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldViewController.h; sourceTree = "<group>"; };
 		C07E20C1185900BD001699A8 /* TextFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
 		C07E20C2185900BD001699A8 /* TextFieldViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldViewController.xib; sourceTree = "<group>"; };
+		C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewSpecialCaseViewController.h; sourceTree = "<group>"; };
+		C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewSpecialCaseViewController.m; sourceTree = "<group>"; };
+		C080A59218740EFF0088441B /* TextViewSpecialCaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewSpecialCaseViewController.xib; sourceTree = "<group>"; };
 		C0827BAC185A24C90012EE91 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		C0827BBD185A2A360012EE91 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C0827BC0185A2B540012EE91 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
@@ -127,6 +132,9 @@
 				C07E20B918590085001699A8 /* WebViewController.h */,
 				C07E20BA18590085001699A8 /* WebViewController.m */,
 				C0827BC0185A2B540012EE91 /* WebViewController.xib */,
+				C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */,
+				C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */,
+				C080A59218740EFF0088441B /* TextViewSpecialCaseViewController.xib */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -203,6 +211,7 @@
 				C07E20C4185900BD001699A8 /* TextFieldViewController.xib in Resources */,
 				C0827BAD185A24C90012EE91 /* ViewController.xib in Resources */,
 				C0827BC1185A2B540012EE91 /* WebViewController.xib in Resources */,
+				C080A59418740EFF0088441B /* TextViewSpecialCaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +229,7 @@
 				C07E20BE18590085001699A8 /* WebViewController.m in Sources */,
 				C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */,
 				C0827BBE185A2A360012EE91 /* ViewController.m in Sources */,
+				C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +317,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -320,7 +330,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

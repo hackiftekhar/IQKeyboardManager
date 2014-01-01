@@ -14,5 +14,6 @@
 -(IBAction)textFieldExampleClicked:(id)sender;
 -(IBAction)scrollViewExampleClicked:(id)sender;
 -(IBAction)webViewExampleClicked:(id)sender;
+- (IBAction)textViewSpecialCaseClicked:(id)sender;
 
 @end

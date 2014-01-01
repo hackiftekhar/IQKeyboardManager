@@ -32,29 +32,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    textFields = [[NSMutableArray alloc] init];
-    [textFields addObject:topTextField];
-    [textFields addObject:bottomTextView];
-    [textFields addObject:topTextView];
-    [textFields addObject:bottomTextField];
-
-    for (UITextField *textField in textFields)
-    {
-        [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
-    }
-
-    [scrollViewDemo setContentSize:CGSizeMake(0,321)];
-    [scrollViewInsideScrollView setContentSize:CGSizeMake(0,321)];
-    [scrollViewOfTableViews setContentSize:CGSizeMake(0,scrollViewOfTableViews.bounds.size.height)];
-    // Do any additional setup after loading the view from its nib.
-}
-
 //	Previous button action.
 -(void)previousAction:(UISegmentedControl*)segmentedControl
 {
@@ -96,6 +73,30 @@
     [textFieldView resignFirstResponder];
 }
 
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.navigationItem setTitle:@"UIScrollView Example"];
+
+    textFields = [[NSMutableArray alloc] init];
+    [textFields addObject:topTextField];
+    [textFields addObject:bottomTextView];
+    [textFields addObject:topTextView];
+    [textFields addObject:bottomTextField];
+
+    for (UITextField *textField in textFields)
+    {
+        [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+    }
+
+    [scrollViewDemo setContentSize:CGSizeMake(0,321)];
+    [scrollViewInsideScrollView setContentSize:CGSizeMake(0,321)];
+    [scrollViewOfTableViews setContentSize:CGSizeMake(0,scrollViewOfTableViews.bounds.size.height)];
+    // Do any additional setup after loading the view from its nib.
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
