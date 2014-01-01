@@ -150,6 +150,9 @@
     
     /*! TapGesture to resign keyboard on view's touch*/
     UITapGestureRecognizer *tapGesture;
+    
+    /*! used with canAdjustTextView boolean*/
+    CGRect textFieldViewIntialFrame;
 }
 
 
@@ -158,6 +161,9 @@
 @synthesize keyboardDistanceFromTextField   = _keyboardDistanceFromTextField;
 @synthesize toolbarManageBehaviour          = _toolbarManageBehaviour;
 @synthesize shouldResignOnTouchOutside      = _shouldResignOnTouchOutside;
+@synthesize canAdjustTextView               = _canAdjustTextView;
+
+
 #pragma mark - Initializing functions
 
 //  Singleton Object Initialization.
@@ -299,6 +305,16 @@
     return topController;
 }
 
++(UIViewController*)currentViewController;
+{
+    UIViewController *currentViewController = [IQKeyboardManager topMostController];
+    
+    while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
+            currentViewController = [(UINavigationController*)currentViewController topViewController];
+    
+    return currentViewController;
+}
+
 #pragma mark - Private Methods
 //  Helper function to manipulate RootViewController's frame with animation.
 -(void)setRootViewFrame:(CGRect)frame
@@ -334,8 +350,8 @@
     CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:window];
     //  Getting RootViewRect.
     CGRect rootViewRect = [[rootController view] frame];
-    
-    CGFloat move;
+
+    CGFloat move = 0;
     //  Move positive = textField is hidden.
     //  Move negative = textField is showing.
 	
@@ -358,26 +374,8 @@
             break;
     }
 	
-    //  New code
     //  Getting it's superScrollView.
     UIScrollView *superScrollView = [IQKeyboardManager superScrollView:textFieldView];
-
-//    while (superScrollView)
-//    {
-//        //Getting textFieldViewRect
-//        CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:superScrollView];
-//        
-//        //If scrollView is scrollable to show TextField.
-//        if (textFieldViewRect.origin.y>move)
-//        {
-//            break;
-//        }
-//        //Getting it's superScrollView.
-//        else
-//        {
-//            superScrollView = [IQKeyboardManager superScrollView:superScrollView];
-//        }
-//    }
 
     //If there was a lastScrollView.
     if (lastScrollView) 
@@ -410,8 +408,8 @@
     {
         UIView *lastView = textFieldView;
         UIScrollView *superScrollView = lastScrollView;
-        
-        while (move>0 && superScrollView)
+
+        while (superScrollView)
         {
             CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
             
@@ -420,16 +418,52 @@
             
             move -= (shouldOffsetY-superScrollView.contentOffset.y);
             [superScrollView setContentOffset:CGPointMake(superScrollView.contentOffset.x, shouldOffsetY) animated:YES];
-
+            
             //  Getting it's superScrollView.
             lastView = superScrollView;
             superScrollView = [IQKeyboardManager superScrollView:lastView];
-            
         }
     }
-    //  New code end.
+    //Going ahead. No else if.
 
-    
+
+    //Special case for UITextView(When it's hight is too big to fit on screen.
+    {
+        CGFloat initialMove = move;
+        
+        CGFloat adjustment = 5;
+        switch ([rootController interfaceOrientation])
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                move = MIN(CGRectGetMinX(textFieldViewRect)-adjustment, move);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                move = MIN(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
+                break;
+            case UIInterfaceOrientationPortrait:
+                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                move = MIN(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
+                break;
+            default:
+                break;
+        }
+        
+        
+        if (_canAdjustTextView)
+        {
+            [UIView animateWithDuration:animationDuration animations:^{
+                [textFieldView setFrame:CGRectMake(CGRectGetMinX(textFieldView.frame),CGRectGetMinY(textFieldView.frame), CGRectGetWidth(textFieldView.frame),CGRectGetHeight(textFieldView.frame)-(initialMove-move))];
+            }];
+        }
+    }
+
+
     //  Special case for iPad modalPresentationStyle.
     if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
         [[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
@@ -532,6 +566,11 @@
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.
     if (textFieldView == nil)   return;
     
+    //Due to orientation callback we need to set it's original position.
+    [UIView animateWithDuration:animationDuration animations:^{
+        textFieldView.frame = textFieldViewIntialFrame;
+    }];
+    
     //  Boolean to know keyboard is showing/hiding
     isKeyboardShowing = NO;
     
@@ -557,6 +596,9 @@
 	
 	if (_enable == NO)	return;
 	
+    //Due to orientation callback we need to resave it's original frame.
+    textFieldViewIntialFrame = textFieldView.frame;
+
     //  Getting keyboard animation duration
     CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
@@ -593,6 +635,11 @@
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
     [textFieldView.window removeGestureRecognizer:tapGesture];
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        textFieldView.frame = textFieldViewIntialFrame;
+    }];
+    
     //Setting object to nil
     textFieldView = nil;
 }
@@ -602,14 +649,35 @@
 {
     //  Getting object
     textFieldView = notification.object;
-    
+    textFieldViewIntialFrame = textFieldView.frame;
+
+	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
+	if (_enableAutoToolbar)
+    {
+        //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
+        if ([textFieldView isKindOfClass:[UITextView class]] && textFieldView.inputAccessoryView == nil)
+        {
+            UIView *view = textFieldView;
+
+            //Resigning becoming first responder with some delay.
+            [UIView animateWithDuration:0.00001 animations:^{
+                [self addToolbarIfRequired];
+
+            }completion:^(BOOL finished) {
+                [view resignFirstResponder];
+                [view becomeFirstResponder];
+            }];
+        }
+        else
+        {
+            [self addToolbarIfRequired];
+        }
+    }
+
 	if (_enable == NO)	return;
 	
     [textFieldView.window addGestureRecognizer:tapGesture];
-    
-	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-	if (_enableAutoToolbar)	[self addToolbarIfRequired];
-	
+    	
     if (isKeyboardShowing == NO)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
@@ -774,6 +842,7 @@
     
     //  Creating a toolBar for keyboard
     UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setTag:NSIntegerMin];
     [toolbar sizeToFit];
 	
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
@@ -806,6 +875,7 @@
     
     //  Creating a toolBar for keyboard
     UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setTag:NSIntegerMin];
     [toolbar sizeToFit];
     
     //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
@@ -841,6 +911,7 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setTag:NSIntegerMin];
     [toolbar sizeToFit];
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];

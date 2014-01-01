@@ -11,6 +11,8 @@
 #import "TextFieldViewController.h"
 #import "ScrollViewController.h"
 #import "WebViewController.h"
+#import "TextViewSpecialCaseViewController.h"
+
 
 @implementation ViewController
 
@@ -19,6 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationItem setTitle:@"IQKeyboardManager"];
 }
 
 -(IBAction)textFieldExampleClicked:(id)sender
@@ -39,10 +42,15 @@
     [self.navigationController pushViewController:obj animated:YES];
 }
 
+- (IBAction)textViewSpecialCaseClicked:(id)sender 
+{
+    TextViewSpecialCaseViewController *obj = [[TextViewSpecialCaseViewController alloc] init];
+    [self.navigationController pushViewController:obj animated:YES];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return YES;
 }
 

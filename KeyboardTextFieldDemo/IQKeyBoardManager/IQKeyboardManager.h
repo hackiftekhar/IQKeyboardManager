@@ -38,6 +38,7 @@ typedef enum IQAutoToolbarManageBehaviour
 	
 }IQAutoToolbarManageBehaviour;
 
+
 #import <Foundation/Foundation.h>
 
 /*!
@@ -61,7 +62,7 @@ typedef enum IQAutoToolbarManageBehaviour
 /*!
 	@property enable
  
-	@abstract enable/disable the keyboard manager. Default is YES.
+	@abstract enable/disable the keyboard manager. Default is NO.
  */
 @property(nonatomic, assign, getter = isEnabled) BOOL enable;
 
@@ -71,6 +72,14 @@ typedef enum IQAutoToolbarManageBehaviour
     @abstract Automatic manages the UIToolbar functionality. Default is NO.
  */
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
+
+/*!
+ @property canAdjustTextView
+ 
+ @abstract Adjust textView's frame when it is too big in height. Default is NO.
+ */
+@property(nonatomic, assign) BOOL canAdjustTextView;
+
 
 /*!
  @property resignOnTouchOutside
@@ -122,6 +131,13 @@ typedef enum IQAutoToolbarManageBehaviour
     @return Returns the current Top Most ViewController in hierarchy.
  */
 + (UIViewController*) topMostController;
+
+/*!
+ @method currentViewController
+ 
+ @return Returns the topViewController in stack of topMostController.
+ */
++(UIViewController*)currentViewController;
 
 /*!
     @method superScrollView:

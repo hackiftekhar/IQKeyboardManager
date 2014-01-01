@@ -10,12 +10,9 @@
 
 @interface TextFieldViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 {    
-    NSInteger selectedTextFieldTag;
-    
     IBOutlet UIButton *buttonPop;
     IBOutlet UIButton *buttonPush;
-    IBOutlet UIButton *buttonPresent;
-    
+    IBOutlet UIButton *buttonPresent;    
 }
 - (IBAction)popClicked:(id)sender;
 - (IBAction)pushClicked:(id)sender;
