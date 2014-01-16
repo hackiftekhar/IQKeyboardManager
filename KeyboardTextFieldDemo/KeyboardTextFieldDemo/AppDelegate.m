@@ -19,6 +19,7 @@
 {
 	//Enabling keyboard manager
     [[IQKeyboardManager sharedManager] setEnable:YES];
+    
     [[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:15];
 	//Enabling autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
 	[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];

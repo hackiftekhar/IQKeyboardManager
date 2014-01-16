@@ -96,6 +96,10 @@
 
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
+/*! save rootViewControlle for reuse. */
+@property(nonatomic, strong, readonly) UIViewController *rootViewController;
+@property(nonatomic, strong, readonly) UIWindow *keyWindow;
+
 //  Private helper methods
 - (void)adjustFrame;
 -(void)addToolbarIfRequired;
@@ -103,10 +107,6 @@
 -(void)previousAction:(UISegmentedControl*)segmentedControl;
 -(void)nextAction:(UISegmentedControl*)segmentedControl;
 -(void)doneAction:(UIBarButtonItem*)barButton;
-
-
-//  Private function to get topMost ViewController object.
-+ (UIViewController*) topMostController;
 
 //  Private function to manipulate RootViewController's frame with animation.
 -(void)setRootViewFrame:(CGRect)frame;
@@ -145,7 +145,7 @@
     /*! Variable to save lastScrollView that was scrolled. */
     UIScrollView *lastScrollView;
     
-    /*! lastScrollView's initial contentOffset. */
+    /*! LastScrollView's initial contentOffset. */
     CGPoint startingContentOffset;
     
     /*! TapGesture to resign keyboard on view's touch*/
@@ -162,6 +162,8 @@
 @synthesize toolbarManageBehaviour          = _toolbarManageBehaviour;
 @synthesize shouldResignOnTouchOutside      = _shouldResignOnTouchOutside;
 @synthesize canAdjustTextView               = _canAdjustTextView;
+@synthesize rootViewController              = _rootViewController;
+@synthesize keyWindow                       = _keyWindow;
 
 
 #pragma mark - Initializing functions
@@ -193,7 +195,13 @@
 			[self setKeyboardDistanceFromTextField:10.0];
             animationDuration = 0.25;
             
+            _enable = NO;
             [self setShouldResignOnTouchOutside:NO];
+            [self setEnableAutoToolbar:NO];
+            [self setCanAdjustTextView:NO];
+            [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            _keyWindow = [self keyWindow];
+            _rootViewController = [self rootViewController];
         });
     }
     return self;
@@ -226,6 +234,9 @@
 }
 
 #pragma mark - Property functions
+
+
+
 -(void)setEnable:(BOOL)enable
 {
 	// If not enabled, enable it.
@@ -274,6 +285,26 @@
 	_keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
 }
 
+-(UIViewController *)rootViewController
+{
+    if (_rootViewController == nil)
+    {
+        _rootViewController = [[self keyWindow] rootViewController];
+    }
+    
+    return _rootViewController;
+}
+
+-(UIWindow *)keyWindow
+{
+    if (_keyWindow == nil)
+    {
+        _keyWindow = [[UIApplication sharedApplication] keyWindow];
+    }
+    
+    return _keyWindow;
+}
+
 #pragma mark - Helper Class Methods
 
 +(UIScrollView*)superScrollView:(UIView*)view
@@ -295,9 +326,8 @@
 //  Function to get topMost ViewController object.
 + (UIViewController*) topMostController
 {
-    //  Getting rootViewController
-    UIViewController *topController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-	
+    UIViewController *topController = [[IQKeyboardManager sharedManager] rootViewController];
+
     //  Getting topMost ViewController
     while ([topController presentedViewController])	topController = [topController presentedViewController];
 	
@@ -342,7 +372,7 @@
     isKeyboardShowing = YES;
     
     //  Getting KeyWindow object.
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIWindow *window = [self keyWindow];
     //  Getting RootViewController.
     UIViewController *rootController = [IQKeyboardManager topMostController];
     
