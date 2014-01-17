@@ -53,21 +53,20 @@ Just drag and drop `IQKeyboardManager` class in your project. In your `appDelega
 
  1) Support Device Orientation.
  
- 2) Easy integration.
+ 2) Enable/Disable Keyboard Manager when needed with `enable` boolean.
 
- 3) `UIView` Category for easily adding Next/Previous and Done button as Keyboard UIToolBar, even automatic with `EnableAutomaticToolbar` boolean.
+ 3) Easiest integration.
 
- 4) Enable/Disable Keyboard Manager when needed.
+ 4) AutoHandle UIToolbar as a accessoryInputView of textField/textView with `enableAutoToolbar` boolean.
 
- 5) Enable/Disable Next/Previous with Category methods, even automatic with `EnableAutomaticToolbar` boolean.
+ 5) AutoHandle UIToolbar can be manged by superview's hierarchy or can be managed by tag property of textField/textView using `toolbarManageBehaviour` enum.
 
- 6) Set keyboard distance from textFields.
+ 6) `UIView` Category for easily adding Next/Previous and Done button as Keyboard UIToolBar, even automatic with `enableAutoToolbar` boolean.
+
+ 7) Enable/Disable Next/Previous buttons with Category methods, even automatic with `enableAutoToolbar` boolean.
+
+ 8) Set keyboard distance from textFields using `keyboardDistanceFromTextField`.
  
- 7) AutoHandle UIToolbar as a accessoryInputView of textField/textView.
-
- 8) AutoHandle UIToolbar can be manged by superview's hierarchy or can be managed by tag property of textField/textView.
-
- 9) Autohandle in Whole application without any extra work or code.
-
+ 9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.
+ 
  10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
- 
