@@ -119,6 +119,9 @@
 
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
 
+//To remove compiler warning
+- (void)barTintColor;
+
 @end
 
 @implementation IQKeyboardManager
@@ -153,6 +156,12 @@
     
     /*! used with canAdjustTextView boolean*/
     CGRect textFieldViewIntialFrame;
+}
+
+//Remove compiler warning
+- (void)barTintColor
+{
+
 }
 
 
@@ -234,9 +243,6 @@
 }
 
 #pragma mark - Property functions
-
-
-
 -(void)setEnable:(BOOL)enable
 {
 	// If not enabled, enable it.
@@ -287,20 +293,14 @@
 
 -(UIViewController *)rootViewController
 {
-    if (_rootViewController == nil)
-    {
-        _rootViewController = [[self keyWindow] rootViewController];
-    }
+    if (_rootViewController == nil)     _rootViewController = [[self keyWindow] rootViewController];
     
     return _rootViewController;
 }
 
 -(UIWindow *)keyWindow
 {
-    if (_keyWindow == nil)
-    {
-        _keyWindow = [[UIApplication sharedApplication] keyWindow];
-    }
+    if (_keyWindow == nil)      _keyWindow = [[UIApplication sharedApplication] keyWindow];
     
     return _keyWindow;
 }
