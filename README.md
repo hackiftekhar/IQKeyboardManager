@@ -49,6 +49,17 @@ Just drag and drop `IQKeyboardManager` class in your project. In your `appDelega
 ```
 
 
+## Installation
+
+IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
+it simply add the following line to your Podfile:
+
+    pod 'IQKeyboardManager', '~>2.5.0'
+
+
+
+
+
 ## Feature:-
 
  1) Support Device Orientation.
