@@ -1,7 +1,7 @@
 //
 // KeyboardManager.h
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013 Iftekhar Qurashi.
+// Copyright (c) 2013-14 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -91,8 +91,7 @@
  \---------------------------------------------------------------------------------------------------/
  */
 
-// Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to
-// enable debugging.
+/* Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.*/
 #if !IQKEYBOARDMANAGER_DEBUG
 #define NSLog(...)
 #endif
@@ -121,6 +120,7 @@
 - (void)keyboardWillHide:(NSNotification*)aNotification;
 - (void)textFieldViewDidBeginEditing:(NSNotification*)notification;
 - (void)textFieldViewDidEndEditing:(NSNotification*)notification;
+- (void)textFieldViewDidChange:(NSNotification*)notification;
 
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
 
@@ -201,6 +201,7 @@
 			//  Registering for textView notification.
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidChange:) name:UITextViewTextDidChangeNotification object:nil];
 			
             tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [tapGesture setDelegate:self];
@@ -724,6 +725,29 @@
     [self adjustFrame];
 }
 
+// Bug fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string
+-(void)textFieldViewDidChange:(NSNotification*)notification
+{
+    UITextView *textView = (UITextView *)notification.object;
+    
+    CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
+    CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
+
+    if ( overflow > 0 )
+    {
+        // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
+        // Scroll caret to visible area
+        CGPoint offset = textView.contentOffset;
+        offset.y += overflow + 7; // leave 7 pixels margin
+        
+        // Cannot animate with setContentOffset:animated: or caret will not appear
+        [UIView animateWithDuration:.2 animations:^{
+            [textView setContentOffset:offset];
+        }];
+    }
+}
+
+
 #pragma mark AutoResign methods
 
 
@@ -759,6 +783,21 @@
 {
 	return _enableAutoToolbar;
 }
+
+-(void)setEnableAutoToolbar:(BOOL)enableAutoToolbar
+{
+    _enableAutoToolbar = enableAutoToolbar;
+    
+    if (_enableAutoToolbar == YES)
+    {
+        [self addToolbarIfRequired];
+    }
+    else
+    {
+        [self removeToolbarIfRequired];
+    }
+}
+
 
 //	Get all UITextField/UITextView siblings of textFieldView.
 -(NSArray*)responderViews
@@ -829,6 +868,21 @@
 			}
 		}
 	}
+}
+
+
+-(void)removeToolbarIfRequired
+{
+    //	Getting all the sibling textFields.
+	NSArray *siblings = [self responderViews];
+    
+    for (UITextField *textField in siblings)
+    {
+        if ([textField inputAccessoryView].tag == NSIntegerMin)
+        {
+            [textField setInputAccessoryView:nil];
+        }
+    }
 }
 
 //	Previous button action.
