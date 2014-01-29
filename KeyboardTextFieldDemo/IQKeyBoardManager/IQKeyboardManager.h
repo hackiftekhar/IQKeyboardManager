@@ -1,7 +1,7 @@
 //
 // KeyboardManager.h
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013 Iftekhar Qurashi.
+// Copyright (c) 2013-14 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,10 @@
 // THE SOFTWARE.
 
 
+
+/* Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.*/
+
+
 /*!
 	@enum IQAutoToolbarManageBehaviour
  
@@ -37,7 +41,6 @@ typedef enum IQAutoToolbarManageBehaviour
 	IQAutoToolbarByTag,
 	
 }IQAutoToolbarManageBehaviour;
-
 
 #import <Foundation/Foundation.h>
 
