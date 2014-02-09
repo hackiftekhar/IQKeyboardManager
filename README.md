@@ -81,3 +81,17 @@ it simply add the following line to your Podfile:
  9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.
  
  10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
+ 
+ 
+LICENSE
+---
+Distributed under the MIT License.
+
+Contributions
+---
+Any contribution is more than welcome! You can contribute through pull requests and issues on GitHub.
+
+Author
+---
+If you wish to contact me, email at: hack.iftekhar@gmail.com
+
