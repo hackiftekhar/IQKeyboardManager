@@ -16,7 +16,8 @@
 }
 
 - (IBAction)popClicked:(id)sender;
-- (IBAction)pushClicked:(id)sender;
 - (IBAction)presentClicked:(id)sender;
+
+-(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton;
 
 @end
