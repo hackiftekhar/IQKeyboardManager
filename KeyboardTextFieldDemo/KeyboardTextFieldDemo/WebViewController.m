@@ -18,8 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationItem setTitle:@"UIWebView Example"];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gmail.com"]];
     [_webView loadRequest:request];

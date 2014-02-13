@@ -146,6 +146,13 @@ typedef enum IQAutoToolbarManageBehaviour
  */
 + (UIScrollView*)superScrollView:(UIView*)view;
 
+/*!
+    @method superTableView:
+ 
+    @return Returns the UITableView object if any found in view's upper hierarchy.
+ */
++ (UITableView*)superTableView:(UIView*)view;
+
 @end
 
 

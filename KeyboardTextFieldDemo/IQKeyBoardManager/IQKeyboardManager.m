@@ -307,6 +307,22 @@
 
 #pragma mark - Helper Class Methods
 
++ (UITableView*)superTableView:(UIView*)view
+{
+    UIView *superview = view.superview;
+    
+    while (superview)
+    {
+        if ([superview isKindOfClass:[UITableView class]])   
+        {            
+            return (UITableView*)superview;
+        }
+        else    superview = superview.superview;
+    }
+    
+    return nil;
+}
+
 +(UIScrollView*)superScrollView:(UIView*)view
 {
     UIView *superview = view.superview;
@@ -755,38 +771,84 @@
 	return _enableAutoToolbar;
 }
 
++(NSArray*)deepResponderViews:(UIView*)view
+{
+    NSMutableArray *textFields = [[NSMutableArray alloc] init];
+    
+    NSLog(@"%@",view.subviews);
+    
+    //subviews are returning in opposite order. So I sorted it according the frames 'y'.
+    NSArray *subViews = [view.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+        
+        if (obj1.frame.origin.y < obj2.frame.origin.y)	return NSOrderedAscending;
+        
+        else if (obj1.frame.origin.y > obj2.frame.origin.y)	return NSOrderedDescending;
+        
+        else	return NSOrderedSame;
+    }];
+
+    
+    for (UITextField *textField in subViews)
+    {
+        if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
+        {
+                [textFields addObject:textField];
+        }
+        else if (textField.subviews.count)
+        {
+            [textFields addObjectsFromArray:[IQKeyboardManager deepResponderViews:textField]];
+        }
+    }
+    
+    return textFields;
+}
+
 //	Get all UITextField/UITextView siblings of textFieldView.
 -(NSArray*)responderViews
 {
-	//	Getting all siblings
-	NSArray *siblings = textFieldView.superview.subviews;
+    UITableView *tableView = [IQKeyboardManager superTableView:textFieldView];
 
-	//Array of (UITextField/UITextView's).
-	NSMutableArray *textFields = [[NSMutableArray alloc] init];
-	
-	for (UITextField *textField in siblings)
-		if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
-			[textFields addObject:textField];
-	
-	//If autoToolbar behaviour is bySubviews, then returning it.
-	if (_toolbarManageBehaviour == IQAutoToolbarBySubviews)
-	{
-		return textFields;
-	}
-	//If autoToolbar behaviour is by tag, then sorting it according to tag property.
-	else if (_toolbarManageBehaviour == IQAutoToolbarByTag)
-	{
-		return [textFields sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSArray *textFields;
+    
+    if (tableView)
+    {
+        textFields = [IQKeyboardManager deepResponderViews:tableView];
+    }
+    else
+    {
+        //	Getting all siblings
+        NSArray *siblings = textFieldView.superview.subviews;
+        
+        //Array of (UITextField/UITextView's).
+        NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
+        
+        for (UITextField *textField in siblings)
+            if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
+                [tempTextFields addObject:textField];
 
-			if ([(UIView*)obj1 tag] < [(UIView*)obj2 tag])	return NSOrderedAscending;
-			
-			else if ([(UIView*)obj1 tag] > [(UIView*)obj2 tag])	return NSOrderedDescending;
-			
-			else	return NSOrderedSame;
-		}];
-	}
-	else
-		return nil;
+        textFields = tempTextFields;
+    }
+    
+    
+    //If autoToolbar behaviour is bySubviews, then returning it.
+    if (_toolbarManageBehaviour == IQAutoToolbarBySubviews)
+    {
+        return textFields;
+    }
+    //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+    else if (_toolbarManageBehaviour == IQAutoToolbarByTag)
+    {
+        return [textFields sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            
+            if ([(UIView*)obj1 tag] < [(UIView*)obj2 tag])	return NSOrderedAscending;
+            
+            else if ([(UIView*)obj1 tag] > [(UIView*)obj2 tag])	return NSOrderedDescending;
+            
+            else	return NSOrderedSame;
+        }];
+    }
+    else
+        return nil;
 }
 
 -(void)addToolbarIfRequired
@@ -810,18 +872,23 @@
 			if (![textField inputAccessoryView])
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
-
-                //	If firstTextField, then previous should not be enabled.
-                if ([siblings objectAtIndex:0] == textField)
-                {
-                    [textField setEnablePrevious:NO next:YES];
-                }
-                //	If lastTextField then next should not be enaled.
-                else if ([siblings lastObject] == textField)
-                {
-                    [textField setEnablePrevious:YES next:NO];
-                }
 			}
+            
+            //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
+            //	If firstTextField, then previous should not be enabled.
+            if ([siblings objectAtIndex:0] == textField)
+            {
+                [textField setEnablePrevious:NO next:YES];
+            }
+            //	If lastTextField then next should not be enaled.
+            else if ([siblings lastObject] == textField)
+            {
+                [textField setEnablePrevious:YES next:NO];
+            }
+            else
+            {
+                [textField setEnablePrevious:YES next:YES];
+            }
 		}
 	}
 }

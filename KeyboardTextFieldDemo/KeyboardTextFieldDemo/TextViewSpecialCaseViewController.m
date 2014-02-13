@@ -11,7 +11,7 @@
 
 @implementation TextViewSpecialCaseViewController
 
--(void)canAdjustTextView:(UIBarButtonItem*)barButton
+-(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton
 {
     if ([barButton.title isEqualToString:@"Disable Adjust"])
     {
@@ -31,21 +31,12 @@
 {
     [super viewDidLoad];
 
-    [self.navigationItem setTitle:@"Special Case"];
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:[[IQKeyboardManager sharedManager] canAdjustTextView]?@"Disable Adjust":@"Enable Adjust" style:UIBarButtonItemStylePlain target:self action:@selector(canAdjustTextView:)]];
-    
     if (!self.navigationController)
     {
         [buttonPop setHidden:YES];
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
     }
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -64,12 +55,6 @@
 - (IBAction)popClicked:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)pushClicked:(id)sender
-{
-    TextViewSpecialCaseViewController *controller = [[TextViewSpecialCaseViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)presentClicked:(id)sender

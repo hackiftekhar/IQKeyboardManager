@@ -13,12 +13,12 @@
 
 #pragma mark - View lifecycle
 
--(void)enableKeyboardManger:(UIBarButtonItem*)barButton
+-(IBAction)enableKeyboardManger:(UIBarButtonItem*)barButton
 {
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
--(void)disableKeyboardManager:(UIBarButtonItem*)barButton
+-(IBAction)disableKeyboardManager:(UIBarButtonItem*)barButton
 {
     [[IQKeyboardManager sharedManager] setEnable:NO];
 }
@@ -26,11 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationItem setTitle:@"IQKeyboard"];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Enable" style:UIBarButtonItemStylePlain target:self action:@selector(enableKeyboardManger:)]];
-    
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain target:self action:@selector(disableKeyboardManager:)]];
     
     if (!self.navigationController)
     {
@@ -42,21 +37,9 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
 - (IBAction)popClicked:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)pushClicked:(id)sender
-{
-    TextFieldViewController *controller = [[TextFieldViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)presentClicked:(id)sender
