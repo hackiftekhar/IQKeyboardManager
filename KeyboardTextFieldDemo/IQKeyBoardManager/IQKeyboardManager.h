@@ -140,7 +140,7 @@ typedef enum IQAutoToolbarManageBehaviour
  
  @return Returns the topViewController in stack of topMostController.
  */
-+(UIViewController*)currentViewController;
++ (UIViewController*)currentViewController;
 
 /*!
     @method superScrollView:
@@ -247,21 +247,21 @@ typedef enum IQAutoToolbarManageBehaviour
  
     @param nextAction: Next button action name. Usually 'nextAction:(IQSegmentedNextPrevious*)segmentedControl'.
  */
--(id)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction;
+- (id)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction;
 
 /*!
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
  */
--(id)init	__attribute__((unavailable("init is not available, should use initWithTarget:previousAction:nextAction instead")));
+- (id)init	__attribute__((unavailable("init is not available, should use initWithTarget:previousAction:nextAction instead")));
 
 /*!
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
  */
-+(id)new	__attribute__((unavailable("new is not available, should use initWithTarget:previousAction:nextAction instead")));
++ (id)new	__attribute__((unavailable("new is not available, should use initWithTarget:previousAction:nextAction instead")));
 
 @end
 

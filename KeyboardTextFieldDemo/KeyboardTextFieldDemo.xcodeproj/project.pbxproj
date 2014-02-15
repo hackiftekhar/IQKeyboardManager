@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9DA11E9518AFA8CB00865136 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA11E9318AFA8CB00865136 /* icon@2x.png */; };
+		9DA11E9618AFA8CB00865136 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DA11E9418AFA8CB00865136 /* icon.png */; };
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
 		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9DA11E9318AFA8CB00865136 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		9DA11E9418AFA8CB00865136 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		AFF236BD17CA224400760F6C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
 		AFF236BE17CA224400760F6C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
@@ -65,6 +69,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9DA11E7818AF9B0800865136 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9DA11E9318AFA8CB00865136 /* icon@2x.png */,
+				9DA11E9418AFA8CB00865136 /* icon.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		AFF236BC17CA224400760F6C /* IQKeyBoardManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +139,7 @@
 		C0B63BA61781FAB1008D3B64 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9DA11E7818AF9B0800865136 /* Icons */,
 				AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */,
 				C0B63BA71781FAB1008D3B64 /* KeyboardTextFieldDemo-Info.plist */,
 				C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */,
@@ -189,7 +203,9 @@
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
 				C0917F2A1858821500B9FD31 /* IQButtonBarArrowRight@2x.png in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
+				9DA11E9618AFA8CB00865136 /* icon.png in Resources */,
 				C0917F291858821500B9FD31 /* IQButtonBarArrowLeft@2x.png in Resources */,
+				9DA11E9518AFA8CB00865136 /* icon@2x.png in Resources */,
 				C09EF36318AD649000810FEF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +252,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -271,6 +288,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -292,6 +310,7 @@
 		C0B63BBA1781FAB1008D3B64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -309,6 +328,7 @@
 		C0B63BBB1781FAB1008D3B64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/KeyboardTextFieldDemo-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
