@@ -106,15 +106,15 @@
 
 //  Private helper methods
 - (void)adjustFrame;
--(void)addToolbarIfRequired;
--(void)removeToolbarIfRequired;
+- (void)addToolbarIfRequired;
+- (void)removeToolbarIfRequired;
 
--(void)previousAction:(UISegmentedControl*)segmentedControl;
--(void)nextAction:(UISegmentedControl*)segmentedControl;
--(void)doneAction:(UIBarButtonItem*)barButton;
+- (void)previousAction:(UISegmentedControl*)segmentedControl;
+- (void)nextAction:(UISegmentedControl*)segmentedControl;
+- (void)doneAction:(UIBarButtonItem*)barButton;
 
 //  Private function to manipulate RootViewController's frame with animation.
--(void)setRootViewFrame:(CGRect)frame;
+- (void)setRootViewFrame:(CGRect)frame;
 
 //  Notification methods
 - (void)keyboardWillShow:(NSNotification*)aNotification;
@@ -167,7 +167,7 @@
 //Remove compiler warning
 - (void)barTintColor
 {
-
+    
 }
 
 
@@ -206,7 +206,7 @@
 			
             tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [tapGesture setDelegate:self];
-
+            
             //  Default settings
 			[self setKeyboardDistanceFromTextField:10.0];
             animationDuration = 0.25;
@@ -320,8 +320,8 @@
     
     while (superview)
     {
-        if ([superview isKindOfClass:[UITableView class]])   
-        {            
+        if ([superview isKindOfClass:[UITableView class]])
+        {
             return (UITableView*)superview;
         }
         else    superview = superview.superview;
@@ -336,8 +336,8 @@
     
     while (superview)
     {
-        if ([superview isKindOfClass:[UIScrollView class]])   
-        {            
+        if ([superview isKindOfClass:[UIScrollView class]])
+        {
             return (UIScrollView*)superview;
         }
         else    superview = superview.superview;
@@ -350,7 +350,7 @@
 + (UIViewController*) topMostController
 {
     UIViewController *topController = [[IQKeyboardManager sharedManager] rootViewController];
-
+    
     //  Getting topMost ViewController
     while ([topController presentedViewController])	topController = [topController presentedViewController];
 	
@@ -363,7 +363,7 @@
     UIViewController *currentViewController = [IQKeyboardManager topMostController];
     
     while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
-            currentViewController = [(UINavigationController*)currentViewController topViewController];
+        currentViewController = [(UINavigationController*)currentViewController topViewController];
     
     return currentViewController;
 }
@@ -403,7 +403,7 @@
     CGRect textFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:window];
     //  Getting RootViewRect.
     CGRect rootViewRect = [[rootController view] frame];
-
+    
     CGFloat move = 0;
     //  Move positive = textField is hidden.
     //  Move negative = textField is showing.
@@ -429,9 +429,9 @@
 	
     //  Getting it's superScrollView.
     UIScrollView *superScrollView = [IQKeyboardManager superScrollView:textFieldView];
-
+    
     //If there was a lastScrollView.
-    if (lastScrollView) 
+    if (lastScrollView)
     {
         //If we can't find current superScrollView, then setting lastScrollView to it's original form.
         if (superScrollView == nil)
@@ -454,14 +454,14 @@
         lastScrollView = superScrollView;
         startingContentOffset = superScrollView.contentOffset;
     }
-
+    
     //  Special case for ScrollView.
     //  If we found lastScrollView then setting it's contentOffset to show textField.
     if (lastScrollView)
     {
         UIView *lastView = textFieldView;
         UIScrollView *superScrollView = lastScrollView;
-
+        
         while (superScrollView)
         {
             CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
@@ -470,7 +470,11 @@
             shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y-5);   //-5 is for good UI.
             
             move -= (shouldOffsetY-superScrollView.contentOffset.y);
-            [superScrollView setContentOffset:CGPointMake(superScrollView.contentOffset.x, shouldOffsetY) animated:YES];
+
+            //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+            [UIView animateWithDuration:animationDuration animations:^{
+                superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+            }];
             
             //  Getting it's superScrollView.
             lastView = superScrollView;
@@ -478,8 +482,8 @@
         }
     }
     //Going ahead. No else if.
-
-
+    
+    
     //Special case for UITextView(When it's hight is too big to fit on screen.
     {
         CGFloat initialMove = move;
@@ -515,8 +519,8 @@
             }];
         }
     }
-
-
+    
+    
     //  Special case for iPad modalPresentationStyle.
     if ([[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
         [[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
@@ -635,7 +639,11 @@
         animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     }
 	
-    [lastScrollView setContentOffset:startingContentOffset animated:YES];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        lastScrollView.contentOffset = startingContentOffset;
+    }];
+    
     lastScrollView = nil;
     startingContentOffset = CGPointZero;
     //  Setting rootViewController frame to it's original position.
@@ -651,7 +659,7 @@
 	
     //Due to orientation callback we need to resave it's original frame.
     textFieldViewIntialFrame = textFieldView.frame;
-
+    
     //  Getting keyboard animation duration
     CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
@@ -703,7 +711,7 @@
     //  Getting object
     textFieldView = notification.object;
     textFieldViewIntialFrame = textFieldView.frame;
-
+    
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if (_enableAutoToolbar)
     {
@@ -711,11 +719,11 @@
         if ([textFieldView isKindOfClass:[UITextView class]] && textFieldView.inputAccessoryView == nil)
         {
             UIView *view = textFieldView;
-
+            
             //Resigning becoming first responder with some delay.
             [UIView animateWithDuration:0.00001 animations:^{
                 [self addToolbarIfRequired];
-
+                
             }completion:^(BOOL finished) {
                 [view resignFirstResponder];
                 [view becomeFirstResponder];
@@ -726,11 +734,11 @@
             [self addToolbarIfRequired];
         }
     }
-
+    
 	if (_enable == NO)	return;
 	
     [textFieldView.window addGestureRecognizer:tapGesture];
-    	
+    
     if (isKeyboardShowing == NO)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
@@ -749,7 +757,7 @@
     
     CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
     CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
-
+    
     if ( overflow > 0 )
     {
         // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
@@ -831,13 +839,13 @@
         
         else	return NSOrderedSame;
     }];
-
+    
     
     for (UITextField *textField in subViews)
     {
         if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
         {
-                [textFields addObject:textField];
+            [textFields addObject:textField];
         }
         else if (textField.subviews.count)
         {
@@ -852,7 +860,7 @@
 -(NSArray*)responderViews
 {
     UITableView *tableView = [IQKeyboardManager superTableView:textFieldView];
-
+    
     NSArray *textFields;
     
     if (tableView)
@@ -870,7 +878,7 @@
         for (UITextField *textField in siblings)
             if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
                 [tempTextFields addObject:textField];
-
+        
         textFields = tempTextFields;
     }
     
