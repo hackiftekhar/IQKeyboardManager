@@ -47,6 +47,7 @@
 		9DFD564C18BCA781001007A2 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFD564B18BCA781001007A2 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		9DFD56AC18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist */; };
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
 		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
@@ -98,6 +99,7 @@
 		9DA11E9418AFA8CB00865136 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		9DFD564B18BCA781001007A2 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		9DFD56AB18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "KeyboardTextFieldDemo-Info.plist"; sourceTree = "<group>"; };
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		AFF236BD17CA224400760F6C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
 		AFF236BE17CA224400760F6C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C0B63BA11781FAB1008D3B64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C0B63BA71781FAB1008D3B64 /* KeyboardTextFieldDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardTextFieldDemo-Info.plist"; sourceTree = "<group>"; };
 		C0B63BA91781FAB1008D3B64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C0B63BAB1781FAB1008D3B64 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0B63BAD1781FAB1008D3B64 /* KeyboardTextFieldDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyboardTextFieldDemo-Prefix.pch"; sourceTree = "<group>"; };
@@ -297,8 +298,8 @@
 			children = (
 				9DA11E7818AF9B0800865136 /* Icons */,
 				AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */,
-				C0B63BA71781FAB1008D3B64 /* KeyboardTextFieldDemo-Info.plist */,
 				C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */,
+				9DFD56AB18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist */,
 				C0B63BAB1781FAB1008D3B64 /* main.m */,
 				C0B63BAD1781FAB1008D3B64 /* KeyboardTextFieldDemo-Prefix.pch */,
 			);
@@ -437,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DFD56AC18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist in Resources */,
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
 				9DA11E9618AFA8CB00865136 /* icon.png in Resources */,
