@@ -9,6 +9,7 @@
     IBOutlet UIButton *buttonPop;
     IBOutlet UIButton *buttonPush;
     IBOutlet UIButton *buttonPresent;
+    IBOutlet UIBarButtonItem *barButtonAdjust;
 }
 
 - (IBAction)popClicked:(id)sender;
