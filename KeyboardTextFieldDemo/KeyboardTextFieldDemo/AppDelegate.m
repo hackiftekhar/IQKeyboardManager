@@ -17,7 +17,7 @@
     [[IQKeyboardManager sharedManager] setEnable:YES];
     
     [[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:15];
-	//Enabling autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
+	//Enabling autoToolbar behaviour. If It is set to NO. You have to manually create IQToolbar for keyboard.
 	[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 
 	//Setting toolbar behavious to IQAutoToolbarBySubviews. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
@@ -28,6 +28,8 @@
     
     //Giving permission to modify TextView's frame
     [[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
+    
+    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
     
     return YES;
 }

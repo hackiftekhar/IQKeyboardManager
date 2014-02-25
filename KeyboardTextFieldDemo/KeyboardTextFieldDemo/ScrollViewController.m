@@ -1,10 +1,6 @@
 //
 //  ViewController.m
 //  KeyboardTextFieldDemo
-//
-//  Created by Mohd Iftekhar Qurashi on 11/12/13.
-//  Copyright (c) 2013 Canopus. All rights reserved.
-//
 
 #import "ScrollViewController.h"
 
