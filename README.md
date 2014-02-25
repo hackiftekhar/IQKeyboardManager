@@ -66,7 +66,7 @@ Just drag and drop `IQKeyBoardManager` directory from demo project to your proje
 
 ```
 
-
+If you don't want to import these files you can use an older version of `IQKeyboardManager` in Tag 2.6.
 
 ## Feature:-
 
