@@ -29,6 +29,7 @@
     //Giving permission to modify TextView's frame
     [[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
     
+    //Show TextField placeholder texts on autoToolbar
     [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
     
     return YES;

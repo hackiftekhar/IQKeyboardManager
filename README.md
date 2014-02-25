@@ -7,10 +7,25 @@ Often while developing an app, We ran into an issues where the iPhone UIKeyboard
 ![image](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)
 
 
-Usage
----
-Just drag and drop `IQKeyboardManager` class in your project. In your `appDelegate.m` write just one line of code. This will handle all UITextField/UITextView covering problem.
+Installation
+==========================
 
+Cocoapod
+---
+IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
+it simply add the following line to your Podfile:
+
+    pod 'IQKeyboardManager', '~>2.5.0'
+
+Framework:-
+---
+Link your project against `KeyboardManager.framework` found in "KeyboardManagerFramework" directory. Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory. add `-ObjC` flag in `other linker flag`. In your `appDelegate.m` import `#import <KeyboardManager/KeyboardManager.h>`. Write just one line of code.
+
+Source Code:-
+---
+Just drag and drop `IQKeyBoardManager` directory from demo project to your project. In your `appDelegate.m` import `#import "IQKeyboardManager.h"`. Write just one line of code.
+
+## Usage
 ```  objc
 //AppDelegate.m
 
@@ -31,7 +46,7 @@ Just drag and drop `IQKeyboardManager` class in your project. In your `appDelega
     //(Optional)Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
     //[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 
-    //(Optional)Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hirarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
+    //(Optional)Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
     //[[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarBySubviews];
 
     //(Optional)Resign textField if touched outside of UITextField/UITextView.
@@ -40,6 +55,9 @@ Just drag and drop `IQKeyboardManager` class in your project. In your `appDelega
     //(Optional)Giving permission to modify TextView's frame
     //[[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
 
+    //(Optional)Show TextField placeholder texts on autoToolbar
+    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
+
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -47,16 +65,6 @@ Just drag and drop `IQKeyboardManager` class in your project. In your `appDelega
 
 
 ```
-
-
-## Installation
-
-IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
-it simply add the following line to your Podfile:
-
-    pod 'IQKeyboardManager', '~>2.5.0'
-
-
 
 
 
