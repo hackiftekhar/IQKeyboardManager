@@ -27,6 +27,15 @@
 {
     [super viewDidLoad];
 
+    if ([[IQKeyboardManager sharedManager] canAdjustTextView])
+    {
+        [barButtonAdjust setTitle:@"Disable Adjust"];
+    }
+    else
+    {
+        [barButtonAdjust setTitle:@"Enable Adjust"];
+    }
+    
     if (!self.navigationController)
     {
         [buttonPop setHidden:YES];

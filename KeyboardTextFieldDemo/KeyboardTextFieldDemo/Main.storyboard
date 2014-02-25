@@ -11,7 +11,7 @@
             <objects>
                 <viewController id="0Q6-ll-O76" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gUR-Ba-awN">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416.00000000000006"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YTF-Ud-alc">
@@ -129,7 +129,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tt5-47-EvZ">
-                                <rect key="frame" x="115" y="376" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="115" y="376" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Push">
@@ -144,7 +144,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8D8-Vm-PL6">
-                                <rect key="frame" x="210" y="376" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="210" y="376" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Present">
@@ -159,7 +159,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tsQ-Ga-YxO">
-                                <rect key="frame" x="20" y="376" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="20" y="376" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Pop">
@@ -238,7 +238,7 @@
             <objects>
                 <viewController id="0gz-x6-ylR" customClass="ScrollViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u7r-Hn-wmF">
-                        <rect key="frame" x="0.0" y="64" width="320" height="415.99999999999994"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="kBd-DW-TbG">
@@ -458,7 +458,7 @@
             <objects>
                 <viewController id="Z1T-rR-mis" customClass="TextViewSpecialCaseViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AmX-Ef-2T2">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416.00000000000006"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Mt5-Re-5fB">
@@ -470,7 +470,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YAU-By-AUd">
-                                <rect key="frame" x="117" y="377" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="117" y="377" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Push">
@@ -485,7 +485,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ngA-qN-Hmt">
-                                <rect key="frame" x="212" y="377" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="212" y="377" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Present">
@@ -500,7 +500,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AdL-78-gAt">
-                                <rect key="frame" x="22" y="377" width="89.999999999999986" height="30"/>
+                                <rect key="frame" x="22" y="377" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Pop">
@@ -557,6 +557,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="barButtonAdjust" destination="i3m-8w-WCe" id="OmP-aY-gNE"/>
                         <outlet property="buttonPop" destination="AdL-78-gAt" id="4hT-7V-Ges"/>
                         <outlet property="buttonPresent" destination="ngA-qN-Hmt" id="xFV-k7-cCQ"/>
                         <outlet property="buttonPush" destination="YAU-By-AUd" id="JOx-mn-PtG"/>
