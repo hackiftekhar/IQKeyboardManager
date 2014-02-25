@@ -45,9 +45,12 @@
     @param action: Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
  
     @param shouldShowPlaceholder: A boolean to indicate whether to show textField placeholder on IQToolbar'.
+ 
+    @param titleText: text to show as title in IQToolbar'.
  */
 - (void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action;
 - (void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder;
+- (void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action titleText:(NSString*)titleText;
 
 
 /*!
@@ -62,9 +65,12 @@
     @param doneAction: Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
  
     @param shouldShowPlaceholder: A boolean to indicate whether to show textField placeholder on IQToolbar'.
+ 
+    @param titleText: text to show as title in IQToolbar'.
  */
 - (void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction;
 - (void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder;
+- (void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction titleText:(NSString*)titleText;
 
 /*!
     @method addPreviousNextDoneOnKeyboardWithTarget:previousAction:nextAction:doneAction
@@ -80,9 +86,12 @@
     @param doneAction: Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
  
     @param shouldShowPlaceholder: A boolean to indicate whether to show textField placeholder on IQToolbar'.
+ 
+    @param titleText: text to show as title in IQToolbar'.
  */
 - (void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction;
 - (void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder;
+- (void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction titleText:(NSString*)titleText;
 
 /*!
     @method setEnablePrevious:next:

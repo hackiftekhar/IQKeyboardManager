@@ -38,8 +38,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (Toolbar)
 
-#pragma mark - Toolbar on UIKeyboard
--(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
     //  If can't set InputAccessoryView. Then return
     if (![self respondsToSelector:@selector(setInputAccessoryView:)])    return;
@@ -48,8 +47,8 @@ IQ_LoadCategory(IQUIViewToolbar)
     IQToolbar *toolbar = [[IQToolbar alloc] init];
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
-
-    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])
+    
+    if ([titleText length])
     {
         CGRect buttonFrame;
         
@@ -70,10 +69,10 @@ IQ_LoadCategory(IQUIViewToolbar)
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:[(UITextField*)self placeholder]];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
         [items addObject:title];
     }
-
+    
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
     IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
@@ -84,9 +83,20 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Adding button to toolBar.
     [toolbar setItems:items];
-     
+    
     //  Setting toolbar to textFieldPhoneNumber keyboard.
     [(UITextField*)self setInputAccessoryView:toolbar];
+}
+
+
+#pragma mark - Toolbar on UIKeyboard
+-(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
+{
+    NSString *title;
+    
+    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])    title = [(UITextField*)self placeholder];
+    
+    [self addDoneOnKeyboardWithTarget:target action:action titleText:title];
 }
 
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action
@@ -94,25 +104,24 @@ IQ_LoadCategory(IQUIViewToolbar)
     [self addDoneOnKeyboardWithTarget:target action:action shouldShowPlaceholder:NO];
 }
 
-
--(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
 {
     //  If can't set InputAccessoryView. Then return
     if (![self respondsToSelector:@selector(setInputAccessoryView:)])    return;
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-
+    
     NSMutableArray *items = [[NSMutableArray alloc] init];
-
+    
     //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
     IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
     [items addObject:cancelButton];
     
-    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])
+    if ([titleText length])
     {
         CGRect buttonFrame;
-
+        
         if (IQ_IS_IOS7_OR_GREATER)
         {
             /*
@@ -132,10 +141,10 @@ IQ_LoadCategory(IQUIViewToolbar)
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-57.0-16, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:[(UITextField*)self placeholder]];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
         [items addObject:title];
     }
-
+    
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
     IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
@@ -143,7 +152,7 @@ IQ_LoadCategory(IQUIViewToolbar)
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
     IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
     [items addObject:doneButton];
-
+    
     //  Adding button to toolBar.
     [toolbar setItems:items];
     
@@ -151,12 +160,21 @@ IQ_LoadCategory(IQUIViewToolbar)
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
+-(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+{
+    NSString *title;
+    
+    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])    title = [(UITextField*)self placeholder];
+    
+    [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:title];
+}
+
 -(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction
 {
     [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction shouldShowPlaceholder:NO];
 }
 
--(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
 {
     //If can't set InputAccessoryView. Then return
     if (![self respondsToSelector:@selector(setInputAccessoryView:)])    return;
@@ -189,7 +207,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 		[items addObject:segButton];
 	}
 	
-    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])
+    if ([titleText length])
     {
         CGRect buttonFrame;
         
@@ -211,8 +229,8 @@ IQ_LoadCategory(IQUIViewToolbar)
              */
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-57.0-16, 44);
         }
-
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:[(UITextField*)self placeholder]];
+        
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
         [items addObject:title];
     }
     
@@ -228,10 +246,20 @@ IQ_LoadCategory(IQUIViewToolbar)
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
+-(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+{
+    NSString *title;
+    
+    if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])    title = [(UITextField*)self placeholder];
+    
+    [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:title];
+}
+
 -(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction
 {
     [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction shouldShowPlaceholder:NO];
 }
+
 
 -(void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled
 {
