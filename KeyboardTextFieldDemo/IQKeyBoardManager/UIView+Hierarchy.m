@@ -75,7 +75,7 @@ IQ_LoadCategory(IQUIViewHierarchy)
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UITextField *textField in siblings)
-        if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
+        if ([textField canBecomeFirstResponder] /*&& ![textField isInsideAlertView]*/  && ![textField isInsideSearchBar])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
@@ -98,7 +98,7 @@ IQ_LoadCategory(IQUIViewHierarchy)
     
     for (UITextField *textField in subViews)
     {
-        if (([textField isKindOfClass:[UITextField class]] || [textField isKindOfClass:[UITextView class]]) && textField.userInteractionEnabled && textField.enabled)
+        if ([textField canBecomeFirstResponder])
         {
             [textFields addObject:textField];
         }
@@ -111,5 +111,36 @@ IQ_LoadCategory(IQUIViewHierarchy)
     return textFields;
 }
 
+-(BOOL)isInsideSearchBar
+{
+    UIView *superview = self.superview;
+    
+    while (superview)
+    {
+        if ([superview isKindOfClass:[UISearchBar class]])
+        {
+            return YES;
+        }
+        else    superview = superview.superview;
+    }
+    
+    return NO;
+}
+
+//-(BOOL)isInsideAlertView
+//{
+//    UIView *superview = self.superview;
+//    
+//    while (superview)
+//    {
+//        if ([superview isKindOfClass:[UIAlertView class]])
+//        {
+//            return YES;
+//        }
+//        else    superview = superview.superview;
+//    }
+//    
+//    return NO;
+//}
 
 @end

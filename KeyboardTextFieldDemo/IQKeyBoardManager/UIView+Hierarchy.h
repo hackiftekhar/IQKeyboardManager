@@ -55,5 +55,7 @@
  */
 - (NSArray*)deepResponderViews;
 
+-(BOOL)isInsideSearchBar;
+//-(BOOL)isInsideAlertView;
 
 @end

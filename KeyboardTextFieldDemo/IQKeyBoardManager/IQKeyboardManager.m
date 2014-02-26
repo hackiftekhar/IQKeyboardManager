@@ -776,7 +776,7 @@
 			[[siblings objectAtIndex:0] addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
 		}
 	}
-	else
+	else if(siblings.count)
 	{
 		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
 		for (UITextField *textField in siblings)
