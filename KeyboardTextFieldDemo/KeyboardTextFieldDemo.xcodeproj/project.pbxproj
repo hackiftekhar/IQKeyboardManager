@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
+		9D03F07018BDC3CA00F4970D /* KeyboardTextFieldDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist */; };
 		9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
 		9D0BB82118BB18E200667349 /* UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* UIView+IQKeyboardToolbar.m */; };
 		9D0BB82418BB195300667349 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
@@ -47,7 +49,6 @@
 		9DFD564C18BCA781001007A2 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFD564B18BCA781001007A2 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
-		9DFD56AC18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist */; };
 		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
 		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
@@ -64,6 +65,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
+		9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialCaseViewController.m; sourceTree = "<group>"; };
 		9D0BB81C18BB18AA00667349 /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
 		9D0BB81D18BB18AA00667349 /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
 		9D0BB81F18BB18E200667349 /* UIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */,
 				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
 				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
+				9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */,
+				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -438,7 +443,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DFD56AC18BCB281001007A2 /* KeyboardTextFieldDemo-Info.plist in Resources */,
+				9D03F07018BDC3CA00F4970D /* KeyboardTextFieldDemo-Info.plist in Resources */,
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
 				9DA11E9618AFA8CB00865136 /* icon.png in Resources */,
@@ -511,6 +516,7 @@
 				C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */,
 				9D0BB88718BB293D00667349 /* NSArray+Sort.m in Sources */,
 				9D0BB88418BB261500667349 /* UIWindow+Hierarchy.m in Sources */,
+				9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
