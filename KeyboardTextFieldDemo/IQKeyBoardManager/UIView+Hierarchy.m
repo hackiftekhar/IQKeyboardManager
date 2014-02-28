@@ -26,6 +26,7 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITextField.h>
+#import <UIKit/UISearchBar.h>
 
 #import "IQKeyboardManagerConstantsInternal.h"
 IQ_LoadCategory(IQUIViewHierarchy)

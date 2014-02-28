@@ -31,10 +31,6 @@
 {
     [self sizeToFit];
     
-    CGRect frame = self.frame;
-    frame.size.height = 44.0;
-    self.frame = frame;
-    
     if (!IQ_IS_IOS7_OR_GREATER)
     {
         [self setBarStyle:UIBarStyleBlackTranslucent];
@@ -59,6 +55,17 @@
         [self initialize];
     }
     return self;
+}
+
+//To resize IQToolbar on device rotation.
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+    CGRect origFrame = self.frame;
+    [self sizeToFit];
+    CGRect newFrame = self.frame;
+    newFrame.origin.y += origFrame.size.height - newFrame.size.height;
+    self.frame = newFrame;
 }
 
 @end
