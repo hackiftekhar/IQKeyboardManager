@@ -56,7 +56,7 @@ Just drag and drop `IQKeyBoardManager` directory from demo project to your proje
     //[[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
 
     //(Optional)Show TextField placeholder texts on autoToolbar
-    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
+    //[[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
 
     [self.window makeKeyAndVisible];
     return YES;
