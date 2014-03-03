@@ -244,7 +244,7 @@
     //  If can't get rootViewController then printing warning to user.
     if (controller == nil)  NSLog(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager");
     
-    [UIView animateWithDuration:animationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         //  Setting it's new frame
         [controller.view setFrame:frame];
     } completion:^(BOOL finished) {
@@ -339,10 +339,11 @@
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
                 
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                [UIView animateWithDuration:animationDuration animations:^{
+                [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+                } completion:^(BOOL finished) {
                 }];
-                
+
                 //  Getting it's superScrollView.
                 lastView = superScrollView;
                 superScrollView = [lastView superScrollView];
@@ -381,8 +382,10 @@
         
         if (_canAdjustTextView)
         {
-            [UIView animateWithDuration:animationDuration animations:^{
+            //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+            [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [_textFieldView setFrame:CGRectMake(CGRectGetMinX(_textFieldView.frame),CGRectGetMinY(_textFieldView.frame), CGRectGetWidth(_textFieldView.frame),CGRectGetHeight(_textFieldView.frame)-(initialMove-move))];
+            } completion:^(BOOL finished) {
             }];
         }
     }
@@ -491,8 +494,10 @@
     if (_textFieldView == nil)   return;
     
     //Due to orientation callback we need to set it's original position.
-    [UIView animateWithDuration:animationDuration animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         _textFieldView.frame = textFieldViewIntialFrame;
+    } completion:^(BOOL finished) {
+
     }];
     
     //  Boolean to know keyboard is showing/hiding
@@ -507,8 +512,10 @@
     }
 	
     
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         lastScrollView.contentOffset = startingContentOffset;
+    } completion:^(BOOL finished) {
+
     }];
     
     lastScrollView = nil;
@@ -570,8 +577,9 @@
 {
     [_textFieldView.window removeGestureRecognizer:tapGesture];
     
-    [UIView animateWithDuration:animationDuration animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         _textFieldView.frame = textFieldViewIntialFrame;
+    } completion:^(BOOL finished) {
     }];
     
     //Setting object to nil
@@ -639,8 +647,10 @@
         offset.y += overflow + 7; // leave 7 pixels margin
         
         // Cannot animate with setContentOffset:animated: or caret will not appear
-        [UIView animateWithDuration:.2 animations:^{
+        [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             [textView setContentOffset:offset];
+        } completion:^(BOOL finished) {
+
         }];
     }
 }
