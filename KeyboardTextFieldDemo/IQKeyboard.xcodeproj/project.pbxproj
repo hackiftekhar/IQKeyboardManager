@@ -1,0 +1,825 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
+		9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */; };
+		9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
+		9D0BB82118BB18E200667349 /* UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* UIView+IQKeyboardToolbar.m */; };
+		9D0BB82418BB195300667349 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
+		9D0BB84218BB1AE100667349 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0BB84118BB1AE100667349 /* XCTest.framework */; };
+		9D0BB84C18BB1AE100667349 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0BB84A18BB1AE100667349 /* InfoPlist.strings */; };
+		9D0BB84E18BB1AE100667349 /* KeyboardManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB84D18BB1AE100667349 /* KeyboardManagerTests.m */; };
+		9D0BB85718BB1B8F00667349 /* UIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB85618BB1B8F00667349 /* UIView+Hierarchy.m */; };
+		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
+		9D0BB87A18BB232B00667349 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0BB87818BB232B00667349 /* InfoPlist.strings */; };
+		9D0BB88418BB261500667349 /* UIWindow+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88318BB261500667349 /* UIWindow+Hierarchy.m */; };
+		9D0BB88718BB293D00667349 /* NSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88618BB293D00667349 /* NSArray+Sort.m */; };
+		9D0BB88A18BB46E000667349 /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88918BB46E000667349 /* IQBarButtonItem.m */; };
+		9D18420A18C7015A00CF17FF /* IQTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D18420818C7015A00CF17FF /* IQTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D18420B18C7015A00CF17FF /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18420918C7015A00CF17FF /* IQTextView.m */; };
+		9D18420C18C7015A00CF17FF /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18420918C7015A00CF17FF /* IQTextView.m */; };
+		9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2A18C5A8D6006591CB /* original.jpg */; };
+		9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */; };
+		9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2C18C5A8D6006591CB /* icon60.png */; };
+		9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */; };
+		9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2E18C5A8D6006591CB /* icon57.png */; };
+		9D8E5DA918BC7C61005695CF /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */; };
+		9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DAB18BC8E1D005695CF /* ViewController.m */; };
+		9D8E5DB018BC993F005695CF /* IQKeyboardManagerConstantsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8E5DAF18BC993F005695CF /* IQKeyboardManagerConstantsInternal.h */; };
+		9DF8A9E118BB5ED8008E93B8 /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AFF236BD17CA224400760F6C /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF8A9E218BB5ED8008E93B8 /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
+		9DF8A9E318BB5ED8008E93B8 /* IQToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB81C18BB18AA00667349 /* IQToolbar.h */; };
+		9DF8A9E418BB5ED8008E93B8 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
+		9DF8A9E518BB5ED8008E93B8 /* IQBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB88818BB46E000667349 /* IQBarButtonItem.h */; };
+		9DF8A9E618BB5ED8008E93B8 /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88918BB46E000667349 /* IQBarButtonItem.m */; };
+		9DF8A9E718BB5ED8008E93B8 /* IQSegmentedNextPrevious.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */; };
+		9DF8A9E818BB5ED8008E93B8 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
+		9DF8A9E918BB5ED8008E93B8 /* IQKeyboardManagerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF8A9EA18BB5ED8008E93B8 /* UIView+IQKeyboardToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB81F18BB18E200667349 /* UIView+IQKeyboardToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF8A9EB18BB5ED8008E93B8 /* UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* UIView+IQKeyboardToolbar.m */; };
+		9DF8A9EC18BB5ED8008E93B8 /* UIView+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB85518BB1B8F00667349 /* UIView+Hierarchy.h */; };
+		9DF8A9ED18BB5ED8008E93B8 /* UIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB85618BB1B8F00667349 /* UIView+Hierarchy.m */; };
+		9DF8A9EE18BB5ED8008E93B8 /* UIWindow+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB88218BB261500667349 /* UIWindow+Hierarchy.h */; };
+		9DF8A9EF18BB5ED8008E93B8 /* UIWindow+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88318BB261500667349 /* UIWindow+Hierarchy.m */; };
+		9DF8A9F018BB5ED8008E93B8 /* NSArray+Sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB88518BB293D00667349 /* NSArray+Sort.h */; };
+		9DF8A9F118BB5ED8008E93B8 /* NSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB88618BB293D00667349 /* NSArray+Sort.m */; };
+		9DF8AA3918BB6305008E93B8 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */; };
+		9DF8AA3A18BB6305008E93B8 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */; };
+		9DFD564A18BCA765001007A2 /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */; };
+		9DFD564C18BCA781001007A2 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DFD564B18BCA781001007A2 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
+		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
+		AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
+		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
+		C07E20BE18590085001699A8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20BA18590085001699A8 /* WebViewController.m */; };
+		C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20C1185900BD001699A8 /* TextFieldViewController.m */; };
+		C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */; };
+		C09EF36318AD649000810FEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09EF36218AD648F00810FEF /* Main.storyboard */; };
+		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
+		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
+		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */; };
+		C0B63BAC1781FAB1008D3B64 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAB1781FAB1008D3B64 /* main.m */; };
+		C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
+		9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialCaseViewController.m; sourceTree = "<group>"; };
+		9D0BB81C18BB18AA00667349 /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
+		9D0BB81D18BB18AA00667349 /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
+		9D0BB81F18BB18E200667349 /* UIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
+		9D0BB82018BB18E200667349 /* UIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
+		9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQSegmentedNextPrevious.h; sourceTree = "<group>"; };
+		9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQSegmentedNextPrevious.m; sourceTree = "<group>"; };
+		9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
+		9D0BB82F18BB1AE100667349 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9D0BB83018BB1AE100667349 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9D0BB83118BB1AE100667349 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		9D0BB84018BB1AE100667349 /* KeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D0BB84118BB1AE100667349 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		9D0BB84918BB1AE100667349 /* KeyboardManagerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardManagerTests-Info.plist"; sourceTree = "<group>"; };
+		9D0BB84B18BB1AE100667349 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9D0BB84D18BB1AE100667349 /* KeyboardManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardManagerTests.m; sourceTree = "<group>"; };
+		9D0BB85518BB1B8F00667349 /* UIView+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Hierarchy.h"; sourceTree = "<group>"; };
+		9D0BB85618BB1B8F00667349 /* UIView+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Hierarchy.m"; sourceTree = "<group>"; };
+		9D0BB87318BB232B00667349 /* KeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = KeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D0BB87718BB232B00667349 /* KeyboardManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardManager-Info.plist"; sourceTree = "<group>"; };
+		9D0BB87918BB232B00667349 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9D0BB88218BB261500667349 /* UIWindow+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Hierarchy.h"; sourceTree = "<group>"; };
+		9D0BB88318BB261500667349 /* UIWindow+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Hierarchy.m"; sourceTree = "<group>"; };
+		9D0BB88518BB293D00667349 /* NSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sort.h"; sourceTree = "<group>"; };
+		9D0BB88618BB293D00667349 /* NSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sort.m"; sourceTree = "<group>"; };
+		9D0BB88818BB46E000667349 /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
+		9D0BB88918BB46E000667349 /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
+		9D18420818C7015A00CF17FF /* IQTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTextView.h; sourceTree = "<group>"; };
+		9D18420918C7015A00CF17FF /* IQTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTextView.m; sourceTree = "<group>"; };
+		9D3FBD2A18C5A8D6006591CB /* original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = original.jpg; sourceTree = "<group>"; };
+		9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon60@2x.png"; sourceTree = "<group>"; };
+		9D3FBD2C18C5A8D6006591CB /* icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon60.png; sourceTree = "<group>"; };
+		9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon57@2x.png"; sourceTree = "<group>"; };
+		9D3FBD2E18C5A8D6006591CB /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
+		9D8E5DA718BC7C61005695CF /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTitleBarButtonItem.h; sourceTree = "<group>"; };
+		9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTitleBarButtonItem.m; sourceTree = "<group>"; };
+		9D8E5DAA18BC8E1D005695CF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9D8E5DAB18BC8E1D005695CF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9D8E5DAF18BC993F005695CF /* IQKeyboardManagerConstantsInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstantsInternal.h; sourceTree = "<group>"; };
+		9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		9DFD564B18BCA781001007A2 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboard-Info.plist"; sourceTree = "<group>"; };
+		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		AFF236BD17CA224400760F6C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
+		AFF236BE17CA224400760F6C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
+		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		C07E20B41858FF54001699A8 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
+		C07E20B918590085001699A8 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		C07E20BA18590085001699A8 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		C07E20C0185900BD001699A8 /* TextFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldViewController.h; sourceTree = "<group>"; };
+		C07E20C1185900BD001699A8 /* TextFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
+		C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewSpecialCaseViewController.h; sourceTree = "<group>"; };
+		C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewSpecialCaseViewController.m; sourceTree = "<group>"; };
+		C09EF36218AD648F00810FEF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C0B63B9B1781FAB1008D3B64 /* IQKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C0B63BA11781FAB1008D3B64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C0B63BA91781FAB1008D3B64 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C0B63BAB1781FAB1008D3B64 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C0B63BAD1781FAB1008D3B64 /* IQKeyboard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IQKeyboard-Prefix.pch"; sourceTree = "<group>"; };
+		C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9D0BB83D18BB1AE100667349 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D0BB84218BB1AE100667349 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D0BB86E18BB232B00667349 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */,
+				9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */,
+				9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0B63B981781FAB1008D3B64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */,
+				C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */,
+				C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D0BB82E18BB1AE100667349 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D0BB82F18BB1AE100667349 /* Foundation.framework */,
+				9D0BB83018BB1AE100667349 /* CoreData.framework */,
+				9D0BB83118BB1AE100667349 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9D0BB84718BB1AE100667349 /* KeyboardManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9D0BB84D18BB1AE100667349 /* KeyboardManagerTests.m */,
+				9D0BB84818BB1AE100667349 /* Supporting Files */,
+			);
+			path = KeyboardManagerTests;
+			sourceTree = "<group>";
+		};
+		9D0BB84818BB1AE100667349 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D0BB84918BB1AE100667349 /* KeyboardManagerTests-Info.plist */,
+				9D0BB84A18BB1AE100667349 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9D0BB87518BB232B00667349 /* KeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				9D0BB87618BB232B00667349 /* Supporting Files */,
+			);
+			path = KeyboardManager;
+			sourceTree = "<group>";
+		};
+		9D0BB87618BB232B00667349 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D0BB87718BB232B00667349 /* KeyboardManager-Info.plist */,
+				9D0BB87818BB232B00667349 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DA11E7818AF9B0800865136 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9D3FBD2A18C5A8D6006591CB /* original.jpg */,
+				9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */,
+				9D3FBD2C18C5A8D6006591CB /* icon60.png */,
+				9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */,
+				9D3FBD2E18C5A8D6006591CB /* icon57.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		AFF236BC17CA224400760F6C /* IQKeyBoardManager */ = {
+			isa = PBXGroup;
+			children = (
+				9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */,
+				AFF236BD17CA224400760F6C /* IQKeyboardManager.h */,
+				AFF236BE17CA224400760F6C /* IQKeyboardManager.m */,
+				9D0BB81C18BB18AA00667349 /* IQToolbar.h */,
+				9D0BB81D18BB18AA00667349 /* IQToolbar.m */,
+				9D18420818C7015A00CF17FF /* IQTextView.h */,
+				9D18420918C7015A00CF17FF /* IQTextView.m */,
+				9D0BB88818BB46E000667349 /* IQBarButtonItem.h */,
+				9D0BB88918BB46E000667349 /* IQBarButtonItem.m */,
+				9D8E5DA718BC7C61005695CF /* IQTitleBarButtonItem.h */,
+				9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */,
+				9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */,
+				9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */,
+				9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */,
+				9D8E5DAF18BC993F005695CF /* IQKeyboardManagerConstantsInternal.h */,
+				9D0BB81F18BB18E200667349 /* UIView+IQKeyboardToolbar.h */,
+				9D0BB82018BB18E200667349 /* UIView+IQKeyboardToolbar.m */,
+				9D0BB85518BB1B8F00667349 /* UIView+Hierarchy.h */,
+				9D0BB85618BB1B8F00667349 /* UIView+Hierarchy.m */,
+				9D0BB88218BB261500667349 /* UIWindow+Hierarchy.h */,
+				9D0BB88318BB261500667349 /* UIWindow+Hierarchy.m */,
+				9D0BB88518BB293D00667349 /* NSArray+Sort.h */,
+				9D0BB88618BB293D00667349 /* NSArray+Sort.m */,
+				9DFD564B18BCA781001007A2 /* KeyboardManager.h */,
+			);
+			path = IQKeyBoardManager;
+			sourceTree = "<group>";
+		};
+		C0B63B901781FAB0008D3B64 = {
+			isa = PBXGroup;
+			children = (
+				AFF236BC17CA224400760F6C /* IQKeyBoardManager */,
+				C0B63BA51781FAB1008D3B64 /* KeyboardTextFieldDemo */,
+				9D0BB84718BB1AE100667349 /* KeyboardManagerTests */,
+				9D0BB87518BB232B00667349 /* KeyboardManager */,
+				C0B63B9E1781FAB1008D3B64 /* Frameworks */,
+				C0B63B9C1781FAB1008D3B64 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C0B63B9C1781FAB1008D3B64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0B63B9B1781FAB1008D3B64 /* IQKeyboard.app */,
+				9D0BB84018BB1AE100667349 /* KeyboardManagerTests.xctest */,
+				9D0BB87318BB232B00667349 /* KeyboardManager.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0B63B9E1781FAB1008D3B64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0B63B9F1781FAB1008D3B64 /* UIKit.framework */,
+				C0B63BA11781FAB1008D3B64 /* Foundation.framework */,
+				C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */,
+				9D0BB84118BB1AE100667349 /* XCTest.framework */,
+				9D0BB82E18BB1AE100667349 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C0B63BA51781FAB1008D3B64 /* KeyboardTextFieldDemo */ = {
+			isa = PBXGroup;
+			children = (
+				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,
+				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
+				C09EF36218AD648F00810FEF /* Main.storyboard */,
+				C07E20C0185900BD001699A8 /* TextFieldViewController.h */,
+				C07E20C1185900BD001699A8 /* TextFieldViewController.m */,
+				C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */,
+				C07E20B41858FF54001699A8 /* ScrollViewController.m */,
+				C07E20B918590085001699A8 /* WebViewController.h */,
+				C07E20BA18590085001699A8 /* WebViewController.m */,
+				C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */,
+				C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */,
+				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
+				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
+				9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */,
+				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
+				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
+			);
+			path = KeyboardTextFieldDemo;
+			sourceTree = "<group>";
+		};
+		C0B63BA61781FAB1008D3B64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9DA11E7818AF9B0800865136 /* Icons */,
+				AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */,
+				C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */,
+				9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */,
+				C0B63BAB1781FAB1008D3B64 /* main.m */,
+				C0B63BAD1781FAB1008D3B64 /* IQKeyboard-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9D0BB86F18BB232B00667349 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DFD564C18BCA781001007A2 /* KeyboardManager.h in Headers */,
+				9DF8A9E118BB5ED8008E93B8 /* IQKeyboardManager.h in Headers */,
+				9DF8A9E918BB5ED8008E93B8 /* IQKeyboardManagerConstants.h in Headers */,
+				9D18420A18C7015A00CF17FF /* IQTextView.h in Headers */,
+				9DF8A9EA18BB5ED8008E93B8 /* UIView+IQKeyboardToolbar.h in Headers */,
+				9DF8A9E518BB5ED8008E93B8 /* IQBarButtonItem.h in Headers */,
+				9D8E5DB018BC993F005695CF /* IQKeyboardManagerConstantsInternal.h in Headers */,
+				9DF8A9E718BB5ED8008E93B8 /* IQSegmentedNextPrevious.h in Headers */,
+				9DF8A9E318BB5ED8008E93B8 /* IQToolbar.h in Headers */,
+				9DF8A9F018BB5ED8008E93B8 /* NSArray+Sort.h in Headers */,
+				9DF8A9EC18BB5ED8008E93B8 /* UIView+Hierarchy.h in Headers */,
+				9DF8A9EE18BB5ED8008E93B8 /* UIWindow+Hierarchy.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9D0BB83F18BB1AE100667349 /* KeyboardManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D0BB85218BB1AE100667349 /* Build configuration list for PBXNativeTarget "KeyboardManagerTests" */;
+			buildPhases = (
+				9D0BB83C18BB1AE100667349 /* Sources */,
+				9D0BB83D18BB1AE100667349 /* Frameworks */,
+				9D0BB83E18BB1AE100667349 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyboardManagerTests;
+			productName = KeyboardManagerTests;
+			productReference = 9D0BB84018BB1AE100667349 /* KeyboardManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9D0BB87218BB232B00667349 /* KeyboardManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D0BB87F18BB232B00667349 /* Build configuration list for PBXNativeTarget "KeyboardManager" */;
+			buildPhases = (
+				9D0BB86D18BB232B00667349 /* Sources */,
+				9D0BB86E18BB232B00667349 /* Frameworks */,
+				9D0BB86F18BB232B00667349 /* Headers */,
+				9D0BB87018BB232B00667349 /* Resources */,
+				9D0BB87118BB232B00667349 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyboardManager;
+			productName = KeyboardManager;
+			productReference = 9D0BB87318BB232B00667349 /* KeyboardManager.framework */;
+			productType = "com.apple.product-type.framework.static";
+		};
+		C0B63B9A1781FAB1008D3B64 /* IQKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0B63BB91781FAB1008D3B64 /* Build configuration list for PBXNativeTarget "IQKeyboard" */;
+			buildPhases = (
+				C0B63B971781FAB1008D3B64 /* Sources */,
+				C0B63B981781FAB1008D3B64 /* Frameworks */,
+				C0B63B991781FAB1008D3B64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IQKeyboard;
+			productName = KeyboardTextFieldDemo;
+			productReference = C0B63B9B1781FAB1008D3B64 /* IQKeyboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0B63B921781FAB0008D3B64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Canopus;
+				TargetAttributes = {
+					9D0BB83F18BB1AE100667349 = {
+						TestTargetID = C0B63B9A1781FAB1008D3B64;
+					};
+				};
+			};
+			buildConfigurationList = C0B63B951781FAB0008D3B64 /* Build configuration list for PBXProject "IQKeyboard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C0B63B901781FAB0008D3B64;
+			productRefGroup = C0B63B9C1781FAB1008D3B64 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0B63B9A1781FAB1008D3B64 /* IQKeyboard */,
+				9D0BB83F18BB1AE100667349 /* KeyboardManagerTests */,
+				9D0BB87218BB232B00667349 /* KeyboardManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9D0BB83E18BB1AE100667349 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D0BB84C18BB1AE100667349 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D0BB87018BB232B00667349 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DF8AA3A18BB6305008E93B8 /* IQKeyboardManager.bundle in Resources */,
+				9D0BB87A18BB232B00667349 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0B63B991781FAB1008D3B64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */,
+				9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */,
+				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
+				9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */,
+				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
+				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
+				9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */,
+				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
+				9DF8AA3918BB6305008E93B8 /* IQKeyboardManager.bundle in Resources */,
+				C09EF36318AD649000810FEF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9D0BB87118BB232B00667349 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/python;
+			shellScript = "# TAG: BUILD SCRIPT (do not remove this comment)\n# Build script generated using https://github.com/kstenerud/iOS-Universal-Framework Mk 8 (beta 2012-06-16)\nimport logging\n\n\n##############################################################################\n#\n# Configuration\n#\n##############################################################################\n\n# Select which kind of framework to build.\n#\n# Note: Due to issues with Xcode's build process, if you select\n#       'embeddedframework', it will still show the regular framework\n#       (as a symlink) along side of the embedded framework. Be sure to\n#       instruct your users to copy/move the embedded framework in this case!\n#\n# If your framework contains resources such as images, nibs, momds, plists,\n# zipfiles and such, choose 'embeddedframework'.\n#\n# If your framework contains no resources, choose 'framework'.\n#\nconfig_framework_type = 'framework'\n#config_framework_type = 'embeddedframework'\n\n# Open the build directory in Finder when the universal framework is\n# successfully built.\n#\n# This value can be overridden by setting the UFW_OPEN_BUILD_DIR env variable\n# to True or False.\n#\n# Recommended setting: True\n#\nconfig_open_build_dir = True\n\n# If true, ensures that all public headers are stored in the framework under\n# the same directory hierarchy as they were in the source tree.\n#\n# Xcode by default places all headers at the same top level, but every other\n# build tool in the known universe preserves directory structure. For simple\n# libraries it doesn't really matter much, but for ports of existing software\n# packages or for bigger libraries, it makes sense to have more structure.\n#\n# The default is set to \"False\" since that's what most Xcode users are used to.\n#\n# Recommended setting: True for deep hierarchy projects, False otherwise.\n#\nconfig_deep_header_hierarchy = False\n\n# Specify where the top of the public header hierarchy is. This path is\n# relative to the project's dir (PROJECT_DIR). You can reference environment\n# variables using templating syntax (e.g. \"${TARGET_NAME}/Some/Subdir\")\n#\n# NOTE: Only used if config_deep_header_hierarchy is True.\n#\n# If this is set to None, the script will attempt to figure out for itself\n# where the top of the header hierarchy is by looking for common path prefixes\n# in the public header files. This process can fail if:\n# - You only have one public header file.\n# - Your source header files don't all have a common root.\n#\n# A common approach is to use \"${TARGET_NAME}\", working under the assumption\n# that all of your header files share the common root of a directory under\n# your project with the same name as your target (which is the Xcode default).\n#\n# Recommended setting: \"${TARGET_NAME}\"\n#\nconfig_deep_header_top = \"${TARGET_NAME}\"\n\n# Warn when \"DerivedData\" is detected in any of the header, library, or\n# framework search paths. In almost all cases, references to directories under\n# DerivedData are added as a result of an Xcode bug and must be manually\n# removed.\n#\n# Recommended setting: True\n#\nconfig_warn_derived_data = True\n\n# Warn if no headers were marked public in this framework.\n#\n# Recommended setting: True\n#\nconfig_warn_no_public_headers = True\n\n# Cause the build to fail if any warnings are issued.\n#\n# Recommended setting: True\n#\nconfig_fail_on_warnings = True\n\n# Minimum log level\n#\n# Recommended setting: logging.INFO\n#\nconfig_log_level = logging.INFO\n\n\n##############################################################################\n#\n# Don't touch anything below here unless you know what you're doing.\n#\n##############################################################################\n\nimport collections\nimport json\nimport os\nimport re\nimport shlex\nimport shutil\nimport string\nimport subprocess\nimport sys\nimport time\nimport traceback\n\n\n##############################################################################\n#\n# Globals\n#\n##############################################################################\n\nlog = logging.getLogger('UFW')\n\nissued_warnings = False\n\n\n##############################################################################\n#\n# Classes\n#\n##############################################################################\n\n# Allows the slave build to communicate with the master build.\n#\nclass BuildState:\n\n    def __init__(self):\n        self.reload()\n\n    def reset(self):\n        self.slave_platform = None\n        self.slave_architectures = []\n        self.slave_linked_archive_paths = []\n        self.slave_built_fw_path = None\n        self.slave_built_embedded_fw_path = None\n\n    def set_slave_properties(self, architectures,\n                             linked_archive_paths,\n                             built_fw_path,\n                             built_embedded_fw_path):\n        self.slave_platform = os.environ['PLATFORM_NAME']\n        self.slave_architectures = architectures\n        self.slave_linked_archive_paths = linked_archive_paths\n        self.slave_built_fw_path = built_fw_path\n        self.slave_built_embedded_fw_path = built_embedded_fw_path\n\n    def get_save_path(self):\n        return os.path.join(os.environ['PROJECT_TEMP_DIR'], \"ufw_build_state.json\")\n\n    def persist(self):\n        filename = self.get_save_path()\n        parent = os.path.dirname(filename)\n        if not os.path.isdir(parent):\n            os.makedirs(parent)\n        with open(filename, \"w\") as f:\n            f.write(json.dumps(self.__dict__))\n\n    def reload(self):\n        self.reset()\n        filename = self.get_save_path()\n        if os.path.exists(filename):\n            with open(filename, \"r\") as f:\n                new_dict = json.loads(f.read())\n                if new_dict is not None:\n                    self.__dict__ = dict(self.__dict__.items() + new_dict.items())\n\n\n# Holds information about the current project and build environment.\n#\nclass Project:\n\n    def __init__(self, filename):\n        sourcecode_types = ['sourcecode.c.c',\n                            'sourcecode.c.objc',\n                            'sourcecode.cpp.cpp',\n                            'sourcecode.cpp.objcpp',\n                            'sourcecode.asm.asm',\n                            'sourcecode.asm.llvm',\n                            'sourcecode.nasm']\n\n        self.build_state = BuildState()\n        self.project_data = self.load_from_file(filename)\n        self.target = filter(lambda x: x['name'] == os.environ['TARGET_NAME'], self.project_data['targets'])[0]\n        self.public_headers = self.get_build_phase_files('PBXHeadersBuildPhase', lambda x: x.get('settings', False) and x['settings'].get('ATTRIBUTES', False) and 'Public' in x['settings']['ATTRIBUTES'])\n        self.static_libraries = self.get_build_phase_files('PBXFrameworksBuildPhase', lambda x: x['fileRef']['fileType'] == 'archive.ar' and x['fileRef']['sourceTree'] not in ['DEVELOPER_DIR', 'SDKROOT'])\n        self.static_frameworks = self.get_build_phase_files('PBXFrameworksBuildPhase', lambda x: x['fileRef']['fileType'] == 'wrapper.framework' and x['fileRef']['sourceTree'] not in ['DEVELOPER_DIR', 'SDKROOT'])\n        self.compilable_sources = self.get_build_phase_files('PBXSourcesBuildPhase', lambda x: x['fileRef']['fileType'] in sourcecode_types)\n        self.header_paths = [os.path.join(*x['pathComponents']) for x in self.public_headers]\n\n        self.headers_dir = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['CONTENTS_FOLDER_PATH'], 'Headers')\n        self.libtool_path = os.path.join(os.environ['DT_TOOLCHAIN_DIR'], 'usr', 'bin', 'libtool')\n        self.project_filename = os.path.join(os.environ['PROJECT_FILE_PATH'], \"project.pbxproj\")\n        self.local_exe_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])\n        self.local_architectures = os.environ['ARCHS'].split(' ')\n        self.local_built_fw_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['WRAPPER_NAME'])\n        self.local_built_embedded_fw_path = os.path.splitext(self.local_built_fw_path)[0] + \".embeddedframework\"\n        self.local_linked_archive_paths = [self.get_linked_ufw_archive_path(arch) for arch in self.local_architectures]\n        self.local_platform = os.environ['PLATFORM_NAME']\n        other_platforms = os.environ['SUPPORTED_PLATFORMS'].split(' ')\n        other_platforms.remove(self.local_platform)\n        self.other_platform = other_platforms[0]\n\n        sdk_name = os.environ['SDK_NAME']\n        if not sdk_name.startswith(self.local_platform):\n            raise Exception(\"%s didn't start with %s\" % (sdk_name, self.local_platform))\n        self.sdk_version = sdk_name[len(self.local_platform):]\n\n    # Load an Xcode project file.\n    #\n    def load_from_file(self, filename):\n        project_file = json.loads(subprocess.check_output([\"plutil\", \"-convert\", \"json\", \"-o\", \"-\", filename]))\n        all_objects = project_file['objects']\n        del project_file['objects']\n        for obj in all_objects.values():\n            self.fix_keys(obj)\n        self.unpack_objects(self.build_dereference_list(all_objects, None, None, project_file))\n        self.unpack_objects(self.build_dereference_list(all_objects, None, None, all_objects.values()))\n        project_data = project_file['rootObject']\n        self.build_full_paths(project_data, splitpath(os.environ['SOURCE_ROOT']))\n        return project_data\n\n    def is_key(self, obj):        \n        return isinstance(obj, basestring) and len(obj) == 24 and re.search('^[0-9a-fA-F]+$', obj) is not None\n    \n    def build_dereference_list(self, all_objects, parent, key, obj):\n        deref_list = []\n        if self.is_key(obj):\n            dereferenced = all_objects.get(obj, obj)\n            if dereferenced is not obj:\n                deref_list.append((parent, key, obj, dereferenced))\n        elif isinstance(obj, collections.Mapping):\n            for k, v in obj.iteritems():\n                deref_list += self.build_dereference_list(all_objects, obj, k, v)\n        elif isinstance(obj, collections.Iterable) and not isinstance(obj, basestring):\n            for item in obj:\n                deref_list += self.build_dereference_list(all_objects, obj, None, item)\n        return deref_list\n    \n    def unpack_objects(self, deref_list):\n        for parent, key, orig, obj in deref_list:\n            if key is None:\n                parent.remove(orig)\n                parent.append(obj)\n            else:\n                parent[key] = obj\n\n    # Store the full path, separated into components, to a node inside the node\n    # as \"pathComponents\". Also recurse into that node if it's a group.\n    #\n    def build_full_paths(self, node, base_path):\n        # Some nodes are relative to a different source tree, specified as an\n        # env variable.\n        if node.get('sourceTree', '<group>') != '<group>':\n            new_base_path = os.environ.get(node['sourceTree'], None)\n            if new_base_path:\n                base_path = splitpath(new_base_path)\n        # Add the current node's path, if any.\n        if node.get('path', False):\n            base_path = base_path + splitpath(node['path'])\n        node['pathComponents'] = base_path\n        # Recurse if this is a group.\n        if node['isa'] == 'PBXGroup':\n            for child in node['children']:\n                self.build_full_paths(child, base_path)\n        elif node['isa'] == 'PBXProject':\n            self.build_full_paths(node['mainGroup'], base_path)\n            self.build_full_paths(node['productRefGroup'], base_path)\n            for child in node['targets']:\n                self.build_full_paths(child, base_path)\n            projectRefs = node.get('projectReferences', None)\n            if projectRefs is not None:\n                for child in projectRefs[0].values():\n                    self.build_full_paths(child, base_path)\n\n    # Fix up any inconvenient keys.\n    #\n    def fix_keys(self, obj):\n        key_remappings = {'lastKnownFileType': 'fileType', 'explicitFileType': 'fileType'}\n        for key in list(set(key_remappings.keys()) & set(obj.keys())):\n            obj[key_remappings[key]] = obj[key]\n            del obj[key]\n\n    # Get the files from a build phase.\n    #\n    def get_build_phase_files(self, build_phase_name, filter_func):\n        build_phase = filter(lambda x: x['isa'] == build_phase_name, self.target['buildPhases'])[0]\n        build_files = filter(filter_func, build_phase['files'])\n        return [x['fileRef'] for x in build_files]\n\n    # Get the truncated paths of all headers that start with the specified\n    # relative path. Paths are read and returned as fully separated lists.\n    # e.g. ['Some', 'Path', 'To', 'A', 'Header'] with relative_path of\n    # ['Some', 'Path'] gets truncated to ['To', 'A', 'Header']\n    #\n    def movable_headers_relative_to(self, relative_path):\n        rel_path_length = len(relative_path)\n        result = filter(lambda path: len(path) >= rel_path_length and\n                                     path[:rel_path_length] == relative_path, self.header_paths)\n        return [path[rel_path_length:] for path in result]\n\n    # Get the full path to where a linkable archive (library or framework)\n    # is supposed to be.\n    #\n    def get_linked_archive_path(self, architecture):\n        return os.path.join(os.environ['OBJECT_FILE_DIR_%s' % os.environ['CURRENT_VARIANT']],\n                            architecture,\n                            os.environ['EXECUTABLE_NAME'])\n\n    # Get the full path to our custom linked archive of the project.\n    #\n    def get_linked_ufw_archive_path(self, architecture):\n        return self.get_linked_archive_path(architecture) + \".ufwbuild\"\n\n    # Get the full path to the executable of an archive.\n    #\n    def get_exe_path(self, node):\n        path = os.path.join(*node['pathComponents'])\n        if node['fileType'] == 'wrapper.framework':\n            # Frameworks are directories, so go one deeper\n            path = os.path.join(path, os.path.splitext(node['pathComponents'][-1])[0])\n        return path\n\n    # Get the path to the directory containing the archive.\n    #\n    def get_containing_path(self, node):\n        return os.path.join(*node['pathComponents'])\n    \n    def get_archive_search_paths(self):\n        log.info(\"Search paths = %s\" % set([self.get_containing_path(fw) for fw in self.static_frameworks] + [self.get_containing_path(fw) for fw in self.static_libraries]))\n        return set([self.get_containing_path(fw) for fw in self.static_frameworks] + [self.get_containing_path(fw) for fw in self.static_libraries])\n\n    # Command to link all objects of a single architecture.\n    #\n    def get_single_arch_link_command(self, architecture):\n        cmd = [self.libtool_path,\n               \"-static\",\n               \"-arch_only\", architecture,\n               \"-syslibroot\", os.environ['SDKROOT'],\n               \"-L%s\" % os.environ['TARGET_BUILD_DIR'],\n               \"-filelist\", os.environ['LINK_FILE_LIST_%s_%s' % (os.environ['CURRENT_VARIANT'], architecture)]]\n        if os.environ.get('OTHER_LDFLAGS', False):\n            cmd += [os.environ['OTHER_LDFLAGS']]\n        if os.environ.get('WARNING_LDFLAGS', False):\n            cmd += [os.environ['WARNING_LDFLAGS']]\n#        cmd += [\"-L%s\" % libpath for libpath in self.get_archive_search_paths()]\n        cmd += [self.get_exe_path(fw) for fw in self.static_frameworks]\n        cmd += [self.get_exe_path(lib) for lib in self.static_libraries]\n        cmd += [\"-o\", self.get_linked_ufw_archive_path(architecture)]\n        return cmd\n\n    # Command to link all local architectures for the current configuration\n    # into an archive. This reads all libraries + the UFW-built archives and\n    # overwrites the final product.\n    #\n    def get_local_archs_link_command(self):\n        cmd = [self.libtool_path,\n               \"-static\"]\n        cmd += self.local_linked_archive_paths\n        cmd += [self.get_exe_path(fw) for fw in self.static_frameworks]\n        cmd += [self.get_exe_path(lib) for lib in self.static_libraries]\n        cmd += [\"-o\", os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])]\n        return cmd\n\n    # Command to link all architectures into a universal archive.\n    # This reads all UFW-built archives and overwrites the final product.\n    #\n    def get_all_archs_link_command(self):\n        cmd = [self.libtool_path,\n               \"-static\"]\n        cmd += self.local_linked_archive_paths + self.build_state.slave_linked_archive_paths\n        cmd += [\"-o\", os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])]\n        return cmd\n\n    # Build up an environment for the slave process. This uses BUILD_ROOT\n    # and TEMP_ROOT to convert all environment variables to values suitable\n    # for the slave build environment so that xcodebuild doesn't try to build\n    # in the project directory under \"build\".\n    #\n    def get_slave_environment(self):\n        ignored = ['LD_MAP_FILE_PATH',\n        'HEADER_SEARCH_PATHS',\n        'LIBRARY_SEARCH_PATHS',\n        'FRAMEWORK_SEARCH_PATHS']\n        build_root = os.environ['BUILD_ROOT']\n        temp_root = os.environ['TEMP_ROOT']\n        newenv = {}\n        for key, value in os.environ.items():\n            if key not in ignored and not key.startswith('LINK_FILE_LIST_') and not key.startswith('LD_DEPENDENCY_'):\n                if build_root in value or temp_root in value:\n                    newenv[key] = value.replace(self.local_platform, self.other_platform)\n        return newenv\n\n    # Command to invoke xcodebuild on the slave platform.\n    #\n    def get_slave_project_build_command(self):\n        cmd = [\"xcodebuild\",\n               \"-project\",\n               os.environ['PROJECT_FILE_PATH'],\n               \"-target\",\n               os.environ['TARGET_NAME'],\n               \"-configuration\",\n               os.environ['CONFIGURATION'],\n               \"-sdk\",\n               self.other_platform + self.sdk_version]\n        cmd += [\"%s=%s\" % (key, value) for key, value in self.get_slave_environment().items()]\n        cmd += [\"UFW_MASTER_PLATFORM=\" + os.environ['PLATFORM_NAME']]\n        cmd += [os.environ['ACTION']]\n        return cmd\n\n\n\n##############################################################################\n#\n# Utility Functions\n#\n##############################################################################\n\n# Split a path into a list of path components.\n#\ndef splitpath(path, maxdepth=20):\n     (head, tail) = os.path.split(path)\n     return splitpath(head, maxdepth - 1) + [tail] if maxdepth and head and head != path else [ head or tail ]\n\n# Remove all subdirectories under a path.\n#\ndef remove_subdirs(path, ignore_files):\n    if os.path.exists(path):\n        for filename in filter(lambda x: x not in ignore_files, os.listdir(path)):\n            fullpath = os.path.join(path, filename)\n            if os.path.isdir(fullpath):\n                log.info(\"Remove %s\" % fullpath)\n                shutil.rmtree(fullpath)\n\n# Make whatever parent paths are necessary for a path to exist.\n#\ndef ensure_path_exists(path):\n    if not os.path.isdir(path):\n        os.makedirs(path)\n\n# Make whatever parent paths are necessary for a path's parent to exist.\n#\ndef ensure_parent_exists(path):\n    parent = os.path.dirname(path)\n    if not os.path.isdir(parent):\n        os.makedirs(parent)\n\n# Remove a file or dir if it exists.\n#\ndef remove_path(path):\n    if os.path.exists(path):\n        if os.path.isdir(path) and not os.path.islink(path):\n            shutil.rmtree(path)\n        else:\n            os.remove(path)\n\n# Move a file or dir, replacing the destination if it exists.\n#\ndef move_file(src, dst):\n    if src == dst or not os.path.isfile(src):\n        return\n    log.info(\"Move %s to %s\" % (src, dst))\n    ensure_parent_exists(dst)\n    remove_path(dst)\n    shutil.move(src, dst)\n\n# Copy a file or dir, replacing the destination if it exists already.\n#\ndef copy_overwrite(src, dst):\n    if src != dst:\n        remove_path(dst)\n        ensure_parent_exists(dst)\n        shutil.copytree(src, dst, symlinks=True)\n\n# Attempt to symlink link_path -> link_to.\n# link_to must be a path relative to link_path's parent and must exist.\n# If link_path already exists, do nothing.\n#\ndef attempt_symlink(link_path, link_to):\n    # Only allow linking to an existing file\n    os.stat(os.path.abspath(os.path.join(link_path, \"..\", link_to)))\n\n    # Only make the link if it hasn't already been made\n    if not os.path.exists(link_path):\n        log.info(\"Symlink %s -> %s\" % (link_path, link_to))\n        os.symlink(link_to, link_path)\n\n# Takes the last entry in an array-based path and returns a normal path\n# relative to base_path.\n#\ndef top_level_file_path(base_path, path_list):\n    return os.path.join(base_path, os.path.split(path_list[-1])[-1])\n\n# Takes all entries in an array-based path and returns a normal path\n# relative to base_path.\n#\ndef full_file_path(base_path, path_list):\n    return os.path.join(*([base_path] + path_list))\n\n# Print a command before executing it.\n# Also print out all output from the command to STDOUT.\n#\ndef print_and_call(cmd):\n    log.info(\"Cmd \" + \" \".join(cmd))\n    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n    result = p.communicate()[0]\n    if len(result) > 0:\n        log.info(result)\n    if p.returncode != 0:\n        raise subprocess.CalledProcessError(p.returncode, cmd)\n\n# Special print-and-call command for the slave build that strips out\n# xcodebuild's spammy list of environment variables.\n#\ndef print_and_call_slave_build(cmd, other_platform):\n    separator = '=== BUILD NATIVE TARGET '\n    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n    result = p.communicate()[0].split(separator)\n    if len(result) == 1:\n        result = result[0]\n    else:\n        result = separator + result[1]\n    log.info(\"Cmd \" + \" \".join(cmd) + \"\\n\" + result)\n    if p.returncode != 0:\n        raise subprocess.CalledProcessError(p.returncode, cmd)\n\n# Issue a warning and record that a warning has been issued.\n#\ndef issue_warning(msg, *args, **kwargs):\n    global issued_warnings\n    issued_warnings = True\n    log.warn(msg, *args, **kwargs)\n\n\n\n##############################################################################\n#\n# Main Application\n#\n##############################################################################\n\n# Check if we are running as master.\n#\ndef is_master():\n    return os.environ.get('UFW_MASTER_PLATFORM', os.environ['PLATFORM_NAME']) == os.environ['PLATFORM_NAME']\n\n# DerivedData should almost never appear in any framework, library, or header\n# search paths. However, Xcode will sometimes add them in, so we check to make\n# sure.\n#\ndef check_for_derived_data_in_search_paths(project):\n    search_path_keys = [\"FRAMEWORK_SEARCH_PATHS\", \"LIBRARY_SEARCH_PATHS\", \"HEADER_SEARCH_PATHS\"]\n    build_configs = project.target['buildConfigurationList']['buildConfigurations']\n    build_settings = filter(lambda x: x['name'] == os.environ['CONFIGURATION'], build_configs)[0]['buildSettings']\n    \n    found_something = False\n    for path_key in filter(lambda x: x in build_settings, search_path_keys):\n        path = build_settings[path_key]\n        if \"DerivedData\" in path:\n            found_something = True\n            log.warn(\"Derived data in %s\" % path)\n            issue_warning(\"'%s' contains reference to 'DerivedData'.\" % path_key)\n    if found_something:\n        log.warn(\"Check your build settings and remove any entries that contain paths inside the DerivedData folder.\")\n        log.warn(\"Otherwise you can disable this warning by changing 'config_warn_derived_data' in this script.\")\n\n# Link local architectures into their respective archives.\n#\ndef link_local_archs(project):\n    for arch in project.local_architectures:\n        print_and_call(project.get_single_arch_link_command(arch))\n\n# Link only the local architectures into the final product, not the slave\n# architectures. For iphoneos, this will be armv6, armv7. For simulator, this\n# will be i386.\n#\ndef link_combine_local_archs(project):\n    print_and_call(project.get_local_archs_link_command())\n\n# Link all architectures into the final product.\n#\ndef link_combine_all_archs(project):\n    print_and_call(project.get_all_archs_link_command())\n\n# Check if we should open the build directory after a successful build.\n#\ndef should_open_build_dir():\n    env_setting = os.environ.get('UFW_OPEN_BUILD_DIR', None)\n    if env_setting is not None:\n        return env_setting\n\n    return config_open_build_dir\n\n# Open the build dir in Finder.\n#\ndef open_build_dir():\n    print_and_call(['open', os.environ['TARGET_BUILD_DIR']])\n\n# Check if the build was started by selecting \"Archive\" under \"Product\" in\n# Xcode.\n#\ndef is_archive_build():\n    # ACTION is always 'build', but perhaps Apple will fix this someday?\n    archive_build = os.environ['ACTION'] == 'archive'\n\n    if not archive_build:\n        # This can be passed in as an env variable when building from command line.\n        archive_build = os.environ.get('UFW_ACTION', None) == 'archive'\n\n    build_dir = splitpath(os.environ['BUILD_DIR'])\n    if not archive_build:\n        # This partial path is used when you select \"archive\" from within Xcode.\n        archive_build = 'ArchiveIntermediates' in build_dir\n\n    # It only counts as a full archive build if this target is being built into\n    # its own build dir (not being built as a dependency of another target)\n    if archive_build:\n        archive_build = os.environ['TARGET_NAME'] in build_dir\n    \n    return archive_build\n\n# Xcode by default throws all public headers into the top level directory.\n# This function moves them to their expected deep hierarchy.\n#\ndef build_deep_header_hierarchy(project):\n    header_path_top = config_deep_header_top\n    if not header_path_top:\n        header_path_top = os.path.commonprefix(project.header_paths)\n    else:\n        header_path_top = splitpath(header_path_top)\n\n    built_headers_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['PUBLIC_HEADERS_FOLDER_PATH'])\n    movable_headers = project.movable_headers_relative_to(header_path_top)\n\n    # Remove subdirs if they only contain files that have been rebuilt\n    ignore_headers = filter(lambda x: not os.path.isfile(top_level_file_path(built_headers_path, x)), movable_headers)\n    remove_subdirs(built_headers_path, [file[0] for file in ignore_headers])\n\n    # Move rebuilt headers into their proper subdirs\n    for header in movable_headers:\n        move_file(top_level_file_path(built_headers_path, header), full_file_path(built_headers_path, header))\n\n# Add all symlinks needed to make a full framework structure:\n#\n# MyFramework.framework\n# |-- MyFramework -> Versions/Current/MyFramework\n# |-- Headers -> Versions/Current/Headers\n# |-- Resources -> Versions/Current/Resources\n# `-- Versions\n#     |-- A\n#     |   |-- MyFramework\n#     |   |-- Headers\n#     |   |   `-- MyFramework.h\n#     |   `-- Resources\n#     |       |-- Info.plist\n#     |       |-- MyViewController.nib\n#     |       `-- en.lproj\n#     |           `-- InfoPlist.strings\n#     `-- Current -> A\n#\ndef add_symlinks_to_framework(project):\n    base_dir = project.local_built_fw_path\n    attempt_symlink(os.path.join(base_dir, \"Versions\", \"Current\"), os.environ['FRAMEWORK_VERSION'])\n    if os.path.isdir(os.path.join(base_dir, \"Versions\", \"Current\", \"Headers\")):\n        attempt_symlink(os.path.join(base_dir, \"Headers\"), os.path.join(\"Versions\", \"Current\", \"Headers\"))\n    if os.path.isdir(os.path.join(base_dir, \"Versions\", \"Current\", \"Resources\")):\n        attempt_symlink(os.path.join(base_dir, \"Resources\"), os.path.join(\"Versions\", \"Current\", \"Resources\"))\n    attempt_symlink(os.path.join(base_dir, os.environ['EXECUTABLE_NAME']), os.path.join(\"Versions\", \"Current\", os.environ['EXECUTABLE_NAME']))\n\n# Build an embedded framework structure.\n# An embedded framework contains the actual framework, plus a \"Resources\"\n# directory containing symlinks to all resources found in the actual framework,\n# with the exception of \"Info.plist\" and anything ending in \".lproj\":\n#\n# MyFramework.embeddedframework\n# |-- MyFramework.framework\n# |   |-- MyFramework -> Versions/Current/MyFramework\n# |   |-- Headers -> Versions/Current/Headers\n# |   |-- Resources -> Versions/Current/Resources\n# |   `-- Versions\n# |       |-- A\n# |       |   |-- MyFramework\n# |       |   |-- Headers\n# |       |   |   `-- MyFramework.h\n# |       |   `-- Resources\n# |       |       |-- Info.plist\n# |       |       |-- MyViewController.nib\n# |       |       `-- en.lproj\n# |       |           `-- InfoPlist.strings\n# |       `-- Current -> A\n# `-- Resources\n#     `-- MyViewController.nib -> ../MyFramework.framework/Resources/MyViewController.nib\n#\ndef build_embedded_framework(project):\n    fw_path = project.local_built_fw_path\n    embedded_path = project.local_built_embedded_fw_path\n    fw_name = os.environ['WRAPPER_NAME']\n\n    if (os.path.islink(fw_path)):\n        # If the framework path is a link, the build result already in embeddedframework.\n        # Just recreate embeddedframework's Resources\n        remove_path(os.path.join(embedded_path, \"Resources\"))\n    else:\n        remove_path(embedded_path)\n        ensure_path_exists(embedded_path)\n        copy_overwrite(fw_path, os.path.join(embedded_path, fw_name))\n\n    # Create embeddedframework's Resources        \n    ensure_path_exists(os.path.join(embedded_path, \"Resources\"))\n    symlink_source = os.path.join(\"..\", fw_name, \"Resources\")\n    symlink_path = os.path.join(embedded_path, \"Resources\")\n    if os.path.isdir(os.path.join(fw_path, \"Resources\")):\n        for file in filter(lambda x: x != \"Info.plist\" and not x.endswith(\".lproj\"), os.listdir(os.path.join(fw_path, \"Resources\"))):\n            attempt_symlink(os.path.join(symlink_path, file), os.path.join(symlink_source, file))\n\n    # Remove the normal framework and replace it with a symlink to the copy\n    # in the embedded framework. This is needed because Xcode runs its strip\n    # phase AFTER the script runs.\n    embed_fw_wrapper = os.path.splitext(os.environ['WRAPPER_NAME'])[0] + \".embeddedframework\"\n    remove_path(fw_path)\n    attempt_symlink(fw_path, os.path.join(embed_fw_wrapper, os.environ['WRAPPER_NAME']))\n\n\n# Run the build process in slave mode to build the other configuration\n# (device/simulator).\n#\ndef run_slave_build(project):\n    print_and_call_slave_build(project.get_slave_project_build_command(), project.other_platform)\n\n# Run the build process.\n#\ndef run_build():\n    project = Project(os.path.join(os.environ['PROJECT_FILE_PATH'], \"project.pbxproj\"))\n\n    # Issue warnings only if we're master.\n    if is_master():\n        if len(project.compilable_sources) == 0:\n            raise Exception(\"No compilable sources found. Please add at least one source file to build target %s.\" % os.environ['TARGET_NAME'])\n\n        if config_warn_derived_data:\n            check_for_derived_data_in_search_paths(project)\n        if config_warn_no_public_headers and len(project.public_headers) == 0:\n            issue_warning('No headers in build target %s were marked public. Please move at least one header to \"Public\" in the \"Copy Headers\" build phase.' % os.environ['TARGET_NAME'])\n\n    # Only build slave if this is an archive build.\n    if is_archive_build():\n        if is_master():\n            log.debug(\"Building as MASTER\")\n            # The slave-side linker tries to include this (nonexistent) path as\n            # a library path.\n            ensure_path_exists(project.get_slave_environment()['BUILT_PRODUCTS_DIR'])\n            project.build_state.persist()\n            run_slave_build(project)\n            project.build_state.reload()\n        else:\n            log.debug(\"Building as SLAVE\")\n            project.build_state.reload()\n            project.build_state.set_slave_properties(project.local_architectures,\n                                                     project.local_linked_archive_paths,\n                                                     project.local_built_fw_path,\n                                                     project.local_built_embedded_fw_path)\n            project.build_state.persist()\n\n    link_local_archs(project)\n    \n    # Only do a universal binary when building an archive.\n    if is_archive_build() and is_master():\n        link_combine_all_archs(project)\n    else:\n        link_combine_local_archs(project)\n\n    if config_deep_header_hierarchy:\n        build_deep_header_hierarchy(project)\n\n    add_symlinks_to_framework(project)\n    \n    if is_master():\n        if config_framework_type == 'embeddedframework':\n            build_embedded_framework(project)\n        elif config_framework_type != 'framework':\n            raise Exception(\"%s: Unknown framework type for config_framework_type\" % config_framework_type)\n\n\nif __name__ == \"__main__\":\n    log_handler = logging.StreamHandler()\n    log_handler.setFormatter(logging.Formatter(\"%(name)s (\" + os.environ['PLATFORM_NAME'] + \"): %(levelname)s: %(message)s\"))\n    log.addHandler(log_handler)\n    log.setLevel(config_log_level)\n\n    error_code = 0\n    prefix = \"M\" if is_master() else \"S\"\n    log_handler.setFormatter(logging.Formatter(\"%(name)s (\" + prefix + \" \" + os.environ['PLATFORM_NAME'] + \"): %(levelname)s: %(message)s\"))\n\n    log.debug(\"Begin build process\")\n\n    if config_deep_header_top:\n        config_deep_header_top = string.Template(config_deep_header_top).substitute(os.environ)\n\n    try:\n        run_build()\n        if issued_warnings:\n            if config_fail_on_warnings:\n                error_code = 1\n            log.warn(\"Build completed with warnings\")\n        else:\n            log.info(\"Build completed\")\n        if not is_archive_build():\n            log.info(\"Note: This is *NOT* a universal framework build. To build as a universal framework, do an archive build.\")\n            log.info(\"To do an archive build from command line, use \\\"xcodebuild -configuration Release UFW_ACTION=archive clean build\\\"\")\n    except Exception:\n        traceback.print_exc(file=sys.stdout)\n        error_code = 1\n        log.error(\"Build failed\")\n    finally:\n        if error_code == 0 and is_archive_build() and is_master():\n            log.info(\"Built framework is in \" + os.environ['TARGET_BUILD_DIR'])\n            if should_open_build_dir():\n                open_build_dir()\n        sys.exit(error_code)\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9D0BB83C18BB1AE100667349 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D0BB84E18BB1AE100667349 /* KeyboardManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D0BB86D18BB232B00667349 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DFD564A18BCA765001007A2 /* IQTitleBarButtonItem.m in Sources */,
+				9DF8A9E218BB5ED8008E93B8 /* IQKeyboardManager.m in Sources */,
+				9DF8A9E418BB5ED8008E93B8 /* IQToolbar.m in Sources */,
+				9DF8A9E618BB5ED8008E93B8 /* IQBarButtonItem.m in Sources */,
+				9DF8A9E818BB5ED8008E93B8 /* IQSegmentedNextPrevious.m in Sources */,
+				9DF8A9EB18BB5ED8008E93B8 /* UIView+IQKeyboardToolbar.m in Sources */,
+				9DF8A9ED18BB5ED8008E93B8 /* UIView+Hierarchy.m in Sources */,
+				9DF8A9EF18BB5ED8008E93B8 /* UIWindow+Hierarchy.m in Sources */,
+				9DF8A9F118BB5ED8008E93B8 /* NSArray+Sort.m in Sources */,
+				9D18420C18C7015A00CF17FF /* IQTextView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0B63B971781FAB1008D3B64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D0BB82118BB18E200667349 /* UIView+IQKeyboardToolbar.m in Sources */,
+				9D0BB85718BB1B8F00667349 /* UIView+Hierarchy.m in Sources */,
+				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
+				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
+				AFF236C117CA224400760F6C /* IQKeyboardManager.m in Sources */,
+				9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */,
+				C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */,
+				C07E20BE18590085001699A8 /* WebViewController.m in Sources */,
+				9D0BB88A18BB46E000667349 /* IQBarButtonItem.m in Sources */,
+				C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */,
+				9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */,
+				9D18420B18C7015A00CF17FF /* IQTextView.m in Sources */,
+				9D8E5DA918BC7C61005695CF /* IQTitleBarButtonItem.m in Sources */,
+				9D0BB82418BB195300667349 /* IQSegmentedNextPrevious.m in Sources */,
+				C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */,
+				9D0BB88718BB293D00667349 /* NSArray+Sort.m in Sources */,
+				9D0BB88418BB261500667349 /* UIWindow+Hierarchy.m in Sources */,
+				9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9D0BB84A18BB1AE100667349 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D0BB84B18BB1AE100667349 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9D0BB87818BB232B00667349 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D0BB87918BB232B00667349 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0B63BA91781FAB1008D3B64 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9D0BB85318BB1AE100667349 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KeyboardTextFieldDemo.app/KeyboardTextFieldDemo";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardManager/KeyboardManager-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "KeyboardManagerTests/KeyboardManagerTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		9D0BB85418BB1AE100667349 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KeyboardTextFieldDemo.app/KeyboardTextFieldDemo";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardManager/KeyboardManager-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "KeyboardManagerTests/KeyboardManagerTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		9D0BB88018BB232B00667349 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "KeyboardManager/KeyboardManager-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SHARED_PRECOMPS_DIR = "";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		9D0BB88118BB232B00667349 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				INFOPLIST_FILE = "KeyboardManager/KeyboardManager-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SHARED_PRECOMPS_DIR = "";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		C0B63BB71781FAB1008D3B64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C0B63BB81781FAB1008D3B64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C0B63BBA1781FAB1008D3B64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/IQKeyboard-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"IQKEYBOARDMANAGER_DEBUG=1",
+					"DEBUG=1",
+				);
+				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = IQKeyboard;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C0B63BBB1781FAB1008D3B64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/IQKeyboard-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = IQKeyboard;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9D0BB85218BB1AE100667349 /* Build configuration list for PBXNativeTarget "KeyboardManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D0BB85318BB1AE100667349 /* Debug */,
+				9D0BB85418BB1AE100667349 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D0BB87F18BB232B00667349 /* Build configuration list for PBXNativeTarget "KeyboardManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D0BB88018BB232B00667349 /* Debug */,
+				9D0BB88118BB232B00667349 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0B63B951781FAB0008D3B64 /* Build configuration list for PBXProject "IQKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0B63BB71781FAB1008D3B64 /* Debug */,
+				C0B63BB81781FAB1008D3B64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0B63BB91781FAB1008D3B64 /* Build configuration list for PBXNativeTarget "IQKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0B63BBA1781FAB1008D3B64 /* Debug */,
+				C0B63BBB1781FAB1008D3B64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0B63B921781FAB0008D3B64 /* Project object */;
+}
