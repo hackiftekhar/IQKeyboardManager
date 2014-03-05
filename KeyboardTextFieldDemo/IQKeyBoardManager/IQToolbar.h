@@ -23,7 +23,7 @@
 
 #import <UIKit/UIToolbar.h>
 
-@interface IQToolbar : UIToolbar
+@interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
 
 @end
 

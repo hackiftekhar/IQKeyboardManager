@@ -80,6 +80,9 @@
 	/*! To save keyboard animation duration. */
     CGFloat animationDuration;
     
+	/*! To mimic the keyboard animation */
+    NSInteger animationCurve;
+    
     UIView *_textFieldView;
     
     /*! To save keyboard size */
@@ -145,6 +148,7 @@
             [self setEnableAutoToolbar:NO];
             [self setCanAdjustTextView:NO];
             [self setShouldShowTextFieldPlaceholder:NO];
+            [self setShouldPlayInputClicks:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             _keyWindow = [self keyWindow];
         });
@@ -244,7 +248,7 @@
     //  If can't get rootViewController then printing warning to user.
     if (controller == nil)  NSLog(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager");
     
-    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         //  Setting it's new frame
         [controller.view setFrame:frame];
     } completion:^(BOOL finished) {
@@ -339,7 +343,7 @@
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
                 
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
                 } completion:^(BOOL finished) {
                 }];
@@ -383,7 +387,7 @@
         if (_canAdjustTextView)
         {
             //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-            [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [_textFieldView setFrame:CGRectMake(CGRectGetMinX(_textFieldView.frame),CGRectGetMinY(_textFieldView.frame), CGRectGetWidth(_textFieldView.frame),CGRectGetHeight(_textFieldView.frame)-(initialMove-move))];
             } completion:^(BOOL finished) {
             }];
@@ -494,7 +498,7 @@
     if (_textFieldView == nil)   return;
     
     //Due to orientation callback we need to set it's original position.
-    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         _textFieldView.frame = textFieldViewIntialFrame;
     } completion:^(BOOL finished) {
 
@@ -512,7 +516,7 @@
     }
 	
     
-    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         lastScrollView.contentOffset = startingContentOffset;
     } completion:^(BOOL finished) {
 
@@ -535,6 +539,10 @@
     //Due to orientation callback we need to resave it's original frame.
     textFieldViewIntialFrame = _textFieldView.frame;
     
+    //  Getting keyboard animation.
+//    animationCurve = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+//    animationCurve = animationCurve<<16;
+
     //  Getting keyboard animation duration
     CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
@@ -577,7 +585,7 @@
 {
     [_textFieldView.window removeGestureRecognizer:tapGesture];
     
-    [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         _textFieldView.frame = textFieldViewIntialFrame;
     } completion:^(BOOL finished) {
     }];
@@ -601,11 +609,9 @@
         {
             UIView *view = _textFieldView;
             
-            //Resigning becoming first responder with some delay.
-            [UIView animateWithDuration:0.00001 animations:^{
+            [UIView animateWithDuration:0.00001 delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [self addToolbarIfRequired];
-                
-            }completion:^(BOOL finished) {
+            } completion:^(BOOL finished) {
                 [view resignFirstResponder];
                 [view becomeFirstResponder];
             }];
@@ -647,7 +653,7 @@
         offset.y += overflow + 7; // leave 7 pixels margin
         
         // Cannot animate with setContentOffset:animated: or caret will not appear
-        [UIView animateWithDuration:animationDuration delay:0 options:(UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             [textView setContentOffset:offset];
         } completion:^(BOOL finished) {
 
@@ -738,6 +744,11 @@
 //	Previous button action.
 -(void)previousAction:(id)segmentedControl
 {
+    if (_shouldPlayInputClicks)
+    {
+        [[UIDevice currentDevice] playInputClick];
+    }
+
 	//Getting all responder view's.
 	NSArray *textFields = [self responderViews];
 	
@@ -754,6 +765,11 @@
 //	Next button action.
 -(void)nextAction:(id)segmentedControl
 {
+    if (_shouldPlayInputClicks)
+    {
+        [[UIDevice currentDevice] playInputClick];
+    }
+
 	//Getting all responder view's.
 	NSArray *textFields = [self responderViews];
 	
@@ -770,6 +786,11 @@
 //	Done button action. Resigning current textField.
 -(void)doneAction:(IQBarButtonItem*)barButton
 {
+    if (_shouldPlayInputClicks)
+    {
+        [[UIDevice currentDevice] playInputClick];
+    }
+
     [self resignFirstResponder];
 }
 

@@ -26,7 +26,9 @@
 #import <UIKit/UIView.h>
 
 #import "IQKeyboardManagerConstantsInternal.h"
+
 IQ_LoadCategory(IQNSArraySort)
+
 
 @implementation NSArray (Sort)
 

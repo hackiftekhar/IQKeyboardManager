@@ -68,4 +68,10 @@
     self.frame = newFrame;
 }
 
+#pragma mark - UIInputViewAudioFeedback delegate
+- (BOOL) enableInputClicksWhenVisible
+{
+	return YES;
+}
+
 @end

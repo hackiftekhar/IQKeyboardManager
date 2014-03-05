@@ -4,6 +4,7 @@
 
 #import "TextFieldViewController.h"
 #import "IQKeyboardManager.h"
+#import "IQSegmentedNextPrevious.h"
 
 @implementation TextFieldViewController
 
@@ -43,8 +44,8 @@
     @try {
         if (self.navigationController)
         {
-            TextFieldViewController *controller = [[TextFieldViewController alloc] init];
-            
+            TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TextFieldViewController"];
+
             [controller setModalTransitionStyle:arc4random()%4];
             
             // TransitionStylePartialCurl can only be presented by FullScreen style.

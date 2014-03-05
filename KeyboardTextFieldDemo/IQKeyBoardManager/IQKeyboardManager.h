@@ -87,6 +87,13 @@
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
 
 /*!
+    @property shouldPlayInputClicks
+ 
+    @abstract If YES, then it plays inputClick sound on next/previous/done click.
+ */
+@property(nonatomic, assign) BOOL shouldPlayInputClicks;
+
+/*!
 	@property toolbarManageStyle
 
 	@abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
