@@ -99,7 +99,10 @@ If you don't want to import these files you can use an older version of `IQKeybo
  
  10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
  
+ 11) Can manage `UITextField/UITextView` inside `UITableView/UIScrollView`.
  
+ 12) Can play input sound on Next/Previous/Done click.
+
 LICENSE
 ---
 Distributed under the MIT License.
