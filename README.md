@@ -64,6 +64,9 @@ Just drag and drop `IQKeyBoardManager` directory from demo project to your proje
     //(Optional)Show TextField placeholder texts on autoToolbar
     //[[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
 
+    //Play system sounds on next/previous/done click.
+    //[[IQKeyboardManager sharedManager] setShouldPlayInputClicks:YES];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
