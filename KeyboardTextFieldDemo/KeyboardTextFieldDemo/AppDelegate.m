@@ -32,6 +32,9 @@
     //Show TextField placeholder texts on autoToolbar
     [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
     
+    //Play system sounds on next/previous/done click.
+    [[IQKeyboardManager sharedManager] setShouldPlayInputClicks:YES];
+    
     return YES;
 }
 

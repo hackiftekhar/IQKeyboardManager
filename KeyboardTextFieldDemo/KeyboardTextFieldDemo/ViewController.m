@@ -6,9 +6,6 @@
 #import "UIView+IQKeyboardToolbar.h"
 
 @interface ViewController ()
-{
-    IBOutlet UITextField *cancelTextField;
-}
 
 @end
 
@@ -26,8 +23,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [cancelTextField addCancelDoneOnKeyboardWithTarget:cancelTextField cancelAction:@selector(resignFirstResponder) doneAction:@selector(resignFirstResponder) shouldShowPlaceholder:YES];
     
 	// Do any additional setup after loading the view.
 }
