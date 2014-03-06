@@ -73,7 +73,7 @@
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
 /*!
-    @property resignOnTouchOutside
+    @property shouldResignOnTouchOutside
 
     @abstract Resigns Keyboard on touching outside of UITextField/View. Default is NO.
  */
