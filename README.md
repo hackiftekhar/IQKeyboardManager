@@ -25,55 +25,48 @@ it simply add the following line to your Podfile:
 
 Framework:-
 ---
-Link your project against `KeyboardManager.framework` found in "KeyboardManagerFramework" directory. Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory. add `-ObjC` flag in `other linker flag`. In your `appDelegate.m` import `#import <KeyboardManager/KeyboardManager.h>`. Write just one line of code.
+Link your project against `KeyboardManager.framework` found in "KeyboardManagerFramework" directory. Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory. add `-ObjC` flag in `other linker flag`. That's it. No need to write any single line of code.
 
 Source Code:-
 ---
-Just drag and drop `IQKeyBoardManager` directory from demo project to your project. In your `appDelegate.m` import `#import "IQKeyboardManager.h"`. Write just one line of code.
+Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
-## Usage
-```  objc
-//AppDelegate.m
+Properties and functions usage:-
+---
+1)	@method +sharedManager;
+Returns the default singleton instance.
 
-#import "AppDelegate.h"
-#import "IQKeyboardManager.h"
+2)	@property enable;
+Use this to enable/disable managing distance between keyboard & textField/textView).
 
-@implementation AppDelegate
+3)	@property keyboardDistanceFromTextField
+Set Distance between keyboard & textField. Can't be less than zero. Default is 10.
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //ONE LINE OF CODE.
-    //Enabling keyboard manager(Use this line to enable managing distance between keyboard & textField/textView).
-    [[IQKeyboardManager sharedManager] setEnable:YES];
-    
-    //(Optional)Set Distance between keyboard & textField, Default is 10.
-    //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:15];
+4)	@property enableAutoToolbar
+Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
 
-    //(Optional)Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard.
-    //[[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+5)	@property canAdjustTextView
+Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO.
 
-    //(Optional)Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order.
-    //[[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+6)	@property shouldResignOnTouchOutside
+Resign textField if touched outside of UITextField/UITextView.
 
-    //(Optional)Resign textField if touched outside of UITextField/UITextView.
-    //[[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
-    
-    //(Optional)Giving permission to modify TextView's frame
-    //[[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
+7)	@property shouldShowTextFieldPlaceholder
+If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
 
-    //(Optional)Show TextField placeholder texts on autoToolbar
-    //[[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
+8)	@property shouldPlayInputClicks
+If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
-    //Play system sounds on next/previous/done click.
-    //[[IQKeyboardManager sharedManager] setShouldPlayInputClicks:YES];
-    
-    [self.window makeKeyAndVisible];
-    return YES;
-}
+9)	@property toolbarUsesCurrentWindowTintColor
+If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO.
+
+10)	@property toolbarManageStyle
+Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
+
+11)	@method -resignFirstResponder
+Resigns currently first responder field.
 
 
-
-```
 
 If you don't want to import these files you can use an older version of `IQKeyboardManager` in Tag 2.6.
 
