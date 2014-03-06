@@ -31,7 +31,11 @@
 {
     [self sizeToFit];
     
-    if (!IQ_IS_IOS7_OR_GREATER)
+     if (IQ_IS_IOS7_OR_GREATER)
+    {
+        [self setTintColor:[UIColor blackColor]];
+    }
+    else
     {
         [self setBarStyle:UIBarStyleBlackTranslucent];
     }

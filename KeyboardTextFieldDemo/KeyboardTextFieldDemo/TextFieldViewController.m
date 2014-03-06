@@ -4,7 +4,6 @@
 
 #import "TextFieldViewController.h"
 #import "IQKeyboardManager.h"
-#import "IQSegmentedNextPrevious.h"
 
 @implementation TextFieldViewController
 
@@ -30,8 +29,18 @@
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
     }
+}
 
-    // Do any additional setup after loading the view from its nib.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:NO];
 }
 
 - (IBAction)popClicked:(id)sender
