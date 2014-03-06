@@ -61,7 +61,7 @@
 /*!
     @property enableAutoToolbar
 
-    @abstract Automatic add the IQToolbar functionality. Default is NO.
+    @abstract Automatic add the IQToolbar functionality. Default is YES.
  */
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
 
@@ -82,7 +82,7 @@
 /*!
     @property shouldShowTextFieldPlaceholder
 
-    @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is NO.
+    @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
 
@@ -92,6 +92,13 @@
     @abstract If YES, then it plays inputClick sound on next/previous/done click.
  */
 @property(nonatomic, assign) BOOL shouldPlayInputClicks;
+
+/*!
+    @property toolbarUsesCurrentWindowTintColor
+ 
+    @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
 
 /*!
 	@property toolbarManageStyle
@@ -115,7 +122,7 @@
 - (id)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
 
 /*!
-    @method init
+    @method new
  
     @abstract Should create only one instance of class. Should not call new.
  */

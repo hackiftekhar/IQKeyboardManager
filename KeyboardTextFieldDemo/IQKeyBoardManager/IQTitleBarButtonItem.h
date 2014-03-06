@@ -21,10 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import "IQBarButtonItem.h"
+#import <UIKit/UIBarButtonItem.h>
 
-@interface IQTitleBarButtonItem : IQBarButtonItem
+@interface IQTitleBarButtonItem : UIBarButtonItem
 
 -(id)initWithFrame:(CGRect)frame Title:(NSString *)title;
 

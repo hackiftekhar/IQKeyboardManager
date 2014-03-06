@@ -27,7 +27,6 @@
 #import "UIWindow+Hierarchy.h"
 #import "NSArray+Sort.h"
 #import "IQToolbar.h"
-#import "IQBarButtonItem.h"
 
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
@@ -40,7 +39,7 @@
 //Remove compiler warning
 -(void)previousAction:(id)segmentedControl;
 -(void)nextAction:(id)segmentedControl;
--(void)doneAction:(IQBarButtonItem*)barButton;
+-(void)doneAction:(UIBarButtonItem*)barButton;
 
 @end
 
@@ -115,6 +114,13 @@
 
 #pragma mark - Initializing functions
 
+//Override +load method to enable KeyboardManager when class loader load IQKeyboardManager
++(void)load
+{
+    [super load];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+}
+
 //  Singleton Object Initialization.
 -(id)init
 {
@@ -144,12 +150,16 @@
             animationDuration = 0.25;
             
             _enable = NO;
-            [self setShouldResignOnTouchOutside:NO];
-            [self setEnableAutoToolbar:NO];
             [self setCanAdjustTextView:NO];
-            [self setShouldShowTextFieldPlaceholder:NO];
             [self setShouldPlayInputClicks:NO];
+            [self setShouldResignOnTouchOutside:NO];
+            [self setShouldToolbarUsesTextFieldTintColor:NO];
+
+            [self setEnableAutoToolbar:YES];
+            [self setShouldShowTextFieldPlaceholder:YES];
+
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            
             _keyWindow = [self keyWindow];
         });
     }
@@ -784,7 +794,7 @@
 }
 
 //	Done button action. Resigning current textField.
--(void)doneAction:(IQBarButtonItem*)barButton
+-(void)doneAction:(UIBarButtonItem*)barButton
 {
     if (_shouldPlayInputClicks)
     {
@@ -802,10 +812,15 @@
 	//	If only one object is found, then adding only Done button.
 	if (siblings.count==1)
 	{
-		if (![[siblings objectAtIndex:0] inputAccessoryView])
+        UIView *textField = [siblings objectAtIndex:0];
+		if (![textField inputAccessoryView])
 		{
-			[[siblings objectAtIndex:0] addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-		}
+			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+
+            //Setting toolbar tintColor
+            if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
+                [textField.inputAccessoryView setTintColor:[textField tintColor]];
+        }
 	}
 	else if(siblings.count)
 	{
@@ -815,7 +830,11 @@
 			if (![textField inputAccessoryView])
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-			}
+
+                //Setting toolbar tintColor
+                if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
+                    [textField.inputAccessoryView setTintColor:[textField tintColor]];
+  			}
             
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
             //	If firstTextField, then previous should not be enabled.

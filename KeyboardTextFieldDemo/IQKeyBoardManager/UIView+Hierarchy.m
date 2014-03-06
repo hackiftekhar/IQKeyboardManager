@@ -114,7 +114,7 @@ IQ_LoadCategory(IQUIViewHierarchy)
 
 -(BOOL)isInsideSearchBar
 {
-    UIView *superview = self.superview;
+    UIView *superview = self;
     
     while (superview)
     {
