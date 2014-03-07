@@ -101,6 +101,13 @@
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
 
 /*!
+ @property shouldAdoptDefaultKeyboardAnimation
+ 
+ @abstract If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
+ */
+@property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
+
+/*!
 	@property toolbarManageStyle
 
 	@abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.

@@ -157,6 +157,7 @@
 
             [self setEnableAutoToolbar:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
+            [self setShouldAdoptDefaultKeyboardAnimation:YES];
 
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             
@@ -549,9 +550,16 @@
     //Due to orientation callback we need to resave it's original frame.
     textFieldViewIntialFrame = _textFieldView.frame;
     
-    //  Getting keyboard animation.
-//    animationCurve = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-//    animationCurve = animationCurve<<16;
+    if (_shouldAdoptDefaultKeyboardAnimation)
+    {
+        //  Getting keyboard animation.
+        animationCurve = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        animationCurve = animationCurve<<16;
+    }
+    else
+    {
+        animationCurve = 0;
+    }
 
     //  Getting keyboard animation duration
     CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
