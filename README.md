@@ -33,42 +33,40 @@ Just drag and drop `IQKeyBoardManager` directory from demo project to your proje
 
 Properties and functions usage:-
 ---
-1)	@method +sharedManager;
+1)	`+sharedManager`
 Returns the default singleton instance.
 
-2)	@property enable;
+2)	`enable`
 Use this to enable/disable managing distance between keyboard & textField/textView).
 
-3)	@property keyboardDistanceFromTextField
+3)	`keyboardDistanceFromTextField`
 Set Distance between keyboard & textField. Can't be less than zero. Default is 10.
 
-4)	@property enableAutoToolbar
+4)	`enableAutoToolbar`
 Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
 
-5)	@property canAdjustTextView
+5)	`canAdjustTextView`
 Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO.
 
-6)	@property shouldResignOnTouchOutside
+6)	`shouldResignOnTouchOutside`
 Resign textField if touched outside of UITextField/UITextView.
 
-7)	@property shouldShowTextFieldPlaceholder
+7)	`shouldShowTextFieldPlaceholder`
 If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
 
-8)	@property shouldPlayInputClicks
+8)	`shouldPlayInputClicks`
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
-9)	@property toolbarUsesCurrentWindowTintColor
+9)	`toolbarUsesCurrentWindowTintColor`
 If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO.
 
-10)	@property toolbarManageStyle
+10)	`toolbarManageStyle`
 Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
 
-11)	@method -resignFirstResponder
+11)	`-resignFirstResponder`
 Resigns currently first responder field.
 
 
-
-If you don't want to import these files you can use an older version of `IQKeyboardManager` in Tag 2.6.
 
 ## Feature:-
 
