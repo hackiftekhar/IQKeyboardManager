@@ -603,10 +603,15 @@
 {
     [_textFieldView.window removeGestureRecognizer:tapGesture];
     
-    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        _textFieldView.frame = textFieldViewIntialFrame;
-    } completion:^(BOOL finished) {
-    }];
+	// Setting up the initial frame of the textview only when the manager is enabled
+	// and we have the flag to adjust the text view.
+	if(_enable
+	   && _canAdjustTextView){
+		[UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+			_textFieldView.frame = textFieldViewIntialFrame;
+		} completion:^(BOOL finished) {
+		}];
+	}
     
     //Setting object to nil
     _textFieldView = nil;
