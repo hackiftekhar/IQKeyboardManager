@@ -603,10 +603,8 @@
 {
     [_textFieldView.window removeGestureRecognizer:tapGesture];
     
-	// Setting up the initial frame of the textview only when the manager is enabled
-	// and we have the flag to adjust the text view.
-	if(_enable
-	   && _canAdjustTextView){
+	// We check if there's a valid frame before resetting the textview's frame
+	if(!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)){
 		[UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 			_textFieldView.frame = textFieldViewIntialFrame;
 		} completion:^(BOOL finished) {
@@ -622,7 +620,8 @@
 {
     //  Getting object
     _textFieldView = notification.object;
-    textFieldViewIntialFrame = _textFieldView.frame;
+	// If the manager is not enabled and it can't adjust the textview set the initial frame to CGRectZero
+    textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
     
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if (_enableAutoToolbar)
