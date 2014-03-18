@@ -508,12 +508,15 @@
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.
     if (_textFieldView == nil)   return;
     
-    //Due to orientation callback we need to set it's original position.
-    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        _textFieldView.frame = textFieldViewIntialFrame;
-    } completion:^(BOOL finished) {
-
-    }];
+    if (!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero))
+    {
+        //Due to orientation callback we need to set it's original position.
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            _textFieldView.frame = textFieldViewIntialFrame;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
     
     //  Boolean to know keyboard is showing/hiding
     isKeyboardShowing = NO;

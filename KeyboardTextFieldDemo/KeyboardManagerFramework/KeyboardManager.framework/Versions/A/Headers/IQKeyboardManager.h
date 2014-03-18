@@ -73,7 +73,7 @@
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
 /*!
-    @property resignOnTouchOutside
+    @property shouldResignOnTouchOutside
 
     @abstract Resigns Keyboard on touching outside of UITextField/View. Default is NO.
  */
@@ -99,6 +99,13 @@
     @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
+
+/*!
+ @property shouldAdoptDefaultKeyboardAnimation
+ 
+ @abstract If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
+ */
+@property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
 
 /*!
 	@property toolbarManageStyle
