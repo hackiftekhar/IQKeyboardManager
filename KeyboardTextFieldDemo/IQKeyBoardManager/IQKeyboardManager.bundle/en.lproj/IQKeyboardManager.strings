@@ -1,0 +1,13 @@
+
+"IQKeyboardManager enabled"             =   "IQKeyboardManager enabled";
+
+"IQKeyboardManager disabled"            =   "IQKeyboardManager disabled";
+
+"IQKeyboardManager already disabled"    =   "IQKeyboardManager already disabled";
+
+"IQKeyboardManager already enabled"     =   "IQKeyboardManager already enabled";
+
+"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager"  =   "You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager";
+
+"Previous"                              =   "Previous";
+"Next"                                  =   "Next";
