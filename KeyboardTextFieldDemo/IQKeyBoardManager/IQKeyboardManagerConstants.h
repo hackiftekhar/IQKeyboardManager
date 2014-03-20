@@ -29,7 +29,6 @@
 #define NSLog(...)
 #endif
 
-
 /*!
     @enum IQAutoToolbarManageBehaviour
  
@@ -45,6 +44,8 @@ typedef enum IQAutoToolbarManageBehaviour
 	IQAutoToolbarByTag,
 	
 }IQAutoToolbarManageBehaviour;
+
+#define IQLocalizedString(key, comment) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"IQKeyboardManager" ofType:@"bundle"]] localizedStringForKey:(key) value:@"" table:@"IQKeyboardManager"]
 
 #endif
 
