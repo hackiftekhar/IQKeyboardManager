@@ -25,7 +25,7 @@ it simply add the following line to your Podfile:
 
 Framework:-
 ---
-Link your project against `KeyboardManager.framework` found in "KeyboardManagerFramework" directory. Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory. add `-ObjC` flag in `other linker flag`. That's it. No need to write any single line of code.
+Link your project against `KeyboardManager.framework` found in "IQKeyboardManager Framework" directory. Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory. add `-ObjC` flag in `other linker flag`. That's it. No need to write any single line of code.
 
 Source Code:-
 ---

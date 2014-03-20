@@ -35,6 +35,7 @@
 		9D9A0FC118C9D55700585D3F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D9A0FC018C9D55700585D3F /* IQKeyboardManagerScreenshot.png */; };
 		9D9A0FC318C9DB5700585D3F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9D9A0FC518C9DB5F00585D3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC418C9DB5F00585D3F /* Twitter.framework */; };
+		9DC4CE3018DAF77300DB2CB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */; };
 		9DF8A9E118BB5ED8008E93B8 /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AFF236BD17CA224400760F6C /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DF8A9E218BB5ED8008E93B8 /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF236BE17CA224400760F6C /* IQKeyboardManager.m */; };
 		9DF8A9E318BB5ED8008E93B8 /* IQToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB81C18BB18AA00667349 /* IQToolbar.h */; };
@@ -61,7 +62,6 @@
 		C07E20BE18590085001699A8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20BA18590085001699A8 /* WebViewController.m */; };
 		C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20C1185900BD001699A8 /* TextFieldViewController.m */; };
 		C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */; };
-		C09EF36318AD649000810FEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09EF36218AD648F00810FEF /* Main.storyboard */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -113,6 +113,11 @@
 		9D9A0FC018C9D55700585D3F /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
 		9D9A0FC218C9DB5700585D3F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9D9A0FC418C9DB5F00585D3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		9DC4CE2218DAE03800DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9DC4CE2318DAE03800DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9DC4CE2418DAE03800DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9DC4CE3118DAF77700DB2CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9DC4CE3318DAF7F200DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboard-Info.plist"; sourceTree = "<group>"; };
 		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -126,7 +131,6 @@
 		C07E20C1185900BD001699A8 /* TextFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
 		C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewSpecialCaseViewController.h; sourceTree = "<group>"; };
 		C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewSpecialCaseViewController.m; sourceTree = "<group>"; };
-		C09EF36218AD648F00810FEF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C0B63B9B1781FAB1008D3B64 /* IQKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C0B63BA11781FAB1008D3B64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -299,7 +303,6 @@
 			children = (
 				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,
 				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
-				C09EF36218AD648F00810FEF /* Main.storyboard */,
 				C07E20C0185900BD001699A8 /* TextFieldViewController.h */,
 				C07E20C1185900BD001699A8 /* TextFieldViewController.m */,
 				C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */,
@@ -310,6 +313,7 @@
 				C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */,
 				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
 				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
+				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
 				9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */,
 				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
@@ -428,6 +432,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				Base,
 			);
 			mainGroup = C0B63B901781FAB0008D3B64;
 			productRefGroup = C0B63B9C1781FAB1008D3B64 /* Products */;
@@ -468,12 +474,12 @@
 				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
 				9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */,
 				9D9A0FC118C9D55700585D3F /* IQKeyboardManagerScreenshot.png in Resources */,
+				9DC4CE3018DAF77300DB2CB0 /* Main.storyboard in Resources */,
 				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
 				9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
 				9DF8AA3918BB6305008E93B8 /* IQKeyboardManager.bundle in Resources */,
-				C09EF36318AD649000810FEF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +557,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9D0BB84B18BB1AE100667349 /* en */,
+				9DC4CE2318DAE03800DB2CB0 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -559,14 +566,25 @@
 			isa = PBXVariantGroup;
 			children = (
 				9D0BB87918BB232B00667349 /* en */,
+				9DC4CE2418DAE03800DB2CB0 /* es */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DC4CE3118DAF77700DB2CB0 /* Base */,
+				9DC4CE3318DAF7F200DB2CB0 /* es */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C0B63BA91781FAB1008D3B64 /* en */,
+				9DC4CE2218DAE03800DB2CB0 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
