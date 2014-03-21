@@ -26,6 +26,9 @@
 
 #import "IQKeyboardManagerConstants.h"
 
+
+
+
 /*!
     @author Iftekhar Qurashi
  
@@ -37,6 +40,11 @@
  */
 @interface IQKeyboardManager : NSObject
 
+
+
+
+//UIKeyboard handling
+
 /*!
     @method sharedManager
  
@@ -45,18 +53,23 @@
 + (IQKeyboardManager*)sharedManager;
 
 /*!
-	@property keyboardDistanceFromTextField
+    @property enable
 
-	@abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.
+    @abstract enable/disable the keyboard manager. Default is YES(Enabled when class loads in `+(void)load` method).
+ */
+@property(nonatomic, assign, getter = isEnabled) BOOL enable;
+
+/*!
+    @property keyboardDistanceFromTextField
+ 
+    @abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.
  */
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
-/*!
-	@property enable
 
-	@abstract enable/disable the keyboard manager. Default is NO.
- */
-@property(nonatomic, assign, getter = isEnabled) BOOL enable;
+
+
+//IQToolbar handling
 
 /*!
     @property enableAutoToolbar
@@ -66,11 +79,42 @@
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
 
 /*!
+    @property toolbarManageStyle
+ 
+    @abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
+ */
+@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
+
+/*!
+    @property shouldToolbarUsesTextFieldTintColor
+ 
+    @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
+
+/*!
+    @property shouldShowTextFieldPlaceholder
+ 
+    @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+ */
+@property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
+
+
+
+
+//TextView handling
+
+/*!
     @property canAdjustTextView
 
     @abstract Adjust textView's frame when it is too big in height. Default is NO.
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
+
+
+
+
+//Resign handling
 
 /*!
     @property shouldResignOnTouchOutside
@@ -80,11 +124,16 @@
 @property(nonatomic, assign) BOOL shouldResignOnTouchOutside;
 
 /*!
-    @property shouldShowTextFieldPlaceholder
-
-    @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+    @method resignFirstResponder
+ 
+    @abstract Resigns currently first responder field.
  */
-@property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
+- (void)resignFirstResponder;
+
+
+
+
+//Sound handling
 
 /*!
     @property shouldPlayInputClicks
@@ -93,33 +142,24 @@
  */
 @property(nonatomic, assign) BOOL shouldPlayInputClicks;
 
-/*!
-    @property toolbarUsesCurrentWindowTintColor
- 
-    @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
- */
-@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
+
+
+
+//Animation handling
 
 /*!
- @property shouldAdoptDefaultKeyboardAnimation
+    @property shouldAdoptDefaultKeyboardAnimation
  
- @abstract If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
+    @abstract If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
+ 
+    @discussion Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
  */
 @property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
 
-/*!
-	@property toolbarManageStyle
 
-	@abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
- */
-@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
-/*!
-	@method resignFirstResponder
- 
-	@abstract Resigns currently first responder field.
- */
-- (void)resignFirstResponder;
+
+//@final. Must not be used for subclassing.
 
 /*!
     @method init
@@ -134,6 +174,8 @@
     @abstract Should create only one instance of class. Should not call new.
  */
 + (id)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
+
+
 
 
 @end
