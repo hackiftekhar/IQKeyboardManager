@@ -25,6 +25,8 @@
 
 @interface IQTitleBarButtonItem : UIBarButtonItem
 
+@property(nonatomic, strong) UIFont *font;  //Default is (system font 12.0 bold)
+
 -(id)initWithFrame:(CGRect)frame Title:(NSString *)title;
 
 @end

@@ -28,23 +28,33 @@
 
 
 @implementation IQTitleBarButtonItem
+{
+    UILabel *_titleLabel;
+}
 
 -(id)initWithFrame:(CGRect)frame Title:(NSString *)title
 {
     self = [super initWithTitle:nil style:UIBarButtonItemStylePlain target:nil action:nil];
     if (self)
     {
-        UILabel *label = [[UILabel alloc] initWithFrame:frame];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setTextAlignment:NSTextAlignmentCenter];
-        [label setText:title];
-        [label setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [label setFont:[UIFont boldSystemFontOfSize:12.0]];
+        _titleLabel = [[UILabel alloc] initWithFrame:frame];
+        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [_titleLabel setText:title];
+        [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        
+        [self setFont:[UIFont boldSystemFontOfSize:12.0]];
 
-        self.customView = label;
+        self.customView = _titleLabel;
         self.enabled = NO;
     }
     return self;
+}
+
+-(void)setFont:(UIFont *)font
+{
+    _font = font;
+    [_titleLabel setFont:font];
 }
 
 @end
