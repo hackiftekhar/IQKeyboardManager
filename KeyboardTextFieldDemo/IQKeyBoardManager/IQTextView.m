@@ -89,4 +89,31 @@
     [self refreshPlaceholder];
 }
 
+
+-(id<UITextViewDelegate>)delegate
+{
+    return [super delegate];
+}
+
+-(NSString *)text
+{
+    return [super text];
+}
+
+-(NSRange)selectedRange
+{
+    return [super selectedRange];
+}
+
+-(BOOL)isEditable
+{
+    return [super isEditable];
+}
+
+-(void)scrollRangeToVisible:(NSRange)range
+{
+    [super scrollRangeToVisible:range];
+}
+
+
 @end
