@@ -1,5 +1,5 @@
 //
-//  UIWindow+Hierarchy.h
+//  NSArray+Sort.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,25 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIWindow.h>
+#import <Foundation/NSArray.h>
 
-@class UIViewController;
-
-@interface UIWindow (Hierarchy)
+@interface NSArray (IQ_NSArray_Sort)
 
 /*!
-    @method topMostController
+    @method sortedArrayByTag
  
-    @return Returns the current Top Most ViewController in hierarchy.
+    @return Returns the array by sorting the UIView's by their tag property.
  */
-- (UIViewController*) topMostController;
-
-/*!
-    @method currentViewController
- 
-    @return Returns the topViewController in stack of topMostController.
- */
-- (UIViewController*)currentViewController;
-
+- (NSArray*)sortedArrayByTag;
 
 @end

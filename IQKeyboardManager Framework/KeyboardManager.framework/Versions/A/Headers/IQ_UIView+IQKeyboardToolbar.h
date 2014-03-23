@@ -27,13 +27,13 @@
 @class UIBarButtonItem;
 
 /*!
-    @category UIView (Toolbar)
+    @category UIView (IQToolbarAddition)
  
     @since iOS (5.0 and later), ARC Required
  
     @abstract UIView category methods to add IQToolbar on UIKeyboard.
  */
-@interface UIView (Toolbar)
+@interface UIView (IQToolbarAddition)
 
 /*!
     @method addDoneOnKeyboardWithTarget:action:

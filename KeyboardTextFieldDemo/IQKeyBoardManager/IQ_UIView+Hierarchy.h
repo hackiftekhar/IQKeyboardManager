@@ -25,7 +25,7 @@
 
 @class UIScrollView, UITableView, NSArray;
 
-@interface UIView (Hierarchy)
+@interface UIView (IQ_UIView_Hierarchy)
 
 /*!
     @method superScrollView:
@@ -55,7 +55,16 @@
  */
 - (NSArray*)deepResponderViews;
 
+
+/*!
+    @method isInsideSearchBar:
+ 
+    @return returns YES if the receiver object inside of UISearchBar, otherwise return NO.
+ */
 -(BOOL)isInsideSearchBar;
+
+
+
 //-(BOOL)isInsideAlertView;
 
 @end
