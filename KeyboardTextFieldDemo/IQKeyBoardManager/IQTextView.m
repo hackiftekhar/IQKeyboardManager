@@ -50,18 +50,6 @@
     [self refreshPlaceholder];
 }
 
-- (void)insertText:(NSString *)text
-{
-    [super insertText:text];
-    [self refreshPlaceholder];
-}
-
-- (void)deleteBackward
-{
-    [super deleteBackward];
-    [self refreshPlaceholder];
-}
-
 -(void)setFont:(UIFont *)font
 {
     [super setFont:font];
@@ -89,31 +77,11 @@
     [self refreshPlaceholder];
 }
 
-
+//When any text changes on textField, the delegate getter is called. At this time we refresh the textView's placeholder
 -(id<UITextViewDelegate>)delegate
 {
+    [self refreshPlaceholder];
     return [super delegate];
 }
-
--(NSString *)text
-{
-    return [super text];
-}
-
--(NSRange)selectedRange
-{
-    return [super selectedRange];
-}
-
--(BOOL)isEditable
-{
-    return [super isEditable];
-}
-
--(void)scrollRangeToVisible:(NSRange)range
-{
-    [super scrollRangeToVisible:range];
-}
-
 
 @end
