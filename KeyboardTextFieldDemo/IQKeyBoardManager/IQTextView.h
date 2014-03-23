@@ -25,20 +25,20 @@
 #import "IQKeyboardManagerConstants.h"
 
 /*!
- @author Iftekhar Qurashi
+    @author Iftekhar Qurashi
  
- @related hack.iftekhar@gmail.com
+    @related hack.iftekhar@gmail.com
  
- @class IQTextView
+    @class IQTextView
  
- @abstract UITextView with placeholder support
+    @abstract UITextView with placeholder support
  */
-NS_CLASS_AVAILABLE_IOS(7_0) @interface IQTextView : UITextView
+@interface IQTextView : UITextView
 
 /*!
- @property placeholder
+    @property placeholder
  
- @abstract To set textView's placeholder text. Default is ni.
+    @abstract To set textView's placeholder text. Default is ni.
  */
 @property(nonatomic,copy)   NSString    *placeholder;
 
