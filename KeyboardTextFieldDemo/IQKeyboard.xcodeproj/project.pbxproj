@@ -774,7 +774,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/IQKeyboard-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"IQKEYBOARDMANAGER_DEBUG=1",
+					"IQKEYBOARDMANAGER_DEBUG=0",
 					"DEBUG=1",
 				);
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";

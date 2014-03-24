@@ -232,7 +232,9 @@
 		//If keyboard is currently showing. Sending a fake notification for keyboardWillShow to adjust view according to keyboard.
 		if (kbShowNotification)	[self keyboardWillShow:kbShowNotification];
 
+#if IQKEYBOARDMANAGER_DEBUG
         NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager enabled", nil));
+#endif
     }
 	//If not disable, desable it.
     else if (enable == NO && _enable == YES)
@@ -243,17 +245,23 @@
 		//Setting NO to _enable.
 		_enable = enable;
 		
+#if IQKEYBOARDMANAGER_DEBUG
         NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager disabled", nil));
+#endif
     }
 	//If already disabled.
 	else if (enable == NO && _enable == NO)
 	{
+#if IQKEYBOARDMANAGER_DEBUG
         NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager already disabled", nil));
+#endif
 	}
 	//If already enabled.
 	else if (enable == YES && _enable == YES)
 	{
+#if IQKEYBOARDMANAGER_DEBUG
         NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager already enabled", nil));
+#endif
 	}
 }
 
@@ -574,6 +582,21 @@
     //Restoring the contentOffset of the lastScrollView
     [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         lastScrollView.contentOffset = startingContentOffset;
+        
+        // TODO: This is temporary solution. Have to implement the save and restore scrollView state
+        UIScrollView *superscrollView = lastScrollView;
+        while ((superscrollView = [superscrollView superScrollView]))
+        {
+            CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.frame.size.width), MAX(superscrollView.contentSize.height, superscrollView.frame.size.height));
+            
+            CGFloat minimumY = contentSize.height-superscrollView.frame.size.height;
+            
+            if (minimumY<superscrollView.contentOffset.y)
+            {
+                superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
+            }
+        }
+        
     } completion:^(BOOL finished) {
 
     }];
