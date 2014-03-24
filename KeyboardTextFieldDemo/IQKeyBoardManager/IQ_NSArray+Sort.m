@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "NSArray+Sort.h"
+#import "IQ_NSArray+Sort.h"
 
 #import <UIKit/UIView.h>
 
@@ -30,7 +30,7 @@
 IQ_LoadCategory(IQNSArraySort)
 
 
-@implementation NSArray (Sort)
+@implementation NSArray (IQ_NSArray_Sort)
 
 - (NSArray*)sortedArrayByTag
 {

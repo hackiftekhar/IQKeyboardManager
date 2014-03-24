@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UIView+Hierarchy.h"
+#import "IQ_UIView+Hierarchy.h"
 
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
@@ -32,7 +32,7 @@
 IQ_LoadCategory(IQUIViewHierarchy)
 
 
-@implementation UIView (Hierarchy)
+@implementation UIView (IQ_UIView_Hierarchy)
 
 
 - (UITableView*)superTableView

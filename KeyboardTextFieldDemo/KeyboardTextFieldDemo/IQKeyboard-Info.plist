@@ -14,7 +14,7 @@
 		<string>icon57</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.canopusapps.KeyboardTextField</string>
+	<string>com.iftekhar.KeyboardTextField</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

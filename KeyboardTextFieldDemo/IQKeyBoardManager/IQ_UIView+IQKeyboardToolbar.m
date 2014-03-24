@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 
-#import "UIView+IQKeyboardToolbar.h"
+#import "IQ_UIView+IQKeyboardToolbar.h"
 #import "IQSegmentedNextPrevious.h"
 #import "IQToolbar.h"
 #import "IQTitleBarButtonItem.h"
@@ -36,7 +36,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 
 
 /*UIKeyboardToolbar Category implementation*/
-@implementation UIView (Toolbar)
+@implementation UIView (IQToolbarAddition)
 
 - (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
