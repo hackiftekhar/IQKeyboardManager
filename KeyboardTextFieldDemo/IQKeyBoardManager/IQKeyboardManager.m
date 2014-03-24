@@ -22,10 +22,10 @@
 // THE SOFTWARE.
 
 #import "IQKeyboardManager.h"
-#import "UIView+Hierarchy.h"
-#import "UIView+IQKeyboardToolbar.h"
-#import "UIWindow+Hierarchy.h"
-#import "NSArray+Sort.h"
+#import "IQ_UIView+Hierarchy.h"
+#import "IQ_UIView+IQKeyboardToolbar.h"
+#import "IQ_UIWindow+Hierarchy.h"
+#import "IQ_NSArray+Sort.h"
 #import "IQToolbar.h"
 
 #import <UIKit/UITapGestureRecognizer.h>
