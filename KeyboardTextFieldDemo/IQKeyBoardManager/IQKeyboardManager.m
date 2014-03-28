@@ -906,10 +906,13 @@
 		if (![textField inputAccessoryView])
 		{
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-
+            textField.inputAccessoryView.tag = NSIntegerMin;
+            
+#ifdef __IPHONE_7_0
             //Setting toolbar tintColor
             if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                 [textField.inputAccessoryView setTintColor:[textField tintColor]];
+#endif
         }
 	}
 	else if(siblings.count)
@@ -917,29 +920,38 @@
 		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
 		for (UITextField *textField in siblings)
 		{
-			if (![textField inputAccessoryView])
+            UIView *toolbar = [textField inputAccessoryView];
+
+			if (!toolbar)
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                textField.inputAccessoryView.tag = NSIntegerMin;
 
+#ifdef __IPHONE_7_0
                 //Setting toolbar tintColor
                 if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                     [textField.inputAccessoryView setTintColor:[textField tintColor]];
+#endif
   			}
             
+            
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
-            //	If firstTextField, then previous should not be enabled.
-            if ([siblings objectAtIndex:0] == textField)
+            if ([toolbar tag] == NSIntegerMin)
             {
-                [textField setEnablePrevious:NO next:YES];
-            }
-            //	If lastTextField then next should not be enaled.
-            else if ([siblings lastObject] == textField)
-            {
-                [textField setEnablePrevious:YES next:NO];
-            }
-            else
-            {
-                [textField setEnablePrevious:YES next:YES];
+                //	If firstTextField, then previous should not be enabled.
+                if ([siblings objectAtIndex:0] == textField)
+                {
+                    [textField setEnablePrevious:NO next:YES];
+                }
+                //	If lastTextField then next should not be enaled.
+                else if ([siblings lastObject] == textField)
+                {
+                    [textField setEnablePrevious:YES next:NO];
+                }
+                else
+                {
+                    [textField setEnablePrevious:YES next:YES];
+                }
             }
 		}
 	}
@@ -953,7 +965,9 @@
     
     for (UITextField *textField in siblings)
     {
-        if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]])
+        UIView *toolbar = [textField inputAccessoryView];
+        
+        if ([toolbar isKindOfClass:[IQToolbar class]] && [toolbar tag] == NSIntegerMin)
         {
             [textField setInputAccessoryView:nil];
         }
