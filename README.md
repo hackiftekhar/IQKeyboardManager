@@ -31,6 +31,55 @@ Source Code:-
 ---
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
+Manual Toolbar Management:-
+---
+1) If you don't want to add automatic toolbar over keyboard for a specific textField then you should add a UIView as it's toolbar like this:-
+```
+textField.inputAccessoryView = [[UIView alloc] init];
+```
+
+2) If you need your own control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQ_UIView+IQKeyboardToolbar.h` file. You can use them like this:-
+```
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //Adding done button for textField1
+    [textField1 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:)];
+    
+    //Adding previous/next/done button for textField2
+    [textField2 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+    
+    //Adding cancel/done button for textField3
+    [textField3 addCancelDoneOnKeyboardWithTarget:self cancelAction:@selector(cancelAction:) doneAction:@selector(doneAction:)];
+}
+
+/*!	previousAction. */
+-(void)previousAction:(id)button
+{
+    //previousAction
+}
+
+/*!	nextAction. */
+-(void)nextAction:(id)button
+{
+    //nextAction
+}
+
+/*!	doneAction. */
+-(void)doneAction:(UIBarButtonItem*)barButton
+{
+    //doneAction
+}
+
+/*!	cancelAction. */
+-(void)cancelAction:(UIBarButtonItem*)barButton
+{
+    //cancelAction
+}
+
+```
+
 Properties and functions usage:-
 ---
 1)	`+sharedManager`
