@@ -25,5 +25,7 @@
 
 @interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
 
+@property(nonatomic, strong) UIFont *titleFont;
+
 @end
 

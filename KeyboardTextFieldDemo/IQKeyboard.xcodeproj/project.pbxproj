@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
+		9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */; };
 		9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
-		9D0BB82118BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m */; };
+		9D0BB82118BB18E200667349 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQUIView+IQKeyboardToolbar.m */; };
 		9D0BB82418BB195300667349 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
 		9D0BB84218BB1AE100667349 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0BB84118BB1AE100667349 /* XCTest.framework */; };
 		9D0BB84C18BB1AE100667349 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0BB84A18BB1AE100667349 /* InfoPlist.strings */; };
@@ -30,7 +31,7 @@
 		9D8E5DA918BC7C61005695CF /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */; };
 		9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DAB18BC8E1D005695CF /* ViewController.m */; };
 		9D8E5DB018BC993F005695CF /* IQKeyboardManagerConstantsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D8E5DAF18BC993F005695CF /* IQKeyboardManagerConstantsInternal.h */; };
-		9D94D34118D1811000CE5ED0 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D94D34018D1811000CE5ED0 /* KeyboardManager.h */; };
+		9D94D34118D1811000CE5ED0 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D94D34018D1811000CE5ED0 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D9A0FC118C9D55700585D3F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D9A0FC018C9D55700585D3F /* IQKeyboardManagerScreenshot.png */; };
 		9D9A0FC318C9DB5700585D3F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9D9A0FC518C9DB5F00585D3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC418C9DB5F00585D3F /* Twitter.framework */; };
@@ -42,8 +43,8 @@
 		9DF8A9E718BB5ED8008E93B8 /* IQSegmentedNextPrevious.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */; };
 		9DF8A9E818BB5ED8008E93B8 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
 		9DF8A9E918BB5ED8008E93B8 /* IQKeyboardManagerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DF8A9EA18BB5ED8008E93B8 /* IQ_UIView+IQKeyboardToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB81F18BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DF8A9EB18BB5ED8008E93B8 /* IQ_UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m */; };
+		9DF8A9EA18BB5ED8008E93B8 /* IQUIView+IQKeyboardToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB81F18BB18E200667349 /* IQUIView+IQKeyboardToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF8A9EB18BB5ED8008E93B8 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQUIView+IQKeyboardToolbar.m */; };
 		9DF8A9EC18BB5ED8008E93B8 /* IQ_UIView+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB85518BB1B8F00667349 /* IQ_UIView+Hierarchy.h */; };
 		9DF8A9ED18BB5ED8008E93B8 /* IQ_UIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB85618BB1B8F00667349 /* IQ_UIView+Hierarchy.m */; };
 		9DF8A9EE18BB5ED8008E93B8 /* IQ_UIWindow+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0BB88218BB261500667349 /* IQ_UIWindow+Hierarchy.h */; };
@@ -74,8 +75,8 @@
 		9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialCaseViewController.m; sourceTree = "<group>"; };
 		9D0BB81C18BB18AA00667349 /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
 		9D0BB81D18BB18AA00667349 /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
-		9D0BB81F18BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQ_UIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
-		9D0BB82018BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQ_UIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
+		9D0BB81F18BB18E200667349 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
+		9D0BB82018BB18E200667349 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQSegmentedNextPrevious.h; sourceTree = "<group>"; };
 		9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQSegmentedNextPrevious.m; sourceTree = "<group>"; };
 		9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
@@ -238,6 +239,9 @@
 				9DF8AA3818BB6305008E93B8 /* IQKeyboardManager.bundle */,
 				AFF236BD17CA224400760F6C /* IQKeyboardManager.h */,
 				AFF236BE17CA224400760F6C /* IQKeyboardManager.m */,
+				9D0BB81F18BB18E200667349 /* IQUIView+IQKeyboardToolbar.h */,
+				9D0BB82018BB18E200667349 /* IQUIView+IQKeyboardToolbar.m */,
+				9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */,
 				9D0BB81C18BB18AA00667349 /* IQToolbar.h */,
 				9D0BB81D18BB18AA00667349 /* IQToolbar.m */,
 				9D18420818C7015A00CF17FF /* IQTextView.h */,
@@ -246,10 +250,7 @@
 				9D8E5DA818BC7C61005695CF /* IQTitleBarButtonItem.m */,
 				9D0BB82218BB195300667349 /* IQSegmentedNextPrevious.h */,
 				9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */,
-				9D0BB82518BB1A9D00667349 /* IQKeyboardManagerConstants.h */,
 				9D8E5DAF18BC993F005695CF /* IQKeyboardManagerConstantsInternal.h */,
-				9D0BB81F18BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.h */,
-				9D0BB82018BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m */,
 				9D0BB85518BB1B8F00667349 /* IQ_UIView+Hierarchy.h */,
 				9D0BB85618BB1B8F00667349 /* IQ_UIView+Hierarchy.m */,
 				9D0BB88218BB261500667349 /* IQ_UIWindow+Hierarchy.h */,
@@ -345,7 +346,7 @@
 				9DF8A9E118BB5ED8008E93B8 /* IQKeyboardManager.h in Headers */,
 				9DF8A9E918BB5ED8008E93B8 /* IQKeyboardManagerConstants.h in Headers */,
 				9D18420A18C7015A00CF17FF /* IQTextView.h in Headers */,
-				9DF8A9EA18BB5ED8008E93B8 /* IQ_UIView+IQKeyboardToolbar.h in Headers */,
+				9DF8A9EA18BB5ED8008E93B8 /* IQUIView+IQKeyboardToolbar.h in Headers */,
 				9DF8A9E718BB5ED8008E93B8 /* IQSegmentedNextPrevious.h in Headers */,
 				9D8E5DB018BC993F005695CF /* IQKeyboardManagerConstantsInternal.h in Headers */,
 				9DF8A9E318BB5ED8008E93B8 /* IQToolbar.h in Headers */,
@@ -417,7 +418,7 @@
 		C0B63B921781FAB0008D3B64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Canopus;
 				TargetAttributes = {
 					9D0BB83F18BB1AE100667349 = {
@@ -471,6 +472,7 @@
 				9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */,
 				9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */,
 				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
+				9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */,
 				9D9A0FC118C9D55700585D3F /* IQKeyboardManagerScreenshot.png in Resources */,
 				9DC4CE3018DAF77300DB2CB0 /* Main.storyboard in Resources */,
 				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
@@ -516,7 +518,7 @@
 				9DF8A9E218BB5ED8008E93B8 /* IQKeyboardManager.m in Sources */,
 				9DF8A9E418BB5ED8008E93B8 /* IQToolbar.m in Sources */,
 				9DF8A9E818BB5ED8008E93B8 /* IQSegmentedNextPrevious.m in Sources */,
-				9DF8A9EB18BB5ED8008E93B8 /* IQ_UIView+IQKeyboardToolbar.m in Sources */,
+				9DF8A9EB18BB5ED8008E93B8 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				9DF8A9ED18BB5ED8008E93B8 /* IQ_UIView+Hierarchy.m in Sources */,
 				9DF8A9EF18BB5ED8008E93B8 /* IQ_UIWindow+Hierarchy.m in Sources */,
 				9DF8A9F118BB5ED8008E93B8 /* IQ_NSArray+Sort.m in Sources */,
@@ -528,7 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D0BB82118BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m in Sources */,
+				9D0BB82118BB18E200667349 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				9D0BB85718BB1B8F00667349 /* IQ_UIView+Hierarchy.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
@@ -651,6 +653,7 @@
 		9D0BB88018BB232B00667349 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -677,6 +680,7 @@
 		9D0BB88118BB232B00667349 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

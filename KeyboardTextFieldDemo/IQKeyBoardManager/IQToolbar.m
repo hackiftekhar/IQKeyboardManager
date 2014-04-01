@@ -23,7 +23,7 @@
 
 #import "IQToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
-
+#import "IQTitleBarButtonItem.h"
 
 @implementation IQToolbar
 
@@ -71,6 +71,20 @@
     newFrame.origin.y += origFrame.size.height - newFrame.size.height;
     self.frame = newFrame;
 }
+
+-(void)setTitleFont:(UIFont *)titleFont
+{
+    _titleFont = titleFont;
+    
+    for (UIBarButtonItem *item in self.items)
+    {
+        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
+        {
+            [(IQTitleBarButtonItem*)item setFont:titleFont];
+        }
+    }
+}
+
 
 #pragma mark - UIInputViewAudioFeedback delegate
 - (BOOL) enableInputClicksWhenVisible

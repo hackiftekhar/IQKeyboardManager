@@ -26,7 +26,7 @@
 
 #import "IQKeyboardManagerConstants.h"
 
-
+@class UIFont;
 
 
 /*!
@@ -98,6 +98,13 @@
     @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
+
+/*!
+    @property placeholderFont
+ 
+    @abstract placeholder Font. Default is nil.
+ */
+@property(nonatomic, strong) UIFont *placeholderFont;
 
 
 
