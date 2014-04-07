@@ -1,5 +1,5 @@
 //
-//  UIWindow+Hierarchy.m
+//  NSArray+Sort.m
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,37 +21,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQ_UIWindow+Hierarchy.h"
+#import "IQNSArray+Sort.h"
 
-#import <UIKit/UINavigationController.h>
+#import <UIKit/UIView.h>
 
 #import "IQKeyboardManagerConstantsInternal.h"
-IQ_LoadCategory(IQUIWindowHierarchy)
+
+IQ_LoadCategory(IQNSArraySort)
 
 
-@implementation UIWindow (IQ_UIWindow_Hierarchy)
+@implementation NSArray (IQ_NSArray_Sort)
 
-//  Function to get topMost ViewController object.
-- (UIViewController*) topMostController
+- (NSArray*)sortedArrayByTag
 {
-    UIViewController *topController = [self rootViewController];
-    
-    //  Getting topMost ViewController
-    while ([topController presentedViewController])	topController = [topController presentedViewController];
-	
-    //  Returning topMost ViewController
-    return topController;
+    return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+        
+        if ([obj1 respondsToSelector:@selector(tag)] && [obj2 respondsToSelector:@selector(tag)])
+        {
+            if ([obj1 tag] < [obj2 tag])	return NSOrderedAscending;
+            
+            else if ([obj1 tag] > [obj2 tag])	return NSOrderedDescending;
+            
+            else	return NSOrderedSame;
+        }
+        else
+            return NSOrderedSame;
+    }];
 }
-
-- (UIViewController*)currentViewController;
-{
-    UIViewController *currentViewController = [self topMostController];
-    
-    while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
-        currentViewController = [(UINavigationController*)currentViewController topViewController];
-    
-    return currentViewController;
-}
-
 
 @end

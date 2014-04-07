@@ -21,12 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQ_UIView+Hierarchy.h"
+#import "IQUIView+Hierarchy.h"
 
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UISearchBar.h>
+#import <UIKit/UIViewController.h>
 
 #import "IQKeyboardManagerConstantsInternal.h"
 IQ_LoadCategory(IQUIViewHierarchy)
@@ -34,6 +35,33 @@ IQ_LoadCategory(IQUIViewHierarchy)
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
+- (id) traverseResponderChainForUIViewController {
+    id nextResponder = [self nextResponder];
+    if ([nextResponder isKindOfClass:[UIViewController class]]) {
+        return nextResponder;
+    } else if ([nextResponder isKindOfClass:[UIView class]]) {
+        return [nextResponder traverseResponderChainForUIViewController];
+    } else {
+        return nil;
+    }
+}
+
+
+-(UIViewController*)viewController
+{
+    UIResponder *nextResponder =  self;
+    
+    do
+    {
+        nextResponder = [nextResponder nextResponder];
+
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+            return (UIViewController*)nextResponder;
+
+    } while (nextResponder != nil);
+
+    return nil;
+}
 
 - (UITableView*)superTableView
 {
@@ -145,3 +173,109 @@ IQ_LoadCategory(IQUIViewHierarchy)
 //}
 
 @end
+
+@implementation UIView (IQ_UIView_Frame)
+
+-(CGFloat)x         {   return self.frame.origin.x;         }
+-(CGFloat)y         {   return self.frame.origin.y;         }
+-(CGFloat)width     {   return self.frame.size.width;       }
+-(CGFloat)height    {   return self.frame.size.height;      }
+-(CGPoint)origin    {   return self.frame.origin;           }
+-(CGSize)size       {   return self.frame.size;             }
+-(CGFloat)left      {   return CGRectGetMinX(self.frame);   }
+-(CGFloat)right     {   return CGRectGetMaxX(self.frame);   }
+-(CGFloat)top       {   return CGRectGetMinY(self.frame);   }
+-(CGFloat)bottom    {   return CGRectGetMaxY(self.frame);   }
+-(CGFloat)centerX   {   return self.center.x;               }
+-(CGFloat)centerY   {   return self.center.y;               }
+-(CGPoint)boundsCenter  {   return CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));   };
+
+-(void)setX:(CGFloat)x
+{
+    CGRect frame = self.frame;
+    frame.origin.x = x;
+    self.frame = frame;
+}
+
+-(void)setY:(CGFloat)y
+{
+    CGRect frame = self.frame;
+    frame.origin.y = y;
+    self.frame = frame;
+}
+
+-(void)setWidth:(CGFloat)width
+{
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
+-(void)setHeight:(CGFloat)height
+{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+}
+
+- (void)setOrigin:(CGPoint)origin
+{
+    CGRect frame = self.frame;
+    frame.origin = origin;
+    self.frame = frame;
+}
+
+-(void)setSize:(CGSize)size
+{
+    CGRect frame = self.frame;
+    frame.size = size;
+    self.frame = frame;
+}
+
+-(void)setLeft:(CGFloat)left
+{
+    CGRect frame = self.frame;
+    frame.origin.x = left;
+    frame.size.width = MAX(self.right-left, 0);
+    self.frame = frame;
+}
+
+-(void)setRight:(CGFloat)right
+{
+    CGRect frame = self.frame;
+    frame.size.width = MAX(right-self.left, 0);
+    self.frame = frame;
+}
+
+-(void)setTop:(CGFloat)top
+{
+    CGRect frame = self.frame;
+    frame.origin.y = top;
+    frame.size.height = MAX(self.bottom-top, 0);
+    self.frame = frame;
+}
+
+-(void)setBottom:(CGFloat)bottom
+{
+    CGRect frame = self.frame;
+    frame.size.height = MAX(bottom-self.top, 0);
+    self.frame = frame;
+}
+
+-(void)setCenterX:(CGFloat)centerX
+{
+    CGPoint center = self.center;
+    center.x = centerX;
+    self.center = center;
+}
+
+-(void)setCenterY:(CGFloat)centerY
+{
+    CGPoint center = self.center;
+    center.y = centerY;
+    self.center = center;
+}
+
+@end
+
+

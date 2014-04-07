@@ -336,8 +336,11 @@ IQ_LoadCategory(IQUIViewToolbar)
 	}
 	else
 	{
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		//  Create a next/previous button to switch between TextFieldViews.
 		IQSegmentedNextPrevious *segControl = [[IQSegmentedNextPrevious alloc] initWithTarget:target previousAction:previousAction nextAction:nextAction];
+        #pragma GCC diagnostic pop
 		UIBarButtonItem *segButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
 		[items addObject:segButton];
 	}
@@ -428,10 +431,12 @@ IQ_LoadCategory(IQUIViewToolbar)
 			if ([barButtonItem isKindOfClass:[UIBarButtonItem class]] && [barButtonItem customView] != nil)
 			{
 				//  Getting it's customView.
+                #pragma GCC diagnostic push
+                #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 				IQSegmentedNextPrevious *segmentedControl = (IQSegmentedNextPrevious*)[barButtonItem customView];
-				
 				//  If its customView is IQSegmentedNextPrevious and has 2 segments
 				if ([segmentedControl isKindOfClass:[IQSegmentedNextPrevious class]] && [segmentedControl numberOfSegments]==2)
+                #pragma GCC diagnostic pop
 				{
                     if ([segmentedControl isEnabledForSegmentAtIndex:0] != isPreviousEnabled)
                     {
