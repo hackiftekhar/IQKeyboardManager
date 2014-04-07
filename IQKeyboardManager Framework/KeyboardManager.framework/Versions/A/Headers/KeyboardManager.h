@@ -27,6 +27,14 @@
 
 #import <KeyboardManager/IQKeyboardManager.h>
 #import <KeyboardManager/IQKeyboardManagerConstants.h>
+#import <KeyboardManager/IQSegmentedNextPrevious.h>
+#import <KeyboardManager/IQTextView.h>
+#import <KeyboardManager/IQTitleBarButtonItem.h>
+#import <KeyboardManager/IQToolbar.h>
+#import <KeyboardManager/IQUIView+Hierarchy.h>
 #import <KeyboardManager/IQUIView+IQKeyboardToolbar.h>
+#import <KeyboardManager/IQUIWindow+Hierarchy.h>
+
+
 
 #endif

@@ -28,6 +28,13 @@
 @interface UIView (IQ_UIView_Hierarchy)
 
 /*!
+    @method viewController:
+ 
+    @return Returns the UIViewController object that manages the receiver.
+ */
+-(UIViewController*)viewController;
+
+/*!
     @method superScrollView:
  
     @return Returns the UIScrollView object if any found in view's upper hierarchy.
@@ -64,7 +71,19 @@
 -(BOOL)isInsideSearchBar;
 
 
-
 //-(BOOL)isInsideAlertView;
+
+@end
+
+
+@interface UIView (IQ_UIView_Frame)
+
+@property (nonatomic, assign) CGPoint origin;
+@property (nonatomic, assign) CGSize size;
+@property (nonatomic, assign) CGFloat x, y, width, height;
+@property (nonatomic, assign) CGFloat left, right, top, bottom;
+@property (nonatomic, assign) CGFloat centerX;
+@property (nonatomic, assign) CGFloat centerY;
+@property (nonatomic, readonly) CGPoint boundsCenter;
 
 @end
