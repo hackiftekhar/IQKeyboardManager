@@ -1,4 +1,4 @@
-IQKeyBoardManager license
+IQKeyboardManager license
 =========================
 
 The MIT License (MIT)
