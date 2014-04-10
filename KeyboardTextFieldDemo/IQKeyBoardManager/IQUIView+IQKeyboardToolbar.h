@@ -36,6 +36,13 @@
 @interface UIView (IQToolbarAddition)
 
 /*!
+    @property shouldHideTitle
+ 
+    @abstract if shouldHideTitle is YES, then title will not be added to the toolbar. Default to NO.
+ */
+@property (assign, nonatomic) BOOL shouldHideTitle;
+
+/*!
     @method addDoneOnKeyboardWithTarget:action:
  
     @abstract Helper functions to add Done button on keyboard.
