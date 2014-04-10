@@ -30,13 +30,27 @@
 
 #import <UIKit/UIImage.h>
 #import <UIKit/UILabel.h>
-
+#import <objc/runtime.h>
 
 IQ_LoadCategory(IQUIViewToolbar)
 
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
+
+NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
+
+-(void)setShouldHideTitle:(BOOL)shouldHideTitle
+{
+    objc_setAssociatedObject(self, &IQ_shouldHideTitleKey, [NSNumber numberWithBool:shouldHideTitle], OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(BOOL)shouldHideTitle
+{
+    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, &IQ_shouldHideTitleKey);
+    return [shouldHideTitle boolValue];
+}
+
 
 - (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
@@ -48,7 +62,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -113,7 +127,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -183,7 +197,7 @@ IQ_LoadCategory(IQUIViewToolbar)
     UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStyleBordered target:target action:leftAction];
     [items addObject:cancelButton];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -253,7 +267,7 @@ IQ_LoadCategory(IQUIViewToolbar)
     UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
     [items addObject:cancelButton];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -345,7 +359,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 		[items addObject:segButton];
 	}
 	
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         

@@ -22,7 +22,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     if (!self.navigationController)
     {
         [buttonPop setHidden:YES];
