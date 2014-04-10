@@ -181,11 +181,12 @@
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
             [self setShouldToolbarUsesTextFieldTintColor:NO];
-
+            [self setOverrideKeyboardAppearance:NO];
+            [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            
             [self setEnableAutoToolbar:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
-
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             
             _keyWindow = [self keyWindow];
@@ -691,6 +692,9 @@
 {
     //  Getting object
     _textFieldView = notification.object;
+    
+    if (_overrideKeyboardAppearance == YES) [(UITextField*)_textFieldView setKeyboardAppearance:_keyboardAppearance];
+    
 	// If the manager is not enabled and it can't adjust the textview set the initial frame to CGRectZero
     textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
     
