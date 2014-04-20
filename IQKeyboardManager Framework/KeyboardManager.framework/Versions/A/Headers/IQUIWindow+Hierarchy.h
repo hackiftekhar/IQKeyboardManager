@@ -1,5 +1,5 @@
 //
-//  UIWindow+Hierarchy.m
+//  UIWindow+Hierarchy.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,37 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQ_UIWindow+Hierarchy.h"
+#import <UIKit/UIWindow.h>
 
-#import <UIKit/UINavigationController.h>
+@class UIViewController;
 
-#import "IQKeyboardManagerConstantsInternal.h"
-IQ_LoadCategory(IQUIWindowHierarchy)
+@interface UIWindow (IQ_UIWindow_Hierarchy)
 
+/*!
+    @method topMostController
+ 
+    @return Returns the current Top Most ViewController in hierarchy.
+ */
+- (UIViewController*) topMostController;
 
-@implementation UIWindow (IQ_UIWindow_Hierarchy)
-
-//  Function to get topMost ViewController object.
-- (UIViewController*) topMostController
-{
-    UIViewController *topController = [self rootViewController];
-    
-    //  Getting topMost ViewController
-    while ([topController presentedViewController])	topController = [topController presentedViewController];
-	
-    //  Returning topMost ViewController
-    return topController;
-}
-
+/*!
+    @method currentViewController
+ 
+    @return Returns the topViewController in stack of topMostController.
+ */
 - (UIViewController*)currentViewController;
-{
-    UIViewController *currentViewController = [self topMostController];
-    
-    while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
-        currentViewController = [(UINavigationController*)currentViewController topViewController];
-    
-    return currentViewController;
-}
 
 
 @end

@@ -3,7 +3,7 @@
 //  KeyboardTextFieldDemo
 
 #import "ViewController.h"
-#import "IQ_UIView+IQKeyboardToolbar.h"
+#import "IQUIView+IQKeyboardToolbar.h"
 #import <Twitter/Twitter.h>
 
 

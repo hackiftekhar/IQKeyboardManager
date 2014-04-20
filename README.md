@@ -1,4 +1,4 @@
-Keyboard TextField Manager
+IQKeyboardManager
 ==========================
 
 Often while developing an app, We ran into an issues where the iPhone UIKeyboard slide up and cover the `UITextField/UITextView`.
@@ -21,7 +21,7 @@ Cocoapod
 IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
 
-    pod 'IQKeyboardManager', '~>3.0.3'
+    pod 'IQKeyboardManager', '~>3.0.4'
 
 Framework:-
 ---
@@ -38,7 +38,7 @@ Manual Toolbar Management:-
 textField.inputAccessoryView = [[UIView alloc] init];
 ```
 
-2) If you need your own control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQ_UIView+IQKeyboardToolbar.h` file. You can use them like this:-
+2) If you need your own control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQUIView+IQKeyboardToolbar.h` file. You can use them like this:-
 ```
 -(void)viewDidLoad
 {

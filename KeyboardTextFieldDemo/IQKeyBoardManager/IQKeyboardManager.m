@@ -22,10 +22,10 @@
 // THE SOFTWARE.
 
 #import "IQKeyboardManager.h"
-#import "IQ_UIView+Hierarchy.h"
-#import "IQ_UIView+IQKeyboardToolbar.h"
-#import "IQ_UIWindow+Hierarchy.h"
-#import "IQ_NSArray+Sort.h"
+#import "IQUIView+Hierarchy.h"
+#import "IQUIView+IQKeyboardToolbar.h"
+#import "IQUIWindow+Hierarchy.h"
+#import "IQNSArray+Sort.h"
 #import "IQToolbar.h"
 
 #import <UIKit/UITapGestureRecognizer.h>
@@ -181,11 +181,12 @@
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
             [self setShouldToolbarUsesTextFieldTintColor:NO];
-
+            [self setOverrideKeyboardAppearance:NO];
+            [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            
             [self setEnableAutoToolbar:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
-
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             
             _keyWindow = [self keyWindow];
@@ -691,6 +692,9 @@
 {
     //  Getting object
     _textFieldView = notification.object;
+    
+    if (_overrideKeyboardAppearance == YES) [(UITextField*)_textFieldView setKeyboardAppearance:_keyboardAppearance];
+    
 	// If the manager is not enabled and it can't adjust the textview set the initial frame to CGRectZero
     textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
     
@@ -906,13 +910,14 @@
 		if (![textField inputAccessoryView])
 		{
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-            textField.inputAccessoryView.tag = NSIntegerMin;
-            
-#ifdef __IPHONE_7_0
+
             //Setting toolbar tintColor
             if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                 [textField.inputAccessoryView setTintColor:[textField tintColor]];
-#endif
+            
+            //Setting toolbar title font.
+            if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
         }
 	}
 	else if(siblings.count)
@@ -920,38 +925,33 @@
 		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
 		for (UITextField *textField in siblings)
 		{
-            UIView *toolbar = [textField inputAccessoryView];
-
-			if (!toolbar)
+			if (![textField inputAccessoryView])
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-                textField.inputAccessoryView.tag = NSIntegerMin;
 
-#ifdef __IPHONE_7_0
                 //Setting toolbar tintColor
                 if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                     [textField.inputAccessoryView setTintColor:[textField tintColor]];
-#endif
+                
+                //Setting toolbar title font.
+                if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                    [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
   			}
             
-            
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
-            if ([toolbar tag] == NSIntegerMin)
+            //	If firstTextField, then previous should not be enabled.
+            if ([siblings objectAtIndex:0] == textField)
             {
-                //	If firstTextField, then previous should not be enabled.
-                if ([siblings objectAtIndex:0] == textField)
-                {
-                    [textField setEnablePrevious:NO next:YES];
-                }
-                //	If lastTextField then next should not be enaled.
-                else if ([siblings lastObject] == textField)
-                {
-                    [textField setEnablePrevious:YES next:NO];
-                }
-                else
-                {
-                    [textField setEnablePrevious:YES next:YES];
-                }
+                [textField setEnablePrevious:NO next:YES];
+            }
+            //	If lastTextField then next should not be enaled.
+            else if ([siblings lastObject] == textField)
+            {
+                [textField setEnablePrevious:YES next:NO];
+            }
+            else
+            {
+                [textField setEnablePrevious:YES next:YES];
             }
 		}
 	}
@@ -965,9 +965,7 @@
     
     for (UITextField *textField in siblings)
     {
-        UIView *toolbar = [textField inputAccessoryView];
-        
-        if ([toolbar isKindOfClass:[IQToolbar class]] && [toolbar tag] == NSIntegerMin)
+        if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]])
         {
             [textField setInputAccessoryView:nil];
         }
