@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */; };
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
 		9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
 		9D0BB82118BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m */; };
@@ -70,6 +71,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarViewController.h; sourceTree = "<group>"; };
+		53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarViewController.m; sourceTree = "<group>"; };
 		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
 		9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialCaseViewController.m; sourceTree = "<group>"; };
 		9D0BB81C18BB18AA00667349 /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */,
 				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
+				53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */,
+				53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */,
 			);
 			path = KeyboardTextFieldDemo;
 			sourceTree = "<group>";
@@ -528,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */,
 				9D0BB82118BB18E200667349 /* IQ_UIView+IQKeyboardToolbar.m in Sources */,
 				9D0BB85718BB1B8F00667349 /* IQ_UIView+Hierarchy.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
