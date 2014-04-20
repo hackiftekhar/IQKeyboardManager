@@ -31,8 +31,15 @@ Source Code:-
 ---
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
-Manual Toolbar Management:-
+Manual Management:-
 ---
+
+#### UINavigationBar:-
+
+1) If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.
+
+#### UIToolbar(IQToolbar):-
+
 1) If you don't want to add automatic toolbar over keyboard for a specific textField then you should add a UIView as it's toolbar like this:-
 ```
 textField.inputAccessoryView = [[UIView alloc] init];
