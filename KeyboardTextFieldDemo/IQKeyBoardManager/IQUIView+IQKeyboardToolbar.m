@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 
-#import "IQ_UIView+IQKeyboardToolbar.h"
+#import "IQUIView+IQKeyboardToolbar.h"
 #import "IQSegmentedNextPrevious.h"
 #import "IQToolbar.h"
 #import "IQTitleBarButtonItem.h"
@@ -30,13 +30,27 @@
 
 #import <UIKit/UIImage.h>
 #import <UIKit/UILabel.h>
-
+#import <objc/runtime.h>
 
 IQ_LoadCategory(IQUIViewToolbar)
 
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
+
+NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
+
+-(void)setShouldHideTitle:(BOOL)shouldHideTitle
+{
+    objc_setAssociatedObject(self, &IQ_shouldHideTitleKey, [NSNumber numberWithBool:shouldHideTitle], OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(BOOL)shouldHideTitle
+{
+    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, &IQ_shouldHideTitleKey);
+    return [shouldHideTitle boolValue];
+}
+
 
 - (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
@@ -48,7 +62,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -113,7 +127,7 @@ IQ_LoadCategory(IQUIViewToolbar)
 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -183,7 +197,7 @@ IQ_LoadCategory(IQUIViewToolbar)
     UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStyleBordered target:target action:leftAction];
     [items addObject:cancelButton];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -253,7 +267,7 @@ IQ_LoadCategory(IQUIViewToolbar)
     UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
     [items addObject:cancelButton];
     
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -336,17 +350,16 @@ IQ_LoadCategory(IQUIViewToolbar)
 	}
 	else
 	{
-        //Ignoring deprecation warnings
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		//  Create a next/previous button to switch between TextFieldViews.
 		IQSegmentedNextPrevious *segControl = [[IQSegmentedNextPrevious alloc] initWithTarget:target previousAction:previousAction nextAction:nextAction];
-#pragma GCC diagnostic pop
+        #pragma GCC diagnostic pop
 		UIBarButtonItem *segButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
 		[items addObject:segButton];
 	}
 	
-    if ([titleText length])
+    if ([titleText length] && self.shouldHideTitle == NO)
     {
         CGRect buttonFrame;
         
@@ -431,14 +444,13 @@ IQ_LoadCategory(IQUIViewToolbar)
 			//  If it is UIBarButtonItem and it's customView is not nil.
 			if ([barButtonItem isKindOfClass:[UIBarButtonItem class]] && [barButtonItem customView] != nil)
 			{
-                //Ignoring deprecation warnings
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 				//  Getting it's customView.
+                #pragma GCC diagnostic push
+                #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 				IQSegmentedNextPrevious *segmentedControl = (IQSegmentedNextPrevious*)[barButtonItem customView];
 				//  If its customView is IQSegmentedNextPrevious and has 2 segments
 				if ([segmentedControl isKindOfClass:[IQSegmentedNextPrevious class]] && [segmentedControl numberOfSegments]==2)
-#pragma GCC diagnostic pop
+                #pragma GCC diagnostic pop
 				{
                     if ([segmentedControl isEnabledForSegmentAtIndex:0] != isPreviousEnabled)
                     {

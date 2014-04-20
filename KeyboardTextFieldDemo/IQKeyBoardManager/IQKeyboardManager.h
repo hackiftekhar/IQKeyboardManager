@@ -23,10 +23,10 @@
 
 #import <Foundation/NSObject.h>
 #import <CoreGraphics/CGBase.h>
-
+#import <UIKit/UITextInputTraits.h>
 #import "IQKeyboardManagerConstants.h"
 
-
+@class UIFont;
 
 
 /*!
@@ -99,6 +99,13 @@
  */
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
 
+/*!
+    @property placeholderFont
+ 
+    @abstract placeholder Font. Default is nil.
+ */
+@property(nonatomic, strong) UIFont *placeholderFont;
+
 
 
 
@@ -110,6 +117,25 @@
     @abstract Adjust textView's frame when it is too big in height. Default is NO.
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
+
+
+
+
+//Keyboard appearance overriding
+
+/*!
+    @property overrideKeyboardAppearance
+ 
+    @abstract override the keyboardAppearance for all textField/textView. Default is NO.
+ */
+@property(nonatomic, assign) BOOL overrideKeyboardAppearance;
+
+/*!
+    @property keyboardAppearance
+ 
+    @abstract if overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+ */
+@property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
 
 
