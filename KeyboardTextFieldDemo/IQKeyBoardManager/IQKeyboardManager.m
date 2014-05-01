@@ -619,7 +619,7 @@
 	if (_enable == NO)	return;
 	
     //Due to orientation callback we need to resave it's original frame.
-    textFieldViewIntialFrame = _textFieldView.frame;
+    textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
     
     if (_shouldAdoptDefaultKeyboardAnimation)
     {
