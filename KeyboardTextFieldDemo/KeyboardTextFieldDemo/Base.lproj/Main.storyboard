@@ -525,7 +525,6 @@
                         <color key="backgroundColor" red="1" green="0.61287773065021289" blue="0.45724296821493127" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Navigation Bar" id="IWx-4s-DcF">
-                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="refresh" id="FEI-GF-ozC"/>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="9Cd-gt-ocv"/>
                     </navigationItem>
                 </viewController>
