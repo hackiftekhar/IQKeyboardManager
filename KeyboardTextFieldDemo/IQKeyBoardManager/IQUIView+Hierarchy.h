@@ -62,16 +62,19 @@
  */
 - (NSArray*)deepResponderViews;
 
-
 /*!
     @method isInsideSearchBar:
  
-    @return returns YES if the receiver object inside of UISearchBar, otherwise return NO.
+    @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
--(BOOL)isInsideSearchBar;
+-(BOOL)isSearchBarTextField;
 
-
-//-(BOOL)isInsideAlertView;
+/*!
+    @method isAlertViewTextField:
+ 
+    @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
+ */
+-(BOOL)isAlertViewTextField;
 
 @end
 

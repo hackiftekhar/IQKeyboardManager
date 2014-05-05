@@ -147,6 +147,16 @@
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
+//Special TextView
+Class EKPlaceholderTextViewClass;
+
++(void)initialize
+{
+    [super initialize];
+
+    EKPlaceholderTextViewClass = NSClassFromString(@"EKPlaceholderTextView");
+}
+
 /*  Singleton Object Initialization. */
 -(id)init
 {
@@ -665,7 +675,11 @@
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(kbSize, oldKBSize))
     {
-        [self adjustFrame];
+        //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
+        if ([_textFieldView isKindOfClass:EKPlaceholderTextViewClass] == NO)
+        {
+            [self adjustFrame];
+        }
     }
 }
 
@@ -686,6 +700,7 @@
     //Setting object to nil
     _textFieldView = nil;
 }
+
 
 /*!  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
@@ -730,8 +745,12 @@
         topViewBeginRect = rootController.view.frame;
     }
     
-    //  keyboard is already showing. adjust frame.
-    [self adjustFrame];
+    //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
+    if ([_textFieldView isKindOfClass:EKPlaceholderTextViewClass] == NO)
+    {
+        //  keyboard is already showing. adjust frame.
+        [self adjustFrame];
+    }
 }
 
 /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
