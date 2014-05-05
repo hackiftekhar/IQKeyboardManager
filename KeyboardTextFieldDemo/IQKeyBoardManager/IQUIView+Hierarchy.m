@@ -73,7 +73,8 @@ IQ_LoadCategory(IQUIViewHierarchy)
     
     while (superview)
     {
-        if ([superview isKindOfClass:[UIScrollView class]])
+        NSString *superViewClassName = NSStringFromClass([superview class]);
+        if ([superview isKindOfClass:[UIScrollView class]] && ![superViewClassName isEqualToString:@"UITableViewCellScrollView"])
         {
             return (UIScrollView*)superview;
         }
