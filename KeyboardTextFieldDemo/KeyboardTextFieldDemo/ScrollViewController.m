@@ -24,7 +24,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = [NSString stringWithFormat:@"%d%d",indexPath.section,indexPath.row];
+    NSString *identifier = [NSString stringWithFormat:@"%ld%ld",indexPath.section,indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
