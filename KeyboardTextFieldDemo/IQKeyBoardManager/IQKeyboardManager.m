@@ -118,12 +118,15 @@
 //UIKeyboard handling
 @synthesize enable                              =   _enable;
 @synthesize keyboardDistanceFromTextField       =   _keyboardDistanceFromTextField;
+@synthesize overrideKeyboardAppearance          =   _overrideKeyboardAppearance;
+@synthesize keyboardAppearance                  =   _keyboardAppearance;
 
 //IQToolbar handling
 @synthesize enableAutoToolbar                   =   _enableAutoToolbar;
 @synthesize toolbarManageBehaviour              =   _toolbarManageBehaviour;
 @synthesize shouldToolbarUsesTextFieldTintColor =   _shouldToolbarUsesTextFieldTintColor;
 @synthesize shouldShowTextFieldPlaceholder      =   _shouldShowTextFieldPlaceholder;
+@synthesize placeholderFont                     =   _placeholderFont;
 
 //TextView handling
 @synthesize canAdjustTextView                   =   _canAdjustTextView;

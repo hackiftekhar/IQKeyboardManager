@@ -31,6 +31,7 @@
 {
     UILabel *_titleLabel;
 }
+@synthesize font = _font;
 
 -(id)initWithFrame:(CGRect)frame Title:(NSString *)title
 {
