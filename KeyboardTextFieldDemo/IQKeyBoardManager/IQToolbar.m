@@ -26,6 +26,7 @@
 #import "IQTitleBarButtonItem.h"
 
 @implementation IQToolbar
+@synthesize titleFont = _titleFont;
 
 -(void)initialize
 {
