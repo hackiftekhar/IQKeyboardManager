@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */; };
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
-		9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */; };
 		9D0BB81E18BB18AA00667349 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB81D18BB18AA00667349 /* IQToolbar.m */; };
 		9D0BB82118BB18E200667349 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82018BB18E200667349 /* IQUIView+IQKeyboardToolbar.m */; };
 		9D0BB82418BB195300667349 /* IQSegmentedNextPrevious.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0BB82318BB195300667349 /* IQSegmentedNextPrevious.m */; };
@@ -424,7 +423,7 @@
 		C0B63B921781FAB0008D3B64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Canopus;
 				TargetAttributes = {
 					9D0BB83F18BB1AE100667349 = {
@@ -478,7 +477,6 @@
 				9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */,
 				9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */,
 				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
-				9D03F07018BDC3CA00F4970D /* IQKeyboard-Info.plist in Resources */,
 				9DC4CE3018DAF77300DB2CB0 /* Main.storyboard in Resources */,
 				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
 				C0B63BAA1781FAB1008D3B64 /* InfoPlist.strings in Resources */,
