@@ -1,10 +1,6 @@
 //
 //  NavigationBarViewController.m
 //  IQKeyboard
-//
-//  Created by Atul on 20/04/14.
-//  Copyright (c) 2014 Canopus. All rights reserved.
-//
 
 #import "NavigationBarViewController.h"
 
