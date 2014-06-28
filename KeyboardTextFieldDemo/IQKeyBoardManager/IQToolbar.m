@@ -24,6 +24,7 @@
 #import "IQToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQTitleBarButtonItem.h"
+#import "IQUIView+Hierarchy.h"
 
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
@@ -62,10 +63,22 @@
     return self;
 }
 
+
+-(CGSize)sizeThatFits:(CGSize)size
+{
+    CGSize sizeThatFit = [super sizeThatFits:size];
+    
+    //Issue #52 fix
+    sizeThatFit.width = [[[self viewController] view] width];
+    
+    return sizeThatFit;
+}
+
 //To resize IQToolbar on device rotation.
 - (void) layoutSubviews
 {
     [super layoutSubviews];
+    
     CGRect origFrame = self.frame;
     [self sizeToFit];
     CGRect newFrame = self.frame;
