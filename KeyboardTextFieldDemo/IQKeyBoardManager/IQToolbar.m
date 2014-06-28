@@ -26,6 +26,8 @@
 #import "IQTitleBarButtonItem.h"
 #import "IQUIView+Hierarchy.h"
 
+#import <UIKit/UIViewController.h>
+
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
 
