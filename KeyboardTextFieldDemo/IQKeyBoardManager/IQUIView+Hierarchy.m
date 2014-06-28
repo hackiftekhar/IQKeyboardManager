@@ -130,7 +130,7 @@ Class UITableViewCellScrollViewClass;
     
     for (UITextField *textField in subViews)
     {
-        if ([textField canBecomeFirstResponder])
+        if ([textField canBecomeFirstResponder] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
         {
             [textFields addObject:textField];
         }
