@@ -70,8 +70,13 @@
 {
     CGSize sizeThatFit = [super sizeThatFits:size];
     
-    //Issue #52 fix
-    sizeThatFit.width = [[[self viewController] view] width];
+    UIView *view = [[self viewController] view];
+    
+    if (view)
+    {
+        //Issue #52 fix
+        sizeThatFit.width = [[[self viewController] view] width];
+    }
     
     return sizeThatFit;
 }
