@@ -1,0 +1,147 @@
+
+/* Class = "IBUITextView"; text = "Can set keyboard and textFiled distance"; ObjectID = "0xQ-D1-B5M"; */
+"0xQ-D1-B5M.text" = "Can set keyboard and textFiled distance";
+
+/* Class = "IBUINavigationItem"; title = "UIScrollView Example"; ObjectID = "1XW-VW-7XA"; */
+"1XW-VW-7XA.title" = "UIScrollView Example";
+
+/* Class = "IBUINavigationItem"; title = "UIWebView Example"; ObjectID = "3s1-JL-XZo"; */
+"3s1-JL-XZo.title" = "UIWebView Example";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "41E-VD-fUm"; */
+"41E-VD-fUm.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUITextField"; placeholder = "TextField 2"; ObjectID = "48H-nl-1ha"; */
+"48H-nl-1ha.placeholder" = "TextField 2";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "4vp-rE-xp0"; */
+"4vp-rE-xp0.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUIButton"; normalTitle = "Present"; ObjectID = "8D8-Vm-PL6"; */
+"8D8-Vm-PL6.normalTitle" = "Present";
+
+/* Class = "IBUIButton"; normalTitle = "UITextView Special Case"; ObjectID = "9BQ-or-Kc3"; */
+"9BQ-or-Kc3.normalTitle" = "UITextView Special Case";
+
+/* Class = "IBUINavigationItem"; title = "Special Case"; ObjectID = "9gA-WE-hCe"; */
+"9gA-WE-hCe.title" = "Special Case";
+
+/* Class = "IBUIButton"; normalTitle = "Pop"; ObjectID = "AdL-78-gAt"; */
+"AdL-78-gAt.normalTitle" = "Pop";
+
+/* Class = "IBUINavigationItem"; title = "Navigation Bar"; ObjectID = "IWx-4s-DcF"; */
+"IWx-4s-DcF.title" = "Navigation Bar";
+
+/* Class = "IBUITextView"; text = "can adjust textView's height when it is too big to fit on screen"; ObjectID = "Inj-lY-mEU"; */
+"Inj-lY-mEU.text" = "can adjust textView's height when it is too big to fit on screen";
+
+/* Class = "IBUITextView"; text = "Automanage keyboard toolbar"; ObjectID = "K9N-If-WH3"; */
+"K9N-If-WH3.text" = "Automanage keyboard toolbar";
+
+/* Class = "IBUITextField"; placeholder = "2 Device Orientation support"; ObjectID = "Kdq-Kn-JCR"; */
+"Kdq-Kn-JCR.placeholder" = "2 Device Orientation support";
+
+/* Class = "IBUIButton"; normalTitle = "NavigationBar"; ObjectID = "Kl3-DN-ky4"; */
+"Kl3-DN-ky4.normalTitle" = "NavigationBar";
+
+/* Class = "IBUITextField"; placeholder = "TextField 1"; ObjectID = "LhW-1m-VYd"; */
+"LhW-1m-VYd.placeholder" = "TextField 1";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Mt5-Re-5fB"; */
+"Mt5-Re-5fB.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUITextField"; placeholder = "textField.userEnteractionEnabled = NO"; ObjectID = "PfH-qV-9D8"; */
+"PfH-qV-9D8.placeholder" = "textField.userEnteractionEnabled = NO";
+
+/* Class = "IBUITextView"; text = "TextView2"; ObjectID = "Qlj-B6-NJn"; */
+"Qlj-B6-NJn.text" = "TextView2";
+
+/* Class = "IBUITextField"; placeholder = "1 Easiest integration"; ObjectID = "Rr4-Yx-SRn"; */
+"Rr4-Yx-SRn.placeholder" = "1 Easiest integration";
+
+/* Class = "IBUIButton"; normalTitle = "Special Cases"; ObjectID = "SPR-Qr-9Nd"; */
+"SPR-Qr-9Nd.normalTitle" = "Special Cases";
+
+/* Class = "IBUIButton"; normalTitle = "UIWebView example"; ObjectID = "Tlo-bt-rkd"; */
+"Tlo-bt-rkd.normalTitle" = "UIWebView example";
+
+/* Class = "IBUIButton"; normalTitle = "Push"; ObjectID = "Tt5-47-EvZ"; */
+"Tt5-47-EvZ.normalTitle" = "Push";
+
+/* Class = "IBUITextField"; placeholder = "TextField 3"; ObjectID = "UJZ-io-mQK"; */
+"UJZ-io-mQK.placeholder" = "TextField 3";
+
+/* Class = "IBUIButton"; normalTitle = "UIScrollView/UITableView example"; ObjectID = "XhS-gn-3fZ"; */
+"XhS-gn-3fZ.normalTitle" = "UIScrollView/UITableView example";
+
+/* Class = "IBUIButton"; normalTitle = "Push"; ObjectID = "YAU-By-AUd"; */
+"YAU-By-AUd.normalTitle" = "Push";
+
+/* Class = "IBUIButton"; normalTitle = "UITextField/UITextView example"; ObjectID = "YTF-Ud-alc"; */
+"YTF-Ud-alc.normalTitle" = "UITextField/UITextView example";
+
+/* Class = "IBUIButton"; normalTitle = "Show Alert with TextField"; ObjectID = "YrO-Gs-dk3"; */
+"YrO-Gs-dk3.normalTitle" = "Show Alert with TextField";
+
+/* Class = "IBUILabel"; text = "IQKeyboardManager doesn't affect UIWebView default implementation"; ObjectID = "aMq-BE-n96"; */
+"aMq-BE-n96.text" = "IQKeyboardManager doesn't affect UIWebView default implementation";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "c2H-js-41D"; */
+"c2H-js-41D.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUITextField"; placeholder = "TextField 5"; ObjectID = "cub-N3-8xz"; */
+"cub-N3-8xz.placeholder" = "TextField 5";
+
+/* Class = "IBUITextField"; placeholder = "TextField.enabled = NO"; ObjectID = "d6z-1T-UIh"; */
+"d6z-1T-UIh.placeholder" = "TextField.enabled = NO";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "eUE-6p-1KB"; */
+"eUE-6p-1KB.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUITextField"; placeholder = "3 UITextField Category for Keyboard"; ObjectID = "f9i-hv-EJj"; */
+"f9i-hv-EJj.placeholder" = "3 UITextField Category for Keyboard";
+
+/* Class = "IBUIBarButtonItem"; title = "Enable Adjust"; ObjectID = "i3m-8w-WCe"; */
+"i3m-8w-WCe.title" = "Enable Adjust";
+
+/* Class = "IBUINavigationItem"; title = "Special Cases"; ObjectID = "iYf-Wa-Sqo"; */
+"iYf-Wa-Sqo.title" = "Special Cases";
+
+/* Class = "IBUINavigationItem"; title = "IQKeyboardManager"; ObjectID = "ldy-K9-8em"; */
+"ldy-K9-8em.title" = "IQKeyboardManager";
+
+/* Class = "IBUIBarButtonItem"; title = "Disable"; ObjectID = "m7f-Wx-thj"; */
+"m7f-Wx-thj.title" = "Disable";
+
+/* Class = "IBUILabel"; text = "If you want to always show UINavigationBar, then change the UIView class to UIScrollView."; ObjectID = "m97-kT-XNr"; */
+"m97-kT-XNr.text" = "If you want to always show UINavigationBar, then change the UIView class to UIScrollView.";
+
+/* Class = "IBUITextField"; placeholder = "4 Enable/Desable Keyboard Manager"; ObjectID = "n2x-Db-igr"; */
+"n2x-Db-igr.placeholder" = "4 Enable/Desable Keyboard Manager";
+
+/* Class = "IBUIButton"; normalTitle = "Present"; ObjectID = "ngA-qN-Hmt"; */
+"ngA-qN-Hmt.normalTitle" = "Present";
+
+/* Class = "IBUITextView"; text = "TextView1"; ObjectID = "pMi-TP-eI0"; */
+"pMi-TP-eI0.text" = "TextView1";
+
+/* Class = "IBUINavigationItem"; title = "TextField Demo"; ObjectID = "s8z-5e-RBK"; */
+"s8z-5e-RBK.title" = "TextField Demo";
+
+/* Class = "IBUIButton"; normalTitle = "Pop"; ObjectID = "tsQ-Ga-YxO"; */
+"tsQ-Ga-YxO.normalTitle" = "Pop";
+
+/* Class = "IBUITextView"; text = "Can resign on touching outside"; ObjectID = "wIC-LZ-asw"; */
+"wIC-LZ-asw.text" = "Can resign on touching outside";
+
+/* Class = "IBUITextField"; placeholder = "TextField enabled"; ObjectID = "wcb-LB-3eZ"; */
+"wcb-LB-3eZ.placeholder" = "TextField enabled";
+
+/* Class = "IBUITextField"; placeholder = "TextField 4"; ObjectID = "yDj-sx-3pn"; */
+"yDj-sx-3pn.placeholder" = "TextField 4";
+
+/* Class = "IBUITextField"; placeholder = "5 Enable/Disable Previous/Next buttons"; ObjectID = "z7r-JB-8xa"; */
+"z7r-JB-8xa.placeholder" = "5 Enable/Disable Previous/Next buttons";
+
+/* Class = "IBUIBarButtonItem"; title = "Enable"; ObjectID = "zb0-mt-wFi"; */
+"zb0-mt-wFi.title" = "Enable";
