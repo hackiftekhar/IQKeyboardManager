@@ -137,7 +137,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
              50 done button frame.
              8 distance maintenance
              */
-            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-8, 44);
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-12.0, 44);
         }
         else
         {

@@ -201,9 +201,6 @@
  */
 + (id)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
 
-
-
-
 @end
 
 
