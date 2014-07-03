@@ -92,6 +92,16 @@
     self.frame = newFrame;
 }
 
+-(void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+
+    for (UIBarButtonItem *item in self.items)
+    {
+        [item setTintColor:tintColor];
+    }
+}
+
 -(void)setTitleFont:(UIFont *)titleFont
 {
     _titleFont = titleFont;
