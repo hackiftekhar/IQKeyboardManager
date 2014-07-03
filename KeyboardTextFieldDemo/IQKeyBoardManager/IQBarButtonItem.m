@@ -1,5 +1,5 @@
 //
-//  IQToolbar.h
+//  IQBarButtonItem.m
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,11 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIToolbar.h>
+#import "IQBarButtonItem.h"
+#import "IQToolbar.h"
 
-@interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
+@implementation IQBarButtonItem
 
-@property(nonatomic, strong) UIFont *titleFont;
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self setTintColor:nil];
+    }
+    return self;
+}
 
 @end
-

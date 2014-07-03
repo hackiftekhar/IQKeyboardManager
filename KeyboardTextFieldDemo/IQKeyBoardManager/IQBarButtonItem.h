@@ -1,5 +1,5 @@
 //
-//  IQTitleBarButtonItem.h
+//  IQBarButtonItem.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,12 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIBarButtonItem.h>
 
-@interface IQTitleBarButtonItem : UIBarButtonItem
+#import <UIKit/UIKit.h>
 
-@property(nonatomic, strong) UIFont *font;  //Default is (system font 12.0 bold)
-
--(id)initWithFrame:(CGRect)frame Title:(NSString *)title;
+@interface IQBarButtonItem : UIBarButtonItem
 
 @end
