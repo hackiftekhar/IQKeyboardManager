@@ -27,6 +27,7 @@
 #import "IQToolbar.h"
 #import "IQTitleBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
+#import "IQBarButtonItem.h"
 
 #import <UIKit/UIImage.h>
 #import <UIKit/UILabel.h>
@@ -88,11 +89,11 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     }
     
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStyleDone target:target action:action];
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStyleDone target:target action:action];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -153,11 +154,11 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     }
     
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:action];
+    IQBarButtonItem *doneButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:action];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -194,7 +195,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStyleBordered target:target action:leftAction];
+    IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStyleBordered target:target action:leftAction];
     [items addObject:cancelButton];
     
     if ([titleText length] && self.shouldHideTitle == NO)
@@ -225,11 +226,11 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     }
     
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStyleBordered target:target action:rightAction];
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStyleBordered target:target action:rightAction];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -264,7 +265,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *cancelButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
+    IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
     [items addObject:cancelButton];
     
     if ([titleText length] && self.shouldHideTitle == NO)
@@ -295,11 +296,11 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     }
     
     //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -333,17 +334,17 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
 	//  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
 	
 	if (IQ_IS_IOS7_OR_GREATER)
 	{
 //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
 //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
 
-		UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
-		UIBarButtonItem *fixed =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+		IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
+		IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 		[fixed setWidth:23];
-		UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
+		IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
 		[items addObject:prev];
 		[items addObject:fixed];
 		[items addObject:next];
@@ -355,7 +356,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
 		//  Create a next/previous button to switch between TextFieldViews.
 		IQSegmentedNextPrevious *segControl = [[IQSegmentedNextPrevious alloc] initWithTarget:target previousAction:previousAction nextAction:nextAction];
         #pragma GCC diagnostic pop
-		UIBarButtonItem *segButton = [[UIBarButtonItem alloc] initWithCustomView:segControl];
+		IQBarButtonItem *segButton = [[IQBarButtonItem alloc] initWithCustomView:segControl];
 		[items addObject:segButton];
 	}
 	
@@ -386,7 +387,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
         [items addObject:title];
     }
     
-    UIBarButtonItem *nilButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
 	[items addObject:nilButton];
 	[items addObject:doneButton];
@@ -424,11 +425,11 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
 		if (IQ_IS_IOS7_OR_GREATER && [[inputAccessoryView items] count]>3)
 		{
 			//  Getting first item from inputAccessoryView.
-			UIBarButtonItem *prevButton = (UIBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
-			UIBarButtonItem *nextButton = (UIBarButtonItem*)[[inputAccessoryView items] objectAtIndex:2];
+			IQBarButtonItem *prevButton = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
+			IQBarButtonItem *nextButton = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:2];
 			
 			//  If it is UIBarButtonItem and it's customView is not nil.
-			if ([prevButton isKindOfClass:[UIBarButtonItem class]] && [nextButton isKindOfClass:[UIBarButtonItem class]])
+			if ([prevButton isKindOfClass:[IQBarButtonItem class]] && [nextButton isKindOfClass:[IQBarButtonItem class]])
 			{
                 if (prevButton.enabled != isPreviousEnabled)
                     [prevButton setEnabled:isPreviousEnabled];
@@ -439,10 +440,10 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
 		else
 		{
 			//  Getting first item from inputAccessoryView.
-			UIBarButtonItem *barButtonItem = (UIBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
+			IQBarButtonItem *barButtonItem = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
 			
-			//  If it is UIBarButtonItem and it's customView is not nil.
-			if ([barButtonItem isKindOfClass:[UIBarButtonItem class]] && [barButtonItem customView] != nil)
+			//  If it is IQBarButtonItem and it's customView is not nil.
+			if ([barButtonItem isKindOfClass:[IQBarButtonItem class]] && [barButtonItem customView] != nil)
 			{
 				//  Getting it's customView.
                 #pragma GCC diagnostic push

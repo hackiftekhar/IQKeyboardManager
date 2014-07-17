@@ -1,5 +1,5 @@
 //
-// KeyboardManager.h
+// KeyboardManager.m
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -27,6 +27,7 @@
 #import "IQUIWindow+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 #import "IQToolbar.h"
+#import "IQBarButtonItem.h"
 
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
@@ -39,7 +40,7 @@
 //Remove compiler warning
 -(void)previousAction:(id)segmentedControl;
 -(void)nextAction:(id)segmentedControl;
--(void)doneAction:(UIBarButtonItem*)barButton;
+-(void)doneAction:(IQBarButtonItem*)barButton;
 
 @end
 
@@ -909,7 +910,7 @@ Class EKPlaceholderTextViewClass;
 }
 
 /*!	doneAction. Resigning current textField. */
--(void)doneAction:(UIBarButtonItem*)barButton
+-(void)doneAction:(IQBarButtonItem*)barButton
 {
     if (_shouldPlayInputClicks)
     {

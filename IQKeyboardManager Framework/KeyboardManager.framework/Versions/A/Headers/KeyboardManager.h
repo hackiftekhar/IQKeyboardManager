@@ -25,6 +25,7 @@
 #ifndef KeyboardManager_h
 #define KeyboardManager_h
 
+#import <KeyboardManager/IQBarButtonItem.h>
 #import <KeyboardManager/IQKeyboardManager.h>
 #import <KeyboardManager/IQKeyboardManagerConstants.h>
 #import <KeyboardManager/IQSegmentedNextPrevious.h>
@@ -34,7 +35,5 @@
 #import <KeyboardManager/IQUIView+Hierarchy.h>
 #import <KeyboardManager/IQUIView+IQKeyboardToolbar.h>
 #import <KeyboardManager/IQUIWindow+Hierarchy.h>
-
-
 
 #endif
