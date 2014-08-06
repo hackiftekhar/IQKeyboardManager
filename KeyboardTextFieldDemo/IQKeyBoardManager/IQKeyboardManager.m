@@ -28,6 +28,7 @@
 #import "IQNSArray+Sort.h"
 #import "IQToolbar.h"
 #import "IQBarButtonItem.h"
+#import "IQKeyboardManagerConstantsInternal.h"
 
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
@@ -309,15 +310,86 @@ Class EKPlaceholderTextViewClass;
     //  Getting topMost ViewController.
     UIViewController *controller = [[self keyWindow] topMostController];
     
-    //  If can't get rootViewController then printing warning to user.
-    if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
+    if (!CGSizeEqualToSize(frame.size, CGSizeMake(controller.view.frame.size.height, controller.view.frame.size.width))) {
+        //  If can't get rootViewController then printing warning to user.
+        if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
+        
+        //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            //  Setting it's new frame
+            [controller.view setFrame:frame];
+        } completion:^(BOOL finished) {
+        }];
+    }
+}
+
+- (CGRect)adjustRect:(CGRect)originalRect movement:(CGFloat)move orientation:(UIInterfaceOrientation)orientation {
     
-    //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        //  Setting it's new frame
-        [controller.view setFrame:frame];
-    } completion:^(BOOL finished) {
-    }];
+    CGRect rect = originalRect;
+    
+    if (IQ_IS_IOS8_OR_GREATER) {
+        rect.origin.y -= move;
+    } else {
+        switch (orientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft:       rect.origin.x -= move;  break;
+            case UIInterfaceOrientationLandscapeRight:      rect.origin.x += move;  break;
+            case UIInterfaceOrientationPortrait:            rect.origin.y -= move;  break;
+            case UIInterfaceOrientationPortraitUpsideDown:  rect.origin.y += move;  break;
+            default:    break;
+        }
+    }
+    
+    return rect;
+}
+
+-(CGFloat)getMoveWithRect:(CGRect)textFieldViewRect window:(UIWindow*)window orientation:(UIInterfaceOrientation)orientation {
+    
+    CGFloat move = 0.0f;
+    
+    if (IQ_IS_IOS8_OR_GREATER) {
+        move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
+    } else {
+        switch (orientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+                move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.height);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                move = kbSize.height-CGRectGetMinX(textFieldViewRect);
+                break;
+            case UIInterfaceOrientationPortrait:
+                move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                move = kbSize.height-CGRectGetMinY(textFieldViewRect);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    return move;
+}
+
+-(CGFloat)getDisturbDistanceWithRect:(CGRect)rootViewRect orientation:(UIInterfaceOrientation)orientation {
+    
+    CGFloat disturbDistance = 0.0f;
+    
+    if (IQ_IS_IOS8_OR_GREATER) {
+        disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(topViewBeginRect);
+    } else {
+        switch (orientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft: disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(topViewBeginRect); break;
+            case UIInterfaceOrientationLandscapeRight: disturbDistance = CGRectGetMinX(topViewBeginRect)-CGRectGetMinX(rootViewRect); break;
+            case UIInterfaceOrientationPortrait: disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(topViewBeginRect); break;
+            case UIInterfaceOrientationPortraitUpsideDown: disturbDistance = CGRectGetMinY(topViewBeginRect)-CGRectGetMinY(rootViewRect); break;
+            default:
+                break;
+        }
+    }
+    return disturbDistance;
 }
 
 /*  UIKeyboard Did show. Adjusting RootViewController's frame according to device orientation. */
@@ -344,23 +416,7 @@ Class EKPlaceholderTextViewClass;
     //  Move negative = textField is showing.
 	
     //  Calculating move position. Common for both normal and special cases.
-    switch ([rootController interfaceOrientation])
-    {
-        case UIInterfaceOrientationLandscapeLeft:
-            move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            move = kbSize.width-CGRectGetMinX(textFieldViewRect);
-            break;
-        case UIInterfaceOrientationPortrait:
-            move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            move = kbSize.height-CGRectGetMinY(textFieldViewRect);
-            break;
-        default:
-            break;
-    }
+    move = [self getMoveWithRect:textFieldViewRect window:window orientation:rootController.interfaceOrientation];
 	
     //  Getting it's superScrollView.
     UIScrollView *superScrollView = [_textFieldView superScrollView];
@@ -433,26 +489,31 @@ Class EKPlaceholderTextViewClass;
         CGFloat initialMove = move;
         
         CGFloat adjustment = 5;
-        switch ([rootController interfaceOrientation])
-        {
-            case UIInterfaceOrientationLandscapeLeft:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
-                move = MIN(CGRectGetMinX(textFieldViewRect)-adjustment, move);
-                break;
-            case UIInterfaceOrientationLandscapeRight:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
-                move = MIN(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
-                break;
-            case UIInterfaceOrientationPortrait:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
-                move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
-                move = MIN(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
-                break;
-            default:
-                break;
+        if (IQ_IS_IOS8_OR_GREATER) {
+            adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+            move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
+        } else {
+            switch ([rootController interfaceOrientation])
+            {
+                case UIInterfaceOrientationLandscapeLeft:
+                    adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                    move = MIN(CGRectGetMinX(textFieldViewRect)-adjustment, move);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                    move = MIN(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
+                    break;
+                case UIInterfaceOrientationPortrait:
+                    adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                    move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                    move = MIN(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
+                    break;
+                default:
+                    break;
+            }
         }
         
         
@@ -501,56 +562,21 @@ Class EKPlaceholderTextViewClass;
         //  Positive or zero.
         if (move>=0)
         {
-            //  adjusting rootViewRect
-            switch (rootController.interfaceOrientation)
-            {
-                case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
-                case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
-                case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
-                case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
-                default:    break;
-            }
-			
+            rootViewRect = [self adjustRect:rootViewRect movement:move orientation:rootController.interfaceOrientation];
+            
             //  Setting adjusted rootViewRect
             [self setRootViewFrame:rootViewRect];
         }
         //  Negative
         else
         {
-            CGFloat disturbDistance;
+            CGFloat disturbDistance = [self getDisturbDistanceWithRect:rootViewRect orientation:rootController.interfaceOrientation];
             
-            //  Calculating disturbed distance
-			switch (rootController.interfaceOrientation)
-            {
-                case UIInterfaceOrientationLandscapeLeft:
-                    disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(topViewBeginRect);
-                    break;
-                case UIInterfaceOrientationLandscapeRight:
-                    disturbDistance = CGRectGetMinX(topViewBeginRect)-CGRectGetMinX(rootViewRect);
-                    break;
-                case UIInterfaceOrientationPortrait:
-                    disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(topViewBeginRect);
-                    break;
-                case UIInterfaceOrientationPortraitUpsideDown:
-                    disturbDistance = CGRectGetMinY(topViewBeginRect)-CGRectGetMinY(rootViewRect);
-                    break;
-                default:
-                    break;
-            }
-
             //  disturbDistance Negative = frame disturbed.
             //  disturbDistance positive = frame not disturbed.
             if(disturbDistance<0)
             {
-                //  adjusting rootViewRect
-                switch (rootController.interfaceOrientation)
-                {
-                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
-                    default:    break;
-                }
+                rootViewRect = [self adjustRect:rootViewRect movement:MAX(move, disturbDistance) orientation:rootController.interfaceOrientation];
                 
                 //  Setting adjusted rootViewRect
                 [self setRootViewFrame:rootViewRect];
@@ -657,24 +683,11 @@ Class EKPlaceholderTextViewClass;
     //  Getting UIKeyboardSize.
     kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
-    // Adding Keyboard distance from textField.
-    switch ([[[self keyWindow] topMostController] interfaceOrientation])
-    {
-        case UIInterfaceOrientationLandscapeLeft:
-            kbSize.width += _keyboardDistanceFromTextField;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            kbSize.width += _keyboardDistanceFromTextField;
-            break;
-        case UIInterfaceOrientationPortrait:
-            kbSize.height += _keyboardDistanceFromTextField;
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            kbSize.height += _keyboardDistanceFromTextField;
-            break;
-        default:
-            break;
+    if (!IQ_IS_IOS8_OR_GREATER) {
+        kbSize = CGSizeMake(kbSize.height, kbSize.width);
     }
+    
+    kbSize.height += _keyboardDistanceFromTextField;
     
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(kbSize, oldKBSize))
