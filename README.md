@@ -36,10 +36,20 @@ Manual Management:-
 
 #### UINavigationBar:-
 
-1) If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.
+  If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.
 
 [![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.png)]
 
+
+  If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
+
+    -(void)loadView
+    {
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.view = scrollView;
+    }
+ 
+ 
 
 #### UIToolbar(IQToolbar):-
 
