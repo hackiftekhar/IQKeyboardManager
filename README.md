@@ -38,6 +38,9 @@ Manual Management:-
 
 1) If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.
 
+[![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.png)]
+
+
 #### UIToolbar(IQToolbar):-
 
 1) If you don't want to add automatic toolbar over keyboard for a specific textField then you should add a UIView as it's toolbar like this:-
