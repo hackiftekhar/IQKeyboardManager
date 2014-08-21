@@ -48,7 +48,6 @@
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
 
-
 /*!
     @property   keyWindow
  
@@ -115,7 +114,7 @@
 }
 
 //KeyWindow
-@synthesize keyWindow                       = _keyWindow;
+@synthesize keyWindow                           = _keyWindow;
 
 //UIKeyboard handling
 @synthesize enable                              =   _enable;
