@@ -148,6 +148,8 @@
 +(void)load
 {
     [super load];
+    
+    //Enabling Keyboard Manager.
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
