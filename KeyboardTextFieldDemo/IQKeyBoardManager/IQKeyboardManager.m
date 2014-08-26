@@ -92,7 +92,7 @@
     NSInteger animationCurve;
     
 	/*! To save UITextField/UITextView object voa textField/textView notifications. */
-    UIView *_textFieldView;
+    __weak UIView *_textFieldView;
     
     /*! To save keyboard size. */
     CGSize kbSize;
@@ -101,7 +101,7 @@
 	NSNotification *kbShowNotification;
     
     /*! Variable to save lastScrollView that was scrolled. */
-    UIScrollView *lastScrollView;
+    __weak UIScrollView *lastScrollView;
     
     /*! LastScrollView's initial contentOffset. */
     CGPoint startingContentOffset;
