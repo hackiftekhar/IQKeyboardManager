@@ -49,7 +49,35 @@ Manual Management:-
         self.view = scrollView;
     }
  
- 
+#### Keyboard Return Key Handling
+  If you would like to implement keyboard `Return Key` as `Next` button, then you can use `IQKeyboardReturnKeyHandler`.
+  
+  1) Create an instance variable of `IQKeyboardReturnKeyHandle`r and instantiate it in `viewDidLoad` with ViewController object like this:-
+  
+```
+@implementation ViewController
+{
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+}
+```
+   It assign all the responderView delegates to self, and change keybord Return Key to Next key.
+
+2) set instance variable to nil in `dealloc` method.
+
+```
+-(void)dealloc
+{
+    returnKeyHandler = nil;
+}
+```
+
 
 #### UIToolbar(IQToolbar):-
 
