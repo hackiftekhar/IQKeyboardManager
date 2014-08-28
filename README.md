@@ -52,7 +52,7 @@ Manual Management:-
 #### Keyboard Return Key Handling
   If you would like to implement keyboard `Return Key` as `Next` button, then you can use `IQKeyboardReturnKeyHandler`.
   
-  1) Create an instance variable of `IQKeyboardReturnKeyHandle`r and instantiate it in `viewDidLoad` with ViewController object like this:-
+  1) Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this:-
   
 ```
 @implementation ViewController
