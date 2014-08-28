@@ -11,15 +11,20 @@
 
 @implementation SpecialCaseViewController
 {
-    IQKeyboardReturnKeyHandler *handler;
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    handler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    [handler setLastTextFieldReturnKeyType:UIReturnKeyDone];
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
+}
+
+-(void)dealloc
+{
+    returnKeyHandler = nil;
 }
 
 - (IBAction)showAlertClicked:(UIButton *)sender

@@ -438,10 +438,10 @@
             </objects>
             <point key="canvasLocation" x="1127" y="-2"/>
         </scene>
-        <!--View Controller - Navigation Bar-->
+        <!--Navigation Bar View Controller - Navigation Bar-->
         <scene sceneID="4DZ-Zn-3Xg">
             <objects>
-                <viewController id="Trg-4t-Fsg" sceneMemberID="viewController">
+                <viewController id="Trg-4t-Fsg" customClass="NavigationBarViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5sI-XJ-s2v" customClass="UIScrollView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -543,7 +543,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <view contentMode="scaleToFill" id="SHK-82-xFg">
-                                <rect key="frame" x="10" y="91" width="305" height="209.99999972377313"/>
+                                <rect key="frame" x="10" y="91" width="305" height="209.99999971659423"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="k8L-Hj-hKb">
@@ -568,7 +568,7 @@
                                         <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="uYv-to-iCC">
-                                        <rect key="frame" x="10" y="129" width="285" height="75.999999897593938"/>
+                                        <rect key="frame" x="10" y="129" width="285" height="75.999999894932486"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="yDj-sx-3pn">

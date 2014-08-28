@@ -8,7 +8,7 @@
 
 @implementation TextFieldViewController
 {
-    IQKeyboardReturnKeyHandler *handler;
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
 }
 
 #pragma mark - View lifecycle
@@ -27,7 +27,8 @@
 {
     [super viewDidLoad];
     
-    handler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
     
     if (!self.navigationController)
     {
@@ -35,6 +36,11 @@
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
     }
+}
+
+-(void)dealloc
+{
+    returnKeyHandler = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated

@@ -26,7 +26,7 @@
 
 #import <UIKit/UITextInputTraits.h>
 
-@class UITextField,UIView;
+@class UITextField,UIView, UIViewController;
 
 @interface IQKeyboardReturnKeyHandler : NSObject
 

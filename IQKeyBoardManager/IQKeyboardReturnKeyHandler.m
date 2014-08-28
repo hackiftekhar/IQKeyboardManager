@@ -28,6 +28,7 @@
 
 #import <Foundation/NSSet.h>
 
+#import <UIKit/UIViewController.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableView.h>
@@ -45,7 +46,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     NSMutableSet *textFieldInfoCache;
 }
-
 
 -(id)initWithViewController:(UIViewController*)controller
 {
@@ -184,6 +184,18 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     }
     
     return YES;
+}
+
+-(void)dealloc
+{
+    for (NSDictionary *dict in textFieldInfoCache)
+    {
+        UITextField *textField  = [dict objectForKey:kIQTextField];
+        textField.keyboardType  = [[dict objectForKey:kIQTextFieldReturnKeyType] integerValue];
+        textField.delegate      = [dict objectForKey:kIQTextFieldDelegate];
+    }
+
+    [textFieldInfoCache removeAllObjects];
 }
 
 @end
