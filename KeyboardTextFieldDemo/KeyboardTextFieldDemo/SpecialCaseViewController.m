@@ -3,12 +3,24 @@
 //  KeyboardTextFieldDemo
 
 #import "SpecialCaseViewController.h"
+#import "IQKeyboardReturnKeyHandler.h"
 
 @interface SpecialCaseViewController ()<UISearchBarDelegate>
 
 @end
 
 @implementation SpecialCaseViewController
+{
+    IQKeyboardReturnKeyHandler *handler;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    handler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    [handler setLastTextFieldReturnKeyType:UIReturnKeyDone];
+}
 
 - (IBAction)showAlertClicked:(UIButton *)sender
 {

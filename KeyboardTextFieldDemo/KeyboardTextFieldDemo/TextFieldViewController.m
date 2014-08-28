@@ -4,8 +4,12 @@
 
 #import "TextFieldViewController.h"
 #import "IQKeyboardManager.h"
+#import "IQKeyboardReturnKeyHandler.h"
 
 @implementation TextFieldViewController
+{
+    IQKeyboardReturnKeyHandler *handler;
+}
 
 #pragma mark - View lifecycle
 
@@ -22,6 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    handler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    
     if (!self.navigationController)
     {
         [buttonPop setHidden:YES];
