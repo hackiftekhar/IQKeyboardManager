@@ -182,6 +182,7 @@
 			[self setKeyboardDistanceFromTextField:10.0];
             animationDuration = 0.25;
             
+            //Setting it's initial values
             _enable = NO;
             [self setCanAdjustTextView:NO];
             [self setShouldPlayInputClicks:NO];
