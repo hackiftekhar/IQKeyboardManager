@@ -684,7 +684,9 @@ Class EKPlaceholderTextViewClass;
     kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     if (!IQ_IS_IOS8_OR_GREATER) {
-        kbSize = CGSizeMake(kbSize.height, kbSize.width);
+        if (UIInterfaceOrientationIsLandscape([[[self keyWindow] topMostController] interfaceOrientation])) {
+            kbSize = CGSizeMake(kbSize.height, kbSize.width);
+        }
     }
     
     kbSize.height += _keyboardDistanceFromTextField;
