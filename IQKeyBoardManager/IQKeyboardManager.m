@@ -225,6 +225,8 @@
 {
     //  Disable the keyboard manager.
 	[self setEnable:NO];
+    
+    //Removing notification observers on dealloc.
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
