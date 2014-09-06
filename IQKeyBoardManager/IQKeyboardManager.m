@@ -564,6 +564,7 @@
                 //  adjusting rootViewRect
                 UIInterfaceOrientation interfaceOrientation;
                 
+                //If it's iOS8 then we should do calculations according to portrait orientations.
                 if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
                 else                        interfaceOrientation = [rootController interfaceOrientation];
                 
