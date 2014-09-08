@@ -304,6 +304,7 @@
     //  Getting topMost ViewController.
     UIViewController *controller = [[self keyWindow] topMostController];
     
+    //frame size needs to be adjusted on iOS8 due to orientation structure changes.
     if (IQ_IS_IOS8_OR_GREATER)
     {
         frame.size = controller.view.size;
