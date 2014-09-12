@@ -67,20 +67,14 @@
 }
 
 
-//-(CGSize)sizeThatFits:(CGSize)size
-//{
-//    CGSize sizeThatFit = [super sizeThatFits:size];
-//
-//    UIView *view = [[self viewController] view];
-//    
-//    if (view)
-//    {
-//        //Issue #52 fix
-//        sizeThatFit.width = [view width];
-//    }
-//    
-//    return sizeThatFit;
-//}
+-(CGSize)sizeThatFits:(CGSize)size
+{
+    CGSize sizeThatFit = [super sizeThatFits:size];
+
+    sizeThatFit.height = 44;
+    
+    return sizeThatFit;
+}
 
 //To resize IQToolbar on device rotation.
 //- (void) layoutSubviews
