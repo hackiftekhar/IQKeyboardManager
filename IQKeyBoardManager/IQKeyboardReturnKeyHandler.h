@@ -38,6 +38,13 @@
 -(id)initWithViewController:(UIViewController*)controller;
 
 /*!
+    @method delegate
+ 
+    @abstract textField's delegates.
+ */
+@property(nonatomic, weak) id<UITextFieldDelegate,UITextViewDelegate> delegate;
+
+/*!
     @property toolbarManageBehaviour
  
     @abstract It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews.

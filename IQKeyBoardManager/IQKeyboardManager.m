@@ -312,7 +312,6 @@ Class EKPlaceholderTextViewClass;
     
     frame.size = controller.view.size;
     
-//    if (!CGSizeEqualToSize(frame.size, CGSizeMake(controller.view.frame.size.height, controller.view.frame.size.width)))
     {
         //  If can't get rootViewController then printing warning to user.
         if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
