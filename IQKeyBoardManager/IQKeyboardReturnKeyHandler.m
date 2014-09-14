@@ -166,25 +166,138 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 }
 
 #pragma mark - TextField delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldShouldBeginEditing:)])
+        return [self.delegate textFieldShouldBeginEditing:textField];
+    else
+        return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldDidBeginEditing:)])
+        [self.delegate textFieldDidBeginEditing:textField];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldShouldEndEditing:)])
+        return [self.delegate textFieldShouldEndEditing:textField];
+    else
+        return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldDidEndEditing:)])
+        [self.delegate textFieldDidEndEditing:textField];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([self.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
+        return [self.delegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
+    else
+        return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldShouldClear:)])
+        return [self.delegate textFieldShouldClear:textField];
+    else
+        return YES;
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self goToNextResponderOrResign:textField];
-    
-    return YES;
-}
+    BOOL shouldReturn = YES;
 
-#pragma mark - TextView delegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"])
+    if ([self.delegate respondsToSelector:@selector(textFieldShouldReturn:)])
+        shouldReturn = [self.delegate textFieldShouldReturn:textField];
+
+    if (shouldReturn)
     {
-        [self goToNextResponderOrResign:textView];
-
-        return NO;
+        [self goToNextResponderOrResign:textField];
     }
     
-    return YES;
+    return shouldReturn;
 }
+
+
+#pragma mark - TextView delegate
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewShouldBeginEditing:)])
+        return [self.delegate textViewShouldBeginEditing:textView];
+    else
+        return YES;
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewShouldEndEditing:)])
+        return [self.delegate textViewShouldEndEditing:textView];
+    else
+        return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)])
+        [self.delegate textViewDidBeginEditing:textView];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidEndEditing:)])
+        [self.delegate textViewDidEndEditing:textView];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    BOOL shouldReturn = YES;
+    
+    if ([self.delegate respondsToSelector:@selector(textView:shouldChangeTextInRange:replacementText:)])
+        shouldReturn = [self.delegate textView:textView shouldChangeTextInRange:range replacementText:text];
+    
+    if (shouldReturn && [text isEqualToString:@"\n"])
+    {
+        [self goToNextResponderOrResign:textView];
+    }
+    
+    return shouldReturn;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidChange:)])
+        [self.delegate textViewDidChange:textView];
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)])
+        [self.delegate textViewDidChangeSelection:textView];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    if ([self.delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
+        return [self.delegate textView:textView shouldInteractWithURL:URL inRange:characterRange];
+    else
+        return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange
+{
+    if ([self.delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)])
+        return [self.delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange];
+    else
+        return YES;
+}
+
 
 -(void)dealloc
 {
