@@ -310,19 +310,20 @@ Class EKPlaceholderTextViewClass;
     //  Getting topMost ViewController.
     UIViewController *controller = [[self keyWindow] topMostController];
     
-    frame.size = controller.view.size;
-    
+    if (IQ_IS_IOS8_OR_GREATER)
     {
-        //  If can't get rootViewController then printing warning to user.
-        if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
-        
-        //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            //  Setting it's new frame
-            [controller.view setFrame:frame];
-        } completion:^(BOOL finished) {
-        }];
+        frame.size = controller.view.size;
     }
+
+    //  If can't get rootViewController then printing warning to user.
+    if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
+    
+    //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        //  Setting it's new frame
+        [controller.view setFrame:frame];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 /*  UIKeyboard Did show. Adjusting RootViewController's frame according to device orientation. */
