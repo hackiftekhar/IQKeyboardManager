@@ -24,7 +24,8 @@
 #import <Foundation/NSObject.h>
 #import "IQKeyboardManagerConstants.h"
 
-#import <UIKit/UITextInputTraits.h>
+#import <UIKit/UITextField.h>
+#import <UIKit/UITextView.h>
 
 @class UITextField,UIView, UIViewController;
 
