@@ -107,7 +107,7 @@ Class UITableViewCellScrollViewClass;
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UITextField *textField in siblings)
-        if ([textField canBecomeFirstResponder] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
+        if ([textField canBecomeFirstResponder] && [textField isUserInteractionEnabled] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
@@ -118,11 +118,11 @@ Class UITableViewCellScrollViewClass;
     NSMutableArray *textFields = [[NSMutableArray alloc] init];
     
     //subviews are returning in opposite order. So I sorted it according the frames 'y'.
-    NSArray *subViews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+    NSArray *subViews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
-        if (obj1.frame.origin.y < obj2.frame.origin.y)	return NSOrderedAscending;
+        if (view1.y < view2.y)	return NSOrderedAscending;
         
-        else if (obj1.frame.origin.y > obj2.frame.origin.y)	return NSOrderedDescending;
+        else if (view1.y > view2.y)	return NSOrderedDescending;
         
         else	return NSOrderedSame;
     }];
@@ -130,7 +130,7 @@ Class UITableViewCellScrollViewClass;
     
     for (UITextField *textField in subViews)
     {
-        if ([textField canBecomeFirstResponder] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
+        if ([textField canBecomeFirstResponder] && [textField isUserInteractionEnabled] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
         {
             [textFields addObject:textField];
         }
@@ -143,6 +143,56 @@ Class UITableViewCellScrollViewClass;
     return textFields;
 }
 
+-(CGAffineTransform)convertTransformToView:(UIView*)toView
+{
+    if (toView == nil)
+    {
+        toView = self.window;
+    }
+    
+    CGAffineTransform myTransform = CGAffineTransformIdentity;
+    
+    //My Transform
+    {
+        UIView *superView = [self superview];
+        
+        if (superView)  myTransform = CGAffineTransformConcat(self.transform, [superView convertTransformToView:nil]);
+        else            myTransform = self.transform;
+    }
+    
+    CGAffineTransform viewTransform = CGAffineTransformIdentity;
+    
+    //view Transform
+    {
+        UIView *superView = [toView superview];
+        
+        if (superView)  viewTransform = CGAffineTransformConcat(toView.transform, [superView convertTransformToView:nil]);
+        else if (toView)  viewTransform = toView.transform;
+    }
+    
+    return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform));
+}
+
+- (NSDictionary *)hierarchy
+{
+    if ([self.subviews count])
+    {
+        NSMutableArray *hierarchies = [NSMutableArray new];
+        for (UIView *view in self.subviews)
+        {
+            [hierarchies addObject:[view hierarchy]];
+        }
+        
+        [hierarchies addObject:NSStringFromCGRect(self.frame)];
+        
+        return [NSDictionary dictionaryWithObject:hierarchies forKey:NSStringFromClass([self class])];
+    }
+    else
+    {
+        return [NSDictionary dictionaryWithObject:NSStringFromCGRect(self.frame) forKey:NSStringFromClass([self class])];
+    }
+}
+
 -(BOOL)isSearchBarTextField
 {
     return ([self isKindOfClass:UISearchBarTextFieldClass] || [self isKindOfClass:[UISearchBar class]]);
@@ -153,14 +203,15 @@ Class UITableViewCellScrollViewClass;
     return [self isKindOfClass:UIAlertSheetTextFieldClass];
 }
 
+
 @end
 
 @implementation UIView (IQ_UIView_Frame)
 
--(CGFloat)x         {   return self.frame.origin.x;         }
--(CGFloat)y         {   return self.frame.origin.y;         }
--(CGFloat)width     {   return self.frame.size.width;       }
--(CGFloat)height    {   return self.frame.size.height;      }
+-(CGFloat)x         {   return CGRectGetMinX(self.frame);   }
+-(CGFloat)y         {   return CGRectGetMinY(self.frame);   }
+-(CGFloat)width     {   return CGRectGetWidth(self.frame);  }
+-(CGFloat)height    {   return CGRectGetHeight(self.frame); }
 -(CGPoint)origin    {   return self.frame.origin;           }
 -(CGSize)size       {   return self.frame.size;             }
 -(CGFloat)left      {   return CGRectGetMinX(self.frame);   }

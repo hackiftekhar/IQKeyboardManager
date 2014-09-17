@@ -76,6 +76,20 @@
  */
 -(BOOL)isAlertViewTextField;
 
+/*!
+    @method convertTransformToView::
+ 
+    @return returns current view transform with respect to the 'toView'.
+ */
+-(CGAffineTransform)convertTransformToView:(UIView*)toView;
+
+/*!
+    @method hierarchy:
+ 
+    @return Returns a dictionary that contains the information about it's hierarchy. You can use this method to debug the subview's positions.
+ */
+- (NSDictionary *)hierarchy;
+
 @end
 
 

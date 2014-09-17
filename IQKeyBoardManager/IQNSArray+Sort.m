@@ -34,13 +34,13 @@ IQ_LoadCategory(IQNSArraySort)
 
 - (NSArray*)sortedArrayByTag
 {
-    return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+    return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
-        if ([obj1 respondsToSelector:@selector(tag)] && [obj2 respondsToSelector:@selector(tag)])
+        if ([view1 respondsToSelector:@selector(tag)] && [view2 respondsToSelector:@selector(tag)])
         {
-            if ([obj1 tag] < [obj2 tag])	return NSOrderedAscending;
+            if ([view1 tag] < [view2 tag])	return NSOrderedAscending;
             
-            else if ([obj1 tag] > [obj2 tag])	return NSOrderedDescending;
+            else if ([view1 tag] > [view2 tag])	return NSOrderedDescending;
             
             else	return NSOrderedSame;
         }
