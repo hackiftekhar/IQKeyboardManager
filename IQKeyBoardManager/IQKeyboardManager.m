@@ -353,13 +353,13 @@ Class EKPlaceholderTextViewClass;
     switch ([rootController interfaceOrientation])
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width);
+            move = CGRectGetMaxX(textFieldViewRect)-(window.width-kbSize.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
             move = kbSize.width-CGRectGetMinX(textFieldViewRect);
             break;
         case UIInterfaceOrientationPortrait:
-            move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height);
+            move = CGRectGetMaxY(textFieldViewRect)-(window.height-kbSize.height);
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
             move = kbSize.height-CGRectGetMinY(textFieldViewRect);
@@ -453,7 +453,7 @@ Class EKPlaceholderTextViewClass;
                 break;
             case UIInterfaceOrientationLandscapeRight:
                 adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
-                move = MIN(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
+                move = MIN(window.width-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
                 break;
             case UIInterfaceOrientationPortrait:
                 adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
@@ -461,7 +461,7 @@ Class EKPlaceholderTextViewClass;
                 break;
             case UIInterfaceOrientationPortraitUpsideDown:
                 adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
-                move = MIN(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
+                move = MIN(window.height-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
                 break;
             default:
                 break;
@@ -471,9 +471,8 @@ Class EKPlaceholderTextViewClass;
         //If we have permission to adjust the textView, then let's do it on behalf of user.
         if (_canAdjustTextView)
         {
-            //Getting problem while using `setContentOffset:animated:`, So I used animation API.
             [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                [_textFieldView setFrame:CGRectMake(CGRectGetMinX(_textFieldView.frame),CGRectGetMinY(_textFieldView.frame), CGRectGetWidth(_textFieldView.frame),CGRectGetHeight(_textFieldView.frame)-(initialMove-move))];
+                _textFieldView.height = _textFieldView.height-(initialMove-move);
             } completion:^(BOOL finished) {
             }];
         }
@@ -629,9 +628,9 @@ Class EKPlaceholderTextViewClass;
         UIScrollView *superscrollView = lastScrollView;
         while ((superscrollView = [superscrollView superScrollView]))
         {
-            CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.frame.size.width), MAX(superscrollView.contentSize.height, superscrollView.frame.size.height));
+            CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.width), MAX(superscrollView.contentSize.height, superscrollView.height));
             
-            CGFloat minimumY = contentSize.height-superscrollView.frame.size.height;
+            CGFloat minimumY = contentSize.height-superscrollView.height;
             
             if (minimumY<superscrollView.contentOffset.y)
             {
