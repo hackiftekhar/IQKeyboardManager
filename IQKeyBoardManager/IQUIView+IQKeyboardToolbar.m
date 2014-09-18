@@ -35,6 +35,11 @@
 
 IQ_LoadCategory(IQUIViewToolbar)
 
+NSInteger const kIQRightButtonToolbarTag            =   -1001;
+NSInteger const kIQDoneButtonToolbarTag             =   -1002;
+NSInteger const kIQRightLeftButtonToolbarTag        =   -1003;
+NSInteger const kIQCancelDoneButtonToolbarTag       =   -1004;
+NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
@@ -60,7 +65,8 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	
+	toolbar.tag = kIQRightButtonToolbarTag;
+    
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
     if ([titleText length] && self.shouldHideTitle == NO)
@@ -125,7 +131,8 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	
+	toolbar.tag = kIQDoneButtonToolbarTag;
+ 	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
     if ([titleText length] && self.shouldHideTitle == NO)
@@ -191,6 +198,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+	toolbar.tag = kIQRightLeftButtonToolbarTag;
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -261,6 +269,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+	toolbar.tag = kIQCancelDoneButtonToolbarTag;
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -331,6 +340,8 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+	toolbar.tag = kIQPreviousNextButtonToolbarTag;
+ 
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
 	//  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
