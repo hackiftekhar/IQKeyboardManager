@@ -36,18 +36,28 @@ IQ_LoadCategory(IQUIViewHierarchy)
 @implementation UIView (IQ_UIView_Hierarchy)
 
 //Special textFields,textViews,scrollViews
-Class UISearchBarTextFieldClass;
 Class UIAlertSheetTextFieldClass;
-Class UITableViewCellScrollViewClass;
+Class UIAlertSheetTextFieldClass_iOS8;
 
+Class UITableViewCellScrollViewClass;
+Class UITableViewWrapperViewClass;
+
+Class UISearchBarTextFieldClass;
+Class EKPlaceholderTextViewClass;
 
 +(void)initialize
 {
     [super initialize];
+    
+    UIAlertSheetTextFieldClass          = NSClassFromString(@"UIAlertSheetTextField");
+    UIAlertSheetTextFieldClass_iOS8     = NSClassFromString(@"_UIAlertControllerTextField");
+    
+    UITableViewCellScrollViewClass      = NSClassFromString(@"UITableViewCellScrollView");
+    UITableViewWrapperViewClass         = NSClassFromString(@"UITableViewWrapperView");
 
-    UISearchBarTextFieldClass       = NSClassFromString(@"UISearchBarTextField");
-    UIAlertSheetTextFieldClass      = NSClassFromString(@"UIAlertSheetTextField");
-    UITableViewCellScrollViewClass  = NSClassFromString(@"UITableViewCellScrollView");
+    UISearchBarTextFieldClass           = NSClassFromString(@"UISearchBarTextField");
+    
+    EKPlaceholderTextViewClass          = NSClassFromString(@"EKPlaceholderTextView");
 }
 
 -(UIViewController*)viewController
@@ -88,7 +98,8 @@ Class UITableViewCellScrollViewClass;
     
     while (superview)
     {
-        if ([superview isKindOfClass:[UIScrollView class]] && ([superview isKindOfClass:UITableViewCellScrollViewClass] == NO))
+        //UITableViewWrapperView
+        if ([superview isKindOfClass:[UIScrollView class]] && ([superview isKindOfClass:UITableViewCellScrollViewClass] == NO) && ([superview isKindOfClass:UITableViewWrapperViewClass] == NO))
         {
             return (UIScrollView*)superview;
         }
@@ -173,24 +184,56 @@ Class UITableViewCellScrollViewClass;
     return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform));
 }
 
-- (NSDictionary *)hierarchy
+
+- (NSInteger)depth
 {
-    if ([self.subviews count])
+    NSInteger depth = 0;
+    
+    if ([self superview])
     {
-        NSMutableArray *hierarchies = [NSMutableArray new];
-        for (UIView *view in self.subviews)
-        {
-            [hierarchies addObject:[view hierarchy]];
-        }
-        
-        [hierarchies addObject:NSStringFromCGRect(self.frame)];
-        
-        return [NSDictionary dictionaryWithObject:hierarchies forKey:NSStringFromClass([self class])];
+        depth = [[self superview] depth] + 1;
+    }
+    
+    return depth;
+}
+
+- (NSString *)subHierarchy
+{
+    NSMutableString *debugInfo = [[NSMutableString alloc] initWithString:@"\n"];
+    NSInteger depth = [self depth];
+    
+    for (int counter = 0; counter < depth; counter ++)  [debugInfo appendString:@"|  "];
+    
+    [debugInfo appendFormat:@"%@: ( %.0f, %.0f, %.0f, %.0f )",NSStringFromClass([self class]),self.x,self.y,self.width,self.height];
+    
+    for (UIView *subview in self.subviews)
+    {
+        [debugInfo appendString:[subview subHierarchy]];
+    }
+    
+    return debugInfo;
+}
+
+- (NSString *)superHierarchy
+{
+    NSMutableString *debugInfo = [[NSMutableString alloc] init];
+
+    if (self.superview)
+    {
+        [debugInfo appendString:[self.superview superHierarchy]];
     }
     else
     {
-        return [NSDictionary dictionaryWithObject:NSStringFromCGRect(self.frame) forKey:NSStringFromClass([self class])];
+        [debugInfo appendString:@"\n"];
     }
+    
+    NSInteger depth = [self depth];
+    
+    for (int counter = 0; counter < depth; counter ++)  [debugInfo appendString:@"|  "];
+    
+    [debugInfo appendFormat:@"%@: ( %.0f, %.0f, %.0f, %.0f )\n",NSStringFromClass([self class]),self.x,self.y,self.width,self.height];
+    
+    return debugInfo;
 }
 
 -(BOOL)isSearchBarTextField
@@ -200,9 +243,13 @@ Class UITableViewCellScrollViewClass;
 
 -(BOOL)isAlertViewTextField
 {
-    return [self isKindOfClass:UIAlertSheetTextFieldClass];
+    return ([self isKindOfClass:UIAlertSheetTextFieldClass] || [self isKindOfClass:UIAlertSheetTextFieldClass_iOS8]);
 }
 
+-(BOOL)isEventKitTextView
+{
+    return [self isKindOfClass:EKPlaceholderTextViewClass];
+}
 
 @end
 

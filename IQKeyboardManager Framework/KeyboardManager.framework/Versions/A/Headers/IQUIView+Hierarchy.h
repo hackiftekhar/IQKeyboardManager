@@ -77,6 +77,13 @@
 -(BOOL)isAlertViewTextField;
 
 /*!
+    @method isEventKitTextView:
+ 
+    @return returns YES if the receiver object is EKPlaceholderTextView, otherwise return NO.
+ */
+-(BOOL)isEventKitTextView;
+
+/*!
     @method convertTransformToView::
  
     @return returns current view transform with respect to the 'toView'.
@@ -84,11 +91,18 @@
 -(CGAffineTransform)convertTransformToView:(UIView*)toView;
 
 /*!
-    @method hierarchy:
+    @method subHierarchy:
  
-    @return Returns a dictionary that contains the information about it's hierarchy. You can use this method to debug the subview's positions.
+    @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
-- (NSDictionary *)hierarchy;
+- (NSString *)subHierarchy;
+
+/*!
+    @method superHierarchy:
+ 
+    @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
+ */
+- (NSString *)superHierarchy;
 
 @end
 
