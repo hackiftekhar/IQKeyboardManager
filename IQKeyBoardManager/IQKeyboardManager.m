@@ -152,16 +152,6 @@
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
-//Special TextView
-Class EKPlaceholderTextViewClass;
-
-+(void)initialize
-{
-    [super initialize];
-
-    EKPlaceholderTextViewClass = NSClassFromString(@"EKPlaceholderTextView");
-}
-
 /*  Singleton Object Initialization. */
 -(id)init
 {
@@ -415,7 +405,7 @@ Class EKPlaceholderTextViewClass;
                 CGFloat shouldOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-move);
                 
                 //Rearranging the expected Y offset according to the view.
-                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y-5);   //-5 is for good UI.
+                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 Bug ID #69
                 
                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
@@ -711,7 +701,7 @@ Class EKPlaceholderTextViewClass;
     if (!CGSizeEqualToSize(kbSize, oldKBSize))
     {
         //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-        if ([_textFieldView isKindOfClass:EKPlaceholderTextViewClass] == NO)
+        if ([_textFieldView isEventKitTextView] == NO)
         {
             [self adjustFrame];
         }
@@ -781,7 +771,7 @@ Class EKPlaceholderTextViewClass;
     }
     
     //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-    if ([_textFieldView isKindOfClass:EKPlaceholderTextViewClass] == NO)
+    if ([_textFieldView isEventKitTextView] == NO)
     {
         //  keyboard is already showing. adjust frame.
         [self adjustFrame];
