@@ -950,8 +950,8 @@
 	//	If only one object is found, then adding only Done button.
 	if (siblings.count==1)
 	{
-        UIView *textField = [siblings objectAtIndex:0];
-		if (![textField inputAccessoryView])
+        UIView *textField = [siblings firstObject];
+		if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] != kIQDoneButtonToolbarTag)
 		{
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
 
@@ -969,7 +969,7 @@
 		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
 		for (UITextField *textField in siblings)
 		{
-			if (![textField inputAccessoryView])
+			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] != kIQPreviousNextButtonToolbarTag)
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
 

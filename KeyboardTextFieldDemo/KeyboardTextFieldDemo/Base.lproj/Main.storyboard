@@ -509,29 +509,38 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField.enabled = NO" minimumFontSize="17" id="d6z-1T-UIh">
-                                <rect key="frame" x="20" y="307" width="280" height="30"/>
+                                <rect key="frame" x="69" y="306" width="187" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.42418679255223279" green="0.47692340353260865" blue="0.44535587797670728" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dPG-sk-vRY" id="y6W-d4-97L"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="wcb-LB-3eZ">
-                                <rect key="frame" x="20" y="341" width="280" height="30"/>
+                                <rect key="frame" x="69" y="341" width="187" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.24721406846218438" green="0.47692340353260865" blue="0.14491207448407367" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="placeholder">TextField enabled. Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test,</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dPG-sk-vRY" id="Ehn-Oa-7pM"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="textField.userEnteractionEnabled = NO" minimumFontSize="17" id="PfH-qV-9D8">
-                                <rect key="frame" x="20" y="376" width="280" height="30"/>
+                                <rect key="frame" x="69" y="376" width="187" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.47692340353260865" green="0.21517294103872731" blue="0.38909220091310093" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dPG-sk-vRY" id="SZk-6Q-XQd"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" id="SHK-82-xFg">
-                                <rect key="frame" x="10" y="91" width="305" height="209.99999951893702"/>
+                                <rect key="frame" x="10" y="91" width="305" height="209.99999953194077"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="k8L-Hj-hKb">
@@ -556,7 +565,7 @@
                                         <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="uYv-to-iCC">
-                                        <rect key="frame" x="10" y="128.99999969728233" width="285" height="76"/>
+                                        <rect key="frame" x="10" y="128.99999970546517" width="285" height="76"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="yDj-sx-3pn">
@@ -593,10 +602,66 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Gc0-kK-H9m">
+                                <rect key="frame" x="266" y="307" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch1Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="FOK-zA-pLe"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="j2n-iP-pDN">
+                                <rect key="frame" x="266" y="342" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch2Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="tXa-Du-4gN"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="UW7-qN-2eU">
+                                <rect key="frame" x="266" y="377" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch3Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="CPc-Xs-9c7"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="bu5-oQ-42U">
+                                <rect key="frame" x="10" y="307" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch1Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="w7K-q9-qPu"/>
+                                    <action selector="switch1UserInteractionAction:" destination="dPG-sk-vRY" eventType="valueChanged" id="mqs-zq-oFu"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="aom-uE-BXB">
+                                <rect key="frame" x="10" y="342" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch2Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="LsF-4D-pCa"/>
+                                    <action selector="switch2UserInteractionAction:" destination="dPG-sk-vRY" eventType="valueChanged" id="bLx-jM-5GL"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="eWk-1G-dAW">
+                                <rect key="frame" x="10" y="377" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch3Action:" destination="dPG-sk-vRY" eventType="valueChanged" id="QUV-Yg-nAq"/>
+                                    <action selector="switch3UserInteractionAction:" destination="dPG-sk-vRY" eventType="valueChanged" id="Epd-gi-vxY"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="0.98823529409999999" green="0.72549019609999998" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Special Cases" id="iYf-Wa-Sqo"/>
+                    <connections>
+                        <outlet property="switchEnabled1" destination="Gc0-kK-H9m" id="0HL-Vi-p0F"/>
+                        <outlet property="switchEnabled2" destination="j2n-iP-pDN" id="7cv-Lu-dw6"/>
+                        <outlet property="switchEnabled3" destination="UW7-qN-2eU" id="aHs-TK-eVJ"/>
+                        <outlet property="switchInteraction1" destination="bu5-oQ-42U" id="i5y-Fl-5ZJ"/>
+                        <outlet property="switchInteraction2" destination="aom-uE-BXB" id="00j-tV-rFu"/>
+                        <outlet property="switchInteraction3" destination="eWk-1G-dAW" id="Olt-H5-eAl"/>
+                        <outlet property="textField6" destination="d6z-1T-UIh" id="crk-5c-cXa"/>
+                        <outlet property="textField7" destination="wcb-LB-3eZ" id="rOk-YJ-3nK"/>
+                        <outlet property="textField8" destination="PfH-qV-9D8" id="Htp-Rs-lNq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NUL-9c-m8o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
