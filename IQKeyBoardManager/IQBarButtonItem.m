@@ -31,6 +31,7 @@
     self = [super init];
     if (self)
     {
+        //Removing tint
         [self setTintColor:nil];
     }
     return self;
