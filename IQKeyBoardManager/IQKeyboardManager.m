@@ -391,12 +391,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             startingContentOffset = CGPointZero;
         }
         //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-        if (superScrollView != lastScrollView)
+        else if (superScrollView != lastScrollView)
         {
             [lastScrollView setContentOffset:startingContentOffset animated:YES];
             lastScrollView = superScrollView;
             startingContentOffset = superScrollView.contentOffset;
         }
+        //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing
     }
     //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
     else if(superScrollView)
