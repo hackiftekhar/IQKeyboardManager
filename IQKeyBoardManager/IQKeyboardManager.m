@@ -890,8 +890,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*!	previousAction. */
 -(void)previousAction:(id)segmentedControl
 {
+    //If user wants to play input Click sound.
     if (_shouldPlayInputClicks)
     {
+        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
@@ -911,8 +913,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*!	nextAction. */
 -(void)nextAction:(id)segmentedControl
 {
+    //If user wants to play input Click sound.
     if (_shouldPlayInputClicks)
     {
+        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
@@ -932,11 +936,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*!	doneAction. Resigning current textField. */
 -(void)doneAction:(IQBarButtonItem*)barButton
 {
+    //If user wants to play input Click sound.
     if (_shouldPlayInputClicks)
     {
+        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
+    //Resign textFieldView.
     [self resignFirstResponder];
 }
 
