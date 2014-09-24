@@ -24,6 +24,17 @@
 
 #import <UIKit/UIView.h>
 
+/*  @const kIQRightButtonToolbarTag        Default tag for toolbar with Right button           -1001.   */
+extern NSInteger const kIQRightButtonToolbarTag;
+/*  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
+extern NSInteger const kIQDoneButtonToolbarTag;
+/*  @const kIQRightLeftButtonToolbarTag    Default tag for toolbar with Right/Left buttons     -1003.   */
+extern NSInteger const kIQRightLeftButtonToolbarTag;
+/*  @const kIQCancelDoneButtonToolbarTag   Default tag for toolbar with Cancel/Done buttons    -1004.   */
+extern NSInteger const kIQCancelDoneButtonToolbarTag;
+/*  @const kIQPreviousNextButtonToolbarTag Default tag for toolbar with Previous/Next buttons  -1005.   */
+extern NSInteger const kIQPreviousNextButtonToolbarTag;
+
 @class UIBarButtonItem;
 
 /*!
