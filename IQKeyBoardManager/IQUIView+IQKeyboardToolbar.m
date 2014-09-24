@@ -90,7 +90,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
         [items addObject:title];
     }
     
@@ -156,7 +156,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
         [items addObject:title];
     }
     
@@ -229,7 +229,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-57.0-16, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
         [items addObject:title];
     }
     
@@ -300,7 +300,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-57.0-16, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
         [items addObject:title];
     }
     
@@ -394,7 +394,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
             buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-57.0-16, 44);
         }
         
-        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame Title:titleText];
+        IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
         [items addObject:title];
     }
     

@@ -324,7 +324,7 @@
     }];
 }
 
-/*  UIKeyboard Did show. Adjusting RootViewController's frame according to device orientation. */
+/* Adjusting RootViewController's frame according to device orientation. */
 -(void)adjustFrame
 {
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.
@@ -597,7 +597,7 @@
     //If not enabled then do nothing.
 	if (_enable == NO)	return;
 	
-    //  We are unable to get textField object while keyboard showing on UIWebView's textField.
+    //  We are unable to get textField object while keyboard showing on UIWebView's textField. If it's alertView textField then also do nothing.
     if (_textFieldView == nil)   return;
     
     //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
@@ -619,7 +619,7 @@
     if (aDuration!= 0.0f)
     {
         //  Setitng keyboard animation duration
-        animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        animationDuration = aDuration;
     }
 	
     //Restoring the contentOffset of the lastScrollView
@@ -712,8 +712,8 @@
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(kbSize, oldKBSize))
     {
-        //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-        if ([_textFieldView isEventKitTextView] == NO)
+        //If it is EventKit textView object then let EventKit to adjust it (Bug ID: #37). If it is AlertView textField then do not affect anything (Bug ID: #70).
+        if ([_textFieldView isEventKitTextView] == NO && [_textFieldView isAlertViewTextField] == NO)
         {
             [self adjustFrame];
         }
@@ -782,8 +782,8 @@
         topViewBeginRect = rootController.view.frame;
     }
     
-    //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-    if ([_textFieldView isEventKitTextView] == NO)
+    //If it is EventKit textView object then let EventKit to adjust it (Bug ID: #37). If it is AlertView textField then do not affect anything (Bug ID: #70).
+    if ([_textFieldView isEventKitTextView] == NO && [_textFieldView isAlertViewTextField] == NO)
     {
         //  keyboard is already showing. adjust frame.
         [self adjustFrame];
