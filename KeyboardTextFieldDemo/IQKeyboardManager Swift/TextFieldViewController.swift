@@ -16,11 +16,11 @@ class TextFieldViewController: UIViewController {
     @IBOutlet private var buttonPresent : UIButton!;
 
     @IBAction func enableKeyboardManger (barButton : UIBarButtonItem!) {
-        IQKeyboardManager.sharedManager.enable = true
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     @IBAction func disableKeyboardManager (barButton : UIBarButtonItem!) {
-        IQKeyboardManager.sharedManager.enable = false
+        IQKeyboardManager.sharedManager().enable = false
     }
     
     override func viewDidLoad() {
@@ -36,14 +36,14 @@ class TextFieldViewController: UIViewController {
     override func viewWillAppear(animated : Bool) {
         super.viewWillAppear(animated)
         
-        IQKeyboardManager.sharedManager.shouldToolbarUsesTextFieldTintColor = true
+        IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = true
     }
     
     
     override func viewWillDisappear(animated : Bool) {
         super.viewWillDisappear(animated)
         
-        IQKeyboardManager.sharedManager.shouldToolbarUsesTextFieldTintColor = false
+        IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = false
 
     }
     
@@ -57,7 +57,7 @@ class TextFieldViewController: UIViewController {
         
         if (self.navigationController != nil) {
             
-            var controller: UIViewController? = self.storyboard?.instantiateViewControllerWithIdentifier(NSStringFromClass(TextFieldViewController)) as? UIViewController
+            var controller: UIViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as? UIViewController
             
             self.presentViewController(controller!, animated: true, completion: nil)
         }

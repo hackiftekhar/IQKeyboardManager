@@ -1,10 +1,26 @@
 //
 //  IQUIView+Hierarchy.swift
-//  IQKeyboard
+// https://github.com/hackiftekhar/IQKeyboardManager
+// Copyright (c) 2013-14 Iftekhar Qurashi.
 //
-//  Created by Iftekhar on 21/09/14.
-//  Copyright (c) 2014 Iftekhar. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 
 import Foundation
 import UIKit
@@ -328,36 +344,44 @@ extension CGRect {
     
     public var x : CGFloat {
         
-        get {   return origin.x    }
-        set {   origin.x = x   }
+        get {
+            return origin.x
+        }
+        set {
+            origin.x = newValue
+        }
     }
     
     public var y : CGFloat {
         
-        get {   return origin.y    }
-        set {   origin.y = y   }
+        get {
+            return origin.y
+        }
+        set {
+            origin.y = newValue
+        }
      }
     
     public var width : CGFloat {
         
         get {   return size.width    }
-        set {   size.width = width   }
+        set {   size.width = newValue   }
     }
     
     public var height : CGFloat {
 
         get {   return size.height    }
-        set {   size.height = height   }
+        set {   size.height = newValue   }
     }
 
     // The left-side coordinate of the rect.
     public var left: CGFloat {
         
         get {   return origin.x }
-        set(value) {
+        set {
             
-            origin.x = left
-            size.width = max(self.right-left, 0)
+            origin.x = newValue
+            size.width = max(self.right - newValue , 0)
         }
     }
     
@@ -365,8 +389,8 @@ extension CGRect {
         get {
             return origin.x + size.width
         }
-        set(value) {
-            size.width = max(right-self.left, 0)
+        set {
+            size.width = max(newValue - self.left, 0)
         }
     }
     
@@ -374,8 +398,8 @@ extension CGRect {
     public var top: CGFloat {
         
         get {   return origin.y }
-        set(value) {
-            size.height = max(self.bottom-top, 0)
+        set {
+            size.height = max(self.bottom-newValue, 0)
         }
     }
     
@@ -383,8 +407,8 @@ extension CGRect {
         get {
             return origin.y + size.height
         }
-        set(value) {
-            size.height = max(bottom-self.top, 0)
+        set {
+            size.height = max(newValue-self.top, 0)
         }
     }
     
@@ -396,9 +420,9 @@ extension CGRect {
                 y: CGRectGetMidY(self)
             )
         }
-        set (value) {
-            origin.x = value.x - size.width / 2
-            origin.y = value.y - size.height / 2
+        set {
+            origin.x = newValue.x - size.width / 2
+            origin.y = newValue.y - size.height / 2
         }
     }
     
@@ -407,8 +431,8 @@ extension CGRect {
         get {
             return center.x
         }
-        set (value) {
-            origin.x = value - size.width / 2
+        set {
+            origin.x = newValue - size.width / 2
         }
     }
     
@@ -417,8 +441,8 @@ extension CGRect {
         get {
             return center.y
         }
-        set (value) {
-            origin.y = value - size.height / 2
+        set {
+            origin.y = newValue - size.height / 2
         }
     }
 }

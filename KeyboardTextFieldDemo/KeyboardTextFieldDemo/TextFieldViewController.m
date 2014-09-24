@@ -65,7 +65,7 @@
     @try {
         if (self.navigationController)
         {
-            TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TextFieldViewController"];
+            TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TextFieldViewController class])];
 
             [controller setModalTransitionStyle:arc4random()%4];
             

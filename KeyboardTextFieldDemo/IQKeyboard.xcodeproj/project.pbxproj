@@ -90,7 +90,6 @@
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
 		C0B63BAC1781FAB1008D3B64 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAB1781FAB1008D3B64 /* main.m */; };
 		C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */; };
-		C0EC59CF19D0A96E00997FFE /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C05BE63819AFB9F4000B332C /* IQTextView.m */; };
 		C0EC59D019D0BAAD00997FFE /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */; };
 		C0EC59D219D0C0B100997FFE /* TextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC59D119D0C0B100997FFE /* TextFieldViewController.swift */; };
 		C0EC59D419D0C0C600997FFE /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC59D319D0C0C600997FFE /* ScrollViewController.swift */; };
@@ -794,7 +793,6 @@
 				C08810F219D3467900BE111B /* IQSegmentedNextPrevious.swift in Sources */,
 				C0EC59DA19D0C0EE00997FFE /* NavigationBarViewController.swift in Sources */,
 				C08810F119D3467900BE111B /* IQNSArray+Sort.swift in Sources */,
-				C0EC59CF19D0A96E00997FFE /* IQTextView.m in Sources */,
 				C08810EF19D3467900BE111B /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				C0EC59DF19D0C19300997FFE /* AppDelegate.swift in Sources */,
 			);
