@@ -40,7 +40,8 @@
 - (IBAction)showAlertClicked:(UIButton *)sender
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+//    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     [alertView show];
 }
 

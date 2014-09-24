@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AJr-KB-FFo">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--IQKeyboardManager-->
+        <scene sceneID="rwc-vQ-Klu">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="QhZ-lB-G9f" customClass="ViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iBY-TW-YrL"/>
+                        <viewControllerLayoutGuide type="bottom" id="U43-mz-IPN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h0R-Ko-TAn">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahp-22-PEp">
+                                <rect key="frame" x="20" y="20" width="280" height="37"/>
+                                <state key="normal" title="UITextField/UITextView example">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="l4s-Xo-9Pn" kind="push" id="ZaB-3G-xXY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bO-j1-4EC">
+                                <rect key="frame" x="20" y="86" width="280" height="37"/>
+                                <state key="normal" title="UIScrollView/UITableView example">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Fhj-kF-jK7" kind="push" id="M4k-Dy-iXP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LxG-VS-aff">
+                                <rect key="frame" x="20" y="217" width="280" height="37"/>
+                                <state key="normal" title="UIWebView example">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bok-7K-cMe" kind="push" id="pJ8-VH-kcm"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="IQKeyboardManager doesn't affect UIWebView default implementation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="NOA-8h-VwC">
+                                <rect key="frame" x="20" y="254" width="280" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7H-YY-2HH">
+                                <rect key="frame" x="20" y="151" width="280" height="37"/>
+                                <state key="normal" title="UITextView Special Case">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="DkT-PN-1u3" kind="push" id="zgi-0X-t7a"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGn-ry-p3B">
+                                <rect key="frame" x="20" y="283" width="280" height="37"/>
+                                <state key="normal" title="Special Cases">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Jzp-cf-SMG" kind="push" id="aBJ-ig-5HU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PC7-jO-HKs">
+                                <rect key="frame" x="20" y="350" width="280" height="37"/>
+                                <state key="normal" title="NavigationBar">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="VzI-gM-afp" kind="push" id="nf1-E9-N52"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="IQKeyboardManager" id="MM7-FA-h8R">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="action" id="44U-Wq-zs0">
+                            <connections>
+                                <action selector="shareClicked:" destination="QhZ-lB-G9f" id="dyx-9g-rKN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RuB-2A-mmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="96" y="2"/>
+        </scene>
+        <!--TextField Demo-->
+        <scene sceneID="afo-HI-VcN">
+            <objects>
+                <viewController storyboardIdentifier="TextFieldViewController" id="l4s-Xo-9Pn" customClass="TextFieldViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XJF-CO-Okv"/>
+                        <viewControllerLayoutGuide type="bottom" id="RU7-Z8-kls"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="esj-xV-9Qh">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1 Easiest integration" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cJD-Gz-mKP">
+                                <rect key="frame" x="20" y="9" width="280" height="30"/>
+                                <color key="tintColor" red="0.0080750879140000006" green="0.47692340350000001" blue="0.083980094680000006" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="2 Device Orientation support" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wV8-yV-OEY">
+                                <rect key="frame" x="20" y="45" width="280" height="30"/>
+                                <color key="tintColor" red="0.24970456059999999" green="0.47692340350000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="3 UITextField Category for Keyboard" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnD-zK-5CE">
+                                <rect key="frame" x="20" y="80" width="280" height="30"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.4276344171" blue="0.01425756557" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="4 Enable/Desable Keyboard Manager" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b1L-rO-OYm">
+                                <rect key="frame" x="20" y="115" width="280" height="30"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.38520103500000002" blue="0.0025011102449999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="5 Enable/Disable Previous/Next buttons" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1bc-5r-IZK">
+                                <rect key="frame" x="20" y="148" width="280" height="30"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.19614955949999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADY-Bi-4YM">
+                                <rect key="frame" x="115" y="376" width="90" height="30"/>
+                                <state key="normal" title="Push">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="l4s-Xo-9Pn" kind="push" id="paH-kv-cA0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glh-Uz-Xom">
+                                <rect key="frame" x="210" y="376" width="90" height="30"/>
+                                <state key="normal" title="Present">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="presentClicked:" destination="l4s-Xo-9Pn" eventType="touchUpInside" id="y3x-EY-leL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRT-Lm-76o">
+                                <rect key="frame" x="20" y="376" width="90" height="30"/>
+                                <state key="normal" title="Pop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popClicked:" destination="l4s-Xo-9Pn" eventType="touchUpInside" id="ZBn-3G-p4G"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="105" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="api-hx-O0x" customClass="IQTextView">
+                                <rect key="frame" x="20" y="184" width="280" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.013985326710000001" blue="0.039278733759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="IQTextView for placeholder support"/>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="106" contentMode="scaleToFill" fixedFrame="YES" text="Automanage keyboard toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="HJI-Li-dW3">
+                                <rect key="frame" x="20" y="220" width="280" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.01330464395" blue="0.25821861680000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="107" contentMode="scaleToFill" fixedFrame="YES" text="Can set keyboard and textFiled distance" translatesAutoresizingMaskIntoConstraints="NO" id="geL-nO-IKt">
+                                <rect key="frame" x="20" y="255" width="280" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.47692340350000001" green="3.6346713730000002e-05" blue="0.4538321911" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="108" contentMode="scaleToFill" fixedFrame="YES" text="Can resign on touching outside" translatesAutoresizingMaskIntoConstraints="NO" id="pAh-8h-Z5P">
+                                <rect key="frame" x="20" y="290" width="280" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.24408398780000001" green="0.0" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="109" contentMode="scaleToFill" fixedFrame="YES" text="can adjust textView's height when it is too big to fit on screen" translatesAutoresizingMaskIntoConstraints="NO" id="mM2-SF-Bso">
+                                <rect key="frame" x="20" y="324" width="280" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.01842293263" green="0.052109801570000003" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117653369999998" green="0.77647066119999997" blue="0.6549019814" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="TextField Demo" id="PaL-D2-V5U">
+                        <barButtonItem key="leftBarButtonItem" title="Enable" id="8FJ-jR-Dlm">
+                            <connections>
+                                <action selector="enableKeyboardManger:" destination="l4s-Xo-9Pn" id="V2K-uf-SjB"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Disable" id="FsS-t2-ay3">
+                            <connections>
+                                <action selector="disableKeyboardManager:" destination="l4s-Xo-9Pn" id="H8j-dO-E3X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="buttonPop" destination="mRT-Lm-76o" id="zfp-AX-hdf"/>
+                        <outlet property="buttonPresent" destination="glh-Uz-Xom" id="gYu-uj-bBv"/>
+                        <outlet property="buttonPush" destination="ADY-Bi-4YM" id="BjJ-U5-y9x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q36-pS-YUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1591" y="-756"/>
+        </scene>
+        <!--UIScrollView Example-->
+        <scene sceneID="n5y-af-Xc8">
+            <objects>
+                <viewController storyboardIdentifier="ScrollViewController" id="Fhj-kF-jK7" customClass="ScrollViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y7a-JK-cew"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zvw-el-U2Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hw1-2T-H2f">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="htm-ci-PbW">
+                                <rect key="frame" x="0.0" y="9" width="160" height="153"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Fhj-kF-jK7" id="W2r-jz-7q2"/>
+                                    <outlet property="delegate" destination="Fhj-kF-jK7" id="apL-rm-bZb"/>
+                                </connections>
+                            </tableView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CZm-1V-gJO">
+                                <rect key="frame" x="160" y="9" width="160" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="TextView1" translatesAutoresizingMaskIntoConstraints="NO" id="NQt-Z3-83A">
+                                <rect key="frame" x="160" y="46" width="160" height="27"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dPd-u4-HvP">
+                                <rect key="frame" x="0.0" y="340" width="160" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="TextView2" translatesAutoresizingMaskIntoConstraints="NO" id="ADR-mh-Vki">
+                                <rect key="frame" x="0.0" y="379" width="160" height="27"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSG-U8-mhf">
+                                <rect key="frame" x="0.0" y="170" width="160" height="159"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Twm-f0-vz2">
+                                        <rect key="frame" x="9" y="8" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="slG-mF-vCl">
+                                        <rect key="frame" x="9" y="47" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4LU-8c-Foe">
+                                        <rect key="frame" x="8" y="86" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6oJ-le-nxx">
+                                        <rect key="frame" x="8" y="125" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-V5-dy4">
+                                        <rect key="frame" x="9" y="164" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qPR-55-6yS">
+                                        <rect key="frame" x="9" y="203" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="71E-1q-myI">
+                                        <rect key="frame" x="8" y="242" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGP-rK-8js">
+                                        <rect key="frame" x="8" y="281" width="143" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eLS-eX-58o">
+                                <rect key="frame" x="160" y="80" width="160" height="326"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ho7-86-XDg">
+                                        <rect key="frame" x="9" y="131" width="142" height="186"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YCj-kL-Nap">
+                                                <rect key="frame" x="9" y="8" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z6V-Fg-LqC">
+                                                <rect key="frame" x="9" y="47" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O64-e9-uZb">
+                                                <rect key="frame" x="8" y="86" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5QI-ii-Ada">
+                                                <rect key="frame" x="8" y="125" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-hD-coQ">
+                                                <rect key="frame" x="9" y="164" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hBy-jt-lw0">
+                                                <rect key="frame" x="9" y="203" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l6G-g5-uvp">
+                                                <rect key="frame" x="8" y="242" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHM-e8-Toc">
+                                                <rect key="frame" x="8" y="281" width="125" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </scrollView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="wRM-eo-Dzs">
+                                        <rect key="frame" x="7" y="10" width="145" height="112"/>
+                                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Fhj-kF-jK7" id="acG-SG-E9f"/>
+                                            <outlet property="delegate" destination="Fhj-kF-jK7" id="DPA-7n-3fH"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117653369999998" green="0.77647066119999997" blue="0.6549019814" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="UIScrollView Example" id="1AM-0D-gSg"/>
+                    <connections>
+                        <outlet property="bottomTextField" destination="dPd-u4-HvP" id="Vwi-lk-O3a"/>
+                        <outlet property="bottomTextView" destination="ADR-mh-Vki" id="Lws-7e-oD2"/>
+                        <outlet property="scrollViewDemo" destination="TSG-U8-mhf" id="qc0-6H-Ks7"/>
+                        <outlet property="scrollViewInsideScrollView" destination="ho7-86-XDg" id="yXO-5L-uK7"/>
+                        <outlet property="scrollViewOfTableViews" destination="eLS-eX-58o" id="aI4-0m-y22"/>
+                        <outlet property="simpleTableView" destination="htm-ci-PbW" id="zMy-tt-nP2"/>
+                        <outlet property="tableViewInsideScrollView" destination="wRM-eo-Dzs" id="WUY-Ud-HQz"/>
+                        <outlet property="topTextField" destination="CZm-1V-gJO" id="hsv-6J-Ylc"/>
+                        <outlet property="topTextView" destination="NQt-Z3-83A" id="Ftk-PL-0rj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="04W-hS-JQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1591" y="32"/>
+        </scene>
+        <!--Navigation Bar-->
+        <scene sceneID="0he-gV-ygZ">
+            <objects>
+                <viewController storyboardIdentifier="NavigationBarViewController" id="VzI-gM-afp" customClass="NavigationBarViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CkC-zI-o4i"/>
+                        <viewControllerLayoutGuide type="bottom" id="eZE-M4-jjN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vyd-nm-f9X" customClass="UIScrollView">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q3f-Un-U0v">
+                                <rect key="frame" x="20" y="116" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rz-hu-Ci7">
+                                <rect key="frame" x="20" y="176" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vGt-Wl-dfx">
+                                <rect key="frame" x="20" y="236" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NhX-i4-PLf">
+                                <rect key="frame" x="20" y="296" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-6Z-MAA">
+                                <rect key="frame" x="20" y="356" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="If you want to always show UINavigationBar, then change the UIView class to UIScrollView." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="r4g-wm-Ged">
+                                <rect key="frame" x="20" y="8" width="280" height="59"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.61287773069999996" blue="0.45724296819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Navigation Bar" id="dJ4-0t-sww">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="ALP-rR-2V8"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Apq-Gh-EZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="96" y="850"/>
+        </scene>
+        <!--Special Cases-->
+        <scene sceneID="GlQ-Zw-t3v">
+            <objects>
+                <viewController storyboardIdentifier="SpecialCaseViewController" id="Jzp-cf-SMG" customClass="SpecialCaseViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hPc-eP-i6s"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rbz-1h-jgy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gHn-9u-tkf">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="e8c-46-O9d">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Jzp-cf-SMG" id="Xcz-ut-pms"/>
+                                </connections>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2v-iE-Kja">
+                                <rect key="frame" x="52" y="49" width="217" height="37"/>
+                                <state key="normal" title="Show Alert with TextField">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showAlertClicked:" destination="Jzp-cf-SMG" eventType="touchUpInside" id="7SU-Mn-vth"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField.enabled = NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eoL-ls-I5S">
+                                <rect key="frame" x="69" y="306" width="187" height="30"/>
+                                <color key="tintColor" red="0.42418679259999997" green="0.47692340350000001" blue="0.44535587799999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Jzp-cf-SMG" id="qb4-ZW-1Co"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iCy-Mr-pr3">
+                                <rect key="frame" x="69" y="341" width="187" height="30"/>
+                                <color key="tintColor" red="0.24721406849999999" green="0.47692340350000001" blue="0.14491207449999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="placeholder">TextField enabled. Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test,</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Jzp-cf-SMG" id="zul-3n-GDY"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="textField.userEnteractionEnabled = NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-tv-2LD">
+                                <rect key="frame" x="69" y="376" width="187" height="30"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.21517294100000001" blue="0.38909220090000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Jzp-cf-SMG" id="ruM-QB-cuH"/>
+                                </connections>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3H-O1-Pyc">
+                                <rect key="frame" x="10" y="91" width="305" height="210"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X9Z-Xw-B7b">
+                                        <rect key="frame" x="10" y="5" width="285" height="74"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-44-MGn">
+                                                <rect key="frame" x="10" y="5" width="265" height="30"/>
+                                                <color key="tintColor" red="0.47692340350000001" green="0.24049992780000001" blue="0.2496171214" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 2" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pxR-DJ-hgS">
+                                                <rect key="frame" x="10" y="39" width="265" height="30"/>
+                                                <color key="tintColor" red="0.47692340350000001" green="0.23946265799999999" blue="0.4001471707" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HzR-iR-gZW">
+                                        <rect key="frame" x="10" y="129" width="285" height="76"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xKP-kZ-IaF">
+                                                <rect key="frame" x="10" y="5" width="265" height="30"/>
+                                                <color key="tintColor" red="0.26544843489999997" green="0.27984934519999999" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 5" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XHn-iY-lkv">
+                                                <rect key="frame" x="10" y="40" width="265" height="30"/>
+                                                <color key="tintColor" red="0.28746597429999998" green="0.45227039219999998" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fex-l3-Fao">
+                                        <rect key="frame" x="10" y="84" width="285" height="41"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 3" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLa-XP-FtF">
+                                                <rect key="frame" x="10" y="5" width="265" height="30"/>
+                                                <color key="tintColor" red="0.42113987790000001" green="0.25450630210000003" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GSL-Fo-MTe">
+                                <rect key="frame" x="266" y="307" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch1Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="fz7-X8-5S8"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CpL-Hv-d7x">
+                                <rect key="frame" x="266" y="342" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch2Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="JKC-aV-sxR"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IH6-Uz-Sgz">
+                                <rect key="frame" x="266" y="377" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch3Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="rme-2o-LyI"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q43-zz-JWd">
+                                <rect key="frame" x="10" y="307" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch1Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="9th-gd-fZi"/>
+                                    <action selector="switch1UserInteractionAction:" destination="Jzp-cf-SMG" eventType="valueChanged" id="zXR-MQ-meM"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBp-LY-ZzV">
+                                <rect key="frame" x="10" y="342" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch2Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="lYm-86-PV5"/>
+                                    <action selector="switch2UserInteractionAction:" destination="Jzp-cf-SMG" eventType="valueChanged" id="gDv-Sm-EyR"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cNz-IR-xcm">
+                                <rect key="frame" x="10" y="377" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switch3Action:" destination="Jzp-cf-SMG" eventType="valueChanged" id="jsD-v0-OaP"/>
+                                    <action selector="switch3UserInteractionAction:" destination="Jzp-cf-SMG" eventType="valueChanged" id="AaV-fC-brT"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.72549019609999998" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Special Cases" id="p1h-hD-i3O"/>
+                    <connections>
+                        <outlet property="switchEnabled1" destination="GSL-Fo-MTe" id="xqS-AR-yuF"/>
+                        <outlet property="switchEnabled2" destination="CpL-Hv-d7x" id="a9g-fP-vK2"/>
+                        <outlet property="switchEnabled3" destination="IH6-Uz-Sgz" id="5Xn-Jg-4HI"/>
+                        <outlet property="switchInteraction1" destination="q43-zz-JWd" id="OF8-YF-qBb"/>
+                        <outlet property="switchInteraction2" destination="XBp-LY-ZzV" id="4TY-p0-lzX"/>
+                        <outlet property="switchInteraction3" destination="cNz-IR-xcm" id="Gog-8E-7O4"/>
+                        <outlet property="textField6" destination="eoL-ls-I5S" id="h8W-Fv-qcI"/>
+                        <outlet property="textField7" destination="iCy-Mr-pr3" id="auv-3F-Tiw"/>
+                        <outlet property="textField8" destination="lhj-tv-2LD" id="hOl-Cz-xTd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gFm-m5-sRz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="808" y="850"/>
+        </scene>
+        <!--UIWebView Example-->
+        <scene sceneID="lPx-43-Wtr">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="bok-7K-cMe" customClass="WebViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eei-2F-mvf"/>
+                        <viewControllerLayoutGuide type="bottom" id="u6N-8b-vhx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VSs-aV-g5Y">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpd-bt-i2h">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="bok-7K-cMe" id="1wE-Bf-uDM"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117653369999998" green="0.77647066119999997" blue="0.6549019814" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="UIWebView Example" id="IaV-Xc-XQS"/>
+                    <connections>
+                        <outlet property="_webView" destination="fpd-bt-i2h" id="Pat-w9-4Xf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iOJ-U4-ZEB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="808" y="-756"/>
+        </scene>
+        <!--Special Case-->
+        <scene sceneID="6yW-VK-qKa">
+            <objects>
+                <viewController storyboardIdentifier="TextViewSpecialCaseViewController" id="DkT-PN-1u3" customClass="TextViewSpecialCaseViewController" customModule="IQKeyboardManager_Swift" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kv2-21-XMb"/>
+                        <viewControllerLayoutGuide type="bottom" id="JOR-av-9Oo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pLo-Bs-zi3">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNy-pk-FyY">
+                                <rect key="frame" x="9" y="43" width="79" height="365"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.037223728980000002" green="0.2286975034" blue="0.47692340350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wW-pW-C6n">
+                                <rect key="frame" x="115" y="6" width="90" height="30"/>
+                                <state key="normal" title="Push">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="DkT-PN-1u3" kind="push" id="mW7-Yn-4SR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMw-bp-vUP">
+                                <rect key="frame" x="210" y="6" width="90" height="30"/>
+                                <state key="normal" title="Present">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="presentClicked:" destination="DkT-PN-1u3" eventType="touchUpInside" id="3bK-Sm-vFB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hW7-me-ZO7">
+                                <rect key="frame" x="20" y="6" width="90" height="30"/>
+                                <state key="normal" title="Pop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popClicked:" destination="DkT-PN-1u3" eventType="touchUpInside" id="Xqu-QG-AZf"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhN-mZ-Utx">
+                                <rect key="frame" x="101" y="43" width="84" height="162"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.17938000649999999" green="0.47692340350000001" blue="0.46705995909999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JdP-9l-BNV">
+                                <rect key="frame" x="193" y="43" width="118" height="74"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.35979851940000002" green="0.47692340350000001" blue="0.23990625860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmg-qd-0EF">
+                                <rect key="frame" x="101" y="212" width="84" height="196"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.1750397256" green="0.47692340350000001" blue="0.27988265709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lxe-5y-Z09">
+                                <rect key="frame" x="193" y="123" width="118" height="283"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.47692340350000001" green="0.36313484200000001" blue="0.25518210050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117653369999998" green="0.77647066119999997" blue="0.6549019814" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Special Case" id="BS8-Dk-OEc">
+                        <barButtonItem key="rightBarButtonItem" title="Enable Adjust" id="StO-hI-76Q">
+                            <connections>
+                                <action selector="canAdjustTextView:" destination="DkT-PN-1u3" id="L7G-Xh-Zyb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="barButtonAdjust" destination="StO-hI-76Q" id="Q1v-D1-OGo"/>
+                        <outlet property="buttonPop" destination="hW7-me-ZO7" id="tRB-vW-0av"/>
+                        <outlet property="buttonPresent" destination="dMw-bp-vUP" id="MFz-rW-RFV"/>
+                        <outlet property="buttonPush" destination="7wW-pW-C6n" id="LcM-pe-ZfV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9X-4U-3wt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1591" y="850"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fPf-tW-J6b">
+            <objects>
+                <navigationController id="AJr-KB-FFo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="RO4-xg-TqM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QhZ-lB-G9f" kind="relationship" relationship="rootViewController" id="41Q-fB-qZt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="raU-mG-6aJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-656" y="2"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zgi-0X-t7a"/>
+        <segue reference="ZaB-3G-xXY"/>
+    </inferredMetricsTieBreakers>
+</document>

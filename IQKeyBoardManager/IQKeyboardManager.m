@@ -291,6 +291,7 @@
 /*! Getting keyWindow. */
 -(UIWindow *)keyWindow
 {
+    /*  (Bug ID: #73)   */
     UIWindow *_originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
     //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
