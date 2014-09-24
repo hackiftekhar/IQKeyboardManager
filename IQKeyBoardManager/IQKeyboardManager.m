@@ -291,9 +291,12 @@
 /*! Getting keyWindow. */
 -(UIWindow *)keyWindow
 {
-    //If it is not initialized then return [[UIApplication sharedApplication] keyWindow], otherwise return it.
-    if (_keyWindow == nil)      _keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIWindow *_originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
+    //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
+    if (_originalKeyWindow != nil && _keyWindow != _originalKeyWindow)  _keyWindow = _originalKeyWindow;
+    
+    //Return KeyWindow
     return _keyWindow;
 }
 
