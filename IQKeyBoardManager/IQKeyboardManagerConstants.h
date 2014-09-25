@@ -38,7 +38,8 @@
 typedef enum IQAutoToolbarManageBehaviour
 {
 	IQAutoToolbarBySubviews,
-	IQAutoToolbarByTag,
+    IQAutoToolbarByTag,
+    IQAutoToolbarByPosition,
 	
 }IQAutoToolbarManageBehaviour;
 

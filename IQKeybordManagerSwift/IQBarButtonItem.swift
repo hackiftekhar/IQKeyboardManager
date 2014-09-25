@@ -41,6 +41,14 @@ class IQBarButtonItem: UIBarButtonItem {
         super.init(image: image, style: style, target: target, action: action)
     }
     
+    override init(title: String?, style: UIBarButtonItemStyle, target: AnyObject?, action: Selector) {
+        super.init(title: title, style: style, target: target, action: action)
+    }
+    
+    override init(customView: UIView) {
+        super.init(customView: customView)
+    }
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

@@ -27,5 +27,7 @@ import Foundation
 enum IQAutoToolbarManageBehaviour {
     case BySubviews
     case ByTag
+    case ByPosition
 }
+
 

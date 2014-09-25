@@ -62,9 +62,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /*! @abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.    */
     var keyboardDistanceFromTextField: CGFloat = 10.0 /*{
 
-        willSet {
-            keyboardDistanceFromTextField = max(0, newValue)
-        }
+    set(setKeyboardDistanceFromTextField) {
+        self.keyboardDistanceFromTextField = setKeyboardDistanceFromTextField
+    }
+    get {
+        return self.keyboardDistanceFromTextField
+    }
     }*/
 
     //IQToolbar handling
@@ -253,6 +256,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Getting RootViewController.
         var rootController = keyWindow().topMostController()
         
+        //If it's iOS8 then we should do calculations according to portrait orientations.
+        var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
+
         //  Converting Rectangle according to window bounds.
         var textFieldViewRect : CGRect? = _textFieldView.superview?.convertRect(_textFieldView.frame, toView: window)
         //  Getting RootViewRect.
@@ -263,7 +269,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Move negative = textField is showing.
         
         //  Calculating move position. Common for both normal and special cases.
-        switch (rootController.interfaceOrientation) {
+        switch (interfaceOrientation) {
         case UIInterfaceOrientation.LandscapeLeft:
             move = (textFieldViewRect?.right)! - (window.width-kbSize.width)
         case UIInterfaceOrientation.LandscapeRight:
@@ -338,9 +344,6 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         var adjustment: CGFloat = 0
         
-        //If it's iOS8 then we should do calculations according to portrait orientations.
-        var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
-        
         switch (interfaceOrientation) {
         case UIInterfaceOrientation.LandscapeLeft:
             adjustment += UIApplication.sharedApplication().statusBarFrame.width
@@ -358,7 +361,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //If we have permission to adjust the textView, then let's do it on behalf of user.
-        if (canAdjustTextView && (_textFieldView is UITextView) == true) {
+        if (canAdjustTextView && _textFieldView != nil && (_textFieldView is UITextView) == true) {
             UIView.animateWithDuration(animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|animationCurve, animations: { () -> Void in
                 self._textFieldView.height = self._textFieldView.height-(initialMove-move)
                 }, completion: { (finished) -> Void in })
@@ -390,9 +393,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         else {
             //  Positive or zero.
             if (move>=0) {
-                //If it's iOS8 then we should do calculations according to portrait orientations.
-                var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
-                
+
                 switch (interfaceOrientation) {
                 case UIInterfaceOrientation.LandscapeLeft:       rootViewRect.x -= move
                 case UIInterfaceOrientation.LandscapeRight:      rootViewRect.x += move
@@ -407,9 +408,6 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //  Negative
             else {
                 var disturbDistance : CGFloat = 0
-                
-                //If it's iOS8 then we should do calculations according to portrait orientations.
-                var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
                 
                 switch (interfaceOrientation) {
                 case UIInterfaceOrientation.LandscapeLeft:
@@ -426,9 +424,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //  disturbDistance Negative = frame disturbed.
                 //  disturbDistance positive = frame not disturbed.
                 if(disturbDistance<0) {
-                    //If it's iOS8 then we should do calculations according to portrait orientations.
-                    var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
-                    
+
                     switch (interfaceOrientation) {
                     case UIInterfaceOrientation.LandscapeLeft:       rootViewRect.x -= max(move, disturbDistance)
                     case UIInterfaceOrientation.LandscapeRight:      rootViewRect.x += max(move, disturbDistance)
@@ -456,7 +452,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //Due to orientation callback we need to resave it's original frame.
-        textFieldViewIntialFrame = (enable && canAdjustTextView) ? _textFieldView.frame : CGRectZero
+        textFieldViewIntialFrame = (enable && canAdjustTextView && _textFieldView != nil) ? _textFieldView.frame : CGRectZero
         
         if (shouldAdoptDefaultKeyboardAnimation)
         {
@@ -595,7 +591,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         // If the manager is not enabled and it can't adjust the textview set the initial frame to CGRectZero
-        textFieldViewIntialFrame = enable && canAdjustTextView ? _textFieldView.frame : CGRectZero
+        textFieldViewIntialFrame = (enable && canAdjustTextView  && _textFieldView != nil) ? _textFieldView.frame : CGRectZero
         
         //If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
         if (enableAutoToolbar) {
@@ -723,6 +719,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //If autoToolbar behaviour is by tag, then sorting it according to tag property.
         case IQAutoToolbarManageBehaviour.ByTag:    return textFields.sortedArrayByTag()
+            
+            //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+        case IQAutoToolbarManageBehaviour.ByPosition:    return textFields.sortedArrayByPosition()
         }
     }
     

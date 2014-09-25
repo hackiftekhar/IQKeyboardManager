@@ -339,6 +339,9 @@
     //  Getting RootViewController.
     UIViewController *rootController = [[self keyWindow] topMostController];
     
+    //If it's iOS8 then we should do calculations according to portrait orientations.
+    UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [rootController interfaceOrientation];
+
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:window];
     //  Getting RootViewRect.
@@ -348,8 +351,9 @@
     //  Move positive = textField is hidden.
     //  Move negative = textField is showing.
 	
+
     //  Calculating move position. Common for both normal and special cases.
-    switch ([rootController interfaceOrientation])
+    switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
             move = CGRectGetMaxX(textFieldViewRect)-(window.width-kbSize.width);
@@ -439,12 +443,6 @@
         
         CGFloat adjustment = 5;
         
-        UIInterfaceOrientation interfaceOrientation;
-        
-        //If it's iOS8 then we should do calculations according to portrait orientations.
-        if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
-        else                        interfaceOrientation = [rootController interfaceOrientation];
-        
         switch (interfaceOrientation)
         {
             case UIInterfaceOrientationLandscapeLeft:
@@ -512,13 +510,6 @@
         //  Positive or zero.
         if (move>=0)
         {
-            //  adjusting rootViewRect
-            UIInterfaceOrientation interfaceOrientation;
-            
-            //If it's iOS8 then we should do calculations according to portrait orientations.
-            if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
-            else                        interfaceOrientation = [rootController interfaceOrientation];
-            
             switch (interfaceOrientation)
             {
                 case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
@@ -535,13 +526,6 @@
         else
         {
             CGFloat disturbDistance = 0;
-            
-            //  Calculating disturbed distance
-            UIInterfaceOrientation interfaceOrientation;
-            
-            //If it's iOS8 then we should do calculations according to portrait orientations.
-            if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
-            else                        interfaceOrientation = [rootController interfaceOrientation];
             
             switch (interfaceOrientation)
             {
@@ -565,13 +549,6 @@
             //  disturbDistance positive = frame not disturbed.
             if(disturbDistance<0)
             {
-                //  adjusting rootViewRect
-                UIInterfaceOrientation interfaceOrientation;
-                
-                //If it's iOS8 then we should do calculations according to portrait orientations.
-                if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
-                else                        interfaceOrientation = [rootController interfaceOrientation];
-                
                 switch (interfaceOrientation)
                 {
                     case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
@@ -687,10 +664,7 @@
     kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // Adding Keyboard distance from textField.
-    UIInterfaceOrientation interfaceOrientation;
-    
-    if (IQ_IS_IOS8_OR_GREATER)  interfaceOrientation = UIInterfaceOrientationPortrait;
-    else                        interfaceOrientation = [[[self keyWindow] topMostController] interfaceOrientation];
+    UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [[[self keyWindow] topMostController] interfaceOrientation];
     
     switch (interfaceOrientation)
     {
@@ -896,6 +870,11 @@
             //If autoToolbar behaviour is by tag, then sorting it according to tag property.
         case IQAutoToolbarByTag:
             return [textFields sortedArrayByTag];
+            break;
+            
+            //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+        case IQAutoToolbarByPosition:
+            return [textFields sortedArrayByPosition];
             break;
     }
 }

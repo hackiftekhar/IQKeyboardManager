@@ -102,7 +102,7 @@
 /*!
     @property placeholderFont
  
-    @abstract placeholder Font. Default is nil.
+    @abstract Placeholder Font. Default is nil.
  */
 @property(nonatomic, strong) UIFont *placeholderFont;
 
@@ -126,14 +126,14 @@
 /*!
     @property overrideKeyboardAppearance
  
-    @abstract override the keyboardAppearance for all textField/textView. Default is NO.
+    @abstract Override the keyboardAppearance for all textField/textView. Default is NO.
  */
 @property(nonatomic, assign) BOOL overrideKeyboardAppearance;
 
 /*!
     @property keyboardAppearance
  
-    @abstract if overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+    @abstract If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
  */
 @property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 

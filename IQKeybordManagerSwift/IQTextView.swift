@@ -43,12 +43,12 @@ class IQTextView : UITextView {
             
             if placeholderLabel == nil {
                 
-                placeholderLabel = UILabel(frame: CGRectInset(self.bounds, 8, 8))
+                placeholderLabel = UILabel(frame: CGRectInset(self.bounds, 5, 0))
                 placeholderLabel?.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
                 placeholderLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
                 placeholderLabel?.numberOfLines = 0
                 
-                if font != nil {
+                if self.font != nil {
                     placeholderLabel?.font = self.font!
                 }
 
@@ -58,7 +58,7 @@ class IQTextView : UITextView {
                 self.addSubview(placeholderLabel!)
             }
             
-            placeholderLabel?.text = placeholder
+            placeholderLabel?.text = newValue
             refreshPlaceholder()
         }
     }
@@ -91,11 +91,11 @@ class IQTextView : UITextView {
         
         set {
             
-            if font != nil {
-                placeholderLabel?.font = self.font!
+            if newValue != nil {
+                placeholderLabel?.font = newValue!
             }
             else {
-                placeholderLabel?.font = UIFont()
+                placeholderLabel?.font = UIFont.systemFontOfSize(12)
             }
         }
     }

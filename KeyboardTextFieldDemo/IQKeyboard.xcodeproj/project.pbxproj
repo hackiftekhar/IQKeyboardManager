@@ -149,7 +149,7 @@
 		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		C05BE62A19AFB9F3000B332C /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
 		C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
-		C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IQKeyboardManager.bundle; path = ../IQKeyBoardManager/IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		C05BE62D19AFB9F3000B332C /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
 		C05BE62E19AFB9F3000B332C /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
 		C05BE62F19AFB9F3000B332C /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
@@ -332,7 +332,6 @@
 			children = (
 				C05BE62A19AFB9F3000B332C /* IQBarButtonItem.h */,
 				C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */,
-				C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */,
 				C05BE62D19AFB9F3000B332C /* IQKeyboardManager.h */,
 				C05BE62E19AFB9F3000B332C /* IQKeyboardManager.m */,
 				C05BE62F19AFB9F3000B332C /* IQKeyboardManagerConstants.h */,
@@ -421,9 +420,10 @@
 			isa = PBXGroup;
 			children = (
 				C08810DE19D3467900BE111B /* IQKeybordManagerSwift */,
-				C0DD7E9F19D0A0AE007604CF /* KeyboardTextFieldDemoSwift */,
 				C05BE62919AFB9F3000B332C /* IQKeyBoardManager */,
+				C0DD7E9F19D0A0AE007604CF /* KeyboardTextFieldDemoSwift */,
 				C0B63BA51781FAB1008D3B64 /* KeyboardTextFieldDemo */,
+				C0DE7A3019D49D3400B6A582 /* Resources */,
 				9D0BB84718BB1AE100667349 /* KeyboardManagerTests */,
 				9D0BB87518BB232B00667349 /* KeyboardManager */,
 				C0ACB0F619CF104C0057B571 /* IQKeyboardManager Swift */,
@@ -513,6 +513,14 @@
 				C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */,
 			);
 			name = KeyboardTextFieldDemoSwift;
+			sourceTree = "<group>";
+		};
+		C0DE7A3019D49D3400B6A582 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

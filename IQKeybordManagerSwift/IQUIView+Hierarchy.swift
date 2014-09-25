@@ -208,7 +208,7 @@ extension UIView {
         get {   return frame.x    }
         set {
             var frame : CGRect = self.frame
-            frame.x = x
+            frame.x = newValue
             self.frame = frame }
     }
     
@@ -217,7 +217,7 @@ extension UIView {
         get {   return frame.y    }
         set {
             var frame : CGRect = self.frame
-            frame.y = y
+            frame.y = newValue
             self.frame = frame }
     }
     
@@ -226,7 +226,7 @@ extension UIView {
         get {   return frame.width    }
         set {
             var frame : CGRect = self.frame
-            frame.width = width
+            frame.width = newValue
             self.frame = frame }
     }
     
@@ -235,7 +235,7 @@ extension UIView {
         get {   return frame.height    }
         set {
             var frame : CGRect = self.frame
-            frame.height = height
+            frame.height = newValue
             self.frame = frame }
     }
     
@@ -244,7 +244,7 @@ extension UIView {
         get {   return frame.origin    }
         set {
             var frame : CGRect = self.frame
-            frame.origin = origin
+            frame.origin = newValue
             self.frame = frame }
     }
     
@@ -253,7 +253,7 @@ extension UIView {
         get {   return frame.size    }
         set {
             var frame : CGRect = self.frame
-            frame.size = size
+            frame.size = newValue
             self.frame = frame }
     }
 
@@ -262,9 +262,9 @@ extension UIView {
         get {
             return frame.top
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.top = value
+            frame.top = newValue
             self.frame = frame
         }
     }
@@ -273,9 +273,9 @@ extension UIView {
         get {
             return frame.left
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.left = value
+            frame.left = newValue
             self.frame = frame
         }
     }
@@ -284,9 +284,9 @@ extension UIView {
         get {
             return frame.bottom
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.bottom = value
+            frame.bottom = newValue
             self.frame = frame
         }
     }
@@ -295,9 +295,9 @@ extension UIView {
         get {
             return frame.right
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.right = value
+            frame.right = newValue
             self.frame = frame
         }
     }
@@ -306,9 +306,9 @@ extension UIView {
         get {
             return frame.centerX
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.centerX = value
+            frame.centerX = newValue
             self.frame = frame
         }
     }
@@ -317,9 +317,9 @@ extension UIView {
         get {
             return frame.centerY
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.centerY = value
+            frame.centerY = newValue
             self.frame = frame
         }
     }
@@ -328,9 +328,9 @@ extension UIView {
         get {
             return frame.center
         }
-        set(value) {
+        set {
             var frame = self.frame
-            frame.center = value
+            frame.center = newValue
             self.frame = frame
         }
     }

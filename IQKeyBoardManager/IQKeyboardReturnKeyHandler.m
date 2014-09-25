@@ -110,8 +110,20 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds, Otherwise fetching all the siblings.
         NSArray *textFields = (tableView)   ?   [tableView deepResponderViews]  :   [textField responderSiblings];
         
-        //If needs to sort it by tag
-        if (_toolbarManageBehaviour == IQAutoToolbarByTag)  textFields = [textFields sortedArrayByTag];
+        switch (_toolbarManageBehaviour)
+        {
+                //If needs to sort it by tag
+            case IQAutoToolbarByTag:
+                textFields = [textFields sortedArrayByTag];
+                break;
+                
+                //If needs to sort it by Position
+                case IQAutoToolbarByPosition:
+                textFields = [textFields sortedArrayByPosition];
+                
+            default:
+                break;
+        }
         
         //If it's the last textField in responder view, else next
         textField.returnKeyType = ([textFields lastObject] == textField)    ?   self.lastTextFieldReturnKeyType :   UIReturnKeyNext;
@@ -135,8 +147,20 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds, Otherwise fetching all the siblings.
         NSArray *textFields = (tableView)   ?   [tableView deepResponderViews]  :   [textField responderSiblings];
         
-        //If needs to sort it by tag
-        if (_toolbarManageBehaviour == IQAutoToolbarByTag)  textFields = [textFields sortedArrayByTag];
+        switch (_toolbarManageBehaviour)
+        {
+                //If needs to sort it by tag
+            case IQAutoToolbarByTag:
+                textFields = [textFields sortedArrayByTag];
+                break;
+                
+                //If needs to sort it by Position
+            case IQAutoToolbarByPosition:
+                textFields = [textFields sortedArrayByPosition];
+                
+            default:
+                break;
+        }
         
         //If it's the last textField in responder view, else next
         textField.returnKeyType = ([textFields lastObject] == textField)    ?   self.lastTextFieldReturnKeyType :   UIReturnKeyNext;
@@ -152,8 +176,20 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds, Otherwise fetching all the siblings.
     NSArray *textFields = (tableView)   ?   [tableView deepResponderViews]  :   [textField responderSiblings];
     
-    //If needs to sort it by tag
-    if (_toolbarManageBehaviour == IQAutoToolbarByTag)  textFields = [textFields sortedArrayByTag];
+    switch (_toolbarManageBehaviour)
+    {
+            //If needs to sort it by tag
+        case IQAutoToolbarByTag:
+            textFields = [textFields sortedArrayByTag];
+            break;
+            
+            //If needs to sort it by Position
+        case IQAutoToolbarByPosition:
+            textFields = [textFields sortedArrayByPosition];
+            
+        default:
+            break;
+    }
     
     if ([textFields containsObject:textField])
     {

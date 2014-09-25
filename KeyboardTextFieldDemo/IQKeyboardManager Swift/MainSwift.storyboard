@@ -539,7 +539,7 @@
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" id="ojb-wx-Rsu">
-                                <rect key="frame" x="10" y="110" width="305" height="254.00000021965576"/>
+                                <rect key="frame" x="10" y="110" width="305" height="254.00000020784626"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="iac-4j-I5B">
@@ -564,7 +564,7 @@
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="FXq-yG-agB">
-                                        <rect key="frame" x="10" y="156.00000013761567" width="285" height="93"/>
+                                        <rect key="frame" x="10" y="156.00000013021693" width="285" height="93"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="pao-O5-JoS">
