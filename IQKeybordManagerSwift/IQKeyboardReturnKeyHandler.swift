@@ -24,6 +24,57 @@
 
 import UIKit
 
+let kIQTextField                =   "kIQTextField"
+let kIQTextFieldDelegate        =   "kIQTextFieldDelegate"
+let kIQTextFieldReturnKeyType   =   "kIQTextFieldReturnKeyType"
+
+/*  IQKeyboardReturnKeyHandler class in not yet implemented in swift    */
 class IQKeyboardReturnKeyHandler {
    
+    /*! @abstract textField's delegates.    */
+    var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
+    
+    /*! @abstract It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews. */
+    var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
+
+    /*! @abstract Set the last textfield return key type. Default is UIReturnKeyDefault.    */
+    var lastTextFieldReturnKeyType = UIReturnKeyType.Default
+    
+    
+    var textFieldInfoCache : NSMutableSet  = NSMutableSet()
+
+    init() {
+    }
+    
+    /*! @method initWithViewController  */
+    init(controller : UIViewController) {
+        
+        addResponderFromView(controller.view)
+    }
+
+    private func textFieldCachedInfo(textField : UITextField) -> Dictionary<String, UITextField>? {
+
+        return nil;
+    }
+
+    
+    /*! @abstract Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType. */
+    func addTextFieldView(textFieldView : UIView) {
+        
+    }
+
+    /*! @abstract Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType. */
+    func removeTextFieldView(textFieldView : UIView) {
+        
+    }
+    
+    /*! @abstract Add all the UITextField/UITextView responderView's. */
+    func addResponderFromView(textFieldView : UIView) {
+        
+    }
+    
+    /*! @abstract Remove all the UITextField/UITextView responderView's. */
+    func removeResponderFromView(textFieldView : UIView) {
+        
+    }
 }

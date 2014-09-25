@@ -25,16 +25,15 @@ import Foundation
 
 extension NSArray {
     
-    
     func sortedArrayByTag() -> NSArray {
         
         return self.sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
-
+            
             if view1?.tag < view2?.tag {
                 return NSComparisonResult.OrderedAscending
             }
             else if view1?.tag > view2?.tag {
-                    return NSComparisonResult.OrderedDescending
+                return NSComparisonResult.OrderedDescending
             }
             else {
                 return NSComparisonResult.OrderedSame
@@ -42,4 +41,26 @@ extension NSArray {
         })
     }
     
+    func sortedArrayByPosition() -> NSArray {
+        
+        return self.sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
+            
+            if view1?.y < view2?.y {
+                return NSComparisonResult.OrderedAscending
+            }
+            else if view1?.y > view2?.y {
+                return NSComparisonResult.OrderedDescending
+            }
+            //Else both y are same so checking for x positions
+            else if view1?.x < view2?.x {
+                return NSComparisonResult.OrderedAscending
+            }
+            else if view1?.x > view2?.x {
+                return NSComparisonResult.OrderedDescending
+            }
+            else {
+                return NSComparisonResult.OrderedSame
+            }
+        })
+    }
 }

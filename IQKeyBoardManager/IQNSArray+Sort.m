@@ -24,7 +24,7 @@
 #import "IQNSArray+Sort.h"
 
 #import <UIKit/UIView.h>
-
+#import "IQUIView+Hierarchy.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
 IQ_LoadCategory(IQNSArraySort)
@@ -48,5 +48,23 @@ IQ_LoadCategory(IQNSArraySort)
             return NSOrderedSame;
     }];
 }
+
+- (NSArray*)sortedArrayByPosition
+{
+    return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
+        
+        if (view1.y < view2.y)  return NSOrderedAscending;
+        
+        else if (view1.y > view2.y) return NSOrderedDescending;
+        
+        //Else both y are same so checking for x positions
+        else if (view1.x < view2.x)  return NSOrderedAscending;
+        
+        else if (view1.x > view2.x) return NSOrderedDescending;
+        
+        else    return NSOrderedSame;
+    }];
+}
+
 
 @end

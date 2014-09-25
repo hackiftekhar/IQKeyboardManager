@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import "IQSegmentedNextPrevious.h"
-
+#import "IQKeyboardManagerConstantsInternal.h"
 #import <Foundation/NSArray.h>
 
 @interface IQSegmentedNextPrevious ()
@@ -48,7 +48,7 @@
     
     if (self)
     {
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
+        if (IQ_IS_IOS7_OR_GREATER == NO)
         {
             [self setSegmentedControlStyle:UISegmentedControlStyleBar];
         }

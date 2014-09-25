@@ -32,4 +32,11 @@
  */
 - (NSArray*)sortedArrayByTag;
 
+/*!
+    @method sortedArrayByTag
+ 
+    @return Returns the array by sorting the UIView's by their tag property.
+ */
+- (NSArray*)sortedArrayByPosition;
+
 @end
