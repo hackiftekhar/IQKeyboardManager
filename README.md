@@ -157,26 +157,38 @@ Set Distance between keyboard & textField. Can't be less than zero. Default is 1
 4)	`enableAutoToolbar`
 Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
 
-5)	`canAdjustTextView`
-Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO.
+5)	`toolbarManageBehaviour`
+Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
 
-6)	`shouldResignOnTouchOutside`
-Resign textField if touched outside of UITextField/UITextView.
+6)	`shouldToolbarUsesTextFieldTintColor`
+If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO.
 
 7)	`shouldShowTextFieldPlaceholder`
 If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
 
-8)	`shouldPlayInputClicks`
+8)	`placeholderFont`
+placeholder Font. Default is nil.
+
+9)	`canAdjustTextView`
+Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO.
+
+10)	`overrideKeyboardAppearance`
+Override the keyboardAppearance for all textField/textView. Default is NO.
+
+11)	`keyboardAppearance`
+If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+
+12)	`shouldResignOnTouchOutside`
+Resign textField if touched outside of UITextField/UITextView.
+
+13)	`-resignFirstResponder`
+Resigns currently first responder field.
+
+14)	`shouldPlayInputClicks`
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
-9)	`toolbarUsesCurrentWindowTintColor`
-If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO.
-
-10)	`toolbarManageStyle`
-Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
-
-11)	`-resignFirstResponder`
-Resigns currently first responder field.
+15)	`shouldAdoptDefaultKeyboardAnimation`
+If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseOut animation style. Default is YES.
 
 
 
