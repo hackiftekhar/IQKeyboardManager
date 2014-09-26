@@ -15,7 +15,6 @@
 		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		9D0BB87A18BB232B00667349 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0BB87818BB232B00667349 /* InfoPlist.strings */; };
 		9D1F46991977B06C0057B4A2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1F46981977B06C0057B4A2 /* Accelerate.framework */; };
-		9D1F469B1977B3590057B4A2 /* IQPhotoEditor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1F469A1977B3590057B4A2 /* IQPhotoEditor.png */; };
 		9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2A18C5A8D6006591CB /* original.jpg */; };
 		9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */; };
 		9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2C18C5A8D6006591CB /* icon60.png */; };
@@ -64,6 +63,15 @@
 		C05BE66619AFBB26000B332C /* IQUIView+IQKeyboardToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = C05BE63F19AFB9F4000B332C /* IQUIView+IQKeyboardToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C05BE66719AFBB26000B332C /* IQUIWindow+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = C05BE64119AFB9F4000B332C /* IQUIWindow+Hierarchy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C05BE66819AFBB26000B332C /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C05BE64319AFB9F4000B332C /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C06579BD19D6024800DAA3EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BC19D6024800DAA3EA /* SettingsViewController.m */; };
+		C06579C019D6028100DAA3EA /* ExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */; };
+		C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579C319D60ACB00DAA3EA /* SwitchTableViewCell.m */; };
+		C06579C819D60AF600DAA3EA /* StepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579C719D60AF600DAA3EA /* StepperTableViewCell.m */; };
+		C06579CB19D60B0400DAA3EA /* NavigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579CA19D60B0400DAA3EA /* NavigationTableViewCell.m */; };
+		C06579CE19D61BF000DAA3EA /* OptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579CD19D61BF000DAA3EA /* OptionTableViewCell.m */; };
+		C06579D119D61C0B00DAA3EA /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579D019D61C0B00DAA3EA /* OptionsViewController.m */; };
+		C07A284019D5E5930097F34D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C07A283F19D5E5930097F34D /* settings@2x.png */; };
+		C07A284119D5E5930097F34D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C07A283F19D5E5930097F34D /* settings@2x.png */; };
 		C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20B41858FF54001699A8 /* ScrollViewController.m */; };
 		C07E20BE18590085001699A8 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20BA18590085001699A8 /* WebViewController.m */; };
 		C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07E20C1185900BD001699A8 /* TextFieldViewController.m */; };
@@ -129,7 +137,6 @@
 		9D0BB87718BB232B00667349 /* KeyboardManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardManager-Info.plist"; sourceTree = "<group>"; };
 		9D0BB87918BB232B00667349 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D1F46981977B06C0057B4A2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		9D1F469A1977B3590057B4A2 /* IQPhotoEditor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IQPhotoEditor.png; sourceTree = "<group>"; };
 		9D3FBD2A18C5A8D6006591CB /* original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = original.jpg; sourceTree = "<group>"; };
 		9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon60@2x.png"; sourceTree = "<group>"; };
 		9D3FBD2C18C5A8D6006591CB /* icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon60.png; sourceTree = "<group>"; };
@@ -173,6 +180,21 @@
 		C05BE64119AFB9F4000B332C /* IQUIWindow+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIWindow+Hierarchy.h"; sourceTree = "<group>"; };
 		C05BE64219AFB9F4000B332C /* IQUIWindow+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIWindow+Hierarchy.m"; sourceTree = "<group>"; };
 		C05BE64319AFB9F4000B332C /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		C06579BB19D6024800DAA3EA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		C06579BC19D6024800DAA3EA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		C06579BE19D6028100DAA3EA /* ExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleTableViewController.h; sourceTree = "<group>"; };
+		C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleTableViewController.m; sourceTree = "<group>"; };
+		C06579C219D60ACB00DAA3EA /* SwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
+		C06579C319D60ACB00DAA3EA /* SwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
+		C06579C619D60AF600DAA3EA /* StepperTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepperTableViewCell.h; sourceTree = "<group>"; };
+		C06579C719D60AF600DAA3EA /* StepperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepperTableViewCell.m; sourceTree = "<group>"; };
+		C06579C919D60B0400DAA3EA /* NavigationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationTableViewCell.h; sourceTree = "<group>"; };
+		C06579CA19D60B0400DAA3EA /* NavigationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationTableViewCell.m; sourceTree = "<group>"; };
+		C06579CC19D61BF000DAA3EA /* OptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionTableViewCell.h; sourceTree = "<group>"; };
+		C06579CD19D61BF000DAA3EA /* OptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionTableViewCell.m; sourceTree = "<group>"; };
+		C06579CF19D61C0B00DAA3EA /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
+		C06579D019D61C0B00DAA3EA /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		C07A283F19D5E5930097F34D /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		C07E20B41858FF54001699A8 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
 		C07E20B918590085001699A8 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		C07E20BA18590085001699A8 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -360,6 +382,33 @@
 			path = ../IQKeyBoardManager;
 			sourceTree = "<group>";
 		};
+		C06579C119D60AAF00DAA3EA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C06579C519D60AD400DAA3EA /* CustomCell */,
+				C06579BB19D6024800DAA3EA /* SettingsViewController.h */,
+				C06579BC19D6024800DAA3EA /* SettingsViewController.m */,
+				C06579CF19D61C0B00DAA3EA /* OptionsViewController.h */,
+				C06579D019D61C0B00DAA3EA /* OptionsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		C06579C519D60AD400DAA3EA /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				C06579C219D60ACB00DAA3EA /* SwitchTableViewCell.h */,
+				C06579C319D60ACB00DAA3EA /* SwitchTableViewCell.m */,
+				C06579C619D60AF600DAA3EA /* StepperTableViewCell.h */,
+				C06579C719D60AF600DAA3EA /* StepperTableViewCell.m */,
+				C06579C919D60B0400DAA3EA /* NavigationTableViewCell.h */,
+				C06579CA19D60B0400DAA3EA /* NavigationTableViewCell.m */,
+				C06579CC19D61BF000DAA3EA /* OptionTableViewCell.h */,
+				C06579CD19D61BF000DAA3EA /* OptionTableViewCell.m */,
+			);
+			name = CustomCell;
+			sourceTree = "<group>";
+		};
 		C08810DE19D3467900BE111B /* IQKeybordManagerSwift */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,12 +520,15 @@
 				C07E20BA18590085001699A8 /* WebViewController.m */,
 				C080A59018740EFF0088441B /* TextViewSpecialCaseViewController.h */,
 				C080A59118740EFF0088441B /* TextViewSpecialCaseViewController.m */,
-				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
-				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
 				53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */,
 				53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */,
 				9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */,
 				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
+				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
+				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
+				C06579BE19D6028100DAA3EA /* ExampleTableViewController.h */,
+				C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */,
+				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
 				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,
 				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
@@ -494,7 +546,6 @@
 				9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */,
 				C0B63BAB1781FAB1008D3B64 /* main.m */,
 				C0B63BAD1781FAB1008D3B64 /* IQKeyboard-Prefix.pch */,
-				9D1F469A1977B3590057B4A2 /* IQPhotoEditor.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -518,6 +569,7 @@
 		C0DE7A3019D49D3400B6A582 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C07A283F19D5E5930097F34D /* settings@2x.png */,
 				C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */,
 			);
 			name = Resources;
@@ -703,6 +755,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07A284119D5E5930097F34D /* settings@2x.png in Resources */,
 				C0ACB10419CF104F0057B571 /* LaunchScreen.xib in Resources */,
 				C0ACB10119CF104E0057B571 /* Images.xcassets in Resources */,
 				C0EC59DE19D0C11200997FFE /* MainSwift.storyboard in Resources */,
@@ -726,10 +779,10 @@
 				9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */,
 				9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */,
 				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
+				C07A284019D5E5930097F34D /* settings@2x.png in Resources */,
 				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
 				9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */,
 				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
-				9D1F469B1977B3590057B4A2 /* IQPhotoEditor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,12 +871,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C06579CE19D61BF000DAA3EA /* OptionTableViewCell.m in Sources */,
+				C06579C019D6028100DAA3EA /* ExampleTableViewController.m in Sources */,
 				53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */,
 				C05BE64919AFB9F4000B332C /* IQSegmentedNextPrevious.m in Sources */,
 				C05BE64B19AFB9F4000B332C /* IQTitleBarButtonItem.m in Sources */,
 				C05BE64E19AFB9F4000B332C /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
+				C06579BD19D6024800DAA3EA /* SettingsViewController.m in Sources */,
 				C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */,
 				C07E20BE18590085001699A8 /* WebViewController.m in Sources */,
 				C05BE64A19AFB9F4000B332C /* IQTextView.m in Sources */,
@@ -832,12 +889,15 @@
 				C05BE64819AFB9F4000B332C /* IQNSArray+Sort.m in Sources */,
 				C05BE64619AFB9F4000B332C /* IQKeyboardManager.m in Sources */,
 				C05BE64D19AFB9F4000B332C /* IQUIView+Hierarchy.m in Sources */,
+				C06579CB19D60B0400DAA3EA /* NavigationTableViewCell.m in Sources */,
 				C05BE64719AFB9F4000B332C /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C05BE64F19AFB9F4000B332C /* IQUIWindow+Hierarchy.m in Sources */,
 				C05BE64C19AFB9F4000B332C /* IQToolbar.m in Sources */,
 				9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */,
 				C080A59318740EFF0088441B /* TextViewSpecialCaseViewController.m in Sources */,
 				9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */,
+				C06579C819D60AF600DAA3EA /* StepperTableViewCell.m in Sources */,
+				C06579D119D61C0B00DAA3EA /* OptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,7 +1254,7 @@
 					"DEBUG=1",
 				);
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1212,7 +1272,7 @@
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/IQKeyboard-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
 				TARGETED_DEVICE_FAMILY = "1,2";
