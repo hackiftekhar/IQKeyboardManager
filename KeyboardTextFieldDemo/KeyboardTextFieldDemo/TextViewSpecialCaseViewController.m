@@ -56,19 +56,6 @@
     returnKeyHandler = nil;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:YES];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:NO];
-}
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -102,26 +89,12 @@
             else
                 controller.modalPresentationStyle = arc4random()%4;
             
-            if ([self respondsToSelector:@selector(presentViewController:animated:completion:)])
-            {
-                [self presentViewController:controller animated:YES completion:nil];
-            }
-            else
-            {
-                [self presentModalViewController:controller animated:YES];
-            }
+            [self presentViewController:controller animated:YES completion:nil];
             
         }
         else
         {
-            if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
-            {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else
-            {
-                [self dismissModalViewControllerAnimated:YES];
-            }
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
     @catch (NSException *exception) {
