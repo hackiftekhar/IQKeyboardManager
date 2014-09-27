@@ -36,7 +36,7 @@
  
     @abstract Add all the textFields available in UIViewController's view.
  */
--(id)initWithViewController:(UIViewController*)controller;
+-(instancetype)initWithViewController:(UIViewController*)controller;
 
 /*!
     @method delegate

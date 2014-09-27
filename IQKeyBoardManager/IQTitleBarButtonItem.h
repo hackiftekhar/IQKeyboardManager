@@ -28,6 +28,6 @@
 
 @property(nonatomic, strong) UIFont *font;  //Default is (system font 12.0 bold)
 
--(id)initWithFrame:(CGRect)frame title:(NSString *)title;
+-(instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
 
 @end

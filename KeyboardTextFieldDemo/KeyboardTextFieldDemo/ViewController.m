@@ -19,11 +19,9 @@
     UIImage *shareImage = [UIImage imageNamed:@"IQKeyboardManagerScreenshot"];
     NSURL *youtubeUrl = [NSURL URLWithString:@"http://youtu.be/6nhLw6hju2A"];
     
-    NSArray *activityItems = [NSArray arrayWithObjects:
-                              youtubeUrl,
+    NSArray *activityItems = @[youtubeUrl,
                               shareString,
-                              shareImage,
-                              nil];
+                              shareImage];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     NSArray *excludedActivities = @[UIActivityTypePrint,

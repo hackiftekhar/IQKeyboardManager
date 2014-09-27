@@ -32,14 +32,14 @@
  
     @return Returns the current Top Most ViewController in hierarchy.
  */
-- (UIViewController*) topMostController;
+@property (nonatomic, readonly, strong) UIViewController *topMostController;
 
 /*!
     @method currentViewController
  
     @return Returns the topViewController in stack of topMostController.
  */
-- (UIViewController*)currentViewController;
+@property (nonatomic, readonly, strong) UIViewController *currentViewController;
 
 
 @end
