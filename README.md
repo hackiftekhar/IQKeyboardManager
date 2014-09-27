@@ -18,15 +18,15 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 Installation
 ==========================
 
-Cocoapod
----
+#### Cocoapod:-
+
 IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile:
 
     pod 'IQKeyboardManager'
 
-Framework:-
----
+#### Framework:-
+
 **Step1:-** Link project against `KeyboardManager.framework` found in "IQKeyboardManager Framework" directory.
 
 [Linking to a Library or Framework](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html)
@@ -42,8 +42,8 @@ If you need to port your project to another location you may need to adjust `Fra
 [Adding Linker Flag](http://docs.millennialmedia.com/iOS-SDK/iOSAddingLinkerFlag.html)
 
 
-Source Code:-
----
+#### Source Code:-
+
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
 Manual Management:-
