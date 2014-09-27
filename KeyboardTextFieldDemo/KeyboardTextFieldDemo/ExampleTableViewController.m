@@ -57,9 +57,9 @@
         }
         else
         {
-            UITextView *textField = [[UITextView alloc] initWithFrame:CGRectMake(5,5,tableView.frame.size.width-10,150)];
-            textField.text = @"Sample Text";
-            [cell.contentView addSubview:textField];
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,5,tableView.frame.size.width-10,150)];
+            textView.text = @"Sample Text";
+            [cell.contentView addSubview:textView];
         }
     }
     

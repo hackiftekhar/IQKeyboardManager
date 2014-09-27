@@ -188,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMe-b3-5Es" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186" y="879"/>
+            <point key="canvasLocation" x="1838" y="209"/>
         </scene>
         <!--UIScrollView Example-->
         <scene sceneID="ipE-dg-0Gf">
@@ -605,6 +605,35 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <segue destination="fxp-9v-8cZ" kind="push" id="wS1-t9-Ycx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Uae-6t-6Sj" detailTextLabel="58p-7P-t8z" style="IBUITableViewCellStyleSubtitle" id="bMd-Bf-n21">
+                                        <rect key="frame" x="0.0" y="236" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMd-Bf-n21" id="pKj-nA-uRL">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Text Selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" id="Uae-6t-6Sj">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Text Selection #56" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="87" id="58p-7P-t8z">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="IHN-1B-3KS" kind="push" id="w9d-sW-tRh"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1369,6 +1398,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fre-IE-O2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-247" y="-504"/>
+        </scene>
+        <!--UITextView Text Selection (#56)-->
+        <scene sceneID="YZ2-k6-VeM">
+            <objects>
+                <viewController id="IHN-1B-3KS" customClass="TextSelectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jYB-Ia-hFv"/>
+                        <viewControllerLayoutGuide type="bottom" id="FTk-Mt-QJi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="suD-YU-nnv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="050-lc-byG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="467"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp0-xx-Liz">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qbt-jS-iFE">
+                                        <rect key="frame" x="8" y="10" width="304" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.65490196079999996" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="SlJ-Mr-6c2"/>
+                                    <constraint firstAttribute="height" constant="50" id="jcs-eb-2Z5"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3Z-yn-ZlL">
+                                <rect key="frame" x="0.0" y="467" width="320" height="50"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjq-ke-nPO">
+                                        <rect key="frame" x="10" y="10" width="300" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.65490196079999996" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6yi-Nf-ZGA"/>
+                                    <constraint firstItem="Wjq-ke-nPO" firstAttribute="leading" secondItem="J3Z-yn-ZlL" secondAttribute="leading" constant="10" id="Bey-ev-MsF"/>
+                                    <constraint firstItem="Wjq-ke-nPO" firstAttribute="top" secondItem="J3Z-yn-ZlL" secondAttribute="top" constant="10" id="JBv-R9-h09"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wjq-ke-nPO" secondAttribute="bottom" constant="10" id="Jnj-DR-sqc"/>
+                                    <constraint firstAttribute="width" constant="320" id="wZ2-cV-J7M"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wjq-ke-nPO" secondAttribute="trailing" constant="10" id="yXN-MS-4YW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cp0-xx-Liz" firstAttribute="leading" secondItem="suD-YU-nnv" secondAttribute="leading" id="4uE-R3-3OT"/>
+                            <constraint firstItem="050-lc-byG" firstAttribute="leading" secondItem="suD-YU-nnv" secondAttribute="leading" id="BJB-XT-Axr"/>
+                            <constraint firstItem="J3Z-yn-ZlL" firstAttribute="leading" secondItem="suD-YU-nnv" secondAttribute="leading" id="HJ0-Yy-Gf1"/>
+                            <constraint firstAttribute="trailing" secondItem="050-lc-byG" secondAttribute="trailing" id="dm3-2L-2eY"/>
+                            <constraint firstItem="cp0-xx-Liz" firstAttribute="top" secondItem="J3Z-yn-ZlL" secondAttribute="bottom" constant="1" id="dpB-69-DO3"/>
+                            <constraint firstItem="FTk-Mt-QJi" firstAttribute="top" secondItem="cp0-xx-Liz" secondAttribute="bottom" id="gRe-tu-s01"/>
+                            <constraint firstItem="050-lc-byG" firstAttribute="top" secondItem="suD-YU-nnv" secondAttribute="top" id="wpd-Ft-aK5"/>
+                            <constraint firstItem="J3Z-yn-ZlL" firstAttribute="top" secondItem="050-lc-byG" secondAttribute="bottom" id="wt8-Ej-zWq"/>
+                            <constraint firstAttribute="trailing" secondItem="J3Z-yn-ZlL" secondAttribute="trailing" id="z1T-ro-BFT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="UITextView Text Selection (#56)" id="fsk-Cd-Dt9"/>
+                    <connections>
+                        <outlet property="tableView" destination="050-lc-byG" id="kUp-rL-8lp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NoQ-RA-gfo" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1519" y="209"/>
         </scene>
     </scenes>
     <resources>

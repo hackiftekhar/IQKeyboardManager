@@ -321,8 +321,7 @@
     [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         //  Setting it's new frame
         [controller.view setFrame:frame];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:NULL];
 }
 
 /* Adjusting RootViewController's frame according to device orientation. */
@@ -426,8 +425,7 @@
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                 [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
-                } completion:^(BOOL finished) {
-                }];
+                } completion:NULL];
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
@@ -471,8 +469,7 @@
         {
             [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 _textFieldView.height = _textFieldView.height-(initialMove-move);
-            } completion:^(BOOL finished) {
-            }];
+            } completion:NULL];
         }
     }
     
@@ -639,18 +636,17 @@
     //If not enabled then do nothing.
     if (_enable == NO)	return;
     
-    //  We are unable to get textField object while keyboard showing on UIWebView's textField. If it's alertView textField then also do nothing.
-    if (_textFieldView == nil)   return;
-    
+    //Commented due to #56. Added all the conditions below to handle UIWebView's textFields
+//    //  We are unable to get textField object while keyboard showing on UIWebView's textField. If it's alertView textField then also do nothing.
+//    if (_textFieldView == nil)   return;
+
     //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
     if (!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero))
     {
         //Due to orientation callback we need to set it's original position.
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.frame = textFieldViewIntialFrame;
-        } completion:^(BOOL finished) {
-            
-        }];
+        } completion:NULL];
     }
     
     //  Boolean to know keyboard is showing/hiding
@@ -665,34 +661,38 @@
     }
     
     //Restoring the contentOffset of the lastScrollView
-    [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        lastScrollView.contentOffset = startingContentOffset;
-        
-        // TODO: This is temporary solution. Have to implement the save and restore scrollView state
-        UIScrollView *superscrollView = lastScrollView;
-        while ((superscrollView = [superscrollView superScrollView]))
-        {
-            CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.width), MAX(superscrollView.contentSize.height, superscrollView.height));
+    if (lastScrollView)
+    {
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            lastScrollView.contentOffset = startingContentOffset;
             
-            CGFloat minimumY = contentSize.height-superscrollView.height;
-            
-            if (minimumY<superscrollView.contentOffset.y)
+            // TODO: This is temporary solution. Have to implement the save and restore scrollView state
+            UIScrollView *superscrollView = lastScrollView;
+            while ((superscrollView = [superscrollView superScrollView]))
             {
-                superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
+                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.width), MAX(superscrollView.contentSize.height, superscrollView.height));
+                
+                CGFloat minimumY = contentSize.height-superscrollView.height;
+                
+                if (minimumY<superscrollView.contentOffset.y)
+                {
+                    superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
+                }
             }
-        }
-        
-    } completion:^(BOOL finished) {
-        
-    }];
+        } completion:NULL];
+    }
     
+    //  Setting rootViewController frame to it's original position.
+    if (!CGRectEqualToRect(topViewBeginRect, CGRectZero))
+    {
+        [self setRootViewFrame:topViewBeginRect];
+    }
+
     //Reset all values
     lastScrollView = nil;
     kbSize = CGSizeZero;
     startingContentOffset = CGPointZero;
-    
-    //  Setting rootViewController frame to it's original position.
-    [self setRootViewFrame:topViewBeginRect];
+    topViewBeginRect = CGRectZero;
 }
 
 #pragma mark - UITextFieldView Delegate methods
@@ -756,8 +756,7 @@
     if(!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)){
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.frame = textFieldViewIntialFrame;
-        } completion:^(BOOL finished) {
-        }];
+        } completion:NULL];
     }
     
     //Setting object to nil
@@ -782,9 +781,7 @@
         // Cannot animate with setContentOffset:animated: or caret will not appear
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             [textView setContentOffset:offset];
-        } completion:^(BOOL finished) {
-
-        }];
+        } completion:NULL];
     }
 }
 

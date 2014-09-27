@@ -89,6 +89,7 @@
 		C08810F619D3467900BE111B /* IQUIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810E919D3467900BE111B /* IQUIView+Hierarchy.swift */; };
 		C08810F719D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EA19D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift */; };
 		C08810F819D3467900BE111B /* IQUIWindow+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */; };
+		C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */; };
 		C0AB9307195F57BB00447049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */; };
 		C0ACB10119CF104E0057B571 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0ACB10019CF104E0057B571 /* Images.xcassets */; };
 		C0ACB10419CF104F0057B571 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ACB10219CF104F0057B571 /* LaunchScreen.xib */; };
@@ -215,6 +216,8 @@
 		C08810E919D3467900BE111B /* IQUIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+Hierarchy.swift"; sourceTree = "<group>"; };
 		C08810EA19D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIWindow+Hierarchy.swift"; sourceTree = "<group>"; };
+		C08B91B719D7558800AF16E7 /* TextSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectionViewController.h; sourceTree = "<group>"; };
+		C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSelectionViewController.m; sourceTree = "<group>"; };
 		C0AB930A195F5A5900447049 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C0ACB0F519CF104B0057B571 /* IQKeyboardManager Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IQKeyboardManager Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0ACB0F819CF104D0057B571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -535,6 +538,8 @@
 				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
 				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
 				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
+				C08B91B719D7558800AF16E7 /* TextSelectionViewController.h */,
+				C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -898,6 +903,7 @@
 				C05BE64619AFB9F4000B332C /* IQKeyboardManager.m in Sources */,
 				C05BE64D19AFB9F4000B332C /* IQUIView+Hierarchy.m in Sources */,
 				C06579CB19D60B0400DAA3EA /* NavigationTableViewCell.m in Sources */,
+				C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */,
 				C05BE64719AFB9F4000B332C /* IQKeyboardReturnKeyHandler.m in Sources */,
 				C05BE64F19AFB9F4000B332C /* IQUIWindow+Hierarchy.m in Sources */,
 				C05BE64C19AFB9F4000B332C /* IQToolbar.m in Sources */,

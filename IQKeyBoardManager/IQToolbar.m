@@ -66,7 +66,6 @@
     return self;
 }
 
-
 -(CGSize)sizeThatFits:(CGSize)size
 {
     CGSize sizeThatFit = [super sizeThatFits:size];
@@ -75,17 +74,6 @@
     
     return sizeThatFit;
 }
-
-//To resize IQToolbar on device rotation.
-//- (void) layoutSubviews
-//{
-//    [super layoutSubviews];
-//    CGRect origFrame = self.frame;
-//    [self sizeToFit];
-//    CGRect newFrame = self.frame;
-//    newFrame.origin.y += origFrame.size.height - newFrame.size.height;
-//    self.frame = newFrame;
-//}
 
 -(void)setTintColor:(UIColor *)tintColor
 {
@@ -109,7 +97,6 @@
         }
     }
 }
-
 
 #pragma mark - UIInputViewAudioFeedback delegate
 - (BOOL) enableInputClicksWhenVisible

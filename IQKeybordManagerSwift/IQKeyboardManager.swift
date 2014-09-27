@@ -520,10 +520,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return
         }
         
-        //  We are unable to get textField object while keyboard showing on UIWebView's textField.
-        if (_textFieldView == nil) {
-            return
-        }
+        //Commented due to #56. Added all the conditions below to handle UIWebView's textFields
+        //    //  We are unable to get textField object while keyboard showing on UIWebView's textField. If it's alertView textField then also do nothing.
+        //    if (_textFieldView == nil)   return;
 
         //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
         if (!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)) {
@@ -547,37 +546,40 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //Restoring the contentOffset of the lastScrollView
-        UIView.animateWithDuration(animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|animationCurve, animations: { () -> Void in
-
-            self.lastScrollView?.contentOffset = self.startingContentOffset
-            
-            // TODO: This is temporary solution. Have to implement the save and restore scrollView state
-            var superscrollView : UIScrollView? = self.lastScrollView
-            
-            superscrollView = superscrollView?.superScrollView()
-            
-            while (superscrollView != nil) {
-                var superScrollView : UIScrollView! = superscrollView
-
-                var contentSize = CGSizeMake(max(superScrollView.contentSize.width, superScrollView.width), max(superScrollView.contentSize.height, superScrollView.height))
+        if (lastScrollView != nil)
+        {
+            UIView.animateWithDuration(animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|animationCurve, animations: { () -> Void in
                 
-                var minimumY = contentSize.height-superScrollView.height
+                self.lastScrollView?.contentOffset = self.startingContentOffset
                 
-                if (minimumY<superScrollView.contentOffset.y) {
-                    superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY)
+                // TODO: This is temporary solution. Have to implement the save and restore scrollView state
+                var superscrollView : UIScrollView? = self.lastScrollView
+                
+                superscrollView = superscrollView?.superScrollView()
+                
+                while (superscrollView != nil) {
+                    var superScrollView : UIScrollView! = superscrollView
+                    
+                    var contentSize = CGSizeMake(max(superScrollView.contentSize.width, superScrollView.width), max(superScrollView.contentSize.height, superScrollView.height))
+                    
+                    var minimumY = contentSize.height-superScrollView.height
+                    
+                    if (minimumY<superScrollView.contentOffset.y) {
+                        superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY)
+                    }
+                    
+                    superscrollView = superScrollView.superScrollView()
                 }
-                
-                superscrollView = superScrollView.superScrollView()
-            }
-            }) { (finished) -> Void in }
+                }) { (finished) -> Void in }
+        }
+        //  Setting rootViewController frame to it's original position.
+        setRootViewFrame(topViewBeginRect)
         
         //Reset all values
         lastScrollView = nil
         kbSize = CGSizeZero
         startingContentOffset = CGPointZero
-        
-        //  Setting rootViewController frame to it's original position.
-        setRootViewFrame(topViewBeginRect)
+        topViewBeginRect = CGRectZero
     }
     
     /*!  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
