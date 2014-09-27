@@ -32,56 +32,49 @@
  
     @return Returns the UIViewController object that manages the receiver.
  */
--(UIViewController*)viewController;
+@property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /*!
     @method superScrollView:
  
     @return Returns the UIScrollView object if any found in view's upper hierarchy.
  */
-- (UIScrollView*)superScrollView;
+@property (nonatomic, readonly, strong) UIScrollView *superScrollView;
 
 /*!
     @method superTableView:
  
     @return Returns the UITableView object if any found in view's upper hierarchy.
  */
-- (UITableView*)superTableView;
+@property (nonatomic, readonly, strong) UITableView *superTableView;
 
 /*!
     @method responderSiblings:
  
     @return returns all siblings of the receiver which canBecomeFirstResponder.
  */
-- (NSArray*)responderSiblings;
+@property (nonatomic, readonly, copy) NSArray *responderSiblings;
 
 /*!
     @method deepResponderViews:
  
     @return returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
-- (NSArray*)deepResponderViews;
+@property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
 /*!
     @method isInsideSearchBar:
  
     @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
--(BOOL)isSearchBarTextField;
+@property (nonatomic, getter=isSearchBarTextField, readonly) BOOL searchBarTextField;
 
 /*!
     @method isAlertViewTextField:
  
     @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
  */
--(BOOL)isAlertViewTextField;
-
-/*!
-    @method isEventKitTextView:
- 
-    @return returns YES if the receiver object is EKPlaceholderTextView, otherwise return NO.
- */
--(BOOL)isEventKitTextView;
+@property (nonatomic, getter=isAlertViewTextField, readonly) BOOL alertViewTextField;
 
 /*!
     @method convertTransformToView::
@@ -95,14 +88,14 @@
  
     @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
-- (NSString *)subHierarchy;
+@property (nonatomic, readonly, copy) NSString *subHierarchy;
 
 /*!
     @method superHierarchy:
  
     @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
-- (NSString *)superHierarchy;
+@property (nonatomic, readonly, copy) NSString *superHierarchy;
 
 @end
 

@@ -46,21 +46,21 @@ NS_CLASS_DEPRECATED_IOS(2_0, 7_0, "Deprecated for iOS 7")
  
     @param nextAction: Next button action name. Usually 'nextAction:(IQSegmentedNextPrevious*)segmentedControl'.
  */
-- (id)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction;
+- (instancetype)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction;
 
 /*!
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
  */
-- (id)init	__attribute__((unavailable("init is not available, should use initWithTarget:previousAction:nextAction instead")));
+- (instancetype)init	__attribute__((unavailable("init is not available, should use initWithTarget:previousAction:nextAction instead")));
 
 /*!
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
  */
-+ (id)new	__attribute__((unavailable("new is not available, should use initWithTarget:previousAction:nextAction instead")));
++ (instancetype)new	__attribute__((unavailable("new is not available, should use initWithTarget:previousAction:nextAction instead")));
 
 @end
 
