@@ -36,7 +36,7 @@
  
     @class IQKeyboardManager
  
-	@abstract Keyboard TextField/TextView Manager
+	@abstract Keyboard TextField/TextView Manager. A generic version of KeyboardManagement. https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
  */
 @interface IQKeyboardManager : NSObject
 

@@ -430,6 +430,15 @@
 			path = ../IQKeybordManagerSwift;
 			sourceTree = "<group>";
 		};
+		C0A25BD219D72AAA009E074D /* TableViewController Example */ = {
+			isa = PBXGroup;
+			children = (
+				C06579BE19D6028100DAA3EA /* ExampleTableViewController.h */,
+				C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */,
+			);
+			name = "TableViewController Example";
+			sourceTree = "<group>";
+		};
 		C0ACB0F619CF104C0057B571 /* IQKeyboardManager Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,8 +535,7 @@
 				9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */,
 				9D8E5DAA18BC8E1D005695CF /* ViewController.h */,
 				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
-				C06579BE19D6028100DAA3EA /* ExampleTableViewController.h */,
-				C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */,
+				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
 				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,

@@ -43,7 +43,6 @@ Class UITableViewCellScrollViewClass;
 Class UITableViewWrapperViewClass;
 
 Class UISearchBarTextFieldClass;
-Class EKPlaceholderTextViewClass;
 
 +(void)initialize
 {
@@ -56,8 +55,6 @@ Class EKPlaceholderTextViewClass;
     UITableViewWrapperViewClass         = NSClassFromString(@"UITableViewWrapperView");
 
     UISearchBarTextFieldClass           = NSClassFromString(@"UISearchBarTextField");
-    
-    EKPlaceholderTextViewClass          = NSClassFromString(@"EKPlaceholderTextView");
 }
 
 -(UIViewController*)viewController
@@ -244,11 +241,6 @@ Class EKPlaceholderTextViewClass;
 -(BOOL)isAlertViewTextField
 {
     return ([self isKindOfClass:UIAlertSheetTextFieldClass] || [self isKindOfClass:UIAlertSheetTextFieldClass_iOS8]);
-}
-
--(BOOL)isEventKitTextView
-{
-    return [self isKindOfClass:EKPlaceholderTextViewClass];
 }
 
 @end

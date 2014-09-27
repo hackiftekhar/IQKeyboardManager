@@ -27,13 +27,13 @@ import CoreGraphics
 import UIKit
 
 /*!
-@author Iftekhar Qurashi
+    @author Iftekhar Qurashi
 
-@related hack.iftekhar@gmail.com
+    @related hack.iftekhar@gmail.com
 
-@class IQKeyboardManager
+    @class IQKeyboardManager
 
-@abstract Keyboard TextField/TextView Manager
+    @abstract Keyboard TextField/TextView Manager. A generic version of KeyboardManagement. https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
 */
 
 class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
@@ -498,10 +498,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
         if (!CGSizeEqualToSize(kbSize, oldKBSize))
         {
-            //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-            if _textFieldView?.isEventKitTextView() == false {
-                
-                adjustFrame()
+            //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+            if _textFieldView != nil && _textFieldView.viewController()?.isKindOfClass(UITableViewController) == false && _textFieldView.isAlertViewTextField() == false {
+                [self adjustFrame];
             }
         }
     }
@@ -627,10 +626,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             topViewBeginRect = rootController.view.frame
         }
         
-        //If it is EventKit textView object then let EventKit to adjust it. (Bug ID: #37)
-        if (_textFieldView.isEventKitTextView() == false) {
-            //  keyboard is already showing. adjust frame.
-            adjustFrame()
+        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        if _textFieldView != nil && _textFieldView.viewController()?.isKindOfClass(UITableViewController) == false && _textFieldView.isAlertViewTextField() == false {
+            [self adjustFrame];
         }
     }
     

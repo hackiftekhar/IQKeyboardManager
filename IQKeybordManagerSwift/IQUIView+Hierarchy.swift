@@ -178,12 +178,6 @@ extension UIView {
 //        return (self.isKindOfClass(UIAlertSheetTextFieldClass) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8));
     }
     
-    /*! @return returns YES if the receiver object is EKPlaceholderTextView, otherwise return NO.   */
-    func isEventKitTextView()->Bool {
-        return false
-//        return (self.isKindOfClass(EKPlaceholderTextViewClass));
-    }
-    
 //    /*! @return returns current view transform with respect to the 'toView'.    */
 //    func convertTransformToView(toView:UIView)->CGAffineTransform {
 //        
