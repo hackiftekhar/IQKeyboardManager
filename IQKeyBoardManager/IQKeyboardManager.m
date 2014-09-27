@@ -154,7 +154,7 @@
 }
 
 /*  Singleton Object Initialization. */
--(id)init
+-(instancetype)init
 {
 	if (self = [super init])
     {
@@ -203,7 +203,7 @@
 }
 
 /*  Automatically called from the `+(void)load` method. */
-+ (IQKeyboardManager*)sharedManager
++ (instancetype)sharedManager
 {
 	//Singleton instance
 	static IQKeyboardManager *kbManager;
@@ -579,7 +579,7 @@
     if (_shouldAdoptDefaultKeyboardAnimation)
     {
         //  Getting keyboard animation.
-        animationCurve = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        animationCurve = [[aNotification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue];
         animationCurve = animationCurve<<16;
     }
     else
@@ -588,7 +588,7 @@
     }
 
     //  Getting keyboard animation duration
-    CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     //Saving animation duration
     if (duration != 0.0)    animationDuration = duration;
@@ -596,7 +596,7 @@
     CGSize oldKBSize = kbSize;
     
     //  Getting UIKeyboardSize.
-    kbSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    kbSize = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     // Adding Keyboard distance from textField.
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [[[self keyWindow] topMostController] interfaceOrientation];
@@ -657,7 +657,7 @@
     isKeyboardShowing = NO;
     
     //  Getting keyboard animation duration
-    CGFloat aDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (aDuration!= 0.0f)
     {
         //  Setitng keyboard animation duration
@@ -896,7 +896,7 @@
         NSUInteger index = [textFields indexOfObject:_textFieldView];
         
         //If it is not first textField. then it's previous object becomeFirstResponder.
-        if (index > 0)	[[textFields objectAtIndex:index-1] becomeFirstResponder];
+        if (index > 0)	[textFields[index-1] becomeFirstResponder];
     }
 }
 
@@ -917,7 +917,7 @@
         NSUInteger index = [textFields indexOfObject:_textFieldView];
         
         //If it is not last textField. then it's next object becomeFirstResponder.
-        if (index < textFields.count-1)	[[textFields objectAtIndex:index+1] becomeFirstResponder];
+        if (index < textFields.count-1)	[textFields[index+1] becomeFirstResponder];
     }
 }
 
@@ -975,7 +975,7 @@
             
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
             //	If firstTextField, then previous should not be enabled.
-            if ([siblings objectAtIndex:0] == textField)
+            if (siblings[0] == textField)
             {
                 [textField setEnablePrevious:NO next:YES];
             }

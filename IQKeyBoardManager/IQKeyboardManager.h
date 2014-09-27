@@ -50,7 +50,7 @@
  
     @return Returns the default singleton instance.
  */
-+ (IQKeyboardManager*)sharedManager;
++ (instancetype)sharedManager;
 
 /*!
     @property enable
@@ -192,14 +192,14 @@
  
     @abstract Should create only one instance of class. Should not call init.
  */
-- (id)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
+- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
 
 /*!
     @method new
  
     @abstract Should create only one instance of class. Should not call new.
  */
-+ (id)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
++ (instancetype)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
 
 @end
 
