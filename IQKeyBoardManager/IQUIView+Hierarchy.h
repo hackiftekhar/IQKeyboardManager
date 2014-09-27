@@ -77,13 +77,6 @@
 -(BOOL)isAlertViewTextField;
 
 /*!
-    @method isEventKitTextView:
- 
-    @return returns YES if the receiver object is EKPlaceholderTextView, otherwise return NO.
- */
--(BOOL)isEventKitTextView;
-
-/*!
     @method convertTransformToView::
  
     @return returns current view transform with respect to the 'toView'.
