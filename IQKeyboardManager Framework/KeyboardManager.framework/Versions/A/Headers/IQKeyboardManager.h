@@ -36,7 +36,7 @@
  
     @class IQKeyboardManager
  
-	@abstract Keyboard TextField/TextView Manager
+	@abstract Keyboard TextField/TextView Manager. A generic version of KeyboardManagement. https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
  */
 @interface IQKeyboardManager : NSObject
 
@@ -50,7 +50,7 @@
  
     @return Returns the default singleton instance.
  */
-+ (IQKeyboardManager*)sharedManager;
++ (instancetype)sharedManager;
 
 /*!
     @property enable
@@ -102,7 +102,7 @@
 /*!
     @property placeholderFont
  
-    @abstract placeholder Font. Default is nil.
+    @abstract Placeholder Font. Default is nil.
  */
 @property(nonatomic, strong) UIFont *placeholderFont;
 
@@ -126,14 +126,14 @@
 /*!
     @property overrideKeyboardAppearance
  
-    @abstract override the keyboardAppearance for all textField/textView. Default is NO.
+    @abstract Override the keyboardAppearance for all textField/textView. Default is NO.
  */
 @property(nonatomic, assign) BOOL overrideKeyboardAppearance;
 
 /*!
     @property keyboardAppearance
  
-    @abstract if overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+    @abstract If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
  */
 @property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
@@ -192,14 +192,14 @@
  
     @abstract Should create only one instance of class. Should not call init.
  */
-- (id)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
+- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
 
 /*!
     @method new
  
     @abstract Should create only one instance of class. Should not call new.
  */
-+ (id)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
++ (instancetype)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
 
 @end
 
