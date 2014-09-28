@@ -56,9 +56,11 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.backgroundColor = [UIColor clearColor];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,7,135,30)];
+        textView.backgroundColor = [UIColor clearColor];
         textView.text = [_data objectAtIndex:indexPath.row];
         textView.dataDetectorTypes = UIDataDetectorTypeAll;
         textView.scrollEnabled = NO;
