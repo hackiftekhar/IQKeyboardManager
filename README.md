@@ -18,13 +18,13 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 #### IQKeyboardManager:-
 
-Minimum iOS Target: 5.0
+Minimum iOS Target: iOS 5.0
 
-Minimum Xcode Version: 5.0
+Minimum Xcode Version: Xcode 5.0
 
 #### Demo Project:-
 
-Minimum Xcode Version: 6.0
+Minimum Xcode Version: Xcode 6.0
 
 
 Installation
