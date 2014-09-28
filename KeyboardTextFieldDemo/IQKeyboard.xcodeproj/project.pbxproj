@@ -15,17 +15,11 @@
 		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		9D0BB87A18BB232B00667349 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0BB87818BB232B00667349 /* InfoPlist.strings */; };
 		9D1F46991977B06C0057B4A2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1F46981977B06C0057B4A2 /* Accelerate.framework */; };
-		9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2A18C5A8D6006591CB /* original.jpg */; };
-		9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */; };
-		9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2C18C5A8D6006591CB /* icon60.png */; };
-		9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */; };
-		9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D3FBD2E18C5A8D6006591CB /* icon57.png */; };
 		9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E5DAB18BC8E1D005695CF /* ViewController.m */; };
 		9D9A0FC318C9DB5700585D3F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9D9A0FC518C9DB5F00585D3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC418C9DB5F00585D3F /* Twitter.framework */; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
-		AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */; };
 		C05BE64419AFB9F4000B332C /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */; };
 		C05BE64519AFB9F4000B332C /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */; };
 		C05BE64619AFB9F4000B332C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C05BE62E19AFB9F3000B332C /* IQKeyboardManager.m */; };
@@ -90,6 +84,11 @@
 		C08810F719D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EA19D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift */; };
 		C08810F819D3467900BE111B /* IQUIWindow+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */; };
 		C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */; };
+		C09576A119D803EA0081DEB9 /* icon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C095769D19D803EA0081DEB9 /* icon57@2x.png */; };
+		C09576A219D803EA0081DEB9 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C095769E19D803EA0081DEB9 /* icon57.png */; };
+		C09576A319D803EA0081DEB9 /* icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = C095769F19D803EA0081DEB9 /* icon60.png */; };
+		C09576A419D803EA0081DEB9 /* icon60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C09576A019D803EA0081DEB9 /* icon60@2x.png */; };
+		C09576A819D811E00081DEB9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C09576A719D811E00081DEB9 /* Default-568h@2x.png */; };
 		C0AB9307195F57BB00447049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */; };
 		C0ACB10119CF104E0057B571 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0ACB10019CF104E0057B571 /* Images.xcassets */; };
 		C0ACB10419CF104F0057B571 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ACB10219CF104F0057B571 /* LaunchScreen.xib */; };
@@ -138,11 +137,6 @@
 		9D0BB87718BB232B00667349 /* KeyboardManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyboardManager-Info.plist"; sourceTree = "<group>"; };
 		9D0BB87918BB232B00667349 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D1F46981977B06C0057B4A2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		9D3FBD2A18C5A8D6006591CB /* original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = original.jpg; sourceTree = "<group>"; };
-		9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon60@2x.png"; sourceTree = "<group>"; };
-		9D3FBD2C18C5A8D6006591CB /* icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon60.png; sourceTree = "<group>"; };
-		9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon57@2x.png"; sourceTree = "<group>"; };
-		9D3FBD2E18C5A8D6006591CB /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		9D8E5DAA18BC8E1D005695CF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9D8E5DAB18BC8E1D005695CF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9D9A0FC218C9DB5700585D3F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -153,7 +147,6 @@
 		9DC4CE3118DAF77700DB2CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9DC4CE3318DAF7F200DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboard-Info.plist"; sourceTree = "<group>"; };
-		AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		C05BE62A19AFB9F3000B332C /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
 		C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
@@ -218,6 +211,11 @@
 		C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIWindow+Hierarchy.swift"; sourceTree = "<group>"; };
 		C08B91B719D7558800AF16E7 /* TextSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectionViewController.h; sourceTree = "<group>"; };
 		C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSelectionViewController.m; sourceTree = "<group>"; };
+		C095769D19D803EA0081DEB9 /* icon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon57@2x.png"; sourceTree = "<group>"; };
+		C095769E19D803EA0081DEB9 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
+		C095769F19D803EA0081DEB9 /* icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon60.png; sourceTree = "<group>"; };
+		C09576A019D803EA0081DEB9 /* icon60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon60@2x.png"; sourceTree = "<group>"; };
+		C09576A719D811E00081DEB9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C0AB930A195F5A5900447049 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C0ACB0F519CF104B0057B571 /* IQKeyboardManager Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IQKeyboardManager Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0ACB0F819CF104D0057B571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -343,11 +341,10 @@
 		9DA11E7818AF9B0800865136 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				9D3FBD2A18C5A8D6006591CB /* original.jpg */,
-				9D3FBD2B18C5A8D6006591CB /* icon60@2x.png */,
-				9D3FBD2C18C5A8D6006591CB /* icon60.png */,
-				9D3FBD2D18C5A8D6006591CB /* icon57@2x.png */,
-				9D3FBD2E18C5A8D6006591CB /* icon57.png */,
+				C095769D19D803EA0081DEB9 /* icon57@2x.png */,
+				C095769E19D803EA0081DEB9 /* icon57.png */,
+				C095769F19D803EA0081DEB9 /* icon60.png */,
+				C09576A019D803EA0081DEB9 /* icon60@2x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -554,7 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				9DA11E7818AF9B0800865136 /* Icons */,
-				AF4301B9179E92C400FADAC6 /* Default-568h@2x.png */,
+				C09576A719D811E00081DEB9 /* Default-568h@2x.png */,
 				C0B63BA81781FAB1008D3B64 /* InfoPlist.strings */,
 				9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */,
 				C0B63BAB1781FAB1008D3B64 /* main.m */,
@@ -788,14 +785,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05BE64519AFB9F4000B332C /* IQKeyboardManager.bundle in Resources */,
+				C09576A419D803EA0081DEB9 /* icon60@2x.png in Resources */,
 				C0AB9307195F57BB00447049 /* Main.storyboard in Resources */,
-				9D3FBD2F18C5A8D6006591CB /* original.jpg in Resources */,
-				9D3FBD3218C5A8D6006591CB /* icon57@2x.png in Resources */,
-				9D3FBD3018C5A8D6006591CB /* icon60@2x.png in Resources */,
+				C09576A119D803EA0081DEB9 /* icon57@2x.png in Resources */,
+				C09576A319D803EA0081DEB9 /* icon60.png in Resources */,
+				C09576A819D811E00081DEB9 /* Default-568h@2x.png in Resources */,
 				C07A284019D5E5930097F34D /* settings@2x.png in Resources */,
-				9D3FBD3318C5A8D6006591CB /* icon57.png in Resources */,
-				9D3FBD3118C5A8D6006591CB /* icon60.png in Resources */,
-				AF4301BA179E92C400FADAC6 /* Default-568h@2x.png in Resources */,
+				C09576A219D803EA0081DEB9 /* icon57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
