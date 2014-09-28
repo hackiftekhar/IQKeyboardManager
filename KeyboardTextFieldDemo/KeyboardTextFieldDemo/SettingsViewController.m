@@ -441,7 +441,17 @@
         else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
         {
             controller.title = @"Fonts";
-            //Fonts
+            
+            controller.options = @[@"Bold System Font",@"Italic system font",@"Regular"];
+            
+            NSArray *fonts = @[[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12]];
+            
+            UIFont *placeholderFont = [[IQKeyboardManager sharedManager] placeholderFont];
+            
+            if ([fonts containsObject:placeholderFont])
+            {
+                controller.selectedIndex = [fonts indexOfObject:placeholderFont];
+            }
         }
         else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
         {
@@ -456,11 +466,13 @@
 {
     if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 1)
     {
-        [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:index];
+        [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:(IQAutoToolbarManageBehaviour)index];
     }
     else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
     {
-        //Fonts
+        NSArray *fonts = @[[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12]];
+        
+        [[IQKeyboardManager sharedManager] setPlaceholderFont:[fonts objectAtIndex:index]];
     }
     else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
     {
