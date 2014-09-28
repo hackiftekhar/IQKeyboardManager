@@ -14,6 +14,18 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 " target="_blank"><img src="http://img.youtube.com/vi/6nhLw6hju2A/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
+## Requirements
+
+#### IQKeyboardManager:-
+
+Minimum iOS Target: 5.0
+
+Minimum Xcode Version: 5.0
+
+#### Demo Project:-
+
+Minimum Xcode Version: 6.0
+
 
 Installation
 ==========================
