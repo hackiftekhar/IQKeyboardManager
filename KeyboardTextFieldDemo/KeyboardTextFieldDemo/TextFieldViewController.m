@@ -13,14 +13,18 @@
 
 #pragma mark - View lifecycle
 
--(IBAction)enableKeyboardManger:(UIBarButtonItem*)barButton
-{
-    [[IQKeyboardManager sharedManager] setEnable:YES];
-}
-
 -(IBAction)disableKeyboardManager:(UIBarButtonItem*)barButton
 {
-    [[IQKeyboardManager sharedManager] setEnable:NO];
+    if ([[IQKeyboardManager sharedManager] isEnabled])
+    {
+        [[IQKeyboardManager sharedManager] setEnable:NO];
+    }
+    else
+    {
+        [[IQKeyboardManager sharedManager] setEnable:YES];
+    }
+
+    [self refreshUI];
 }
 
 - (void)viewDidLoad
@@ -32,20 +36,33 @@
     
     if (!self.navigationController)
     {
-        [buttonPop setHidden:YES];
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self refreshUI];
+}
+
+-(void)refreshUI
+{
+    if ([[IQKeyboardManager sharedManager] isEnabled])
+    {
+        [barButtonDisable setTitle:@"Disable"];
+    }
+    else
+    {
+        [barButtonDisable setTitle:@"Enable"];
     }
 }
 
 -(void)dealloc
 {
     returnKeyHandler = nil;
-}
-
-- (IBAction)popClicked:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)presentClicked:(id)sender
@@ -79,6 +96,11 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (BOOL)shouldAutorotate
 {
     return YES;
 }
