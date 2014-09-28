@@ -338,7 +338,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //  Getting KeyWindow object.
     UIWindow *window = [self keyWindow];
-    //  Getting RootViewController.
+    
+    //  Getting RootViewController.  Bug ID #1
     UIViewController *rootController = [[self keyWindow] topMostController];
     
 #pragma GCC diagnostic push
