@@ -20,6 +20,7 @@
 		9D9A0FC518C9DB5F00585D3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC418C9DB5F00585D3F /* Twitter.framework */; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		C0032C8919D82253004E2A1C /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */; };
 		C05BE64419AFB9F4000B332C /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */; };
 		C05BE64519AFB9F4000B332C /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */; };
 		C05BE64619AFB9F4000B332C /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C05BE62E19AFB9F3000B332C /* IQKeyboardManager.m */; };
@@ -147,6 +148,7 @@
 		9DC4CE3118DAF77700DB2CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9DC4CE3318DAF7F200DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboard-Info.plist"; sourceTree = "<group>"; };
+		C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = "<group>"; };
 		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		C05BE62A19AFB9F3000B332C /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
 		C05BE62B19AFB9F3000B332C /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		C0DE7A3019D49D3400B6A582 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */,
 				C07A283F19D5E5930097F34D /* settings@2x.png */,
 				C05BE62C19AFB9F3000B332C /* IQKeyboardManager.bundle */,
 			);
@@ -787,6 +790,7 @@
 				C05BE64519AFB9F4000B332C /* IQKeyboardManager.bundle in Resources */,
 				C09576A419D803EA0081DEB9 /* icon60@2x.png in Resources */,
 				C0AB9307195F57BB00447049 /* Main.storyboard in Resources */,
+				C0032C8919D82253004E2A1C /* IQKeyboardManagerScreenshot.png in Resources */,
 				C09576A119D803EA0081DEB9 /* icon57@2x.png in Resources */,
 				C09576A319D803EA0081DEB9 /* icon60.png in Resources */,
 				C09576A819D811E00081DEB9 /* Default-568h@2x.png in Resources */,
