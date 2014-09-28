@@ -6,14 +6,13 @@
 
 @interface TextFieldViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 {    
-    IBOutlet UIButton *buttonPop;
     IBOutlet UIButton *buttonPush;
     IBOutlet UIButton *buttonPresent;    
+    IBOutlet UIBarButtonItem *barButtonDisable;
 }
-- (IBAction)popClicked:(id)sender;
+
 - (IBAction)presentClicked:(id)sender;
 
--(IBAction)enableKeyboardManger:(UIBarButtonItem*)barButton;
 -(IBAction)disableKeyboardManager:(UIBarButtonItem*)barButton;
 
 @end
