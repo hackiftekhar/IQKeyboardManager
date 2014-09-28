@@ -345,26 +345,27 @@
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:window];
     //  Getting RootViewRect.
     CGRect rootViewRect = [[rootController view] frame];
+    //Getting statusBarFrame
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
     CGFloat move = 0;
     //  Move positive = textField is hidden.
     //  Move negative = textField is showing.
 	
-
     //  Calculating move position. Common for both normal and special cases.
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = CGRectGetMaxX(textFieldViewRect)-(window.width-kbSize.width);
+            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(window.width-kbSize.width));
             break;
         case UIInterfaceOrientationLandscapeRight:
-            move = kbSize.width-CGRectGetMinX(textFieldViewRect);
+            move = MIN(window.width-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), kbSize.width-CGRectGetMinX(textFieldViewRect));
             break;
         case UIInterfaceOrientationPortrait:
-            move = CGRectGetMaxY(textFieldViewRect)-(window.height-kbSize.height);
+            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(window.height-kbSize.height));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            move = kbSize.height-CGRectGetMinY(textFieldViewRect);
+            move = MIN(window.height-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), kbSize.height-CGRectGetMinY(textFieldViewRect));
             break;
         default:
             break;
@@ -444,19 +445,19 @@
         switch (interfaceOrientation)
         {
             case UIInterfaceOrientationLandscapeLeft:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                adjustment += CGRectGetWidth(statusBarFrame);
                 move = MIN(CGRectGetMinX(textFieldViewRect)-adjustment, move);
                 break;
             case UIInterfaceOrientationLandscapeRight:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.width;
+                adjustment += CGRectGetWidth(statusBarFrame);
                 move = MIN(window.width-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
                 break;
             case UIInterfaceOrientationPortrait:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                adjustment += CGRectGetHeight(statusBarFrame);
                 move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
                 break;
             case UIInterfaceOrientationPortraitUpsideDown:
-                adjustment += [[UIApplication sharedApplication] statusBarFrame].size.height;
+                adjustment += CGRectGetHeight(statusBarFrame);
                 move = MIN(window.height-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
                 break;
             default:
