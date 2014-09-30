@@ -35,11 +35,9 @@
 
 IQ_LoadCategory(IQUIViewToolbar)
 
-NSInteger const kIQRightButtonToolbarTag            =   -1001;
-NSInteger const kIQDoneButtonToolbarTag             =   -1002;
-NSInteger const kIQRightLeftButtonToolbarTag        =   -1003;
-NSInteger const kIQCancelDoneButtonToolbarTag       =   -1004;
-NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
+//NSInteger const kIQRightButtonToolbarTag            =   -1001;
+//NSInteger const kIQRightLeftButtonToolbarTag        =   -1003;
+//NSInteger const kIQCancelDoneButtonToolbarTag       =   -1004;
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
@@ -65,7 +63,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	toolbar.tag = kIQRightButtonToolbarTag;
+//	toolbar.tag = kIQRightButtonToolbarTag;
     
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -131,7 +129,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	toolbar.tag = kIQDoneButtonToolbarTag;
+//	toolbar.tag = kIQDoneButtonToolbarTag;
  	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -198,12 +196,12 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	toolbar.tag = kIQRightLeftButtonToolbarTag;
+//	toolbar.tag = kIQRightLeftButtonToolbarTag;
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStyleBordered target:target action:leftAction];
+    IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStylePlain target:target action:leftAction];
     [items addObject:cancelButton];
     
     if ([titleText length] && self.shouldHideTitle == NO)
@@ -238,7 +236,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStyleBordered target:target action:rightAction];
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:target action:rightAction];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -269,7 +267,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	toolbar.tag = kIQCancelDoneButtonToolbarTag;
+//	toolbar.tag = kIQCancelDoneButtonToolbarTag;
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -340,7 +338,7 @@ NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-	toolbar.tag = kIQPreviousNextButtonToolbarTag;
+//	toolbar.tag = kIQPreviousNextButtonToolbarTag;
  
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
