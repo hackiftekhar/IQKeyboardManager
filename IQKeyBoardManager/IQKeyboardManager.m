@@ -177,7 +177,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidChange:) name:UITextViewTextDidChangeNotification object:nil];
 			
-            //Creating gesture for @shouldResignOnTouchOutside
+            //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [tapGesture setDelegate:self];
             
@@ -330,7 +330,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /* Adjusting RootViewController's frame according to device orientation. */
 -(void)adjustFrame
 {
-    //  We are unable to get textField object while keyboard showing on UIWebView's textField.
+    //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
     if (_textFieldView == nil)   return;
     
     //  Boolean to know keyboard is showing/hiding
@@ -339,7 +339,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Getting KeyWindow object.
     UIWindow *window = [self keyWindow];
     
-    //  Getting RootViewController.  Bug ID #1
+    //  Getting RootViewController.  (Bug ID: #1, #4)
     UIViewController *rootController = [[self keyWindow] topMostController];
     
 #pragma GCC diagnostic push
@@ -378,7 +378,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             break;
     }
 	
-    //  Getting it's superScrollView.
+    //  Getting it's superScrollView.   //   (Enhancement ID: #21)
     UIScrollView *superScrollView = [_textFieldView superScrollView];
     
     //If there was a lastScrollView.
@@ -426,7 +426,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 CGFloat shouldOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-move);
                 
                 //Rearranging the expected Y offset according to the view.
-                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 Bug ID #69
+                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
                 
                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
@@ -473,7 +473,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
         
         
-        //If we have permission to adjust the textView, then let's do it on behalf of user.
+        //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
         if (_canAdjustTextView)
         {
             [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -497,7 +497,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //  Negative
         else
         {
-            //  Calculating disturbed distance
+            //  Calculating disturbed distance. Pull Request #3
             CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(topViewBeginRect);
 			
             //  disturbDistance Negative = frame disturbed.
@@ -551,7 +551,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     break;
             }
 
-            //  disturbDistance Negative = frame disturbed.
+            //  disturbDistance Negative = frame disturbed. Pull Request #3
             //  disturbDistance positive = frame not disturbed.
             if(disturbDistance<0)
             {
@@ -648,8 +648,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If not enabled then do nothing.
     if (_enable == NO)	return;
     
-    //Commented due to #56. Added all the conditions below to handle UIWebView's textFields
-//    //  We are unable to get textField object while keyboard showing on UIWebView's textField. If it's alertView textField then also do nothing.
+    //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
+    //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
 //    if (_textFieldView == nil)   return;
 
     //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
@@ -694,7 +694,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         } completion:NULL];
     }
     
-    //  Setting rootViewController frame to it's original position.
+    //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
     if (!CGRectEqualToRect(topViewBeginRect, CGRectZero))
     {
         [self setRootViewFrame:topViewBeginRect];
@@ -742,9 +742,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
 	if (_enable == NO)	return;
 	
-    [_textFieldView.window addGestureRecognizer:tapGesture];
+    [_textFieldView.window addGestureRecognizer:tapGesture];    //   (Enhancement ID: #14)
     
-    if (isKeyboardShowing == NO)
+    if (isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         UIViewController *rootController = [[self keyWindow] topMostController];
@@ -762,7 +762,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*!  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
-    [_textFieldView.window removeGestureRecognizer:tapGesture];
+    [_textFieldView.window removeGestureRecognizer:tapGesture]; // (Enhancement ID: #14)
     
     // We check if there's a valid frame before resetting the textview's frame
     if(!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)){
@@ -776,7 +776,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
--(void)textFieldViewDidChange:(NSNotification*)notification
+-(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
     UITextView *textView = (UITextView *)notification.object;
     
@@ -802,11 +802,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(void)setShouldResignOnTouchOutside:(BOOL)shouldResignOnTouchOutside
 {
     _shouldResignOnTouchOutside = shouldResignOnTouchOutside;
-    [tapGesture setEnabled:_shouldResignOnTouchOutside];
+    [tapGesture setEnabled:_shouldResignOnTouchOutside];    // (Enhancement ID: #14)
 }
 
 /*! Resigning on tap gesture. */
-- (void)tapRecognized:(UITapGestureRecognizer*)gesture
+- (void)tapRecognized:(UITapGestureRecognizer*)gesture  // (Enhancement ID: #14)
 {
     if (gesture.state == UIGestureRecognizerStateEnded)
     {
@@ -857,7 +857,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     NSArray *textFields;
     
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
-    if (tableView)
+    if (tableView)  //     //   (Enhancement ID: #22)
     {
         textFields = [tableView deepResponderViews];
     }
@@ -1018,7 +1018,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 /*! Remove any toolbar if it is IQToolbar. */
--(void)removeToolbarIfRequired
+-(void)removeToolbarIfRequired  //  (Bug ID: #18)
 {
     //	Getting all the sibling textFields.
 	NSArray *siblings = [self responderViews];
