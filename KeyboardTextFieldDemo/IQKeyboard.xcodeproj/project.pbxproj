@@ -84,6 +84,7 @@
 		C08810F619D3467900BE111B /* IQUIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810E919D3467900BE111B /* IQUIView+Hierarchy.swift */; };
 		C08810F719D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EA19D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift */; };
 		C08810F819D3467900BE111B /* IQUIWindow+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */; };
+		C08A654D19DB18C700D255E2 /* ManualToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08A654C19DB18C700D255E2 /* ManualToolbarViewController.m */; };
 		C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */; };
 		C09576A119D803EA0081DEB9 /* icon57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C095769D19D803EA0081DEB9 /* icon57@2x.png */; };
 		C09576A219D803EA0081DEB9 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C095769E19D803EA0081DEB9 /* icon57.png */; };
@@ -211,6 +212,8 @@
 		C08810E919D3467900BE111B /* IQUIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+Hierarchy.swift"; sourceTree = "<group>"; };
 		C08810EA19D3467900BE111B /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		C08810EB19D3467900BE111B /* IQUIWindow+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIWindow+Hierarchy.swift"; sourceTree = "<group>"; };
+		C08A654B19DB18C700D255E2 /* ManualToolbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManualToolbarViewController.h; sourceTree = "<group>"; };
+		C08A654C19DB18C700D255E2 /* ManualToolbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManualToolbarViewController.m; sourceTree = "<group>"; };
 		C08B91B719D7558800AF16E7 /* TextSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectionViewController.h; sourceTree = "<group>"; };
 		C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSelectionViewController.m; sourceTree = "<group>"; };
 		C095769D19D803EA0081DEB9 /* icon57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon57@2x.png"; sourceTree = "<group>"; };
@@ -539,6 +542,8 @@
 				9D8E5DAB18BC8E1D005695CF /* ViewController.m */,
 				C08B91B719D7558800AF16E7 /* TextSelectionViewController.h */,
 				C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */,
+				C08A654B19DB18C700D255E2 /* ManualToolbarViewController.h */,
+				C08A654C19DB18C700D255E2 /* ManualToolbarViewController.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -890,6 +895,7 @@
 				C05BE64919AFB9F4000B332C /* IQSegmentedNextPrevious.m in Sources */,
 				C05BE64B19AFB9F4000B332C /* IQTitleBarButtonItem.m in Sources */,
 				C05BE64E19AFB9F4000B332C /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				C08A654D19DB18C700D255E2 /* ManualToolbarViewController.m in Sources */,
 				C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,

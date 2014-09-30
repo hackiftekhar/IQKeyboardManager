@@ -36,6 +36,9 @@
 #import <UIKit/UIViewController.h>
 #import <UIKit/UITableView.h>
 
+NSInteger const kIQDoneButtonToolbarTag             =   -1002;
+NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
+
 @interface IQKeyboardManager (RemoveCompilerWarning)
 
 //Remove compiler warning
@@ -338,8 +341,11 @@
     //  Getting RootViewController.
     UIViewController *rootController = [[self keyWindow] topMostController];
     
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     //If it's iOS8 then we should do calculations according to portrait orientations.
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [rootController interfaceOrientation];
+#pragma GCC diagnostic pop
 
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:window];
@@ -596,8 +602,11 @@
     //  Getting UIKeyboardSize.
     kbSize = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
-    // Adding Keyboard distance from textField.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    //If it's iOS8 then we should do calculations according to portrait orientations.
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [[[self keyWindow] topMostController] interfaceOrientation];
+#pragma GCC diagnostic pop
     
     switch (interfaceOrientation)
     {
@@ -940,10 +949,13 @@
 	if (siblings.count==1)
 	{
         UIView *textField = [siblings firstObject];
-		if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] != kIQDoneButtonToolbarTag)
+        
+        //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
 		{
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-
+            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag;
+            
             //Setting toolbar tintColor
             if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                 [textField.inputAccessoryView setTintColor:[textField tintColor]];
@@ -958,10 +970,12 @@
 		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
 		for (UITextField *textField in siblings)
 		{
-			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] != kIQPreviousNextButtonToolbarTag)
+            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
+			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
 			{
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-
+                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag;
+                
                 //Setting toolbar tintColor
                 if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                     [textField.inputAccessoryView setTintColor:[textField tintColor]];
@@ -971,20 +985,24 @@
                     [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
   			}
             
-            //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
-            //	If firstTextField, then previous should not be enabled.
-            if (siblings[0] == textField)
+            //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
+            if (textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
             {
-                [textField setEnablePrevious:NO next:YES];
-            }
-            //	If lastTextField then next should not be enaled.
-            else if ([siblings lastObject] == textField)
-            {
-                [textField setEnablePrevious:YES next:NO];
-            }
-            else
-            {
-                [textField setEnablePrevious:YES next:YES];
+                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
+                //	If firstTextField, then previous should not be enabled.
+                if (siblings[0] == textField)
+                {
+                    [textField setEnablePrevious:NO next:YES];
+                }
+                //	If lastTextField then next should not be enaled.
+                else if ([siblings lastObject] == textField)
+                {
+                    [textField setEnablePrevious:YES next:NO];
+                }
+                else
+                {
+                    [textField setEnablePrevious:YES next:YES];
+                }
             }
 		}
 	}

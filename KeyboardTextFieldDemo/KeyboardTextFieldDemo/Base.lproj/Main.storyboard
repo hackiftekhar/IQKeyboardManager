@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="En3-R6-bks">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="En3-R6-bks">
     <dependencies>
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
@@ -175,9 +175,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLS-w0-J9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186" y="210"/>
+            <point key="canvasLocation" x="-1242" y="234"/>
         </scene>
-        <!--Example Table View Controller-->
+        <!--UITableView Example-->
         <scene sceneID="7Nm-04-fgV">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="TgE-bl-CyE" customClass="ExampleTableViewController" sceneMemberID="viewController">
@@ -219,11 +219,73 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.81881798910000003" blue="0.7514080219" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZVF-w5-7zs"/>
+                    <navigationItem key="navigationItem" title="UITableView Example" id="ZVF-w5-7zs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMe-b3-5Es" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1838" y="209"/>
+            <point key="canvasLocation" x="410" y="233"/>
+        </scene>
+        <!--Manual UIToolbar-->
+        <scene sceneID="EHW-3w-JeB">
+            <objects>
+                <viewController id="BmV-Mf-VMv" customClass="ManualToolbarViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y8f-lk-zRV"/>
+                        <viewControllerLayoutGuide type="bottom" id="4xi-zu-xVq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HJo-1K-fJY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dET-Cl-VUb">
+                                <rect key="frame" x="30" y="94" width="260" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-LR-bIl">
+                                <rect key="frame" x="30" y="149" width="260" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQK-Ms-QYa">
+                                <rect key="frame" x="30" y="348" width="260" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zjk-gc-QEr">
+                                <rect key="frame" x="30" y="199" width="260" height="129"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">2 There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="oB6-a2-0nS">
+                                <rect key="frame" x="10" y="386" width="300" height="80"/>
+                                <string key="text">If you do not want to add any UIToolbar on a textField, just set ablank UIView as it's inputAccessoryView  textField.inputAcessoryView = [[UIView alloc] init];</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9al-mX-KU2">
+                                <rect key="frame" x="30" y="474" width="260" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.81881798910000003" blue="0.7514080219" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Manual UIToolbar" id="Bsk-WG-eqv"/>
+                    <connections>
+                        <outlet property="textField1" destination="dET-Cl-VUb" id="bJd-Xd-5BS"/>
+                        <outlet property="textField2" destination="ai2-LR-bIl" id="Fip-nM-yvi"/>
+                        <outlet property="textField4" destination="dQK-Ms-QYa" id="HCJ-fa-BwX"/>
+                        <outlet property="textField5" destination="9al-mX-KU2" id="xPc-vR-IFK"/>
+                        <outlet property="textView3" destination="Zjk-gc-QEr" id="TE7-Z9-bH1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bYo-9Y-oOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="843" y="233"/>
         </scene>
         <!--UIScrollView Example-->
         <scene sceneID="ipE-dg-0Gf">
@@ -392,7 +454,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ycz-tx-VMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1083" y="210"/>
+            <point key="canvasLocation" x="-2511" y="234"/>
         </scene>
         <!--IQKeyboardManager-->
         <scene sceneID="Xza-yV-m9m">
@@ -552,6 +614,35 @@
                                             <segue destination="Trg-4t-Fsg" kind="push" id="TKW-tw-tT6"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="TQC-dO-VET" detailTextLabel="uvf-Qo-FbG" style="IBUITableViewCellStyleSubtitle" id="XXU-fu-xxa">
+                                        <rect key="frame" x="0.0" y="236" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XXU-fu-xxa" id="BEW-5C-Cpw">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Manual UIToolbar + No UIToolbar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" id="TQC-dO-VET">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Manually add and manage UIToolbar on UIKeyboard" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="246" id="uvf-Qo-FbG">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="BmV-Mf-VMv" kind="push" id="pik-yP-fi1"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="yh4-3c-1nA" detailTextLabel="hpe-jQ-iio" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="fqf-qq-b7t">
                                         <rect key="frame" x="0.0" y="192" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -694,7 +785,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJl-bs-IhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186" y="-504"/>
+            <point key="canvasLocation" x="-1242" y="-480"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mFY-po-Edv">
@@ -715,7 +806,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9e-a2-WWs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="616" y="-504"/>
+            <point key="canvasLocation" x="-812" y="-480"/>
         </scene>
         <!--Settings-->
         <scene sceneID="zPq-Kx-aQ0">
@@ -870,7 +961,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxf-XD-lY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="-504"/>
+            <point key="canvasLocation" x="-395" y="-480"/>
         </scene>
         <!--Options-->
         <scene sceneID="KAM-fd-clq">
@@ -916,7 +1007,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iB-Er-LOs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="-504"/>
+            <point key="canvasLocation" x="11" y="-480"/>
         </scene>
         <!--UITableViewController Example-->
         <scene sceneID="f4C-KI-H3s">
@@ -1035,7 +1126,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJg-JT-LAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-247" y="209"/>
+            <point key="canvasLocation" x="-1675" y="233"/>
         </scene>
         <!--Navigation Bar-->
         <scene sceneID="4DZ-Zn-3Xg">
@@ -1099,7 +1190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C0D-63-GHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="607" y="210"/>
+            <point key="canvasLocation" x="-821" y="234"/>
         </scene>
         <!--Special Cases-->
         <scene sceneID="H0c-gk-sJO">
@@ -1269,7 +1360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NUL-9c-m8o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="210"/>
+            <point key="canvasLocation" x="-395" y="234"/>
         </scene>
         <!--UIWebView Example-->
         <scene sceneID="MtW-0i-ACI">
@@ -1306,7 +1397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o51-Fr-4am" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-677" y="210"/>
+            <point key="canvasLocation" x="-2105" y="234"/>
         </scene>
         <!--Special Case-->
         <scene sceneID="5Hs-En-g8p">
@@ -1321,10 +1412,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mt5-Re-5fB">
-                                <rect key="frame" x="9" y="121" width="79" height="365"/>
+                                <rect key="frame" x="9" y="121" width="84" height="365"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.037223728976576394" green="0.22869750341325987" blue="0.47692340353260865" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <string key="text">`IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1339,35 +1430,31 @@
                                     <segue destination="Z1T-rR-mis" kind="push" id="umh-UZ-2Tf"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2H-js-41D">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="One of the Speciality of this Library is `It Works Automatically`." translatesAutoresizingMaskIntoConstraints="NO" id="c2H-js-41D">
                                 <rect key="frame" x="101" y="121" width="84" height="162"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.17938000651256894" green="0.47692340353260865" blue="0.46705995907991099" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41E-VD-fUm">
-                                <rect key="frame" x="193" y="121" width="118" height="74"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="`IQKeyboardManager` works on all orientations, and with the toolbar." translatesAutoresizingMaskIntoConstraints="NO" id="41E-VD-fUm">
+                                <rect key="frame" x="193" y="121" width="118" height="96"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.35979851943894947" green="0.47692340353260865" blue="0.23990625862777668" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUE-6p-1KB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="`ZERO LINE OF CODE`, `No More imports`, `No More Subclasses`, `No More Manual Work`." translatesAutoresizingMaskIntoConstraints="NO" id="eUE-6p-1KB">
                                 <rect key="frame" x="101" y="290" width="84" height="196"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.17503972561464529" green="0.47692340353260865" blue="0.27988265711531407" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4vp-rE-xp0">
-                                <rect key="frame" x="193" y="201" width="118" height="283"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project." translatesAutoresizingMaskIntoConstraints="NO" id="4vp-rE-xp0">
+                                <rect key="frame" x="193" y="225" width="118" height="259"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.47692340353260865" green="0.36313484201926716" blue="0.25518210046832196" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1400,7 +1487,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVA-6J-PCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="210"/>
+            <point key="canvasLocation" x="11" y="234"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FfK-II-4uK">
@@ -1423,7 +1510,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fre-IE-O2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-247" y="-504"/>
+            <point key="canvasLocation" x="-1675" y="-480"/>
         </scene>
         <!--UITextView Text Selection (#56)-->
         <scene sceneID="YZ2-k6-VeM">
@@ -1497,7 +1584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NoQ-RA-gfo" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1519" y="209"/>
+            <point key="canvasLocation" x="-2947" y="233"/>
         </scene>
     </scenes>
     <resources>
