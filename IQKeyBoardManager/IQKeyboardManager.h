@@ -72,6 +72,19 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
 
+/*!
+ @property registeredResponders
+ 
+ @abstract Manual registered responders (should be array of UITextView or UITextField)
+ 
+ @discussion 
+ In some view hierarachy, UITextView and UITextField might not in the same superivew, or contained by a UITableView.
+ Manual registered responders provide way to show Previous/Next button for such the case.
+ 
+ Register your responder when your view load and MUST unregister when you done.
+ */
+@property(nonatomic, strong) NSArray* registeredResponders;
+
 
 
 //IQToolbar handling
