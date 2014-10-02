@@ -294,7 +294,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*! Getting keyWindow. */
 -(UIWindow *)keyWindow
 {
-    /*  (Bug ID: #73)   */
+    /*  (Bug ID: #23, #25, #73)   */
     UIWindow *_originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
     
     //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
@@ -344,7 +344,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    //If it's iOS8 then we should do calculations according to portrait orientations.
+    //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [rootController interfaceOrientation];
 #pragma GCC diagnostic pop
 
@@ -378,10 +378,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             break;
     }
 	
-    //  Getting it's superScrollView.   //   (Enhancement ID: #21)
+    //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
     UIScrollView *superScrollView = [_textFieldView superScrollView];
     
-    //If there was a lastScrollView.
+    //If there was a lastScrollView.    //  (Bug ID: #34)
     if (lastScrollView)
     {
         //If we can't find current superScrollView, then setting lastScrollView to it's original form.
@@ -579,7 +579,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	
 	if (_enable == NO)	return;
 	
-    //Due to orientation callback we need to resave it's original frame.
+    //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
     textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
     
     if (_shouldAdoptDefaultKeyboardAnimation)
@@ -606,7 +606,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    //If it's iOS8 then we should do calculations according to portrait orientations.
+    //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [[[self keyWindow] topMostController] interfaceOrientation];
 #pragma GCC diagnostic pop
     
@@ -631,7 +631,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(kbSize, oldKBSize))
     {
-        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
+        //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         if (_textFieldView != nil && [[_textFieldView viewController] isKindOfClass:[UITableViewController class]] == NO && [_textFieldView isAlertViewTextField] == NO)
         {
             [self adjustFrame];
@@ -751,7 +752,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         topViewBeginRect = rootController.view.frame;
     }
     
-    //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+    //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
+    //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
     if (_textFieldView != nil && [[_textFieldView viewController] isKindOfClass:[UITableViewController class]] == NO && [_textFieldView isAlertViewTextField] == NO)
     {
         //  keyboard is already showing. adjust frame.
@@ -962,14 +964,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
 		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
 		{
+            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag;
+            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             
-            //Setting toolbar tintColor
+            //Setting toolbar tintColor //  (Enhancement ID: #30)
             if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                 [textField.inputAccessoryView setTintColor:[textField tintColor]];
             
-            //Setting toolbar title font.
+            //Setting toolbar title font.   //  (Enhancement ID: #30)
             if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
                 [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
         }
@@ -982,14 +985,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
 			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
 			{
+                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag;
+                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
                 
-                //Setting toolbar tintColor
+                //Setting toolbar tintColor //  (Enhancement ID: #30)
                 if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
                     [textField.inputAccessoryView setTintColor:[textField tintColor]];
                 
-                //Setting toolbar title font.
+                //Setting toolbar title font.   //  (Enhancement ID: #30)
                 if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
                     [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
   			}
@@ -997,7 +1001,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
             if (textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
             {
-                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.
+                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                 //	If firstTextField, then previous should not be enabled.
                 if (siblings[0] == textField)
                 {
@@ -1025,7 +1029,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     for (UITextField *textField in siblings)
     {
-        if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]])
+        UIView *toolbar = [textField inputAccessoryView];
+
+        //  (Bug ID: #78)
+        if ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag))
         {
             [textField setInputAccessoryView:nil];
         }
