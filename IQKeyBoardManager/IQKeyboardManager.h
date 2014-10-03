@@ -204,7 +204,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  
     @abstract Should create only one instance of class. Should not call init.
  */
-- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
+- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager"))) NS_DESIGNATED_INITIALIZER;
 
 /*!
     @method new
