@@ -46,7 +46,7 @@ NS_CLASS_DEPRECATED_IOS(2_0, 7_0, "Deprecated for iOS 7")
  
     @param nextAction: Next button action name. Usually 'nextAction:(IQSegmentedNextPrevious*)segmentedControl'.
  */
-- (instancetype)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction;
+- (instancetype)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction NS_DESIGNATED_INITIALIZER;
 
 /*!
     @method init
