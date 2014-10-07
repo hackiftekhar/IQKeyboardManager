@@ -60,6 +60,7 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,7,135,30)];
+        textView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
         textView.backgroundColor = [UIColor clearColor];
         textView.text = [_data objectAtIndex:indexPath.row];
         textView.dataDetectorTypes = UIDataDetectorTypeAll;

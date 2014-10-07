@@ -34,7 +34,7 @@
 -(void)initialize
 {
     [self sizeToFit];
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;// | UIViewAutoresizingFlexibleHeight;
     
      if (IQ_IS_IOS7_OR_GREATER)
     {
