@@ -90,6 +90,7 @@ Manual Management:-
     -(void)viewDidAppear:(BOOL)animated
     {
         [super viewDidAppear:animated];
+        _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
         [[IQKeyboardManager sharedManager] setEnable:NO];
     }
 
