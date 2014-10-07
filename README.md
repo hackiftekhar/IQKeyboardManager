@@ -77,6 +77,31 @@ Manual Management:-
         self.view = scrollView;
     }
  
+#### Disable for a ViewController
+
+ If you want to disable `IQKeyboardManager` for a particular ViewController then you should disable IQKeyboardManager on `ViewDidAppear` and again enable it on `ViewWillDisappear`.
+
+    #import "IQKeyboardManager.h"
+    @implementation ExampleViewController
+    {
+        BOOL _wasKeyboardManagerEnabled;
+    }
+    
+    -(void)viewDidAppear:(BOOL)animated
+    {
+        [super viewDidAppear:animated];
+        [[IQKeyboardManager sharedManager] setEnable:NO];
+    }
+
+    -(void)viewWillDisappear:(BOOL)animated
+    {
+        [super viewWillDisappear:animated];
+        [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
+    }
+
+    @end
+
+
 #### Keyboard Return Key Handling
   If you would like to implement keyboard `Return Key` as `Next` button, then you can use `IQKeyboardReturnKeyHandler`.
   
