@@ -705,7 +705,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     lastScrollView = nil;
     kbSize = CGSizeZero;
     startingContentOffset = CGPointZero;
-    topViewBeginRect = CGRectZero;
+//    topViewBeginRect = CGRectZero;    //Committed due to #82
 }
 
 #pragma mark - UITextFieldView Delegate methods

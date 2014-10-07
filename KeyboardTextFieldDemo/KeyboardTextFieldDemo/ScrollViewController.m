@@ -46,6 +46,8 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5,7,135,30)];
+        textField.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
+        [returnKeyHandler addTextFieldView:textField];
         [textField setPlaceholder:identifier];
         [textField setBorderStyle:UITextBorderStyleRoundedRect];
         [cell.contentView addSubview:textField];
