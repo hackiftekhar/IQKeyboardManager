@@ -82,6 +82,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  Manual registered responders provide way to show Previous/Next button for such the case.
  
  Register your responder when your view load and MUST unregister when you done.
+ Good place to register your responders is viewWillAppear, and to unregister in viewWillDisappear.
  */
 @property(nonatomic, strong) NSArray* registeredResponders;
 
