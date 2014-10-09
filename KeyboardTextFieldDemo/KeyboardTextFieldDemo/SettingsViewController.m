@@ -175,49 +175,6 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat height = 50.0;
-    
-    switch (indexPath.section)
-    {
-        case 3:
-        {
-            switch (indexPath.row)
-            {
-                case 0:
-                case 1:
-                    height = 62.0;
-
-                    break;
-            }
-        }
-            break;
-        case 4:
-        {
-            switch (indexPath.row)
-            {
-                case 0:
-                    height = 62.0;
-                    break;
-            }
-        }
-            break;
-        case 6:
-        {
-            switch (indexPath.row)
-            {
-                case 0:
-                    height = 62.0;
-                    break;
-            }
-        }
-            break;
-    }
-    
-    return height;
-}
-
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return sectionTitles[section];
