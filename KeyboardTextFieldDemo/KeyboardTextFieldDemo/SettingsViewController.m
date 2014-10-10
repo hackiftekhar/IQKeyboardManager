@@ -462,7 +462,7 @@
     {
         NSArray *fonts = @[[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12]];
         
-        [[IQKeyboardManager sharedManager] setPlaceholderFont:[fonts objectAtIndex:index]];
+        [[IQKeyboardManager sharedManager] setPlaceholderFont:fonts[index]];
     }
     else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
     {
