@@ -12,15 +12,6 @@
 
 @implementation TextSelectionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -29,12 +20,6 @@
     _data = @[@"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",
               @"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",
               @"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text."];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,7 +47,7 @@
         UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,7,135,30)];
         textView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
         textView.backgroundColor = [UIColor clearColor];
-        textView.text = [_data objectAtIndex:indexPath.row];
+        textView.text = _data[indexPath.row];
         textView.dataDetectorTypes = UIDataDetectorTypeAll;
         textView.scrollEnabled = NO;
         textView.editable = NO;
