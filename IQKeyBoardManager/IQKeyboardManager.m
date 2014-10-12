@@ -113,7 +113,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     UITapGestureRecognizer *tapGesture;
     
     /*! used with canAdjustTextView boolean. */
-    CGRect textFieldViewIntialFrame;
+    __block CGRect textFieldViewIntialFrame;
 }
 
 //KeyWindow
@@ -445,43 +445,29 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen).
+    //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
+    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]])
     {
-        CGFloat initialMove = move;
-        
-        CGFloat adjustment = 5;
+        CGFloat textViewHeight = _textFieldView.height;
         
         switch (interfaceOrientation)
         {
             case UIInterfaceOrientationLandscapeLeft:
-                adjustment += CGRectGetWidth(statusBarFrame);
-                move = MIN(CGRectGetMinX(textFieldViewRect)-adjustment, move);
-                break;
             case UIInterfaceOrientationLandscapeRight:
-                adjustment += CGRectGetWidth(statusBarFrame);
-                move = MIN(window.width-CGRectGetMaxX(textFieldViewRect)-adjustment, move);
+                textViewHeight = MIN(textViewHeight, (window.width-kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
                 break;
             case UIInterfaceOrientationPortrait:
-                adjustment += CGRectGetHeight(statusBarFrame);
-                move = MIN(CGRectGetMinY(textFieldViewRect)-adjustment, move);
-                break;
             case UIInterfaceOrientationPortraitUpsideDown:
-                adjustment += CGRectGetHeight(statusBarFrame);
-                move = MIN(window.height-CGRectGetMaxY(textFieldViewRect)-adjustment, move);
+                textViewHeight = MIN(textViewHeight, (window.height-kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
                 break;
             default:
                 break;
         }
         
-        
-        //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
-        if (_canAdjustTextView)
-        {
-            [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                _textFieldView.height = _textFieldView.height-(initialMove-move);
-            } completion:NULL];
-        }
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            _textFieldView.height = textViewHeight;
+        } completion:NULL];
     }
-    
     
     //  Special case for iPad modalPresentationStyle.
     if ([[[self keyWindow] topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
@@ -770,6 +756,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if(!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)){
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.frame = textFieldViewIntialFrame;
+            textFieldViewIntialFrame = CGRectZero;
         } completion:NULL];
     }
     
