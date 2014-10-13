@@ -114,6 +114,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     /*! used with canAdjustTextView boolean. */
     __block CGRect textFieldViewIntialFrame;
+    
+    /*! used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
+    __block BOOL _isTextFieldViewFrameChanged;
 }
 
 //KeyWindow
@@ -165,9 +168,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         dispatch_once(&onceToken, ^{
             
 			//  Registering for keyboard notification.
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-			
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
 			//  Registering for textField notification.
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
@@ -177,6 +180,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidChange:) name:UITextViewTextDidChangeNotification object:nil];
 			
+            //  Registering for orientation changes notification
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+            
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [tapGesture setDelegate:self];
@@ -446,7 +452,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen).
     //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
-    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]])
+    //Added _isTextFieldViewFrameChanged. (Bug ID: #92)
+    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _isTextFieldViewFrameChanged == NO)
     {
         CGFloat textViewHeight = _textFieldView.height;
         
@@ -466,6 +473,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.height = textViewHeight;
+            _isTextFieldViewFrameChanged = YES;
         } completion:NULL];
     }
     
@@ -566,7 +574,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	if (_enable == NO)	return;
 	
     //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
-    textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
+    //Added _isTextFieldViewFrameChanged check. Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed. (Bug ID: #92)
+    if (_isTextFieldViewFrameChanged == NO)
+    {
+        textFieldViewIntialFrame = _textFieldView.frame;
+    }
     
     if (_shouldAdoptDefaultKeyboardAnimation)
     {
@@ -639,15 +651,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
 //    if (_textFieldView == nil)   return;
 
-    //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
-    if (!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero))
-    {
-        //Due to orientation callback we need to set it's original position.
-        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            _textFieldView.frame = textFieldViewIntialFrame;
-        } completion:NULL];
-    }
-    
     //  Boolean to know keyboard is showing/hiding
     isKeyboardShowing = NO;
     
@@ -703,8 +706,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     if (_overrideKeyboardAppearance == YES) [(UITextField*)_textFieldView setKeyboardAppearance:_keyboardAppearance];
     
-	// If the manager is not enabled and it can't adjust the textview set the initial frame to CGRectZero
-    textFieldViewIntialFrame = _enable && _canAdjustTextView ? _textFieldView.frame : CGRectZero;
+    // Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed.
+    //Added _isTextFieldViewFrameChanged check. (Bug ID: #92)
+    if (_isTextFieldViewFrameChanged == NO)
+    {
+        textFieldViewIntialFrame = _textFieldView.frame;
+    }
     
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if (_enableAutoToolbar)
@@ -752,11 +759,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     [_textFieldView.window removeGestureRecognizer:tapGesture]; // (Enhancement ID: #14)
     
-    // We check if there's a valid frame before resetting the textview's frame
-    if(!CGRectEqualToRect(textFieldViewIntialFrame, CGRectZero)){
+    // We check if there's a change in original frame or not.
+    if(_isTextFieldViewFrameChanged == YES)
+    {
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            _isTextFieldViewFrameChanged = NO;
+
             _textFieldView.frame = textFieldViewIntialFrame;
-            textFieldViewIntialFrame = CGRectZero;
         } completion:NULL];
     }
     
@@ -782,6 +791,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         // Cannot animate with setContentOffset:animated: or caret will not appear
         [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             [textView setContentOffset:offset];
+        } completion:NULL];
+    }
+}
+
+#pragma mark - UIInterfaceOrientation Change notification methods
+/*!  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
+- (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
+{
+    //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
+    if (_isTextFieldViewFrameChanged == YES)
+    {
+        //Due to orientation callback we need to set it's original position.
+        [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            _textFieldView.frame = textFieldViewIntialFrame;
+            _isTextFieldViewFrameChanged = NO;
         } completion:NULL];
     }
 }
