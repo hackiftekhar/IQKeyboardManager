@@ -33,18 +33,18 @@
     
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
-    
-    if (!self.navigationController)
-    {
-        [buttonPush setHidden:YES];
-        [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    if (self.presentingViewController)
+    {
+        [buttonPush setHidden:YES];
+        [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
+    }
+
     [self refreshUI];
 }
 
@@ -68,19 +68,20 @@
 - (IBAction)presentClicked:(id)sender
 {
     @try {
-        if (self.navigationController)
+        if (!self.presentingViewController)
         {
             TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TextFieldViewController class])];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
 
-            [controller setModalTransitionStyle:arc4random()%4];
+            [navigationController setModalTransitionStyle:arc4random()%4];
             
             // TransitionStylePartialCurl can only be presented by FullScreen style.
-            if (controller.modalTransitionStyle == UIModalTransitionStylePartialCurl)
-                controller.modalPresentationStyle = UIModalPresentationFullScreen;
+            if (navigationController.modalTransitionStyle == UIModalTransitionStylePartialCurl)
+                navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
             else
-                controller.modalPresentationStyle = arc4random()%4;
+                navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
             
-            [self presentViewController:controller animated:YES completion:nil];
+            [self presentViewController:navigationController animated:YES completion:nil];
         }
         else
         {
