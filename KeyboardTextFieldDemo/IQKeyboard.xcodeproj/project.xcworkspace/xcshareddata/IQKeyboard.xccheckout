@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9970C637-E129-4874-A559-1D05AA134D8A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>IQKeyboard</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>446B34A8-EBEF-4BF7-9C90-AD6BC2AA0E00</key>
+		<string>https://github.com/hackiftekhar/IQKeyboardManager.git</string>
+		<key>DF461CAADB13706454B17F2BB50F488BBAD743E5</key>
+		<string>https://github.com/hackiftekhar/IQKeyboardManager.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>KeyboardTextFieldDemo/IQKeyboard.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>446B34A8-EBEF-4BF7-9C90-AD6BC2AA0E00</key>
+		<string>../../../../KeyboardManager</string>
+		<key>DF461CAADB13706454B17F2BB50F488BBAD743E5</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/hackiftekhar/IQKeyboardManager.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DF461CAADB13706454B17F2BB50F488BBAD743E5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DF461CAADB13706454B17F2BB50F488BBAD743E5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>IQKeyboardManager</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>446B34A8-EBEF-4BF7-9C90-AD6BC2AA0E00</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KeyboardManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>
