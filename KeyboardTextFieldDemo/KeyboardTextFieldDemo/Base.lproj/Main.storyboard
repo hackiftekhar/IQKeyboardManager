@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="En3-R6-bks">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="En3-R6-bks">
     <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--TextField Demo-->
+        <!--Text Field View Controller - TextField Demo-->
         <scene sceneID="kAr-5b-4Sn">
             <objects>
                 <viewController storyboardIdentifier="TextFieldViewController" id="csO-qF-Ohn" customClass="TextFieldViewController" sceneMemberID="viewController">
@@ -135,7 +136,7 @@
             </objects>
             <point key="canvasLocation" x="-1242" y="234"/>
         </scene>
-        <!--UITableView Example-->
+        <!--Example Table View Controller - UITableView Example-->
         <scene sceneID="7Nm-04-fgV">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="TgE-bl-CyE" customClass="ExampleTableViewController" sceneMemberID="viewController">
@@ -182,7 +183,7 @@
             </objects>
             <point key="canvasLocation" x="410" y="233"/>
         </scene>
-        <!--Manual UIToolbar-->
+        <!--Manual Toolbar View Controller - Manual UIToolbar-->
         <scene sceneID="EHW-3w-JeB">
             <objects>
                 <viewController id="BmV-Mf-VMv" customClass="ManualToolbarViewController" sceneMemberID="viewController">
@@ -260,7 +261,7 @@
             </objects>
             <point key="canvasLocation" x="843" y="233"/>
         </scene>
-        <!--UIScrollView Example-->
+        <!--Scroll View Controller - UIScrollView Example-->
         <scene sceneID="ipE-dg-0Gf">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="0gz-x6-ylR" customClass="ScrollViewController" sceneMemberID="viewController">
@@ -450,7 +451,7 @@
             </objects>
             <point key="canvasLocation" x="-2511" y="234"/>
         </scene>
-        <!--IQKeyboardManager-->
+        <!--View Controller - IQKeyboardManager-->
         <scene sceneID="Xza-yV-m9m">
             <objects>
                 <tableViewController id="qiC-Ru-K2t" customClass="ViewController" sceneMemberID="viewController">
@@ -802,7 +803,7 @@
             </objects>
             <point key="canvasLocation" x="-812" y="-480"/>
         </scene>
-        <!--Settings-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="zPq-Kx-aQ0">
             <objects>
                 <tableViewController id="a61-Vn-sFg" customClass="SettingsViewController" sceneMemberID="viewController">
@@ -939,7 +940,7 @@
             </objects>
             <point key="canvasLocation" x="-395" y="-480"/>
         </scene>
-        <!--Options-->
+        <!--Options View Controller - Options-->
         <scene sceneID="KAM-fd-clq">
             <objects>
                 <tableViewController id="ZXU-ko-Wbd" customClass="OptionsViewController" sceneMemberID="viewController">
@@ -982,7 +983,7 @@
             </objects>
             <point key="canvasLocation" x="11" y="-480"/>
         </scene>
-        <!--UITableViewController Example-->
+        <!--Table View Controller - UITableViewController Example-->
         <scene sceneID="f4C-KI-H3s">
             <objects>
                 <tableViewController id="fxp-9v-8cZ" sceneMemberID="viewController">
@@ -1020,7 +1021,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="nJx-vj-aC8">
-                                                    <rect key="frame" x="5" y="5" width="310" height="645"/>
+                                                    <rect key="frame" x="5" y="5" width="310" height="1257"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1056,7 +1057,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fgX-lN-poh">
-                                                    <rect key="frame" x="5" y="5" width="310" height="645"/>
+                                                    <rect key="frame" x="5" y="5" width="310" height="1257"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -1297,7 +1298,7 @@
             </objects>
             <point key="canvasLocation" x="-1675" y="233"/>
         </scene>
-        <!--Navigation Bar-->
+        <!--Navigation Bar View Controller - Navigation Bar-->
         <scene sceneID="4DZ-Zn-3Xg">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Trg-4t-Fsg" customClass="NavigationBarViewController" sceneMemberID="viewController">
@@ -1371,7 +1372,7 @@
             </objects>
             <point key="canvasLocation" x="-821" y="234"/>
         </scene>
-        <!--Special Cases-->
+        <!--Special Case View Controller - Special Cases-->
         <scene sceneID="H0c-gk-sJO">
             <objects>
                 <viewController id="dPG-sk-vRY" customClass="SpecialCaseViewController" sceneMemberID="viewController">
@@ -1399,7 +1400,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="SHK-82-xFg">
-                                <rect key="frame" x="10" y="161" width="305" height="269.99999931523666"/>
+                                <rect key="frame" x="10" y="161" width="305" height="269.99999963535691"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="k8L-Hj-hKb">
@@ -1438,7 +1439,7 @@
                                         <color key="backgroundColor" red="0.80000001192092896" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="uYv-to-iCC">
-                                        <rect key="frame" x="10" y="169.99999955227014" width="285" height="90"/>
+                                        <rect key="frame" x="10" y="170" width="285" height="89.999999873777384"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="yDj-sx-3pn">
@@ -1557,7 +1558,7 @@
             </objects>
             <point key="canvasLocation" x="-395" y="234"/>
         </scene>
-        <!--UIWebView Example-->
+        <!--Web View Controller - UIWebView Example-->
         <scene sceneID="MtW-0i-ACI">
             <objects>
                 <viewController id="JDM-Xg-93g" customClass="WebViewController" sceneMemberID="viewController">
@@ -1585,7 +1586,7 @@
             </objects>
             <point key="canvasLocation" x="-2105" y="234"/>
         </scene>
-        <!--Special Case-->
+        <!--Text View Special Case View Controller - Special Case-->
         <scene sceneID="5Hs-En-g8p">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Z1T-rR-mis" customClass="TextViewSpecialCaseViewController" sceneMemberID="viewController">
@@ -1701,7 +1702,7 @@
             </objects>
             <point key="canvasLocation" x="-1675" y="-480"/>
         </scene>
-        <!--UITextView Text Selection (#56)-->
+        <!--Text Selection View Controller - UITextView Text Selection (#56)-->
         <scene sceneID="YZ2-k6-VeM">
             <objects>
                 <viewController id="IHN-1B-3KS" customClass="TextSelectionViewController" sceneMemberID="viewController">
@@ -1757,6 +1758,7 @@
     <resources>
         <image name="settings.png" width="25" height="25"/>
     </resources>
+    <color key="tintColor" red="1" green="0.81881798910000003" blue="0.7514080219" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -1766,5 +1768,4 @@
         <segue reference="jwk-m7-IpJ"/>
         <segue reference="aWb-8P-5BY"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="1" green="0.81881798910000003" blue="0.7514080219" alpha="1" colorSpace="calibratedRGB"/>
 </document>

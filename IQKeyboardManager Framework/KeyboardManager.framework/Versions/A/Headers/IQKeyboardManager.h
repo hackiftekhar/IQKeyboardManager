@@ -28,6 +28,11 @@
 
 @class UIFont;
 
+/*  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
+extern NSInteger const kIQDoneButtonToolbarTag;
+/*  @const kIQPreviousNextButtonToolbarTag Default tag for toolbar with Previous/Next buttons  -1005.   */
+extern NSInteger const kIQPreviousNextButtonToolbarTag;
+
 
 /*!
     @author Iftekhar Qurashi

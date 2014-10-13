@@ -1276,7 +1276,7 @@
 					"DEBUG=1",
 				);
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1294,7 +1294,7 @@
 				GCC_PREFIX_HEADER = "KeyboardTextFieldDemo/IQKeyboard-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "KeyboardTextFieldDemo/IQKeyboard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
 				TARGETED_DEVICE_FAMILY = "1,2";
