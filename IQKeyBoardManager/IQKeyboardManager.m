@@ -423,7 +423,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIScrollView *superScrollView = lastScrollView;
             
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-            while (superScrollView)
+            while (superScrollView && move>0)
             {
                 //Getting lastViewRect.
                 CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
