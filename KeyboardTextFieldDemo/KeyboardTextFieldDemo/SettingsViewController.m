@@ -42,7 +42,7 @@
                       @"Animation handling"];
 
     
-    keyboardManagerProperties = @[@[@"Enable",@"Keyboard Distance From TextField"],
+    keyboardManagerProperties = @[@[@"Enable", @"Keyboard Distance From TextField", @"Prevent Showing Bottom Blank Space"],
                                   @[@"Enable Auto Toolbar",@"Toolbar Manage Behaviour",@"Should Toolbar Uses TextField TintColor",@"Should Show TextField Placeholder",@"Placeholder Font"],
                                   @[@"Can Adjust TextView"],
                                   @[@"Override Keyboard Appearance",@"Keyboard Appearance"],
@@ -52,7 +52,7 @@
                                   ];
 
     
-    keyboardManagerPropertyDetails = @[@[@"Enable/Disable IQKeyboardManager",@"Set keyboard distance from textField"],
+    keyboardManagerPropertyDetails = @[@[@"Enable/Disable IQKeyboardManager",@"Set keyboard distance from textField",@"Prevent to show blank space between UIKeyboard and View"],
                                        @[@"Automatic add the IQToolbar on UIKeyboard",@"AutoToolbar previous/next button managing behaviour",@"Uses textField's tintColor property for IQToolbar",@"Add the textField's placeholder text on IQToolbar",@"UIFont for IQToolbar placeholder text"],
                                        @[@"Adjust textView's frame when it is too big in height"],
                                        @[@"Override the keyboardAppearance for all UITextField/UITextView",@"All the UITextField keyboardAppearance is set using this property"],
@@ -66,6 +66,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/*!  UIKeyboard Handling    */
+
 - (void)enableAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setEnable:sender.on];
@@ -78,6 +80,15 @@
     [[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:sender.value];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
+
+- (void)preventShowingBottomBlankSpaceAction:(UISwitch *)sender
+{
+    [[IQKeyboardManager sharedManager] setPreventShowingBottomBlankSpace:sender.on];
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+/*!  IQToolbar handling     */
 
 - (void)enableAutoToolbarAction:(UISwitch *)sender
 {
@@ -98,10 +109,14 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+/*!  UITextView handling    */
+
 - (void)canAdjustTextViewAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setCanAdjustTextView:sender.on];
 }
+
+/*!  "Keyboard appearance overriding    */
 
 - (void)overrideKeyboardAppearanceAction:(UISwitch *)sender
 {
@@ -110,20 +125,27 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+/*!  Resign first responder handling    */
+
 - (void)shouldResignOnTouchOutsideAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:sender.on];
 }
+
+/*!  Sound handling         */
 
 - (void)shouldPlayInputClicksAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldPlayInputClicks:sender.on];
 }
 
+/*!  Animation handling     */
+
 - (void)shouldAdoptDefaultKeyboardAnimation:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldAdoptDefaultKeyboardAnimation:sender.on];
 }
+
 
 #pragma mark - Table view data source
 
@@ -208,6 +230,17 @@
                     cell.labelStepperValue.text = [NSString stringWithFormat:@"%.0f",[[IQKeyboardManager sharedManager] keyboardDistanceFromTextField]];
                     [cell.stepper removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.stepper addTarget:self action:@selector(keyboardDistanceFromTextFieldAction:) forControlEvents:UIControlEventValueChanged];
+                    return cell;
+                }
+                    break;
+                case 2:
+                {
+                    SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class]) forIndexPath:indexPath];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
+                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] preventShowingBottomBlankSpace];
+                    [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+                    [cell.switchEnable addTarget:self action:@selector(preventShowingBottomBlankSpaceAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                 }
                     break;
