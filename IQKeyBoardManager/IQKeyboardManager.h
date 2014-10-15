@@ -71,6 +71,13 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
+///*!
+//    @property preventShowingBottomBlackArea
+// 
+//    @abstract Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
+// */
+//@property(nonatomic, assign) BOOL preventShowingBottomBlackArea;
+//
 
 
 

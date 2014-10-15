@@ -125,6 +125,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //UIKeyboard handling
 @synthesize enable                              =   _enable;
 @synthesize keyboardDistanceFromTextField       =   _keyboardDistanceFromTextField;
+//@synthesize preventShowingBottomBlackArea       =   _preventShowingBottomBlackArea;
+
+//Keyboard Appearance handling
 @synthesize overrideKeyboardAppearance          =   _overrideKeyboardAppearance;
 @synthesize keyboardAppearance                  =   _keyboardAppearance;
 
@@ -196,11 +199,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setCanAdjustTextView:NO];
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
-            [self setShouldToolbarUsesTextFieldTintColor:NO];
             [self setOverrideKeyboardAppearance:NO];
+            [self setShouldToolbarUsesTextFieldTintColor:NO];
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
+//            [self setPreventShowingBottomBlackArea:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
@@ -519,6 +523,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 default:    break;
             }
 			
+//            if (_preventShowingBottomBlackArea == YES)
+//            {
+//                switch (interfaceOrientation)
+//                {
+//                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, -kbSize.width+_keyboardDistanceFromTextField);  break;
+//                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MAX(rootViewRect.origin.x, -kbSize.width+_keyboardDistanceFromTextField);;  break;
+//                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, -kbSize.height+_keyboardDistanceFromTextField);;  break;
+//                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MAX(rootViewRect.origin.y, -kbSize.height+_keyboardDistanceFromTextField);;  break;
+//                    default:    break;
+//                }
+//            }
+            
             //  Setting adjusted rootViewRect
             [self setRootViewFrame:rootViewRect];
         }
@@ -781,7 +797,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
     CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
     
-    if ( overflow > 0 )
+    //Added overflow conditions (Bug ID: 95)
+    if ( overflow > 0  && overflow < FLT_MAX)
     {
         // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
         // Scroll caret to visible area
