@@ -125,7 +125,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //UIKeyboard handling
 @synthesize enable                              =   _enable;
 @synthesize keyboardDistanceFromTextField       =   _keyboardDistanceFromTextField;
-//@synthesize preventShowingBottomBlackArea       =   _preventShowingBottomBlackArea;
+@synthesize preventShowingBottomBlankSpace       =   _preventShowingBottomBlankSpace;
 
 //Keyboard Appearance handling
 @synthesize overrideKeyboardAppearance          =   _overrideKeyboardAppearance;
@@ -204,7 +204,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
-//            [self setPreventShowingBottomBlackArea:YES];
+            [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
@@ -482,14 +482,34 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     //  Special case for iPad modalPresentationStyle.
-    if ([[[self keyWindow] topMostController] modalPresentationStyle] == UIModalPresentationFormSheet ||
-        [[[self keyWindow] topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
+    if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
+        [rootController modalPresentationStyle] == UIModalPresentationPageSheet)
     {
         //  Positive or zero.
         if (move>=0)
         {
             // We should only manipulate y.
             rootViewRect.origin.y -= move;
+            
+            //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
+            if (_preventShowingBottomBlankSpace == YES)
+            {
+                CGFloat minimumY = 0;
+                
+                switch (interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:
+                    case UIInterfaceOrientationLandscapeRight:
+                        minimumY = [self keyWindow].width-rootViewRect.size.height-statusBarFrame.size.width-(kbSize.width-_keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationPortrait:
+                    case UIInterfaceOrientationPortraitUpsideDown:
+                        minimumY = ([self keyWindow].height-rootViewRect.size.height-statusBarFrame.size.height)/2-(kbSize.height-_keyboardDistanceFromTextField);  break;
+                    default:    break;
+                }
+                
+                rootViewRect.origin.y = MAX(rootViewRect.origin.y, minimumY);
+            }
+            
             [self setRootViewFrame:rootViewRect];
         }
         //  Negative
@@ -523,17 +543,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 default:    break;
             }
 			
-//            if (_preventShowingBottomBlackArea == YES)
-//            {
-//                switch (interfaceOrientation)
-//                {
-//                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, -kbSize.width+_keyboardDistanceFromTextField);  break;
-//                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MAX(rootViewRect.origin.x, -kbSize.width+_keyboardDistanceFromTextField);;  break;
-//                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, -kbSize.height+_keyboardDistanceFromTextField);;  break;
-//                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MAX(rootViewRect.origin.y, -kbSize.height+_keyboardDistanceFromTextField);;  break;
-//                    default:    break;
-//                }
-//            }
+            //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
+            if (_preventShowingBottomBlankSpace == YES)
+            {
+                switch (interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, -kbSize.width+_keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +kbSize.width-_keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, -kbSize.height+_keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +kbSize.height-_keyboardDistanceFromTextField);  break;
+                    default:    break;
+                }
+            }
             
             //  Setting adjusted rootViewRect
             [self setRootViewFrame:rootViewRect];
