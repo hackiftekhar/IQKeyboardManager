@@ -173,6 +173,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 			//  Registering for keyboard notification.
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 
 			//  Registering for textField notification.
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
@@ -617,6 +618,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         textFieldViewIntialFrame = _textFieldView.frame;
     }
     
+    if (CGRectEqualToRect(topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
+    {
+        //  keyboard is not showing(At the beginning only). We should save rootViewRect.
+        UIViewController *rootController = [[self keyWindow] topMostController];
+        topViewBeginRect = rootController.view.frame;
+    }
+
     if (_shouldAdoptDefaultKeyboardAnimation)
     {
         //  Getting keyboard animation.
@@ -732,6 +740,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     kbSize = CGSizeZero;
     startingContentOffset = CGPointZero;
 //    topViewBeginRect = CGRectZero;    //Committed due to #82
+}
+
+/*  UIKeyboardDidHideNotification. So topViewBeginRect can be set to CGRectZero. */
+- (void)keyboardDidHide:(NSNotification*)aNotification
+{
+    topViewBeginRect = CGRectZero;
 }
 
 #pragma mark - UITextFieldView Delegate methods

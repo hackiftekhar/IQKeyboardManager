@@ -110,6 +110,7 @@
 		C0EC59DE19D0C11200997FFE /* MainSwift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */; };
 		C0EC59DF19D0C19300997FFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7EA019D0A0C5007604CF /* AppDelegate.swift */; };
 		C0EC59E019D0C19700997FFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7EA119D0A0C5007604CF /* ViewController.swift */; };
+		C0F1193A19EEDCD500708D17 /* BottomBlankSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,8 @@
 		C0EC59D919D0C0EE00997FFE /* NavigationBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBarViewController.swift; path = "IQKeyboardManager Swift/NavigationBarViewController.swift"; sourceTree = "<group>"; };
 		C0EC59DB19D0C0FB00997FFE /* SpecialCaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpecialCaseViewController.swift; path = "IQKeyboardManager Swift/SpecialCaseViewController.swift"; sourceTree = "<group>"; };
 		C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainSwift.storyboard; path = "IQKeyboardManager Swift/MainSwift.storyboard"; sourceTree = "<group>"; };
+		C0F1193819EEDCD500708D17 /* BottomBlankSpaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomBlankSpaceViewController.h; sourceTree = "<group>"; };
+		C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomBlankSpaceViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,6 +547,8 @@
 				C08B91B819D7558800AF16E7 /* TextSelectionViewController.m */,
 				C08A654B19DB18C700D255E2 /* ManualToolbarViewController.h */,
 				C08A654C19DB18C700D255E2 /* ManualToolbarViewController.m */,
+				C0F1193819EEDCD500708D17 /* BottomBlankSpaceViewController.h */,
+				C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -907,6 +912,7 @@
 				C05BE64419AFB9F4000B332C /* IQBarButtonItem.m in Sources */,
 				C05BE64819AFB9F4000B332C /* IQNSArray+Sort.m in Sources */,
 				C05BE64619AFB9F4000B332C /* IQKeyboardManager.m in Sources */,
+				C0F1193A19EEDCD500708D17 /* BottomBlankSpaceViewController.m in Sources */,
 				C05BE64D19AFB9F4000B332C /* IQUIView+Hierarchy.m in Sources */,
 				C06579CB19D60B0400DAA3EA /* NavigationTableViewCell.m in Sources */,
 				C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */,
