@@ -1,11 +1,11 @@
 
-"IQKeyboardManager enabled"             =   "IQKeyboardManager activado";
+"enabled"             =   "activado";
 
-"IQKeyboardManager disabled"            =   "IQKeyboardManager desactivado";
+"disabled"            =   "desactivado";
 
-"IQKeyboardManager already disabled"    =   "IQKeyboardManager ya está desactivado";
+"already disabled"    =   "ya está desactivado";
 
-"IQKeyboardManager already enabled"     =   "IQKeyboardManager ya está activado";
+"already enabled"     =   "ya está activado";
 
 "You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager"  =   "Debe establecer UIWindow.rootViewController en su AppDelegate para trabajar con IQKeyboardManager";
 

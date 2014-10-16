@@ -257,7 +257,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 		if (kbShowNotification)	[self keyboardWillShow:kbShowNotification];
 
 #if IQKEYBOARDMANAGER_DEBUG
-        NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager enabled", nil));
+        NSLog(@"IQKeyboardManager: %@",IQLocalizedString(@"enabled", nil));
 #endif
     }
 	//If not disable, desable it.
@@ -270,21 +270,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 		_enable = enable;
 		
 #if IQKEYBOARDMANAGER_DEBUG
-        NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager disabled", nil));
+        NSLog(@"IQKeyboardManager: %@",IQLocalizedString(@"disabled", nil));
 #endif
     }
 	//If already disabled.
 	else if (enable == NO && _enable == NO)
 	{
 #if IQKEYBOARDMANAGER_DEBUG
-        NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager already disabled", nil));
+        NSLog(@"IQKeyboardManager: %@",IQLocalizedString(@"already disabled", nil));
 #endif
 	}
 	//If already enabled.
 	else if (enable == YES && _enable == YES)
 	{
 #if IQKEYBOARDMANAGER_DEBUG
-        NSLog(@"%@",IQLocalizedString(@"IQKeyboardManager already enabled", nil));
+        NSLog(@"IQKeyboardManager: %@",IQLocalizedString(@"already enabled", nil));
 #endif
 	}
 }
@@ -329,7 +329,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     //  If can't get rootViewController then printing warning to user.
-    if (controller == nil)  NSLog(@"%@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
+    if (controller == nil)  NSLog(@"IQKeyboardManager: %@",IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil));
     
     //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
     [UIView animateWithDuration:animationDuration delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -770,13 +770,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
         if ([_textFieldView isKindOfClass:[UITextView class]] && _textFieldView.inputAccessoryView == nil)
         {
-            UIView *view = _textFieldView;
-            
             [UIView animateWithDuration:0.00001 delay:0 options:(animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [self addToolbarIfRequired];
             } completion:^(BOOL finished) {
-                [view resignFirstResponder];
-                [view becomeFirstResponder];
+                
+                //  Retaining textFieldView
+                UIView *textFieldRetain = _textFieldView;
+
+                [textFieldRetain resignFirstResponder];
+                [textFieldRetain becomeFirstResponder];
             }];
         }
         else
@@ -888,7 +890,24 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*! Resigning textField. */
 - (void)resignFirstResponder
 {
-	[_textFieldView resignFirstResponder];
+    if (_textFieldView)
+    {
+        //  Retaining textFieldView
+        UIView *textFieldRetain = _textFieldView;
+
+        //Resigning first responder
+        BOOL isResignFirstResponder = [_textFieldView resignFirstResponder];
+        
+        //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
+        if (isResignFirstResponder == NO)
+        {
+            //If it refuses to resign then becoming it first responder again for getting notifications callback.
+            [textFieldRetain becomeFirstResponder];
+#if IQKEYBOARDMANAGER_DEBUG
+            NSLog(@"IQKeyboardManager: Refuses to Resign first responder: %@",_textFieldView);
+#endif
+        }
+    }
 }
 
 #pragma mark AutoToolbar methods
@@ -972,7 +991,25 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         NSUInteger index = [textFields indexOfObject:_textFieldView];
         
         //If it is not first textField. then it's previous object becomeFirstResponder.
-        if (index > 0)	[textFields[index-1] becomeFirstResponder];
+        if (index > 0)
+        {
+            UITextField *nextTextField = textFields[index-1];
+            
+            //  Retaining textFieldView
+            UIView *textFieldRetain = _textFieldView;
+            
+            BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
+            
+            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+            if (isAcceptAsFirstResponder == NO)
+            {
+                //If next field refuses to become first responder then restoring old textField as first responder.
+                [textFieldRetain becomeFirstResponder];
+#if IQKEYBOARDMANAGER_DEBUG
+                NSLog(@"IQKeyboardManager: Refuses to become first responder: %@",nextTextField);
+#endif
+            }
+        }
     }
 }
 
@@ -995,7 +1032,25 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         NSUInteger index = [textFields indexOfObject:_textFieldView];
         
         //If it is not last textField. then it's next object becomeFirstResponder.
-        if (index < textFields.count-1)	[textFields[index+1] becomeFirstResponder];
+        if (index < textFields.count-1)
+        {
+            UITextField *nextTextField = textFields[index+1];
+            
+            //  Retaining textFieldView
+            UIView *textFieldRetain = _textFieldView;
+
+            BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
+            
+            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+           if (isAcceptAsFirstResponder == NO)
+            {
+                //If next field refuses to become first responder then restoring old textField as first responder.
+                [textFieldRetain becomeFirstResponder];
+#if IQKEYBOARDMANAGER_DEBUG
+                NSLog(@"IQKeyboardManager: Refuses to become first responder: %@",nextTextField);
+#endif
+            }
+        }
     }
 }
 
