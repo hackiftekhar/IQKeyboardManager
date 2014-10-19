@@ -77,7 +77,7 @@ Manual Management:-
         self.view = scrollView;
     }
  
-#### Disable for a ViewController
+#### Disable for a ViewController:-
 
  If you want to disable `IQKeyboardManager` for a particular ViewController then you should disable IQKeyboardManager on `ViewDidAppear` and again enable it on `ViewWillDisappear`.
 
@@ -103,7 +103,7 @@ Manual Management:-
     @end
 
 
-#### Keyboard Return Key Handling
+#### Keyboard Return Key Handling:-
   If you would like to implement keyboard `Return Key` as `Next` button, then you can use `IQKeyboardReturnKeyHandler`.
   
   1) Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this:-
@@ -180,6 +180,58 @@ textField.inputAccessoryView = [[UIView alloc] init];
     //cancelAction
 }
 
+```
+
+#### Doing custom work on textField with returning NO in `textFieldShouldBeginEditing:` delegate:-
+
+Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside `textFieldShouldBeginEditing:` and returning NO for that textField. But if you are using IQKeyboardManager then IQKeyboardManager also asks textField to recognize it can become first responder or not using `canBecomeFirstResponder`, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. So here is a workaround to overcome this situation using Gestures. (Issue ID: #88)
+
+1) Create a UITapGestureRecognizer object and add it to textField. set gesture recognizer delegate, and implement the geture recognizer action.
+```
+
+@interface ViewController () <UITextFieldDelegate,UIGestureRecognizerDelegate>
+
+@end
+
+@implementation ViewController
+{
+    UITapGestureRecognizer *textFieldTapRecognizer;
+    IBOutlet UITextField *targetTextField;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    textFieldTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldTapAction:)];
+    textFieldTapRecognizer.delegate = self;
+    [targetTextField addGestureRecognizer:textFieldTapRecognizer];
+}
+
+-(void)textFieldTapGestureAction:(UITapGestureRecognizer*)tapRecognized
+{
+    [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+```
+
+2) Implemnet textField delegate and gesture recognizer delegate. It's must to implement gesture delegate and return YES if it's textFieldTapRecognizer gesture. Because textField have also added a number of gesture recognizer internally for various actions. They cancel recognizing our custom gesture recognizer.
+
+```
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == textField6)    return NO;
+    else                            return YES;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    //Return YES if it's textFieldTapRecognizer else return NO.
+    if (gestureRecognizer == textFieldTapRecognizer)    return YES;
+    else                                                return NO;
+}
+
+@end
 ```
 
 Properties and functions usage:-
