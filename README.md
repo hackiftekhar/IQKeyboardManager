@@ -215,7 +215,7 @@ Generally if developer need to perform some custom task on a particular textFiel
 
 ```
 
-2) Implemnet textField delegate and gesture recognizer delegate. It's must to implement gesture delegate and return YES if it's textFieldTapRecognizer gesture. Because textField have also added a number of gesture recognizer internally for various actions. They cancel recognizing our custom gesture recognizer.
+2) Implement textField delegate and gesture recognizer delegate. It's must to implement gesture delegate and return YES if it's textFieldTapRecognizer gesture. Because textField have also added a number of gesture recognizer internally for various actions. They cancel recognizing our custom gesture recognizer.
 
 ```
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
