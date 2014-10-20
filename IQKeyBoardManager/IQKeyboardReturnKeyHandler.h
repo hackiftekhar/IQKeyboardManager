@@ -21,14 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/NSObject.h>
 #import "IQKeyboardManagerConstants.h"
+
+#import <Foundation/NSObject.h>
+#import <Foundation/NSObjCRuntime.h>
 
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 
 @class UITextField,UIView, UIViewController;
 
+/*!
+    @author Iftekhar Qurashi
+ 
+	@related hack.iftekhar@gmail.com
+ 
+    @class IQKeyboardReturnKeyHandler
+ 
+	@abstract Manages the return key to work like next/done in a view hierarchy.
+ */
 @interface IQKeyboardReturnKeyHandler : NSObject
 
 /*!

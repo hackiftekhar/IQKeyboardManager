@@ -28,10 +28,10 @@
 
 #import <Foundation/NSSet.h>
 
-#import <UIKit/UIViewController.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableView.h>
+#import <UIKit/UIViewController.h>
 
 NSString *const kIQTextField                =   @"kIQTextField";
 NSString *const kIQTextFieldDelegate        =   @"kIQTextFieldDelegate";
