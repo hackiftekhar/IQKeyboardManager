@@ -23,6 +23,11 @@
 
 #import <Foundation/NSArray.h>
 
+/*!
+    @category NSArray (IQ_NSArray_Sort)
+ 
+	@abstract UIView.subviews sorting category.
+ */
 @interface NSArray (IQ_NSArray_Sort)
 
 /*!

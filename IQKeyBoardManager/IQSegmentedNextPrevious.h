@@ -21,13 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UISegmentedControl.h>
 #import "IQKeyboardManagerConstants.h"
+
+#import <Foundation/NSObjCRuntime.h>
+
+#import <UIKit/UISegmentedControl.h>
 
 /*!
     @class IQSegmentedNextPrevious
  
-    @since iOS (5.0 and iOS 6.0)
+    @deprecated Deprecated in iOS 7
  
     @abstract Custom SegmentedControl for Previous/Next button.
  */

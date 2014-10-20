@@ -34,14 +34,15 @@
     @const IQAutoToolbarBySubviews Creates Toolbar according to subview's hirarchy of Textfield's in view.
  
     @const IQAutoToolbarByTag Creates Toolbar according to tag property of TextField's.
+ 
+    @const IQAutoToolbarByPosition Creates Toolbar according to the y,x position of textField in it's superview coordinate.
  */
-typedef enum IQAutoToolbarManageBehaviour
-{
-	IQAutoToolbarBySubviews,
+typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
+    IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
-    IQAutoToolbarByPosition,
-	
-}IQAutoToolbarManageBehaviour;
+    IQAutoToolbarByPosition
+};
+
 
 #define IQLocalizedString(key, comment) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"IQKeyboardManager" ofType:@"bundle"]] localizedStringForKey:(key) value:@"" table:@"IQKeyboardManager"]
 
@@ -80,7 +81,7 @@ typedef enum IQAutoToolbarManageBehaviour
  |                                               |
  |                                               |
  |                                               |
- --------------------------------------------           ----------------------------------           ---------------------------------
+ --------------------------------------------    |      ----------------------------------           ---------------------------------
  | UITextFieldTextDidEndEditingNotification | <-------- | UIKeyboardWillHideNotification | --------> | UIKeyboardDidHideNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
  |                    End Editing                                                             ^
@@ -108,7 +109,7 @@ typedef enum IQAutoToolbarManageBehaviour
  |                                               |
  |                                               |
  |                                               |
- --------------------------------------------           ----------------------------------           ---------------------------------
+ --------------------------------------------    |      ----------------------------------           ---------------------------------
  | UITextViewTextDidEndEditingNotification  | <-------- | UIKeyboardWillHideNotification |           | UIKeyboardDidHideNotification |
  --------------------------------------------           ----------------------------------           ---------------------------------
  |                    End Editing                                                             ^

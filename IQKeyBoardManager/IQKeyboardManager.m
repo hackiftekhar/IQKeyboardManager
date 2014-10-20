@@ -33,23 +33,13 @@
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
-#import <UIKit/UIViewController.h>
+#import <UIKit/UITableViewController.h>
 #import <UIKit/UITableView.h>
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
-@interface IQKeyboardManager (RemoveCompilerWarning)
-
-//Remove compiler warning
--(void)previousAction:(id)segmentedControl;
--(void)nextAction:(id)segmentedControl;
--(void)doneAction:(IQBarButtonItem*)barButton;
-
-@end
-
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
-
 
 /*!
     @property   keyWindow
@@ -62,20 +52,31 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 //  Private helper methods
 - (void)adjustFrame;
-- (void)addToolbarIfRequired;
-- (void)removeToolbarIfRequired;
 
 //  Private function to manipulate RootViewController's frame with animation.
 - (void)setRootViewFrame:(CGRect)frame;
 
-//  Notification methods
+//  Keyboard Notification methods
 - (void)keyboardWillShow:(NSNotification*)aNotification;
 - (void)keyboardWillHide:(NSNotification*)aNotification;
+- (void)keyboardDidHide:(NSNotification*)aNotification;
+
+//  UITextField/UITextView Notification methods
 - (void)textFieldViewDidBeginEditing:(NSNotification*)notification;
 - (void)textFieldViewDidEndEditing:(NSNotification*)notification;
 - (void)textFieldViewDidChange:(NSNotification*)notification;
 
+//  Tap Recognizer
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
+
+//  Next/Previous/Done methods
+-(void)previousAction:(id)segmentedControl;
+-(void)nextAction:(id)segmentedControl;
+-(void)doneAction:(IQBarButtonItem*)barButton;
+
+//  Adding Removing IQToolbar methods
+- (void)addToolbarIfRequired;
+- (void)removeToolbarIfRequired;
 
 @end
 
@@ -163,12 +164,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 #pragma mark - Initializing functions
 
-/*! Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. */
+/*! Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
 +(void)load
 {
     [super load];
     
-    //Enabling Keyboard Manager.
+    //Enabling IQKeyboardManager.
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
 
@@ -219,8 +220,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
-            
-            _keyWindow = [self keyWindow];
         });
     }
     return self;
@@ -332,7 +331,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Getting topMost ViewController.
     UIViewController *controller = [[self keyWindow] topMostController];
     
-    //frame size needs to be adjusted on iOS8 due to orientation structure changes.
+    //frame size needs to be adjusted on iOS8 due to orientation API changes.
     if (IQ_IS_IOS8_OR_GREATER)
     {
         frame.size = controller.view.size;

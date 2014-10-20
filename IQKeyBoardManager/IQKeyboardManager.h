@@ -21,10 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/NSObject.h>
-#import <CoreGraphics/CGBase.h>
-#import <UIKit/UITextInputTraits.h>
 #import "IQKeyboardManagerConstants.h"
+
+#import <CoreGraphics/CGBase.h>
+
+#import <Foundation/NSObject.h>
+#import <Foundation/NSObjCRuntime.h>
+
+#import <UIKit/UITextInputTraits.h>
 
 @class UIFont;
 
