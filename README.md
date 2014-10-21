@@ -301,7 +301,7 @@ If YES, then uses keyboard default animation curve style to move view, otherwise
 
  8) Set keyboard distance from textFields using `keyboardDistanceFromTextField`.
  
- 9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.
+ 9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.[#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14)
  
  10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
  
