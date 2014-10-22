@@ -21,14 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UITextView.h>
 #import "IQKeyboardManagerConstants.h"
 
+#import <UIKit/UITextView.h>
+
 /*!
-    @author Iftekhar Qurashi
- 
-    @related hack.iftekhar@gmail.com
- 
     @class IQTextView
  
     @abstract UITextView with placeholder support

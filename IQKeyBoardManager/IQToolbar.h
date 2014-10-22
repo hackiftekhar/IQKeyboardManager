@@ -23,6 +23,11 @@
 
 #import <UIKit/UIToolbar.h>
 
+/*!
+    @class      IQToolbar
+ 
+	@abstract   IQToolbar for IQKeyboardManager.
+ */
 @interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
 
 @property(nonatomic, strong) UIFont *titleFont;

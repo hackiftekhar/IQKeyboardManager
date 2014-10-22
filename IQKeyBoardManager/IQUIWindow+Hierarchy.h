@@ -25,6 +25,11 @@
 
 @class UIViewController;
 
+/*!
+    @category UIWindow (IQ_UIWindow_Hierarchy)
+ 
+    @abstract UIWindow hierarchy category.
+ */
 @interface UIWindow (IQ_UIWindow_Hierarchy)
 
 /*!

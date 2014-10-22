@@ -36,8 +36,6 @@
 /*!
     @category UIView (IQToolbarAddition)
  
-    @since iOS (5.0 and later), ARC Required
- 
     @abstract UIView category methods to add IQToolbar on UIKeyboard.
  */
 @interface UIView (IQToolbarAddition)
