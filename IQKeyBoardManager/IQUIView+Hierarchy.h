@@ -25,6 +25,11 @@
 
 @class UIScrollView, UITableView, NSArray;
 
+/*!
+    @category UIView (IQ_UIView_Hierarchy)
+ 
+	@abstract UIView hierarchy category.
+ */
 @interface UIView (IQ_UIView_Hierarchy)
 
 /*!
@@ -97,9 +102,15 @@
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
+
 @end
 
 
+/*!
+    @category UIView (IQ_UIView_Frame)
+ 
+	@abstract UIView frame category.
+ */
 @interface UIView (IQ_UIView_Frame)
 
 @property (nonatomic, assign) CGPoint origin;

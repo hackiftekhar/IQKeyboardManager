@@ -42,16 +42,14 @@ IQ_LoadCategory(IQUIViewToolbar)
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
-NSString const *IQ_shouldHideTitleKey = @"IQ_shouldHideTitle";
-
 -(void)setShouldHideTitle:(BOOL)shouldHideTitle
 {
-    objc_setAssociatedObject(self, &IQ_shouldHideTitleKey, @(shouldHideTitle), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(shouldHideTitle), @(shouldHideTitle), OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(BOOL)shouldHideTitle
 {
-    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, &IQ_shouldHideTitleKey);
+    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, @selector(shouldHideTitle));
     return [shouldHideTitle boolValue];
 }
 

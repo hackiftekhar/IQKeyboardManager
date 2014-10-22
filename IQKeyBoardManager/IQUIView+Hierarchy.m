@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "IQUIView+Hierarchy.h"
+#import "IQKeyboardManagerConstantsInternal.h"
 
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
@@ -29,7 +30,7 @@
 #import <UIKit/UISearchBar.h>
 #import <UIKit/UIViewController.h>
 
-#import "IQKeyboardManagerConstantsInternal.h"
+
 IQ_LoadCategory(IQUIViewHierarchy)
 
 

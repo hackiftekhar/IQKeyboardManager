@@ -21,9 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/NSObjCRuntime.h>
+
 #import <UIKit/UIBarButtonItem.h>
 
-//Bar button item with title
+/*!
+    @author Iftekhar Qurashi
+ 
+	@related hack.iftekhar@gmail.com
+ 
+    @class IQTitleBarButtonItem
+ 
+	@abstract BarButtonItem with title text.
+ */
 @interface IQTitleBarButtonItem : UIBarButtonItem
 
 @property(nonatomic, strong) UIFont *font;  //Default is (system font 12.0 bold)
