@@ -59,6 +59,17 @@ If you need to port your project to another location you may need to adjust `Fra
 
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
+#### Known Issues:-
+
+1) **Keyboard does not appear in iOS Simulator** ([62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62),[72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72),[75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75),[90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90),[100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
+     
+If keyboard does not appear in iOS Simulator and only toolbar is appearing over it (if enableAutoToolbar = YES), then check this setting
+     
+**Xcode 6:-** Goto ***iOS Simulator->Menu->Hardware->Keyboard->Connect Hardware Keyboard***, and deselect that.
+
+**Xcode 5 and earlier:-** Goto ***iOS Simulator->Menu->Hardware->Simulate Hardware Keyboard***, and deselect that.
+    
+
 Manual Management:-
 ---
 
@@ -301,7 +312,7 @@ If YES, then uses keyboard default animation curve style to move view, otherwise
 
  8) Set keyboard distance from textFields using `keyboardDistanceFromTextField`.
  
- 9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.[#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14)
+ 9) Resign keyboard on touching outside using `shouldResignOnTouchOutside`.[14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14)
  
  10) Manage UITextView's frame when it's hight is too large to fit on screen with `canAdjustTextView` boolean.
  
