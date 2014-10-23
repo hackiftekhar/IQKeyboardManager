@@ -50,14 +50,16 @@
         
         if (indexPath.row %2)
         {
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5,5,tableView.frame.size.width-10,30)];
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5,5,cell.contentView.frame.size.width-10,30)];
+            textField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
             [textField setPlaceholder:identifier];
             [textField setBorderStyle:UITextBorderStyleRoundedRect];
             [cell.contentView addSubview:textField];
         }
         else
         {
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,5,tableView.frame.size.width-10,150)];
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectInset(cell.contentView.bounds, 5, 5)];
+            textView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
             textView.text = @"Sample Text";
             [cell.contentView addSubview:textView];
         }

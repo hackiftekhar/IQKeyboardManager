@@ -732,6 +732,9 @@
 						CreatedOnToolsVersion = 6.0.1;
 						TestTargetID = C0ACB0F419CF104B0057B571;
 					};
+					C0B63B9A1781FAB1008D3B64 = {
+						DevelopmentTeam = 7UUTF6T5P9;
+					};
 				};
 			};
 			buildConfigurationList = C0B63B951781FAB0008D3B64 /* Build configuration list for PBXProject "IQKeyboard" */;
@@ -1285,6 +1288,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
+				PROVISIONING_PROFILE = "ec566ba4-64a7-465d-9ab9-0411b146a91f";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -1303,6 +1307,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
+				PROVISIONING_PROFILE = "ec566ba4-64a7-465d-9ab9-0411b146a91f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
