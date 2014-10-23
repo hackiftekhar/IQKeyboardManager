@@ -90,7 +90,7 @@ Manual Management:-
  
 #### Disable for a ViewController:-
 
- If you want to disable `IQKeyboardManager` for a particular ViewController then you should disable IQKeyboardManager on `ViewDidAppear` and again enable it on `ViewWillDisappear`.
+ If you would like to disable `IQKeyboardManager` for a particular ViewController then you should disable IQKeyboardManager on `ViewDidAppear` and again enable it on `ViewWillDisappear`.
 
     #import "IQKeyboardManager.h"
     @implementation ExampleViewController
