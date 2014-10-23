@@ -59,7 +59,7 @@ If you need to port your project to another location you may need to adjust `Fra
 
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
-#### Known Issues:-
+## Known Issues:-
 
 1) **Keyboard does not appear in iOS Simulator** ([62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62),[72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72),[75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75),[90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90),[100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
