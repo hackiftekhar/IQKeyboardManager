@@ -4,7 +4,6 @@
 
 #import "ViewController.h"
 #import "IQKeyboardManager.h"
-#import "IQUIView+IQKeyboardToolbar.h"
 
 @interface ViewController ()<UIActionSheetDelegate>
 
