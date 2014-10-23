@@ -17,11 +17,6 @@
 //    [scrollViewOfTableViews setContentSize:CGSizeMake(0,scrollViewOfTableViews.bounds.size.height)];
 }
 
--(void)dealloc
-{
-    returnKeyHandler = nil;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 5;
@@ -40,7 +35,6 @@
 
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5,7,135,30)];
         textField.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
-        [returnKeyHandler addTextFieldView:textField];
         [textField setPlaceholder:identifier];
         [textField setBorderStyle:UITextBorderStyleRoundedRect];
         [cell.contentView addSubview:textField];
