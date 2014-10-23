@@ -32,9 +32,11 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5,7,135,30)];
-        textField.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
+        cell.backgroundColor = [UIColor clearColor];
+        
+        CGRect textFieldRect = CGRectInset(cell.contentView.bounds, 5, 5);
+        UITextField *textField = [[UITextField alloc] initWithFrame:textFieldRect];
+        textField.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
         [textField setPlaceholder:identifier];
         [textField setBorderStyle:UITextBorderStyleRoundedRect];
         [cell.contentView addSubview:textField];
