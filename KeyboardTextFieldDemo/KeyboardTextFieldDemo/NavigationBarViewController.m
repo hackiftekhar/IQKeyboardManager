@@ -3,7 +3,6 @@
 //  IQKeyboard
 
 #import "NavigationBarViewController.h"
-#import "IQKeyboardReturnKeyHandler.h"
 
 @interface NavigationBarViewController ()<UITextFieldDelegate>
 
@@ -11,21 +10,12 @@
 
 @implementation NavigationBarViewController
 {
-    IQKeyboardReturnKeyHandler *returnKeyHandler;
     __weak IBOutlet UITextField *textField2;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
-}
-
--(void)dealloc
-{
-    returnKeyHandler = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

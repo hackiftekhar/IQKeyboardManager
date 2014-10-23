@@ -4,12 +4,8 @@
 
 #import "TextViewSpecialCaseViewController.h"
 #import "IQKeyboardManager.h"
-#import "IQKeyboardReturnKeyHandler.h"
 
 @implementation TextViewSpecialCaseViewController
-{
-    IQKeyboardReturnKeyHandler *returnKeyHandler;
-}
 
 -(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton
 {
@@ -31,9 +27,6 @@
 {
     [super viewDidLoad];
 
-    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
-    
     if (!self.navigationController)
     {
         [buttonPush setHidden:YES];
@@ -58,11 +51,6 @@
     {
         [barButtonAdjust setTitle:@"Enable Adjust"];
     }
-}
-
--(void)dealloc
-{
-    returnKeyHandler = nil;
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

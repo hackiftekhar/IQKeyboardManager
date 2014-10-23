@@ -3,21 +3,14 @@
 //  KeyboardTextFieldDemo
 
 #import "ScrollViewController.h"
-#import "IQKeyboardReturnKeyHandler.h"
 
 @implementation ScrollViewController
-{
-    IQKeyboardReturnKeyHandler *returnKeyHandler;
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
 
     [scrollViewDemo setContentSize:CGSizeMake(0,321)];
     [scrollViewInsideScrollView setContentSize:CGSizeMake(0,321)];
