@@ -1,7 +1,7 @@
 IQKeyboardManager
 ==========================
 
-Often while developing an app, We ran into an issues where the iPhone `UIKeyboard` slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code. One of the Speciality of this Library is `It Works Automatically`. `ZERO LINE OF CODE`, `No More imports`, `No More Subclasses`, `No More Manual Work`. To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
+Often while developing an app, We ran into an issues where the iPhone `UIKeyboard` slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code. One of the Speciality of this Library is `It Works Automatically`. `ZERO LINE OF CODE`, `No More imports`, `No More Subclasses`, `No More UIScrollView`, `No More Manual Work`. To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
 
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
 
