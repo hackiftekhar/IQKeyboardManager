@@ -24,6 +24,6 @@
 
 import Foundation
 
-let IQ_IS_IOS8_OR_GREATER = (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+let IQ_IS_IOS7_OR_GREATER = (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
 
-let IQ_IS_IOS7_OR_GREATER = (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
+let IQ_IS_IOS8_OR_GREATER = (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)

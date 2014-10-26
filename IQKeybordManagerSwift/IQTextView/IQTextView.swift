@@ -24,6 +24,7 @@
 
 import UIKit
 
+/*! @abstract UITextView with placeholder support   */
 class IQTextView : UITextView {
 
     required init(coder aDecoder: NSCoder) {
@@ -32,7 +33,7 @@ class IQTextView : UITextView {
 
     private var placeholderLabel: UILabel?
     
-
+    /*! @abstract To set textView's placeholder text. Default is ni.    */
     var placeholder : NSString? {
 
         get {

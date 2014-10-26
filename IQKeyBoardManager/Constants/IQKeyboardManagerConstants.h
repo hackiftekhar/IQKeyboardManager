@@ -40,7 +40,7 @@
 typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
-    IQAutoToolbarByPosition
+    IQAutoToolbarByPosition,
 };
 
 

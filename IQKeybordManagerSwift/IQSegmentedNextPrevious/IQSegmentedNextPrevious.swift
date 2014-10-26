@@ -65,14 +65,20 @@ class IQSegmentedNextPrevious: UISegmentedControl {
         super.init(coder: aDecoder)
     }
     
+    //  Value has changed
     func segmentedControlHandler(sender: IQSegmentedNextPrevious) {
         
+        //  Switching to selected segmenteIndex.
         switch sender.selectedSegmentIndex {
+
+            //  Previous selected.
         case 0:
             var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: previousSelector!, object: nil)
             invocation.invocation.target = buttonTarget
             invocation.invocation.selector = previousSelector!
             invocation.invocation.invoke()
+
+            //  Next selected.
         case 1:
             var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: nextSelector!, object: nil)
             invocation.invocation.target = buttonTarget

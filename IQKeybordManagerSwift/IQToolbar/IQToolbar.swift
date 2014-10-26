@@ -24,16 +24,20 @@
 
 import UIKit
 
-class IQToolbar: UIToolbar , UIInputViewAudioFeedback{
+/*! @abstract   IQToolbar for IQKeyboardManager.    */
+class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
     var titleFont : UIFont? {
         
         didSet {
             
-            for item in items as Array<IQTitleBarButtonItem> {
-                
-                if item.isKindOfClass(IQTitleBarButtonItem) {
-                    (item as IQTitleBarButtonItem).font = titleFont
+            if (items != nil)
+            {
+                for item in items as Array<IQTitleBarButtonItem> {
+                    
+                    if item.isKindOfClass(IQTitleBarButtonItem) {
+                        (item as IQTitleBarButtonItem).font = titleFont
+                    }
                 }
             }
         }
@@ -83,16 +87,21 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback{
         return sizeThatFit
     }
 
-    
-//    -(void)setTintColor:(UIColor *)tintColor
-//    {
-//    [super setTintColor:tintColor];
-//    
-//    for (UIBarButtonItem *item in self.items)
-//    {
-//    [item setTintColor:tintColor];
-//    }
-//    }
+    override var tintColor: UIColor! {
+        
+        didSet {
+            if (items != nil)
+            {
+                for item in items as Array<UIBarButtonItem> {
+                    
+                    if item.isKindOfClass(IQTitleBarButtonItem)
+                    {
+                        (item as IQTitleBarButtonItem).tintColor = tintColor
+                    }
+                }
+            }
+        }
+    }
     
     var enableInputClicksWhenVisible: Bool {
 
