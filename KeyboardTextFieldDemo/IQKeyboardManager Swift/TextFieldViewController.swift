@@ -11,6 +11,8 @@ import UIKIt
 
 class TextFieldViewController: UIViewController {
     
+    private var returnKeyHandler : IQKeyboardReturnKeyHandler!
+    
     @IBOutlet private var buttonPop : UIButton!;
     @IBOutlet private var buttonPush : UIButton!;
     @IBOutlet private var buttonPresent : UIButton!;
@@ -25,6 +27,8 @@ class TextFieldViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self);
         
         if self.navigationController == nil {
             buttonPop.hidden = true;

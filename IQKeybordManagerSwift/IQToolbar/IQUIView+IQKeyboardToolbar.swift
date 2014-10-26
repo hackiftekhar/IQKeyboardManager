@@ -25,18 +25,33 @@
 import Foundation
 import UIKit
 
-/*  @const kIQRightButtonToolbarTag        Default tag for toolbar with Right button           -1001.   */
-let kIQRightButtonToolbarTag : NSInteger            =   -1001
-/*  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
-let  kIQDoneButtonToolbarTag : NSInteger            =   -1002
-/*  @const kIQRightLeftButtonToolbarTag    Default tag for toolbar with Right/Left buttons     -1003.   */
-let  kIQRightLeftButtonToolbarTag : NSInteger       =   -1003
-/*  @const kIQCancelDoneButtonToolbarTag   Default tag for toolbar with Cancel/Done buttons    -1004.   */
-let  kIQCancelDoneButtonToolbarTag : NSInteger      =   -1004
-/*  @const kIQPreviousNextButtonToolbarTag Default tag for toolbar with Previous/Next buttons  -1005.   */
-let  kIQPreviousNextButtonToolbarTag : NSInteger    =   -1005
+///*  @const kIQRightButtonToolbarTag        Default tag for toolbar with Right button           -1001.   */
+//let kIQRightButtonToolbarTag : NSInteger            =   -1001
+///*  @const kIQRightLeftButtonToolbarTag    Default tag for toolbar with Right/Left buttons     -1003.   */
+//let  kIQRightLeftButtonToolbarTag : NSInteger       =   -1003
+///*  @const kIQCancelDoneButtonToolbarTag   Default tag for toolbar with Cancel/Done buttons    -1004.   */
+//let  kIQCancelDoneButtonToolbarTag : NSInteger      =   -1004
 
 extension UIView {
+    
+    
+    var shouldHideTitle: Bool? {
+        get {
+            var aValue: AnyObject? = objc_getAssociatedObject(self, "shouldHideTitle")?
+            
+            if(aValue == nil)
+            {
+                return false
+            }
+            else
+            {
+                return aValue as? Bool
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, "shouldHideTitle", newValue, UInt(OBJC_ASSOCIATION_ASSIGN))
+        }
+    }
     
     /*!
     @method addDoneOnKeyboardWithTarget:action:
@@ -54,17 +69,16 @@ extension UIView {
     func addRightButtonOnKeyboardWithText (text : String, target : AnyObject, action : Selector, titleText: String!) {
         
         //If can't set InputAccessoryView. Then return
-        if self.respondsToSelector("setInputAccessoryView:") == false  {
+        if (self.isKindOfClass(UITextField) == false && self.isKindOfClass(UITextView) == false) {
             return
         }
         
         //  Creating a toolBar for phoneNumber keyboard
         var toolbar = IQToolbar()
-        toolbar.tag = kIQRightButtonToolbarTag
         
         var items = NSMutableArray()
         
-        if ( titleText != nil && countElements(titleText) != 0 /* && self.shouldHideTitle == false */)
+        if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false)
         {
             var buttonFrame : CGRect
             
@@ -119,9 +133,18 @@ extension UIView {
         var title : String!
 
         if shouldShowPlaceholder {
-            var textField : UITextField? = self as? UITextField
             
-            title = textField?.placeholder
+            if(self.isKindOfClass(UITextField)) {
+                
+                var textField : UITextField? = self as? UITextField
+                
+                title = textField?.placeholder
+            } else if (self.isKindOfClass(IQTextView)) {
+                
+                var textView : IQTextView? = self as? IQTextView
+                
+                title = textView?.placeholder
+            }
         }
         
         addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: title)
@@ -135,17 +158,16 @@ extension UIView {
     func addDoneOnKeyboardWithTarget (target : AnyObject, action : Selector, titleText: String!) {
         
         //If can't set InputAccessoryView. Then return
-        if self.respondsToSelector("setInputAccessoryView:") == false  {
+        if (self.isKindOfClass(UITextField) == false && self.isKindOfClass(UITextView) == false) {
             return
         }
         
         //  Creating a toolBar for phoneNumber keyboard
         var toolbar = IQToolbar()
-        toolbar.tag = kIQRightButtonToolbarTag
         
         var items = NSMutableArray()
         
-        if ( titleText != nil && countElements(titleText) != 0 /* && self.shouldHideTitle == false */)
+        if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false )
         {
             var buttonFrame : CGRect
             
@@ -155,7 +177,7 @@ extension UIView {
                 50 done button frame.
                 24 distance maintenance
                 */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
+                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-12.0, 44)
             }
             else
             {
@@ -200,9 +222,18 @@ extension UIView {
         var title : String!
         
         if shouldShowPlaceholder {
-            var textField : UITextField? = self as? UITextField
             
-            title = textField?.placeholder
+            if(self.isKindOfClass(UITextField)) {
+                
+                var textField : UITextField? = self as? UITextField
+                
+                title = textField?.placeholder
+            } else if (self.isKindOfClass(IQTextView)) {
+                
+                var textView : IQTextView? = self as? IQTextView
+                
+                title = textView?.placeholder
+            }
         }
 
         addDoneOnKeyboardWithTarget(target, action: action, titleText: title)
@@ -233,13 +264,12 @@ extension UIView {
     func addRightLeftOnKeyboardWithTarget( target : AnyObject, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, titleText: String!) {
         
         //If can't set InputAccessoryView. Then return
-        if self.respondsToSelector("setInputAccessoryView:") == false  {
+        if (self.isKindOfClass(UITextField) == false && self.isKindOfClass(UITextView) == false) {
             return
         }
         
         //  Creating a toolBar for phoneNumber keyboard
         var toolbar = IQToolbar()
-        toolbar.tag = kIQPreviousNextButtonToolbarTag
         
         var items = NSMutableArray()
         
@@ -248,7 +278,7 @@ extension UIView {
         var cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: leftButtonAction)
         items.addObject(cancelButton)
         
-        if ( titleText != nil && countElements(titleText) != 0 /* && self.shouldHideTitle == false */)
+        if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false )
         {
             var buttonFrame : CGRect
             
@@ -304,9 +334,18 @@ extension UIView {
         var title : String!
         
         if shouldShowPlaceholder {
-            var textField : UITextField? = self as? UITextField
             
-            title = textField?.placeholder
+            if(self.isKindOfClass(UITextField)) {
+                
+                var textField : UITextField? = self as? UITextField
+                
+                title = textField?.placeholder
+            } else if (self.isKindOfClass(IQTextView)) {
+                
+                var textView : IQTextView? = self as? IQTextView
+                
+                title = textView?.placeholder
+            }
         }
         
         addRightLeftOnKeyboardWithTarget(target, leftButtonTitle: leftButtonTitle, rightButtonTitle: rightButtonTitle, rightButtonAction: rightButtonAction, leftButtonAction: leftButtonAction, titleText: title)
@@ -320,13 +359,12 @@ extension UIView {
     func addCancelDoneOnKeyboardWithTarget (target : AnyObject, cancelAction : Selector, doneAction : Selector, titleText: String!) {
         
         //If can't set InputAccessoryView. Then return
-        if self.respondsToSelector("setInputAccessoryView:") == false  {
+        if (self.isKindOfClass(UITextField) == false && self.isKindOfClass(UITextView) == false) {
             return
         }
         
         //  Creating a toolBar for phoneNumber keyboard
         var toolbar = IQToolbar()
-        toolbar.tag = kIQPreviousNextButtonToolbarTag
         
         var items = NSMutableArray()
         
@@ -335,7 +373,7 @@ extension UIView {
         var cancelButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: target, action: cancelAction)
         items.addObject(cancelButton)
         
-        if ( titleText != nil && countElements(titleText) != 0 /* && self.shouldHideTitle == false */)
+        if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false )
         {
             var buttonFrame : CGRect
             
@@ -391,9 +429,18 @@ extension UIView {
         var title : String!
         
         if shouldShowPlaceholder {
-            var textField : UITextField? = self as? UITextField
             
-            title = textField?.placeholder
+            if(self.isKindOfClass(UITextField)) {
+                
+                var textField : UITextField? = self as? UITextField
+                
+                title = textField?.placeholder
+            } else if (self.isKindOfClass(IQTextView)) {
+                
+                var textView : IQTextView? = self as? IQTextView
+                
+                title = textView?.placeholder
+            }
         }
         
         addCancelDoneOnKeyboardWithTarget(target, cancelAction: cancelAction, doneAction: doneAction, titleText: title)
@@ -425,13 +472,12 @@ extension UIView {
     func addPreviousNextDoneOnKeyboardWithTarget ( target : AnyObject, previousAction : Selector, nextAction : Selector, doneAction : Selector,  titleText: String!) {
         
         //If can't set InputAccessoryView. Then return
-        if self.respondsToSelector("setInputAccessoryView:") == false  {
+        if (self.isKindOfClass(UITextField) == false && self.isKindOfClass(UITextView) == false) {
             return
         }
         
         //  Creating a toolBar for phoneNumber keyboard
         var toolbar = IQToolbar()
-        toolbar.tag = kIQPreviousNextButtonToolbarTag
         
         var items = NSMutableArray()
         
@@ -460,7 +506,7 @@ extension UIView {
             items.addObject(segButton)
         }
         
-        if ( titleText != nil && countElements(titleText) != 0 /* && self.shouldHideTitle == false */)
+        if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false )
         {
             var buttonFrame : CGRect
             
@@ -515,9 +561,17 @@ extension UIView {
         
         if shouldShowPlaceholder {
             
-            var textField : UITextField? = self as? UITextField
-            
-            title = textField?.placeholder
+            if(self.isKindOfClass(UITextField)) {
+                
+                var textField : UITextField? = self as? UITextField
+                
+                title = textField?.placeholder
+            } else if (self.isKindOfClass(IQTextView)) {
+                
+                var textView : IQTextView? = self as? IQTextView
+                
+                title = textView?.placeholder
+           }
         }
         
         addPreviousNextDoneOnKeyboardWithTarget(target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, titleText: title)

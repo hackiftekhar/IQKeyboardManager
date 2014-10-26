@@ -26,14 +26,14 @@ import Foundation
 import UIKit
 
 //Special textFields,textViews,scrollViews
-//var UIAlertSheetTextFieldClass: AnyClass!       = NSClassFromString("UIAlertSheetTextField")
-//var UIAlertSheetTextFieldClass_iOS8: AnyClass!  = NSClassFromString("_UIAlertControllerTextField")
-//
-//var UITableViewCellScrollViewClass: AnyClass!   = NSClassFromString("UITableViewCellScrollView")
-//var UITableViewWrapperViewClass: AnyClass!      = NSClassFromString("UITableViewWrapperView")
-//
-//var UISearchBarTextFieldClass: AnyClass!        = NSClassFromString("UISearchBarTextField")
-//var EKPlaceholderTextViewClass: AnyClass!       = NSClassFromString("EKPlaceholderTextView")
+var UIAlertSheetTextFieldClass: AnyClass?       =   nil
+var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   nil
+
+var UITableViewCellScrollViewClass: AnyClass?   =   nil
+var UITableViewWrapperViewClass: AnyClass?      =   nil
+
+var UISearchBarTextFieldClass: AnyClass?        =   nil
+var EKPlaceholderTextViewClass: AnyClass?       =   nil
 
 class FakeClass :NSObject {
     
@@ -41,17 +41,16 @@ class FakeClass :NSObject {
         
         super.load()
         
-//        UIAlertSheetTextFieldClass          = NSClassFromString("UIAlertSheetTextField")
-//        UIAlertSheetTextFieldClass_iOS8     = NSClassFromString("_UIAlertControllerTextField")
-//        
-//        UITableViewCellScrollViewClass      = NSClassFromString("UITableViewCellScrollView")
-//        UITableViewWrapperViewClass         = NSClassFromString("UITableViewWrapperView")
-//        
-//        UISearchBarTextFieldClass           = NSClassFromString("UISearchBarTextField")
-//        EKPlaceholderTextViewClass          = NSClassFromString("EKPlaceholderTextView")
+        UIAlertSheetTextFieldClass          = NSClassFromString("UIAlertSheetTextField")
+        UIAlertSheetTextFieldClass_iOS8     = NSClassFromString("_UIAlertControllerTextField")
+        
+        UITableViewCellScrollViewClass      = NSClassFromString("UITableViewCellScrollView")
+        UITableViewWrapperViewClass         = NSClassFromString("UITableViewWrapperView")
+        
+        UISearchBarTextFieldClass           = NSClassFromString("UISearchBarTextField")
+        EKPlaceholderTextViewClass          = NSClassFromString("EKPlaceholderTextView")
     }
 }
-
 
 extension UIView {
     
@@ -73,30 +72,9 @@ extension UIView {
         return nil
     }
 
-    /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
-    func superScrollView()->UIScrollView? {
-        
-        var superview: UIView! = self.superview!
-        
-        while (superview != nil)
-        {
-            //UITableViewWrapperView
-            if (superview is UIScrollView /* && (superview .isKindOfClass(UITableViewCellScrollViewClass) == false) && (superview .isKindOfClass(UITableViewWrapperViewClass) == false) */)
-            {
-                return superview as? UIScrollView
-            }
-            else
-            {
-                superview = superview.superview
-            }
-        }
-        
-        return nil
-    }
-
     /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
-    
+        
         var superview: UIView! = self.superview!
         
         while (superview != nil)
@@ -114,6 +92,27 @@ extension UIView {
         return nil
     }
     
+    /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
+    func superScrollView()->UIScrollView? {
+        
+        var superview: UIView! = self.superview!
+        
+        while (superview != nil)
+        {
+            //UITableViewWrapperView
+            if (superview is UIScrollView && (superview .isKindOfClass(UITableViewCellScrollViewClass!) == false) && (superview .isKindOfClass(UITableViewWrapperViewClass!) == false))
+            {
+                return superview as? UIScrollView
+            }
+            else
+            {
+                superview = superview.superview
+            }
+        }
+        
+        return nil
+    }
+
     /*! @return returns all siblings of the receiver which canBecomeFirstResponder. */
     func responderSiblings()->NSArray {
         
@@ -138,13 +137,18 @@ extension UIView {
     func deepResponderViews()->NSArray {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
-        var subViews: NSArray? = self.subviews.sorted { (let view1: AnyObject, let view2: AnyObject) -> Bool in
         
+        var subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
+            
             if (CGFloat(view1.y) < CGFloat(view2.y)) {
-                return true
-            } else {
-                return false
+                return NSComparisonResult.OrderedAscending;
             }
+            else if (CGFloat(view1.y) > CGFloat(view2.y)) {
+                return NSComparisonResult.OrderedDescending;
+            }
+            else {
+                return NSComparisonResult.OrderedSame
+            };
         }
         
         //Array of (UITextField/UITextView's).
@@ -168,21 +172,47 @@ extension UIView {
     
     /*! @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
     func isSearchBarTextField()-> Bool {
-        return false
-//        return (self.isKindOfClass(UISearchBarTextFieldClass) || self.isKindOfClass(UISearchBar));
+        return (self.isKindOfClass(UISearchBarTextFieldClass!) || self.isKindOfClass(UISearchBar));
     }
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
-        return false
-//        return (self.isKindOfClass(UIAlertSheetTextFieldClass) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8));
+        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!));
     }
     
-//    /*! @return returns current view transform with respect to the 'toView'.    */
-//    func convertTransformToView(toView:UIView)->CGAffineTransform {
-//        
-//    }
-//    
+    /*! @return returns current view transform with respect to the 'toView'.    */
+    func convertTransformToView(var toView:UIView?)->CGAffineTransform {
+        
+        if (toView == nil)
+        {
+            toView = self.window;
+        }
+        
+        //My Transform
+        var myTransform = CGAffineTransformIdentity;
+        
+        if (self.superview != nil) {
+            myTransform = CGAffineTransformConcat(self.transform, self.superview!.convertTransformToView(nil));
+        }
+        else {
+            myTransform = self.transform;
+        }
+    
+
+        //view Transform
+        var viewTransform = CGAffineTransformIdentity;
+        
+        if (toView != nil && toView?.superview != nil) {
+            viewTransform = CGAffineTransformConcat(toView!.transform, toView!.superview!.convertTransformToView(nil));
+        }
+        else if (toView != nil) {
+            viewTransform = toView!.transform;
+        }
+        
+        //Concating MyTransform and ViewTransform
+        return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform));
+    }
+
 //    /*! @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.   */
 //    func subHierarchy()->NSString {
 //        
