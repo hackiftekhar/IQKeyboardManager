@@ -33,6 +33,7 @@
     
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
+    returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarByPosition;
 }
 
 -(void)viewWillAppear:(BOOL)animated
