@@ -121,7 +121,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     }
 }
 
--(void)updateReturnKeyTypeOnTextField:(UITextField*)textField
+-(void)updateReturnKeyTypeOnTextField:(UIView*)textField
 {
     UITableView *tableView = [textField superTableView];
     
@@ -138,13 +138,14 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
             //If needs to sort it by Position
         case IQAutoToolbarByPosition:
             textFields = [textFields sortedArrayByPosition];
-            
+            break;
+
         default:
             break;
     }
     
     //If it's the last textField in responder view, else next
-    textField.returnKeyType = ([textFields lastObject] == textField)    ?   self.lastTextFieldReturnKeyType :   UIReturnKeyNext;
+    [(UITextField*)textField setReturnKeyType:(([textFields lastObject] == textField)    ?   self.lastTextFieldReturnKeyType :   UIReturnKeyNext)];
 }
 
 #pragma mark - Goto next or Resign.
@@ -166,6 +167,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
             //If needs to sort it by Position
         case IQAutoToolbarByPosition:
             textFields = [textFields sortedArrayByPosition];
+            break;
             
         default:
             break;
@@ -263,6 +265,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    [self updateReturnKeyTypeOnTextField:textView];
+
     if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)])
         [self.delegate textViewDidBeginEditing:textView];
 }
