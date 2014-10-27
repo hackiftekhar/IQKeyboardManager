@@ -542,7 +542,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         {
             //  Getting keyboard animation.
             var curve = info.objectForKey(UIKeyboardAnimationDurationUserInfoKey)?.unsignedLongValue
-            _animationCurve = UIViewAnimationOptions.fromRaw(curve!)!
+            _animationCurve = UIViewAnimationOptions(rawValue: curve!)
         }
         else
         {
