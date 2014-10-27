@@ -77,7 +77,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         {
             var textField : UITextField = view as UITextField
 
-            dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.toRaw();
+            dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.rawValue;
             
             if textField.delegate != nil {
                 dictInfo[kIQTextFieldDelegate] = textField.delegate
@@ -89,7 +89,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         {
             var textView : UITextView = view as UITextView
 
-            dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.toRaw();
+            dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.rawValue;
 
             if textView.delegate != nil {
                 dictInfo[kIQTextFieldDelegate] = textView.delegate
@@ -113,13 +113,15 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             if (view.isKindOfClass(UITextField) == true)
             {
                 var textField : UITextField = view as UITextField
-                textField.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!;
-                textField.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextFieldDelegate?;
+                let returnKeyTypeValue = unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber
+                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textField.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextFieldDelegate?
             }
             else if (view.isKindOfClass(UITextView) == true)
             {
                 var textView : UITextView = view as UITextView
-                textView.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!;
+                let returnKeyTypeValue = unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber
+                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
                 textView.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextViewDelegate?;
             }
             
@@ -260,13 +262,15 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             if (view.isKindOfClass(UITextField) == true)
             {
                 var textField : UITextField = view as UITextField
-                textField.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!;
+                let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as NSNumber
+                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
                 textField.delegate = infoDict[kIQTextFieldDelegate] as UITextFieldDelegate?;
             }
             else if (view.isKindOfClass(UITextView) == true)
             {
                 var textView : UITextView = view as UITextView
-                textView.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!;
+                let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as NSNumber
+                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
                 textView.delegate = infoDict[kIQTextFieldDelegate] as UITextViewDelegate?;
             }
         }

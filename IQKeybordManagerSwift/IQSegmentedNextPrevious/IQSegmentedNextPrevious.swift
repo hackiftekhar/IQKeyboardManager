@@ -44,7 +44,7 @@ class IQSegmentedNextPrevious: UISegmentedControl {
     
     init(target: AnyObject? ,previousAction: Selector? ,nextAction: Selector?)
     {
-        var bundle : NSBundle = NSBundle(path: NSBundle.mainBundle().pathForResource("IQKeyboardManager", ofType: "bundle")!)
+        var bundle : NSBundle = NSBundle(path: NSBundle.mainBundle().pathForResource("IQKeyboardManager", ofType: "bundle")!)!
         
         var next = bundle.localizedStringForKey("Next", value: "", table: "IQKeyboardManager")
         var previous = bundle.localizedStringForKey("Previous", value: "", table: "IQKeyboardManager")
@@ -68,23 +68,23 @@ class IQSegmentedNextPrevious: UISegmentedControl {
     //  Value has changed
     func segmentedControlHandler(sender: IQSegmentedNextPrevious) {
         
-        //  Switching to selected segmenteIndex.
-        switch sender.selectedSegmentIndex {
-
-            //  Previous selected.
-        case 0:
-            var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: previousSelector!, object: nil)
-            invocation.invocation.target = buttonTarget
-            invocation.invocation.selector = previousSelector!
-            invocation.invocation.invoke()
-
-            //  Next selected.
-        case 1:
-            var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: nextSelector!, object: nil)
-            invocation.invocation.target = buttonTarget
-            invocation.invocation.selector = nextSelector!
-            invocation.invocation.invoke()
-        default:    break;
-        }
+//        //  Switching to selected segmenteIndex.
+//        switch sender.selectedSegmentIndex {
+//
+//            //  Previous selected.
+//        case 0:
+//            var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: previousSelector!, object: nil)
+//            invocation.invocation.target = buttonTarget
+//            invocation.invocation.selector = previousSelector!
+//            invocation.invocation.invoke()
+//
+//            //  Next selected.
+//        case 1:
+//            var invocation : NSInvocationOperation = NSInvocationOperation(target: buttonTarget!, selector: nextSelector!, object: nil)
+//            invocation.invocation.target = buttonTarget
+//            invocation.invocation.selector = nextSelector!
+//            invocation.invocation.invoke()
+//        default:    break;
+//        }
     }
 }
