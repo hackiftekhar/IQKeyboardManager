@@ -141,14 +141,14 @@ extension UIView {
         var subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
             
             if (CGFloat(view1.y) < CGFloat(view2.y)) {
-                return NSComparisonResult.OrderedAscending;
+                return NSComparisonResult.OrderedAscending
             }
             else if (CGFloat(view1.y) > CGFloat(view2.y)) {
-                return NSComparisonResult.OrderedDescending;
+                return NSComparisonResult.OrderedDescending
             }
             else {
                 return NSComparisonResult.OrderedSame
-            };
+            }
         }
         
         //Array of (UITextField/UITextView's).
@@ -172,12 +172,12 @@ extension UIView {
     
     /*! @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
     func isSearchBarTextField()-> Bool {
-        return (self.isKindOfClass(UISearchBarTextFieldClass!) || self.isKindOfClass(UISearchBar));
+        return (self.isKindOfClass(UISearchBarTextFieldClass!) || self.isKindOfClass(UISearchBar))
     }
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
-        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!));
+        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!))
     }
     
     /*! @return returns current view transform with respect to the 'toView'.    */
@@ -185,32 +185,32 @@ extension UIView {
         
         if (toView == nil)
         {
-            toView = self.window;
+            toView = self.window
         }
         
         //My Transform
-        var myTransform = CGAffineTransformIdentity;
+        var myTransform = CGAffineTransformIdentity
         
         if (self.superview != nil) {
-            myTransform = CGAffineTransformConcat(self.transform, self.superview!.convertTransformToView(nil));
+            myTransform = CGAffineTransformConcat(self.transform, self.superview!.convertTransformToView(nil))
         }
         else {
-            myTransform = self.transform;
+            myTransform = self.transform
         }
     
 
         //view Transform
-        var viewTransform = CGAffineTransformIdentity;
+        var viewTransform = CGAffineTransformIdentity
         
         if (toView != nil && toView?.superview != nil) {
-            viewTransform = CGAffineTransformConcat(toView!.transform, toView!.superview!.convertTransformToView(nil));
+            viewTransform = CGAffineTransformConcat(toView!.transform, toView!.superview!.convertTransformToView(nil))
         }
         else if (toView != nil) {
-            viewTransform = toView!.transform;
+            viewTransform = toView!.transform
         }
         
         //Concating MyTransform and ViewTransform
-        return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform));
+        return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform))
     }
 
 //    /*! @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.   */

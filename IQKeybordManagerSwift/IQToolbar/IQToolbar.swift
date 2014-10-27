@@ -53,15 +53,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.FlexibleWidth
         
-        
-        if (IQ_IS_IOS7_OR_GREATER)
-        {
-            tintColor = UIColor .blackColor()
-        }
-        else
-        {
-            barStyle = UIBarStyle.BlackTranslucent
-        }
+        tintColor = UIColor .blackColor()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -70,15 +62,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         
-        
-        if (IQ_IS_IOS7_OR_GREATER)
-        {
-            tintColor = UIColor .blackColor()
-        }
-        else
-        {
-            barStyle = UIBarStyle.BlackTranslucent
-        }
+        tintColor = UIColor .blackColor()
     }
 
     override func sizeThatFits(size: CGSize) -> CGSize {
