@@ -11,9 +11,8 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 
 ## Video
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=6nhLw6hju2A
-" target="_blank"><img src="http://img.youtube.com/vi/6nhLw6hju2A/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://youtu.be/WAYc2Qj-OQg" target="_blank"><img src="http://img.youtube.com/vi/WAYc2Qj-OQg/0.jpg" 
+alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
 ## Requirements
 
