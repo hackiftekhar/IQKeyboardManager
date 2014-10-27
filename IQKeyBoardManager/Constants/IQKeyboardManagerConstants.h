@@ -37,12 +37,16 @@
  
     @const IQAutoToolbarByPosition Creates Toolbar according to the y,x position of textField in it's superview coordinate.
  */
+
+#ifndef NS_ENUM
+    #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
+
 typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
 };
-
 
 #define IQLocalizedString(key, comment) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"IQKeyboardManager" ofType:@"bundle"]] localizedStringForKey:(key) value:@"" table:@"IQKeyboardManager"]
 
