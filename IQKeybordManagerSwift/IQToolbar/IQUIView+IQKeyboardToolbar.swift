@@ -82,22 +82,11 @@ extension UIView {
         {
             var buttonFrame : CGRect
             
-            if (IQ_IS_IOS7_OR_GREATER)
-            {
-                /*
-                50 done button frame.
-                24 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
-            }
-            else
-            {
-                /*
-                57 done button frame.
-                8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44)
-            }
+            /*
+            50 done button frame.
+            24 distance maintenance
+            */
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
             
             var title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
             items.addObject(title)
@@ -171,22 +160,11 @@ extension UIView {
         {
             var buttonFrame : CGRect
             
-            if (IQ_IS_IOS7_OR_GREATER)
-            {
-                /*
-                50 done button frame.
-                24 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-12.0, 44)
-            }
-            else
-            {
-                /*
-                57 done button frame.
-                8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44)
-            }
+            /*
+            50 done button frame.
+            24 distance maintenance
+            */
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-12.0, 44)
             
             var title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
             items.addObject(title)
@@ -282,24 +260,12 @@ extension UIView {
         {
             var buttonFrame : CGRect
             
-            if (IQ_IS_IOS7_OR_GREATER)
-            {
-                /*
-                66 Cancel button maximum x.
-                50 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44);
-            }
-            else
-            {
-                /*
-                66 Cancel button maximum x.
-                57 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-57.0-16, 44);
-            }
+            /*
+            66 Cancel button maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
             
             var title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
             items.addObject(title)
@@ -377,24 +343,12 @@ extension UIView {
         {
             var buttonFrame : CGRect
             
-            if (IQ_IS_IOS7_OR_GREATER)
-            {
-                /*
-                66 Cancel button maximum x.
-                50 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44);
-            }
-            else
-            {
-                /*
-                66 Cancel button maximum x.
-                57 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-57.0-16, 44);
-            }
+            /*
+            66 Cancel button maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
             
             var title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
             items.addObject(title)
@@ -485,49 +439,27 @@ extension UIView {
         
         var doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: doneAction)
         
-        if (IQ_IS_IOS7_OR_GREATER)
-        {
-            var prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-            
-            var fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
-            fixed.width = 23
-            
-            var next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
-            
-            items.addObject(prev)
-            items.addObject(fixed)
-            items.addObject(next)
-        }
-        else
-        {
-            var segControl = IQSegmentedNextPrevious(target: target, previousAction: previousAction, nextAction: nextAction)
-            var segButton = IQBarButtonItem(customView: segControl)
-
-            items.addObject(segButton)
-        }
+        var prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+        
+        var fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        fixed.width = 23
+        
+        var next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+        
+        items.addObject(prev)
+        items.addObject(fixed)
+        items.addObject(next)
         
         if ( titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false )
         {
             var buttonFrame : CGRect
             
-            if (IQ_IS_IOS7_OR_GREATER)
-            {
-                /*
-                72.5 next/previous maximum x.
-                50 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
-            }
-            else
-            {
-                /*
-                135 next/previous maximum x.
-                57 done button frame.
-                8+8 distance maintenance
-                */
-                buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-57.0-16, 44)
-            }
+            /*
+            72.5 next/previous maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
             
             var title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
             items.addObject(title)
@@ -599,7 +531,7 @@ extension UIView {
         //  If it is IQToolbar and it's items are greater than zero.
         if (inputAccessoryView?.isKindOfClass(IQToolbar) == true && inputAccessoryView?.items?.count>0)
         {
-            if (IQ_IS_IOS7_OR_GREATER && inputAccessoryView?.items?.count>3)
+            if (inputAccessoryView?.items?.count>3)
             {
                 //  Getting first item from inputAccessoryView.
                 var items : NSArray? = inputAccessoryView?.items
@@ -616,34 +548,6 @@ extension UIView {
                     
                     if (nextButton?.enabled != isNextEnabled) {
                         nextButton?.enabled = isNextEnabled
-                    }
-                }
-            }
-            else
-            {
-                //  Getting first item from inputAccessoryView.
-                var barButtonItem : IQBarButtonItem? = inputAccessoryView?.items![0] as? IQBarButtonItem
-                
-                //  If it is IQBarButtonItem and it's customView is not nil.
-                if (barButtonItem != nil && barButtonItem?.customView != nil)
-                {
-                    //  Getting it's customView.
-                    var segmentedControl : IQSegmentedNextPrevious? = barButtonItem?.customView as? IQSegmentedNextPrevious
-
-                    //  If its customView is IQSegmentedNextPrevious and has 2 segments
-                    if (segmentedControl?.numberOfSegments == 2)
-                    {
-                        if (segmentedControl?.isEnabledForSegmentAtIndex(0) != isPreviousEnabled)
-                        {
-                            //  Setting it's first segment enable/disable.
-                            segmentedControl?.setEnabled(isPreviousEnabled, forSegmentAtIndex: 0)
-                        }
-                        
-                        if (segmentedControl?.isEnabledForSegmentAtIndex(1) != isNextEnabled)
-                        {
-                            //  Setting it's second segment enable/disable.
-                            segmentedControl?.setEnabled(isNextEnabled, forSegmentAtIndex: 1)
-                        }
                     }
                 }
             }
