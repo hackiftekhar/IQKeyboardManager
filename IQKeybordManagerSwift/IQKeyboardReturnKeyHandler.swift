@@ -77,7 +77,13 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         {
             var textField : UITextField = view as UITextField
 
-            dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.toRaw()
+            /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+            http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+            #if IQ_IS_XCODE_6_1_OR_GREATER
+                dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.rawValue;
+                #else
+                dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.toRaw()
+            #endif
             
             if textField.delegate != nil {
                 dictInfo[kIQTextFieldDelegate] = textField.delegate
@@ -89,7 +95,13 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         {
             var textView : UITextView = view as UITextView
 
-            dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.toRaw()
+            /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+            http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+            #if IQ_IS_XCODE_6_1_OR_GREATER
+                dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.rawValue;
+                #else
+                dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.toRaw()
+            #endif
 
             if textView.delegate != nil {
                 dictInfo[kIQTextFieldDelegate] = textView.delegate
@@ -113,13 +125,31 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             if (view.isKindOfClass(UITextField) == true)
             {
                 var textField : UITextField = view as UITextField
-                textField.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                
+                /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+                http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+                #if IQ_IS_XCODE_6_1_OR_GREATER
+                    let returnKeyTypeValue = unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber
+                    textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                    #else
+                    textField.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                #endif
+                
                 textField.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextFieldDelegate?
             }
             else if (view.isKindOfClass(UITextView) == true)
             {
                 var textView : UITextView = view as UITextView
-                textView.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                
+                /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+                http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+                #if IQ_IS_XCODE_6_1_OR_GREATER
+                    let returnKeyTypeValue = unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber
+                    textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                    #else
+                    textView.returnKeyType = UIReturnKeyType.fromRaw((unwrappedDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                #endif
+
                 textView.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextViewDelegate?
             }
             
@@ -250,13 +280,31 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             if (view.isKindOfClass(UITextField) == true)
             {
                 var textField : UITextField = view as UITextField
-                textField.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                
+                /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+                http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+                #if IQ_IS_XCODE_6_1_OR_GREATER
+                    let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as NSNumber
+                    textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                    #else
+                    textField.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                #endif
+                
                 textField.delegate = infoDict[kIQTextFieldDelegate] as UITextFieldDelegate?
             }
             else if (view.isKindOfClass(UITextView) == true)
             {
                 var textView : UITextView = view as UITextView
-                textView.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                
+                /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+                http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
+                #if IQ_IS_XCODE_6_1_OR_GREATER
+                    let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as NSNumber
+                    textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                    #else
+                    textView.returnKeyType = UIReturnKeyType.fromRaw((infoDict[kIQTextFieldReturnKeyType] as NSNumber).integerValue)!
+                #endif
+
                 textView.delegate = infoDict[kIQTextFieldDelegate] as UITextViewDelegate?
             }
         }
