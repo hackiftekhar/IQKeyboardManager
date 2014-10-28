@@ -24,6 +24,7 @@
 #import "IQUIView+Hierarchy.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
+#import <UIKit/UICollectionView.h>
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITextField.h>
@@ -83,6 +84,22 @@ Class UISearchBarTextFieldClass;
         if ([superview isKindOfClass:[UITableView class]])
         {
             return (UITableView*)superview;
+        }
+        else    superview = superview.superview;
+    }
+    
+    return nil;
+}
+
+-(UICollectionView *)superCollectionView
+{
+    UIView *superview = self.superview;
+    
+    while (superview)
+    {
+        if ([superview isKindOfClass:[UICollectionView class]])
+        {
+            return (UICollectionView*)superview;
         }
         else    superview = superview.superview;
     }

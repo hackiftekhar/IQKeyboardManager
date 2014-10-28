@@ -23,7 +23,7 @@
 
 #import <UIKit/UIView.h>
 
-@class UIScrollView, UITableView, NSArray;
+@class UICollectionView, UITableView, NSArray;
 
 /*!
     @category UIView (IQ_UIView_Hierarchy)
@@ -52,6 +52,13 @@
     @return Returns the UITableView object if any found in view's upper hierarchy.
  */
 @property (nonatomic, readonly, strong) UITableView *superTableView;
+
+/*!
+    @method superCollectionView:
+ 
+    @return Returns the UICollectionView object if any found in view's upper hierarchy.
+ */
+@property (nonatomic, readonly, strong) UICollectionView *superCollectionView;
 
 /*!
     @method responderSiblings:
