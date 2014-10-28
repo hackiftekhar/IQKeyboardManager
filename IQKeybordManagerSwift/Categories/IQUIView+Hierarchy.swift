@@ -91,7 +91,27 @@ extension UIView {
         
         return nil
     }
-    
+
+    /*! @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
+    func superCollectionView()->UICollectionView? {
+        
+        var superview: UIView! = self.superview!
+        
+        while (superview != nil)
+        {
+            if (superview is UICollectionView)
+            {
+                return superview as? UICollectionView
+            }
+            else
+            {
+                superview = superview.superview
+            }
+        }
+        
+        return nil
+    }
+
     /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
     func superScrollView()->UIScrollView? {
         

@@ -123,8 +123,9 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
 {
-    UITableView *tableView = [textField superTableView];
-    
+    UIView *tableView = [textField superTableView];
+    if (tableView == nil)   tableView = [textField superCollectionView];
+
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds, Otherwise fetching all the siblings.
     NSArray *textFields = (tableView)   ?   [tableView deepResponderViews]  :   [textField responderSiblings];
     
@@ -152,7 +153,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)goToNextResponderOrResign:(UIView*)textField
 {
-    UITableView *tableView = [textField superTableView];
+    UIView *tableView = [textField superTableView];
+    if (tableView == nil)   tableView = [textField superCollectionView];
     
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds, Otherwise fetching all the siblings.
     NSArray *textFields = (tableView)   ?   [tableView deepResponderViews]  :   [textField responderSiblings];

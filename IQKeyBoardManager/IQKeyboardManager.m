@@ -945,7 +945,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*!	Get all UITextField/UITextView siblings of textFieldView. */
 -(NSArray*)responderViews
 {
-    UITableView *tableView = [_textFieldView superTableView];
+    UIView *tableView = [_textFieldView superTableView];
+    if (tableView == nil)   tableView = [_textFieldView superCollectionView];
     
     NSArray *textFields;
     

@@ -835,7 +835,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     func responderViews()-> NSArray {
         
-        var tableView  : UITableView? = _textFieldView.superTableView()
+        var tableView : UIView? = _textFieldView.superTableView()
+        if(tableView == nil) {
+            tableView = tableView?.superCollectionView()
+        }
         
         var textFields : NSArray!
         
