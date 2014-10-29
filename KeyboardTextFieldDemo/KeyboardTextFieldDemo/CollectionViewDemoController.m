@@ -27,7 +27,12 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [collectionView dequeueReusableCellWithReuseIdentifier:@"TextFieldCollectionViewCell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TextFieldCollectionViewCell" forIndexPath:indexPath];
+    
+    UITextField *textField = (UITextField*)[cell viewWithTag:10];
+    textField.placeholder = [NSString stringWithFormat:@"%ld, %ld", (long)indexPath.section, (long)indexPath.row];
+    
+    return cell;
 }
 
 @end

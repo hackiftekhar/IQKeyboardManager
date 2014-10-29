@@ -42,6 +42,13 @@
     return NO;
 }
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return (toInterfaceOrientation == UIInterfaceOrientationPortrait);

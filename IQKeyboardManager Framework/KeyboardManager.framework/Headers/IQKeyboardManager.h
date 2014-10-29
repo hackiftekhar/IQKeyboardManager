@@ -1,5 +1,5 @@
 //
-// KeyboardManager.h
+// IQKeyboardManager.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,10 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/NSObject.h>
-#import <CoreGraphics/CGBase.h>
-#import <UIKit/UITextInputTraits.h>
 #import "IQKeyboardManagerConstants.h"
+
+#import <CoreGraphics/CGBase.h>
+
+#import <Foundation/NSObject.h>
+#import <Foundation/NSObjCRuntime.h>
+
+#import <UIKit/UITextInputTraits.h>
+
 
 @class UIFont;
 
@@ -46,6 +51,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @interface IQKeyboardManager : NSObject
 
 
+/*******************************************/
 
 
 //UIKeyboard handling
@@ -71,7 +77,15 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
+/*!
+    @property preventShowingBottomBlankSpace
+ 
+    @abstract Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
+ */
+@property(nonatomic, assign) BOOL preventShowingBottomBlankSpace;
 
+
+/*******************************************/
 
 
 //IQToolbar handling
@@ -112,6 +126,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, strong) UIFont *placeholderFont;
 
 
+/*******************************************/
 
 
 //TextView handling
@@ -124,6 +139,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
 
+/*******************************************/
 
 
 //Keyboard appearance overriding
@@ -143,6 +159,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
 
+/*******************************************/
 
 
 //Resign handling
@@ -162,6 +179,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 - (void)resignFirstResponder;
 
 
+/*******************************************/
 
 
 //Sound handling
@@ -174,6 +192,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) BOOL shouldPlayInputClicks;
 
 
+/*******************************************/
 
 
 //Animation handling
@@ -188,6 +207,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
 
 
+/*******************************************/
 
 
 //@final. Must not be used for subclassing.
@@ -197,7 +217,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  
     @abstract Should create only one instance of class. Should not call init.
  */
-- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager")));
+- (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager"))) NS_DESIGNATED_INITIALIZER;
 
 /*!
     @method new
@@ -205,6 +225,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
     @abstract Should create only one instance of class. Should not call new.
  */
 + (instancetype)new	__attribute__((unavailable("new is not available in IQKeyboardManager, Use sharedManager")));
+
+
+/*******************************************/
+
 
 @end
 
