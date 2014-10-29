@@ -18,6 +18,7 @@
 		9D9A0FC318C9DB5700585D3F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C02790331A01404000FCB517 /* CollectionViewDemoController.m */; };
 		C06579BD19D6024800DAA3EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BC19D6024800DAA3EA /* SettingsViewController.m */; };
 		C06579C019D6028100DAA3EA /* ExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */; };
 		C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579C319D60ACB00DAA3EA /* SwitchTableViewCell.m */; };
@@ -149,6 +150,8 @@
 		9DFD56AB18BCB281001007A2 /* IQKeyboard-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboard-Info.plist"; sourceTree = "<group>"; };
 		C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = "<group>"; };
 		C00EAA6B1858D5A500968DE2 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		C02790321A01404000FCB517 /* CollectionViewDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewDemoController.h; sourceTree = "<group>"; };
+		C02790331A01404000FCB517 /* CollectionViewDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDemoController.m; sourceTree = "<group>"; };
 		C06579BB19D6024800DAA3EA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		C06579BC19D6024800DAA3EA /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C06579BE19D6028100DAA3EA /* ExampleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleTableViewController.h; sourceTree = "<group>"; };
@@ -580,6 +583,8 @@
 				C08A654C19DB18C700D255E2 /* ManualToolbarViewController.m */,
 				C0F1193819EEDCD500708D17 /* BottomBlankSpaceViewController.h */,
 				C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */,
+				C02790321A01404000FCB517 /* CollectionViewDemoController.h */,
+				C02790331A01404000FCB517 /* CollectionViewDemoController.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -988,6 +993,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C06579CE19D61BF000DAA3EA /* OptionTableViewCell.m in Sources */,
+				C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */,
 				C08549D019FAA91E00973573 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				C08549CA19FAA91E00973573 /* IQTitleBarButtonItem.m in Sources */,
 				C08549BE19FAA91E00973573 /* IQKeyboardReturnKeyHandler.m in Sources */,
