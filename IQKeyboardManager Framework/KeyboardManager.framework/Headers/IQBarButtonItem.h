@@ -1,5 +1,5 @@
 //
-//  IQTextView.h
+//  IQBarButtonItem.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -21,29 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UITextView.h>
-#import "IQKeyboardManagerConstants.h"
+
+#import <UIKit/UIBarButtonItem.h>
 
 /*!
-    @author Iftekhar Qurashi
+    @class IQBarButtonItem
  
-    @related hack.iftekhar@gmail.com
- 
-    @class IQTextView
- 
-    @abstract UITextView with placeholder support
+	@abstract IQBarButtonItem used for IQToolbar.
  */
-@interface IQTextView : UITextView
+@interface IQBarButtonItem : UIBarButtonItem
 
-/*!
-    @property placeholder
- 
-    @abstract To set textView's placeholder text. Default is ni.
- */
-@property(nonatomic,copy)   NSString    *placeholder;
 
 @end
-
-
-
-

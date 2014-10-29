@@ -23,8 +23,13 @@
 
 #import <UIKit/UIView.h>
 
-@class UIScrollView, UITableView, NSArray;
+@class UICollectionView, UIScrollView, UITableView, NSArray;
 
+/*!
+    @category UIView (IQ_UIView_Hierarchy)
+ 
+	@abstract UIView hierarchy category.
+ */
 @interface UIView (IQ_UIView_Hierarchy)
 
 /*!
@@ -47,6 +52,13 @@
     @return Returns the UITableView object if any found in view's upper hierarchy.
  */
 @property (nonatomic, readonly, strong) UITableView *superTableView;
+
+/*!
+    @method superCollectionView:
+ 
+    @return Returns the UICollectionView object if any found in view's upper hierarchy.
+ */
+@property (nonatomic, readonly, strong) UICollectionView *superCollectionView;
 
 /*!
     @method responderSiblings:
@@ -97,9 +109,15 @@
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
+
 @end
 
 
+/*!
+    @category UIView (IQ_UIView_Frame)
+ 
+	@abstract UIView frame category.
+ */
 @interface UIView (IQ_UIView_Frame)
 
 @property (nonatomic, assign) CGPoint origin;

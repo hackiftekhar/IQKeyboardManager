@@ -1,5 +1,5 @@
 //
-//  IQBarButtonItem.h
+//  KeyboardManager.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-14 Iftekhar Qurashi.
 //
@@ -22,8 +22,20 @@
 // THE SOFTWARE.
 
 
-#import <UIKit/UIKit.h>
+//! Project version number for KeyboardManager.
+FOUNDATION_EXPORT double KeyboardManagerVersionNumber;
 
-@interface IQBarButtonItem : UIBarButtonItem
+//! Project version string for KeyboardManager.
+FOUNDATION_EXPORT const unsigned char KeyboardManagerVersionString[];
 
-@end
+#import "IQBarButtonItem.h"
+#import "IQKeyboardManager.h"
+#import "IQKeyboardManagerConstants.h"
+#import "IQKeyboardReturnKeyHandler.h"
+#import "IQSegmentedNextPrevious.h"
+#import "IQTextView.h"
+#import "IQTitleBarButtonItem.h"
+#import "IQToolbar.h"
+#import "IQUIView+Hierarchy.h"
+#import "IQUIView+IQKeyboardToolbar.h"
+#import "IQUIWindow+Hierarchy.h"
