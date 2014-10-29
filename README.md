@@ -30,14 +30,14 @@ Minimum Xcode Version: Xcode 6.0
 Installation
 ==========================
 
-#### Cocoapod:-
+#### Cocoapod Method:-
 
 IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
     pod 'IQKeyboardManager'
 
-#### Framework:-
+#### Framework Method:-
 
 **Step1:-** Link project against `KeyboardManager.framework` found in "IQKeyboardManager Framework" directory.
 
@@ -54,7 +54,7 @@ If you need to port your project to another location you may need to adjust `Fra
 [Adding Linker Flag](http://docs.millennialmedia.com/iOS-SDK/iOSAddingLinkerFlag.html)
 
 
-#### Source Code:-
+#### Source Code Method:-
 
 Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
 
