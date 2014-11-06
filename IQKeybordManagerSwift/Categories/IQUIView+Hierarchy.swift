@@ -197,7 +197,7 @@ extension UIView {
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
-        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!))
+        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || (UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!)))
     }
     
     /*! @return returns current view transform with respect to the 'toView'.    */

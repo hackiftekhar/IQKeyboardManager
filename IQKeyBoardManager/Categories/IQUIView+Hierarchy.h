@@ -22,8 +22,9 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIView.h>
+#import "IQKeyboardManagerConstants.h"
 
-@class UICollectionView, UITableView, NSArray;
+@class UICollectionView, UIScrollView, UITableView, NSArray;
 
 /*!
     @category UIView (IQ_UIView_Hierarchy)
@@ -58,7 +59,7 @@
  
     @return Returns the UICollectionView object if any found in view's upper hierarchy.
  */
-@property (nonatomic, readonly, strong) UICollectionView *superCollectionView;
+@property (nonatomic, readonly, strong) UICollectionView *superCollectionView   NS_AVAILABLE_IOS(6_0);
 
 /*!
     @method responderSiblings:

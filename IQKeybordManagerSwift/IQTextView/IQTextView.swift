@@ -76,24 +76,19 @@ class IQTextView : UITextView {
     
     override var text: String! {
         
-        get {
-            return super.text
-        }
-        
-        set {
+        didSet {
+            
             refreshPlaceholder()
+
         }
     }
     
     override var font : UIFont? {
-        get {
-            return super.font
-        }
-        
-        set {
+       
+        didSet {
             
-            if newValue != nil {
-                placeholderLabel?.font = newValue!
+            if self.font != nil {
+                placeholderLabel?.font = self.font!
             }
             else {
                 placeholderLabel?.font = UIFont.systemFontOfSize(12)
