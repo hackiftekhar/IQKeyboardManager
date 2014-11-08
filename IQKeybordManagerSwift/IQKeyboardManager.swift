@@ -542,12 +542,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  Getting keyboard animation.
             var curve = info.objectForKey(UIKeyboardAnimationDurationUserInfoKey)?.unsignedLongValue
             
-            /* If you are running below Xcode6.1 then please remove IQ_IS_XCODE_6_1_OR_GREATER flag from 'other swift flag' to fix compiler errors.
+            /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
             http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
-            #if IQ_IS_XCODE_6_1_OR_GREATER
-            _animationCurve = UIViewAnimationOptions(rawValue: curve!)
+            #if IQ_IS_XCODE_BELOW_6_1
+                _animationCurve = UIViewAnimationOptions.fromRaw(curve!)!
             #else
-            _animationCurve = UIViewAnimationOptions.fromRaw(curve!)!
+                _animationCurve = UIViewAnimationOptions(rawValue: curve!)
             #endif
         }
         else
