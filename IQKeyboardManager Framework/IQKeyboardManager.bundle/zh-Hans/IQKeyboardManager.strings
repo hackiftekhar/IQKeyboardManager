@@ -1,0 +1,13 @@
+
+"enabled"             =   "开启";
+
+"disabled"            =   "关闭";
+
+"already disabled"    =   "已经开启";
+
+"already enabled"     =   "已经关闭";
+
+"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager"  =   "为了使用IQKeyboardManager，必须在你的 AppDelegate 中设置 UIWindow.rootViewController。";
+
+"Previous"                              =   "前一个";
+"Next"                                  =   "下一个";
