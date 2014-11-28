@@ -244,8 +244,8 @@ Generally if developer need to perform some custom task on a particular textFiel
 @end
 ```
 
-## Control Flow Chart
-[![IQKeyboardManager CFD](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)](http://youtu.be/6nhLw6hju2A)
+## Control Flow Diagram
+[![IQKeyboardManager CFD](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)
 
 
 Properties and functions usage:-
