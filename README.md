@@ -244,6 +244,10 @@ Generally if developer need to perform some custom task on a particular textFiel
 @end
 ```
 
+## Control Flow Chart
+[![IQKeyboardManager CFD](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)](http://youtu.be/6nhLw6hju2A)
+
+
 Properties and functions usage:-
 ---
 1)	`+sharedManager`
