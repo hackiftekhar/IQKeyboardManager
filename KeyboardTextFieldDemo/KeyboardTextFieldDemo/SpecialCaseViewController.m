@@ -3,6 +3,7 @@
 //  KeyboardTextFieldDemo
 
 #import "SpecialCaseViewController.h"
+#import "IQUIView+Hierarchy.h"
 
 @interface SpecialCaseViewController ()<UISearchBarDelegate,UITextFieldDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 
@@ -10,8 +11,6 @@
 
 @implementation SpecialCaseViewController
 {
-    UITapGestureRecognizer *textFieldTapRecognizer;
-    
     IBOutlet UITextField *customWorkTextField;
     
     IBOutlet UITextField *textField6;
@@ -30,11 +29,6 @@
 {
     [super viewDidLoad];
     
-    textFieldTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldTapGestureAction:)];
-    textFieldTapRecognizer.delegate = self;
-    [customWorkTextField addGestureRecognizer:textFieldTapRecognizer];
-    
-    
     textField6.userInteractionEnabled = switchInteraction1.on;
     textField7.userInteractionEnabled = switchInteraction2.on;
     textField8.userInteractionEnabled = switchInteraction3.on;
@@ -44,18 +38,6 @@
     textField8.enabled = switchEnabled3.on;
     
     [self updateUI];
-}
-
--(void)textFieldTapGestureAction:(UITapGestureRecognizer*)tapRecognized
-{
-    //Do your work on tapping textField.
-    [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    //Return YES if it's textFieldTapRecognizer else return NO.
-    return (gestureRecognizer == textFieldTapRecognizer);
 }
 
 - (IBAction)showAlertClicked:(UIButton *)sender
@@ -126,8 +108,17 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (textField == customWorkTextField)   return NO;
-    else                                    return YES;
+    if (textField == customWorkTextField)
+    {
+        if (textField.isAskingCanBecomeFirstResponder == NO)
+        {
+            //Do your work on tapping textField.
+            [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        }
+
+        return NO;
+    }
+    else    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

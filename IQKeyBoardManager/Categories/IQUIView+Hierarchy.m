@@ -31,6 +31,8 @@
 #import <UIKit/UISearchBar.h>
 #import <UIKit/UIViewController.h>
 
+#import <objc/runtime.h>
+
 
 IQ_LoadCategory(IQUIViewHierarchy)
 
@@ -57,6 +59,17 @@ Class UISearchBarTextFieldClass;
     UITableViewWrapperViewClass         = NSClassFromString(@"UITableViewWrapperView");
 
     UISearchBarTextFieldClass           = NSClassFromString(@"UISearchBarTextField");
+}
+
+-(void)_setIsAskingCanBecomeFirstResponder:(BOOL)isAskingCanBecomeFirstResponder
+{
+    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), @(isAskingCanBecomeFirstResponder), OBJC_ASSOCIATION_ASSIGN);
+}
+
+-(BOOL)isAskingCanBecomeFirstResponder
+{
+    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder));
+    return [shouldHideTitle boolValue];
 }
 
 -(UIViewController*)viewController
@@ -124,6 +137,15 @@ Class UISearchBarTextFieldClass;
     return nil;
 }
 
+-(BOOL)_IQcanBecomeFirstResponder
+{
+    [self _setIsAskingCanBecomeFirstResponder:YES];
+    BOOL _IQcanBecomeFirstResponder = ([self canBecomeFirstResponder] && [self isUserInteractionEnabled] && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
+    [self _setIsAskingCanBecomeFirstResponder:NO];
+    
+    return _IQcanBecomeFirstResponder;
+}
+
 - (NSArray*)responderSiblings
 {
     //	Getting all siblings
@@ -133,7 +155,7 @@ Class UISearchBarTextFieldClass;
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UITextField *textField in siblings)
-        if ([textField canBecomeFirstResponder] && [textField isUserInteractionEnabled] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
+        if ([textField _IQcanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
@@ -156,7 +178,7 @@ Class UISearchBarTextFieldClass;
     
     for (UITextField *textField in subViews)
     {
-        if ([textField canBecomeFirstResponder] && [textField isUserInteractionEnabled] && ![textField isAlertViewTextField]  && ![textField isSearchBarTextField])
+        if ([textField _IQcanBecomeFirstResponder])
         {
             [textFields addObject:textField];
         }
