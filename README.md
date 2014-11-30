@@ -196,7 +196,12 @@ textField.inputAccessoryView = [[UIView alloc] init];
 
 Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside `textFieldShouldBeginEditing:` and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using `canBecomeFirstResponder` in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use `isAskingCanBecomeFirstResponder` BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
 
-1) check for `isAskingCanBecomeFirstResponder` in `textFieldShouldBeginEditing:` delegate.
+1) You may need to import `IQUIView+Hierarchy` category
+```
+#import "IQUIView+Hierarchy.h"
+```
+
+2) check for `isAskingCanBecomeFirstResponder` in `textFieldShouldBeginEditing:` delegate.
 
 ```
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
