@@ -34,79 +34,86 @@
 @interface UIView (IQ_UIView_Hierarchy)
 
 /*!
-    @method viewController:
+    @property isAskingCanBecomeFirstResponder
  
-    @return Returns the UIViewController object that manages the receiver.
+    @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
+ */
+@property (nonatomic, readonly) BOOL isAskingCanBecomeFirstResponder;
+
+/*!
+    @property viewController
+ 
+    @abstract Returns the UIViewController object that manages the receiver.
  */
 @property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /*!
-    @method superScrollView:
+    @property superScrollView
  
-    @return Returns the UIScrollView object if any found in view's upper hierarchy.
+    @abstract Returns the UIScrollView object if any found in view's upper hierarchy.
  */
 @property (nonatomic, readonly, strong) UIScrollView *superScrollView;
 
 /*!
-    @method superTableView:
+    @property superTableView
  
-    @return Returns the UITableView object if any found in view's upper hierarchy.
+    @abstract Returns the UITableView object if any found in view's upper hierarchy.
  */
 @property (nonatomic, readonly, strong) UITableView *superTableView;
 
 /*!
-    @method superCollectionView:
+    @property superCollectionView
  
-    @return Returns the UICollectionView object if any found in view's upper hierarchy.
+    @abstract Returns the UICollectionView object if any found in view's upper hierarchy.
  */
 @property (nonatomic, readonly, strong) UICollectionView *superCollectionView   NS_AVAILABLE_IOS(6_0);
 
 /*!
-    @method responderSiblings:
+    @property responderSiblings
  
-    @return returns all siblings of the receiver which canBecomeFirstResponder.
+    @abstract returns all siblings of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *responderSiblings;
 
 /*!
-    @method deepResponderViews:
+    @property deepResponderViews
  
-    @return returns all deep subViews of the receiver which canBecomeFirstResponder.
+    @abstract returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
 /*!
-    @method isInsideSearchBar:
+    @property isInsideSearchBar
  
-    @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+    @abstract returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isSearchBarTextField, readonly) BOOL searchBarTextField;
 
 /*!
-    @method isAlertViewTextField:
+    @property isAlertViewTextField
  
-    @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
+    @abstract returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isAlertViewTextField, readonly) BOOL alertViewTextField;
 
 /*!
-    @method convertTransformToView::
+    @method convertTransformToView
  
     @return returns current view transform with respect to the 'toView'.
  */
 -(CGAffineTransform)convertTransformToView:(UIView*)toView;
 
 /*!
-    @method subHierarchy:
+    @property subHierarchy
  
-    @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
+    @abstract Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *subHierarchy;
 
 /*!
-    @method superHierarchy:
+    @property superHierarchy
  
-    @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
+    @abstract Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
