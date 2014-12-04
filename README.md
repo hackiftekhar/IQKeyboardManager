@@ -194,54 +194,30 @@ textField.inputAccessoryView = [[UIView alloc] init];
 
 #### Doing custom work on textField with returning NO in `textFieldShouldBeginEditing:` delegate:-
 
-Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside `textFieldShouldBeginEditing:` and returning NO for that textField. But if you are using IQKeyboardManager then IQKeyboardManager also asks textField to recognize it can become first responder or not using `canBecomeFirstResponder`, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. So here is a workaround to overcome this situation using Gestures.([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
+Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside `textFieldShouldBeginEditing:` and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using `canBecomeFirstResponder` in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use `isAskingCanBecomeFirstResponder` BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
 
-1) Create a UITapGestureRecognizer object and add it to textField. set gesture recognizer delegate, and implement the geture recognizer action.
+1) You may need to import `IQUIView+Hierarchy` category
+```
+#import "IQUIView+Hierarchy.h"
 ```
 
-@interface ViewController () <UITextFieldDelegate,UIGestureRecognizerDelegate>
-
-@end
-
-@implementation ViewController
-{
-    UITapGestureRecognizer *textFieldTapRecognizer;
-    IBOutlet UITextField *targetTextField;
-}
-
--(void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    textFieldTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldTapAction:)];
-    textFieldTapRecognizer.delegate = self;
-    [targetTextField addGestureRecognizer:textFieldTapRecognizer];
-}
-
--(void)textFieldTapGestureAction:(UITapGestureRecognizer*)tapRecognized
-{
-    [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-}
-
-```
-
-2) Implement textField delegate and gesture recognizer delegate. It's must to implement gesture delegate and return YES if it's textFieldTapRecognizer gesture. Because textField have also added a number of gesture recognizer internally for various actions. They cancel recognizing our custom gesture recognizer.
+2) check for `isAskingCanBecomeFirstResponder` in `textFieldShouldBeginEditing:` delegate.
 
 ```
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (textField == textField6)    return NO;
-    else                            return YES;
-}
+    if (textField == customWorkTextField)
+    {
+        if (textField.isAskingCanBecomeFirstResponder == NO)
+        {
+            //Do your work on tapping textField.
+            [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    //Return YES if it's textFieldTapRecognizer else return NO.
-    if (gestureRecognizer == textFieldTapRecognizer)    return YES;
-    else                                                return NO;
+        return NO;
+    }
+    else    return YES;
 }
-
-@end
 ```
 
 ## Control Flow Diagram
