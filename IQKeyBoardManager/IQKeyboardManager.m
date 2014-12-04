@@ -94,6 +94,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     /*! To save rootViewController.view.frame. */
     CGRect                   _topViewBeginRect;
     
+    /*! To save rootViewController */
+    __weak  UIViewController *_rootViewController;
+    
     /*! used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
     __block BOOL             _isTextFieldViewFrameChanged;
     
@@ -630,8 +633,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        UIViewController *rootController = [[self keyWindow] topMostController];
-        _topViewBeginRect = rootController.view.frame;
+        _rootViewController = [[self keyWindow] topMostController];
+        _topViewBeginRect = _rootViewController.view.frame;
     }
 
     if (_shouldAdoptDefaultKeyboardAnimation)
@@ -739,9 +742,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
-    if (!CGRectEqualToRect(_topViewBeginRect, CGRectZero))
+    if (!CGRectEqualToRect(_topViewBeginRect, CGRectZero) && _rootViewController)
     {
-        [self setRootViewFrame:_topViewBeginRect];
+        //frame size needs to be adjusted on iOS8 due to orientation API changes.
+        if (IQ_IS_IOS8_OR_GREATER)
+        {
+            _topViewBeginRect.size = _rootViewController.view.size;
+        }
+        
+        //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            //  Setting it's new frame
+            [_rootViewController.view setFrame:_topViewBeginRect];
+        } completion:NULL];
+        _rootViewController = nil;
     }
 
     //Reset all values
@@ -803,8 +817,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (_isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        UIViewController *rootController = [[self keyWindow] topMostController];
-        _topViewBeginRect = rootController.view.frame;
+        _rootViewController = [[self keyWindow] topMostController];
+        _topViewBeginRect = _rootViewController.view.frame;
     }
     
     //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
