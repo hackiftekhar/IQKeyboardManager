@@ -467,17 +467,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     // Update the insets so that the scroll vew doesn't shift
                     // incorrectly when the offset is near the bottom of the scroll view.
                     UIEdgeInsets movedInsets = _startingContentInsets;
-                    CGFloat suggestedInset = MAX(shouldOffsetY - _startingContentOffset.y,0);
                     // TODO deal with orientation.
                     switch (interfaceOrientation)
                     {
                         case UIInterfaceOrientationLandscapeLeft:
                         case UIInterfaceOrientationLandscapeRight:
-                            movedInsets.bottom = MIN(suggestedInset, _kbSize.width - _keyboardDistanceFromTextField);
+                            movedInsets.bottom += _kbSize.width - _keyboardDistanceFromTextField;
                             break;
                         case UIInterfaceOrientationPortrait:
                         case UIInterfaceOrientationPortraitUpsideDown:
-                            movedInsets.bottom = MIN(suggestedInset, _kbSize.height - _keyboardDistanceFromTextField);
+                            movedInsets.bottom += _kbSize.height - _keyboardDistanceFromTextField;
                             break;
                         default:
                             break;
