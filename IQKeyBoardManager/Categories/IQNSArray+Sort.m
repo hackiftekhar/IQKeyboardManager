@@ -53,14 +53,14 @@ IQ_LoadCategory(IQNSArraySort)
 {
     return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
-        if (view1.y < view2.y)  return NSOrderedAscending;
+        if (view1.IQ_y < view2.IQ_y)  return NSOrderedAscending;
         
-        else if (view1.y > view2.y) return NSOrderedDescending;
+        else if (view1.IQ_y > view2.IQ_y) return NSOrderedDescending;
         
         //Else both y are same so checking for x positions
-        else if (view1.x < view2.x)  return NSOrderedAscending;
+        else if (view1.IQ_x < view2.IQ_x)  return NSOrderedAscending;
         
-        else if (view1.x > view2.x) return NSOrderedDescending;
+        else if (view1.IQ_x > view2.IQ_x) return NSOrderedDescending;
         
         else    return NSOrderedSame;
     }];

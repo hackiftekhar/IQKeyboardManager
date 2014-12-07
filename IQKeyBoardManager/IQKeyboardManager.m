@@ -35,6 +35,7 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableViewController.h>
 #import <UIKit/UITableView.h>
+#import <UIKit/UITouch.h>
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -337,7 +338,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //frame size needs to be adjusted on iOS8 due to orientation API changes.
     if (IQ_IS_IOS8_OR_GREATER)
     {
-        frame.size = controller.view.size;
+        frame.size = controller.view.IQ_size;
     }
 
     //  If can't get rootViewController then printing warning to user.
@@ -386,16 +387,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(keyWindow.width-_kbSize.width));
+            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(keyWindow.IQ_width-_kbSize.width));
             break;
         case UIInterfaceOrientationLandscapeRight:
-            move = MIN(keyWindow.width-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
+            move = MIN(keyWindow.IQ_width-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
             break;
         case UIInterfaceOrientationPortrait:
-            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(keyWindow.height-_kbSize.height));
+            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(keyWindow.IQ_height-_kbSize.height));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            move = MIN(keyWindow.height-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
+            move = MIN(keyWindow.IQ_height-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
             break;
         default:
             break;
@@ -472,24 +473,24 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Added _isTextFieldViewFrameChanged. (Bug ID: #92)
     if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _isTextFieldViewFrameChanged == NO)
     {
-        CGFloat textViewHeight = _textFieldView.height;
+        CGFloat textViewHeight = _textFieldView.IQ_height;
         
         switch (interfaceOrientation)
         {
             case UIInterfaceOrientationLandscapeLeft:
             case UIInterfaceOrientationLandscapeRight:
-                textViewHeight = MIN(textViewHeight, (keyWindow.width-_kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (keyWindow.IQ_width-_kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
                 break;
             case UIInterfaceOrientationPortrait:
             case UIInterfaceOrientationPortraitUpsideDown:
-                textViewHeight = MIN(textViewHeight, (keyWindow.height-_kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (keyWindow.IQ_height-_kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
                 break;
             default:
                 break;
         }
         
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            _textFieldView.height = textViewHeight;
+            _textFieldView.IQ_height = textViewHeight;
             _isTextFieldViewFrameChanged = YES;
         } completion:NULL];
     }
@@ -513,10 +514,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 {
                     case UIInterfaceOrientationLandscapeLeft:
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = keyWindow.width-rootViewRect.size.height-statusBarFrame.size.width-(_kbSize.width-_keyboardDistanceFromTextField);  break;
+                        minimumY = keyWindow.IQ_width-rootViewRect.size.height-statusBarFrame.size.width-(_kbSize.width-_keyboardDistanceFromTextField);  break;
                     case UIInterfaceOrientationPortrait:
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (keyWindow.height-rootViewRect.size.height-statusBarFrame.size.height)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
+                        minimumY = (keyWindow.IQ_height-rootViewRect.size.height-statusBarFrame.size.height)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
                 
@@ -729,9 +730,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIScrollView *superscrollView = _lastScrollView;
             while ((superscrollView = [superscrollView superScrollView]))
             {
-                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.width), MAX(superscrollView.contentSize.height, superscrollView.height));
+                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.IQ_width), MAX(superscrollView.contentSize.height, superscrollView.IQ_height));
                 
-                CGFloat minimumY = contentSize.height-superscrollView.height;
+                CGFloat minimumY = contentSize.height-superscrollView.IQ_height;
                 
                 if (minimumY<superscrollView.contentOffset.y)
                 {
@@ -747,7 +748,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //frame size needs to be adjusted on iOS8 due to orientation API changes.
         if (IQ_IS_IOS8_OR_GREATER)
         {
-            _topViewBeginRect.size = _rootViewController.view.size;
+            _topViewBeginRect.size = _rootViewController.view.IQ_size;
         }
         
         //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
@@ -908,6 +909,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return NO;
+}
+
+/*! To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return [[touch view] isKindOfClass:[UIControl class]] ? NO : YES;
 }
 
 /*! Resigning textField. */
