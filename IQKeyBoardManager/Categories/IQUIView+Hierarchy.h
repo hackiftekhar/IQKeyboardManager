@@ -117,6 +117,13 @@
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
+/*!
+    @property debugHierarchy
+ 
+    @abstract Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
+ */
+@property (nonatomic, readonly, copy) NSString *debugHierarchy;
+
 
 @end
 
@@ -128,12 +135,12 @@
  */
 @interface UIView (IQ_UIView_Frame)
 
-@property (nonatomic, assign) CGPoint origin;
-@property (nonatomic, assign) CGSize size;
-@property (nonatomic, assign) CGFloat x, y, width, height;
-@property (nonatomic, assign) CGFloat left, right, top, bottom;
-@property (nonatomic, assign) CGFloat centerX;
-@property (nonatomic, assign) CGFloat centerY;
-@property (nonatomic, readonly) CGPoint boundsCenter;
+@property (nonatomic, assign) CGPoint IQ_origin;
+@property (nonatomic, assign) CGSize IQ_size;
+@property (nonatomic, assign) CGFloat IQ_x, IQ_y, IQ_width, IQ_height;
+@property (nonatomic, assign) CGFloat IQ_left, IQ_right, IQ_top, IQ_bottom;
+@property (nonatomic, assign) CGFloat IQ_centerX;
+@property (nonatomic, assign) CGFloat IQ_centerY;
+@property (nonatomic, readonly) CGPoint IQ_boundsCenter;
 
 @end
