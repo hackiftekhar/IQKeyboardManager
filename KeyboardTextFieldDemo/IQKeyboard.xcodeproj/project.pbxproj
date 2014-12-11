@@ -109,6 +109,7 @@
 		C0EC59DF19D0C19300997FFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7EA019D0A0C5007604CF /* AppDelegate.swift */; };
 		C0EC59E019D0C19700997FFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD7EA119D0A0C5007604CF /* ViewController.swift */; };
 		C0F1193A19EEDCD500708D17 /* BottomBlankSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */; };
+		DDAA29F21A320057002C0ED8 /* TableViewInContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAA29F11A320057002C0ED8 /* TableViewInContainerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +251,8 @@
 		C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainSwift.storyboard; path = "IQKeyboardManager Swift/MainSwift.storyboard"; sourceTree = "<group>"; };
 		C0F1193819EEDCD500708D17 /* BottomBlankSpaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomBlankSpaceViewController.h; sourceTree = "<group>"; };
 		C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomBlankSpaceViewController.m; sourceTree = "<group>"; };
+		DDAA29F01A320057002C0ED8 /* TableViewInContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewInContainerViewController.h; sourceTree = "<group>"; };
+		DDAA29F11A320057002C0ED8 /* TableViewInContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewInContainerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -585,6 +588,8 @@
 				C0F1193919EEDCD500708D17 /* BottomBlankSpaceViewController.m */,
 				C02790321A01404000FCB517 /* CollectionViewDemoController.h */,
 				C02790331A01404000FCB517 /* CollectionViewDemoController.m */,
+				DDAA29F01A320057002C0ED8 /* TableViewInContainerViewController.h */,
+				DDAA29F11A320057002C0ED8 /* TableViewInContainerViewController.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -1003,6 +1008,7 @@
 				C08549B619FAA91E00973573 /* IQUIWindow+Hierarchy.m in Sources */,
 				C08A654D19DB18C700D255E2 /* ManualToolbarViewController.m in Sources */,
 				C08549B019FAA91E00973573 /* IQNSArray+Sort.m in Sources */,
+				DDAA29F21A320057002C0ED8 /* TableViewInContainerViewController.m in Sources */,
 				C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */,
 				C08549C119FAA91E00973573 /* IQSegmentedNextPrevious.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,

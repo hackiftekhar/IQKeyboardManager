@@ -98,13 +98,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     /*! To save rootViewController */
     __weak  UIViewController *_rootViewController;
     
-    /*! used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
-    __block BOOL             _isTextFieldViewFrameChanged;
-    
     /*******************************************/
     
     /*! Variable to save lastScrollView that was scrolled. */
     __weak UIScrollView     *_lastScrollView;
+    
+    /*! LastScrollView's initial contentInsets. */
+    UIEdgeInsets             _startingContentInsets;
     
     /*! LastScrollView's initial contentOffset. */
     CGPoint                  _startingContentOffset;
@@ -113,9 +113,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     /*! To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
     NSNotification          *_kbShowNotification;
-    
-    /*! Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
-    BOOL                     _isKeyboardShowing;
     
     /*! To save keyboard size. */
     CGSize                   _kbSize;
@@ -132,6 +129,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     UITapGestureRecognizer  *_tapGesture;
 
     /*******************************************/
+    
+    struct {
+        /*! used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
+        unsigned int isTextFieldViewFrameChanged:1;
+
+        /*! Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
+        unsigned int isKeyboardShowing:1;
+
+    } _keyboardManagerFlags;
 }
 
 //KeyWindow
@@ -358,7 +364,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (_textFieldView == nil)   return;
     
     //  Boolean to know keyboard is showing/hiding
-    _isKeyboardShowing = YES;
+    _keyboardManagerFlags.isKeyboardShowing = YES;
     
     //  Getting KeyWindow object.
     UIWindow *keyWindow = [self keyWindow];
@@ -411,15 +417,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //If we can't find current superScrollView, then setting lastScrollView to it's original form.
         if (superScrollView == nil)
         {
+            [_lastScrollView setContentInset:_startingContentInsets];
             [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
-            _lastScrollView = nil;
+            _startingContentInsets = UIEdgeInsetsZero;
             _startingContentOffset = CGPointZero;
+            _lastScrollView = nil;
         }
         //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
         else if (superScrollView != _lastScrollView)
         {
+            [_lastScrollView setContentInset:_startingContentInsets];
             [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
             _lastScrollView = superScrollView;
+            _startingContentInsets = superScrollView.contentInset;
             _startingContentOffset = superScrollView.contentOffset;
         }
         //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing
@@ -428,6 +438,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     else if(superScrollView)
     {
         _lastScrollView = superScrollView;
+        _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
     }
     
@@ -441,7 +452,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIScrollView *superScrollView = _lastScrollView;
             
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-            while (superScrollView && (move > (-superScrollView.contentOffset.y)))
+            while (superScrollView && (move>0?(move > (-superScrollView.contentOffset.y)):superScrollView.contentOffset.y>0) )
             {
                 //Getting lastViewRect.
                 CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
@@ -454,7 +465,34 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
+
+                // Update the insets so that the scroll vew doesn't shift
+                // incorrectly when the offset is near the bottom of the scroll view.
+                UIEdgeInsets movedInsets = _startingContentInsets;
+                // TODO: deal with orientation.
+                switch (interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:
+                    case UIInterfaceOrientationLandscapeRight:
+                        movedInsets.bottom += _kbSize.width - _keyboardDistanceFromTextField;
+                        break;
+                    case UIInterfaceOrientationPortrait:
+                    case UIInterfaceOrientationPortraitUpsideDown:
+                        movedInsets.bottom += _kbSize.height - _keyboardDistanceFromTextField;
+                        break;
+                    default:
+                        break;
+                }
                 
+                superScrollView.contentInset = movedInsets;
+                
+                // Don't offset beyond the point where the bottom of the scroll content will be beyond the scoll limits.
+                if (superScrollView.contentSize.height > 0)
+                {
+                    CGFloat maxOffset = superScrollView.contentSize.height + superScrollView.contentInset.top + superScrollView.contentInset.bottom - superScrollView.frame.size.height;
+                    shouldOffsetY = MIN(shouldOffsetY, maxOffset);
+                }
+
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
@@ -471,7 +509,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen).
     //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
     //Added _isTextFieldViewFrameChanged. (Bug ID: #92)
-    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _isTextFieldViewFrameChanged == NO)
+    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
         CGFloat textViewHeight = _textFieldView.IQ_height;
         
@@ -491,7 +529,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.IQ_height = textViewHeight;
-            _isTextFieldViewFrameChanged = YES;
+            _keyboardManagerFlags.isTextFieldViewFrameChanged = YES;
         } completion:NULL];
     }
     
@@ -626,7 +664,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	
     //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
     //Added _isTextFieldViewFrameChanged check. Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed. (Bug ID: #92)
-    if (_isTextFieldViewFrameChanged == NO)
+    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
         _textFieldViewIntialFrame = _textFieldView.frame;
     }
@@ -658,7 +696,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGSize oldKBSize = _kbSize;
     
     //  Getting UIKeyboardSize.
-    _kbSize = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    CGRect screenRect = [self keyWindow].bounds;
+    CGRect kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _kbSize = kbFrame.size;
     
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -669,15 +709,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
+            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
             _kbSize.width += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationLandscapeRight:
+            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
             _kbSize.width += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortrait:
+            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
             _kbSize.height += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
+            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
             _kbSize.height += _keyboardDistanceFromTextField;
             break;
         default:
@@ -710,7 +754,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    if (_textFieldView == nil)   return;
 
     //  Boolean to know keyboard is showing/hiding
-    _isKeyboardShowing = NO;
+    _keyboardManagerFlags.isKeyboardShowing = NO;
     
     //  Getting keyboard animation duration
     CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -724,9 +768,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (_lastScrollView)
     {
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            _lastScrollView.contentInset = _startingContentInsets;
             _lastScrollView.contentOffset = _startingContentOffset;
             
-            // TODO: This is temporary solution. Have to implement the save and restore scrollView state
+            // TODO: restore scrollView state
+            // This is temporary solution. Have to implement the save and restore scrollView state
             UIScrollView *superscrollView = _lastScrollView;
             while ((superscrollView = [superscrollView superScrollView]))
             {
@@ -762,6 +808,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Reset all values
     _lastScrollView = nil;
     _kbSize = CGSizeZero;
+    _startingContentInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
 //    topViewBeginRect = CGRectZero;    //Committed due to #82
 }
@@ -783,7 +830,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     // Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed.
     //Added _isTextFieldViewFrameChanged check. (Bug ID: #92)
-    if (_isTextFieldViewFrameChanged == NO)
+    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
         _textFieldViewIntialFrame = _textFieldView.frame;
     }
@@ -815,7 +862,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	
     [_textFieldView.window addGestureRecognizer:_tapGesture];    //   (Enhancement ID: #14)
     
-    if (_isKeyboardShowing == NO)    //  (Bug ID: #5)
+    if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         _rootViewController = [[self keyWindow] topMostController];
@@ -837,10 +884,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [_textFieldView.window removeGestureRecognizer:_tapGesture]; // (Enhancement ID: #14)
     
     // We check if there's a change in original frame or not.
-    if(_isTextFieldViewFrameChanged == YES)
+    if(_keyboardManagerFlags.isTextFieldViewFrameChanged == YES)
     {
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            _isTextFieldViewFrameChanged = NO;
+            _keyboardManagerFlags.isTextFieldViewFrameChanged = NO;
 
             _textFieldView.frame = _textFieldViewIntialFrame;
         } completion:NULL];
@@ -878,12 +925,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 - (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
 {
     //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
-    if (_isTextFieldViewFrameChanged == YES)
+    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == YES)
     {
         //Due to orientation callback we need to set it's original position.
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _textFieldView.frame = _textFieldViewIntialFrame;
-            _isTextFieldViewFrameChanged = NO;
+            _keyboardManagerFlags.isTextFieldViewFrameChanged = NO;
         } completion:NULL];
     }
 }
