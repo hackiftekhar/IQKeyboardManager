@@ -9,6 +9,9 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 [![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
 [![Settings](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
 
+## GIF animation
+[![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
+
 ## Video
 
 <a href="http://youtu.be/WAYc2Qj-OQg" target="_blank"><img src="http://img.youtube.com/vi/WAYc2Qj-OQg/0.jpg" 
