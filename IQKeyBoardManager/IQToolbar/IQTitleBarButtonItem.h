@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/NSObjCRuntime.h>
-
+#import "IQKeyboardManagerConstants.h"
 #import <UIKit/UIBarButtonItem.h>
 
 /*!
