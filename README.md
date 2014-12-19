@@ -7,7 +7,7 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 
 1) `ZERO LINE OF CODE`
 
-2) `It Works Automatically`
+2) `Works Automatically`
 
 3) `No More UIScrollView`
 
