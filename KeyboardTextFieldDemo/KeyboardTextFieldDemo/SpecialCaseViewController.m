@@ -112,8 +112,16 @@
     {
         if (textField.isAskingCanBecomeFirstResponder == NO)
         {
-            //Do your work on tapping textField.
-            [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"test" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction* action = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            }];
+            [actionSheet addAction:action];
+            
+            [self presentViewController:actionSheet animated:YES completion:nil];
+
+//            //Do your work on tapping textField.
+//            [[[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
         }
 
         return NO;

@@ -412,3 +412,11 @@ Class UISearchBarTextFieldClass;
 @end
 
 
+@implementation NSObject (IQ_Logging)
+
+-(NSString *)_IQDescription
+{
+    return [NSString stringWithFormat:@"<%@ %p>",NSStringFromClass([self class]),self];
+}
+
+@end
