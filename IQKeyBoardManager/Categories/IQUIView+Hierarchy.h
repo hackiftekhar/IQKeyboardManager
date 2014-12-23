@@ -124,7 +124,6 @@
  */
 @property (nonatomic, readonly, copy) NSString *debugHierarchy;
 
-
 @end
 
 
@@ -142,5 +141,17 @@
 @property (nonatomic, assign) CGFloat IQ_centerX;
 @property (nonatomic, assign) CGFloat IQ_centerY;
 @property (nonatomic, readonly) CGPoint IQ_boundsCenter;
+
+@end
+
+
+@interface NSObject (IQ_Logging)
+
+/*!
+    @property _IQDescription
+ 
+    @abstract Short description for logging purpose.
+ */
+@property (nonatomic, readonly, copy) NSString *_IQDescription;
 
 @end
