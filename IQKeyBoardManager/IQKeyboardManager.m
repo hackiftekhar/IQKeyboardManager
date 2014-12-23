@@ -523,10 +523,34 @@ void _IQShowLog(NSString *logString);
             
             //Updating contentInset
             {
+                
+               CGFloat bottom = 0;
+                
+                CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
+
+                switch (interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:
+                        bottom = _kbSize.width-(keyWindow.IQ_width-CGRectGetMaxX(lastScrollViewRect));
+                        break;
+                    case UIInterfaceOrientationLandscapeRight:
+                        bottom = _kbSize.width-CGRectGetMinX(lastScrollViewRect);
+                        break;
+                    case UIInterfaceOrientationPortrait:
+                        bottom = _kbSize.height-(keyWindow.IQ_height-CGRectGetMaxY(lastScrollViewRect));
+                        break;
+                    case UIInterfaceOrientationPortraitUpsideDown:
+                        bottom = _kbSize.height-CGRectGetMinY(lastScrollViewRect);
+                        break;
+                    default:
+                        break;
+                }
+
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 UIEdgeInsets movedInsets = _lastScrollView.contentInset;
-                
-                movedInsets.bottom = MAX(0, (_lastScrollView.contentOffset.y+_lastScrollView.IQ_height)-MAX(_lastScrollView.contentSize.height, _lastScrollView.IQ_height));
+
+                movedInsets.bottom = MAX(_startingContentInsets.bottom, bottom);
+//                movedInsets.bottom = MAX(0, (_lastScrollView.contentOffset.y+_lastScrollView.IQ_height)-MAX(_lastScrollView.contentSize.height, _lastScrollView.IQ_height));
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
                 
@@ -534,7 +558,6 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
             }
-
         }
         //Going ahead. No else if.
     }
@@ -750,7 +773,7 @@ void _IQShowLog(NSString *logString);
     CGSize oldKBSize = _kbSize;
     
     //  Getting UIKeyboardSize.
-    CGRect screenRect = [self keyWindow].bounds;
+//    CGRect screenRect = [self keyWindow].bounds;
     CGRect kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
     _kbSize = kbFrame.size;
  
@@ -765,19 +788,19 @@ void _IQShowLog(NSString *logString);
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
+//            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
             _kbSize.width += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationLandscapeRight:
-            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
+//            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
             _kbSize.width += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortrait:
-            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
+//            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
             _kbSize.height += _keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
+//            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
             _kbSize.height += _keyboardDistanceFromTextField;
             break;
         default:
