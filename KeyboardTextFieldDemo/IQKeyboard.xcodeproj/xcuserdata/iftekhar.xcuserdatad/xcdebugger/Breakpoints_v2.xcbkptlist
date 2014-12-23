@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../IQKeyBoardManager/IQKeyboardManager.m"
-            timestampString = "441053415.011924"
+            timestampString = "441054377.438994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
-            landmarkName = "-keyboardWillShow:"
+            startingLineNumber = "721"
+            endingLineNumber = "721"
+            landmarkName = "-adjustFrame"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../IQKeyBoardManager/IQKeyboardManager.m"
-            timestampString = "441053429.111754"
+            timestampString = "441054810.741865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "955"
-            endingLineNumber = "955"
+            startingLineNumber = "939"
+            endingLineNumber = "939"
+            landmarkName = "-textFieldViewDidBeginEditing:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../IQKeyBoardManager/IQKeyboardManager.m"
+            timestampString = "441054810.741865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "936"
+            endingLineNumber = "936"
             landmarkName = "-textFieldViewDidBeginEditing:"
             landmarkType = "5">
          </BreakpointContent>
