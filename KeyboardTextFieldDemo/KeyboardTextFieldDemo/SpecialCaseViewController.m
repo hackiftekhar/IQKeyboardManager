@@ -112,15 +112,15 @@
     {
         if (textField.isAskingCanBecomeFirstResponder == NO)
         {
-//            UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"test" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//            [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//            }]];
-//            [self presentViewController:actionSheet animated:YES completion:nil];
+            UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"test" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            }]];
+            [self presentViewController:actionSheet animated:YES completion:nil];
 
-//            //Do your work on tapping textField.
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-            [alertView show];
+////            //Do your work on tapping textField.
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+////            alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+//            [alertView show];
         }
 
         return NO;

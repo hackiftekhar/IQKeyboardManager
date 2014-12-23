@@ -490,7 +490,7 @@ void _IQShowLog(NSString *logString);
             //Saving
             UIView *lastView = _textFieldView;
             UIScrollView *superScrollView = _lastScrollView;
-            
+
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
             while (superScrollView && (move>0?(move > (-superScrollView.contentOffset.y)):superScrollView.contentOffset.y>0) )
             {
@@ -505,38 +505,7 @@ void _IQShowLog(NSString *logString);
                 
                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                 move -= (shouldOffsetY-superScrollView.contentOffset.y);
-
-                // Update the insets so that the scroll vew doesn't shift
-                // incorrectly when the offset is near the bottom of the scroll view.
-                UIEdgeInsets movedInsets = _startingContentInsets;
-                // TODO: deal with orientation.
-                switch (interfaceOrientation)
-                {
-                    case UIInterfaceOrientationLandscapeLeft:
-                    case UIInterfaceOrientationLandscapeRight:
-                        movedInsets.bottom += _kbSize.width - _keyboardDistanceFromTextField;
-                        break;
-                    case UIInterfaceOrientationPortrait:
-                    case UIInterfaceOrientationPortraitUpsideDown:
-                        movedInsets.bottom += _kbSize.height - _keyboardDistanceFromTextField;
-                        break;
-                    default:
-                        break;
-                }
                 
-                _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[superScrollView _IQDescription], NSStringFromUIEdgeInsets(superScrollView.contentInset)]);
-
-                superScrollView.contentInset = movedInsets;
-                
-                _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[superScrollView _IQDescription], NSStringFromUIEdgeInsets(superScrollView.contentInset)]);
-
-                // Don't offset beyond the point where the bottom of the scroll content will be beyond the scoll limits.
-                if (superScrollView.contentSize.height > 0)
-                {
-                    CGFloat maxOffset = superScrollView.contentSize.height + superScrollView.contentInset.top + superScrollView.contentInset.bottom - superScrollView.frame.size.height;
-                    shouldOffsetY = MIN(shouldOffsetY, maxOffset);
-                }
-
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     
@@ -551,6 +520,21 @@ void _IQShowLog(NSString *logString);
                 lastView = superScrollView;
                 superScrollView = [lastView superScrollView];
             }
+            
+            //Updating contentInset
+            {
+                // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                UIEdgeInsets movedInsets = _lastScrollView.contentInset;
+                
+                movedInsets.bottom = MAX(0, (_lastScrollView.contentOffset.y+_lastScrollView.IQ_height)-MAX(_lastScrollView.contentSize.height, _lastScrollView.IQ_height));
+                
+                _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
+                
+                _lastScrollView.contentInset = movedInsets;
+                
+                _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
+            }
+
         }
         //Going ahead. No else if.
     }
@@ -732,7 +716,7 @@ void _IQShowLog(NSString *logString);
 
     //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
     //Added _isTextFieldViewFrameChanged check. Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed. (Bug ID: #92)
-    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
+    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO && _textFieldView)
     {
         _textFieldViewIntialFrame = _textFieldView.frame;
         _IQShowLog([NSString stringWithFormat:@"Saving %@ Initial frame :%@",[_textFieldView _IQDescription],NSStringFromCGRect(_textFieldViewIntialFrame)]);
@@ -920,7 +904,7 @@ void _IQShowLog(NSString *logString);
     
     // Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed.
     //Added _isTextFieldViewFrameChanged check. (Bug ID: #92)
-    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
+    if (_keyboardManagerFlags.isTextFieldViewFrameChanged == NO && _textFieldView)
     {
         _textFieldViewIntialFrame = _textFieldView.frame;
         _IQShowLog([NSString stringWithFormat:@"Saving %@ Initial frame :%@",[_textFieldView _IQDescription],NSStringFromCGRect(_textFieldViewIntialFrame)]);
