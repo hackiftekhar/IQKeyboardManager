@@ -48,6 +48,13 @@
 @property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /*!
+    @property rootController
+ 
+    @abstract Returns the topMost UIViewController object in hierarchy.
+ */
+@property (nonatomic, readonly, strong) UIViewController *topMostController;
+
+/*!
     @property superScrollView
  
     @abstract Returns the UIScrollView object if any found in view's upper hierarchy.
