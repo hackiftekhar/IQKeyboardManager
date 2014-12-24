@@ -365,7 +365,8 @@ void _IQShowLog(NSString *logString);
 -(void)setRootViewFrame:(CGRect)frame
 {
     //  Getting topMost ViewController.
-    UIViewController *controller = [[self keyWindow] topMostController];
+    UIViewController *controller = [_textFieldView topMostController];
+    if (controller == nil)  controller = [[self keyWindow] topMostController];
     
     //frame size needs to be adjusted on iOS8 due to orientation API changes.
     if (IQ_IS_IOS8_OR_GREATER)
@@ -397,10 +398,12 @@ void _IQShowLog(NSString *logString);
     _keyboardManagerFlags.isKeyboardShowing = YES;
     
     //  Getting KeyWindow object.
-    UIWindow *keyWindow = [self keyWindow];
+    UIWindow *keyWindow = [_textFieldView window];
+    if (keyWindow == nil)  keyWindow = [self keyWindow];
     
     //  Getting RootViewController.  (Bug ID: #1, #4)
-    UIViewController *rootController = [keyWindow topMostController];
+    UIViewController *rootController = [_textFieldView topMostController];
+    if (rootController == nil)  rootController = [keyWindow topMostController];
     
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -748,7 +751,9 @@ void _IQShowLog(NSString *logString);
     if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        _rootViewController = [[self keyWindow] topMostController];
+        _rootViewController = [_textFieldView topMostController];
+        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+
         _topViewBeginRect = _rootViewController.view.frame;
         _IQShowLog([NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]);
     }
@@ -782,7 +787,10 @@ void _IQShowLog(NSString *logString);
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
-    UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [[[self keyWindow] topMostController] interfaceOrientation];
+    UIViewController *topMostController = [_textFieldView topMostController];
+    if (topMostController == nil)  topMostController = [[self keyWindow] topMostController];
+
+    UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [topMostController interfaceOrientation];
 #pragma GCC diagnostic pop
     
     switch (interfaceOrientation)
@@ -969,7 +977,9 @@ void _IQShowLog(NSString *logString);
     if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        _rootViewController = [[self keyWindow] topMostController];
+        _rootViewController = [_textFieldView topMostController];
+        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+        
         _topViewBeginRect = _rootViewController.view.frame;
 
         _IQShowLog([NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]);

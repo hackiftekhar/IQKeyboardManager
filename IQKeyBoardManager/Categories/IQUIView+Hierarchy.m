@@ -30,6 +30,7 @@
 #import <UIKit/UITextField.h>
 #import <UIKit/UISearchBar.h>
 #import <UIKit/UIViewController.h>
+#import <UIKit/UIWindow.h>
 
 #import <objc/runtime.h>
 
@@ -86,6 +87,34 @@ Class UISearchBarTextFieldClass;
     } while (nextResponder != nil);
 
     return nil;
+}
+
+-(UIViewController *)topMostController
+{
+    NSMutableArray *controllersHierarchy = [[NSMutableArray alloc] init];
+    
+    UIViewController *topController = self.window.rootViewController;
+    
+    [controllersHierarchy addObject:topController];
+    
+    while ([topController presentedViewController]) {
+        
+        topController = [topController presentedViewController];
+        [controllersHierarchy addObject:topController];
+    }
+    
+    UIResponder *matchController = [self viewController];
+    
+    while ([controllersHierarchy containsObject:matchController] == NO || matchController == nil)
+    {
+        do
+        {
+            matchController = [matchController nextResponder];
+            
+        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
+    }
+    
+    return (UIViewController*)matchController;
 }
 
 - (UITableView*)superTableView
