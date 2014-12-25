@@ -1,4 +1,4 @@
-[![Icon](./KeyboardTextFieldDemo/KeyboardTextFieldDemo/icon.png)] IQKeyboardManager
+![Icon](./KeyboardTextFieldDemo/KeyboardTextFieldDemo/icon.png) IQKeyboardManager
 ==========================
 
 Often while developing an app, We ran into an issues where the iPhone `UIKeyboard` slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code. To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
@@ -93,7 +93,7 @@ Manual Management:-
 
   If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
-[![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.png)]
+![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.png)
 
 
   If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
