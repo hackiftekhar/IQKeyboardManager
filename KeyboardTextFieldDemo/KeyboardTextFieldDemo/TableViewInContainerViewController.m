@@ -24,17 +24,21 @@
 {
     static NSString *identifier = @"TestCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.backgroundColor = [UIColor clearColor];
+        
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10,0,cell.contentView.frame.size.width-20,33)];
+        textField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
+        textField.center = cell.contentView.center;
+        [textField setBorderStyle:UITextBorderStyleRoundedRect];
+        textField.tag = 123;
+        [cell.contentView addSubview:textField];
     }
     
-    UITextField *field = (UITextField *)[cell.contentView viewWithTag:123];
-    if (!field) {
-        field = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-        field.tag = 123;
-    }
-    field.placeholder = [NSString stringWithFormat:@"Cell %@", @(indexPath.row)];
-    [cell.contentView addSubview:field];
+    UITextField *textField = (UITextField *)[cell.contentView viewWithTag:123];
+    textField.placeholder = [NSString stringWithFormat:@"Cell %@", @(indexPath.row)];
     
     return cell;
 }

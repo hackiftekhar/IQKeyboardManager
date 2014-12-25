@@ -73,7 +73,10 @@
         {
             TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TextFieldViewController class])];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-
+            navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+            navigationController.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+            navigationController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
+            
             [navigationController setModalTransitionStyle:arc4random()%4];
             
             // TransitionStylePartialCurl can only be presented by FullScreen style.
