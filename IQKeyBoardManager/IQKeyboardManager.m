@@ -602,7 +602,7 @@ void _IQShowLog(NSString *logString);
     if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
         [rootController modalPresentationStyle] == UIModalPresentationPageSheet)
     {
-        _IQShowLog([NSString stringWithFormat:@"Found Special case for Model Presentation Style: %ld",rootController.modalPresentationStyle]);
+        _IQShowLog([NSString stringWithFormat:@"Found Special case for Model Presentation Style: %ld",(long)(rootController.modalPresentationStyle)]);
 
         //  Positive or zero.
         if (move>=0)

@@ -23,6 +23,8 @@
 		B53A8A331A4C2D7A00951878 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B53A8A311A4C2D7A00951878 /* icon.png */; };
 		B5C98E0A1A4C28FD00AD5C11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0ACB10019CF104E0057B571 /* Images.xcassets */; };
 		C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C02790331A01404000FCB517 /* CollectionViewDemoController.m */; };
+		C05C59401A4C7F0E0007BD8F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */; };
+		C05C59411A4C7F110007BD8F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */; };
 		C06579BD19D6024800DAA3EA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BC19D6024800DAA3EA /* SettingsViewController.m */; };
 		C06579C019D6028100DAA3EA /* ExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579BF19D6028100DAA3EA /* ExampleTableViewController.m */; };
 		C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C06579C319D60ACB00DAA3EA /* SwitchTableViewCell.m */; };
@@ -751,6 +753,7 @@
 				C0DDEB6E19FCD56300FAB29F /* IQKeyboardManager.bundle in Resources */,
 				B53A8A2E1A4C2A3900951878 /* iTunesArtwork in Resources */,
 				B53A8A301A4C2A3900951878 /* iTunesArtwork@2x in Resources */,
+				C05C59411A4C7F110007BD8F /* IQKeyboardManagerScreenshot.png in Resources */,
 				C07A284119D5E5930097F34D /* settings@2x.png in Resources */,
 				B53A8A331A4C2D7A00951878 /* icon.png in Resources */,
 				C0ACB10419CF104F0057B571 /* LaunchScreen.xib in Resources */,
@@ -766,6 +769,7 @@
 				C08549D319FAA91E00973573 /* IQKeyboardManager.bundle in Resources */,
 				B53A8A2D1A4C2A3900951878 /* iTunesArtwork in Resources */,
 				B53A8A2F1A4C2A3900951878 /* iTunesArtwork@2x in Resources */,
+				C05C59401A4C7F0E0007BD8F /* IQKeyboardManagerScreenshot.png in Resources */,
 				B5C98E0A1A4C28FD00AD5C11 /* Images.xcassets in Resources */,
 				B53A8A321A4C2D7A00951878 /* icon.png in Resources */,
 				C0AB9307195F57BB00447049 /* Main.storyboard in Resources */,
@@ -991,7 +995,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "-DIQ_IS_XCODE_BELOW_6_1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4A1D352B-37FE-46E5-BBE7-64E14952F283";
+				PROVISIONING_PROFILE = "eafe0acd-a45d-41d3-8847-6f6483045942";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1016,7 +1020,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DIQ_IS_XCODE_BELOW_6_1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4A1D352B-37FE-46E5-BBE7-64E14952F283";
+				PROVISIONING_PROFILE = "eafe0acd-a45d-41d3-8847-6f6483045942";
 			};
 			name = Release;
 		};
@@ -1109,7 +1113,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
-				PROVISIONING_PROFILE = "ec566ba4-64a7-465d-9ab9-0411b146a91f";
+				PROVISIONING_PROFILE = "eafe0acd-a45d-41d3-8847-6f6483045942";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -1130,7 +1134,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboard;
-				PROVISIONING_PROFILE = "ec566ba4-64a7-465d-9ab9-0411b146a91f";
+				PROVISIONING_PROFILE = "eafe0acd-a45d-41d3-8847-6f6483045942";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
