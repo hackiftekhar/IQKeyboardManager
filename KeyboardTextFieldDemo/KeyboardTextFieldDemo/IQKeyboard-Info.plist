@@ -8,11 +8,6 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>icon60</string>
-		<string>icon57</string>
-	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.iftekhar.IQKeyboardManager</string>
 	<key>CFBundleInfoDictionaryVersion</key>
