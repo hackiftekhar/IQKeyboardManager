@@ -1,5 +1,7 @@
-![Icon](./KeyboardTextFieldDemo/KeyboardTextFieldDemo/icon.png) IQKeyboardManager
-==========================
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/KeyboardTextFieldDemo/KeyboardTextFieldDemo/icon.png" alt="Icon"/>
+</p>
+<H1 align="center">IQKeyboardManager</H1>
 
 Often while developing an app, We ran into an issues where the iPhone `UIKeyboard` slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code. To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
 
