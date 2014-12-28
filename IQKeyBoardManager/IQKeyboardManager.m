@@ -1120,9 +1120,9 @@ void _IQShowLog(NSString *logString);
     UIView *tableView = [_textFieldView superTableView];
     if (tableView == nil)   tableView = [_textFieldView superCollectionView];
     
-    NSArray *textFields;
+    NSArray *textFields = nil;
     
-    //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
+    //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
     if (tableView)  //     //   (Enhancement ID: #22)
     {
         textFields = [tableView deepResponderViews];
@@ -1131,25 +1131,25 @@ void _IQShowLog(NSString *logString);
     else
     {
         textFields = [_textFieldView responderSiblings];
-    }
-
-    //Sorting textFields according to behaviour
-    switch (_toolbarManageBehaviour)
-    {
-            //If autoToolbar behaviour is bySubviews, then returning it.
-        case IQAutoToolbarBySubviews:
-            return textFields;
-            break;
-            
-            //If autoToolbar behaviour is by tag, then sorting it according to tag property.
-        case IQAutoToolbarByTag:
-            return [textFields sortedArrayByTag];
-            break;
-            
-            //If autoToolbar behaviour is by tag, then sorting it according to tag property.
-        case IQAutoToolbarByPosition:
-            return [textFields sortedArrayByPosition];
-            break;
+        
+        //Sorting textFields according to behaviour
+        switch (_toolbarManageBehaviour)
+        {
+                //If autoToolbar behaviour is bySubviews, then returning it.
+            case IQAutoToolbarBySubviews:
+                return textFields;
+                break;
+                
+                //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+            case IQAutoToolbarByTag:
+                return [textFields sortedArrayByTag];
+                break;
+                
+                //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+            case IQAutoToolbarByPosition:
+                return [textFields sortedArrayByPosition];
+                break;
+        }
     }
 }
 

@@ -204,7 +204,6 @@ Class UISearchBarTextFieldClass;
         else	return NSOrderedSame;
     }];
 
-    
     for (UITextField *textField in subViews)
     {
         if ([textField _IQcanBecomeFirstResponder])
