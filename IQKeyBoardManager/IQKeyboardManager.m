@@ -1151,6 +1151,8 @@ void _IQShowLog(NSString *logString);
                 break;
         }
     }
+    
+    return textFields;
 }
 
 #pragma mark previous/next/done functionality
