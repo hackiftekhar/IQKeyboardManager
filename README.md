@@ -79,7 +79,7 @@ Just drag and drop `IQKeyBoardManager` directory from demo project to your proje
 
 ## Known Issues:-
 
-[Known Issue 1](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerKnownIssue1.png)
+![Known Issue 1](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerKnownIssue1.png)
 
 1) **Keyboard does not appear in iOS Simulator** ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
