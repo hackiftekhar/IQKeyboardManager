@@ -5,10 +5,12 @@
 #import "TextFieldViewController.h"
 #import "IQKeyboardManager.h"
 #import "IQKeyboardReturnKeyHandler.h"
+#import "IQDropDownTextField.h"
 
 @implementation TextFieldViewController
 {
     IQKeyboardReturnKeyHandler *returnKeyHandler;
+    IBOutlet IQDropDownTextField *dropDownTextField;
 }
 
 #pragma mark - View lifecycle
@@ -34,6 +36,26 @@
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
     returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarByPosition;
+    
+    [dropDownTextField setItemList:@[@"Zero Line Of Code",
+                                     @"No More UIScrollView",
+                                     @"No More Subclasses",
+                                     @"No More Manual Work",
+                                     @"No More #imports",
+                                     @"Device Orientation support",
+                                     @"UITextField Category for Keyboard",
+                                     @"Enable/Desable Keyboard Manager",
+                                     @"Customize InputView support",
+                                     @"IQTextView for placeholder support",
+                                     @"Automanage keyboard toolbar",
+                                     @"Can set keyboard and textFiled distance",
+                                     @"Can resign on touching outside",
+                                     @"Auto adjust textView's height ",
+                                     @"Adopt tintColor from textField",
+                                     @"Customize keyboardAppearance",
+                                     @"play sound on next/prev/done",
+                                     ]];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
