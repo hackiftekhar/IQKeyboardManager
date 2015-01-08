@@ -58,7 +58,7 @@ extension UIView {
     func viewController()->UIViewController? {
         
         var nextResponder: UIResponder! = self
-
+        
         do
         {
             nextResponder = nextResponder.nextResponder()!
@@ -71,7 +71,39 @@ extension UIView {
         
         return nil
     }
+    
+    /*! @return Returns the topMost UIViewController object in hierarchy  */
+    func topMostController()->UIViewController? {
+        
+        var controllersHierarchy = [UIViewController]();
 
+        if var topController = self.window?.rootViewController {
+            controllersHierarchy.append(topController)
+
+            while (topController.presentedViewController != nil) {
+                
+                topController = topController.presentedViewController!
+
+                controllersHierarchy.append(topController)
+            }
+            
+            var matchController :UIResponder? = viewController()
+
+            while matchController != nil && contains(controllersHierarchy, (matchController as UIViewController)) == false {
+                
+                do {
+                    matchController = matchController?.nextResponder()
+
+                } while (matchController != nil && (matchController is UIViewController) == false)
+            }
+            
+            return matchController as? UIViewController
+            
+        } else {
+            return viewController()
+        }
+    }
+    
     /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
         
@@ -491,7 +523,12 @@ extension CGRect {
     }
 }
 
-
+extension NSObject {
+    
+    public func _IQDescription() -> String {
+        return "<\(self) \(unsafeAddressOf(self))>"
+    }
+}
 
 
 

@@ -398,8 +398,7 @@ void _IQShowLog(NSString *logString);
     _keyboardManagerFlags.isKeyboardShowing = YES;
     
     //  Getting KeyWindow object.
-    UIWindow *keyWindow = [_textFieldView window];
-    if (keyWindow == nil)  keyWindow = [self keyWindow];
+    UIWindow *keyWindow = [self keyWindow];
     
     //  Getting RootViewController.  (Bug ID: #1, #4)
     UIViewController *rootController = [_textFieldView topMostController];
@@ -1120,17 +1119,15 @@ void _IQShowLog(NSString *logString);
     UIView *tableView = [_textFieldView superTableView];
     if (tableView == nil)   tableView = [_textFieldView superCollectionView];
     
-    NSArray *textFields = nil;
-    
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
     if (tableView)  //     //   (Enhancement ID: #22)
     {
-        textFields = [tableView deepResponderViews];
+        return [tableView deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
     {
-        textFields = [_textFieldView responderSiblings];
+        NSArray *textFields = [_textFieldView responderSiblings];
         
         //Sorting textFields according to behaviour
         switch (_toolbarManageBehaviour)
@@ -1149,10 +1146,11 @@ void _IQShowLog(NSString *logString);
             case IQAutoToolbarByPosition:
                 return [textFields sortedArrayByPosition];
                 break;
+            default:
+                return nil;
+                break;
         }
     }
-    
-    return textFields;
 }
 
 #pragma mark previous/next/done functionality

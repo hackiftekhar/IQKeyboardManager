@@ -107,7 +107,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     
     UIResponder *matchController = [self viewController];
     
-    while ([controllersHierarchy containsObject:matchController] == NO || matchController == nil)
+    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
     {
         do
         {
