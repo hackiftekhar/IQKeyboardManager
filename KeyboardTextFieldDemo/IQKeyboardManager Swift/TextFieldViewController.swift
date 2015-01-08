@@ -59,13 +59,12 @@ class TextFieldViewController: UIViewController {
     
     @IBAction func presentClicked (sender: AnyObject!) {
         
-        if (self.navigationController != nil) {
+        if self.navigationController != nil {
             
             var controller: UIViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as? UIViewController
             
             self.presentViewController(controller!, animated: true, completion: nil)
-        }
-        else {
+        } else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

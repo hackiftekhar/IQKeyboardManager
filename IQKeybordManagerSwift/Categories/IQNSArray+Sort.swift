@@ -31,11 +31,9 @@ extension NSArray {
             
             if view1?.tag < view2?.tag {
                 return NSComparisonResult.OrderedAscending
-            }
-            else if view1?.tag > view2?.tag {
+            } else if view1?.tag > view2?.tag {
                 return NSComparisonResult.OrderedDescending
-            }
-            else {
+            } else {
                 return NSComparisonResult.OrderedSame
             }
         })
@@ -47,18 +45,13 @@ extension NSArray {
             
             if view1?.y < view2?.y {
                 return NSComparisonResult.OrderedAscending
-            }
-            else if view1?.y > view2?.y {
+            } else if view1?.y > view2?.y {
                 return NSComparisonResult.OrderedDescending
-            }
-            //Else both y are same so checking for x positions
-            else if view1?.x < view2?.x {
+            } else if view1?.x < view2?.x {   //Else both y are same so checking for x positions
                 return NSComparisonResult.OrderedAscending
-            }
-            else if view1?.x > view2?.x {
+            } else if view1?.x > view2?.x {
                 return NSComparisonResult.OrderedDescending
-            }
-            else {
+            } else {
                 return NSComparisonResult.OrderedSame
             }
         })

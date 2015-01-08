@@ -39,7 +39,7 @@ class IQTitleBarButtonItem: UIBarButtonItem {
         super.init()
     }
     
-    init(frame : CGRect, title : NSString?) {
+    init(frame : CGRect, title : String?) {
 
         super.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
