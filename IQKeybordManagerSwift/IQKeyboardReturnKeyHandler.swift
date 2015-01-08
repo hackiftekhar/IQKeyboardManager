@@ -73,7 +73,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         dictInfo[kIQTextField] = view
         
-        if (view.isKindOfClass(UITextField) == true)
+        if (view is UITextField == true)
         {
             var textField : UITextField = view as UITextField
 
@@ -91,7 +91,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
 
             textField.delegate = self
         }
-        else if (view.isKindOfClass(UITextView) == true)
+        else if (view is UITextView == true)
         {
             var textView : UITextView = view as UITextView
 
@@ -122,7 +122,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         {
             var unwrappedDict = dict!
             
-            if (view.isKindOfClass(UITextField) == true)
+            if (view is UITextField == true)
             {
                 var textField : UITextField = view as UITextField
                 
@@ -137,7 +137,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 
                 textField.delegate = unwrappedDict[kIQTextFieldDelegate] as UITextFieldDelegate?
             }
-            else if (view.isKindOfClass(UITextView) == true)
+            else if (view is UITextView == true)
             {
                 var textView : UITextView = view as UITextView
                 
@@ -201,14 +201,14 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         var lastView: UIView? = textFields?.lastObject as? UIView
         
-        if (view.isKindOfClass(UITextField) == true)
+        if (view is UITextField == true)
         {
             var textField : UITextField = view as UITextField
 
             //If it's the last textField in responder view, else next
             textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType : UIReturnKeyType.Next
         }
-        else if (view.isKindOfClass(UITextView) == true)
+        else if (view is UITextView == true)
         {
             var textView : UITextView = view as UITextView
 
@@ -283,7 +283,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             
             var view : AnyObject = infoDict[kIQTextField]!!
             
-            if (view.isKindOfClass(UITextField) == true)
+            if (view is UITextField == true)
             {
                 var textField : UITextField = view as UITextField
                 
@@ -298,7 +298,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 
                 textField.delegate = infoDict[kIQTextFieldDelegate] as UITextFieldDelegate?
             }
-            else if (view.isKindOfClass(UITextView) == true)
+            else if (view is UITextView == true)
             {
                 var textView : UITextView = view as UITextView
                 

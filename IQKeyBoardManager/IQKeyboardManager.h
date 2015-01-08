@@ -129,7 +129,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
-//TextView handling
+//UITextView handling
 
 /*!
     @property canAdjustTextView
@@ -142,7 +142,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
-//Keyboard appearance overriding
+//UIKeyboard appearance overriding
 
 /*!
     @property overrideKeyboardAppearance
@@ -162,7 +162,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
-//Resign handling
+//UITextField/UITextView Resign handling
 
 /*!
     @property shouldResignOnTouchOutside
@@ -182,7 +182,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
-//Sound handling
+//UISound handling
 
 /*!
     @property shouldPlayInputClicks
@@ -195,7 +195,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
-//Animation handling
+//UIAnimation handling
 
 /*!
     @property shouldAdoptDefaultKeyboardAnimation
