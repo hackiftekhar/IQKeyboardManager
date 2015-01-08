@@ -57,10 +57,10 @@ extension UIView {
     /*! @return Returns the UIViewController object that manages the receiver.  */
     func viewController()->UIViewController? {
         
-        var nextResponder: UIResponder! = self
+        var nextResponder: UIResponder? = self
         
         do {
-            nextResponder = nextResponder.nextResponder()!
+            nextResponder = nextResponder?.nextResponder()!
             
             if nextResponder is UIViewController {
                 return nextResponder as? UIViewController
@@ -106,13 +106,13 @@ extension UIView {
     /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
         
-        var superview: UIView! = self.superview!
+        var superview = self.superview
         
-        while superview != nil {
-            if superview is UITableView {
-                return superview as? UITableView
+        while let superTableView = superview {
+            if superTableView is UITableView {
+                return superTableView as? UITableView
             } else {
-                superview = superview.superview
+                superview = superTableView.superview
             }
         }
         
@@ -122,13 +122,13 @@ extension UIView {
     /*! @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
     func superCollectionView()->UICollectionView? {
         
-        var superview: UIView! = self.superview!
+        var superview = self.superview
         
-        while superview != nil {
-            if superview is UICollectionView {
-                return superview as? UICollectionView
+        while let superCollectionView = superview {
+            if superCollectionView is UICollectionView {
+                return superCollectionView as? UICollectionView
             } else {
-                superview = superview.superview
+                superview = superCollectionView.superview
             }
         }
         
@@ -138,14 +138,14 @@ extension UIView {
     /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
     func superScrollView()->UIScrollView? {
         
-        var superview: UIView! = self.superview!
+        var superview = self.superview
         
-        while superview != nil {
+        while let superScrollView = superview {
             //UITableViewWrapperView
-            if superview is UIScrollView && superview.isKindOfClass(UITableViewCellScrollViewClass!) == false && superview.isKindOfClass(UITableViewWrapperViewClass!) == false && superview.isKindOfClass(UIQueuingScrollViewClass!) == false {
+            if superScrollView is UIScrollView && superScrollView.isKindOfClass(UITableViewCellScrollViewClass!) == false && superScrollView.isKindOfClass(UITableViewWrapperViewClass!) == false && superScrollView.isKindOfClass(UIQueuingScrollViewClass!) == false {
                 return superview as? UIScrollView
             } else {
-                superview = superview.superview
+                superview = superScrollView.superview
             }
         }
         
@@ -224,8 +224,8 @@ extension UIView {
         //My Transform
         var myTransform = CGAffineTransformIdentity
         
-        if self.superview != nil {
-            myTransform = CGAffineTransformConcat(self.transform, self.superview!.convertTransformToView(nil))
+        if let superView = self.superview {
+            myTransform = CGAffineTransformConcat(self.transform, superView.convertTransformToView(nil))
         } else {
             myTransform = self.transform
         }
@@ -234,11 +234,14 @@ extension UIView {
         //view Transform
         var viewTransform = CGAffineTransformIdentity
         
-        if toView != nil && toView?.superview != nil {
-            viewTransform = CGAffineTransformConcat(toView!.transform, toView!.superview!.convertTransformToView(nil))
-        }
-        else if toView != nil {
-            viewTransform = toView!.transform
+        if let unwrappedToView = toView {
+            
+            if let unwrappedSuperView = unwrappedToView.superview {
+                viewTransform = CGAffineTransformConcat(unwrappedToView.transform, unwrappedSuperView.convertTransformToView(nil))
+            }
+            else {
+                viewTransform = unwrappedToView.transform
+            }
         }
         
         //Concating MyTransform and ViewTransform
