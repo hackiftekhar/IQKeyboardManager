@@ -63,7 +63,7 @@ extension UIView {
     
     @param titleText: text to show as title in IQToolbar'.
     */
-    func addRightButtonOnKeyboardWithText (text : String, target : AnyObject, action : Selector, titleText: String!) {
+    func addRightButtonOnKeyboardWithText (text : String, target : AnyObject, action : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self is UITextField == false && self is UITextView == false {
@@ -75,16 +75,18 @@ extension UIView {
         
         var items : [UIBarButtonItem] = []
         
-        if titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false {
-            
-            /*
-            50 done button frame.
-            24 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
-            items.append(title)
+        if let unwrappedTitleText = titleText {
+            if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                
+                /*
+                50 done button frame.
+                24 distance maintenance
+                */
+                let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
+                
+                let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                items.append(title)
+            }
         }
         
         
@@ -113,7 +115,7 @@ extension UIView {
     
     func addRightButtonOnKeyboardWithText (text : String, target : AnyObject, action : Selector, shouldShowPlaceholder: Bool) {
         
-        var title : String!
+        var title : String?
 
         if shouldShowPlaceholder {
             
@@ -138,7 +140,7 @@ extension UIView {
         addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: nil)
     }
 
-    func addDoneOnKeyboardWithTarget (target : AnyObject, action : Selector, titleText: String!) {
+    func addDoneOnKeyboardWithTarget (target : AnyObject, action : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self is UITextField == false && self is UITextView == false {
@@ -150,15 +152,17 @@ extension UIView {
         
         var items : [UIBarButtonItem] = []
         
-        if titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false {
-            /*
-            50 done button frame.
-            24 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-12.0, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
-            items.append(title)
+        if let unwrappedTitleText = titleText {
+            if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                /*
+                50 done button frame.
+                24 distance maintenance
+                */
+                let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-12.0, 44)
+                
+                let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                items.append(title)
+            }
         }
         
         
@@ -187,7 +191,7 @@ extension UIView {
     
     func addDoneOnKeyboardWithTarget (target : AnyObject, action : Selector, shouldShowPlaceholder: Bool) {
         
-        var title : String!
+        var title : String?
         
         if shouldShowPlaceholder {
             
@@ -207,7 +211,7 @@ extension UIView {
         addDoneOnKeyboardWithTarget(target, action: action, titleText: title)
     }
     
-    func addDoneOnKeyboardWithTarget (target : AnyObject, action : Selector) {
+    func addDoneOnKeyboardWithTarget(target : AnyObject, action : Selector) {
         
         addDoneOnKeyboardWithTarget(target, action: action, titleText: nil)
     }
@@ -229,7 +233,7 @@ extension UIView {
     @param titleText: text to show as title in IQToolbar'.
     */
     
-    func addRightLeftOnKeyboardWithTarget( target : AnyObject, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, titleText: String!) {
+    func addRightLeftOnKeyboardWithTarget( target : AnyObject, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self is UITextField == false && self is UITextView == false {
@@ -245,16 +249,18 @@ extension UIView {
         let cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: leftButtonAction)
         items.append(cancelButton)
         
-        if titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false {
-            /*
-            66 Cancel button maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
-            items.append(title)
+        if let unwrappedTitleText = titleText {
+            if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                /*
+                66 Cancel button maximum x.
+                50 done button frame.
+                8+8 distance maintenance
+                */
+                let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+                
+                let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                items.append(title)
+            }
         }
         
         //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
@@ -282,7 +288,7 @@ extension UIView {
     
     func addRightLeftOnKeyboardWithTarget( target : AnyObject, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, shouldShowPlaceholder: Bool) {
         
-        var title : String!
+        var title : String?
         
         if shouldShowPlaceholder {
             
@@ -307,7 +313,7 @@ extension UIView {
         addRightLeftOnKeyboardWithTarget(target, leftButtonTitle: leftButtonTitle, rightButtonTitle: rightButtonTitle, rightButtonAction: rightButtonAction, leftButtonAction: leftButtonAction, titleText: nil)
     }
     
-    func addCancelDoneOnKeyboardWithTarget (target : AnyObject, cancelAction : Selector, doneAction : Selector, titleText: String!) {
+    func addCancelDoneOnKeyboardWithTarget (target : AnyObject, cancelAction : Selector, doneAction : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self is UITextField == false && self is UITextView == false {
@@ -323,16 +329,18 @@ extension UIView {
         let cancelButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: target, action: cancelAction)
         items.append(cancelButton)
         
-        if titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false {
-            /*
-            66 Cancel button maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
-            items.append(title)
+        if let unwrappedTitleText = titleText {
+            if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                /*
+                66 Cancel button maximum x.
+                50 done button frame.
+                8+8 distance maintenance
+                */
+                let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+                
+                let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                items.append(title)
+            }
         }
         
         //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
@@ -360,7 +368,7 @@ extension UIView {
     
     func addCancelDoneOnKeyboardWithTarget (target : AnyObject, cancelAction : Selector, doneAction : Selector, shouldShowPlaceholder: Bool) {
         
-        var title : String!
+        var title : String?
         
         if shouldShowPlaceholder {
             
@@ -403,7 +411,7 @@ extension UIView {
     
     @param titleText: text to show as title in IQToolbar'.
     */
-    func addPreviousNextDoneOnKeyboardWithTarget ( target : AnyObject, previousAction : Selector, nextAction : Selector, doneAction : Selector,  titleText: String!) {
+    func addPreviousNextDoneOnKeyboardWithTarget ( target : AnyObject, previousAction : Selector, nextAction : Selector, doneAction : Selector,  titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self is UITextField == false && self is UITextView == false {
@@ -429,16 +437,18 @@ extension UIView {
         items.append(fixed)
         items.append(next)
         
-        if titleText != nil && countElements(titleText) != 0 && self.shouldHideTitle == false {
-            /*
-            72.5 next/previous maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: titleText?)
-            items.append(title)
+        if let unwrappedTitleText = titleText {
+            if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                /*
+                72.5 next/previous maximum x.
+                50 done button frame.
+                8+8 distance maintenance
+                */
+                let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+                
+                let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                items.append(title)
+            }
         }
         
         //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
