@@ -26,14 +26,14 @@ import Foundation
 import UIKit
 
 //Special textFields,textViews,scrollViews
-var UIAlertSheetTextFieldClass: AnyClass?       =   nil
-var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   nil
+var UIAlertSheetTextFieldClass: AnyClass?       =   nil //UIAlertView
+var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   nil //UIAlertView
 
-var UITableViewCellScrollViewClass: AnyClass?   =   nil
-var UITableViewWrapperViewClass: AnyClass?      =   nil
+var UITableViewCellScrollViewClass: AnyClass?   =   nil //UITableViewCell
+var UITableViewWrapperViewClass: AnyClass?      =   nil //UITableViewCell
+var UIQueuingScrollViewClass: AnyClass?         =   nil //UIPageViewController
 
-var UISearchBarTextFieldClass: AnyClass?        =   nil
-var EKPlaceholderTextViewClass: AnyClass?       =   nil
+var UISearchBarTextFieldClass: AnyClass?        =   nil //UISearchBar
 
 class FakeClass :NSObject {
     
@@ -46,9 +46,9 @@ class FakeClass :NSObject {
         
         UITableViewCellScrollViewClass      = NSClassFromString("UITableViewCellScrollView")
         UITableViewWrapperViewClass         = NSClassFromString("UITableViewWrapperView")
+        UIQueuingScrollViewClass            = NSClassFromString("_UIQueuingScrollView")
         
         UISearchBarTextFieldClass           = NSClassFromString("UISearchBarTextField")
-        EKPlaceholderTextViewClass          = NSClassFromString("EKPlaceholderTextView")
     }
 }
 
@@ -59,15 +59,14 @@ extension UIView {
         
         var nextResponder: UIResponder! = self
         
-        do
-        {
+        do {
             nextResponder = nextResponder.nextResponder()!
             
-            if (nextResponder is UIViewController) {
+            if nextResponder is UIViewController {
                 return nextResponder as? UIViewController
             }
             
-        } while (nextResponder != nil)
+        } while nextResponder != nil
         
         return nil
     }
@@ -80,7 +79,7 @@ extension UIView {
         if var topController = self.window?.rootViewController {
             controllersHierarchy.append(topController)
 
-            while (topController.presentedViewController != nil) {
+            while topController.presentedViewController != nil {
                 
                 topController = topController.presentedViewController!
 
@@ -89,12 +88,12 @@ extension UIView {
             
             var matchController :UIResponder? = viewController()
 
-            while matchController != nil && contains(controllersHierarchy, (matchController as UIViewController)) == false {
+            while matchController != nil && contains(controllersHierarchy, matchController as UIViewController) == false {
                 
                 do {
                     matchController = matchController?.nextResponder()
 
-                } while (matchController != nil && (matchController is UIViewController) == false)
+                } while matchController != nil && matchController is UIViewController == false
             }
             
             return matchController as? UIViewController
@@ -109,14 +108,10 @@ extension UIView {
         
         var superview: UIView! = self.superview!
         
-        while (superview != nil)
-        {
-            if (superview is UITableView)
-            {
+        while superview != nil {
+            if superview is UITableView {
                 return superview as? UITableView
-            }
-            else
-            {
+            } else {
                 superview = superview.superview
             }
         }
@@ -129,14 +124,10 @@ extension UIView {
         
         var superview: UIView! = self.superview!
         
-        while (superview != nil)
-        {
-            if (superview is UICollectionView)
-            {
+        while superview != nil {
+            if superview is UICollectionView {
                 return superview as? UICollectionView
-            }
-            else
-            {
+            } else {
                 superview = superview.superview
             }
         }
@@ -149,15 +140,11 @@ extension UIView {
         
         var superview: UIView! = self.superview!
         
-        while (superview != nil)
-        {
+        while superview != nil {
             //UITableViewWrapperView
-            if (superview is UIScrollView && (superview .isKindOfClass(UITableViewCellScrollViewClass!) == false) && (superview .isKindOfClass(UITableViewWrapperViewClass!) == false))
-            {
+            if superview is UIScrollView && superview.isKindOfClass(UITableViewCellScrollViewClass!) == false && superview.isKindOfClass(UITableViewWrapperViewClass!) == false && superview.isKindOfClass(UIQueuingScrollViewClass!) == false {
                 return superview as? UIScrollView
-            }
-            else
-            {
+            } else {
                 superview = superview.superview
             }
         }
@@ -172,11 +159,11 @@ extension UIView {
         let siblings : NSArray? = self.superview?.subviews
         
         //Array of (UITextField/UITextView's).
-        var tempTextFields = NSMutableArray()
+        let tempTextFields = NSMutableArray()
         
-        for textField in siblings as Array<UIView> {
+        for textField in siblings as [UIView] {
             
-            if(textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false){
+            if(textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false) {
                 tempTextFields.addObject(textField)
             }
         }
@@ -190,30 +177,25 @@ extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        var subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
+        let subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
             
-            if (CGFloat(view1.y) < CGFloat(view2.y)) {
+            if CGFloat(view1.y) < CGFloat(view2.y) {
                 return NSComparisonResult.OrderedAscending
-            }
-            else if (CGFloat(view1.y) > CGFloat(view2.y)) {
+            } else if CGFloat(view1.y) > CGFloat(view2.y) {
                 return NSComparisonResult.OrderedDescending
-            }
-            else {
+            } else {
                 return NSComparisonResult.OrderedSame
             }
         }
         
         //Array of (UITextField/UITextView's).
-        var textfields = NSMutableArray()
+        let textfields = NSMutableArray()
         
-        for textField in subViews as Array<UIView> {
+        for textField in subViews as [UIView] {
 
-            if (textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false)
-            {
+            if textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false {
                 textfields.addObject(textField)
-            }
-            else if (textField.subviews.count != 0)
-            {
+            } else if textField.subviews.count != 0 {
                 textfields.addObjectsFromArray(textField.deepResponderViews())
             }
         }
@@ -224,29 +206,27 @@ extension UIView {
     
     /*! @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
     func isSearchBarTextField()-> Bool {
-        return (self.isKindOfClass(UISearchBarTextFieldClass!) || self.isKindOfClass(UISearchBar))
+        return self.isKindOfClass(UISearchBarTextFieldClass!) || self is UISearchBar
     }
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
-        return (self.isKindOfClass(UIAlertSheetTextFieldClass!) || (UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!)))
+        return self.isKindOfClass(UIAlertSheetTextFieldClass!) || UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!)
     }
     
     /*! @return returns current view transform with respect to the 'toView'.    */
     func convertTransformToView(var toView:UIView?)->CGAffineTransform {
         
-        if (toView == nil)
-        {
+        if toView == nil {
             toView = self.window
         }
         
         //My Transform
         var myTransform = CGAffineTransformIdentity
         
-        if (self.superview != nil) {
+        if self.superview != nil {
             myTransform = CGAffineTransformConcat(self.transform, self.superview!.convertTransformToView(nil))
-        }
-        else {
+        } else {
             myTransform = self.transform
         }
     
@@ -254,10 +234,10 @@ extension UIView {
         //view Transform
         var viewTransform = CGAffineTransformIdentity
         
-        if (toView != nil && toView?.superview != nil) {
+        if toView != nil && toView?.superview != nil {
             viewTransform = CGAffineTransformConcat(toView!.transform, toView!.superview!.convertTransformToView(nil))
         }
-        else if (toView != nil) {
+        else if toView != nil {
             viewTransform = toView!.transform
         }
         

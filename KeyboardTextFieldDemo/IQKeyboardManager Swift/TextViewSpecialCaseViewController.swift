@@ -20,15 +20,13 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (IQKeyboardManager.sharedManager().canAdjustTextView) {
+        if IQKeyboardManager.sharedManager().canAdjustTextView {
             barButtonAdjust.title = "Disable Adjust"
-        }
-        else {
+        } else {
             barButtonAdjust.title = "Enable Adjust"
         }
         
-        if (self.navigationController == nil)
-        {
+        if self.navigationController == nil {
             buttonPop.hidden = true
             buttonPush.hidden = true
             buttonPresent.setTitle("Dismiss", forState: UIControlState.Normal)
@@ -53,8 +51,7 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
         if barButton.title == "Disable Adjust" {
             IQKeyboardManager.sharedManager().canAdjustTextView = false
             barButton.title = "Enable Adjust"
-        }
-        else {
+        } else {
             IQKeyboardManager.sharedManager().canAdjustTextView = true
             barButton.title = "Disable Adjust"
         }
@@ -75,14 +72,10 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func presentClicked (barButton : UIButton!) {
         
-        if ((self.navigationController) != nil)
-        {
+        if (self.navigationController) != nil {
             var controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
-            
             self.presentViewController(controller, animated: true, completion: nil)
-        }
-        else
-        {
+        } else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

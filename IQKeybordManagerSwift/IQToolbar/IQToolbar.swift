@@ -31,11 +31,10 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             
-            if (items != nil)
-            {
-                for item in items as Array<IQTitleBarButtonItem> {
+            if items != nil {
+                for item in items as [UIBarButtonItem] {
                     
-                    if item.isKindOfClass(IQTitleBarButtonItem) {
+                    if item is IQTitleBarButtonItem == true {
                         (item as IQTitleBarButtonItem).font = titleFont
                     }
                 }
@@ -74,12 +73,10 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     override var tintColor: UIColor! {
         
         didSet {
-            if (items != nil)
-            {
-                for item in items as Array<UIBarButtonItem> {
+            if items != nil {
+                for item in items as [UIBarButtonItem] {
                     
-                    if item.isKindOfClass(IQTitleBarButtonItem)
-                    {
+                    if item is IQTitleBarButtonItem {
                         (item as IQTitleBarButtonItem).tintColor = tintColor
                     }
                 }

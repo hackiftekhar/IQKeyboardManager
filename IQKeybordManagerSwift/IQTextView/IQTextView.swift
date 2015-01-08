@@ -34,7 +34,7 @@ class IQTextView : UITextView {
     private var placeholderLabel: UILabel?
     
     /*! @abstract To set textView's placeholder text. Default is ni.    */
-    var placeholder : NSString? {
+    var placeholder : String? {
 
         get {
             return placeholderLabel?.text
@@ -68,8 +68,7 @@ class IQTextView : UITextView {
         
         if countElements(self.text) != 0 {
             placeholderLabel?.alpha = 0
-        }
-        else {
+        } else {
             placeholderLabel?.alpha = 1
         }
     }
@@ -89,8 +88,7 @@ class IQTextView : UITextView {
             
             if self.font != nil {
                 placeholderLabel?.font = self.font!
-            }
-            else {
+            } else {
                 placeholderLabel?.font = UIFont.systemFontOfSize(12)
             }
         }

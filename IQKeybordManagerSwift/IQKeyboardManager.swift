@@ -57,9 +57,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     keyboardWillShow(_kbShowNotification)
                 }
                 _IQShowLog("enabled")
-            }
-            //If not disable, desable it.
-            else if enable == false && oldValue == true {
+            } else if enable == false && oldValue == true {   //If not disable, desable it.
                 keyboardWillHide(nil)
                 _IQShowLog("disabled")
             }
@@ -133,7 +131,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         didSet {
             _tapGesture.enabled = shouldResignOnTouchOutside
             
-            var shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
+            let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
             
             _IQShowLog("shouldResignOnTouchOutside: \(shouldResign)")
         }
@@ -318,9 +316,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 self._IQShowLog("Set \(controller?._IQDescription()) frame to : \(frame)")
 
                 }) { (animated:Bool) -> Void in}
-        }
-            //  If can't get rootViewController then printing warning to user.
-        else {
+        } else {  //  If can't get rootViewController then printing warning to user.
             _IQShowLog("You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager")
         }
     }
@@ -340,7 +336,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _isKeyboardShowing = true
         
         //  Getting KeyWindow object.
-        var window = keyWindow()
+        let window = keyWindow()
         
         //  Getting RootViewController.  (Bug ID: #1, #4)
         var rootController = _textFieldView?.topMostController()
@@ -353,16 +349,16 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
-        var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController!.interfaceOrientation
+        let interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController!.interfaceOrientation
 
         //  Converting Rectangle according to window bounds.
-        var textFieldViewRect = (_textFieldView?.superview?.convertRect(_textFieldView!.frame, toView: window))!
+        let textFieldViewRect = (_textFieldView?.superview?.convertRect(_textFieldView!.frame, toView: window))!
         
         //  Getting RootViewRect.
         var rootViewRect : CGRect! = rootController?.view.frame
 
         //Getting statusBarFrame
-        var statusBarFrame = UIApplication.sharedApplication().statusBarFrame
+        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
         
         var move : CGFloat = 0.0
         //  Move positive = textField is hidden.
@@ -385,7 +381,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _IQShowLog("Need to move: \(move)")
 
         //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-        var superScrollView = _textFieldView?.superScrollView()
+        let superScrollView = _textFieldView?.superScrollView()
         
         //If there was a lastScrollView.    //  (Bug ID: #34)
         if _lastScrollView != nil {
@@ -399,9 +395,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _startingContentInsets = UIEdgeInsetsZero
                 _startingContentOffset = CGPointZero
                 _lastScrollView = nil
-            }
-            //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-            else if superScrollView != _lastScrollView {
+            } else if superScrollView != _lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
                 
                 _IQShowLog("Restoring \(_lastScrollView?._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
                 
@@ -414,9 +408,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _IQShowLog("Saving New \(_lastScrollView?._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
             }
             //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
-        }
-            //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
-        else if superScrollView != nil {
+        } else if superScrollView != nil {    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
             _lastScrollView = superScrollView
             _startingContentInsets = superScrollView!.contentInset
             _startingContentOffset = superScrollView!.contentOffset
@@ -434,7 +426,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
             while superScrollView != nil && move > 0 ? move > -superScrollView!.contentOffset.y : superScrollView!.contentOffset.y>0 {
                 //Getting lastViewRect.
-                var lastViewRect : CGRect! = lastView.superview?.convertRect(lastView.frame, toView: superScrollView)
+                let lastViewRect : CGRect! = lastView.superview?.convertRect(lastView.frame, toView: superScrollView)
                 
                 //Calculating the expected Y offset from move and scrollView's contentOffset.
                 var shouldOffsetY = superScrollView!.contentOffset.y - min(superScrollView!.contentOffset.y,-move)
@@ -464,7 +456,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
             var bottom : CGFloat = 0.0
             
-            var lastScrollViewRect : CGRect! = _lastScrollView!.superview?.convertRect(_lastScrollView!.frame, toView: window)
+            let lastScrollViewRect : CGRect! = _lastScrollView!.superview?.convertRect(_lastScrollView!.frame, toView: window)
        
             switch interfaceOrientation {
             case UIInterfaceOrientation.LandscapeLeft:
@@ -548,11 +540,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _IQShowLog("Moving Upward")
                 //  Setting adjusted rootViewRect
                 setRootViewFrame(rootViewRect)
-            }
-                //  Negative
-            else {
+            } else {  //  Negative
                 //  Calculating disturbed distance. Pull Request #3
-                var disturbDistance = rootViewRect.y - _topViewBeginRect.y
+                let disturbDistance = rootViewRect.y - _topViewBeginRect.y
                 
                 //  disturbDistance Negative = frame disturbed.
                 //  disturbDistance positive = frame not disturbed.
@@ -565,9 +555,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     setRootViewFrame(rootViewRect)
                 }
             }
-        }
-            //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
-        else {
+        } else {  //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
             //  Positive or zero.
             if move >= 0 {
 
@@ -600,9 +588,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _IQShowLog("Moving Upward")
                 //  Setting adjusted rootViewRect
                 setRootViewFrame(rootViewRect)
-            }
-                //  Negative
-            else {
+            } else {  //  Negative
                 var disturbDistance : CGFloat = 0
                 
                 switch interfaceOrientation {
@@ -646,7 +632,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         _kbShowNotification = notification
 
-        var info = notification?.userInfo
+        let info = notification?.userInfo
         
         if enable == false {
             return
@@ -678,13 +664,13 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             _IQShowLog("Saving \(rootController?._IQDescription()) beginning Frame: \(_topViewBeginRect)")
         }
 
-        var oldKBSize = _kbSize
+        let oldKBSize = _kbSize
 
         if info != nil {
             
             if shouldAdoptDefaultKeyboardAnimation {
                 //  Getting keyboard animation.
-                var curve = info?[UIKeyboardAnimationCurveUserInfoKey]?.unsignedLongValue
+                let curve = info?[UIKeyboardAnimationCurveUserInfoKey]?.unsignedLongValue
                 
                 if curve != nil {
                     /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
@@ -695,13 +681,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         _animationCurve = UIViewAnimationOptions(rawValue: curve!)
                     #endif
                 }
-            }
-            else {
+            } else {
                 _animationCurve = UIViewAnimationOptions.CurveEaseOut
             }
             
             //  Getting keyboard animation duration
-            var duration =  info?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
+            let duration =  info?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
             
             //Saving animation duration
             if duration != nil && duration != 0.0 {
@@ -709,7 +694,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             
             //  Getting UIKeyboardSize.
-            var rect = info?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+            let rect = info?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
             
             if rect != nil {
                 _kbSize = rect!.size
@@ -726,7 +711,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
-        var interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : topMostController!.interfaceOrientation
+        let interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : topMostController!.interfaceOrientation
 
         // Adding Keyboard distance from textField.
         switch interfaceOrientation {
@@ -771,10 +756,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Boolean to know keyboard is showing/hiding
         _isKeyboardShowing = false
         
-        var info : NSDictionary? = notification?.userInfo
+        let info : [NSObject : AnyObject]? = notification?.userInfo
         
         //  Getting keyboard animation duration
-        var duration =  info?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
+        let duration =  info?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
         
         if duration != nil && duration != 0 {
             //  Setitng keyboard animation duration
@@ -799,9 +784,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 while superScrollView != nil {
 
-                    var contentSize = CGSizeMake(max(superScrollView!.contentSize.width, superScrollView!.width), max(superScrollView!.contentSize.height, superScrollView!.height))
+                    let contentSize = CGSizeMake(max(superScrollView!.contentSize.width, superScrollView!.width), max(superScrollView!.contentSize.height, superScrollView!.height))
                     
-                    var minimumY = contentSize.height-superScrollView!.height
+                    let minimumY = contentSize.height-superScrollView!.height
                     
                     if minimumY < superScrollView!.contentOffset.y {
                         superScrollView!.contentOffset = CGPointMake(superScrollView!.contentOffset.x, minimumY)
@@ -865,8 +850,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             if _textFieldView is UITextField == true {
                 (_textFieldView as UITextField).keyboardAppearance = keyboardAppearance
-            }
-            else if _textFieldView is UITextView == true {
+            } else if _textFieldView is UITextView == true {
                 (_textFieldView as UITextView).keyboardAppearance = keyboardAppearance
             }
         }
@@ -893,12 +877,11 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     }, completion: { (finished) -> Void in
 
-                        var textFieldRetain = self._textFieldView
+                        let textFieldRetain = self._textFieldView
                         textFieldRetain!.resignFirstResponder()
                         textFieldRetain!.becomeFirstResponder()
                 })
-            }
-            else {
+            } else {
                 addToolbarIfRequired()
             }
         }
@@ -964,11 +947,11 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
     func textFieldViewDidChange(notification:NSNotification) {  //  (Bug ID: #18)
         
-        var textView = notification.object as UITextView
+        let textView = notification.object as UITextView
         
-        var line = textView .caretRectForPosition(textView.selectedTextRange?.start)
+        let line = textView .caretRectForPosition(textView.selectedTextRange?.start)
         
-        var overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top)
+        let overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top)
         
         //Added overflow conditions (Bug ID: 95)
         if overflow > 0.0 && overflow < CGFloat(FLT_MAX) {
@@ -1029,17 +1012,17 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if _textFieldView != nil {
             
             //  Retaining textFieldView
-            var textFieldRetain = _textFieldView
+            let textFieldRetain = _textFieldView
             
             //Resigning first responder
-            var isResignFirstResponder = _textFieldView!.resignFirstResponder()
+            let isResignFirstResponder = _textFieldView!.resignFirstResponder()
             
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             if isResignFirstResponder == false {
                 //If it refuses to resign then becoming it first responder again for getting notifications callback.
                 textFieldRetain!.becomeFirstResponder()
 
-                println("IQKeyboardManager: Refuses to Resign first responder: \(_textFieldView?._IQDescription()) ")
+                _IQShowLog("Refuses to resign first responder: \(_textFieldView?._IQDescription())")
             }
         }
     }
@@ -1055,10 +1038,8 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if tableView != nil {     //   (Enhancement ID: #22)
             return tableView?.deepResponderViews()
-        }
-            //Otherwise fetching all the siblings
-        else {
-            var textFields = _textFieldView?.responderSiblings()
+        } else {  //Otherwise fetching all the siblings
+            let textFields = _textFieldView?.responderSiblings()
 
             //Sorting textFields according to behaviour
             switch toolbarManageBehaviour {
@@ -1083,38 +1064,29 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             UIDevice.currentDevice().playInputClick()
         }
         
-        /*
-        var testArray = ["First", "Second", "Third"]
-        
-        testArray.append("Fourth")
-        
-        var containsObject = contains(testArray, "Third")
-        
-        */
-        
         //Getting all responder view's.
-        var textFields = responderViews()
+        let textFields = responderViews()
         
         if _textFieldView != nil && textFields?.containsObject(_textFieldView!) == true {
             //Getting index of current textField.
-            var index = textFields?.indexOfObject(_textFieldView!)
+            let index = textFields?.indexOfObject(_textFieldView!)
             
             //If it is not first textField. then it's previous object becomeFirstResponder.
             if index != nil && index > 0 {
                 
-                var nextTextField = textFields![index!-1] as UIView
+                let nextTextField = textFields![index!-1] as UIView
                 
                 //  Retaining textFieldView
-                var  textFieldRetain = _textFieldView
+                let  textFieldRetain = _textFieldView
                 
-                var isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
+                let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                 
                 //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
                 if isAcceptAsFirstResponder == false {
                     //If next field refuses to become first responder then restoring old textField as first responder.
                     textFieldRetain!.becomeFirstResponder()
                     
-                    println("IQKeyboardManager: Refuses to become first responder: \(nextTextField._IQDescription())")
+                    _IQShowLog("Refuses to become first responder: \(_textFieldView?._IQDescription())")
                 }
             }
         }
@@ -1130,27 +1102,28 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //Getting all responder view's.
-        var textFields = responderViews()
+        let textFields = responderViews()
         
         if _textFieldView != nil && textFields?.containsObject(_textFieldView!) == true {
             //Getting index of current textField.
-            var index = textFields?.indexOfObject(_textFieldView!)
+            let index = textFields?.indexOfObject(_textFieldView!)
             
             //If it is not last textField. then it's next object becomeFirstResponder.
             if index != nil && index < textFields!.count-1 {
                 
-                var nextTextField = textFields![index!+1] as UIView
+                let nextTextField = textFields![index!+1] as UIView
 
                 //  Retaining textFieldView
-                var  textFieldRetain = _textFieldView
+                let  textFieldRetain = _textFieldView
                 
-                var isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
+                let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                 
                 //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
                 if isAcceptAsFirstResponder == false {
                     //If next field refuses to become first responder then restoring old textField as first responder.
                     textFieldRetain!.becomeFirstResponder()
-                    println("IQKeyboardManager: Refuses to become first responder: \(nextTextField)")
+                    
+                    _IQShowLog("Refuses to become first responder: \(nextTextField._IQDescription())")
                 }
             }
         }
@@ -1173,11 +1146,11 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     private func addToolbarIfRequired() {
         
         //	Getting all the sibling textFields.
-        var siblings = responderViews()
+        let siblings = responderViews()
         
         //	If only one object is found, then adding only Done button.
         if siblings?.count == 1 {
-            var textField = siblings?.firstObject as UIView
+            let textField = siblings?.firstObject as UIView
             
             //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
             if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
@@ -1198,11 +1171,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     (textField.inputAccessoryView as IQToolbar).titleFont = placeholderFont!
                 }
             }
-        }
-        else if siblings?.count != 0 {
+        } else if siblings?.count != 0 {
             
             //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-            for textField in siblings as Array<UIView> {
+            for textField in siblings as [UIView] {
                 
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
                 if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQDoneButtonToolbarTag {
@@ -1228,12 +1200,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //	If firstTextField, then previous should not be enabled.
                     if siblings![0] as UIView == textField {
                         textField.setEnablePrevious(false, isNextEnabled: true)
-                    }
-                        //	If lastTextField then next should not be enaled.
-                    else if siblings?.lastObject as UIView  == textField {
+                    } else if siblings?.lastObject as UIView  == textField {   //	If lastTextField then next should not be enaled.
                         textField.setEnablePrevious(true, isNextEnabled: false)
-                    }
-                    else {
+                    } else {
                         textField.setEnablePrevious(true, isNextEnabled: true)
                     }
                 }
@@ -1245,20 +1214,19 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     private func removeToolbarIfRequired() {    //  (Bug ID: #18)
         
         //	Getting all the sibling textFields.
-        var siblings = responderViews()
+        let siblings = responderViews()
         
-        for view in siblings as Array<UIView> {
+        for view in siblings as [UIView] {
 
-            var toolbar = view.inputAccessoryView
+            let toolbar = view.inputAccessoryView
 
             if toolbar is IQToolbar == true  && (toolbar?.tag == kIQDoneButtonToolbarTag || toolbar?.tag == kIQPreviousNextButtonToolbarTag) {
                 
                 if view is UITextField == true {
-                    var textField = view as UITextField
+                    let textField = view as UITextField
                     textField.inputAccessoryView = nil
-                    
                 } else if view is UITextView == true {
-                    var textView = view as UITextView
+                    let textView = view as UITextView
                     textView.inputAccessoryView = nil
                 }
             }
@@ -1267,7 +1235,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     private func _IQShowLog(logString: String) {
         
-         var showLog = true
+         let showLog = true
         
         if showLog == true {
             println("IQKeyboardManager: " + logString)

@@ -32,7 +32,7 @@ extension UIWindow {
         
         var topController = rootViewController
         
-        while (topController?.presentedViewController != nil) {
+        while topController?.presentedViewController != nil {
             topController = topController?.presentedViewController
         }
         
@@ -44,7 +44,7 @@ extension UIWindow {
         
         var currentViewController = topMostController()
         
-        while (currentViewController != nil && currentViewController is UINavigationController && (currentViewController as UINavigationController).topViewController != nil) {
+        while currentViewController != nil && currentViewController is UINavigationController && (currentViewController as UINavigationController).topViewController != nil {
             currentViewController = (currentViewController as UINavigationController).topViewController
         }
 
