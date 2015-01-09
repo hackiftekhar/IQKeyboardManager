@@ -48,7 +48,7 @@
 @property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /*!
-    @property rootController
+    @property topMostController
  
     @abstract Returns the topMost UIViewController object in hierarchy.
  */
@@ -90,7 +90,7 @@
 @property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
 /*!
-    @property isInsideSearchBar
+    @property isSearchBarTextField
  
     @abstract returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
