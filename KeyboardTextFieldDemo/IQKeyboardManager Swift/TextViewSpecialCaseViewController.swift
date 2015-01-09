@@ -26,7 +26,7 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
             barButtonAdjust.title = "Enable Adjust"
         }
         
-        if self.navigationController == nil {
+        if navigationController == nil {
             buttonPop.hidden = true
             buttonPush.hidden = true
             buttonPresent.setTitle("Dismiss", forState: UIControlState.Normal)
@@ -67,16 +67,16 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func popClicked (barButton : UIButton!) {
-        self.navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func presentClicked (barButton : UIButton!) {
         
-        if (self.navigationController) != nil {
+        if (navigationController) != nil {
             var controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
-            self.presentViewController(controller, animated: true, completion: nil)
+            presentViewController(controller, animated: true, completion: nil)
         } else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }

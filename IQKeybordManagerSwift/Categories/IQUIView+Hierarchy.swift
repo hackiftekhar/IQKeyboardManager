@@ -64,7 +64,7 @@ extension UIView {
         
         var controllersHierarchy = [UIViewController]();
 
-        if var topController = self.window?.rootViewController {
+        if var topController = window?.rootViewController {
             controllersHierarchy.append(topController)
 
             while topController.presentedViewController != nil {
@@ -94,9 +94,9 @@ extension UIView {
     /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
     func superScrollView()->UIScrollView? {
         
-        var superview = self.superview
+        var superView = superview
         
-        while let superScrollView = superview {
+        while let superScrollView = superView {
             //UITableViewWrapperView
             
             struct InternalClass {
@@ -110,9 +110,9 @@ extension UIView {
                 (InternalClass.UITableViewCellScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) &&
                 (InternalClass.UITableViewWrapperViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) &&
                 (InternalClass.UIQueuingScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false) {
-                return superview as? UIScrollView
+                return superView as? UIScrollView
             } else {
-                superview = superScrollView.superview
+                superView = superScrollView.superview
             }
         }
         
@@ -122,13 +122,13 @@ extension UIView {
     /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
         
-        var superview = self.superview
+        var superView = superview
         
-        while let superTableView = superview {
+        while let superTableView = superView {
             if superTableView is UITableView {
                 return superTableView as? UITableView
             } else {
-                superview = superTableView.superview
+                superView = superTableView.superview
             }
         }
         
@@ -138,13 +138,13 @@ extension UIView {
     /*! @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
     func superCollectionView()->UICollectionView? {
         
-        var superview = self.superview
+        var superView = superview
         
-        while let superCollectionView = superview {
+        while let superCollectionView = superView {
             if superCollectionView is UICollectionView {
                 return superCollectionView as? UICollectionView
             } else {
-                superview = superCollectionView.superview
+                superView = superCollectionView.superview
             }
         }
         
@@ -167,7 +167,7 @@ extension UIView {
     func responderSiblings()->NSArray {
         
         //	Getting all siblings
-        let siblings = self.superview?.subviews
+        let siblings = superview?.subviews
 
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
@@ -187,7 +187,7 @@ extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
+        let subViews = (subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
             
             if CGFloat(view1.y) < CGFloat(view2.y) {
                 return .OrderedAscending
@@ -223,7 +223,7 @@ extension UIView {
             static var UISearchBarTextFieldClass: AnyClass?        =   NSClassFromString("UISearchBarTextField") //UISearchBar
         }
 
-        return  (InternalClass.UISearchBarTextFieldClass != nil && self.isKindOfClass(InternalClass.UISearchBarTextFieldClass!)) || self is UISearchBar
+        return  (InternalClass.UISearchBarTextFieldClass != nil && isKindOfClass(InternalClass.UISearchBarTextFieldClass!)) || self is UISearchBar
     }
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
@@ -235,8 +235,8 @@ extension UIView {
             static var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   NSClassFromString("_UIAlertControllerTextField") //UIAlertView
         }
         
-        return (InternalClass.UIAlertSheetTextFieldClass != nil && self.isKindOfClass(InternalClass.UIAlertSheetTextFieldClass!)) ||
-            (InternalClass.UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(InternalClass.UIAlertSheetTextFieldClass_iOS8!))
+        return (InternalClass.UIAlertSheetTextFieldClass != nil && isKindOfClass(InternalClass.UIAlertSheetTextFieldClass!)) ||
+            (InternalClass.UIAlertSheetTextFieldClass_iOS8 != nil && isKindOfClass(InternalClass.UIAlertSheetTextFieldClass_iOS8!))
     }
     
     /*! @return returns current view transform with respect to the 'toView'.    */
