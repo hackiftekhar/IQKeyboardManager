@@ -180,11 +180,11 @@ extension UIView {
         let subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
             
             if CGFloat(view1.y) < CGFloat(view2.y) {
-                return NSComparisonResult.OrderedAscending
+                return .OrderedAscending
             } else if CGFloat(view1.y) > CGFloat(view2.y) {
-                return NSComparisonResult.OrderedDescending
+                return .OrderedDescending
             } else {
-                return NSComparisonResult.OrderedSame
+                return .OrderedSame
             }
         }
         

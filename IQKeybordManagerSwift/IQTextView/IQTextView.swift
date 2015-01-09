@@ -45,18 +45,18 @@ class IQTextView : UITextView {
             if placeholderLabel == nil {
                 
                 placeholderLabel = UILabel(frame: CGRectInset(self.bounds, 5, 0))
-                placeholderLabel?.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-                placeholderLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-                placeholderLabel?.numberOfLines = 0
                 
-                if self.font != nil {
-                    placeholderLabel?.font = self.font!
+                if let unwrappedPlaceholderLabel = placeholderLabel {
+                    
+                    unwrappedPlaceholderLabel.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+                    unwrappedPlaceholderLabel.lineBreakMode = .ByWordWrapping
+                    unwrappedPlaceholderLabel.numberOfLines = 0
+                    unwrappedPlaceholderLabel.font = self.font?
+                    unwrappedPlaceholderLabel.backgroundColor = UIColor.clearColor()
+                    unwrappedPlaceholderLabel.textColor = UIColor(white: 0.7, alpha: 1.0)
+                    unwrappedPlaceholderLabel.alpha = 0
+                    self.addSubview(unwrappedPlaceholderLabel)
                 }
-
-                placeholderLabel?.backgroundColor = UIColor.clearColor()
-                placeholderLabel?.textColor = UIColor(white: 0.7, alpha: 1.0)
-                placeholderLabel?.alpha = 0
-                self.addSubview(placeholderLabel!)
             }
             
             placeholderLabel?.text = newValue
@@ -86,8 +86,8 @@ class IQTextView : UITextView {
        
         didSet {
             
-            if self.font != nil {
-                placeholderLabel?.font = self.font!
+            if let unwrappedFont = self.font {
+                placeholderLabel?.font = unwrappedFont
             } else {
                 placeholderLabel?.font = UIFont.systemFontOfSize(12)
             }

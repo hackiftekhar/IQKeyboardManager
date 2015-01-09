@@ -24,33 +24,44 @@
 
 import UIKit
 
-let kIQTextField                =   "kIQTextField"
-let kIQTextFieldDelegate        =   "kIQTextFieldDelegate"
-let kIQTextFieldReturnKeyType   =   "kIQTextFieldReturnKeyType"
-
 /*  @abstract   Manages the return key to work like next/done in a view hierarchy.    */
 class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDelegate {
    
-    /*! @abstract textField's delegates.    */
+    /*! @abstract textField/textView delegate.    */
     var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
     
     /*! @abstract It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews. */
     var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
 
     /*! @abstract Set the last textfield return key type. Default is UIReturnKeyDefault.    */
-    var lastTextFieldReturnKeyType = UIReturnKeyType.Default
+    var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.Default {
+        
+        didSet {
+            
+            for infoDict in textFieldInfoCache {
+                
+                if let view = infoDict[kIQTextField] as? UIView {
+                    updateReturnKeyTypeOnTextField(view)
+                }
+            }
+        }
+    }
     
-    private let textFieldInfoCache : NSMutableSet  = NSMutableSet()
+    private var textFieldInfoCache  = NSMutableSet()
+
+    private let kIQTextField                =   "kIQTextField"
+    private let kIQTextFieldDelegate        =   "kIQTextFieldDelegate"
+    private let kIQTextFieldReturnKeyType   =   "kIQTextFieldReturnKeyType"
 
     override init() {
         super.init()
     }
     
-    /*! @method initWithViewController  */
+    /*! @method Add all the textFields available in UIViewController's view.  */
     init(controller : UIViewController) {
         super.init()
 
-        addRespondersFromView(controller.view)
+        addResponderFromView(controller.view)
     }
 
     private func textFieldCachedInfo(textField : UIView) -> [String : AnyObject]? {
@@ -64,17 +75,15 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         return nil
     }
-
     
     /*! @abstract Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType. */
     func addTextFieldView(view : UIView) {
         
-        let dictInfo = NSMutableDictionary()
+        var dictInfo : [String : AnyObject] = [String : AnyObject]()
         
         dictInfo[kIQTextField] = view
         
-        if view is UITextField == true {
-            let textField : UITextField = view as UITextField
+        if let textField = view as? UITextField {
 
             /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
             http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
@@ -84,14 +93,12 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.rawValue;
             #endif
             
-            if textField.delegate != nil {
-                dictInfo[kIQTextFieldDelegate] = textField.delegate
+            if let textFieldDelegate = textField.delegate {
+                dictInfo[kIQTextFieldDelegate] = textFieldDelegate
             }
-
             textField.delegate = self
-        }
-        else if view is UITextView == true {
-            let textView : UITextView = view as UITextView
+
+        } else if let textView = view as? UITextView {
 
             /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
             http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
@@ -101,8 +108,8 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.rawValue;
             #endif
 
-            if textView.delegate != nil {
-                dictInfo[kIQTextFieldDelegate] = textView.delegate
+            if let textViewDelegate = textView.delegate {
+                dictInfo[kIQTextFieldDelegate] = textViewDelegate
             }
 
             textView.delegate = self
@@ -116,8 +123,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         if let dict : [String : AnyObject] = textFieldCachedInfo(view) {
             
-            if view is UITextField == true {
-                let textField : UITextField = view as UITextField
+            if let textField = view as? UITextField {
                 
                 /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
                 http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
@@ -129,8 +135,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 #endif
                 
                 textField.delegate = dict[kIQTextFieldDelegate] as UITextFieldDelegate?
-            } else if view is UITextView == true {
-                let textView : UITextView = view as UITextView
+            } else if let textView = view as? UITextView {
                 
                 /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
                 http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
@@ -146,11 +151,10 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             
             textFieldInfoCache.removeObject(view)
         }
-
     }
     
     /*! @abstract Add all the UITextField/UITextView responderView's. */
-    func addRespondersFromView(view : UIView) {
+    func addResponderFromView(view : UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -161,7 +165,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
     }
     
     /*! @abstract Remove all the UITextField/UITextView responderView's. */
-    func removeRespondersFromView(view : UIView) {
+    func removeResponderFromView(view : UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -200,13 +204,11 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
     
         if let lastView = textFields?.lastObject as? UIView {
             
-            if view is UITextField == true {
-                let textField : UITextField = view as UITextField
+            if let textField = view as? UITextField {
                 
                 //If it's the last textField in responder view, else next
                 textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType : UIReturnKeyType.Next
-            } else if view is UITextView == true {
-                let textView : UITextView = view as UITextView
+            } else if let textView = view as? UITextView {
                 
                 //If it's the last textField in responder view, else next
                 textView.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType : UIReturnKeyType.Next
@@ -250,7 +252,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 //If it is not last textField. then it's next object becomeFirstResponder.
                 if index < (unwrappedTextFields.count - 1) {
                     
-                    let nextTextField = unwrappedTextFields[index+1] as UITextField
+                    let nextTextField = unwrappedTextFields[index+1] as UIView
                     
                     //  Retaining textFieldView
                     let  textFieldRetain = view
@@ -285,8 +287,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             
             let view : AnyObject = infoDict[kIQTextField]!!
             
-            if view is UITextField == true {
-                let textField : UITextField = view as UITextField
+            if let textField = view as? UITextField {
                 
                 /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
                 http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
@@ -298,8 +299,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 #endif
                 
                 textField.delegate = infoDict[kIQTextFieldDelegate] as UITextFieldDelegate?
-            } else if view is UITextView == true {
-                let textView : UITextView = view as UITextView
+            } else if let textView = view as? UITextView {
                 
                 /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
                 http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */

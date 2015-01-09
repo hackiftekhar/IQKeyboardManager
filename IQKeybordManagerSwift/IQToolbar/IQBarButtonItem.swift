@@ -35,21 +35,26 @@ class IQBarButtonItem: UIBarButtonItem {
     
     override init(barButtonSystemItem systemItem: UIBarButtonSystemItem, target: AnyObject?, action: Selector) {
         super.init(barButtonSystemItem: systemItem, target: target, action: action)
+        tintColor = nil
     }
     
     override init(image: UIImage?, style: UIBarButtonItemStyle, target: AnyObject?, action: Selector) {
         super.init(image: image, style: style, target: target, action: action)
+        tintColor = nil
     }
     
     override init(title: String?, style: UIBarButtonItemStyle, target: AnyObject?, action: Selector) {
         super.init(title: title, style: style, target: target, action: action)
+        tintColor = nil
     }
     
     override init(customView: UIView) {
         super.init(customView: customView)
+        tintColor = nil
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        tintColor = nil
     }
 }
