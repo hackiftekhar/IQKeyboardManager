@@ -25,35 +25,23 @@
 import Foundation
 import UIKit
 
-//Special textFields,textViews,scrollViews
-var UIAlertSheetTextFieldClass: AnyClass?       =   nil //UIAlertView
-var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   nil //UIAlertView
-
-var UITableViewCellScrollViewClass: AnyClass?   =   nil //UITableViewCell
-var UITableViewWrapperViewClass: AnyClass?      =   nil //UITableViewCell
-var UIQueuingScrollViewClass: AnyClass?         =   nil //UIPageViewController
-
-var UISearchBarTextFieldClass: AnyClass?        =   nil //UISearchBar
-
-class FakeClass :NSObject {
-    
-    override class func load () {
-        
-        super.load()
-        
-        UIAlertSheetTextFieldClass          = NSClassFromString("UIAlertSheetTextField")
-        UIAlertSheetTextFieldClass_iOS8     = NSClassFromString("_UIAlertControllerTextField")
-        
-        UITableViewCellScrollViewClass      = NSClassFromString("UITableViewCellScrollView")
-        UITableViewWrapperViewClass         = NSClassFromString("UITableViewWrapperView")
-        UIQueuingScrollViewClass            = NSClassFromString("_UIQueuingScrollView")
-        
-        UISearchBarTextFieldClass           = NSClassFromString("UISearchBarTextField")
-    }
-}
-
 extension UIView {
     
+    /*! @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.   */
+    var isAskingCanBecomeFirstResponder: Bool {
+        get {
+            
+            if let aValue = objc_getAssociatedObject(self, "isAskingCanBecomeFirstResponder") as? Bool {
+                return aValue;
+            } else {
+                return false
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(OBJC_ASSOCIATION_ASSIGN))
+        }
+    }
+
     /*! @return Returns the UIViewController object that manages the receiver.  */
     func viewController()->UIViewController? {
         
@@ -103,6 +91,34 @@ extension UIView {
         }
     }
     
+    /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
+    func superScrollView()->UIScrollView? {
+        
+        var superview = self.superview
+        
+        while let superScrollView = superview {
+            //UITableViewWrapperView
+            
+            struct InternalClass {
+                
+                static var UITableViewCellScrollViewClass: AnyClass?   =   NSClassFromString("UITableViewCellScrollView") //UITableViewCell
+                static var UITableViewWrapperViewClass: AnyClass?      =   NSClassFromString("UITableViewWrapperView") //UITableViewCell
+                static var UIQueuingScrollViewClass: AnyClass?         =   NSClassFromString("_UIQueuingScrollView") //UIPageViewController
+            }
+            
+            if superScrollView is UIScrollView &&
+                (InternalClass.UITableViewCellScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) &&
+                (InternalClass.UITableViewWrapperViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) &&
+                (InternalClass.UIQueuingScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false) {
+                return superview as? UIScrollView
+            } else {
+                superview = superScrollView.superview
+            }
+        }
+        
+        return nil
+    }
+    
     /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
         
@@ -135,41 +151,35 @@ extension UIView {
         return nil
     }
 
-    /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
-    func superScrollView()->UIScrollView? {
+    private func _IQcanBecomeFirstResponder() -> Bool {
         
-        var superview = self.superview
+        isAskingCanBecomeFirstResponder = true
         
-        while let superScrollView = superview {
-            //UITableViewWrapperView
-            if superScrollView is UIScrollView && superScrollView.isKindOfClass(UITableViewCellScrollViewClass!) == false && superScrollView.isKindOfClass(UITableViewWrapperViewClass!) == false && superScrollView.isKindOfClass(UIQueuingScrollViewClass!) == false {
-                return superview as? UIScrollView
-            } else {
-                superview = superScrollView.superview
-            }
-        }
-        
-        return nil
-    }
+        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && userInteractionEnabled == true && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool;
 
+        isAskingCanBecomeFirstResponder = false
+
+        return _IQcanBecomeFirstResponder
+    }
+    
+    
     /*! @return returns all siblings of the receiver which canBecomeFirstResponder. */
     func responderSiblings()->NSArray {
         
         //	Getting all siblings
-        let siblings : NSArray? = self.superview?.subviews
-        
+        let siblings = self.superview?.subviews
+
         //Array of (UITextField/UITextView's).
-        let tempTextFields = NSMutableArray()
+        var tempTextFields = [UIView]()
         
         for textField in siblings as [UIView] {
             
-            if(textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false) {
-                tempTextFields.addObject(textField)
+            if _IQcanBecomeFirstResponder() == true {
+                tempTextFields.append(textField)
             }
         }
         
         return tempTextFields
-
     }
     
     /*! @return returns all deep subViews of the receiver which canBecomeFirstResponder.    */
@@ -177,7 +187,7 @@ extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews: NSArray? = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
+        let subViews = (self.subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
             
             if CGFloat(view1.y) < CGFloat(view2.y) {
                 return .OrderedAscending
@@ -189,48 +199,62 @@ extension UIView {
         }
         
         //Array of (UITextField/UITextView's).
-        let textfields = NSMutableArray()
+        var textfields = [UIView]()
         
         for textField in subViews as [UIView] {
 
-            if textField.canBecomeFirstResponder() && textField.userInteractionEnabled && textField.isAlertViewTextField() == false && textField.isSearchBarTextField() == false {
-                textfields.addObject(textField)
+            if _IQcanBecomeFirstResponder() == true {
+                textfields.append(textField)
             } else if textField.subviews.count != 0 {
-                textfields.addObjectsFromArray(textField.deepResponderViews())
+                for deepView in textField.deepResponderViews() as [UIView] {
+                    textfields.append(deepView)
+                }
             }
         }
         
-        return textfields as NSArray
-
+        return textfields
     }
     
     /*! @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
     func isSearchBarTextField()-> Bool {
-        return self.isKindOfClass(UISearchBarTextFieldClass!) || self is UISearchBar
+        
+        struct InternalClass {
+            
+            static var UISearchBarTextFieldClass: AnyClass?        =   NSClassFromString("UISearchBarTextField") //UISearchBar
+        }
+
+        return  (InternalClass.UISearchBarTextFieldClass != nil && self.isKindOfClass(InternalClass.UISearchBarTextFieldClass!)) || self is UISearchBar
     }
     
     /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
-        return self.isKindOfClass(UIAlertSheetTextFieldClass!) || UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(UIAlertSheetTextFieldClass_iOS8!)
+        
+        struct InternalClass {
+            
+            static var UIAlertSheetTextFieldClass: AnyClass?       =   NSClassFromString("UIAlertSheetTextField") //UIAlertView
+            static var UIAlertSheetTextFieldClass_iOS8: AnyClass?  =   NSClassFromString("_UIAlertControllerTextField") //UIAlertView
+        }
+        
+        return (InternalClass.UIAlertSheetTextFieldClass != nil && self.isKindOfClass(InternalClass.UIAlertSheetTextFieldClass!)) ||
+            (InternalClass.UIAlertSheetTextFieldClass_iOS8 != nil && self.isKindOfClass(InternalClass.UIAlertSheetTextFieldClass_iOS8!))
     }
     
     /*! @return returns current view transform with respect to the 'toView'.    */
     func convertTransformToView(var toView:UIView?)->CGAffineTransform {
         
         if toView == nil {
-            toView = self.window
+            toView = window
         }
         
         //My Transform
         var myTransform = CGAffineTransformIdentity
         
-        if let superView = self.superview {
-            myTransform = CGAffineTransformConcat(self.transform, superView.convertTransformToView(nil))
+        if let superView = superview {
+            myTransform = CGAffineTransformConcat(transform, superView.convertTransformToView(nil))
         } else {
-            myTransform = self.transform
+            myTransform = transform
         }
     
-
         //view Transform
         var viewTransform = CGAffineTransformIdentity
         

@@ -25,6 +25,7 @@
 import Foundation
 import UIKit
 
+/*! @abstract UIWindow hierarchy category.  */
 extension UIWindow {
 
     /*! @return Returns the current Top Most ViewController in hierarchy.   */
@@ -32,8 +33,8 @@ extension UIWindow {
         
         var topController = rootViewController
         
-        while topController?.presentedViewController != nil {
-            topController = topController?.presentedViewController
+        while let presentedController = topController?.presentedViewController {
+            topController = presentedController
         }
         
         return topController
