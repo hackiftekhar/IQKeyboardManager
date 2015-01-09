@@ -85,9 +85,6 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     }
     
     var enableInputClicksWhenVisible: Bool {
-
-        get {
-            return true
-        }
+        return true
     }
 }

@@ -29,7 +29,11 @@ class IQTitleBarButtonItem: UIBarButtonItem {
     var font : UIFont? {
     
         didSet {
-            titleLabel?.font = font!
+            if let unwrappedFont = self.font {
+                titleLabel?.font = unwrappedFont
+            } else {
+                titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+            }
         }
     }
     
@@ -45,11 +49,11 @@ class IQTitleBarButtonItem: UIBarButtonItem {
         
         titleLabel = UILabel(frame: frame)
         titleLabel?.backgroundColor = UIColor.clearColor()
-        titleLabel?.textAlignment = NSTextAlignment.Center
+        titleLabel?.textAlignment = .Center
         titleLabel?.text = title
-        titleLabel?.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        titleLabel?.autoresizingMask = .FlexibleWidth
         self.font = UIFont.boldSystemFontOfSize(12.0)
-        titleLabel?.font = self.font!
+        titleLabel?.font = self.font?
         self.customView = titleLabel
         self.enabled = false
     }

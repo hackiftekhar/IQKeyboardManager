@@ -25,34 +25,36 @@ import Foundation
 
 extension NSArray {
     
+    /*! @abstract Returns the array by sorting the UIView's by their tag property. */
     func sortedArrayByTag() -> NSArray {
         
-        return self.sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
+        return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
             
             if view1?.tag < view2?.tag {
-                return NSComparisonResult.OrderedAscending
+                return .OrderedAscending
             } else if view1?.tag > view2?.tag {
-                return NSComparisonResult.OrderedDescending
+                return .OrderedDescending
             } else {
-                return NSComparisonResult.OrderedSame
+                return .OrderedSame
             }
         })
     }
     
+    /*! @abstract Returns the array by sorting the UIView's by their tag property. */
     func sortedArrayByPosition() -> NSArray {
         
-        return self.sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
+        return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
             
             if view1?.y < view2?.y {
-                return NSComparisonResult.OrderedAscending
+                return .OrderedAscending
             } else if view1?.y > view2?.y {
-                return NSComparisonResult.OrderedDescending
+                return .OrderedDescending
             } else if view1?.x < view2?.x {   //Else both y are same so checking for x positions
-                return NSComparisonResult.OrderedAscending
+                return .OrderedAscending
             } else if view1?.x > view2?.x {
-                return NSComparisonResult.OrderedDescending
+                return .OrderedDescending
             } else {
-                return NSComparisonResult.OrderedSame
+                return .OrderedSame
             }
         })
     }
