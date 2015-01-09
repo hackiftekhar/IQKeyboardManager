@@ -107,9 +107,9 @@ extension UIView {
             }
             
             if superScrollView is UIScrollView &&
-                (InternalClass.UITableViewCellScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) &&
-                (InternalClass.UITableViewWrapperViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) &&
-                (InternalClass.UIQueuingScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false) {
+                ((InternalClass.UITableViewCellScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) ||
+                (InternalClass.UITableViewWrapperViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) ||
+                (InternalClass.UIQueuingScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false)) {
                 return superView as? UIScrollView
             } else {
                 superView = superScrollView.superview
