@@ -51,11 +51,11 @@ class IQTextView : UITextView {
                     unwrappedPlaceholderLabel.autoresizingMask = .FlexibleWidth | .FlexibleHeight
                     unwrappedPlaceholderLabel.lineBreakMode = .ByWordWrapping
                     unwrappedPlaceholderLabel.numberOfLines = 0
-                    unwrappedPlaceholderLabel.font = self.font?
+                    unwrappedPlaceholderLabel.font = font?
                     unwrappedPlaceholderLabel.backgroundColor = UIColor.clearColor()
                     unwrappedPlaceholderLabel.textColor = UIColor(white: 0.7, alpha: 1.0)
                     unwrappedPlaceholderLabel.alpha = 0
-                    self.addSubview(unwrappedPlaceholderLabel)
+                    addSubview(unwrappedPlaceholderLabel)
                 }
             }
             
@@ -66,7 +66,7 @@ class IQTextView : UITextView {
     
     private func refreshPlaceholder() {
         
-        if countElements(self.text) != 0 {
+        if countElements(text) != 0 {
             placeholderLabel?.alpha = 0
         } else {
             placeholderLabel?.alpha = 1
@@ -86,7 +86,7 @@ class IQTextView : UITextView {
        
         didSet {
             
-            if let unwrappedFont = self.font {
+            if let unwrappedFont = font {
                 placeholderLabel?.font = unwrappedFont
             } else {
                 placeholderLabel?.font = UIFont.systemFontOfSize(12)

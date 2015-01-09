@@ -30,7 +30,7 @@ class TextFieldViewController: UIViewController {
         
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self);
         
-        if self.navigationController == nil {
+        if navigationController == nil {
             buttonPop.hidden = true;
             buttonPush.hidden = true;
             buttonPresent.setTitle("Dismiss", forState: UIControlState.Normal)
@@ -53,19 +53,19 @@ class TextFieldViewController: UIViewController {
     
     @IBAction func popClicked (sender : AnyObject!) {
         
-        self.navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     
     @IBAction func presentClicked (sender: AnyObject!) {
         
-        if self.navigationController != nil {
+        if navigationController != nil {
             
-            var controller: UIViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as? UIViewController
+            var controller: UIViewController? = storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as? UIViewController
             
-            self.presentViewController(controller!, animated: true, completion: nil)
+            presentViewController(controller!, animated: true, completion: nil)
         } else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }

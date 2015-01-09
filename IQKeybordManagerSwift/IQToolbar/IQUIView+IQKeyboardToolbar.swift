@@ -75,7 +75,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             if let unwrappedTitleText = titleText {
-                if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                if countElements(unwrappedTitleText) != 0 && shouldHideTitle == false {
                     
                     /*
                     50 done button frame.
@@ -138,7 +138,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             if let unwrappedTitleText = titleText {
-                if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                if countElements(unwrappedTitleText) != 0 && shouldHideTitle == false {
                     /*
                     50 done button frame.
                     24 distance maintenance
@@ -222,7 +222,7 @@ extension UIView {
             items.append(cancelButton)
             
             if let unwrappedTitleText = titleText {
-                if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                if countElements(unwrappedTitleText) != 0 && shouldHideTitle == false {
                     /*
                     66 Cancel button maximum x.
                     50 done button frame.
@@ -289,7 +289,7 @@ extension UIView {
             items.append(cancelButton)
             
             if let unwrappedTitleText = titleText {
-                if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                if countElements(unwrappedTitleText) != 0 && shouldHideTitle == false {
                     /*
                     66 Cancel button maximum x.
                     50 done button frame.
@@ -384,7 +384,7 @@ extension UIView {
             items.append(next)
             
             if let unwrappedTitleText = titleText {
-                if countElements(unwrappedTitleText) != 0 && self.shouldHideTitle == false {
+                if countElements(unwrappedTitleText) != 0 && shouldHideTitle == false {
                     /*
                     72.5 next/previous maximum x.
                     50 done button frame.
