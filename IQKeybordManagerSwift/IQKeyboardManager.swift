@@ -1021,7 +1021,8 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /*! To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return (touch.view is UIControl) ? false : true
+        //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
+        return (touch.view is UIControl || touch.view is UINavigationBar) ? false : true
     }
 
     /*! Resigning textField. */

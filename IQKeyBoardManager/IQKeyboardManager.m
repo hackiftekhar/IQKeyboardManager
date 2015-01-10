@@ -30,6 +30,7 @@
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
+#import <UIKit/UINavigationBar.h>
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
@@ -1086,7 +1087,8 @@ void _IQShowLog(NSString *logString);
 /*! To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    return [[touch view] isKindOfClass:[UIControl class]] ? NO : YES;
+    //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
+    return ([[touch view] isKindOfClass:[UIControl class]] || [[touch view] isKindOfClass:[UINavigationBar class]]) ? NO : YES;
 }
 
 /*! Resigning textField. */
