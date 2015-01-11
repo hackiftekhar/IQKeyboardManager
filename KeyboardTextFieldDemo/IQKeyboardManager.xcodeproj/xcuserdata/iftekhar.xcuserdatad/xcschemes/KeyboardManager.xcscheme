@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-               BuildableName = "IQKeyboard.app"
-               BlueprintName = "IQKeyboard"
-               ReferencedContainer = "container:IQKeyboard.xcodeproj">
+               BlueprintIdentifier = "9D0BB87218BB232B00667349"
+               BuildableName = "KeyboardManager.framework"
+               BlueprintName = "KeyboardManager"
+               ReferencedContainer = "container:IQKeyboardManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboard.app"
-            BlueprintName = "IQKeyboard"
-            ReferencedContainer = "container:IQKeyboard.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,15 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboard.app"
-            BlueprintName = "IQKeyboard"
-            ReferencedContainer = "container:IQKeyboard.xcodeproj">
+            BlueprintIdentifier = "9D0BB87218BB232B00667349"
+            BuildableName = "KeyboardManager.framework"
+            BlueprintName = "KeyboardManager"
+            ReferencedContainer = "container:IQKeyboardManager.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -66,15 +57,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboard.app"
-            BlueprintName = "IQKeyboard"
-            ReferencedContainer = "container:IQKeyboard.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
