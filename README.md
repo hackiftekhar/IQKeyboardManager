@@ -7,7 +7,7 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 
 ####Key Features
 
-1) `ZERO LINE OF CODE`
+1) `CODELESS, Zero Line Of Code`
 
 2) `Works Automatically`
 
