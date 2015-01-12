@@ -66,7 +66,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*!
     @property enable
 
-    @abstract enable/disable the keyboard manager. Default is YES(Enabled when class loads in `+(void)load` method).
+    @abstract enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
  */
 @property(nonatomic, assign, getter = isEnabled) BOOL enable;
 
@@ -137,6 +137,13 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
     @abstract Adjust textView's frame when it is too big in height. Default is NO.
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
+
+/*!
+    @property shouldFixTextViewClip
+ 
+    @abstract Adjust textView's contentInset to fix fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
+ */
+@property(nonatomic, assign) BOOL shouldFixTextViewClip;
 
 
 /*******************************************/
