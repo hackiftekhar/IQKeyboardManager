@@ -267,7 +267,7 @@ Use this to enable/disable managing distance between keyboard & textField/textVi
 Set Distance between keyboard & textField. Can't be less than zero. Default is 10.
 
 ***@property BOOL preventShowingBottomBlankSpace :***
-Prevent to show bottom blanck area when keyboard slide up the view. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)). Default is YES.
+Prevent to show bottom blanck area when keyboard slide up the view. Default is YES. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)).
 
 ####IQToolbar handling
 
