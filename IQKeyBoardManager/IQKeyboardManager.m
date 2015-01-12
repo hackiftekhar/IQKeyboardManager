@@ -928,6 +928,9 @@ void _IQShowLog(NSString *logString);
 {
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
 
+    //If not enabled then do nothing.
+    if (_enable == NO)	return;
+    
     //  Getting object
     _textFieldView = notification.object;
     
@@ -1001,6 +1004,9 @@ void _IQShowLog(NSString *logString);
 {
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
 
+    //If not enabled then do nothing.
+    if (_enable == NO)	return;
+    
     [_textFieldView.window removeGestureRecognizer:_tapGesture]; // (Enhancement ID: #14)
     
     // We check if there's a change in original frame or not.
@@ -1026,6 +1032,9 @@ void _IQShowLog(NSString *logString);
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
     UITextView *textView = (UITextView *)notification.object;
+    
+    //If not enabled then do nothing.
+    if (_enable == NO)	return;
     
     CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
     CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
