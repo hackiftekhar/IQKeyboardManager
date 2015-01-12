@@ -217,6 +217,7 @@ void _IQShowLog(NSString *logString);
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
+            [self setShouldFixTextViewClip:YES];
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
@@ -1025,23 +1026,25 @@ void _IQShowLog(NSString *logString);
 /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
-    UITextView *textView = (UITextView *)notification.object;
-    
-    CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
-    CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
-    
-    //Added overflow conditions (Bug ID: 95)
-    if ( overflow > 0  && overflow < FLT_MAX)
+    if (_shouldFixTextViewClip == YES)
     {
-        // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
-        // Scroll caret to visible area
-        CGPoint offset = textView.contentOffset;
-        offset.y += overflow + 7; // leave 7 pixels margin
+        UITextView *textView = (UITextView *)notification.object;
+        CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
+        CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
         
-        // Cannot animate with setContentOffset:animated: or caret will not appear
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            [textView setContentOffset:offset];
-        } completion:NULL];
+        //Added overflow conditions (Bug ID: 95)
+        if ( overflow > 0  && overflow < FLT_MAX)
+        {
+            // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
+            // Scroll caret to visible area
+            CGPoint offset = textView.contentOffset;
+            offset.y += overflow + 7; // leave 7 pixels margin
+            
+            // Cannot animate with setContentOffset:animated: or caret will not appear
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                [textView setContentOffset:offset];
+            } completion:NULL];
+        }
     }
 }
 

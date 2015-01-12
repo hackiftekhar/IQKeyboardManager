@@ -7,7 +7,7 @@ Often while developing an app, We ran into an issues where the iPhone `UIKeyboar
 
 ####Key Features
 
-1) `CODELESS, Zero Line Of Code`
+1) **CODELESS**, Zero Line Of Code`
 
 2) `Works Automatically`
 
@@ -75,20 +75,27 @@ If you need to port your project to another location you may need to adjust `Fra
 
 #### Source Code Method:-
 
-Just drag and drop `IQKeyBoardManager` directory from demo project to your project. That's it. No need to write any single line of code. It will enable automatically.
+Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
 
 ## Known Issues:-
 
 ![Known Issue 1](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerKnownIssue1.png)
 
-1) **Keyboard does not appear in iOS Simulator** ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
+**1) Keyboard does not appear in iOS Simulator** ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
 If keyboard does not appear in iOS Simulator and only toolbar is appearing over it (if enableAutoToolbar = YES), then check this setting
      
-**Xcode 6:-** Goto ***iOS Simulator->Menu->Hardware->Keyboard->Connect Hardware Keyboard***, and deselect that.
+***Xcode 6:-*** Goto ***iOS Simulator->Menu->Hardware->Keyboard->Connect Hardware Keyboard***, and deselect that.
 
-**Xcode 5 and earlier:-** Goto ***iOS Simulator->Menu->Hardware->Simulate Hardware Keyboard***, and deselect that.
+***Xcode 5 and earlier:-*** Goto ***iOS Simulator->Menu->Hardware->Simulate Hardware Keyboard***, and deselect that.
     
+**2) setEnable = NO doesn't disable automatic UIToolbar** ([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117), [#136](https://github.com/hackiftekhar/IQKeyboardManager/issues/136), [#147](https://github.com/hackiftekhar/IQKeyboardManager/issues/147))
+
+If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still automatic toolbar appears on textFields? Probably you haven't heard about ***@property enableAutoToolbar***.
+
+***@property enable :*** It enable/disable managing distance between keyboard and textField, and doesn't affect autoToolbar feature.
+
+***@property enableAutoToolbar :*** It enable/disable automatic creation of toolbar, please set enableAutoToolbar to NO if you don't want to add automatic toolbar.
 
 Manual Management:-
 ---
@@ -135,7 +142,7 @@ Manual Management:-
 
 
 #### Keyboard Return Key Handling:-
-  If you would like to implement keyboard `Return Key` as `Next` button, then you can use `IQKeyboardReturnKeyHandler`.([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))
+  If you would like to implement keyboard **Return Key** as **Next/Done** button, then you can use **IQKeyboardReturnKeyHandler**.([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))
   
   1) Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this:-
   
@@ -215,14 +222,14 @@ textField.inputAccessoryView = [[UIView alloc] init];
 
 #### Doing custom work on textField with returning NO in `textFieldShouldBeginEditing:` delegate:-
 
-Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside `textFieldShouldBeginEditing:` and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using `canBecomeFirstResponder` in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use `isAskingCanBecomeFirstResponder` BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
+Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside ***textFieldShouldBeginEditing:*** and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using ***canBecomeFirstResponder*** in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use ***isAskingCanBecomeFirstResponder*** BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
 
 1) You may need to import `IQUIView+Hierarchy` category
 ```
 #import "IQUIView+Hierarchy.h"
 ```
 
-2) check for `isAskingCanBecomeFirstResponder` in `textFieldShouldBeginEditing:` delegate.
+2) check for ***isAskingCanBecomeFirstResponder*** in `textFieldShouldBeginEditing:` delegate.
 
 ```
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -245,55 +252,85 @@ Generally if developer need to perform some custom task on a particular textFiel
 [![IQKeyboardManager CFD](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)
 
 
-Properties and functions usage:-
+##Properties and functions usage:-
+
+
+**UIKeyboard handling**
 ---
-1)	`+sharedManager`
+
+**1) +(instancetype)sharedManager :**
 Returns the default singleton instance.
 
-2)	`enable`
+**2) @property BOOL enable :**
 Use this to enable/disable managing distance between keyboard & textField/textView).
 
-3)	`keyboardDistanceFromTextField`
+**3) @property CGFloat keyboardDistanceFromTextField :**
 Set Distance between keyboard & textField. Can't be less than zero. Default is 10.
 
-4)	`enableAutoToolbar`
+**4) @property BOOL preventShowingBottomBlankSpace :**
+Prevent to show bottom blanck area when keyboard slide up the view. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)). Default is YES.
+
+**IQToolbar handling**
+---
+
+**5)  @property BOOL enableAutoToolbar :**
 Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
 
-5)	`toolbarManageBehaviour`
+**6) @property IQAutoToolbarManageBehaviour toolbarManageBehaviour :**
 Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
 
-6)	`shouldToolbarUsesTextFieldTintColor`
+**7) @property  BOOL shouldToolbarUsesTextFieldTintColor :**
 If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
-7)	`shouldShowTextFieldPlaceholder`
+**8)	 @property BOOL shouldShowTextFieldPlaceholder :**
 If YES, then it add the textField's placeholder text on IQToolbar. Default is YES. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
-8)	`placeholderFont`
+**9) @property UIFont \*placeholderFont :**
 placeholder Font. Default is nil. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
-9)	`canAdjustTextView`
+
+**UITextView handling**
+---
+
+**10) @property BOOL canAdjustTextView :**
 Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO. ([#30](https://github.com/hackiftekhar/IQKeyboardManager/issues/30))
 
-10)	`overrideKeyboardAppearance`
+**11) @property BOOL shouldFixTextViewClip :**
+Adjust textView's contentInset to fix fix for iOS 7.0.x -([#Stackoverflow](http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string)). Default is YES.
+
+
+**UIKeyboard Appearance overriding**
+---
+
+**12)  @property BOOL overrideKeyboardAppearance :**
 Override the keyboardAppearance for all textField/textView. Default is NO.
 
-11)	`keyboardAppearance`
+**13) @property UIKeyboardAppearance keyboardAppearance :**
 If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
 
-12)	`shouldResignOnTouchOutside`
+
+**UITextField/UITextView Resign handling**
+---
+
+**14) @property BOOL shouldResignOnTouchOutside :**
 Resign textField if touched outside of UITextField/UITextView. ([#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14))
 
-13)	`-resignFirstResponder`
+**15) -(void)resignFirstResponder :**
 Resigns currently first responder field.
 
-14)	`shouldPlayInputClicks`
+
+**UISound handling**
+---
+
+**16) @property BOOL shouldPlayInputClicks :**
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
-15)	`shouldAdoptDefaultKeyboardAnimation`
-If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseOut animation style. Default is YES.
 
-16)	`preventShowingBottomBlankSpace`
-Prevent to show bottom black area when keyboard slide up the view. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93))
+**UIAnimation handling**
+---
+
+**17) @property BOOL shouldAdoptDefaultKeyboardAnimation :**
+If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseOut animation style. Default is YES.
 
 
 
