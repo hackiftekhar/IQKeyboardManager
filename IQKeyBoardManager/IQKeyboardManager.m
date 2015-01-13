@@ -1195,6 +1195,10 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
+            else if (textFieldRetain.previousInvocation)
+            {
+                [textFieldRetain.previousInvocation invoke];
+            }
         }
     }
 }
@@ -1235,6 +1239,10 @@ void _IQShowLog(NSString *logString);
 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
+            else if (textFieldRetain.nextInvocation)
+            {
+                [textFieldRetain.nextInvocation invoke];
+            }
         }
     }
 }
@@ -1249,8 +1257,24 @@ void _IQShowLog(NSString *logString);
         [[UIDevice currentDevice] playInputClick];
     }
 
-    //Resign textFieldView.
-    [self resignFirstResponder];
+    //  Retaining textFieldView
+    UIView *textFieldRetain = _textFieldView;
+    
+    //Resigning first responder
+    BOOL isResignFirstResponder = [_textFieldView resignFirstResponder];
+    
+    //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
+    if (isResignFirstResponder == NO)
+    {
+        //If it refuses to resign then becoming it first responder again for getting notifications callback.
+        [textFieldRetain becomeFirstResponder];
+        
+        _IQShowLog([NSString stringWithFormat:@"Refuses to Resign first responder: %@",[_textFieldView _IQDescription]]);
+    }
+    else if (textFieldRetain.doneInvocation)
+    {
+        [textFieldRetain.doneInvocation invoke];
+    }
 }
 
 /*! Add toolbar if it is required to add on textFields and it's siblings. */

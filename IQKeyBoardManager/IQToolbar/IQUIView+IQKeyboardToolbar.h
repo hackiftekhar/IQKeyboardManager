@@ -48,6 +48,39 @@
 @property (assign, nonatomic) BOOL shouldHideTitle;
 
 /*!
+    @method setCustomPreviousTarget:action:
+    @method setCustomNextTarget:action:
+    @method setCustomDoneTarget:action:
+ 
+    @abstract Invoke action on target when the toolbar is created using IQKeyboardManager, you may add additional target & action to do get callback action. Note that setting custom previous/next/done selector doesn't affect native next/previous/done functionality, this is just used to notifiy user to do additional work according to your need.
+ */
+-(void)setCustomPreviousTarget:(id)target action:(SEL)action;
+-(void)setCustomNextTarget:(id)target action:(SEL)action;
+-(void)setCustomDoneTarget:(id)target action:(SEL)action;
+
+/*!
+    @property previousInvocation
+ 
+    @abstract customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget: method.
+ */
+@property (strong, nonatomic) NSInvocation *previousInvocation;
+
+/*!
+    @property nextInvocation
+ 
+    @abstract customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget: method.
+ */
+@property (strong, nonatomic) NSInvocation *nextInvocation;
+
+/*!
+    @property nextInvocation
+ 
+    @abstract customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget: method.
+ */
+@property (strong, nonatomic) NSInvocation *doneInvocation;
+
+
+/*!
     @method addDoneOnKeyboardWithTarget:action:
  
     @abstract Helper functions to add Done button on keyboard.
