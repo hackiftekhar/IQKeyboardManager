@@ -81,7 +81,7 @@ Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your
 
 ![Known Issue 1](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerKnownIssue1.png)
 
-**1) Keyboard does not appear in iOS Simulator** ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
+####1) Keyboard does not appear in iOS Simulator ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
 If keyboard does not appear in iOS Simulator and only toolbar is appearing over it (if enableAutoToolbar = YES), then check this setting
      
@@ -89,7 +89,7 @@ If keyboard does not appear in iOS Simulator and only toolbar is appearing over 
 
 ***Xcode 5 and earlier:-*** Goto ***iOS Simulator->Menu->Hardware->Simulate Hardware Keyboard***, and deselect that.
     
-**2) setEnable = NO doesn't disable automatic UIToolbar** ([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117), [#136](https://github.com/hackiftekhar/IQKeyboardManager/issues/136), [#147](https://github.com/hackiftekhar/IQKeyboardManager/issues/147))
+####2) setEnable = NO doesn't disable automatic UIToolbar ([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117), [#136](https://github.com/hackiftekhar/IQKeyboardManager/issues/136), [#147](https://github.com/hackiftekhar/IQKeyboardManager/issues/147))
 
 If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still automatic toolbar appears on textFields? Probably you haven't heard about ***@property enableAutoToolbar***.
 
@@ -255,81 +255,73 @@ Generally if developer need to perform some custom task on a particular textFiel
 ##Properties and functions usage:-
 
 
-**UIKeyboard handling**
----
+####UIKeyboard handling
 
-**1) +(instancetype)sharedManager :**
+***+(instancetype)sharedManager :***
 Returns the default singleton instance.
 
-**2) @property BOOL enable :**
+***@property BOOL enable :***
 Use this to enable/disable managing distance between keyboard & textField/textView).
 
-**3) @property CGFloat keyboardDistanceFromTextField :**
+***@property CGFloat keyboardDistanceFromTextField :***
 Set Distance between keyboard & textField. Can't be less than zero. Default is 10.
 
-**4) @property BOOL preventShowingBottomBlankSpace :**
-Prevent to show bottom blanck area when keyboard slide up the view. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)). Default is YES.
+***@property BOOL preventShowingBottomBlankSpace :***
+Prevent to show bottom blanck area when keyboard slide up the view. Default is YES. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)).
 
-**IQToolbar handling**
----
+####IQToolbar handling
 
-**5)  @property BOOL enableAutoToolbar :**
+***@property BOOL enableAutoToolbar :***
 Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
 
-**6) @property IQAutoToolbarManageBehaviour toolbarManageBehaviour :**
+***@property IQAutoToolbarManageBehaviour toolbarManageBehaviour :***
 Setting toolbar behaviour to IQAutoToolbarBySubviews to manage previous/next according to UITextField's hierarchy in it's SuperView. Set it to IQAutoToolbarByTag to manage previous/next according to UITextField's tag property in increasing order. Default is IQAutoToolbarBySubviews.
 
-**7) @property  BOOL shouldToolbarUsesTextFieldTintColor :**
+***@property  BOOL shouldToolbarUsesTextFieldTintColor :***
 If YES, then uses textField's tintColor property for IQToolbar, otherwise tintColor is black. Default is NO. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
-**8)	 @property BOOL shouldShowTextFieldPlaceholder :**
+***@property BOOL shouldShowTextFieldPlaceholder :***
 If YES, then it add the textField's placeholder text on IQToolbar. Default is YES. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
-**9) @property UIFont \*placeholderFont :**
+***@property UIFont *placeholderFont :***
 placeholder Font. Default is nil. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
 
-**UITextView handling**
----
+####UITextView handling
 
-**10) @property BOOL canAdjustTextView :**
+***@property BOOL canAdjustTextView :***
 Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO. ([#30](https://github.com/hackiftekhar/IQKeyboardManager/issues/30))
 
-**11) @property BOOL shouldFixTextViewClip :**
+***@property BOOL shouldFixTextViewClip :***
 Adjust textView's contentInset to fix fix for iOS 7.0.x -([#Stackoverflow](http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string)). Default is YES.
 
 
-**UIKeyboard Appearance overriding**
----
+####UIKeyboard Appearance overriding
 
-**12)  @property BOOL overrideKeyboardAppearance :**
+***@property BOOL overrideKeyboardAppearance :***
 Override the keyboardAppearance for all textField/textView. Default is NO.
 
-**13) @property UIKeyboardAppearance keyboardAppearance :**
+***@property UIKeyboardAppearance keyboardAppearance :***
 If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
 
 
-**UITextField/UITextView Resign handling**
----
+####UITextField/UITextView Resign handling
 
-**14) @property BOOL shouldResignOnTouchOutside :**
+***@property BOOL shouldResignOnTouchOutside :***
 Resign textField if touched outside of UITextField/UITextView. ([#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14))
 
-**15) -(void)resignFirstResponder :**
+***-(void)resignFirstResponder :***
 Resigns currently first responder field.
 
+####UISound handling
 
-**UISound handling**
----
-
-**16) @property BOOL shouldPlayInputClicks :**
+***@property BOOL shouldPlayInputClicks :***
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
 
-**UIAnimation handling**
----
+####UIAnimation handling
 
-**17) @property BOOL shouldAdoptDefaultKeyboardAnimation :**
+***@property BOOL shouldAdoptDefaultKeyboardAnimation :***
 If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseOut animation style. Default is YES.
 
 
