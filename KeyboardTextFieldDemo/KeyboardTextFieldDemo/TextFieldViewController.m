@@ -6,6 +6,7 @@
 #import "IQKeyboardManager.h"
 #import "IQKeyboardReturnKeyHandler.h"
 #import "IQDropDownTextField.h"
+#import "IQUIView+IQKeyboardToolbar.h"
 
 @implementation TextFieldViewController
 {
@@ -29,9 +30,28 @@
     [self refreshUI];
 }
 
+-(void)previousAction:(UITextField*)textField
+{
+    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+}
+
+-(void)nextAction:(UITextField*)textField
+{
+    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+}
+
+-(void)doneAction:(UITextField*)textField
+{
+    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [dropDownTextField setCustomPreviousTarget:self action:@selector(previousAction:)];
+    [dropDownTextField setCustomNextTarget:self action:@selector(nextAction:)];
+    [dropDownTextField setCustomDoneTarget:self action:@selector(doneAction:)];
     
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];

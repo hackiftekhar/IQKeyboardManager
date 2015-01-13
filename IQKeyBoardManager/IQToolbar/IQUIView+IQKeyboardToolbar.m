@@ -53,6 +53,66 @@ IQ_LoadCategory(IQUIViewToolbar)
     return [shouldHideTitle boolValue];
 }
 
+-(void)setCustomPreviousTarget:(id)target action:(SEL)action
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:action]];
+    invocation.target = target;
+    invocation.selector = action;
+    UIView *selfObject = self;
+    [invocation setArgument:&selfObject atIndex:2];
+    self.previousInvocation = invocation;
+}
+
+-(void)setCustomNextTarget:(id)target action:(SEL)action
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:action]];
+    invocation.target = target;
+    invocation.selector = action;
+    UIView *selfObject = self;
+    [invocation setArgument:&selfObject atIndex:2];
+    self.nextInvocation = invocation;
+}
+
+-(void)setCustomDoneTarget:(id)target action:(SEL)action
+{
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:action]];
+    invocation.target = target;
+    invocation.selector = action;
+    UIView *selfObject = self;
+    [invocation setArgument:&selfObject atIndex:2];
+    self.doneInvocation = invocation;
+}
+
+-(void)setPreviousInvocation:(NSInvocation *)previousInvocation
+{
+    objc_setAssociatedObject(self, @selector(previousInvocation), previousInvocation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)setNextInvocation:(NSInvocation *)nextInvocation
+{
+    objc_setAssociatedObject(self, @selector(nextInvocation), nextInvocation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)setDoneInvocation:(NSInvocation *)doneInvocation
+{
+    objc_setAssociatedObject(self, @selector(doneInvocation), doneInvocation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSInvocation *)previousInvocation
+{
+    return objc_getAssociatedObject(self, @selector(previousInvocation));
+}
+
+-(NSInvocation *)nextInvocation
+{
+    return objc_getAssociatedObject(self, @selector(nextInvocation));
+}
+
+-(NSInvocation *)doneInvocation
+{
+    return objc_getAssociatedObject(self, @selector(doneInvocation));
+}
+
 
 - (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
