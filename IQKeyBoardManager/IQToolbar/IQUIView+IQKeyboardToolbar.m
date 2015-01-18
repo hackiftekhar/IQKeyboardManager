@@ -35,10 +35,6 @@
 
 IQ_LoadCategory(IQUIViewToolbar)
 
-//NSInteger const kIQRightButtonToolbarTag            =   -1001;
-//NSInteger const kIQRightLeftButtonToolbarTag        =   -1003;
-//NSInteger const kIQCancelDoneButtonToolbarTag       =   -1004;
-
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
@@ -121,7 +117,14 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-//	toolbar.tag = kIQRightButtonToolbarTag;
+    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    {
+        switch ([(UITextField*)self keyboardAppearance])
+        {
+            case UIKeyboardAppearanceAlert: toolbar.barStyle = UIBarStyleBlack;     break;
+            default:                        toolbar.barStyle = UIBarStyleDefault;   break;
+        }
+    }
     
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -187,7 +190,14 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-//	toolbar.tag = kIQDoneButtonToolbarTag;
+    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    {
+        switch ([(UITextField*)self keyboardAppearance])
+        {
+            case UIKeyboardAppearanceAlert: toolbar.barStyle = UIBarStyleBlack;     break;
+            default:                        toolbar.barStyle = UIBarStyleDefault;   break;
+        }
+    }
  	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -254,7 +264,14 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-//	toolbar.tag = kIQRightLeftButtonToolbarTag;
+    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    {
+        switch ([(UITextField*)self keyboardAppearance])
+        {
+            case UIKeyboardAppearanceAlert: toolbar.barStyle = UIBarStyleBlack;     break;
+            default:                        toolbar.barStyle = UIBarStyleDefault;   break;
+        }
+    }
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -325,7 +342,14 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-//	toolbar.tag = kIQCancelDoneButtonToolbarTag;
+    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    {
+        switch ([(UITextField*)self keyboardAppearance])
+        {
+            case UIKeyboardAppearanceAlert: toolbar.barStyle = UIBarStyleBlack;     break;
+            default:                        toolbar.barStyle = UIBarStyleDefault;   break;
+        }
+    }
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -396,7 +420,14 @@ IQ_LoadCategory(IQUIViewToolbar)
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-//	toolbar.tag = kIQPreviousNextButtonToolbarTag;
+    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    {
+        switch ([(UITextField*)self keyboardAppearance])
+        {
+            case UIKeyboardAppearanceAlert: toolbar.barStyle = UIBarStyleBlack;     break;
+            default:                        toolbar.barStyle = UIBarStyleDefault;   break;
+        }
+    }
  
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
