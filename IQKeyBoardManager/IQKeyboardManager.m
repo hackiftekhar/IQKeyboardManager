@@ -1295,20 +1295,40 @@ void _IQShowLog(NSString *logString);
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
             textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             
-            //Setting toolbar tintColor //  (Enhancement ID: #30)
-            if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
-                [textField.inputAccessoryView setTintColor:[textField tintColor]];
-            
-            //Setting toolbar title font.   //  (Enhancement ID: #30)
-            if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
+            if ([textField respondsToSelector:@selector(keyboardAppearance)])
+            {
+                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+                
+                switch ([(UITextField*)textField keyboardAppearance])
+                {
+                    case UIKeyboardAppearanceAlert:
+                    {
+                        toolbar.barStyle = UIBarStyleBlack;
+                        if ([toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[UIColor whiteColor]];
+                    }
+                        break;
+                    default:
+                    {
+                        toolbar.barStyle = UIBarStyleDefault;
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[textField tintColor]];
+                    }
+                        break;
+                }
+            }
         }
-	}
-	else if(siblings.count)
-	{
-		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
-		for (UITextField *textField in siblings)
-		{
+        
+        //Setting toolbar title font.   //  (Enhancement ID: #30)
+        if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+            [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
+    }
+    else if(siblings.count)
+    {
+        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
+        for (UITextField *textField in siblings)
+        {
             //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
 			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
 			{
@@ -1316,9 +1336,29 @@ void _IQShowLog(NSString *logString);
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
                 
-                //Setting toolbar tintColor //  (Enhancement ID: #30)
-                if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
-                    [textField.inputAccessoryView setTintColor:[textField tintColor]];
+                if ([textField respondsToSelector:@selector(keyboardAppearance)])
+                {
+                    IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+                    
+                    switch ([(UITextField*)textField keyboardAppearance])
+                    {
+                        case UIKeyboardAppearanceAlert:
+                        {
+                            toolbar.barStyle = UIBarStyleBlack;
+                            if ([toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[UIColor whiteColor]];
+                        }
+                            break;
+                        default:
+                        {
+                            toolbar.barStyle = UIBarStyleDefault;
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[textField tintColor]];
+                        }
+                            break;
+                    }
+                }
                 
                 //Setting toolbar title font.   //  (Enhancement ID: #30)
                 if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
