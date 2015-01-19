@@ -1286,7 +1286,7 @@ void _IQShowLog(NSString *logString);
 	//	If only one object is found, then adding only Done button.
 	if (siblings.count==1)
 	{
-        UIView *textField = [siblings firstObject];
+        UITextField *textField = [siblings firstObject];
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
 		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
@@ -1294,6 +1294,57 @@ void _IQShowLog(NSString *logString);
             //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
             textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+        }
+        
+        if ([textField respondsToSelector:@selector(keyboardAppearance)])
+        {
+            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+            
+            switch ([(UITextField*)textField keyboardAppearance])
+            {
+                case UIKeyboardAppearanceAlert:
+                {
+                    toolbar.barStyle = UIBarStyleBlack;
+                    if ([toolbar respondsToSelector:@selector(tintColor)])
+                        [toolbar setTintColor:[UIColor whiteColor]];
+                }
+                    break;
+                default:
+                {
+                    toolbar.barStyle = UIBarStyleDefault;
+                    
+                    //Setting toolbar tintColor //  (Enhancement ID: #30)
+                    if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                        [toolbar setTintColor:[textField tintColor]];
+                }
+                    break;
+            }
+        }
+        
+        if (_shouldShowTextFieldPlaceholder)
+        {
+            //Updating placeholder font to toolbar.     //(Bug ID: #148)
+            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+            if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                [toolbar setTitle:textField.placeholder];
+            
+            //Setting toolbar title font.   //  (Enhancement ID: #30)
+            if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
+        }
+    }
+    else if(siblings.count)
+    {
+        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
+        for (UITextField *textField in siblings)
+        {
+            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
+			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
+			{
+                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
+  			}
             
             if ([textField respondsToSelector:@selector(keyboardAppearance)])
             {
@@ -1311,6 +1362,7 @@ void _IQShowLog(NSString *logString);
                     default:
                     {
                         toolbar.barStyle = UIBarStyleDefault;
+
                         //Setting toolbar tintColor //  (Enhancement ID: #30)
                         if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
                             [toolbar setTintColor:[textField tintColor]];
@@ -1318,52 +1370,18 @@ void _IQShowLog(NSString *logString);
                         break;
                 }
             }
-        }
-        
-        //Setting toolbar title font.   //  (Enhancement ID: #30)
-        if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-            [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
-    }
-    else if(siblings.count)
-    {
-        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-        for (UITextField *textField in siblings)
-        {
-            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
-			{
-                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-                
-                if ([textField respondsToSelector:@selector(keyboardAppearance)])
-                {
-                    IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-                    
-                    switch ([(UITextField*)textField keyboardAppearance])
-                    {
-                        case UIKeyboardAppearanceAlert:
-                        {
-                            toolbar.barStyle = UIBarStyleBlack;
-                            if ([toolbar respondsToSelector:@selector(tintColor)])
-                                [toolbar setTintColor:[UIColor whiteColor]];
-                        }
-                            break;
-                        default:
-                        {
-                            toolbar.barStyle = UIBarStyleDefault;
-                            //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                                [toolbar setTintColor:[textField tintColor]];
-                        }
-                            break;
-                    }
-                }
+            
+            if (_shouldShowTextFieldPlaceholder)
+            {
+                //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                    [toolbar setTitle:textField.placeholder];
                 
                 //Setting toolbar title font.   //  (Enhancement ID: #30)
-                if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
                     [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
-  			}
+            }
             
             //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
             if (textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)

@@ -40,11 +40,11 @@
         _titleLabel = [[UILabel alloc] initWithFrame:frame];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_titleLabel setText:title];
         [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        
+        [self setTitle:title];
         [self setFont:[UIFont boldSystemFontOfSize:12.0]];
-
+        self.title = title;
+        
         self.customView = _titleLabel;
         self.enabled = NO;
     }
@@ -55,6 +55,12 @@
 {
     _font = font;
     [_titleLabel setFont:font];
+}
+
+-(void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+    _titleLabel.text = title;
 }
 
 @end
