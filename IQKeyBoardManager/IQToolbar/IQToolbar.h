@@ -30,7 +30,8 @@
  */
 @interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
 
-@property(nonatomic, strong) UIFont *titleFont;
+@property(nonatomic, strong) UIFont     *titleFont;
+@property(nonatomic, strong) NSString   *title;
 
 @end
 

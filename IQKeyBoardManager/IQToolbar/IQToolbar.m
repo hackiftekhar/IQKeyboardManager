@@ -98,6 +98,19 @@
     }
 }
 
+-(void)setTitle:(NSString *)title
+{
+    _title = title;
+    
+    for (UIBarButtonItem *item in self.items)
+    {
+        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
+        {
+            [(IQTitleBarButtonItem*)item setTitle:title];
+        }
+    }
+}
+
 #pragma mark - UIInputViewAudioFeedback delegate
 - (BOOL) enableInputClicksWhenVisible
 {
