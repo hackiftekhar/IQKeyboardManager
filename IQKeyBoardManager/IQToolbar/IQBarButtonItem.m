@@ -26,15 +26,17 @@
 
 @implementation IQBarButtonItem
 
-- (instancetype)init
++(void)initialize
 {
-    self = [super init];
-    if (self)
-    {
-        //Removing tint
-        [self setTintColor:nil];
-    }
-    return self;
+    [super initialize];
+    
+    [[self appearance] setTintColor:nil];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateNormal];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateHighlighted];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateDisabled];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateSelected];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateApplication];
+    [[self appearance] setTitleTextAttributes:nil forState:UIControlStateReserved];
 }
 
 @end

@@ -23,8 +23,7 @@
 
 #import <Foundation/NSObjCRuntime.h>
 #import "IQKeyboardManagerConstants.h"
-#import <UIKit/UIBarButtonItem.h>
-
+#import "IQBarButtonItem.h"
 /*!
     @author Iftekhar Qurashi
  
@@ -34,7 +33,7 @@
  
 	@abstract BarButtonItem with title text.
  */
-@interface IQTitleBarButtonItem : UIBarButtonItem
+@interface IQTitleBarButtonItem : IQBarButtonItem
 
 @property(nonatomic, strong) UIFont *font;  //Default is (system font 12.0 bold)
 
