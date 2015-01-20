@@ -559,6 +559,12 @@ void _IQShowLog(NSString *logString);
                 _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
                 
                 _lastScrollView.contentInset = movedInsets;
+                if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
+                {
+                    CGSize contentSize = _lastScrollView.contentSize;
+                    contentSize.height = _lastScrollView.frame.size.height;
+                    _lastScrollView.contentSize = contentSize;
+                }
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
             }
