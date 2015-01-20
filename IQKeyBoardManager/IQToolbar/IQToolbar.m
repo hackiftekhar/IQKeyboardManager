@@ -31,6 +31,15 @@
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
 
++(void)initialize
+{
+    [super initialize];
+    
+    [[self appearance] setTintColor:nil];
+    [[self appearance] setBarTintColor:nil];
+    [[self appearance] setBackgroundColor:nil];
+}
+
 -(void)initialize
 {
     [self sizeToFit];
