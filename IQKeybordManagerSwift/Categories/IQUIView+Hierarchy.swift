@@ -174,7 +174,7 @@ extension UIView {
         
         for textField in siblings as [UIView] {
             
-            if _IQcanBecomeFirstResponder() == true {
+            if textField._IQcanBecomeFirstResponder() == true {
                 tempTextFields.append(textField)
             }
         }
@@ -203,7 +203,7 @@ extension UIView {
         
         for textField in subViews as [UIView] {
 
-            if _IQcanBecomeFirstResponder() == true {
+            if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             } else if textField.subviews.count != 0 {
                 for deepView in textField.deepResponderViews() as [UIView] {
