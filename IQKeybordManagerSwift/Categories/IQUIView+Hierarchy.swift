@@ -204,7 +204,7 @@ extension UIView {
         for textField in subViews as [UIView] {
 
             if _IQcanBecomeFirstResponder() == true {
-                textfields.append(textField)
+                textfields.append(self)
             } else if textField.subviews.count != 0 {
                 for deepView in textField.deepResponderViews() as [UIView] {
                     textfields.append(deepView)
