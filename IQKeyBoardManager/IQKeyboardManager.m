@@ -1296,41 +1296,43 @@ void _IQShowLog(NSString *logString);
             textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
         }
         
-        if ([textField respondsToSelector:@selector(keyboardAppearance)])
+        if ([textField isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
         {
             IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-            
-            switch ([(UITextField*)textField keyboardAppearance])
+
+            if ([textField respondsToSelector:@selector(keyboardAppearance)])
             {
-                case UIKeyboardAppearanceAlert:
+                switch ([(UITextField*)textField keyboardAppearance])
                 {
-                    toolbar.barStyle = UIBarStyleBlack;
-                    if ([toolbar respondsToSelector:@selector(tintColor)])
-                        [toolbar setTintColor:[UIColor whiteColor]];
+                    case UIKeyboardAppearanceAlert:
+                    {
+                        toolbar.barStyle = UIBarStyleBlack;
+                        if ([toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[UIColor whiteColor]];
+                    }
+                        break;
+                    default:
+                    {
+                        toolbar.barStyle = UIBarStyleDefault;
+                        
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[textField tintColor]];
+                    }
+                        break;
                 }
-                    break;
-                default:
-                {
-                    toolbar.barStyle = UIBarStyleDefault;
-                    
-                    //Setting toolbar tintColor //  (Enhancement ID: #30)
-                    if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                        [toolbar setTintColor:[textField tintColor]];
-                }
-                    break;
             }
-        }
-        
-        if (_shouldShowTextFieldPlaceholder)
-        {
-            //Updating placeholder font to toolbar.     //(Bug ID: #148)
-            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-            if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
-                [toolbar setTitle:textField.placeholder];
             
-            //Setting toolbar title font.   //  (Enhancement ID: #30)
-            if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
+            if (_shouldShowTextFieldPlaceholder)
+            {
+                //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                    [toolbar setTitle:textField.placeholder];
+                
+                //Setting toolbar title font.   //  (Enhancement ID: #30)
+                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                    [toolbar setTitleFont:_placeholderFont];
+            }
         }
     }
     else if(siblings.count)
@@ -1346,46 +1348,33 @@ void _IQShowLog(NSString *logString);
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
   			}
             
-            if ([textField respondsToSelector:@selector(keyboardAppearance)])
+            if ([textField isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
             {
                 IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-                
-                switch ([(UITextField*)textField keyboardAppearance])
-                {
-                    case UIKeyboardAppearanceAlert:
-                    {
-                        toolbar.barStyle = UIBarStyleBlack;
-                        if ([toolbar respondsToSelector:@selector(tintColor)])
-                            [toolbar setTintColor:[UIColor whiteColor]];
-                    }
-                        break;
-                    default:
-                    {
-                        toolbar.barStyle = UIBarStyleDefault;
 
-                        //Setting toolbar tintColor //  (Enhancement ID: #30)
-                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                            [toolbar setTintColor:[textField tintColor]];
+                if ([textField respondsToSelector:@selector(keyboardAppearance)])
+                {
+                    switch ([(UITextField*)textField keyboardAppearance])
+                    {
+                        case UIKeyboardAppearanceAlert:
+                        {
+                            toolbar.barStyle = UIBarStyleBlack;
+                            if ([toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[UIColor whiteColor]];
+                        }
+                            break;
+                        default:
+                        {
+                            toolbar.barStyle = UIBarStyleDefault;
+                            
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[textField tintColor]];
+                        }
+                            break;
                     }
-                        break;
                 }
-            }
-            
-            if (_shouldShowTextFieldPlaceholder)
-            {
-                //Updating placeholder font to toolbar.     //(Bug ID: #148)
-                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
-                    [toolbar setTitle:textField.placeholder];
                 
-                //Setting toolbar title font.   //  (Enhancement ID: #30)
-                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                    [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
-            }
-            
-            //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
-            if (textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
-            {
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                 //	If firstTextField, then previous should not be enabled.
                 if (siblings[0] == textField)
