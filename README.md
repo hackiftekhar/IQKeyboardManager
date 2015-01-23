@@ -97,6 +97,13 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 ***@property enableAutoToolbar :*** It enable/disable automatic creation of toolbar, please set enableAutoToolbar to NO if you don't want to add automatic toolbar.
 
+####3) Swift version crashes in Release Mode ([#111](https://github.com/hackiftekhar/IQKeyboardManager/issues/111))
+
+It may be compiler issue when compiler tries to optimize Code for best performance and compiler changes something which is not expected. Changing **Optimization Level** in Build Settings solve the problem.
+
+**Workdaround:** Goto ***Target->Build Settings->Code Generation->Optimization Level***, and set it to ***None[-O0]***.([StackOverflow](http://stackoverflow.com/questions/3327981/app-runs-as-debug-but-crashes-as-release))
+
+
 Manual Management:-
 ---
 
