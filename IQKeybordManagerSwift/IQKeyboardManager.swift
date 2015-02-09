@@ -1235,20 +1235,21 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     private func removeToolbarIfRequired() {    //  (Bug ID: #18)
         
         //	Getting all the sibling textFields.
-        let siblings = responderViews()
-        
-        for view in siblings as [UIView] {
+        if let siblings = responderViews() {
+            
+            for view in siblings as [UIView] {
 
-            let toolbar = view.inputAccessoryView
+                let toolbar = view.inputAccessoryView
 
-            if toolbar is IQToolbar == true  && (toolbar?.tag == kIQDoneButtonToolbarTag || toolbar?.tag == kIQPreviousNextButtonToolbarTag) {
-                
-                if view is UITextField == true {
-                    let textField = view as UITextField
-                    textField.inputAccessoryView = nil
-                } else if view is UITextView == true {
-                    let textView = view as UITextView
-                    textView.inputAccessoryView = nil
+                if toolbar is IQToolbar == true  && (toolbar?.tag == kIQDoneButtonToolbarTag || toolbar?.tag == kIQPreviousNextButtonToolbarTag) {
+                    
+                    if view is UITextField == true {
+                        let textField = view as UITextField
+                        textField.inputAccessoryView = nil
+                    } else if view is UITextView == true {
+                        let textView = view as UITextView
+                        textView.inputAccessoryView = nil
+                    }
                 }
             }
         }
