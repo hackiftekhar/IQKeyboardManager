@@ -1302,7 +1302,7 @@ void _IQShowLog(NSString *logString);
             textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
         }
         
-        if ([textField isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
+        if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
         {
             IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
 
@@ -1354,7 +1354,7 @@ void _IQShowLog(NSString *logString);
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
   			}
             
-            if ([textField isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
+            if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
             {
                 IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
 
