@@ -3,7 +3,7 @@
 </p>
 <H1 align="center">IQKeyboardManager</H1>
 
-Often while developing an app, We ran into an issues where the iPhone keyboard slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and cover `UITextField/UITextView` without needing you to enter any code and no additional setup required. To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
+Often while developing an app, We ran into an issues where the iPhone keyboard slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and cover `UITextField/UITextView` without needing you to enter any code and no additional setup required. To use `IQKeyboardManager` you simply need to add source files to your project.
 
 ####Key Features
 
@@ -55,23 +55,6 @@ IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to ins
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
     pod 'IQKeyboardManager'
-
-#### Framework Method:-
-
-**Step1:-** Link project against `KeyboardManager.framework` found in "IQKeyboardManager Framework" directory.
-
-[Linking to a Library or Framework](https://developer.apple.com/library/ios/recipes/xcode_help-project_editor/Articles/AddingaLibrarytoaTarget.html)
-
-If you need to port your project to another location you may need to adjust `Framework Search Paths` settings in `Project Settings`.
-
-[Framework Search Path](http://stackoverflow.com/questions/19130744/xcode-5-framework-library-search-path-absolute-address)
-
-**Step2:-** Drag and drop the resource bundle `IQKeyboardManager.bundle` found in same directory to your project. `Resources` folder is the best place to put it but you can put it anywhere.
-
-**Step3:-** Add `-ObjC` flag in `other linker flag`. That's it. Now you can build your project to see the magic.
-
-[Adding Linker Flag](http://docs.millennialmedia.com/iOS-SDK/iOSAddingLinkerFlag.html)
-
 
 #### Source Code Method:-
 
