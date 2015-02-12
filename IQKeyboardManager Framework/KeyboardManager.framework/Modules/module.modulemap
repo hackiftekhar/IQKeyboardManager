@@ -1,6 +1,0 @@
-framework module KeyboardManager {
-  umbrella header "KeyboardManager.h"
-
-  export *
-  module * { export * }
-}
