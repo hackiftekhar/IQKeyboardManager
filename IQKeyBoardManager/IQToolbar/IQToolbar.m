@@ -36,7 +36,11 @@
     [super initialize];
     
     [[self appearance] setTintColor:nil];
-    [[self appearance] setBarTintColor:nil];
+    if ([[self appearance] respondsToSelector:@selector(setBarTintColor:)])
+    {
+        [[self appearance] setBarTintColor:nil];
+    }
+
     [[self appearance] setBackgroundColor:nil];
 }
 
