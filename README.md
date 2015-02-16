@@ -21,6 +21,9 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
 
+####Recent Blog about IQKeyboardManager
+http://www.theothertomelliott.com/node/1124
+
 ## Screenshot
 [![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
 [![Settings](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
