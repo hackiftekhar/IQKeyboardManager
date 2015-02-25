@@ -13,12 +13,12 @@ static char kIQTextViewKeyboardDistanceKey;
 
 - (void)setKeyboardDistance:(NSInteger)keyboardDistance
 {
-    objc_setAssociatedObject(self, &kIQTextViewKeyboardDistanceKey, @(keyboardDistance), OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(keyboardDistance), @(keyboardDistance), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSInteger)keyboardDistance
 {
-    NSNumber *distance = objc_getAssociatedObject(self, &kIQTextViewKeyboardDistanceKey);
+    NSNumber *distance = objc_getAssociatedObject(self, @selector(keyboardDistance));
     return [distance integerValue];
 }
 
