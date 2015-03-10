@@ -7,8 +7,6 @@
 #import "UITextField+IQKeyboardManager.h"
 #import <objc/runtime.h>
 
-static char kIQTextFieldKeyboardDistanceKey;
-
 @implementation UITextField (IQKeyboardManager)
 
 @dynamic keyboardDistance;
