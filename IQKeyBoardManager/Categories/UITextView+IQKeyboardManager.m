@@ -7,8 +7,6 @@
 #import "UITextView+IQKeyboardManager.h"
 #import <objc/runtime.h>
 
-static char kIQTextViewKeyboardDistanceKey;
-
 @implementation UITextView (Skillz)
 
 - (void)setKeyboardDistance:(NSInteger)keyboardDistance
