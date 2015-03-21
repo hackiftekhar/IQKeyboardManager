@@ -119,47 +119,18 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     return (UIViewController*)matchController;
 }
 
-- (UITableView*)superTableView
+-(UIView*)superviewOfClassType:(Class)classType
 {
     UIView *superview = self.superview;
     
     while (superview)
     {
-        if ([superview isKindOfClass:[UITableView class]])
+        if ([superview isKindOfClass:classType] &&
+            ([superview isKindOfClass:UITableViewCellScrollViewClass] == NO) &&
+            ([superview isKindOfClass:UITableViewWrapperViewClass] == NO) &&
+            ([superview isKindOfClass:UIQueuingScrollViewClass] == NO))
         {
-            return (UITableView*)superview;
-        }
-        else    superview = superview.superview;
-    }
-    
-    return nil;
-}
-
--(UICollectionView *)superCollectionView
-{
-    UIView *superview = self.superview;
-    
-    while (superview)
-    {
-        if ([superview isKindOfClass:[UICollectionView class]])
-        {
-            return (UICollectionView*)superview;
-        }
-        else    superview = superview.superview;
-    }
-    
-    return nil;
-}
-
-- (UIScrollView*)superScrollView
-{
-    UIView *superview = self.superview;
-    
-    while (superview)
-    {
-        if ([superview isKindOfClass:[UIScrollView class]] && ([superview isKindOfClass:UITableViewCellScrollViewClass] == NO) && ([superview isKindOfClass:UITableViewWrapperViewClass] == NO) && ([superview isKindOfClass:UIQueuingScrollViewClass] == NO))
-        {
-            return (UIScrollView*)superview;
+            return superview;
         }
         else    superview = superview.superview;
     }

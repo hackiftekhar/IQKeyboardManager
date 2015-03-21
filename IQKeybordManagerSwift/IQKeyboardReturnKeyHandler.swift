@@ -27,13 +27,13 @@ import UIKit
 /*  @abstract   Manages the return key to work like next/done in a view hierarchy.    */
 class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDelegate {
    
-    /*! @abstract textField/textView delegate.    */
+    /** @abstract textField/textView delegate.    */
     var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
     
-    /*! @abstract It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews. */
+    /** @abstract It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews. */
     var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
 
-    /*! @abstract Set the last textfield return key type. Default is UIReturnKeyDefault.    */
+    /** @abstract Set the last textfield return key type. Default is UIReturnKeyDefault.    */
     var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.Default {
         
         didSet {
@@ -57,7 +57,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         super.init()
     }
     
-    /*! @method Add all the textFields available in UIViewController's view.  */
+    /** @method Add all the textFields available in UIViewController's view.  */
     init(controller : UIViewController) {
         super.init()
 
@@ -76,7 +76,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         return nil
     }
     
-    /*! @abstract Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType. */
+    /** @abstract Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType. */
     func addTextFieldView(view : UIView) {
         
         var dictInfo : [String : AnyObject] = [String : AnyObject]()
@@ -118,7 +118,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         textFieldInfoCache.addObject(dictInfo)
     }
 
-    /*! @abstract Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType. */
+    /** @abstract Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType. */
     func removeTextFieldView(view : UIView) {
         
         if let dict : [String : AnyObject] = textFieldCachedInfo(view) {
@@ -153,7 +153,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         }
     }
     
-    /*! @abstract Add all the UITextField/UITextView responderView's. */
+    /** @abstract Add all the UITextField/UITextView responderView's. */
     func addResponderFromView(view : UIView) {
         
         let textFields = view.deepResponderViews()
@@ -164,7 +164,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         }
     }
     
-    /*! @abstract Remove all the UITextField/UITextView responderView's. */
+    /** @abstract Remove all the UITextField/UITextView responderView's. */
     func removeResponderFromView(view : UIView) {
         
         let textFields = view.deepResponderViews()

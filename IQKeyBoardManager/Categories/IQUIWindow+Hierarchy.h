@@ -25,21 +25,21 @@
 
 @class UIViewController;
 
-/*!
+/**
     @category UIWindow (IQ_UIWindow_Hierarchy)
  
     @abstract UIWindow hierarchy category.
  */
 @interface UIWindow (IQ_UIWindow_Hierarchy)
 
-/*!
+/**
     @method topMostController
  
     @return Returns the current Top Most ViewController in hierarchy.
  */
 @property (nonatomic, readonly, strong) UIViewController *topMostController;
 
-/*!
+/**
     @method currentViewController
  
     @return Returns the topViewController in stack of topMostController.

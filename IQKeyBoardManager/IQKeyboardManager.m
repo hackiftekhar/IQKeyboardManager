@@ -36,6 +36,7 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableViewController.h>
 #import <UIKit/UITableView.h>
+#import <UIKit/UICollectionView.h>
 #import <UIKit/UITouch.h>
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
@@ -80,55 +81,66 @@ void _IQShowLog(NSString *logString);
 	@package
     /*******************************************/
 
-    /*! To save UITextField/UITextView object voa textField/textView notifications. */
+    /** To save UITextField/UITextView object voa textField/textView notifications. */
     __weak UIView           *_textFieldView;
     
-    /*! used with canAdjustTextView boolean. */
+    /** used with canAdjustTextView boolean. */
     __block CGRect           _textFieldViewIntialFrame;
     
-    /*! To save rootViewController.view.frame. */
+    /** To save rootViewController.view.frame. */
     CGRect                   _topViewBeginRect;
     
-    /*! To save rootViewController */
+    /** To save rootViewController */
     __weak  UIViewController *_rootViewController;
     
     /*******************************************/
     
-    /*! Variable to save lastScrollView that was scrolled. */
+    /** Variable to save lastScrollView that was scrolled. */
     __weak UIScrollView     *_lastScrollView;
     
-    /*! LastScrollView's initial contentInsets. */
+    /** LastScrollView's initial contentInsets. */
     UIEdgeInsets             _startingContentInsets;
     
-    /*! LastScrollView's initial contentOffset. */
+    /** LastScrollView's initial contentOffset. */
     CGPoint                  _startingContentOffset;
     
     /*******************************************/
     
-    /*! To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
+    /** To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
     NSNotification          *_kbShowNotification;
     
-    /*! To save keyboard size. */
+    /** To save keyboard size. */
     CGSize                   _kbSize;
     
-    /*! To save keyboard animation duration. */
+    /** To save keyboard animation duration. */
     CGFloat                  _animationDuration;
     
-    /*! To mimic the keyboard animation */
+    /** To mimic the keyboard animation */
     NSInteger                _animationCurve;
     
     /*******************************************/
 
-    /*! TapGesture to resign keyboard on view's touch. */
+    /** TapGesture to resign keyboard on view's touch. */
     UITapGestureRecognizer  *_tapGesture;
 
     /*******************************************/
     
+    /** Set of restricted classes for library */
+    NSMutableSet            *_disabledClasses;
+
+    /** Set of restricted classes for adding toolbar */
+    NSMutableSet            *_disabledToolbarClasses;
+
+    /** Set of permitted classes to add all inner textField as siblings */
+    NSMutableSet            *_toolbarPreviousNextConsideredClass;
+
+    /*******************************************/
+
     struct {
-        /*! used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
+        /** used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
         unsigned int isTextFieldViewFrameChanged:1;
 
-        /*! Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
+        /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
         unsigned int isKeyboardShowing:1;
 
     } _keyboardManagerFlags;
@@ -165,7 +177,7 @@ void _IQShowLog(NSString *logString);
 
 #pragma mark - Initializing functions
 
-/*! Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
+/** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
 +(void)load
 {
     [super load];
@@ -222,6 +234,11 @@ void _IQShowLog(NSString *logString);
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            
+            //Initializing disabled classes Set.
+            _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
+            _disabledToolbarClasses = [[NSMutableSet alloc] init];
+            _toolbarPreviousNextConsideredClass = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class], nil];
         });
     }
     return self;
@@ -292,12 +309,6 @@ void _IQShowLog(NSString *logString);
 	}
 }
 
-//Is enabled
--(BOOL)isEnabled
-{
-	return _enable;
-}
-
 //	Setting keyboard distance from text field.
 -(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
 {
@@ -307,32 +318,30 @@ void _IQShowLog(NSString *logString);
     _IQShowLog([NSString stringWithFormat:@"keyboardDistanceFromTextField: %.2f",_keyboardDistanceFromTextField]);
 }
 
-/*! Enabling/disable gesture on touching. */
+/** Enabling/disable gesture on touching. */
 -(void)setShouldResignOnTouchOutside:(BOOL)shouldResignOnTouchOutside
 {
     _IQShowLog([NSString stringWithFormat:@"shouldResignOnTouchOutside: %@",shouldResignOnTouchOutside?@"Yes":@"No"]);
     
     _shouldResignOnTouchOutside = shouldResignOnTouchOutside;
-    [_tapGesture setEnabled:_shouldResignOnTouchOutside];    // (Enhancement ID: #14)
+    
+    //Enable/Disable gesture recognizer   (Enhancement ID: #14)
+    [_tapGesture setEnabled:_shouldResignOnTouchOutside];
 }
 
-/*! return YES. If autoToolbar is enabled. */
--(BOOL)isEnableAutoToolbar
-{
-    return _enableAutoToolbar;
-}
-
-/*! Enable/disable autotoolbar. Adding and removing toolbar if required. */
+/** Enable/disable autotoolbar. Adding and removing toolbar if required. */
 -(void)setEnableAutoToolbar:(BOOL)enableAutoToolbar
 {
     _enableAutoToolbar = enableAutoToolbar;
     
     _IQShowLog([NSString stringWithFormat:@"enableAutoToolbar: %@",enableAutoToolbar?@"Yes":@"No"]);
 
+    //If enabled then adding toolbar.
     if (_enableAutoToolbar == YES)
     {
         [self addToolbarIfRequired];
     }
+    //Else removing toolbar.
     else
     {
         [self removeToolbarIfRequired];
@@ -341,7 +350,7 @@ void _IQShowLog(NSString *logString);
 
 #pragma mark - Private Methods
 
-/*! Getting keyWindow. */
+/** Getting keyWindow. */
 -(UIWindow *)keyWindow
 {
     if (_textFieldView.window)
@@ -445,7 +454,7 @@ void _IQShowLog(NSString *logString);
     _IQShowLog([NSString stringWithFormat:@"Need to move: %.2f",move]);
 
     //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-    UIScrollView *superScrollView = [_textFieldView superScrollView];
+    UIScrollView *superScrollView = (UIScrollView*)[_textFieldView superviewOfClassType:[UIScrollView class]];
     
     //If there was a lastScrollView.    //  (Bug ID: #34)
     if (_lastScrollView)
@@ -522,7 +531,7 @@ void _IQShowLog(NSString *logString);
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
-                superScrollView = [lastView superScrollView];
+                superScrollView = (UIScrollView*)[lastView superviewOfClassType:[UIScrollView class]];
             }
             
             //Updating contentInset
@@ -825,11 +834,27 @@ void _IQShowLog(NSString *logString);
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
-        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
+        //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        if (_textFieldView != nil && [[_textFieldView viewController] isKindOfClass:[UITableViewController class]] == NO && [_textFieldView isAlertViewTextField] == NO)
+        if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
         {
-            [self adjustFrame];
+            UIViewController *textFieldViewController = [_textFieldView viewController];
+            
+            BOOL shouldIgnore = NO;
+            
+            for (Class disabledClass in _disabledClasses)
+            {
+                if ([textFieldViewController isKindOfClass:disabledClass])
+                {
+                    shouldIgnore = YES;
+                    break;
+                }
+            }
+    
+            if (shouldIgnore == NO)
+            {
+                [self adjustFrame];
+            }
         }
     }
 
@@ -874,7 +899,7 @@ void _IQShowLog(NSString *logString);
             // TODO: restore scrollView state
             // This is temporary solution. Have to implement the save and restore scrollView state
             UIScrollView *superscrollView = _lastScrollView;
-            while ((superscrollView = [superscrollView superScrollView]))
+            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]))
             {
                 CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.IQ_width), MAX(superscrollView.contentSize.height, superscrollView.IQ_height));
                 
@@ -930,7 +955,7 @@ void _IQShowLog(NSString *logString);
 }
 
 #pragma mark - UITextFieldView Delegate methods
-/*!  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
+/**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
@@ -938,7 +963,18 @@ void _IQShowLog(NSString *logString);
     //  Getting object
     _textFieldView = notification.object;
     
-    if (_overrideKeyboardAppearance == YES) [(UITextField*)_textFieldView setKeyboardAppearance:_keyboardAppearance];
+    if (_overrideKeyboardAppearance == YES)
+    {
+        UITextField *textField = (UITextField*)_textFieldView;
+        
+        //If keyboard appearance is not like the provided appearance
+        if (textField.keyboardAppearance != _keyboardAppearance)
+        {
+            //Setting textField keyboard appearance and reloading inputViews.
+            textField.keyboardAppearance = _keyboardAppearance;
+            [textField reloadInputViews];
+        }
+    }
     
     // Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed.
     //Added _isTextFieldViewFrameChanged check. (Bug ID: #92)
@@ -953,22 +989,20 @@ void _IQShowLog(NSString *logString);
     {
         _IQShowLog(@"adding UIToolbars if required");
 
-        //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
+        //UITextView special case. Keyboard Notification is firing before textView notification so we need to reload it's inputViews.
         if ([_textFieldView isKindOfClass:[UITextView class]] && _textFieldView.inputAccessoryView == nil)
         {
             [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [self addToolbarIfRequired];
             } completion:^(BOOL finished) {
                 
-                //  Retaining textFieldView
-                UIView *textFieldRetain = _textFieldView;
-
-                [textFieldRetain resignFirstResponder];
-                [textFieldRetain becomeFirstResponder];
+                //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
+                [_textFieldView reloadInputViews];
             }];
         }
         else
         {
+            //Adding toolbar
             [self addToolbarIfRequired];
         }
     }
@@ -979,7 +1013,8 @@ void _IQShowLog(NSString *logString);
         return;
     }
     
-    [_textFieldView.window addGestureRecognizer:_tapGesture];    //   (Enhancement ID: #14)
+    //Adding Geture recognizer to window    (Enhancement ID: #14)
+    [_textFieldView.window addGestureRecognizer:_tapGesture];
     
     if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
@@ -992,23 +1027,43 @@ void _IQShowLog(NSString *logString);
         _IQShowLog([NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]);
     }
     
-    //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
+    //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
     //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-    if (_textFieldView != nil && [[_textFieldView viewController] isKindOfClass:[UITableViewController class]] == NO && [_textFieldView isAlertViewTextField] == NO)
+    if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
     {
-        //  keyboard is already showing. adjust frame.
-        [self adjustFrame];
+        //Getting textField viewController
+        UIViewController *textFieldViewController = [_textFieldView viewController];
+        
+        BOOL shouldIgnore = NO;
+        
+        for (Class disabledClass in _disabledClasses)
+        {
+            //If viewController is kind of disabled viewController class, then ignoring to adjust view.
+            if ([textFieldViewController isKindOfClass:disabledClass])
+            {
+                shouldIgnore = YES;
+                break;
+            }
+        }
+        
+        //If shouldn't ignore.
+        if (shouldIgnore == NO)
+        {
+            //  keyboard is already showing. adjust frame.
+            [self adjustFrame];
+        }
     }
 
     _IQShowLog([NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]);
 }
 
-/*!  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
+/**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
 
-    [_textFieldView.window removeGestureRecognizer:_tapGesture]; // (Enhancement ID: #14)
+    //Removing gesture recognizer   (Enhancement ID: #14)
+    [_textFieldView.window removeGestureRecognizer:_tapGesture];
     
     // We check if there's a change in original frame or not.
     if(_keyboardManagerFlags.isTextFieldViewFrameChanged == YES)
@@ -1018,6 +1073,7 @@ void _IQShowLog(NSString *logString);
 
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_textFieldView _IQDescription],NSStringFromCGRect(_textFieldViewIntialFrame)]);
 
+            //Setting textField to it's initial frame
             _textFieldView.frame = _textFieldViewIntialFrame;
 
         } completion:NULL];
@@ -1055,7 +1111,7 @@ void _IQShowLog(NSString *logString);
 }
 
 #pragma mark - UIInterfaceOrientation Change notification methods
-/*!  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
+/**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
 - (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
 {
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
@@ -1069,6 +1125,7 @@ void _IQShowLog(NSString *logString);
 
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_textFieldView _IQDescription],NSStringFromCGRect(_textFieldViewIntialFrame)]);
 
+            //Setting textField to it's initial frame
             _textFieldView.frame = _textFieldViewIntialFrame;
         } completion:NULL];
     }
@@ -1078,29 +1135,30 @@ void _IQShowLog(NSString *logString);
 
 #pragma mark AutoResign methods
 
-/*! Resigning on tap gesture. */
+/** Resigning on tap gesture. */
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture  // (Enhancement ID: #14)
 {
     if (gesture.state == UIGestureRecognizerStateEnded)
     {
-        [gesture.view endEditing:YES];
+        //Resigning currently responder textField.
+        [self resignFirstResponder];
     }
 }
 
-/*! Note: returning YES is guaranteed to allow simultaneous recognition. returning NO is not guaranteed to prevent simultaneous recognition, as the other gesture's delegate may return YES. */
+/** Note: returning YES is guaranteed to allow simultaneous recognition. returning NO is not guaranteed to prevent simultaneous recognition, as the other gesture's delegate may return YES. */
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return NO;
 }
 
-/*! To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
+/** To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
     return ([[touch view] isKindOfClass:[UIControl class]] || [[touch view] isKindOfClass:[UINavigationBar class]]) ? NO : YES;
 }
 
-/*! Resigning textField. */
+/** Resigning textField. */
 - (void)resignFirstResponder
 {
     if (_textFieldView)
@@ -1124,16 +1182,24 @@ void _IQShowLog(NSString *logString);
 
 #pragma mark AutoToolbar methods
 
-/*!	Get all UITextField/UITextView siblings of textFieldView. */
+/**	Get all UITextField/UITextView siblings of textFieldView. */
 -(NSArray*)responderViews
 {
-    UIView *tableView = [_textFieldView superTableView];
-    if (tableView == nil)   tableView = [_textFieldView superCollectionView];
+    UIView *superConsideredView;
     
-    //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
-    if (tableView)  //     //   (Enhancement ID: #22)
+    //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
+    for (Class consideredClass in _toolbarPreviousNextConsideredClass)
     {
-        return [tableView deepResponderViews];
+        superConsideredView = [_textFieldView superviewOfClassType:consideredClass];
+        
+        if (superConsideredView != nil)
+            break;
+    }
+    
+    //If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
+    if (superConsideredView)
+    {
+        return [superConsideredView deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
@@ -1164,8 +1230,154 @@ void _IQShowLog(NSString *logString);
     }
 }
 
+/** Add toolbar if it is required to add on textFields and it's siblings. */
+-(void)addToolbarIfRequired
+{
+    UIViewController *textFieldViewController = [_textFieldView viewController];
+    
+    //If found any toolbar disabled classes then return. Will not add any toolbar.
+    for (Class disabledToolbarClass in _disabledToolbarClasses)
+        if ([textFieldViewController isKindOfClass:disabledToolbarClass])
+            return;
+    
+    //	Getting all the sibling textFields.
+    NSArray *siblings = [self responderViews];
+    
+    //	If only one object is found, then adding only Done button.
+    if (siblings.count==1)
+    {
+        UITextField *textField = [siblings firstObject];
+        
+        //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+        if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
+        {
+            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+            [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+        }
+        
+        if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
+        {
+            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+            
+            //Bar style according to keyboard appearance
+            if ([textField respondsToSelector:@selector(keyboardAppearance)])
+            {
+                switch ([(UITextField*)textField keyboardAppearance])
+                {
+                    case UIKeyboardAppearanceAlert:
+                    {
+                        toolbar.barStyle = UIBarStyleBlack;
+                        if ([toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[UIColor whiteColor]];
+                    }
+                        break;
+                    default:
+                    {
+                        toolbar.barStyle = UIBarStyleDefault;
+                        
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[textField tintColor]];
+                    }
+                        break;
+                }
+            }
+            
+            //If need to show placeholder
+            if (_shouldShowTextFieldPlaceholder)
+            {
+                //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                    [toolbar setTitle:textField.placeholder];
+                
+                //Setting toolbar title font.   //  (Enhancement ID: #30)
+                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                    [toolbar setTitleFont:_placeholderFont];
+            }
+        }
+    }
+    else if(siblings.count)
+    {
+        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
+        for (UITextField *textField in siblings)
+        {
+            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
+            if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
+            {
+                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
+            }
+            
+            if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
+            {
+                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+                
+                //Bar style according to keyboard appearance
+                if ([textField respondsToSelector:@selector(keyboardAppearance)])
+                {
+                    switch ([(UITextField*)textField keyboardAppearance])
+                    {
+                        case UIKeyboardAppearanceAlert:
+                        {
+                            toolbar.barStyle = UIBarStyleBlack;
+                            if ([toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[UIColor whiteColor]];
+                        }
+                            break;
+                        default:
+                        {
+                            toolbar.barStyle = UIBarStyleDefault;
+                            
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[textField tintColor]];
+                        }
+                            break;
+                    }
+                }
+                
+                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
+                //	If firstTextField, then previous should not be enabled.
+                if (siblings[0] == textField)
+                {
+                    [textField setEnablePrevious:NO next:YES];
+                }
+                //	If lastTextField then next should not be enaled.
+                else if ([siblings lastObject] == textField)
+                {
+                    [textField setEnablePrevious:YES next:NO];
+                }
+                else
+                {
+                    [textField setEnablePrevious:YES next:YES];
+                }
+            }
+        }
+    }
+}
+
+/** Remove any toolbar if it is IQToolbar. */
+-(void)removeToolbarIfRequired  //  (Bug ID: #18)
+{
+    //	Getting all the sibling textFields.
+    NSArray *siblings = [self responderViews];
+    
+    for (UITextField *textField in siblings)
+    {
+        UIView *toolbar = [textField inputAccessoryView];
+        
+        //  (Bug ID: #78)
+        if ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag))
+        {
+            textField.inputAccessoryView = nil;
+        }
+    }
+}
+
 #pragma mark previous/next/done functionality
-/*!	previousAction. */
+/**	previousAction. */
 -(void)previousAction:(id)segmentedControl
 {
     //If user wants to play input Click sound.
@@ -1209,7 +1421,7 @@ void _IQShowLog(NSString *logString);
     }
 }
 
-/*!	nextAction. */
+/**	nextAction. */
 -(void)nextAction:(id)segmentedControl
 {
     //If user wants to play input Click sound.
@@ -1253,7 +1465,7 @@ void _IQShowLog(NSString *logString);
     }
 }
 
-/*!	doneAction. Resigning current textField. */
+/**	doneAction. Resigning current textField. */
 -(void)doneAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound.
@@ -1283,140 +1495,21 @@ void _IQShowLog(NSString *logString);
     }
 }
 
-/*! Add toolbar if it is required to add on textFields and it's siblings. */
--(void)addToolbarIfRequired
+#pragma mark - Tracking untracking
+
+-(void)disableInViewControllerClass:(Class)disabledClass
 {
-	//	Getting all the sibling textFields.
-	NSArray *siblings = [self responderViews];
-	
-	//	If only one object is found, then adding only Done button.
-	if (siblings.count==1)
-	{
-        UITextField *textField = [siblings firstObject];
-        
-        //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
-		{
-            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
-        }
-        
-        if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
-        {
-            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-
-            if ([textField respondsToSelector:@selector(keyboardAppearance)])
-            {
-                switch ([(UITextField*)textField keyboardAppearance])
-                {
-                    case UIKeyboardAppearanceAlert:
-                    {
-                        toolbar.barStyle = UIBarStyleBlack;
-                        if ([toolbar respondsToSelector:@selector(tintColor)])
-                            [toolbar setTintColor:[UIColor whiteColor]];
-                    }
-                        break;
-                    default:
-                    {
-                        toolbar.barStyle = UIBarStyleDefault;
-                        
-                        //Setting toolbar tintColor //  (Enhancement ID: #30)
-                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                            [toolbar setTintColor:[textField tintColor]];
-                    }
-                        break;
-                }
-            }
-            
-            if (_shouldShowTextFieldPlaceholder)
-            {
-                //Updating placeholder font to toolbar.     //(Bug ID: #148)
-                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
-                    [toolbar setTitle:textField.placeholder];
-                
-                //Setting toolbar title font.   //  (Enhancement ID: #30)
-                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                    [toolbar setTitleFont:_placeholderFont];
-            }
-        }
-    }
-    else if(siblings.count)
-    {
-        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-        for (UITextField *textField in siblings)
-        {
-            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
-			{
-                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-  			}
-            
-            if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
-            {
-                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
-
-                if ([textField respondsToSelector:@selector(keyboardAppearance)])
-                {
-                    switch ([(UITextField*)textField keyboardAppearance])
-                    {
-                        case UIKeyboardAppearanceAlert:
-                        {
-                            toolbar.barStyle = UIBarStyleBlack;
-                            if ([toolbar respondsToSelector:@selector(tintColor)])
-                                [toolbar setTintColor:[UIColor whiteColor]];
-                        }
-                            break;
-                        default:
-                        {
-                            toolbar.barStyle = UIBarStyleDefault;
-                            
-                            //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                                [toolbar setTintColor:[textField tintColor]];
-                        }
-                            break;
-                    }
-                }
-                
-                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
-                //	If firstTextField, then previous should not be enabled.
-                if (siblings[0] == textField)
-                {
-                    [textField setEnablePrevious:NO next:YES];
-                }
-                //	If lastTextField then next should not be enaled.
-                else if ([siblings lastObject] == textField)
-                {
-                    [textField setEnablePrevious:YES next:NO];
-                }
-                else
-                {
-                    [textField setEnablePrevious:YES next:YES];
-                }
-            }
-		}
-	}
+    [_disabledClasses addObject:disabledClass];
 }
 
-/*! Remove any toolbar if it is IQToolbar. */
--(void)removeToolbarIfRequired  //  (Bug ID: #18)
+-(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass
 {
-    //	Getting all the sibling textFields.
-	NSArray *siblings = [self responderViews];
-    
-    for (UITextField *textField in siblings)
-    {
-        UIView *toolbar = [textField inputAccessoryView];
+    [_disabledToolbarClasses addObject:toolbarDisabledClass];
+}
 
-        //  (Bug ID: #78)
-        if ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag))
-        {
-            [textField setInputAccessoryView:nil];
-        }
-    }
+-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+{
+    [_toolbarPreviousNextConsideredClass addObject:toolbarPreviousNextConsideredClass];
 }
 
 @end

@@ -27,7 +27,7 @@ import UIKit
 
 extension UIView {
     
-    /*! @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.   */
+    /** @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.   */
     var isAskingCanBecomeFirstResponder: Bool {
         get {
             
@@ -42,7 +42,7 @@ extension UIView {
         }
     }
 
-    /*! @return Returns the UIViewController object that manages the receiver.  */
+    /** @return Returns the UIViewController object that manages the receiver.  */
     func viewController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
@@ -59,7 +59,7 @@ extension UIView {
         return nil
     }
     
-    /*! @return Returns the topMost UIViewController object in hierarchy  */
+    /** @return Returns the topMost UIViewController object in hierarchy  */
     func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]();
@@ -91,7 +91,7 @@ extension UIView {
         }
     }
     
-    /*! @return Returns the UIScrollView object if any found in view's upper hierarchy. */
+    /** @return Returns the UIScrollView object if any found in view's upper hierarchy. */
     func superScrollView()->UIScrollView? {
         
         var superView = superview
@@ -119,7 +119,7 @@ extension UIView {
         return nil
     }
     
-    /*! @return Returns the UITableView object if any found in view's upper hierarchy.  */
+    /** @return Returns the UITableView object if any found in view's upper hierarchy.  */
     func superTableView()->UITableView? {
         
         var superView = superview
@@ -135,7 +135,7 @@ extension UIView {
         return nil
     }
 
-    /*! @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
+    /** @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
     func superCollectionView()->UICollectionView? {
         
         var superView = superview
@@ -163,7 +163,7 @@ extension UIView {
     }
     
     
-    /*! @return returns all siblings of the receiver which canBecomeFirstResponder. */
+    /** @return returns all siblings of the receiver which canBecomeFirstResponder. */
     func responderSiblings()->NSArray {
         
         //	Getting all siblings
@@ -182,7 +182,7 @@ extension UIView {
         return tempTextFields
     }
     
-    /*! @return returns all deep subViews of the receiver which canBecomeFirstResponder.    */
+    /** @return returns all deep subViews of the receiver which canBecomeFirstResponder.    */
     func deepResponderViews()->NSArray {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
@@ -215,7 +215,7 @@ extension UIView {
         return textfields
     }
     
-    /*! @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
+    /** @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
     func isSearchBarTextField()-> Bool {
         
         struct InternalClass {
@@ -226,7 +226,7 @@ extension UIView {
         return  (InternalClass.UISearchBarTextFieldClass != nil && isKindOfClass(InternalClass.UISearchBarTextFieldClass!)) || self is UISearchBar
     }
     
-    /*! @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
+    /** @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
     func isAlertViewTextField()->Bool {
         
         struct InternalClass {
@@ -239,7 +239,7 @@ extension UIView {
             (InternalClass.UIAlertSheetTextFieldClass_iOS8 != nil && isKindOfClass(InternalClass.UIAlertSheetTextFieldClass_iOS8!))
     }
     
-    /*! @return returns current view transform with respect to the 'toView'.    */
+    /** @return returns current view transform with respect to the 'toView'.    */
     func convertTransformToView(var toView:UIView?)->CGAffineTransform {
         
         if toView == nil {
@@ -272,12 +272,12 @@ extension UIView {
         return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform))
     }
 
-//    /*! @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.   */
+//    /** @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.   */
 //    func subHierarchy()->NSString {
 //        
 //    }
 //    
-//    /*! @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.    */
+//    /** @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.    */
 //    func superHierarchy()->NSString {
 //        
 //    }

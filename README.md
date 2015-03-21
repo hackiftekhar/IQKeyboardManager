@@ -110,29 +110,39 @@ Manual Management:-
  
 #### Disable for a ViewController:-
 
- If you would like to disable `IQKeyboardManager` for a particular ViewController then you should disable IQKeyboardManager on `ViewDidAppear` and again enable it on `ViewWillDisappear`.
+ If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
 
-    #import "IQKeyboardManager.h"
-    @implementation ExampleViewController
-    {
-        BOOL _wasKeyboardManagerEnabled;
-    }
-    
-    -(void)viewDidAppear:(BOOL)animated
-    {
-        [super viewDidAppear:animated];
-        _wasKeyboardManagerEnabled = [[IQKeyboardManager sharedManager] isEnabled];
-        [[IQKeyboardManager sharedManager] setEnable:NO];
-    }
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[IQKeyboardManager sharedManager] disableInViewControllerClass:[ViewController class]];
+    return YES;
+}
+```
 
-    -(void)viewWillDisappear:(BOOL)animated
-    {
-        [super viewWillDisappear:animated];
-        [[IQKeyboardManager sharedManager] setEnable:_wasKeyboardManagerEnabled];
-    }
+#### Disable toolbar for a ViewController:-
 
-    @end
+If you would like to disable `Auto Toolbar` for a particular ViewController then register ViewController with `-(void)disableToolbarInViewControllerClass:(Class)disabledClass` method in AppDelegate.
 
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[ViewController class]];
+    return YES;
+}
+```
+
+#### Considering Previous/Next buttons for textField inside customViews:-
+
+If your textFields are on different customView and do not show previous/next to navigate between textField. Then you should create a SpecialView subclass of UIView, then put all customView inside SpecialView, then register SpecialView class using `-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass` method in AppDelegate.([#154](https://github.com/hackiftekhar/IQKeyboardManager/issues/154), [#179](https://github.com/hackiftekhar/IQKeyboardManager/issues/179))
+
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[SpecialView class]];
+    return YES;
+}
+```
 
 #### Keyboard Return Key Handling:-
   If you would like to implement keyboard **Return Key** as **Next/Done** button, then you can use **IQKeyboardReturnKeyHandler**.([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))

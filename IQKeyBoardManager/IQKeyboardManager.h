@@ -33,13 +33,13 @@
 
 @class UIFont;
 
-/*  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
+/**  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
 extern NSInteger const kIQDoneButtonToolbarTag;
 /*  @const kIQPreviousNextButtonToolbarTag Default tag for toolbar with Previous/Next buttons  -1005.   */
 extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 
-/*!
+/**
     @author Iftekhar Qurashi
  
 	@related hack.iftekhar@gmail.com
@@ -56,28 +56,28 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UIKeyboard handling
 
-/*!
+/**
     @method sharedManager
  
     @return Returns the default singleton instance.
  */
 + (instancetype)sharedManager;
 
-/*!
+/**
     @property enable
 
     @abstract enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
  */
 @property(nonatomic, assign, getter = isEnabled) BOOL enable;
 
-/*!
+/**
     @property keyboardDistanceFromTextField
  
     @abstract To set keyboard distance from textField. can't be less than zero. Default is 10.0.
  */
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
-/*!
+/**
     @property preventShowingBottomBlankSpace
  
     @abstract Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
@@ -90,35 +90,35 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //IQToolbar handling
 
-/*!
+/**
     @property enableAutoToolbar
 
     @abstract Automatic add the IQToolbar functionality. Default is YES.
  */
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
 
-/*!
+/**
     @property toolbarManageStyle
  
     @abstract AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
  */
 @property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
-/*!
+/**
     @property shouldToolbarUsesTextFieldTintColor
  
     @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
 
-/*!
+/**
     @property shouldShowTextFieldPlaceholder
  
     @abstract If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
 
-/*!
+/**
     @property placeholderFont
  
     @abstract Placeholder Font. Default is nil.
@@ -131,14 +131,14 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UITextView handling
 
-/*!
+/**
     @property canAdjustTextView
 
     @abstract Adjust textView's frame when it is too big in height. Default is NO.
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
-/*!
+/**
     @property shouldFixTextViewClip
  
     @abstract Adjust textView's contentInset to fix fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
@@ -151,14 +151,14 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UIKeyboard appearance overriding
 
-/*!
+/**
     @property overrideKeyboardAppearance
  
     @abstract Override the keyboardAppearance for all textField/textView. Default is NO.
  */
 @property(nonatomic, assign) BOOL overrideKeyboardAppearance;
 
-/*!
+/**
     @property keyboardAppearance
  
     @abstract If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
@@ -171,14 +171,14 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UITextField/UITextView Resign handling
 
-/*!
+/**
     @property shouldResignOnTouchOutside
 
     @abstract Resigns Keyboard on touching outside of UITextField/View. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldResignOnTouchOutside;
 
-/*!
+/**
     @method resignFirstResponder
  
     @abstract Resigns currently first responder field.
@@ -191,7 +191,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UISound handling
 
-/*!
+/**
     @property shouldPlayInputClicks
  
     @abstract If YES, then it plays inputClick sound on next/previous/done click.
@@ -204,7 +204,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 //UIAnimation handling
 
-/*!
+/**
     @property shouldAdoptDefaultKeyboardAnimation
  
     @abstract If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
@@ -217,16 +217,43 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /*******************************************/
 
 
+//Class Level disabling methods
+
+/**
+    @method disableInViewControllerClass:
+ 
+    @param disabledClass: Class in which library should not adjust view to show textField.
+ */
+-(void)disableInViewControllerClass:(Class)disabledClass;
+
+/**
+    @method disableToolbarInViewControllerClass
+ 
+    @param toolbarDisabledClass: Class in which library should not add toolbar over textField.
+ */
+-(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass;
+
+/**
+    @method considerToolbarPreviousNextInViewClass
+ 
+    @param toolbarPreviousNextConsideredClass: Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
+ */
+-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
+
+
+/*******************************************/
+
+
 //@final. Must not be used for subclassing.
 
-/*!
+/**
     @method init
  
     @abstract Should create only one instance of class. Should not call init.
  */
 - (instancetype)init	__attribute__((unavailable("init is not available in IQKeyboardManager, Use sharedManager"))) NS_DESIGNATED_INITIALIZER;
 
-/*!
+/**
     @method new
  
     @abstract Should create only one instance of class. Should not call new.

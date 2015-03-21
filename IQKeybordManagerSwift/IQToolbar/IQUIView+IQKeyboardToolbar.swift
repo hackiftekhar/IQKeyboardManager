@@ -32,10 +32,10 @@ import UIKit
 ///*  @const kIQCancelDoneButtonToolbarTag   Default tag for toolbar with Cancel/Done buttons    -1004.   */
 //let  kIQCancelDoneButtonToolbarTag : NSInteger      =   -1004
 
-/*! @abstract UIView category methods to add IQToolbar on UIKeyboard.   */
+/** @abstract UIView category methods to add IQToolbar on UIKeyboard.   */
 extension UIView {
     
-    /*! @abstract if shouldHideTitle is YES, then title will not be added to the toolbar. Default to NO.    */
+    /** @abstract if shouldHideTitle is YES, then title will not be added to the toolbar. Default to NO.    */
     var shouldHideTitle: Bool? {
         get {
             let aValue: AnyObject? = objc_getAssociatedObject(self, "shouldHideTitle")?
@@ -51,7 +51,7 @@ extension UIView {
         }
     }
     
-    /*!
+    /**
     @method addDoneOnKeyboardWithTarget:action:
     
     @abstract Helper functions to add Done button on keyboard.
@@ -192,7 +192,7 @@ extension UIView {
     }
 
     
-    /*!
+    /**
     @method addCancelDoneOnKeyboardWithTarget:cancelAction:doneAction:
     
     @abstract Helper function to add Cancel and Done button on keyboard.
@@ -343,7 +343,7 @@ extension UIView {
     }
     
     
-    /*!
+    /**
     @method addPreviousNextDoneOnKeyboardWithTarget:previousAction:nextAction:doneAction
     
     @abstract Helper function to add SegmentedNextPrevious and Done button on keyboard.
@@ -435,7 +435,7 @@ extension UIView {
         addPreviousNextDoneOnKeyboardWithTarget(target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, titleText: nil)
     }
     
-    /*!
+    /**
     @method setEnablePrevious:next:
     
     @abstract Helper function to enable and disable previous next buttons.

@@ -28,7 +28,7 @@
 
 /* Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.*/
 
-/*!
+/**
     @enum IQAutoToolbarManageBehaviour
  
     @abstract AutoToolbar manage settings.
@@ -41,14 +41,22 @@
  */
 
 #ifndef NS_ENUM
-    #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
-#endif
+
+typedef enum IQAutoToolbarManageBehaviour {
+    IQAutoToolbarBySubviews,
+    IQAutoToolbarByTag,
+    IQAutoToolbarByPosition,
+}IQAutoToolbarManageBehaviour;
+
+#else
 
 typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
 };
+
+#endif
 
 #define IQLocalizedString(key, comment) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"IQKeyboardManager" ofType:@"bundle"]] localizedStringForKey:(key) value:@"" table:@"IQKeyboardManager"]
 

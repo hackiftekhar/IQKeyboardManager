@@ -66,7 +66,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*!  UIKeyboard Handling    */
+/**  UIKeyboard Handling    */
 
 - (void)enableAction:(UISwitch *)sender
 {
@@ -88,7 +88,7 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-/*!  IQToolbar handling     */
+/**  IQToolbar handling     */
 
 - (void)enableAutoToolbarAction:(UISwitch *)sender
 {
@@ -109,14 +109,14 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-/*!  UITextView handling    */
+/**  UITextView handling    */
 
 - (void)canAdjustTextViewAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setCanAdjustTextView:sender.on];
 }
 
-/*!  "Keyboard appearance overriding    */
+/**  "Keyboard appearance overriding    */
 
 - (void)overrideKeyboardAppearanceAction:(UISwitch *)sender
 {
@@ -125,21 +125,21 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-/*!  Resign first responder handling    */
+/**  Resign first responder handling    */
 
 - (void)shouldResignOnTouchOutsideAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:sender.on];
 }
 
-/*!  Sound handling         */
+/**  Sound handling         */
 
 - (void)shouldPlayInputClicksAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldPlayInputClicks:sender.on];
 }
 
-/*!  Animation handling     */
+/**  Animation handling     */
 
 - (void)shouldAdoptDefaultKeyboardAnimation:(UISwitch *)sender
 {
