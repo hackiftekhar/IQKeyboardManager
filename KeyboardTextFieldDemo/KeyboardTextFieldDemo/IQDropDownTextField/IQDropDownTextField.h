@@ -24,7 +24,7 @@
 
 #import <UIKit/UIKit.h>
 
-/*!
+/**
     @enum IQDropDownMode
  
     @abstract Drop Down Mode settings.
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 
 @class IQDropDownTextField;
 
-/*!
+/**
     @protocol   IQDropDownTextFieldDelegate
  
     @abstract   Drop down text field delegate.
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 @end
 
 
-/*!
+/**
     @author     Iftekhar Qurashi
  
 	@related    hack.iftekhar@gmail.com
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 
 @property(nonatomic,assign) id<IQDropDownTextFieldDelegate> delegate;             // default is nil. weak reference
 
-/*!
+/**
     @property   dropDownMode
  
     @abstract   DropDownMode style to show in picker. Default is IQDropDownModeTextPicker.
@@ -87,14 +87,14 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 
 //  Title Selection
 
-/*!
+/**
     @property   selectedItem
  
     @abstract   Selected item of pickerView.
  */
 @property (nonatomic, strong) NSString *selectedItem;
 
-/*!
+/**
     @method     setSelectedItem:animated
  
     @abstract   Set selected item of pickerView.
@@ -109,28 +109,28 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 /******          IQDropDownModeTextPicker           ******/
 /*-------------------------------------------------------*/
 
-/*!
+/**
     @property   itemList
  
     @abstract   Items to show in pickerView. Please use [ NSArray of NSString ] format for setter method, For example. @[ @"1", @"2", @"3", ]
  */
 @property (nonatomic, strong) NSArray *itemList;
 
-/*!
+/**
     @property   isOptionalDropDown
  
  @abstract   If YES then it will add a 'Select' item at top of dropDown list. If NO then first field will automatically be selected. Default is YES
  */
 @property (nonatomic, assign) BOOL isOptionalDropDown;
 
-/*!
+/**
     @property   selectedRow
  
     @abstract   Selected row index of selected item.
  */
 @property (nonatomic, assign) NSInteger selectedRow;
 
-/*!
+/**
     @method     setSelectedRow:animated
  
     @abstract   Select row index of selected item.
@@ -143,28 +143,28 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 /*** IQdropDownModeDatePicker/IQDropDownModeTimePicker ***/
 /*-------------------------------------------------------*/
 
-/*!
+/**
     @property   date
  
     @abstract   Selected date in UIDatePicker.
  */
 @property(nonatomic, strong) NSDate *date;
 
-/*!
+/**
     @method     setDate:animated
  
     @abstract   Select date in UIDatePicker.
  */
 - (void)setDate:(NSDate *)date animated:(BOOL)animated;
 
-/*!
+/**
     @property   dateComponents
  
     @abstract   DateComponents for date picker.
  */
 @property (nonatomic, readonly, copy) NSDateComponents *dateComponents;
 
-/*!
+/**
     @property   year
  
     @property   month
@@ -197,28 +197,28 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 /******          IQdropDownModeDatePicker           ******/
 /*-------------------------------------------------------*/
 
-/*!
+/**
     @property   datePickerMode
  
     @abstract   Select date in UIDatePicker. Default is UIDatePickerModeDate
  */
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
 
-/*!
+/**
     @property   minimumDate
  
     @abstract   Minimum selectable date in UIDatePicker. Default is nil.
  */
 @property (nonatomic, retain) NSDate *minimumDate;
 
-/*!
+/**
     @property   maximumDate
  
     @abstract   Maximum selectable date in UIDatePicker. Default is nil.
  */
 @property (nonatomic, retain) NSDate *maximumDate;
 
-/*!
+/**
     @property   dateFormatter
  
     @abstract   Date formatter to show date as text in textField.
@@ -231,7 +231,7 @@ typedef NS_ENUM(NSInteger, IQDropDownMode) {
 /******          IQDropDownModeTimePicker           ******/
 /*-------------------------------------------------------*/
 
-/*!
+/**
  @property   timeFormatter
  
     @abstract   Time formatter to show time as text in textField.

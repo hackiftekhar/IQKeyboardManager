@@ -39,7 +39,7 @@
 #endif
 
 
-/*! https://github.com/kif-framework/KIF/blob/master/Additions/LoadableCategory.h
+/** https://github.com/kif-framework/KIF/blob/master/Additions/LoadableCategory.h
  
     @discussion To load categories in the current file loadable without using "-load-all" flag. When we try to create framework or library the compilers skips linking files that contain only categories. So use this macro to add a dummy class, which causes the linker to add the file. You will also need to add "-ObjC" to the "Other Linker Flags" build setting in any project that uses the framework.
  

@@ -32,6 +32,7 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableView.h>
 #import <UIKit/UIViewController.h>
+#import <UIKit/UICollectionView.h>
 
 NSString *const kIQTextField                =   @"kIQTextField";
 NSString *const kIQTextFieldDelegate        =   @"kIQTextFieldDelegate";
@@ -123,8 +124,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
 {
-    UIView *tableView = [textField superTableView];
-    if (tableView == nil)   tableView = [textField superCollectionView];
+    UIView *tableView = [textField superviewOfClassType:[UITableView class]];
+    if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
 
     NSArray *textFields = nil;
 
@@ -164,8 +165,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)goToNextResponderOrResign:(UIView*)textField
 {
-    UIView *tableView = [textField superTableView];
-    if (tableView == nil)   tableView = [textField superCollectionView];
+    UIView *tableView = [textField superviewOfClassType:[UITableView class]];
+    if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
     
     NSArray *textFields = nil;
     

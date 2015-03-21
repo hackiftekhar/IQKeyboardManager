@@ -25,7 +25,7 @@ import Foundation
 
 extension NSArray {
     
-    /*! @abstract Returns the array by sorting the UIView's by their tag property. */
+    /** @abstract Returns the array by sorting the UIView's by their tag property. */
     func sortedArrayByTag() -> NSArray {
         
         return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
@@ -40,7 +40,7 @@ extension NSArray {
         })
     }
     
-    /*! @abstract Returns the array by sorting the UIView's by their tag property. */
+    /** @abstract Returns the array by sorting the UIView's by their tag property. */
     func sortedArrayByPosition() -> NSArray {
         
         return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in

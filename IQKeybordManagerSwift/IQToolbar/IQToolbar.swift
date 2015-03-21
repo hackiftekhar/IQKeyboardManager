@@ -24,7 +24,7 @@
 
 import UIKit
 
-/*! @abstract   IQToolbar for IQKeyboardManager.    */
+/** @abstract   IQToolbar for IQKeyboardManager.    */
 class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
     var titleFont : UIFont? {

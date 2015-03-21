@@ -26,105 +26,91 @@
 
 @class UICollectionView, UIScrollView, UITableView, NSArray;
 
-/*!
+/**
     @category UIView (IQ_UIView_Hierarchy)
  
 	@abstract UIView hierarchy category.
  */
 @interface UIView (IQ_UIView_Hierarchy)
 
-/*!
+/**
     @property isAskingCanBecomeFirstResponder
  
     @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
  */
 @property (nonatomic, readonly) BOOL isAskingCanBecomeFirstResponder;
 
-/*!
+/**
     @property viewController
  
     @abstract Returns the UIViewController object that manages the receiver.
  */
 @property (nonatomic, readonly, strong) UIViewController *viewController;
 
-/*!
+/**
     @property topMostController
  
     @abstract Returns the topMost UIViewController object in hierarchy.
  */
 @property (nonatomic, readonly, strong) UIViewController *topMostController;
 
-/*!
-    @property superScrollView
+/**
+    @method superviewOfClassType:
  
-    @abstract Returns the UIScrollView object if any found in view's upper hierarchy.
+    @return Returns the superView of provided class type.
  */
-@property (nonatomic, readonly, strong) UIScrollView *superScrollView;
+-(UIView*)superviewOfClassType:(Class)classType;
 
-/*!
-    @property superTableView
- 
-    @abstract Returns the UITableView object if any found in view's upper hierarchy.
- */
-@property (nonatomic, readonly, strong) UITableView *superTableView;
-
-/*!
-    @property superCollectionView
- 
-    @abstract Returns the UICollectionView object if any found in view's upper hierarchy.
- */
-@property (nonatomic, readonly, strong) UICollectionView *superCollectionView   NS_AVAILABLE_IOS(6_0);
-
-/*!
+/**
     @property responderSiblings
  
     @abstract returns all siblings of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *responderSiblings;
 
-/*!
+/**
     @property deepResponderViews
  
     @abstract returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
-/*!
+/**
     @property isSearchBarTextField
  
     @abstract returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isSearchBarTextField, readonly) BOOL searchBarTextField;
 
-/*!
+/**
     @property isAlertViewTextField
  
     @abstract returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isAlertViewTextField, readonly) BOOL alertViewTextField;
 
-/*!
+/**
     @method convertTransformToView
  
     @return returns current view transform with respect to the 'toView'.
  */
 -(CGAffineTransform)convertTransformToView:(UIView*)toView;
 
-/*!
+/**
     @property subHierarchy
  
     @abstract Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *subHierarchy;
 
-/*!
+/**
     @property superHierarchy
  
     @abstract Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
-/*!
+/**
     @property debugHierarchy
  
     @abstract Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
@@ -134,7 +120,7 @@
 @end
 
 
-/*!
+/**
     @category UIView (IQ_UIView_Frame)
  
 	@abstract UIView frame category.
@@ -154,7 +140,7 @@
 
 @interface NSObject (IQ_Logging)
 
-/*!
+/**
     @property _IQDescription
  
     @abstract Short description for logging purpose.

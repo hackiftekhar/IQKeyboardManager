@@ -25,10 +25,10 @@
 import Foundation
 import UIKit
 
-/*! @abstract UIWindow hierarchy category.  */
+/** @abstract UIWindow hierarchy category.  */
 extension UIWindow {
 
-    /*! @return Returns the current Top Most ViewController in hierarchy.   */
+    /** @return Returns the current Top Most ViewController in hierarchy.   */
     override func topMostController()->UIViewController? {
         
         var topController = rootViewController
@@ -40,7 +40,7 @@ extension UIWindow {
         return topController
     }
     
-    /*! @return Returns the topViewController in stack of topMostController.    */
+    /** @return Returns the topViewController in stack of topMostController.    */
     func currentViewController()->UIViewController? {
         
         var currentViewController = topMostController()

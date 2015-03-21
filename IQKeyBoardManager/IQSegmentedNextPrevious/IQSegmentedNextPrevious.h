@@ -27,7 +27,7 @@
 
 #import <UIKit/UISegmentedControl.h>
 
-/*!
+/**
     @class IQSegmentedNextPrevious
  
     @deprecated Deprecated in iOS 7
@@ -38,7 +38,7 @@
 NS_CLASS_DEPRECATED_IOS(2_0, 7_0, "Deprecated for iOS 7")
 @interface IQSegmentedNextPrevious : UISegmentedControl
 
-/*!
+/**
     @method initWithTarget:previousAction:nextAction:
  
     @abstract initialization function for IQSegmentedNextPrevious.
@@ -51,14 +51,14 @@ NS_CLASS_DEPRECATED_IOS(2_0, 7_0, "Deprecated for iOS 7")
  */
 - (instancetype)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction NS_DESIGNATED_INITIALIZER;
 
-/*!
+/**
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
  */
 - (instancetype)init	__attribute__((unavailable("init is not available, should use initWithTarget:previousAction:nextAction instead")));
 
-/*!
+/**
     @method init
  
     @abstract initWithTarget:previousAction:nextAction should be used.
