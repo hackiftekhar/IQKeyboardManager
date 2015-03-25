@@ -188,6 +188,15 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 /*******************************************/
 
+//UIScrollView handling
+
+/**
+    @property shouldRestoreScrollViewContentOffset
+ 
+    @abstract Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset;
+
 
 //UISound handling
 
@@ -221,24 +230,30 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 /**
     @method disableInViewControllerClass:
+    @method removeDisableInViewControllerClass:
  
     @param disabledClass: Class in which library should not adjust view to show textField.
  */
 -(void)disableInViewControllerClass:(Class)disabledClass;
+-(void)removeDisableInViewControllerClass:(Class)disabledClass;
 
 /**
-    @method disableToolbarInViewControllerClass
+    @method disableToolbarInViewControllerClass:
+    @method removeDisableToolbarInViewControllerClass:
  
     @param toolbarDisabledClass: Class in which library should not add toolbar over textField.
  */
 -(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass;
+-(void)removeDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass;
 
 /**
-    @method considerToolbarPreviousNextInViewClass
+    @method considerToolbarPreviousNextInViewClass:
+    @method removeConsiderToolbarPreviousNextInViewClass:
  
     @param toolbarPreviousNextConsideredClass: Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
  */
 -(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
+-(void)removeConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
 
 
 /*******************************************/
