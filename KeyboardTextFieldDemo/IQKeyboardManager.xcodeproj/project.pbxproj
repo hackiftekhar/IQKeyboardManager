@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		324A01AE1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 324A01AA1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.h */; };
+		324A01AF1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AB1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m */; };
+		324A01B01A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AB1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m */; };
+		324A01B11A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AB1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m */; };
+		324A01B21A9E1A1E00159B7D /* UITextView+IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 324A01AC1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.h */; };
+		324A01B31A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AD1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m */; };
+		324A01B41A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AD1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m */; };
+		324A01B51A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 324A01AD1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m */; };
 		53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */; };
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
 		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
@@ -127,6 +135,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		324A01AA1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+IQKeyboardManager.h"; sourceTree = "<group>"; };
+		324A01AB1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+IQKeyboardManager.m"; sourceTree = "<group>"; };
+		324A01AC1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+IQKeyboardManager.h"; sourceTree = "<group>"; };
+		324A01AD1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+IQKeyboardManager.m"; sourceTree = "<group>"; };
 		53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarViewController.h; sourceTree = "<group>"; };
 		53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarViewController.m; sourceTree = "<group>"; };
 		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
@@ -378,6 +390,10 @@
 		C085498F19FAA91E00973573 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				324A01AA1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.h */,
+				324A01AB1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m */,
+				324A01AC1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.h */,
+				324A01AD1A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m */,
 				C085499019FAA91E00973573 /* IQNSArray+Sort.h */,
 				C085499119FAA91E00973573 /* IQNSArray+Sort.m */,
 				C085499219FAA91E00973573 /* IQUIView+Hierarchy.h */,
@@ -682,10 +698,12 @@
 				C08549C619FAA91E00973573 /* IQBarButtonItem.h in Headers */,
 				C08549BA19FAA91E00973573 /* IQKeyboardManager.h in Headers */,
 				C08549B819FAA91E00973573 /* IQKeyboardManagerConstants.h in Headers */,
+				324A01B21A9E1A1E00159B7D /* UITextView+IQKeyboardManager.h in Headers */,
 				C08549BD19FAA91E00973573 /* IQKeyboardReturnKeyHandler.h in Headers */,
 				C08549C019FAA91E00973573 /* IQSegmentedNextPrevious.h in Headers */,
 				C08549C319FAA91E00973573 /* IQTextView.h in Headers */,
 				C08549C919FAA91E00973573 /* IQTitleBarButtonItem.h in Headers */,
+				324A01AE1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.h in Headers */,
 				C08549CC19FAA91E00973573 /* IQToolbar.h in Headers */,
 				C08549B219FAA91E00973573 /* IQUIView+Hierarchy.h in Headers */,
 				C08549CF19FAA91E00973573 /* IQUIView+IQKeyboardToolbar.h in Headers */,
@@ -896,7 +914,9 @@
 				C08549B419FAA91E00973573 /* IQUIView+Hierarchy.m in Sources */,
 				C08549B119FAA91E00973573 /* IQNSArray+Sort.m in Sources */,
 				C08549C819FAA91E00973573 /* IQBarButtonItem.m in Sources */,
+				324A01B01A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */,
 				C08549C519FAA91E00973573 /* IQTextView.m in Sources */,
+				324A01B41A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,9 +940,11 @@
 				C0EC59DA19D0C0EE00997FFE /* NavigationBarViewController.swift in Sources */,
 				C0DDEB6A19FCD56300FAB29F /* IQBarButtonItem.swift in Sources */,
 				C0EC59DF19D0C19300997FFE /* AppDelegate.swift in Sources */,
+				324A01B11A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */,
 				C0DDEB6719FCD56300FAB29F /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				C0DDEB6219FCD56300FAB29F /* IQUIView+Hierarchy.swift in Sources */,
 				C0DDEB6519FCD56300FAB29F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
+				324A01B51A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */,
 				C0DDEB6119FCD56300FAB29F /* IQNSArray+Sort.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -934,6 +956,7 @@
 				C06579CE19D61BF000DAA3EA /* OptionTableViewCell.m in Sources */,
 				C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */,
 				C08549D019FAA91E00973573 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				324A01B31A9E1A1E00159B7D /* UITextView+IQKeyboardManager.m in Sources */,
 				C05DD9FF1A591D2D00A6ECD4 /* IQDropDownTextField.m in Sources */,
 				C08549CA19FAA91E00973573 /* IQTitleBarButtonItem.m in Sources */,
 				C08549BE19FAA91E00973573 /* IQKeyboardReturnKeyHandler.m in Sources */,
@@ -941,6 +964,7 @@
 				53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */,
 				C08549CD19FAA91E00973573 /* IQToolbar.m in Sources */,
 				C08549B619FAA91E00973573 /* IQUIWindow+Hierarchy.m in Sources */,
+				324A01AF1A9E1A1E00159B7D /* UITextField+IQKeyboardManager.m in Sources */,
 				C08A654D19DB18C700D255E2 /* ManualToolbarViewController.m in Sources */,
 				C08549B019FAA91E00973573 /* IQNSArray+Sort.m in Sources */,
 				DDAA29F21A320057002C0ED8 /* TableViewInContainerViewController.m in Sources */,
