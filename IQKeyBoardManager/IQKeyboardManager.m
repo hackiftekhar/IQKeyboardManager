@@ -233,6 +233,7 @@ void _IQShowLog(NSString *logString);
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
+            [self setShouldRestoreScrollViewContentOffset:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             
             //Initializing disabled classes Set.
@@ -464,8 +465,15 @@ void _IQShowLog(NSString *logString);
         {
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
 
-            [_lastScrollView setContentInset:_startingContentInsets];
-            [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                [_lastScrollView setContentInset:_startingContentInsets];
+            } completion:NULL];
+            
+            if (_shouldRestoreScrollViewContentOffset)
+            {
+                [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+            }
+
             _startingContentInsets = UIEdgeInsetsZero;
             _startingContentOffset = CGPointZero;
             _lastScrollView = nil;
@@ -475,8 +483,15 @@ void _IQShowLog(NSString *logString);
         {
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
 
-            [_lastScrollView setContentInset:_startingContentInsets];
-            [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                [_lastScrollView setContentInset:_startingContentInsets];
+            } completion:NULL];
+
+            if (_shouldRestoreScrollViewContentOffset)
+            {
+                [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+            }
+            
             _lastScrollView = superScrollView;
             _startingContentInsets = superScrollView.contentInset;
             _startingContentOffset = superScrollView.contentOffset;
@@ -567,7 +582,10 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
                 
-                _lastScrollView.contentInset = movedInsets;
+                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                    _lastScrollView.contentInset = movedInsets;
+                } completion:NULL];
+
                 if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
                 {
                     CGSize contentSize = _lastScrollView.contentSize;
@@ -892,26 +910,14 @@ void _IQShowLog(NSString *logString);
     {
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _lastScrollView.contentInset = _startingContentInsets;
-            _lastScrollView.contentOffset = _startingContentOffset;
+            
+            if (_shouldRestoreScrollViewContentOffset)
+            {
+                _lastScrollView.contentOffset = _startingContentOffset;
+            }
 
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
             
-            // TODO: restore scrollView state
-            // This is temporary solution. Have to implement the save and restore scrollView state
-            UIScrollView *superscrollView = _lastScrollView;
-            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]))
-            {
-                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, superscrollView.IQ_width), MAX(superscrollView.contentSize.height, superscrollView.IQ_height));
-                
-                CGFloat minimumY = contentSize.height-superscrollView.IQ_height;
-                
-                if (minimumY<superscrollView.contentOffset.y)
-                {
-                    superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
-
-                    _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentOffset to : %@",[superscrollView _IQDescription],NSStringFromCGPoint(superscrollView.contentOffset)]);
-                }
-            }
         } completion:NULL];
     }
     
@@ -1502,14 +1508,29 @@ void _IQShowLog(NSString *logString);
     [_disabledClasses addObject:disabledClass];
 }
 
+-(void)removeDisableInViewControllerClass:(Class)disabledClass
+{
+    [_disabledClasses removeObject:disabledClass];
+}
+
 -(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass
 {
     [_disabledToolbarClasses addObject:toolbarDisabledClass];
 }
 
+-(void)removeDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
+{
+    [_disabledToolbarClasses removeObject:toolbarDisabledClass];
+}
+
 -(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
 {
     [_toolbarPreviousNextConsideredClass addObject:toolbarPreviousNextConsideredClass];
+}
+
+-(void)removeConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+{
+    [_toolbarPreviousNextConsideredClass removeObject:toolbarPreviousNextConsideredClass];
 }
 
 @end
