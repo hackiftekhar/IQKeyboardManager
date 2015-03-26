@@ -28,7 +28,7 @@
 #import "IQTitleBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQBarButtonItem.h"
-
+#import "IQKeyboardManager.h"
 #import <UIKit/UIImage.h>
 #import <UIKit/UILabel.h>
 #import <objc/runtime.h>
@@ -435,18 +435,42 @@ IQ_LoadCategory(IQUIViewToolbar)
     IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
 	
 	if (IQ_IS_IOS7_OR_GREATER)
-	{
-//        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
-//        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
-
-		IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
-		IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-		[fixed setWidth:23];
-		IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
-		[items addObject:prev];
-		[items addObject:fixed];
-		[items addObject:next];
-	}
+    {
+        //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
+        //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
+        
+        UIImage *imageLeftArrow;
+        UIImage *imageRightArrow;
+        
+        if (IQ_IS_IOS8_OR_GREATER)
+        {
+            // Get the top level "bundle" which may actually be the framework
+            NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+            
+            // Check to see if the resource bundle exists inside the top level bundle
+            NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+            
+            if (resourcesBundle == nil) {
+                resourcesBundle = mainBundle;
+            }
+            
+            imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+            imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        }
+        else
+        {
+            imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
+            imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
+        }
+        
+        IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
+        IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        [fixed setWidth:23];
+        IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
+        [items addObject:prev];
+        [items addObject:fixed];
+        [items addObject:next];
+    }
 	else
 	{
         #pragma GCC diagnostic push
@@ -536,11 +560,35 @@ IQ_LoadCategory(IQUIViewToolbar)
     {
         //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
         //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
+
+        UIImage *imageLeftArrow;
+        UIImage *imageRightArrow;
         
-        IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"] style:UIBarButtonItemStylePlain target:target action:previousAction];
+        if (IQ_IS_IOS8_OR_GREATER)
+        {
+            // Get the top level "bundle" which may actually be the framework
+            NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+            
+            // Check to see if the resource bundle exists inside the top level bundle
+            NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+            
+            if (resourcesBundle == nil) {
+                resourcesBundle = mainBundle;
+            }
+        
+            imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+            imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        }
+        else
+        {
+            imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
+            imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
+        }
+        
+        IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
         IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         [fixed setWidth:23];
-        IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"] style:UIBarButtonItemStylePlain target:target action:nextAction];
+        IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
         [items addObject:prev];
         [items addObject:fixed];
         [items addObject:next];
