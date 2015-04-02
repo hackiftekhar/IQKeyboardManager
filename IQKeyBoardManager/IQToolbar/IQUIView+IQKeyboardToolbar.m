@@ -33,8 +33,6 @@
 #import <UIKit/UILabel.h>
 #import <objc/runtime.h>
 
-IQ_LoadCategory(IQUIViewToolbar)
-
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
@@ -442,6 +440,9 @@ IQ_LoadCategory(IQUIViewToolbar)
         UIImage *imageLeftArrow;
         UIImage *imageRightArrow;
         
+        //Xcode Compilation check
+#if IQ_IS_XCODE_6_0_OR_GREATER
+        
         if (IQ_IS_IOS8_OR_GREATER)
         {
             // Get the top level "bundle" which may actually be the framework
@@ -458,6 +459,7 @@ IQ_LoadCategory(IQUIViewToolbar)
             imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
         }
         else
+#endif
         {
             imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
             imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
@@ -564,6 +566,9 @@ IQ_LoadCategory(IQUIViewToolbar)
         UIImage *imageLeftArrow;
         UIImage *imageRightArrow;
         
+        //Xcode Compilation check
+#if IQ_IS_XCODE_6_0_OR_GREATER
+        
         if (IQ_IS_IOS8_OR_GREATER)
         {
             // Get the top level "bundle" which may actually be the framework
@@ -580,6 +585,7 @@ IQ_LoadCategory(IQUIViewToolbar)
             imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
         }
         else
+#endif
         {
             imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
             imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
