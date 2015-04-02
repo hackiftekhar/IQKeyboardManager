@@ -24,6 +24,7 @@
 #import "IQTextView.h"
 
 #import <UIKit/UILabel.h>
+#import <UIKit/UINibLoading.h>
 
 @implementation IQTextView
 {
@@ -31,6 +32,31 @@
 }
 
 @synthesize placeholder = _placeholder;
+
+-(void)initialize
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshPlaceholder) name:UITextViewTextDidChangeNotification object:self];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self initialize];
+}
 
 -(void)refreshPlaceholder
 {
@@ -42,18 +68,26 @@
     {
         [placeHolderLabel setAlpha:1];
     }
-}
-
-- (void)setText:(NSString *)text
-{
-    [super setText:text];
-    [self refreshPlaceholder];
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 -(void)setFont:(UIFont *)font
 {
     [super setFont:font];
     placeHolderLabel.font = self.font;
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    [placeHolderLabel sizeToFit];
+    placeHolderLabel.frame = CGRectMake(8, 8, CGRectGetWidth(self.frame)-16, CGRectGetHeight(placeHolderLabel.frame));
 }
 
 -(void)setPlaceholder:(NSString *)placeholder
@@ -62,7 +96,7 @@
     
     if ( placeHolderLabel == nil )
     {
-        placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 8, 8)];
+        placeHolderLabel = [[UILabel alloc] init];
         placeHolderLabel.autoresizingMask = (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
         placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
         placeHolderLabel.numberOfLines = 0;
@@ -75,13 +109,6 @@
     
     placeHolderLabel.text = self.placeholder;
     [self refreshPlaceholder];
-}
-
-//When any text changes on textField, the delegate getter is called. At this time we refresh the textView's placeholder
--(id<UITextViewDelegate>)delegate
-{
-    [self refreshPlaceholder];
-    return [super delegate];
 }
 
 @end

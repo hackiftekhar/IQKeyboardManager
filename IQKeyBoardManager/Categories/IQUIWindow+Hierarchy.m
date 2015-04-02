@@ -22,12 +22,7 @@
 // THE SOFTWARE.
 
 #import "IQUIWindow+Hierarchy.h"
-
 #import <UIKit/UINavigationController.h>
-
-#import "IQKeyboardManagerConstantsInternal.h"
-IQ_LoadCategory(IQUIWindowHierarchy)
-
 
 @implementation UIWindow (IQ_UIWindow_Hierarchy)
 

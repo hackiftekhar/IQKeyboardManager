@@ -22,13 +22,9 @@
 // THE SOFTWARE.
 
 #import "IQNSArray+Sort.h"
-#import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 
 #import <UIKit/UIView.h>
-
-IQ_LoadCategory(IQNSArraySort)
-
 
 @implementation NSArray (IQ_NSArray_Sort)
 
