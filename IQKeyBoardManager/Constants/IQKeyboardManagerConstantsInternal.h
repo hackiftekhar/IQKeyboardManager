@@ -1,7 +1,7 @@
 //
 //  IQKeyboardManagerConstantsInternal.h
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-14 Iftekhar Qurashi.
+// Copyright (c) 2013-15 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,16 +24,16 @@
 #ifndef IQKeyboardManagerConstantsInternal_h
 #define IQKeyboardManagerConstantsInternal_h
 
-//Xcode 4.6 or less compilation check
+//Xcode 4.5 compatibility
 #ifdef NSFoundationVersionNumber_iOS_6_1
     #define IQ_IS_IOS7_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
-    #define IQ_IS_XCODE_5_1_OR_GREATER 1
+    #define IQ_IS_XCODE_5_0_OR_GREATER 1
 #else
     #define IQ_IS_IOS7_OR_GREATER NO
-    #define IQ_IS_XCODE_5_1_OR_GREATER 0
+    #define IQ_IS_XCODE_5_0_OR_GREATER 0
 #endif
 
-//Xcode 5.1 or less compilation check
+//Xcode 5.0 compatibility
 #ifdef NSFoundationVersionNumber_iOS_7_1
     #define IQ_IS_IOS8_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
     #define IQ_IS_XCODE_6_0_OR_GREATER 1
