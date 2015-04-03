@@ -1,7 +1,7 @@
 //
 //  UIView+Hierarchy.m
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-14 Iftekhar Qurashi.
+// Copyright (c) 2013-15 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -136,7 +136,20 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 -(BOOL)_IQcanBecomeFirstResponder
 {
     [self _setIsAskingCanBecomeFirstResponder:YES];
-    BOOL _IQcanBecomeFirstResponder = ([self canBecomeFirstResponder] && [self isUserInteractionEnabled] && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
+    BOOL _IQcanBecomeFirstResponder = ([self canBecomeFirstResponder] && [self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
+    
+    if (_IQcanBecomeFirstResponder == YES)
+    {
+        if ([self isKindOfClass:[UITextField class]])
+        {
+            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+        }
+        else if ([self isKindOfClass:[UITextView class]])
+        {
+            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+        }
+    }
+    
     [self _setIsAskingCanBecomeFirstResponder:NO];
     
     return _IQcanBecomeFirstResponder;
