@@ -1,7 +1,7 @@
 //
 // IQKeyboardManager.m
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-14 Iftekhar Qurashi.
+// Copyright (c) 2013-15 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -1264,9 +1264,19 @@ void _IQShowLog(NSString *logString);
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
         if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
         {
-            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-            [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
-            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+            static UIView *doneToolbar = nil;
+            
+            if (doneToolbar == nil)
+            {
+                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                doneToolbar = textField.inputAccessoryView;
+                doneToolbar.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+            }
+            else
+            {
+                textField.inputAccessoryView = doneToolbar;
+            }
         }
         
         if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
