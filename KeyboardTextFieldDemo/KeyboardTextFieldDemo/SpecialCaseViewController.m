@@ -7,6 +7,8 @@
 
 @interface SpecialCaseViewController ()<UISearchBarDelegate,UITextFieldDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 
+-(void)updateUI;
+
 @end
 
 @implementation SpecialCaseViewController

@@ -23,8 +23,11 @@
 
 #import "IQTitleBarButtonItem.h"
 #import "IQKeyboardManagerConstants.h"
-
 #import <UIKit/UILabel.h>
+
+#ifndef NSFoundationVersionNumber_iOS_5_1
+    #define NSTextAlignmentCenter UITextAlignmentCenter
+#endif
 
 @implementation IQTitleBarButtonItem
 {

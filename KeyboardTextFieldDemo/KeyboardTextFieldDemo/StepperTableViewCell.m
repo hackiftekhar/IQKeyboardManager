@@ -10,6 +10,8 @@
 
 @implementation StepperTableViewCell
 
+@synthesize labelTitle, labelSubtitle, stepper, labelStepperValue;
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];

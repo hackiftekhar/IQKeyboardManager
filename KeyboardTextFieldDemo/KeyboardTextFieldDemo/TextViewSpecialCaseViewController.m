@@ -5,6 +5,12 @@
 #import "TextViewSpecialCaseViewController.h"
 #import "IQKeyboardManager.h"
 
+@interface TextViewSpecialCaseViewController ()
+
+-(void)refreshUI;
+
+@end
+
 @implementation TextViewSpecialCaseViewController
 
 -(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton

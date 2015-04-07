@@ -28,8 +28,14 @@
 
 #import <UIKit/UIViewController.h>
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
+
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
+@synthesize title = _title;
 
 +(void)initialize
 {
@@ -37,7 +43,7 @@
     
     [[self appearance] setTintColor:nil];
     
-#if IQ_IS_XCODE_5_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_6_1
     if ([[self appearance] respondsToSelector:@selector(setBarTintColor:)])
     {
         [[self appearance] setBarTintColor:nil];

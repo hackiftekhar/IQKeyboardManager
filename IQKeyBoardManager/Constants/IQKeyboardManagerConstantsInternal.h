@@ -27,19 +27,15 @@
 //Xcode 5 compatibility check
 #ifdef NSFoundationVersionNumber_iOS_6_1
     #define IQ_IS_IOS7_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
-    #define IQ_IS_XCODE_5_OR_GREATER 1
 #else
     #define IQ_IS_IOS7_OR_GREATER NO
-    #define IQ_IS_XCODE_5_OR_GREATER 0
 #endif
 
 //Xcode 6 compatibility check
 #ifdef NSFoundationVersionNumber_iOS_7_1
     #define IQ_IS_IOS8_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
-    #define IQ_IS_XCODE_6_0_OR_GREATER 1
 #else
     #define IQ_IS_IOS8_OR_GREATER NO
-    #define IQ_IS_XCODE_6_0_OR_GREATER 0
 #endif
 
 #endif

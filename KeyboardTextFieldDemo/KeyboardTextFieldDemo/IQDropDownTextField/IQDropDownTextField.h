@@ -24,6 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
 /**
     @enum IQDropDownMode
  
@@ -36,14 +40,24 @@
     @const IQDropDownModeDatePicker   Show UIDatePicker to pick date.
  */
 
-typedef NS_ENUM(NSInteger, IQDropDownMode) {
-    
+#ifndef NS_ENUM
+
+typedef enum IQDropDownMode {
     IQDropDownModeTextPicker,
-    
     IQDropDownModeTimePicker,
-    
+    IQDropDownModeDatePicker,
+}IQDropDownMode;
+
+#else
+
+typedef NS_ENUM(NSInteger, IQDropDownMode) {
+    IQDropDownModeTextPicker,
+    IQDropDownModeTimePicker,
     IQDropDownModeDatePicker,
 };
+
+#endif
+
 
 @class IQDropDownTextField;
 

@@ -23,7 +23,10 @@
 
 #import "IQUIView+Hierarchy.h"
 
+#ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
+#endif
+
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITextField.h>
@@ -61,7 +64,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 
 -(void)_setIsAskingCanBecomeFirstResponder:(BOOL)isAskingCanBecomeFirstResponder
 {
-    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), @(isAskingCanBecomeFirstResponder), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), [NSNumber numberWithBool:isAskingCanBecomeFirstResponder], OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(BOOL)isAskingCanBecomeFirstResponder
