@@ -46,6 +46,9 @@ void _IQShowLog(NSString *logString);
 
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
+//Compatibility
+@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor;
+
 //  Private helper methods
 - (void)adjustFrame;
 
@@ -1252,7 +1255,11 @@ void _IQShowLog(NSString *logString);
     //	If only one object is found, then adding only Done button.
     if (siblings.count==1)
     {
-        UITextField *textField = [siblings firstObject];
+        UITextField *textField = nil;
+        
+        if ([siblings count])
+            textField = [siblings objectAtIndex:0];
+
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
         if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
@@ -1282,9 +1289,12 @@ void _IQShowLog(NSString *logString);
                     {
                         toolbar.barStyle = UIBarStyleDefault;
                         
+#if IQ_IS_XCODE_5_OR_GREATER
                         //Setting toolbar tintColor //  (Enhancement ID: #30)
                         if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
                             [toolbar setTintColor:[textField tintColor]];
+#endif
+                        
                     }
                         break;
                 }
@@ -1336,9 +1346,12 @@ void _IQShowLog(NSString *logString);
                         {
                             toolbar.barStyle = UIBarStyleDefault;
                             
+#if IQ_IS_XCODE_5_OR_GREATER
                             //Setting toolbar tintColor //  (Enhancement ID: #30)
                             if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
                                 [toolbar setTintColor:[textField tintColor]];
+#endif
+                            
                         }
                             break;
                     }

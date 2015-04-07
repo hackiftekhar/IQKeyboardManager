@@ -36,11 +36,14 @@
     [super initialize];
     
     [[self appearance] setTintColor:nil];
+    
+#if IQ_IS_XCODE_5_OR_GREATER
     if ([[self appearance] respondsToSelector:@selector(setBarTintColor:)])
     {
         [[self appearance] setBarTintColor:nil];
     }
-
+#endif
+    
     [[self appearance] setBackgroundColor:nil];
 }
 

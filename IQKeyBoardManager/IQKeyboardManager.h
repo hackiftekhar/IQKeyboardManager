@@ -104,12 +104,16 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
+#if IQ_IS_XCODE_5_OR_GREATER
+
 /**
     @property shouldToolbarUsesTextFieldTintColor
  
     @abstract If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  */
-@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor   NS_AVAILABLE_IOS(7_0);
+@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor NS_AVAILABLE_IOS(7_0);
+
+#endif
 
 /**
     @property shouldShowTextFieldPlaceholder

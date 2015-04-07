@@ -99,7 +99,9 @@
 
 - (void)shouldToolbarUsesTextFieldTintColorAction:(UISwitch *)sender
 {
+#if IQ_IS_XCODE_5_OR_GREATER
     [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:sender.on];
+#endif
 }
 
 - (void)shouldShowTextFieldPlaceholder:(UISwitch *)sender
@@ -275,7 +277,13 @@
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class]) forIndexPath:indexPath];
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
+                    
+#if IQ_IS_XCODE_5_OR_GREATER
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldToolbarUsesTextFieldTintColor];
+#else
+                    cell.switchEnable.on = NO;
+                    cell.switchEnable.enabled = NO;
+#endif
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldToolbarUsesTextFieldTintColorAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;

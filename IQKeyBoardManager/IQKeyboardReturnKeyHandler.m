@@ -23,6 +23,7 @@
 
 #import "IQKeyboardReturnKeyHandler.h"
 
+#import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 
@@ -329,6 +330,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         [self.delegate textViewDidChangeSelection:textView];
 }
 
+#if IQ_IS_XCODE_5_OR_GREATER
+
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
     if ([self.delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
@@ -344,6 +347,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     else
         return YES;
 }
+
+#endif
 
 -(void)dealloc
 {
