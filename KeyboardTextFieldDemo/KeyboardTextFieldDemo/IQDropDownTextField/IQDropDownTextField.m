@@ -399,7 +399,7 @@
 
 -(NSDateComponents *)dateComponents
 {
-    return [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.date];
+    return [[NSCalendar currentCalendar] components:kCFCalendarUnitDay | kCFCalendarUnitMonth | kCFCalendarUnitYear fromDate:self.date];
 }
 
 - (NSInteger)year   {   return [[self dateComponents] year];    }

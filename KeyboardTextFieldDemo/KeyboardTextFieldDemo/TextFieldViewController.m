@@ -7,6 +7,7 @@
 #import "IQKeyboardReturnKeyHandler.h"
 #import "IQDropDownTextField.h"
 #import "IQUIView+IQKeyboardToolbar.h"
+#import "IQKeyboardManagerConstantsInternal.h"
 
 @implementation TextFieldViewController
 {
@@ -116,7 +117,10 @@
             TextFieldViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([TextFieldViewController class])];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
             navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+            
+#if IQ_IS_XCODE_5_OR_GREATER
             navigationController.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+#endif
             navigationController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
             
             [navigationController setModalTransitionStyle:arc4random()%4];
