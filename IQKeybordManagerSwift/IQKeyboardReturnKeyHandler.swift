@@ -149,7 +149,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 textView.delegate = dict[kIQTextFieldDelegate] as UITextViewDelegate?
             }
             
-            textFieldInfoCache.removeObject(view)
+            textFieldInfoCache.removeObject(dict)
         }
     }
     
