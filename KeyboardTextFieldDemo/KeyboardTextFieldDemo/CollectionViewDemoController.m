@@ -8,6 +8,8 @@
 
 #import "CollectionViewDemoController.h"
 
+#ifdef NSFoundationVersionNumber_iOS_5_1
+
 @interface CollectionViewDemoController ()<UICollectionViewDelegate>
 
 @end
@@ -36,3 +38,5 @@
 }
 
 @end
+
+#endif

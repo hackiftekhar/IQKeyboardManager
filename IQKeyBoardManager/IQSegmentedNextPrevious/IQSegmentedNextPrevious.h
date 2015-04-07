@@ -27,6 +27,11 @@
 
 #import <UIKit/UISegmentedControl.h>
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
+
 /**
     @class IQSegmentedNextPrevious
  

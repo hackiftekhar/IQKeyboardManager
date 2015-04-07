@@ -12,14 +12,17 @@
 
 @implementation TextSelectionViewController
 
+@synthesize data = _data;
+@synthesize tableView = _tableView;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    _data = @[@"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",
+    _data = [NSArray arrayWithObjects:@"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",
               @"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",
-              @"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text."];
+              @"Hello", @"This is a demo code", @"Issue #56", @"With mutiple cells", @"And some useless text.",nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -47,7 +50,7 @@
         UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(5,7,135,30)];
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         textView.backgroundColor = [UIColor clearColor];
-        textView.text = _data[indexPath.row];
+        textView.text = [_data objectAtIndex:indexPath.row];
         textView.dataDetectorTypes = UIDataDetectorTypeAll;
         textView.scrollEnabled = NO;
         textView.editable = NO;

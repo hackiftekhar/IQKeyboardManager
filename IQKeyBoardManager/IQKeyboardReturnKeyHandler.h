@@ -29,6 +29,10 @@
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
 @class UITextField,UIView, UIViewController;
 
 /**

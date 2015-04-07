@@ -26,6 +26,21 @@
 #import <UIKit/UILabel.h>
 #import <UIKit/UINibLoading.h>
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
+//Xcode 4.5 compatibility check
+#ifndef NSFoundationVersionNumber_iOS_5_1
+    #define NSLineBreakByWordWrapping UILineBreakModeWordWrap
+#endif
+
+@interface IQTextView ()
+
+-(void)refreshPlaceholder;
+
+@end
+
 @implementation IQTextView
 {
     UILabel *placeHolderLabel;

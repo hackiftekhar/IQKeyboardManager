@@ -42,7 +42,7 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
 Minimum iOS Target: iOS 5.0
 
-Minimum Xcode Version: Xcode 5.0
+Minimum Xcode Version: Xcode 4.2
 
 #### Demo Project:-
 

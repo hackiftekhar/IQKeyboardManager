@@ -31,6 +31,10 @@
 #import <UIKit/UITextInputTraits.h>
 
 
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
 @class UIFont;
 
 /**  @const kIQDoneButtonToolbarTag         Default tag for toolbar with Done button            -1002.   */
@@ -104,7 +108,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
-#if IQ_IS_XCODE_5_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_6_1
 
 /**
     @property shouldToolbarUsesTextFieldTintColor

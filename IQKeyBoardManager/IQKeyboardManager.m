@@ -36,8 +36,11 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableViewController.h>
 #import <UIKit/UITableView.h>
-#import <UIKit/UICollectionView.h>
 #import <UIKit/UITouch.h>
+
+#ifdef NSFoundationVersionNumber_iOS_5_1
+#import <UIKit/UICollectionView.h>
+#endif
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -45,9 +48,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 void _IQShowLog(NSString *logString);
 
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
-
-//Compatibility
-@property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor;
 
 //  Private helper methods
 - (void)adjustFrame;
@@ -64,6 +64,9 @@ void _IQShowLog(NSString *logString);
 - (void)textFieldViewDidBeginEditing:(NSNotification*)notification;
 - (void)textFieldViewDidEndEditing:(NSNotification*)notification;
 - (void)textFieldViewDidChange:(NSNotification*)notification;
+
+//  Rotation notification
+- (void)willChangeStatusBarOrientation:(NSNotification*)aNotification;
 
 //  Tap Recognizer
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
@@ -161,12 +164,17 @@ void _IQShowLog(NSString *logString);
 //IQToolbar handling
 @synthesize enableAutoToolbar                   =   _enableAutoToolbar;
 @synthesize toolbarManageBehaviour              =   _toolbarManageBehaviour;
+
+#ifdef NSFoundationVersionNumber_iOS_6_1
 @synthesize shouldToolbarUsesTextFieldTintColor =   _shouldToolbarUsesTextFieldTintColor;
+#endif
+
 @synthesize shouldShowTextFieldPlaceholder      =   _shouldShowTextFieldPlaceholder;
 @synthesize placeholderFont                     =   _placeholderFont;
 
 //TextView handling
 @synthesize canAdjustTextView                   =   _canAdjustTextView;
+@synthesize shouldFixTextViewClip               =   _shouldFixTextViewClip;
 
 //Resign handling
 @synthesize shouldResignOnTouchOutside          =   _shouldResignOnTouchOutside;
@@ -177,6 +185,8 @@ void _IQShowLog(NSString *logString);
 //Animation handling
 @synthesize shouldAdoptDefaultKeyboardAnimation =   _shouldAdoptDefaultKeyboardAnimation;
 
+//ScrollView handling
+@synthesize shouldRestoreScrollViewContentOffset=   _shouldRestoreScrollViewContentOffset;
 
 #pragma mark - Initializing functions
 
@@ -228,7 +238,6 @@ void _IQShowLog(NSString *logString);
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
             [self setOverrideKeyboardAppearance:NO];
-            [self setShouldToolbarUsesTextFieldTintColor:NO];
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
@@ -242,7 +251,17 @@ void _IQShowLog(NSString *logString);
             //Initializing disabled classes Set.
             _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
             _disabledToolbarClasses = [[NSMutableSet alloc] init];
+
+#ifdef NSFoundationVersionNumber_iOS_6_1
+            [self setShouldToolbarUsesTextFieldTintColor:NO];
+#endif
+            
+#ifdef NSFoundationVersionNumber_iOS_5_1
             _toolbarPreviousNextConsideredClass = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class], nil];
+#else
+            _toolbarPreviousNextConsideredClass = [[NSMutableSet alloc] initWithObjects:[UITableView class], nil];
+#endif
+
         });
     }
     return self;
@@ -798,7 +817,7 @@ void _IQShowLog(NSString *logString);
     if (_shouldAdoptDefaultKeyboardAnimation)
     {
         //  Getting keyboard animation.
-        _animationCurve = [[aNotification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        _animationCurve = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
         _animationCurve = _animationCurve<<16;
     }
     else
@@ -807,7 +826,7 @@ void _IQShowLog(NSString *logString);
     }
 
     //  Getting keyboard animation duration
-    CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat duration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     //Saving animation duration
     if (duration != 0.0)    _animationDuration = duration;
@@ -816,7 +835,7 @@ void _IQShowLog(NSString *logString);
     
     //  Getting UIKeyboardSize.
 //    CGRect screenRect = [self keyWindow].bounds;
-    CGRect kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect kbFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     _kbSize = kbFrame.size;
  
     _IQShowLog([NSString stringWithFormat:@"UIKeyboard Size : %@",NSStringFromCGSize(_kbSize)]);
@@ -901,7 +920,7 @@ void _IQShowLog(NSString *logString);
     _keyboardManagerFlags.isKeyboardShowing = NO;
     
     //  Getting keyboard animation duration
-    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat aDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (aDuration!= 0.0f)
     {
         //  Setitng keyboard animation duration
@@ -1284,7 +1303,7 @@ void _IQShowLog(NSString *logString);
             IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
             
             //Bar style according to keyboard appearance
-            if ([textField respondsToSelector:@selector(keyboardAppearance)])
+            if (IQ_IS_IOS7_OR_GREATER && [textField respondsToSelector:@selector(keyboardAppearance)])
             {
                 switch ([(UITextField*)textField keyboardAppearance])
                 {
@@ -1299,7 +1318,7 @@ void _IQShowLog(NSString *logString);
                     {
                         toolbar.barStyle = UIBarStyleDefault;
                         
-#if IQ_IS_XCODE_5_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_6_1
                         //Setting toolbar tintColor //  (Enhancement ID: #30)
                         if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
                             [toolbar setTintColor:[textField tintColor]];
@@ -1341,7 +1360,7 @@ void _IQShowLog(NSString *logString);
                 IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
                 
                 //Bar style according to keyboard appearance
-                if ([textField respondsToSelector:@selector(keyboardAppearance)])
+                if (IQ_IS_IOS7_OR_GREATER && [textField respondsToSelector:@selector(keyboardAppearance)])
                 {
                     switch ([(UITextField*)textField keyboardAppearance])
                     {
@@ -1356,7 +1375,7 @@ void _IQShowLog(NSString *logString);
                         {
                             toolbar.barStyle = UIBarStyleDefault;
                             
-#if IQ_IS_XCODE_5_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_6_1
                             //Setting toolbar tintColor //  (Enhancement ID: #30)
                             if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
                                 [toolbar setTintColor:[textField tintColor]];
@@ -1369,7 +1388,7 @@ void _IQShowLog(NSString *logString);
                 
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                 //	If firstTextField, then previous should not be enabled.
-                if (siblings[0] == textField)
+                if ([siblings objectAtIndex:0] == textField)
                 {
                     [textField setEnablePrevious:NO next:YES];
                 }
@@ -1427,7 +1446,7 @@ void _IQShowLog(NSString *logString);
         //If it is not first textField. then it's previous object becomeFirstResponder.
         if (index > 0)
         {
-            UITextField *nextTextField = textFields[index-1];
+            UITextField *nextTextField = [textFields objectAtIndex:index-1];
             
             //  Retaining textFieldView
             UIView *textFieldRetain = _textFieldView;
@@ -1471,7 +1490,7 @@ void _IQShowLog(NSString *logString);
         //If it is not last textField. then it's next object becomeFirstResponder.
         if (index < textFields.count-1)
         {
-            UITextField *nextTextField = textFields[index+1];
+            UITextField *nextTextField = [textFields objectAtIndex:index+1];
             
             //  Retaining textFieldView
             UIView *textFieldRetain = _textFieldView;

@@ -7,7 +7,12 @@
 #import "IQKeyboardReturnKeyHandler.h"
 #import "IQDropDownTextField.h"
 #import "IQUIView+IQKeyboardToolbar.h"
-#import "IQKeyboardManagerConstantsInternal.h"
+
+@interface TextFieldViewController ()
+
+-(void)refreshUI;
+
+@end
 
 @implementation TextFieldViewController
 {
@@ -58,7 +63,7 @@
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
     returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarByPosition;
     
-    [dropDownTextField setItemList:@[@"Zero Line Of Code",
+    [dropDownTextField setItemList:[NSArray arrayWithObjects:@"Zero Line Of Code",
                                      @"No More UIScrollView",
                                      @"No More Subclasses",
                                      @"No More Manual Work",
@@ -74,9 +79,7 @@
                                      @"Auto adjust textView's height ",
                                      @"Adopt tintColor from textField",
                                      @"Customize keyboardAppearance",
-                                     @"play sound on next/prev/done",
-                                     ]];
-    
+                                     @"play sound on next/prev/done",nil]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -118,7 +121,7 @@
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
             navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
             
-#if IQ_IS_XCODE_5_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_6_1
             navigationController.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
 #endif
             navigationController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;

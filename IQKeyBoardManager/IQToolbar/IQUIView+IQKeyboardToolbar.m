@@ -38,7 +38,7 @@
 
 -(void)setShouldHideTitle:(BOOL)shouldHideTitle
 {
-    objc_setAssociatedObject(self, @selector(shouldHideTitle), @(shouldHideTitle), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(shouldHideTitle), [NSNumber numberWithBool:shouldHideTitle], OBJC_ASSOCIATION_ASSIGN);
 }
 
 -(BOOL)shouldHideTitle
@@ -115,7 +115,7 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -188,7 +188,7 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -262,7 +262,7 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -340,7 +340,7 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -418,7 +418,7 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -441,7 +441,7 @@
         UIImage *imageRightArrow;
         
         //Xcode Compilation check
-#if IQ_IS_XCODE_6_0_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_7_1
         
         if (IQ_IS_IOS8_OR_GREATER)
         {
@@ -544,7 +544,7 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
-    if ([self respondsToSelector:@selector(keyboardAppearance)])
+    if (IQ_IS_IOS7_OR_GREATER && [self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
         {
@@ -567,7 +567,7 @@
         UIImage *imageRightArrow;
         
         //Xcode Compilation check
-#if IQ_IS_XCODE_6_0_OR_GREATER
+#ifdef NSFoundationVersionNumber_iOS_7_1
         
         if (IQ_IS_IOS8_OR_GREATER)
         {
@@ -674,8 +674,8 @@
 		if (IQ_IS_IOS7_OR_GREATER && [[inputAccessoryView items] count]>3)
 		{
 			//  Getting first item from inputAccessoryView.
-			IQBarButtonItem *prevButton = (IQBarButtonItem*)[inputAccessoryView items][0];
-			IQBarButtonItem *nextButton = (IQBarButtonItem*)[inputAccessoryView items][2];
+			IQBarButtonItem *prevButton = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
+			IQBarButtonItem *nextButton = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:2];
 			
 			//  If it is UIBarButtonItem and it's customView is not nil.
 			if ([prevButton isKindOfClass:[IQBarButtonItem class]] && [nextButton isKindOfClass:[IQBarButtonItem class]])
@@ -689,7 +689,7 @@
 		else
 		{
 			//  Getting first item from inputAccessoryView.
-			IQBarButtonItem *barButtonItem = (IQBarButtonItem*)[inputAccessoryView items][0];
+			IQBarButtonItem *barButtonItem = (IQBarButtonItem*)[[inputAccessoryView items] objectAtIndex:0];
 			
 			//  If it is IQBarButtonItem and it's customView is not nil.
 			if ([barButtonItem isKindOfClass:[IQBarButtonItem class]] && [barButtonItem customView] != nil)
