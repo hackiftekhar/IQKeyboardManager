@@ -180,11 +180,21 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     //subviews are returning in opposite order. So I sorted it according the frames 'y'.
     NSArray *subViews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
-        if (view1.IQ_y < view2.IQ_y)	return NSOrderedAscending;
+        CGFloat x1 = CGRectGetMinX(view1.frame);
+        CGFloat y1 = CGRectGetMinY(view1.frame);
+        CGFloat x2 = CGRectGetMinX(view2.frame);
+        CGFloat y2 = CGRectGetMinY(view2.frame);
         
-        else if (view1.IQ_y > view2.IQ_y)	return NSOrderedDescending;
+        if (y1 < y2)  return NSOrderedAscending;
         
-        else	return NSOrderedSame;
+        else if (y1 > y2) return NSOrderedDescending;
+        
+        //Else both y are same so checking for x positions
+        else if (x1 < x2)  return NSOrderedAscending;
+        
+        else if (x1 > x2) return NSOrderedDescending;
+        
+        else    return NSOrderedSame;
     }];
 
     for (UITextField *textField in subViews)
@@ -290,7 +300,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 {
     NSMutableString *debugInfo = [[NSMutableString alloc] init];
 
-    [debugInfo appendFormat:@"%@: ( %.0f, %.0f, %.0f, %.0f )",NSStringFromClass([self class]),self.IQ_x,self.IQ_y,self.IQ_width,self.IQ_height];
+    [debugInfo appendFormat:@"%@: ( %.0f, %.0f, %.0f, %.0f )",NSStringFromClass([self class]), CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)];
     
     if ([self isKindOfClass:[UIScrollView class]])
     {
@@ -314,110 +324,6 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 -(BOOL)isAlertViewTextField
 {
     return ([self isKindOfClass:UIAlertSheetTextFieldClass] || [self isKindOfClass:UIAlertSheetTextFieldClass_iOS8]);
-}
-
-@end
-
-@implementation UIView (IQ_UIView_Frame)
-
--(CGFloat)IQ_x         {   return CGRectGetMinX(self.frame);   }
--(CGFloat)IQ_y         {   return CGRectGetMinY(self.frame);   }
--(CGFloat)IQ_width     {   return CGRectGetWidth(self.frame);  }
--(CGFloat)IQ_height    {   return CGRectGetHeight(self.frame); }
--(CGPoint)IQ_origin    {   return self.frame.origin;           }
--(CGSize)IQ_size       {   return self.frame.size;             }
--(CGFloat)IQ_left      {   return CGRectGetMinX(self.frame);   }
--(CGFloat)IQ_right     {   return CGRectGetMaxX(self.frame);   }
--(CGFloat)IQ_top       {   return CGRectGetMinY(self.frame);   }
--(CGFloat)IQ_bottom    {   return CGRectGetMaxY(self.frame);   }
--(CGFloat)IQ_centerX   {   return self.center.x;               }
--(CGFloat)IQ_centerY   {   return self.center.y;               }
--(CGPoint)IQ_boundsCenter  {   return CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));   };
-
--(void)setIQ_x:(CGFloat)IQ_x
-{
-    CGRect frame = self.frame;
-    frame.origin.x = IQ_x;
-    self.frame = frame;
-}
-
--(void)setIQ_y:(CGFloat)IQ_y
-{
-    CGRect frame = self.frame;
-    frame.origin.y = IQ_y;
-    self.frame = frame;
-}
-
--(void)setIQ_width:(CGFloat)IQ_width
-{
-    CGRect frame = self.frame;
-    frame.size.width = IQ_width;
-    self.frame = frame;
-}
-
--(void)setIQ_height:(CGFloat)IQ_height
-{
-    CGRect frame = self.frame;
-    frame.size.height = IQ_height;
-    self.frame = frame;
-}
-
--(void)setIQ_origin:(CGPoint)IQ_origin
-{
-    CGRect frame = self.frame;
-    frame.origin = IQ_origin;
-    self.frame = frame;
-}
-
--(void)setIQ_size:(CGSize)IQ_size
-{
-    CGRect frame = self.frame;
-    frame.size = IQ_size;
-    self.frame = frame;
-}
-
--(void)setIQ_left:(CGFloat)IQ_left
-{
-    CGRect frame = self.frame;
-    frame.origin.x = IQ_left;
-    frame.size.width = MAX(self.IQ_right-IQ_left, 0);
-    self.frame = frame;
-}
-
--(void)setIQ_right:(CGFloat)IQ_right
-{
-    CGRect frame = self.frame;
-    frame.size.width = MAX(IQ_right-self.IQ_left, 0);
-    self.frame = frame;
-}
-
--(void)setIQ_top:(CGFloat)IQ_top
-{
-    CGRect frame = self.frame;
-    frame.origin.y = IQ_top;
-    frame.size.height = MAX(self.IQ_bottom-IQ_top, 0);
-    self.frame = frame;
-}
-
--(void)setIQ_bottom:(CGFloat)IQ_bottom
-{
-    CGRect frame = self.frame;
-    frame.size.height = MAX(IQ_bottom-self.IQ_top, 0);
-    self.frame = frame;
-}
-
--(void)setIQ_centerX:(CGFloat)IQ_centerX
-{
-    CGPoint center = self.center;
-    center.x = IQ_centerX;
-    self.center = center;
-}
-
--(void)setIQ_centerY:(CGFloat)IQ_centerY
-{
-    CGPoint center = self.center;
-    center.y = IQ_centerY;
-    self.center = center;
 }
 
 @end
