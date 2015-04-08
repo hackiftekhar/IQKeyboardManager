@@ -25,11 +25,8 @@
 #import <UIKit/UIBarButtonItem.h>
 
 /**
-    @class IQBarButtonItem
- 
-	@abstract IQBarButtonItem used for IQToolbar.
+ IQBarButtonItem used for IQToolbar.
  */
 @interface IQBarButtonItem : UIBarButtonItem
-
 
 @end

@@ -405,7 +405,7 @@ void _IQShowLog(NSString *logString);
     //frame size needs to be adjusted on iOS8 due to orientation API changes.
     if (IQ_IS_IOS8_OR_GREATER)
     {
-        frame.size = controller.view.IQ_size;
+        frame.size = controller.view.frame.size;
     }
 
     //  If can't get rootViewController then printing warning to user.
@@ -459,16 +459,16 @@ void _IQShowLog(NSString *logString);
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(keyWindow.IQ_width-_kbSize.width));
+            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-_kbSize.width));
             break;
         case UIInterfaceOrientationLandscapeRight:
-            move = MIN(keyWindow.IQ_width-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
+            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
             break;
         case UIInterfaceOrientationPortrait:
-            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(keyWindow.IQ_height-_kbSize.height));
+            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-_kbSize.height));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            move = MIN(keyWindow.IQ_height-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
+            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
             break;
         default:
             break;
@@ -581,13 +581,13 @@ void _IQShowLog(NSString *logString);
                 switch (interfaceOrientation)
                 {
                     case UIInterfaceOrientationLandscapeLeft:
-                        bottom = _kbSize.width-(keyWindow.IQ_width-CGRectGetMaxX(lastScrollViewRect));
+                        bottom = _kbSize.width-(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(lastScrollViewRect));
                         break;
                     case UIInterfaceOrientationLandscapeRight:
                         bottom = _kbSize.width-CGRectGetMinX(lastScrollViewRect);
                         break;
                     case UIInterfaceOrientationPortrait:
-                        bottom = _kbSize.height-(keyWindow.IQ_height-CGRectGetMaxY(lastScrollViewRect));
+                        bottom = _kbSize.height-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
                         break;
                     case UIInterfaceOrientationPortraitUpsideDown:
                         bottom = _kbSize.height-CGRectGetMinY(lastScrollViewRect);
@@ -600,7 +600,6 @@ void _IQShowLog(NSString *logString);
                 UIEdgeInsets movedInsets = _lastScrollView.contentInset;
 
                 movedInsets.bottom = MAX(_startingContentInsets.bottom, bottom);
-//                movedInsets.bottom = MAX(0, (_lastScrollView.contentOffset.y+_lastScrollView.IQ_height)-MAX(_lastScrollView.contentSize.height, _lastScrollView.IQ_height));
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
                 
@@ -626,17 +625,17 @@ void _IQShowLog(NSString *logString);
     //Added _isTextFieldViewFrameChanged. (Bug ID: #92)
     if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
-        CGFloat textViewHeight = _textFieldView.IQ_height;
+        CGFloat textViewHeight = CGRectGetHeight(_textFieldView.frame);
         
         switch (interfaceOrientation)
         {
             case UIInterfaceOrientationLandscapeLeft:
             case UIInterfaceOrientationLandscapeRight:
-                textViewHeight = MIN(textViewHeight, (keyWindow.IQ_width-_kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-_kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
                 break;
             case UIInterfaceOrientationPortrait:
             case UIInterfaceOrientationPortraitUpsideDown:
-                textViewHeight = MIN(textViewHeight, (keyWindow.IQ_height-_kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-_kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
                 break;
             default:
                 break;
@@ -646,7 +645,9 @@ void _IQShowLog(NSString *logString);
             
             _IQShowLog([NSString stringWithFormat:@"%@ Old Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
 
-            _textFieldView.IQ_height = textViewHeight;
+            CGRect textFieldViewRect = _textFieldView.frame;
+            textFieldViewRect.size.height = textViewHeight;
+            _textFieldView.frame = textFieldViewRect;
             _keyboardManagerFlags.isTextFieldViewFrameChanged = YES;
 
             _IQShowLog([NSString stringWithFormat:@"%@ New Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
@@ -675,10 +676,10 @@ void _IQShowLog(NSString *logString);
                 {
                     case UIInterfaceOrientationLandscapeLeft:
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = keyWindow.IQ_width-rootViewRect.size.height-statusBarFrame.size.width-(_kbSize.width-_keyboardDistanceFromTextField);  break;
+                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-statusBarFrame.size.width-(_kbSize.width-_keyboardDistanceFromTextField);  break;
                     case UIInterfaceOrientationPortrait:
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (keyWindow.IQ_height-rootViewRect.size.height-statusBarFrame.size.height)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
+                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-statusBarFrame.size.height)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
                 
@@ -949,7 +950,7 @@ void _IQShowLog(NSString *logString);
         //frame size needs to be adjusted on iOS8 due to orientation API changes.
         if (IQ_IS_IOS8_OR_GREATER)
         {
-            _topViewBeginRect.size = _rootViewController.view.IQ_size;
+            _topViewBeginRect.size = _rootViewController.view.frame.size;
         }
         
         //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.

@@ -27,93 +27,91 @@
 @class UICollectionView, UIScrollView, UITableView, NSArray;
 
 /**
-    @category UIView (IQ_UIView_Hierarchy)
- 
-	@abstract UIView hierarchy category.
+ UIView hierarchy category.
  */
 @interface UIView (IQ_UIView_Hierarchy)
 
+///------------------------------
+/// @name canBecomeFirstResponder
+///------------------------------
+
 /**
-    @property isAskingCanBecomeFirstResponder
- 
-    @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
+ Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
  */
 @property (nonatomic, readonly) BOOL isAskingCanBecomeFirstResponder;
 
+///----------------------
+/// @name viewControllers
+///----------------------
+
 /**
-    @property viewController
- 
-    @abstract Returns the UIViewController object that manages the receiver.
+ Returns the UIViewController object that manages the receiver.
  */
 @property (nonatomic, readonly, strong) UIViewController *viewController;
 
 /**
-    @property topMostController
- 
-    @abstract Returns the topMost UIViewController object in hierarchy.
+ Returns the topMost UIViewController object in hierarchy.
  */
 @property (nonatomic, readonly, strong) UIViewController *topMostController;
 
+///-----------------------------------
+/// @name Superviews/Subviews/Siglings
+///-----------------------------------
+
 /**
-    @method superviewOfClassType:
- 
-    @return Returns the superView of provided class type.
+ Returns the superView of provided class type.
  */
 -(UIView*)superviewOfClassType:(Class)classType;
 
 /**
-    @property responderSiblings
- 
-    @abstract returns all siblings of the receiver which canBecomeFirstResponder.
+ Returns all siblings of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *responderSiblings;
 
 /**
-    @property deepResponderViews
- 
-    @abstract returns all deep subViews of the receiver which canBecomeFirstResponder.
+ Returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
 @property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
+///-------------------------
+/// @name Special TextFields
+///-------------------------
+
 /**
-    @property isSearchBarTextField
- 
-    @abstract returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+ Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isSearchBarTextField, readonly) BOOL searchBarTextField;
 
 /**
-    @property isAlertViewTextField
- 
-    @abstract returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
+ Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
  */
 @property (nonatomic, getter=isAlertViewTextField, readonly) BOOL alertViewTextField;
 
+///----------------
+/// @name Transform
+///----------------
+
 /**
-    @method convertTransformToView
- 
-    @return returns current view transform with respect to the 'toView'.
+ Returns current view transform with respect to the 'toView'.
  */
 -(CGAffineTransform)convertTransformToView:(UIView*)toView;
 
+///-----------------
+/// @name Hierarchy
+///-----------------
+
 /**
-    @property subHierarchy
- 
-    @abstract Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
+ Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *subHierarchy;
 
 /**
-    @property superHierarchy
- 
-    @abstract Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
+ Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
 @property (nonatomic, readonly, copy) NSString *superHierarchy;
 
 /**
-    @property debugHierarchy
- 
-    @abstract Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
+ Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
  */
 @property (nonatomic, readonly, copy) NSString *debugHierarchy;
 
@@ -121,29 +119,12 @@
 
 
 /**
-    @category UIView (IQ_UIView_Frame)
- 
-	@abstract UIView frame category.
+ NSObject category to used for logging purposes
  */
-@interface UIView (IQ_UIView_Frame)
-
-@property (nonatomic, assign) CGPoint IQ_origin;
-@property (nonatomic, assign) CGSize IQ_size;
-@property (nonatomic, assign) CGFloat IQ_x, IQ_y, IQ_width, IQ_height;
-@property (nonatomic, assign) CGFloat IQ_left, IQ_right, IQ_top, IQ_bottom;
-@property (nonatomic, assign) CGFloat IQ_centerX;
-@property (nonatomic, assign) CGFloat IQ_centerY;
-@property (nonatomic, readonly) CGPoint IQ_boundsCenter;
-
-@end
-
-
 @interface NSObject (IQ_Logging)
 
 /**
-    @property _IQDescription
- 
-    @abstract Short description for logging purpose.
+ Short description for logging purpose.
  */
 @property (nonatomic, readonly, copy) NSString *_IQDescription;
 
