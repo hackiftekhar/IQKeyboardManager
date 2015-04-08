@@ -126,7 +126,7 @@
 @property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
 ///---------------------------------------------
-/// @name UITextField/UITextView Resign handling
+/// @name UITextField/UITextView Next/Previous/Resign handling
 ///---------------------------------------------
 
 /**
@@ -138,6 +138,26 @@
  Resigns currently first responder field.
  */
 - (void)resignFirstResponder;
+
+/**
+ Returns YES if can navigate to previous responder textField/textView, otherwise NO.
+ */
+@property (nonatomic, readonly) BOOL canGoPrevious;
+
+/**
+ Returns YES if can navigate to next responder textField/textView, otherwise NO.
+ */
+@property (nonatomic, readonly) BOOL canGoNext;
+
+/**
+ Navigate to previous responder textField/textView.
+ */
+- (void)goPrevious;
+
+/**
+ Navigate to next responder textField/textView.
+ */
+- (void)goNext;
 
 ///----------------------------
 /// @name UIScrollView handling
