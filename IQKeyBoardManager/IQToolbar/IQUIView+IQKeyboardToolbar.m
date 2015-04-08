@@ -108,6 +108,8 @@
 }
 
 
+#pragma mark - Toolbar on UIKeyboard
+
 - (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
     //  If can't set InputAccessoryView. Then return
@@ -141,10 +143,10 @@
         else
         {
             /*
-             57 done button frame.
-             8 distance maintenance
+             64 done button frame.
+             16 distance maintenance
              */
-            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44);
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-16, 44);
         }
         
         IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
@@ -214,10 +216,10 @@
         else
         {
             /*
-             57 done button frame.
-             8 distance maintenance
+             64 done button frame.
+             16 distance maintenance
              */
-            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-57.0-8, 44);
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-16, 44);
         }
         
         IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
@@ -239,8 +241,6 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-
-#pragma mark - Toolbar on UIKeyboard
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
 {
     NSString *title;
@@ -501,10 +501,10 @@
         {
             /*
              135 next/previous maximum x.
-             57 done button frame.
+             64 done button frame.
              8+8 distance maintenance
              */
-            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-57.0-16, 44);
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-64.0-16, 44);
         }
         
         IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
@@ -627,10 +627,10 @@
         {
             /*
              135 next/previous maximum x.
-             57 done button frame.
+             64 done button frame.
              8+8 distance maintenance
              */
-            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-57.0-16, 44);
+            buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-135-64.0-16, 44);
         }
         
         IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:titleText];
