@@ -1760,7 +1760,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
         <scene sceneID="5Hs-En-g8p">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Z1T-rR-mis" customClass="TextViewSpecialCaseViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="AmX-Ef-2T2" customClass="UIScrollView">
+                    <view key="view" contentMode="scaleToFill" id="AmX-Ef-2T2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
