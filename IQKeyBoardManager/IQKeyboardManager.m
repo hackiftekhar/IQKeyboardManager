@@ -35,11 +35,13 @@
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableViewController.h>
+#import <UIKit/UINavigationController.h>
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
 
 #ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
+#import <UIKit/NSLayoutConstraint.h>
 #endif
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
@@ -460,8 +462,24 @@ void _IQShowLog(NSString *logString);
     //  Getting RootViewRect.
     CGRect rootViewRect = [[rootController view] frame];
     //Getting statusBarFrame
+    CGFloat topLayoutGuide = 0;
+
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
+    switch (interfaceOrientation)
+    {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            topLayoutGuide = CGRectGetWidth(statusBarFrame);
+            break;
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            topLayoutGuide = CGRectGetHeight(statusBarFrame);
+            break;
+        default:
+            break;
+    }
+
     CGFloat move = 0;
     //  Move positive = textField is hidden.
     //  Move negative = textField is showing.
@@ -470,16 +488,16 @@ void _IQShowLog(NSString *logString);
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = MIN(CGRectGetMinX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-_kbSize.width));
+            move = MIN(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-_kbSize.width));
             break;
         case UIInterfaceOrientationLandscapeRight:
-            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(statusBarFrame)+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
+            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
             break;
         case UIInterfaceOrientationPortrait:
-            move = MIN(CGRectGetMinY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-_kbSize.height));
+            move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-_kbSize.height));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(statusBarFrame)+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
+            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
             break;
         default:
             break;
@@ -564,8 +582,42 @@ void _IQShowLog(NSString *logString);
                 //Rearranging the expected Y offset according to the view.
                 shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
                 
-                //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
-                move -= (shouldOffsetY-superScrollView.contentOffset.y);
+                //We're working on NavigationBar hidden issue
+//                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+//                //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+//                //shouldOffsetY > 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+//                if ([_textFieldView isKindOfClass:[UITextView class]] && [superScrollView superviewOfClassType:[UIScrollView class]] == nil && shouldOffsetY > 0)
+//                {
+//                    CGFloat maintainTopLayout = 0;
+//                    
+//                    if ([_textFieldView.viewController respondsToSelector:@selector(topLayoutGuide)])
+//                    {
+//                        maintainTopLayout = [_textFieldView.viewController.topLayoutGuide length];
+//                    }
+//                    else
+//                    {
+//                        maintainTopLayout = _textFieldView.viewController.navigationController.navigationBar.frame.size.height;
+//                    }
+//                    
+//                    maintainTopLayout+= 20; //For good UI
+//                    
+//                    //  Converting Rectangle according to window bounds.
+//                    CGRect expectedTextFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
+//                    expectedTextFieldViewRect.origin.y -= shouldOffsetY;
+//
+//                    if (expectedTextFieldViewRect.origin.y < maintainTopLayout)
+//                    {
+//                        shouldOffsetY -= maintainTopLayout - expectedTextFieldViewRect.origin.y; // removing -5 from current shouldOffsetY in order to make distance from NavigationBar
+//                    }
+//                    
+//                    move = 0;
+//                }
+//                else
+                {
+                    //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
+                    move -= (shouldOffsetY-superScrollView.contentOffset.y);
+                }
+
                 
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -631,10 +683,12 @@ void _IQShowLog(NSString *logString);
         //Going ahead. No else if.
     }
     
-    //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen).
-    //If we have permission to adjust the textView, then let's do it on behalf of user.  (Enhancement ID: #15)
-    //Added _isTextFieldViewFrameChanged. (Bug ID: #92)
-    if (_canAdjustTextView && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
+    //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
+    //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
+    //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
+    //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+    //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
+    if (_canAdjustTextView && (_lastScrollView == NO) && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
         CGFloat textViewHeight = CGRectGetHeight(_textFieldView.frame);
         
@@ -642,11 +696,11 @@ void _IQShowLog(NSString *logString);
         {
             case UIInterfaceOrientationLandscapeLeft:
             case UIInterfaceOrientationLandscapeRight:
-                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-_kbSize.width-(CGRectGetWidth(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-_kbSize.width-(topLayoutGuide+5)));
                 break;
             case UIInterfaceOrientationPortrait:
             case UIInterfaceOrientationPortraitUpsideDown:
-                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-_kbSize.height-(CGRectGetHeight(statusBarFrame)+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-_kbSize.height-(topLayoutGuide+5)));
                 break;
             default:
                 break;
@@ -687,10 +741,10 @@ void _IQShowLog(NSString *logString);
                 {
                     case UIInterfaceOrientationLandscapeLeft:
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-statusBarFrame.size.width-(_kbSize.width-_keyboardDistanceFromTextField);  break;
+                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-_keyboardDistanceFromTextField);  break;
                     case UIInterfaceOrientationPortrait:
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-statusBarFrame.size.height)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
+                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
                 
