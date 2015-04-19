@@ -582,37 +582,51 @@ void _IQShowLog(NSString *logString);
                 //Rearranging the expected Y offset according to the view.
                 shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
                 
-                //We're working on NavigationBar hidden issue
-//                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
-//                //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-//                //shouldOffsetY > 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
-//                if ([_textFieldView isKindOfClass:[UITextView class]] && [superScrollView superviewOfClassType:[UIScrollView class]] == nil && shouldOffsetY > 0)
-//                {
-//                    CGFloat maintainTopLayout = 0;
-//                    
+                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+                //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+                //shouldOffsetY > 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+                if ([_textFieldView isKindOfClass:[UITextView class]] && [superScrollView superviewOfClassType:[UIScrollView class]] == nil && shouldOffsetY > 0)
+                {
+                    CGFloat maintainTopLayout = 0;
+                    
+                    //When uncommenting this, each calculation goes to well, but don't know why scrollView doesn't adjusting it's contentOffset at bottom
 //                    if ([_textFieldView.viewController respondsToSelector:@selector(topLayoutGuide)])
-//                    {
 //                        maintainTopLayout = [_textFieldView.viewController.topLayoutGuide length];
-//                    }
 //                    else
-//                    {
-//                        maintainTopLayout = _textFieldView.viewController.navigationController.navigationBar.frame.size.height;
-//                    }
-//                    
-//                    maintainTopLayout+= 20; //For good UI
-//                    
-//                    //  Converting Rectangle according to window bounds.
-//                    CGRect expectedTextFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
-//                    expectedTextFieldViewRect.origin.y -= shouldOffsetY;
-//
-//                    if (expectedTextFieldViewRect.origin.y < maintainTopLayout)
-//                    {
-//                        shouldOffsetY -= maintainTopLayout - expectedTextFieldViewRect.origin.y; // removing -5 from current shouldOffsetY in order to make distance from NavigationBar
-//                    }
-//                    
-//                    move = 0;
-//                }
-//                else
+                        maintainTopLayout = CGRectGetMaxY(_textFieldView.viewController.navigationController.navigationBar.frame);
+
+                    maintainTopLayout+= 10; //For good UI
+                    
+                    //  Converting Rectangle according to window bounds.
+                    CGRect currentTextFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
+                    CGFloat expectedFixDistance = shouldOffsetY;
+                    
+                    //Calculating expected fix distance which needs to be managed from navigation bar
+                    switch (interfaceOrientation)
+                    {
+                        case UIInterfaceOrientationLandscapeLeft:
+                            expectedFixDistance = CGRectGetMinX(currentTextFieldViewRect) - maintainTopLayout;
+                            break;
+                        case UIInterfaceOrientationLandscapeRight:
+                            expectedFixDistance = (CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(currentTextFieldViewRect)) - maintainTopLayout;
+                            break;
+                        case UIInterfaceOrientationPortrait:
+                            expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - maintainTopLayout;
+                            break;
+                        case UIInterfaceOrientationPortraitUpsideDown:
+                            expectedFixDistance = (CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(currentTextFieldViewRect)) - maintainTopLayout;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
+                    shouldOffsetY = MIN(shouldOffsetY, superScrollView.contentOffset.y + expectedFixDistance);
+                    
+                    //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic. 
+                    move = 0;
+                }
+                else
                 {
                     //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                     move -= (shouldOffsetY-superScrollView.contentOffset.y);
