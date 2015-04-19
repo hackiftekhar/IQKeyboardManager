@@ -1251,7 +1251,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     private func _IQShowLog(logString: String) {
         
-         let showLog = true
+         let showLog = false
         
         if showLog == true {
             println("IQKeyboardManager: " + logString)
