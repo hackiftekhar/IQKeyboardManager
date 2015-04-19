@@ -106,10 +106,12 @@
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
+#ifdef NSFoundationVersionNumber_iOS_6_1
 /**
- Adjust textView's contentInset to fix fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
+ Adjust textView's contentInset to fix a bug. for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldFixTextViewClip;
+#endif
 
 ///---------------------------------------
 /// @name UIKeyboard appearance overriding
