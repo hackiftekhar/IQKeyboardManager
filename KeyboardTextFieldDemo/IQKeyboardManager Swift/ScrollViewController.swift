@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKIt
+import UIKit
 
 class ScrollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate {
     
@@ -45,14 +45,20 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
             
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
             cell?.selectionStyle = UITableViewCellSelectionStyle.None
+            cell?.backgroundColor = UIColor.clearColor()
+            
+            let textField = UITextField(frame: CGRectInset(cell!.contentView.bounds, 5, 5))
+            textField.autoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth
+            textField.placeholder = identifier
+            textField.borderStyle = UITextBorderStyle.RoundedRect
+            cell?.contentView.addSubview(textField)
         }
-        
-        let textField = UITextField(frame: CGRectMake(5,7,135,30))
-        textField.placeholder = identifier
-        textField.borderStyle = UITextBorderStyle.RoundedRect
-        cell?.contentView.addSubview(textField)
-        
+
         return cell!
     }
-}
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
 
+}

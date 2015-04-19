@@ -32,18 +32,14 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         didSet {
             
             if items != nil {
-                for item in items as [UIBarButtonItem] {
+                for item in items as! [UIBarButtonItem] {
                     
                     if item is IQTitleBarButtonItem == true {
-                        (item as IQTitleBarButtonItem).font = titleFont
+                        (item as! IQTitleBarButtonItem).font = titleFont
                     }
                 }
             }
         }
-    }
-
-    override init() {
-        super.init()
     }
 
     override init(frame: CGRect) {
@@ -74,10 +70,10 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             if items != nil {
-                for item in items as [UIBarButtonItem] {
+                for item in items as! [UIBarButtonItem] {
                     
                     if item is IQTitleBarButtonItem {
-                        (item as IQTitleBarButtonItem).tintColor = tintColor
+                        (item as! IQTitleBarButtonItem).tintColor = tintColor
                     }
                 }
             }

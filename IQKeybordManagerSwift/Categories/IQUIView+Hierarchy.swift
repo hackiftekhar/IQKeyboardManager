@@ -76,7 +76,7 @@ extension UIView {
             
             var matchController :UIResponder? = viewController()
 
-            while matchController != nil && contains(controllersHierarchy, matchController as UIViewController) == false {
+            while matchController != nil && contains(controllersHierarchy, matchController as! UIViewController) == false {
                 
                 do {
                     matchController = matchController?.nextResponder()
@@ -172,7 +172,7 @@ extension UIView {
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
         
-        for textField in siblings as [UIView] {
+        for textField in siblings as! [UIView] {
             
             if textField._IQcanBecomeFirstResponder() == true {
                 tempTextFields.append(textField)
@@ -201,12 +201,12 @@ extension UIView {
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
         
-        for textField in subViews as [UIView] {
+        for textField in subViews as! [UIView] {
 
             if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             } else if textField.subviews.count != 0 {
-                for deepView in textField.deepResponderViews() as [UIView] {
+                for deepView in textField.deepResponderViews() as! [UIView] {
                     textfields.append(deepView)
                 }
             }
@@ -403,17 +403,6 @@ extension UIView {
         set {
             var frame = self.frame
             frame.centerY = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var center: CGPoint {
-        get {
-            return frame.center
-        }
-        set {
-            var frame = self.frame
-            frame.center = newValue
             self.frame = frame
         }
     }

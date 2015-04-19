@@ -45,8 +45,8 @@ extension UIWindow {
         
         var currentViewController = topMostController()
         
-        while currentViewController != nil && currentViewController is UINavigationController && (currentViewController as UINavigationController).topViewController != nil {
-            currentViewController = (currentViewController as UINavigationController).topViewController
+        while currentViewController != nil && currentViewController is UINavigationController && (currentViewController as! UINavigationController).topViewController != nil {
+            currentViewController = (currentViewController as! UINavigationController).topViewController
         }
 
         return currentViewController

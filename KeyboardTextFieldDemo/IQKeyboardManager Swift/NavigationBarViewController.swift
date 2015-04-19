@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKIt
+import UIKit
 
 class NavigationBarViewController: UIViewController {
     
@@ -21,6 +21,9 @@ class NavigationBarViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+
 }
 

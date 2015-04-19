@@ -7,9 +7,11 @@
 //
 
 import Foundation
-import UIKIt
+import UIKit
 
 class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate {
+    
+    @IBOutlet private var customWorkTextField : UITextField!;
     
     @IBOutlet private var textField6 : UITextField!;
     @IBOutlet private var textField7 : UITextField!;
@@ -90,6 +92,20 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         updateUI()
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        
+        if (textField == customWorkTextField) {
+            if(textField.isAskingCanBecomeFirstResponder == false) {
+                var alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "Do your custom work here", delegate: nil, cancelButtonTitle: "OK")
+                alertView.show()
+            }
+            
+            return false
+        } else {
+            return true
+        }
+    }
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         switchEnabled1.enabled = false;
         switchEnabled2.enabled = false;
@@ -107,6 +123,11 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         switchInteraction2.enabled = true;
         switchInteraction3.enabled = true;
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+
 }
 
 
