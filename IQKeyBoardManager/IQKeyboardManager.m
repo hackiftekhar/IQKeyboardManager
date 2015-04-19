@@ -181,7 +181,10 @@ void _IQShowLog(NSString *logString);
 
 //TextView handling
 @synthesize canAdjustTextView                   =   _canAdjustTextView;
+
+#ifdef NSFoundationVersionNumber_iOS_6_1
 @synthesize shouldFixTextViewClip               =   _shouldFixTextViewClip;
+#endif
 
 //Resign handling
 @synthesize shouldResignOnTouchOutside          =   _shouldResignOnTouchOutside;
@@ -249,7 +252,6 @@ void _IQShowLog(NSString *logString);
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
-            [self setShouldFixTextViewClip:YES];
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
@@ -262,6 +264,7 @@ void _IQShowLog(NSString *logString);
 
 #ifdef NSFoundationVersionNumber_iOS_6_1
             [self setShouldToolbarUsesTextFieldTintColor:NO];
+            [self setShouldFixTextViewClip:YES];
 #endif
             
 #ifdef NSFoundationVersionNumber_iOS_5_1
@@ -590,9 +593,11 @@ void _IQShowLog(NSString *logString);
                     CGFloat maintainTopLayout = 0;
                     
                     //When uncommenting this, each calculation goes to well, but don't know why scrollView doesn't adjusting it's contentOffset at bottom
+#ifdef NSFoundationVersionNumber_iOS_5_1
 //                    if ([_textFieldView.viewController respondsToSelector:@selector(topLayoutGuide)])
 //                        maintainTopLayout = [_textFieldView.viewController.topLayoutGuide length];
 //                    else
+#endif
                         maintainTopLayout = CGRectGetMaxY(_textFieldView.viewController.navigationController.navigationBar.frame);
 
                     maintainTopLayout+= 10; //For good UI
@@ -1220,6 +1225,7 @@ void _IQShowLog(NSString *logString);
 /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
+#ifdef NSFoundationVersionNumber_iOS_6_1
     if (_shouldFixTextViewClip == YES)
     {
         UITextView *textView = (UITextView *)notification.object;
@@ -1240,6 +1246,7 @@ void _IQShowLog(NSString *logString);
             } completion:NULL];
         }
     }
+#endif
 }
 
 #pragma mark - UIInterfaceOrientation Change notification methods
