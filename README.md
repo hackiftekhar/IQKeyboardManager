@@ -92,7 +92,9 @@ It may be compiler issue when compiler tries to optimize Code for best performan
 
 ## Known Issues (Swift):-
 
-####1) From Swift 1.2, compiler no longer allows to override `class func load()` method, so you need to manually enable IQKeyboardManager using below line of code in AppDelegate
+####1) Manually enable IQKeyboardManager Swift Version.
+
+From Swift 1.2, compiler no longer allows to override `class func load()` method, so you need to manually enable IQKeyboardManager using below line of code in AppDelegate.
 
 ```
     IQKeyboardManager.sharedManager().enable = true
