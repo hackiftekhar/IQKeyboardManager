@@ -7,55 +7,49 @@
 //
 
 import Foundation
-import UIKIt
+import UIKit
 
 class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet private var buttonPop : UIButton!;
     @IBOutlet private var buttonPush : UIButton!;
     @IBOutlet private var buttonPresent : UIButton!;
     @IBOutlet private var barButtonAdjust : UIBarButtonItem!;
     
+    @IBAction func canAdjustTextView (barButton : UIBarButtonItem!) {
+        
+        if (IQKeyboardManager.sharedManager().canAdjustTextView == true) {
+            IQKeyboardManager.sharedManager().canAdjustTextView = false
+        } else {
+            IQKeyboardManager.sharedManager().canAdjustTextView = true
+        }
+
+        refreshUI()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if IQKeyboardManager.sharedManager().canAdjustTextView {
-            barButtonAdjust.title = "Disable Adjust"
-        } else {
-            barButtonAdjust.title = "Enable Adjust"
-        }
-        
-        if navigationController == nil {
-            buttonPop.hidden = true
+        if (self.navigationController == nil)
+        {
             buttonPush.hidden = true
             buttonPresent.setTitle("Dismiss", forState: UIControlState.Normal)
         }
     }
     
-    
     override func viewWillAppear (animated : Bool) {
         
         super.viewWillAppear(animated)
-        IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = true
+        refreshUI()
     }
     
-    override func viewWillDisappear (animated : Bool) {
-        
-        super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = true
-    }
-    
-    @IBAction func canAdjustTextView (barButton : UIBarButtonItem!) {
-        
-        if barButton.title == "Disable Adjust" {
-            IQKeyboardManager.sharedManager().canAdjustTextView = false
-            barButton.title = "Enable Adjust"
+    func refreshUI() {
+        if (IQKeyboardManager.sharedManager().canAdjustTextView == true) {
+            barButtonAdjust.title = "Disable Adjust"
         } else {
-            IQKeyboardManager.sharedManager().canAdjustTextView = true
-            barButton.title = "Disable Adjust"
+            barButtonAdjust.title = "Enable Adjust"
         }
     }
+
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
@@ -64,10 +58,6 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
         }
         
         return true
-    }
-    
-    @IBAction func popClicked (barButton : UIButton!) {
-        navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func presentClicked (barButton : UIButton!) {
@@ -79,5 +69,10 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
             dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+
 }
 

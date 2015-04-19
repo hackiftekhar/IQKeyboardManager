@@ -25,6 +25,7 @@
 		C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C02790331A01404000FCB517 /* CollectionViewDemoController.m */; };
 		C056E1F41AE41B0100F09472 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C056E1F21AE41B0100F09472 /* AppDelegate.swift */; };
 		C056E1F51AE41B0100F09472 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C056E1F31AE41B0100F09472 /* ViewController.swift */; };
+		C056E1F61AE434DF00F09472 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C05DD9FE1A591D2D00A6ECD4 /* IQDropDownTextField.m */; };
 		C05C59401A4C7F0E0007BD8F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */; };
 		C05C59411A4C7F110007BD8F /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0032C8819D82253004E2A1C /* IQKeyboardManagerScreenshot.png */; };
 		C05DD9FF1A591D2D00A6ECD4 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C05DD9FE1A591D2D00A6ECD4 /* IQDropDownTextField.m */; };
@@ -143,6 +144,7 @@
 		C02790331A01404000FCB517 /* CollectionViewDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDemoController.m; sourceTree = "<group>"; };
 		C056E1F21AE41B0100F09472 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "IQKeyboardManager Swift/AppDelegate.swift"; sourceTree = "<group>"; };
 		C056E1F31AE41B0100F09472 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "IQKeyboardManager Swift/ViewController.swift"; sourceTree = "<group>"; };
+		C056E1F71AE4371A00F09472 /* IQKeyboardManger-Swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IQKeyboardManger-Swift-Bridging-Header.h"; path = "IQKeyboardManager Swift/IQKeyboardManger-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		C05DD9FD1A591D2D00A6ECD4 /* IQDropDownTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IQDropDownTextField.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C05DD9FE1A591D2D00A6ECD4 /* IQDropDownTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQDropDownTextField.m; sourceTree = "<group>"; };
 		C06579BB19D6024800DAA3EA /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -546,15 +548,16 @@
 		C0DD7E9F19D0A0AE007604CF /* KeyboardTextFieldDemoSwift */ = {
 			isa = PBXGroup;
 			children = (
-				C056E1F21AE41B0100F09472 /* AppDelegate.swift */,
-				C056E1F31AE41B0100F09472 /* ViewController.swift */,
 				C0EC59D119D0C0B100997FFE /* TextFieldViewController.swift */,
 				C0EC59D319D0C0C600997FFE /* ScrollViewController.swift */,
 				C0EC59D519D0C0D200997FFE /* WebViewController.swift */,
 				C0EC59D719D0C0DF00997FFE /* TextViewSpecialCaseViewController.swift */,
 				C0EC59D919D0C0EE00997FFE /* NavigationBarViewController.swift */,
 				C0EC59DB19D0C0FB00997FFE /* SpecialCaseViewController.swift */,
+				C056E1F31AE41B0100F09472 /* ViewController.swift */,
 				C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */,
+				C056E1F71AE4371A00F09472 /* IQKeyboardManger-Swift-Bridging-Header.h */,
+				C056E1F21AE41B0100F09472 /* AppDelegate.swift */,
 			);
 			name = KeyboardTextFieldDemoSwift;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				C0DDEB6319FCD56300FAB29F /* IQUIWindow+Hierarchy.swift in Sources */,
 				C0EC59D419D0C0C600997FFE /* ScrollViewController.swift in Sources */,
 				C0EC59DA19D0C0EE00997FFE /* NavigationBarViewController.swift in Sources */,
+				C056E1F61AE434DF00F09472 /* IQDropDownTextField.m in Sources */,
 				C0DDEB6A19FCD56300FAB29F /* IQBarButtonItem.swift in Sources */,
 				C0DDEB6719FCD56300FAB29F /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				C0DDEB6219FCD56300FAB29F /* IQUIView+Hierarchy.swift in Sources */,
@@ -1004,6 +1008,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IQKeyboardManager Swift/IQKeyboardManger-Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1029,6 +1034,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IQKeyboardManager Swift/IQKeyboardManger-Swift-Bridging-Header.h";
 			};
 			name = Release;
 		};

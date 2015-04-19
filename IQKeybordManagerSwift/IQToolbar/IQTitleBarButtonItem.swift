@@ -53,7 +53,7 @@ class IQTitleBarButtonItem: UIBarButtonItem {
         titleLabel?.text = title
         titleLabel?.autoresizingMask = .FlexibleWidth
         font = UIFont.boldSystemFontOfSize(12.0)
-        titleLabel?.font = font?
+        titleLabel?.font = self.font
         customView = titleLabel
         enabled = false
     }

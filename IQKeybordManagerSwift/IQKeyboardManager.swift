@@ -238,12 +238,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
 
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    override class func load() {
-        super.load()
-        
-        //Enabling IQKeyboardManager.
-        IQKeyboardManager.sharedManager().enable = true
-    }
+//    override class func load() {
+//        super.load()
+//        
+//        //Enabling IQKeyboardManager.
+//        IQKeyboardManager.sharedManager().enable = true
+//    }
     
     deinit {
         //  Disable the keyboard manager.
@@ -686,13 +686,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                 //  Getting keyboard animation.
                 if let curve = info[UIKeyboardAnimationCurveUserInfoKey]?.unsignedLongValue {
-                    /* If you are running below Xcode 6.1 then please add `-DIQ_IS_XCODE_BELOW_6_1` flag in 'other swift flag' to fix compiler errors.
-                    http://stackoverflow.com/questions/24369272/swift-ios-deployment-target-command-line-flag   */
-                    #if IQ_IS_XCODE_BELOW_6_1
-                        _animationCurve = UIViewAnimationOptions.fromRaw(curve)!
-                        #else
-                        _animationCurve = UIViewAnimationOptions(rawValue: curve)
-                    #endif
+                    _animationCurve = UIViewAnimationOptions(rawValue: curve)
                 }
             } else {
                 _animationCurve = UIViewAnimationOptions.CurveEaseOut
@@ -864,9 +858,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if overrideKeyboardAppearance == true {
             
             if _textFieldView is UITextField == true {
-                (_textFieldView as UITextField).keyboardAppearance = keyboardAppearance
+                (_textFieldView as! UITextField).keyboardAppearance = keyboardAppearance
             } else if _textFieldView is UITextView == true {
-                (_textFieldView as UITextView).keyboardAppearance = keyboardAppearance
+                (_textFieldView as! UITextView).keyboardAppearance = keyboardAppearance
             }
         }
         
@@ -928,7 +922,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        if _textFieldView?.viewController()? is UITableViewController  == false && _textFieldView?.isAlertViewTextField() == false {
+        if _textFieldView?.viewController() is UITableViewController  == false && _textFieldView?.isAlertViewTextField() == false {
 
             //  keyboard is already showing. adjust frame.
             adjustFrame()
@@ -964,7 +958,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
     func textFieldViewDidChange(notification:NSNotification) {  //  (Bug ID: #18)
         
-        let textView = notification.object as UITextView
+        let textView = notification.object as! UITextView
         
         let line = textView .caretRectForPosition(textView.selectedTextRange?.start)
         
@@ -1094,7 +1088,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //If it is not first textField. then it's previous object becomeFirstResponder.
                     if index > 0 {
                         
-                        let nextTextField = textFields[index-1] as UIView
+                        let nextTextField = textFields[index-1] as! UIView
                         
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                         
@@ -1132,7 +1126,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //If it is not last textField. then it's next object becomeFirstResponder.
                     if index < textFields.count-1 {
                         
-                        let nextTextField = textFields[index+1] as UIView
+                        let nextTextField = textFields[index+1] as! UIView
                         
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                         
@@ -1170,7 +1164,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //	If only one object is found, then adding only Done button.
             if siblings.count == 1 {
-                let textField = siblings.firstObject as UIView
+                let textField = siblings.firstObject as! UIView
                 
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
                 if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
@@ -1188,13 +1182,13 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if shouldShowTextFieldPlaceholder == true && placeholderFont != nil {
                         
-                        (textField.inputAccessoryView as IQToolbar).titleFont = placeholderFont
+                        (textField.inputAccessoryView as! IQToolbar).titleFont = placeholderFont
                     }
                 }
             } else if siblings.count != 0 {
                 
                 //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-                for textField in siblings as [UIView] {
+                for textField in siblings as! [UIView] {
                     
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
                     if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQDoneButtonToolbarTag {
@@ -1210,7 +1204,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
                         if shouldShowTextFieldPlaceholder == true && placeholderFont != nil {
-                            (textField.inputAccessoryView as IQToolbar).titleFont = placeholderFont
+                            (textField.inputAccessoryView as! IQToolbar).titleFont = placeholderFont
                         }
                     }
                     
@@ -1218,9 +1212,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                         //	If firstTextField, then previous should not be enabled.
-                        if siblings[0] as UIView == textField {
+                        if siblings[0] as! UIView == textField {
                             textField.setEnablePrevious(false, isNextEnabled: true)
-                        } else if siblings.lastObject as UIView  == textField {   //	If lastTextField then next should not be enaled.
+                        } else if siblings.lastObject as! UIView  == textField {   //	If lastTextField then next should not be enaled.
                             textField.setEnablePrevious(true, isNextEnabled: false)
                         } else {
                             textField.setEnablePrevious(true, isNextEnabled: true)
@@ -1237,17 +1231,17 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //	Getting all the sibling textFields.
         if let siblings = responderViews() {
             
-            for view in siblings as [UIView] {
+            for view in siblings as! [UIView] {
 
                 let toolbar = view.inputAccessoryView
 
                 if toolbar is IQToolbar == true  && (toolbar?.tag == kIQDoneButtonToolbarTag || toolbar?.tag == kIQPreviousNextButtonToolbarTag) {
                     
                     if view is UITextField == true {
-                        let textField = view as UITextField
+                        let textField = view as! UITextField
                         textField.inputAccessoryView = nil
                     } else if view is UITextView == true {
-                        let textView = view as UITextView
+                        let textView = view as! UITextView
                         textView.inputAccessoryView = nil
                     }
                 }

@@ -51,7 +51,7 @@ class IQTextView : UITextView {
                     unwrappedPlaceholderLabel.autoresizingMask = .FlexibleWidth | .FlexibleHeight
                     unwrappedPlaceholderLabel.lineBreakMode = .ByWordWrapping
                     unwrappedPlaceholderLabel.numberOfLines = 0
-                    unwrappedPlaceholderLabel.font = font?
+                    unwrappedPlaceholderLabel.font = self.font
                     unwrappedPlaceholderLabel.backgroundColor = UIColor.clearColor()
                     unwrappedPlaceholderLabel.textColor = UIColor(white: 0.7, alpha: 1.0)
                     unwrappedPlaceholderLabel.alpha = 0
@@ -66,7 +66,7 @@ class IQTextView : UITextView {
     
     private func refreshPlaceholder() {
         
-        if countElements(text) != 0 {
+        if count(text) != 0 {
             placeholderLabel?.alpha = 0
         } else {
             placeholderLabel?.alpha = 1
