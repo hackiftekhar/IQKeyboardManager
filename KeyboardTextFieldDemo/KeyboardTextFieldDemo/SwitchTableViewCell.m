@@ -9,6 +9,7 @@
 #import "SwitchTableViewCell.h"
 
 @implementation SwitchTableViewCell
+@synthesize labelTitle, labelSubtitle, switchEnable;
 
 - (void)awakeFromNib
 {

@@ -26,16 +26,12 @@
 #import <UIKit/UITextView.h>
 
 /**
-    @class IQTextView
- 
-    @abstract UITextView with placeholder support
+ UITextView with placeholder support
  */
 @interface IQTextView : UITextView
 
 /**
-    @property placeholder
- 
-    @abstract To set textView's placeholder text. Default is ni.
+ Set textView's placeholder text. Default is nil.
  */
 @property(nonatomic,copy)   NSString    *placeholder;
 

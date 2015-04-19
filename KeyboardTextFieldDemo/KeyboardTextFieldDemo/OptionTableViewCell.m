@@ -9,6 +9,7 @@
 #import "OptionTableViewCell.h"
 
 @implementation OptionTableViewCell
+@synthesize labelOption;
 
 - (void)awakeFromNib
 {

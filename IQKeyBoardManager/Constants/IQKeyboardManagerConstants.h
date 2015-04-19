@@ -26,49 +26,59 @@
 
 #import <Foundation/NSObjCRuntime.h>
 
-/* Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.*/
+///----------------
+/// @name Debugging
+///----------------
 
 /**
-    @enum IQAutoToolbarManageBehaviour
- 
-    @abstract AutoToolbar manage settings.
- 
-    @const IQAutoToolbarBySubviews Creates Toolbar according to subview's hirarchy of Textfield's in view.
- 
-    @const IQAutoToolbarByTag Creates Toolbar according to tag property of TextField's.
- 
-    @const IQAutoToolbarByPosition Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+ Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.
  */
 
-#ifndef NS_ENUM
+///-----------------------------------
+/// @name IQAutoToolbarManageBehaviour
+///-----------------------------------
 
+/**
+ `IQAutoToolbarBySubviews`
+ Creates Toolbar according to subview's hirarchy of Textfield's in view.
+ 
+ `IQAutoToolbarByTag`
+ Creates Toolbar according to tag property of TextField's.
+ 
+ `IQAutoToolbarByPosition`
+ Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+ */
+#ifndef NS_ENUM
 typedef enum IQAutoToolbarManageBehaviour {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
 }IQAutoToolbarManageBehaviour;
-
 #else
-
 typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
 };
-
 #endif
+
+///-------------------
+/// @name Localization
+///-------------------
 
 #define IQLocalizedString(key, comment) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"IQKeyboardManager" ofType:@"bundle"]] localizedStringForKey:(key) value:@"" table:@"IQKeyboardManager"]
 
-#endif
 
 /* XCode 5.0 Compatibility for NS_DESIGNATED_INITIALIZER*/
 #ifndef NS_DESIGNATED_INITIALIZER
-#if __has_attribute(objc_designated_initializer)
-#define NS_DESIGNATED_INITIALIZER __attribute__((objc_designated_initializer))
-#else
-#define NS_DESIGNATED_INITIALIZER
+    #if __has_attribute(objc_designated_initializer)
+        #define NS_DESIGNATED_INITIALIZER __attribute__((objc_designated_initializer))
+    #else
+        #define NS_DESIGNATED_INITIALIZER
+    #endif
 #endif
+
+
 #endif
 
 /*

@@ -24,6 +24,11 @@
 
 #import "IQDropDownTextField.h"
 
+#ifndef NSFoundationVersionNumber_iOS_5_1
+    #define NSTextAlignmentCenter UITextAlignmentCenter
+#endif
+
+
 @interface IQDropDownTextField () <UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSArray *_ItemListsInternal;
@@ -35,9 +40,24 @@
 @property (nonatomic, strong) NSDateFormatter *dropDownDateFormatter;
 @property (nonatomic, strong) NSDateFormatter *dropDownTimeFormatter;
 
+- (void)dateChanged:(UIDatePicker *)dPicker;
+- (void)timeChanged:(UIDatePicker *)tPicker;
+
 @end
 
 @implementation IQDropDownTextField
+
+@synthesize dropDownMode = _dropDownMode;
+@synthesize itemList = _itemList;
+@synthesize selectedItem = _selectedItem;
+@synthesize isOptionalDropDown = _isOptionalDropDown;
+@synthesize datePickerMode = _datePickerMode;
+@synthesize minimumDate = _minimumDate;
+@synthesize maximumDate = _maximumDate;
+@synthesize delegate;
+
+@synthesize pickerView,datePicker, timePicker, dropDownDateFormatter,dropDownTimeFormatter;
+@synthesize dateFormatter, timeFormatter;
 
 #pragma mark - Initialization
 
@@ -129,7 +149,7 @@
     UILabel *labelText = [[UILabel alloc] init];
     [labelText setTextAlignment:NSTextAlignmentCenter];
     [labelText setAdjustsFontSizeToFitWidth:YES];
-    [labelText setText:_ItemListsInternal[row]];
+    [labelText setText:[_ItemListsInternal objectAtIndex:row]];
     labelText.backgroundColor = [UIColor clearColor];
     
     if (self.isOptionalDropDown && row == 0)
@@ -147,7 +167,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [self setSelectedItem:_ItemListsInternal[row]];
+    [self setSelectedItem:[_ItemListsInternal objectAtIndex:row]];
 }
 
 #pragma mark - UIDatePicker delegate
@@ -191,7 +211,7 @@
         }
         else
         {
-            self.text = _ItemListsInternal[row];
+            self.text = [_ItemListsInternal objectAtIndex:row];
         }
         
         [self.pickerView selectRow:row inComponent:0 animated:animated];
@@ -384,7 +404,7 @@
     
     if (_isOptionalDropDown)
     {
-        NSArray *array = @[@"Select"];
+        NSArray *array = [NSArray arrayWithObject:@"Select"];
         _ItemListsInternal = [array arrayByAddingObjectsFromArray:_itemList];
     }
     else
@@ -399,7 +419,7 @@
 
 -(NSDateComponents *)dateComponents
 {
-    return [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.date];
+    return [[NSCalendar currentCalendar] components:kCFCalendarUnitDay | kCFCalendarUnitMonth | kCFCalendarUnitYear fromDate:self.date];
 }
 
 - (NSInteger)year   {   return [[self dateComponents] year];    }
