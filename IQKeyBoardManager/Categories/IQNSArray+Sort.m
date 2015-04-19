@@ -49,14 +49,19 @@
 {
     return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
-        if (view1.IQ_y < view2.IQ_y)  return NSOrderedAscending;
+        CGFloat x1 = CGRectGetMinX(view1.frame);
+        CGFloat y1 = CGRectGetMinY(view1.frame);
+        CGFloat x2 = CGRectGetMinX(view2.frame);
+        CGFloat y2 = CGRectGetMinY(view2.frame);
         
-        else if (view1.IQ_y > view2.IQ_y) return NSOrderedDescending;
+        if (y1 < y2)  return NSOrderedAscending;
+        
+        else if (y1 > y2) return NSOrderedDescending;
         
         //Else both y are same so checking for x positions
-        else if (view1.IQ_x < view2.IQ_x)  return NSOrderedAscending;
+        else if (x1 < x2)  return NSOrderedAscending;
         
-        else if (view1.IQ_x > view2.IQ_x) return NSOrderedDescending;
+        else if (x1 > x2) return NSOrderedDescending;
         
         else    return NSOrderedSame;
     }];

@@ -12,6 +12,12 @@
 
 @interface ManualToolbarViewController ()
 
+-(void)previousAction:(id)sender;
+-(void)nextAction:(id)sender;
+-(void)doneAction:(id)sender;
+
+
+
 @end
 
 @implementation ManualToolbarViewController

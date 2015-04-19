@@ -24,23 +24,21 @@
 #import <Foundation/NSArray.h>
 
 /**
-    @category NSArray (IQ_NSArray_Sort)
- 
-	@abstract UIView.subviews sorting category.
+ UIView.subviews sorting category.
  */
 @interface NSArray (IQ_NSArray_Sort)
 
+///--------------
+/// @name Sorting
+///--------------
+
 /**
-    @method sortedArrayByTag
- 
-    @return Returns the array by sorting the UIView's by their tag property.
+ Returns the array by sorting the UIView's by their tag property.
  */
 - (NSArray*)sortedArrayByTag;
 
 /**
-    @method sortedArrayByTag
- 
-    @return Returns the array by sorting the UIView's by their tag property.
+ Returns the array by sorting the UIView's by their tag property.
  */
 - (NSArray*)sortedArrayByPosition;
 

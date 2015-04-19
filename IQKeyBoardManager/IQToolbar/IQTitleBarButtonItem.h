@@ -24,28 +24,27 @@
 #import <Foundation/NSObjCRuntime.h>
 #import "IQKeyboardManagerConstants.h"
 #import "IQBarButtonItem.h"
+
+#if !(__has_feature(objc_instancetype))
+    #define instancetype id
+#endif
+
+
 /**
-    @author Iftekhar Qurashi
- 
-	@related hack.iftekhar@gmail.com
- 
-    @class IQTitleBarButtonItem
- 
-	@abstract BarButtonItem with title text.
+ BarButtonItem with title text.
  */
 @interface IQTitleBarButtonItem : IQBarButtonItem
 
 /**
-    @property font
- 
-    @abstract font to be used in bar button. Default is (system font 12.0 bold).
+ Font to be used in bar button. Default is (system font 12.0 bold).
  */
 @property(nonatomic, strong) UIFont *font;
 
 /**
-    @method initWithFrame:title:
+ Initialize with frame and title.
  
-    @abstract initialize with frame and title.
+ @param frame Initial frame of barButtonItem
+ @param title Title of barButtonItem.
  */
 -(instancetype)initWithFrame:(CGRect)frame title:(NSString *)title NS_DESIGNATED_INITIALIZER;
 

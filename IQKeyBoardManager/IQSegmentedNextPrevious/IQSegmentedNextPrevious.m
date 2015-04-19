@@ -44,13 +44,16 @@
 -(instancetype)initWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction
 {
     //  Creating it with two items, Previous/Next.
-    self = [super initWithItems:@[IQLocalizedString(@"Previous", nil),IQLocalizedString(@"Next", nil)]];
+    self = [super initWithItems:[NSArray arrayWithObjects:IQLocalizedString(@"Previous", nil),IQLocalizedString(@"Next", nil), nil]];
     
     if (self)
     {
         if (IQ_IS_IOS7_OR_GREATER == NO)
         {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
             [self setSegmentedControlStyle:UISegmentedControlStyleBar];
+#pragma GCC diagnostic pop
         }
         
 		[self setMomentary:YES];

@@ -15,6 +15,8 @@
 
 @implementation OptionsViewController
 
+@synthesize delegate, options, selectedIndex;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -27,9 +29,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([OptionTableViewCell class]) forIndexPath:indexPath];
+    OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([OptionTableViewCell class])];
 
-    cell.labelOption.text = self.options[indexPath.row];
+    cell.labelOption.text = [self.options objectAtIndex:indexPath.row];
 
     cell.accessoryType = (indexPath.row == self.selectedIndex)  ? UITableViewCellAccessoryCheckmark    :   UITableViewCellAccessoryNone;
     

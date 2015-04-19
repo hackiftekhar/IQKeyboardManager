@@ -9,6 +9,7 @@
 #import "NavigationTableViewCell.h"
 
 @implementation NavigationTableViewCell
+@synthesize labelTitle, labelSubtitle;
 
 - (void)awakeFromNib
 {
