@@ -105,7 +105,7 @@ class TextFieldViewController: UIViewController {
     
     @IBAction func presentClicked (sender: AnyObject!) {
         
-        if navigationController != nil {
+        if self.presentingViewController == nil {
             
             var controller: UIViewController = storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as! UIViewController
             var navController : UINavigationController = UINavigationController(rootViewController: controller)
@@ -121,7 +121,7 @@ class TextFieldViewController: UIViewController {
 //                navController.modalPresentationStyle = UIModalPresentationStyle.PageSheet;
 //            }
 
-            presentViewController(controller, animated: true, completion: nil)
+            presentViewController(navController, animated: true, completion: nil)
         } else {
             dismissViewControllerAnimated(true, completion: nil)
         }
