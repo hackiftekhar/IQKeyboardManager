@@ -44,33 +44,34 @@ class TextFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        dropDownTextFie
-//        
 //        [dropDownTextField setCustomPreviousTarget:self action:@selector(previousAction:)];
 //        [dropDownTextField setCustomNextTarget:self action:@selector(nextAction:)];
 //        [dropDownTextField setCustomDoneTarget:self action:@selector(doneAction:)];
-//        
-//        returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-//        [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
-//        returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarByPosition;
-//        
-//        [dropDownTextField setItemList:[NSArray arrayWithObjects:@"Zero Line Of Code",
-//        @"No More UIScrollView",
-//        @"No More Subclasses",
-//        @"No More Manual Work",
-//        @"No More #imports",
-//        @"Device Orientation support",
-//        @"UITextField Category for Keyboard",
-//        @"Enable/Desable Keyboard Manager",
-//        @"Customize InputView support",
-//        @"IQTextView for placeholder support",
-//        @"Automanage keyboard toolbar",
-//        @"Can set keyboard and textFiled distance",
-//        @"Can resign on touching outside",
-//        @"Auto adjust textView's height ",
-//        @"Adopt tintColor from textField",
-//        @"Customize keyboardAppearance",
-//        @"play sound on next/prev/done",nil]];
+        
+        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
+        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
+        returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.ByPosition
+        
+        var itemLists = [NSString]()
+        itemLists.append("Zero Line Of Code")
+        itemLists.append("No More UIScrollView")
+        itemLists.append("No More Subclasses")
+        itemLists.append("No More Manual Work")
+        itemLists.append("No More #imports")
+        itemLists.append("Device Orientation support")
+        itemLists.append("UITextField Category for Keyboard")
+        itemLists.append("Enable/Desable Keyboard Manager")
+        itemLists.append("Customize InputView support")
+        itemLists.append("IQTextView for placeholder support")
+        itemLists.append("Automanage keyboard toolbar")
+        itemLists.append("Can set keyboard and textFiled distance")
+        itemLists.append("Can resign on touching outside")
+        itemLists.append("Auto adjust textView's height")
+        itemLists.append("Adopt tintColor from textField")
+        itemLists.append("Customize keyboardAppearance")
+        itemLists.append("Play sound on next/prev/done")
+
+        dropDownTextField.itemList = itemLists
         
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self);
     }
