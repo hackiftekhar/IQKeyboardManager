@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1ADFBD1AE50D78007A73E3 /* TextSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFBC1AE50D78007A73E3 /* TextSelectionViewController.swift */; };
+		1C1ADFBF1AE50D9B007A73E3 /* ManualToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFBE1AE50D9B007A73E3 /* ManualToolbarViewController.swift */; };
+		1C1ADFC11AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC01AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift */; };
+		1C1ADFC31AE50E28007A73E3 /* CollectionViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC21AE50E28007A73E3 /* CollectionViewDemoController.swift */; };
+		1C1ADFC51AE50E66007A73E3 /* TableViewInContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */; };
+		1C1ADFC91AE51FB5007A73E3 /* ExampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC81AE51FB5007A73E3 /* ExampleTableViewController.swift */; };
 		53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */; };
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
 		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
@@ -115,6 +121,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C1ADFBC1AE50D78007A73E3 /* TextSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextSelectionViewController.swift; path = "IQKeyboardManager Swift/TextSelectionViewController.swift"; sourceTree = "<group>"; };
+		1C1ADFBE1AE50D9B007A73E3 /* ManualToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ManualToolbarViewController.swift; path = "IQKeyboardManager Swift/ManualToolbarViewController.swift"; sourceTree = "<group>"; };
+		1C1ADFC01AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBlankSpaceViewController.swift; path = "IQKeyboardManager Swift/BottomBlankSpaceViewController.swift"; sourceTree = "<group>"; };
+		1C1ADFC21AE50E28007A73E3 /* CollectionViewDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewDemoController.swift; path = "IQKeyboardManager Swift/CollectionViewDemoController.swift"; sourceTree = "<group>"; };
+		1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewInContainerViewController.swift; path = "IQKeyboardManager Swift/TableViewInContainerViewController.swift"; sourceTree = "<group>"; };
+		1C1ADFC81AE51FB5007A73E3 /* ExampleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExampleTableViewController.swift; path = "IQKeyboardManager Swift/ExampleTableViewController.swift"; sourceTree = "<group>"; };
 		53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarViewController.h; sourceTree = "<group>"; };
 		53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarViewController.m; sourceTree = "<group>"; };
 		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
@@ -271,6 +283,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C1ADFC61AE51F64007A73E3 /* TableViewController Example */ = {
+			isa = PBXGroup;
+			children = (
+				1C1ADFC81AE51FB5007A73E3 /* ExampleTableViewController.swift */,
+			);
+			name = "TableViewController Example";
+			sourceTree = "<group>";
+		};
+		1C1ADFC71AE51F74007A73E3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		9D0BB82E18BB1AE100667349 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +585,13 @@
 				C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */,
 				C056E1F71AE4371A00F09472 /* IQKeyboardManger-Swift-Bridging-Header.h */,
 				C056E1F21AE41B0100F09472 /* AppDelegate.swift */,
+				1C1ADFBC1AE50D78007A73E3 /* TextSelectionViewController.swift */,
+				1C1ADFBE1AE50D9B007A73E3 /* ManualToolbarViewController.swift */,
+				1C1ADFC01AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift */,
+				1C1ADFC21AE50E28007A73E3 /* CollectionViewDemoController.swift */,
+				1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */,
+				1C1ADFC61AE51F64007A73E3 /* TableViewController Example */,
+				1C1ADFC71AE51F74007A73E3 /* Settings */,
 			);
 			name = KeyboardTextFieldDemoSwift;
 			sourceTree = "<group>";
@@ -834,9 +868,12 @@
 				C0DDEB6D19FCD56300FAB29F /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				C0EC59D219D0C0B100997FFE /* TextFieldViewController.swift in Sources */,
 				C056E1F41AE41B0100F09472 /* AppDelegate.swift in Sources */,
+				1C1ADFC31AE50E28007A73E3 /* CollectionViewDemoController.swift in Sources */,
 				C0EC59D619D0C0D200997FFE /* WebViewController.swift in Sources */,
 				C0DDEB6919FCD56300FAB29F /* IQTextView.swift in Sources */,
+				1C1ADFC91AE51FB5007A73E3 /* ExampleTableViewController.swift in Sources */,
 				C0DDEB6C19FCD56300FAB29F /* IQToolbar.swift in Sources */,
+				1C1ADFC51AE50E66007A73E3 /* TableViewInContainerViewController.swift in Sources */,
 				C0EC59D819D0C0DF00997FFE /* TextViewSpecialCaseViewController.swift in Sources */,
 				C0DDEB6B19FCD56300FAB29F /* IQTitleBarButtonItem.swift in Sources */,
 				C0EC59DC19D0C0FB00997FFE /* SpecialCaseViewController.swift in Sources */,
@@ -846,11 +883,14 @@
 				C0DDEB6319FCD56300FAB29F /* IQUIWindow+Hierarchy.swift in Sources */,
 				C0EC59D419D0C0C600997FFE /* ScrollViewController.swift in Sources */,
 				C0EC59DA19D0C0EE00997FFE /* NavigationBarViewController.swift in Sources */,
+				1C1ADFC11AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift in Sources */,
 				C056E1F61AE434DF00F09472 /* IQDropDownTextField.m in Sources */,
 				C0DDEB6A19FCD56300FAB29F /* IQBarButtonItem.swift in Sources */,
 				C0DDEB6719FCD56300FAB29F /* IQKeyboardReturnKeyHandler.swift in Sources */,
+				1C1ADFBD1AE50D78007A73E3 /* TextSelectionViewController.swift in Sources */,
 				C0DDEB6219FCD56300FAB29F /* IQUIView+Hierarchy.swift in Sources */,
 				C0DDEB6519FCD56300FAB29F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
+				1C1ADFBF1AE50D9B007A73E3 /* ManualToolbarViewController.swift in Sources */,
 				C0DDEB6119FCD56300FAB29F /* IQNSArray+Sort.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

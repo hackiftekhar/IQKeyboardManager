@@ -28,7 +28,6 @@
     __weak IBOutlet UITextField *textField4;
     
     __weak IBOutlet UITextField *textField5;
-    
 }
 
 - (void)viewDidLoad
@@ -83,6 +82,17 @@
 -(void)doneAction:(id)sender
 {
     [self.view endEditing:YES];
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
 }
 
 @end
