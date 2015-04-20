@@ -130,7 +130,12 @@ void _IQShowLog(NSString *logString);
     UITapGestureRecognizer  *_tapGesture;
 
     /*******************************************/
+
+    /** Default toolbar tintColor to be used within the project. Default is black. */
+    UIColor                 *_defaultToolbarTintColor;
     
+    /*******************************************/
+
     /** Set of restricted classes for library */
     NSMutableSet            *_disabledClasses;
 
@@ -234,6 +239,7 @@ void _IQShowLog(NSString *logString);
             
             //Setting it's initial values
             _enable = NO;
+            _defaultToolbarTintColor = [UIColor blackColor];
             [self setCanAdjustTextView:NO];
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
@@ -941,6 +947,25 @@ void _IQShowLog(NSString *logString);
 
             _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
             
+            // TODO: restore scrollView state
+            // This is temporary solution. Have to implement the save and restore scrollView state
+            UIScrollView *superscrollView = _lastScrollView;
+            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]))
+            {
+                MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame));
+                
+                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, CGRectGetWidth(superscrollView.frame)), MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame)));
+                
+                CGFloat minimumY = contentSize.height-CGRectGetHeight(superscrollView.frame);
+                
+                if (minimumY<superscrollView.contentOffset.y)
+                {
+                    superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
+                    
+                    _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentOffset to : %@",[superscrollView _IQDescription],NSStringFromCGPoint(superscrollView.contentOffset)]);
+                }
+            }
+
         } completion:NULL];
     }
     
@@ -1440,11 +1465,9 @@ void _IQShowLog(NSString *logString);
                         toolbar.barStyle = UIBarStyleDefault;
                         
 #ifdef NSFoundationVersionNumber_iOS_6_1
-                        //Setting toolbar tintColor //  (Enhancement ID: #30)
-                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                            [toolbar setTintColor:[textField tintColor]];
+                        if ([toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:_shouldToolbarUsesTextFieldTintColor?[textField tintColor]:_defaultToolbarTintColor];
 #endif
-                        
                     }
                         break;
                 }
@@ -1498,8 +1521,8 @@ void _IQShowLog(NSString *logString);
                             
 #ifdef NSFoundationVersionNumber_iOS_6_1
                             //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
-                                [toolbar setTintColor:[textField tintColor]];
+                            if ([toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:_shouldToolbarUsesTextFieldTintColor?[textField tintColor]:_defaultToolbarTintColor];
 #endif
                             
                         }
