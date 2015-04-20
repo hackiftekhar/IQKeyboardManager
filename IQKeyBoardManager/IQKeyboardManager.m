@@ -109,6 +109,9 @@ void _IQShowLog(NSString *logString);
     /** LastScrollView's initial contentInsets. */
     UIEdgeInsets             _startingContentInsets;
     
+    /** LastScrollView's initial scrollIndicatorInsets. */
+    UIEdgeInsets             _startingScrollIndicatorInsets;
+    
     /** LastScrollView's initial contentOffset. */
     CGPoint                  _startingContentOffset;
     
@@ -521,6 +524,7 @@ void _IQShowLog(NSString *logString);
 
             [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [_lastScrollView setContentInset:_startingContentInsets];
+                _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             } completion:NULL];
             
             if (_shouldRestoreScrollViewContentOffset)
@@ -529,6 +533,7 @@ void _IQShowLog(NSString *logString);
             }
 
             _startingContentInsets = UIEdgeInsetsZero;
+            _startingScrollIndicatorInsets = UIEdgeInsetsZero;
             _startingContentOffset = CGPointZero;
             _lastScrollView = nil;
         }
@@ -539,6 +544,7 @@ void _IQShowLog(NSString *logString);
 
             [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [_lastScrollView setContentInset:_startingContentInsets];
+                _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             } completion:NULL];
 
             if (_shouldRestoreScrollViewContentOffset)
@@ -548,6 +554,7 @@ void _IQShowLog(NSString *logString);
             
             _lastScrollView = superScrollView;
             _startingContentInsets = superScrollView.contentInset;
+            _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
             _startingContentOffset = superScrollView.contentOffset;
 
             _IQShowLog([NSString stringWithFormat:@"Saving New %@ contentInset: %@ and contentOffset : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
@@ -560,6 +567,7 @@ void _IQShowLog(NSString *logString);
         _lastScrollView = superScrollView;
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
+        _startingScrollIndicatorInsets = superScrollView.contentInset;
 
         _IQShowLog([NSString stringWithFormat:@"Saving %@ contentInset: %@ and contentOffset : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]);
     }
@@ -687,6 +695,11 @@ void _IQShowLog(NSString *logString);
                 
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     _lastScrollView.contentInset = movedInsets;
+                    
+                    UIEdgeInsets newInset = _lastScrollView.scrollIndicatorInsets;
+                    newInset.bottom = movedInsets.bottom - 10;
+                    _lastScrollView.scrollIndicatorInsets = newInset;
+
                 } completion:NULL];
 
                 if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
@@ -1017,6 +1030,7 @@ void _IQShowLog(NSString *logString);
     {
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             _lastScrollView.contentInset = _startingContentInsets;
+            _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             
             if (_shouldRestoreScrollViewContentOffset)
             {
@@ -1075,6 +1089,7 @@ void _IQShowLog(NSString *logString);
     _lastScrollView = nil;
     _kbSize = CGSizeZero;
     _startingContentInsets = UIEdgeInsetsZero;
+    _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
 //    topViewBeginRect = CGRectZero;    //Commented due to #82
 
