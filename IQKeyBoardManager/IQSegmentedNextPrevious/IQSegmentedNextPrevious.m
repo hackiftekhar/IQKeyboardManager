@@ -50,7 +50,10 @@
     {
         if (IQ_IS_IOS7_OR_GREATER == NO)
         {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
             [self setSegmentedControlStyle:UISegmentedControlStyleBar];
+#pragma GCC diagnostic pop
         }
         
 		[self setMomentary:YES];
