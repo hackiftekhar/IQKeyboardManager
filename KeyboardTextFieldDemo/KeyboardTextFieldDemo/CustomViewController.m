@@ -73,11 +73,11 @@
     
     if (sender.on)
     {
-        [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[CustomViewController class]];
+        [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[CustomSubclassView class]];
     }
     else
     {
-        [[IQKeyboardManager sharedManager] removeConsiderToolbarPreviousNextInViewClass:[CustomViewController class]];
+        [[IQKeyboardManager sharedManager] removeConsiderToolbarPreviousNextInViewClass:[CustomSubclassView class]];
     }
 }
 

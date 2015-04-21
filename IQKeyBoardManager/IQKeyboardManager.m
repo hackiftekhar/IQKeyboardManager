@@ -1512,7 +1512,10 @@ void _IQShowLog(NSString *logString);
     //If found any toolbar disabled classes then return. Will not add any toolbar.
     for (Class disabledToolbarClass in _disabledToolbarClasses)
         if ([textFieldViewController isKindOfClass:disabledToolbarClass])
+        {
+            [self removeToolbarIfRequired];
             return;
+        }
     
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
