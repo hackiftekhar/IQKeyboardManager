@@ -209,6 +209,13 @@
 -(void)removeDisableInViewControllerClass:(Class)disabledClass;
 
 /**
+ Returns YES if ViewController class is disabled for library, otherwise returns NO.
+ 
+ @param disabledClass Class which is to check for it's disability.
+ */
+-(BOOL)isDisableInViewControllerClass:(Class)disabledClass;
+
+/**
  Disable automatic toolbar creation in in toolbarDisabledClass
  
  @param toolbarDisabledClass Class in which library should not add toolbar over textField.
@@ -223,6 +230,13 @@
 -(void)removeDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass;
 
 /**
+ Returns YES if toolbar is disabled in ViewController class, otherwise returns NO.
+ 
+ @param toolbarDisabledClass Class which is to check for toolbar disability.
+ */
+-(BOOL)isDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass;
+
+/**
  Consider provided customView class as superView of all inner textField for calculating next/previous button logic.
  
  @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
@@ -235,6 +249,14 @@
  @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should remove consideration for all inner textField as superView.
  */
 -(void)removeConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
+
+/**
+ Returns YES if inner hierarchy is considered for previous/next in class, otherwise returns NO.
+ 
+ @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
+ */
+-(BOOL)isConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
+
 
 ///------------------------------------------------
 /// @name Must not be used for subclassing.
