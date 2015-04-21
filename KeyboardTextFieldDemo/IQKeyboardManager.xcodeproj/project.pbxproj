@@ -13,6 +13,8 @@
 		1C1ADFC31AE50E28007A73E3 /* CollectionViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC21AE50E28007A73E3 /* CollectionViewDemoController.swift */; };
 		1C1ADFC51AE50E66007A73E3 /* TableViewInContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */; };
 		1C1ADFC91AE51FB5007A73E3 /* ExampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ADFC81AE51FB5007A73E3 /* ExampleTableViewController.swift */; };
+		1C22700F1AE68EEE003A9D15 /* CustomSubclassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C22700E1AE68EEE003A9D15 /* CustomSubclassView.m */; };
+		1C2270121AE69224003A9D15 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2270111AE69224003A9D15 /* CustomViewController.m */; };
 		53CF2B7F1903D02200E3FDEA /* NavigationBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */; };
 		9D03F06F18BDC19400F4970D /* SpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D03F06E18BDC19400F4970D /* SpecialCaseViewController.m */; };
 		9D0BB87418BB232B00667349 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
@@ -127,6 +129,10 @@
 		1C1ADFC21AE50E28007A73E3 /* CollectionViewDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewDemoController.swift; path = "IQKeyboardManager Swift/CollectionViewDemoController.swift"; sourceTree = "<group>"; };
 		1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewInContainerViewController.swift; path = "IQKeyboardManager Swift/TableViewInContainerViewController.swift"; sourceTree = "<group>"; };
 		1C1ADFC81AE51FB5007A73E3 /* ExampleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExampleTableViewController.swift; path = "IQKeyboardManager Swift/ExampleTableViewController.swift"; sourceTree = "<group>"; };
+		1C22700D1AE68EEE003A9D15 /* CustomSubclassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSubclassView.h; sourceTree = "<group>"; };
+		1C22700E1AE68EEE003A9D15 /* CustomSubclassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSubclassView.m; sourceTree = "<group>"; };
+		1C2270101AE69224003A9D15 /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
+		1C2270111AE69224003A9D15 /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
 		53CF2B7D1903D02200E3FDEA /* NavigationBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarViewController.h; sourceTree = "<group>"; };
 		53CF2B7E1903D02200E3FDEA /* NavigationBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarViewController.m; sourceTree = "<group>"; };
 		9D03F06D18BDC19400F4970D /* SpecialCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCaseViewController.h; sourceTree = "<group>"; };
@@ -547,6 +553,10 @@
 				C02790331A01404000FCB517 /* CollectionViewDemoController.m */,
 				DDAA29F01A320057002C0ED8 /* TableViewInContainerViewController.h */,
 				DDAA29F11A320057002C0ED8 /* TableViewInContainerViewController.m */,
+				1C2270101AE69224003A9D15 /* CustomViewController.h */,
+				1C2270111AE69224003A9D15 /* CustomViewController.m */,
+				1C22700D1AE68EEE003A9D15 /* CustomSubclassView.h */,
+				1C22700E1AE68EEE003A9D15 /* CustomSubclassView.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -915,6 +925,7 @@
 				C06579C419D60ACB00DAA3EA /* SwitchTableViewCell.m in Sources */,
 				C08549C119FAA91E00973573 /* IQSegmentedNextPrevious.m in Sources */,
 				C0B63BAC1781FAB1008D3B64 /* main.m in Sources */,
+				1C2270121AE69224003A9D15 /* CustomViewController.m in Sources */,
 				C0B63BB01781FAB1008D3B64 /* AppDelegate.m in Sources */,
 				C06579BD19D6024800DAA3EA /* SettingsViewController.m in Sources */,
 				C07E20B51858FF54001699A8 /* ScrollViewController.m in Sources */,
@@ -924,6 +935,7 @@
 				C07E20C3185900BD001699A8 /* TextFieldViewController.m in Sources */,
 				C0F1193A19EEDCD500708D17 /* BottomBlankSpaceViewController.m in Sources */,
 				C08549B319FAA91E00973573 /* IQUIView+Hierarchy.m in Sources */,
+				1C22700F1AE68EEE003A9D15 /* CustomSubclassView.m in Sources */,
 				C06579CB19D60B0400DAA3EA /* NavigationTableViewCell.m in Sources */,
 				C08B91BB19D7558800AF16E7 /* TextSelectionViewController.m in Sources */,
 				9D8E5DAC18BC8E1D005695CF /* ViewController.m in Sources */,

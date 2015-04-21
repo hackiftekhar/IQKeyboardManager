@@ -1746,6 +1746,21 @@ void _IQShowLog(NSString *logString);
     [_toolbarPreviousNextConsideredClass removeObject:toolbarPreviousNextConsideredClass];
 }
 
+-(BOOL)isDisableInViewControllerClass:(Class)disabledClass
+{
+    return [_disabledClasses containsObject:disabledClass];
+}
+
+-(BOOL)isDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
+{
+    return [_disabledToolbarClasses containsObject:toolbarDisabledClass];
+}
+
+-(BOOL)isConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+{
+    return [_toolbarPreviousNextConsideredClass containsObject:toolbarPreviousNextConsideredClass];
+}
+
 @end
 
 
