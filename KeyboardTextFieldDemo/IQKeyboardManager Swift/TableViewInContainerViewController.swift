@@ -37,7 +37,7 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
             cell?.contentView.addSubview(textField)
         }
 
-        let textField : UITextField = cell.viewWithTag(123) as UITextField;
+        let textField : UITextField = cell!.viewWithTag(123) as! UITextField;
         textField.placeholder = "Cell \(indexPath.row)"
         
         return cell!
