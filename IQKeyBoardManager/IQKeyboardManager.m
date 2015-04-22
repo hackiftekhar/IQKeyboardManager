@@ -38,6 +38,7 @@
 #import <UIKit/UINavigationController.h>
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
+#import <objc/runtime.h>
 
 #ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
@@ -469,7 +470,10 @@ void _IQShowLog(NSString *logString);
     CGRect rootViewRect = [[rootController view] frame];
     //Getting statusBarFrame
     CGFloat topLayoutGuide = 0;
-
+    //Maintain keyboardDistanceFromTextField
+    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
+//    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+    
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
     switch (interfaceOrientation)
@@ -773,10 +777,10 @@ void _IQShowLog(NSString *logString);
                 {
                     case UIInterfaceOrientationLandscapeLeft:
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-_keyboardDistanceFromTextField);  break;
+                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-keyboardDistanceFromTextField);  break;
                     case UIInterfaceOrientationPortrait:
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-_keyboardDistanceFromTextField);  break;
+                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
                 
@@ -826,10 +830,10 @@ void _IQShowLog(NSString *logString);
             {
                 switch (interfaceOrientation)
                 {
-                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-_kbSize.width+_keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +_kbSize.width-_keyboardDistanceFromTextField);  break;
-                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -_kbSize.height+_keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +_kbSize.height-_keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-_kbSize.width+keyboardDistanceFromTextField));  break;
+                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +_kbSize.width-keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -_kbSize.height+keyboardDistanceFromTextField));  break;
+                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +_kbSize.height-keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
             }
@@ -947,23 +951,26 @@ void _IQShowLog(NSString *logString);
     UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [topMostController interfaceOrientation];
 #pragma GCC diagnostic pop
     
+    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
+//    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
 //            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
-            _kbSize.width += _keyboardDistanceFromTextField;
+            _kbSize.width += keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationLandscapeRight:
 //            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
-            _kbSize.width += _keyboardDistanceFromTextField;
+            _kbSize.width += keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortrait:
 //            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
-            _kbSize.height += _keyboardDistanceFromTextField;
+            _kbSize.height += keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
 //            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
-            _kbSize.height += _keyboardDistanceFromTextField;
+            _kbSize.height += keyboardDistanceFromTextField;
             break;
         default:
             break;
@@ -1716,52 +1723,94 @@ void _IQShowLog(NSString *logString);
 
 #pragma mark - Tracking untracking
 
+/** Disable adjusting view in disabledClass     */
 -(void)disableInViewControllerClass:(Class)disabledClass
 {
     [_disabledClasses addObject:disabledClass];
 }
 
+/** Re-enable adjusting textField in disabledClass  */
 -(void)removeDisableInViewControllerClass:(Class)disabledClass
 {
     [_disabledClasses removeObject:disabledClass];
 }
 
--(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass
-{
-    [_disabledToolbarClasses addObject:toolbarDisabledClass];
-}
-
--(void)removeDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
-{
-    [_disabledToolbarClasses removeObject:toolbarDisabledClass];
-}
-
--(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
-{
-    [_toolbarPreviousNextConsideredClass addObject:toolbarPreviousNextConsideredClass];
-}
-
--(void)removeConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
-{
-    [_toolbarPreviousNextConsideredClass removeObject:toolbarPreviousNextConsideredClass];
-}
-
+/** Returns YES if ViewController class is disabled for library, otherwise returns NO. */
 -(BOOL)isDisableInViewControllerClass:(Class)disabledClass
 {
     return [_disabledClasses containsObject:disabledClass];
 }
 
+/** Disable automatic toolbar creation in in toolbarDisabledClass   */
+-(void)disableToolbarInViewControllerClass:(Class)toolbarDisabledClass
+{
+    [_disabledToolbarClasses addObject:toolbarDisabledClass];
+}
+
+/** Re-enable automatic toolbar creation in in toolbarDisabledClass */
+-(void)removeDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
+{
+    [_disabledToolbarClasses removeObject:toolbarDisabledClass];
+}
+
+/** Returns YES if toolbar is disabled in ViewController class, otherwise returns NO.   */
 -(BOOL)isDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
 {
     return [_disabledToolbarClasses containsObject:toolbarDisabledClass];
 }
 
+/** Consider provided customView class as superView of all inner textField for calculating next/previous button logic.  */
+-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+{
+    [_toolbarPreviousNextConsideredClass addObject:toolbarPreviousNextConsideredClass];
+}
+
+/** Remove Consideration for provided customView class as superView of all inner textField for calculating next/previous button logic.  */
+-(void)removeConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+{
+    [_toolbarPreviousNextConsideredClass removeObject:toolbarPreviousNextConsideredClass];
+}
+
+/** Returns YES if inner hierarchy is considered for previous/next in class, otherwise returns NO.  */
 -(BOOL)isConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
 {
     return [_toolbarPreviousNextConsideredClass containsObject:toolbarPreviousNextConsideredClass];
 }
 
 @end
+
+
+///------------------------------------
+/// @name keyboardDistanceFromTextField
+///------------------------------------
+
+/**
+ Uses default keyboard distance for textField.
+ */
+CGFloat const kIQUseDefaultKeyboardDistance = CGFLOAT_MAX;
+
+/**
+ UIView category for IQKeyboardManager
+ */
+@implementation UIView (IQKeyboardManagerAdditions)
+
+-(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
+{
+    //Can't be less than zero. Minimum is zero.
+    keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
+
+    objc_setAssociatedObject(self, @selector(keyboardDistanceFromTextField), [NSNumber numberWithFloat:keyboardDistanceFromTextField], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(CGFloat)keyboardDistanceFromTextField
+{
+    NSNumber *keyboardDistanceFromTextField = objc_getAssociatedObject(self, @selector(keyboardDistanceFromTextField));
+    
+    return (keyboardDistanceFromTextField)?[keyboardDistanceFromTextField floatValue]:kIQUseDefaultKeyboardDistance;
+}
+
+@end
+
 
 
 void _IQShowLog(NSString *logString)

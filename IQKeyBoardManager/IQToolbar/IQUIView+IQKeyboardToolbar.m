@@ -38,7 +38,7 @@
 
 -(void)setShouldHideTitle:(BOOL)shouldHideTitle
 {
-    objc_setAssociatedObject(self, @selector(shouldHideTitle), [NSNumber numberWithBool:shouldHideTitle], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(shouldHideTitle), [NSNumber numberWithBool:shouldHideTitle], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(BOOL)shouldHideTitle

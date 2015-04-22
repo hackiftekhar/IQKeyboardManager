@@ -4,6 +4,7 @@
 
 #import "SpecialCaseViewController.h"
 #import "IQUIView+Hierarchy.h"
+#import "IQKeyboardManager.h"
 
 @interface SpecialCaseViewController ()<UISearchBarDelegate,UITextFieldDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 
@@ -30,6 +31,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    textField6.keyboardDistanceFromTextField = 50;
     
     textField6.userInteractionEnabled = switchInteraction1.on;
     textField7.userInteractionEnabled = switchInteraction2.on;
