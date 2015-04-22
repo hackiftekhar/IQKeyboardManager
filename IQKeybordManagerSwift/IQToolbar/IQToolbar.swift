@@ -41,7 +41,22 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             }
         }
     }
-
+    
+    var title : String? {
+        
+        didSet {
+            
+            if items != nil {
+                for item in items as! [UIBarButtonItem] {
+                    
+                    if item is IQTitleBarButtonItem == true {
+                        (item as! IQTitleBarButtonItem).title = title
+                    }
+                }
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -16,9 +16,9 @@ class CollectionViewDemoController: UIViewController , UICollectionViewDelegate 
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell : UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("TextFieldCollectionViewCell", forIndexPath: indexPath) as UICollectionViewCell
+        var cell : UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("TextFieldCollectionViewCell", forIndexPath: indexPath) as! UICollectionViewCell
      
-        let textField : UITextField = cell.viewWithTag(10) as UITextField;
+        let textField : UITextField = cell.viewWithTag(10) as! UITextField;
         textField.placeholder = "\(indexPath.section) \(indexPath.row)"
 
         return cell;
