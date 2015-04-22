@@ -38,7 +38,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(OBJC_ASSOCIATION_ASSIGN))
+            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
 

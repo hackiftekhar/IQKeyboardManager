@@ -29,13 +29,29 @@
 #import <Foundation/NSObjCRuntime.h>
 
 #import <UIKit/UITextInputTraits.h>
-
+#import <UIKit/UIView.h>
 
 #if !(__has_feature(objc_instancetype))
 #define instancetype id
 #endif
 
 @class UIFont;
+
+///---------------------
+/// @name IQToolbar tags
+///---------------------
+
+/**
+ Default tag for toolbar with Done button   -1002.
+ */
+extern NSInteger const kIQDoneButtonToolbarTag;
+
+/**
+ Default tag for toolbar with Previous/Next buttons -1005.
+ */
+extern NSInteger const kIQPreviousNextButtonToolbarTag;
+
+
 
 /**
  Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
@@ -258,9 +274,9 @@
 -(BOOL)isConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass;
 
 
-///------------------------------------------------
+///----------------------------------------
 /// @name Must not be used for subclassing.
-///------------------------------------------------
+///----------------------------------------
 
 /**
  Should create only one instance of class. Should not call init.
@@ -274,17 +290,28 @@
 
 @end
 
-///---------------------
-/// @name IQToolbar tags
-///---------------------
 
-/**
- Default tag for toolbar with Done button   -1002.
- */
-extern NSInteger const kIQDoneButtonToolbarTag;
 
-/**
- Default tag for toolbar with Previous/Next buttons -1005.
- */
-extern NSInteger const kIQPreviousNextButtonToolbarTag;
+/////-------------------------------------------
+///// @name Custom KeyboardDistanceFromTextField
+/////-------------------------------------------
+//
+///**
+// Uses default keyboard distance for textField.
+// */
+//extern CGFloat const kIQUseDefaultKeyboardDistance;
+//
+///**
+// UIView category for IQKeyboardManager
+// */
+//@interface UIView (IQKeyboardManagerAdditions)
+//
+///**
+// To set customized distance from keyboard for textField/textView. Can't be less than zero
+// */
+//@property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
+//
+//
+//@end
+
 

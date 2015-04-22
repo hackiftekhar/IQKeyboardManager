@@ -31,10 +31,16 @@
  */
 @interface UIView (IQToolbarAddition)
 
+
+///-------------------------
+/// @name Title and Distance
+///-------------------------
+
 /**
  If shouldHideTitle is YES, then title will not be added to the toolbar. Default to NO.
  */
 @property (assign, nonatomic) BOOL shouldHideTitle;
+
 
 ///-----------------------------------------
 /// @name Customised Invocation Registration
