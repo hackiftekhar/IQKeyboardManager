@@ -153,9 +153,9 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
     
     func updateReturnKeyTypeOnTextField(view : UIView)
     {
-        var tableView : UIView? = view.superTableView()
+        var tableView : UIView? = view.superviewOfClassType(UITableView)
         if tableView == nil {
-            tableView = tableView?.superCollectionView()
+            tableView = tableView?.superviewOfClassType(UICollectionView)
         }
         
         var textFields : NSArray?
@@ -194,11 +194,11 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
     
     func goToNextResponderOrResign(view : UIView) {
         
-        var tableView : UIView? = view.superTableView()
+        var tableView : UIView? = view.superviewOfClassType(UITableView)
         if tableView == nil {
-            tableView = tableView?.superCollectionView()
+            tableView = tableView?.superviewOfClassType(UICollectionView)
         }
-        
+
         var textFields : NSArray?
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.

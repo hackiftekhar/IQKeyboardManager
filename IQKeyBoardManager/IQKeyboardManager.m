@@ -724,7 +724,7 @@ void _IQShowLog(NSString *logString);
     //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
     //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
     //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
-    if (_canAdjustTextView && (_lastScrollView == NO) && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
+    if (_canAdjustTextView && (_lastScrollView == nil) && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
     {
         CGFloat textViewHeight = CGRectGetHeight(_textFieldView.frame);
         
@@ -957,17 +957,11 @@ void _IQShowLog(NSString *logString);
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-//            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
-            _kbSize.width += keyboardDistanceFromTextField;
-            break;
         case UIInterfaceOrientationLandscapeRight:
 //            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
             _kbSize.width += keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortrait:
-//            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
-            _kbSize.height += keyboardDistanceFromTextField;
-            break;
         case UIInterfaceOrientationPortraitUpsideDown:
 //            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
             _kbSize.height += keyboardDistanceFromTextField;
@@ -1051,8 +1045,6 @@ void _IQShowLog(NSString *logString);
             UIScrollView *superscrollView = _lastScrollView;
             while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]))
             {
-                MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame));
-                
                 CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, CGRectGetWidth(superscrollView.frame)), MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame)));
                 
                 CGFloat minimumY = contentSize.height-CGRectGetHeight(superscrollView.frame);
@@ -1244,7 +1236,7 @@ void _IQShowLog(NSString *logString);
     _IQShowLog([NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]);
 }
 
-/* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
+/** UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
 #ifdef NSFoundationVersionNumber_iOS_6_1
@@ -1519,7 +1511,10 @@ void _IQShowLog(NSString *logString);
     //If found any toolbar disabled classes then return. Will not add any toolbar.
     for (Class disabledToolbarClass in _disabledToolbarClasses)
         if ([textFieldViewController isKindOfClass:disabledToolbarClass])
+        {
+            [self removeToolbarIfRequired];
             return;
+        }
     
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
@@ -1637,6 +1632,18 @@ void _IQShowLog(NSString *logString);
                     }
                 }
                 
+                //If need to show placeholder
+                if (_shouldShowTextFieldPlaceholder)
+                {
+                    //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                    if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                        [toolbar setTitle:textField.placeholder];
+                    
+                    //Setting toolbar title font.   //  (Enhancement ID: #30)
+                    if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                        [toolbar setTitleFont:_placeholderFont];
+                }
+
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                 //	If firstTextField, then previous should not be enabled.
                 if ([siblings objectAtIndex:0] == textField)

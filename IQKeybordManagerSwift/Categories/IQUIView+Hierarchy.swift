@@ -25,9 +25,18 @@
 import Foundation
 import UIKit
 
+/**
+UIView hierarchy category.
+*/
 extension UIView {
     
-    /** @abstract Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.   */
+    ///------------------------------
+    /// MARK: canBecomeFirstResponder
+    ///------------------------------
+    
+    /**
+    Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
+    */
     var isAskingCanBecomeFirstResponder: Bool {
         get {
             
@@ -42,7 +51,13 @@ extension UIView {
         }
     }
 
-    /** @return Returns the UIViewController object that manages the receiver.  */
+    ///----------------------
+    /// MARK: viewControllers
+    ///----------------------
+
+    /**
+    Returns the UIViewController object that manages the receiver.
+    */
     func viewController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
@@ -59,7 +74,9 @@ extension UIView {
         return nil
     }
     
-    /** @return Returns the topMost UIViewController object in hierarchy  */
+    /**
+    Returns the topMost UIViewController object in hierarchy.
+    */
     func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]();
@@ -91,84 +108,49 @@ extension UIView {
         }
     }
     
-    /** @return Returns the UIScrollView object if any found in view's upper hierarchy. */
-    func superScrollView()->UIScrollView? {
-        
+    
+    ///-----------------------------------
+    /// MARK: Superviews/Subviews/Siglings
+    ///-----------------------------------
+    
+    /**
+    Returns the superView of provided class type.
+    */
+    func superviewOfClassType(classType:AnyClass)->UIView? {
+
+        struct InternalClass {
+            
+            static var UITableViewCellScrollViewClass: AnyClass?   =   NSClassFromString("UITableViewCellScrollView") //UITableViewCell
+            static var UITableViewWrapperViewClass: AnyClass?      =   NSClassFromString("UITableViewWrapperView") //UITableViewCell
+            static var UIQueuingScrollViewClass: AnyClass?         =   NSClassFromString("_UIQueuingScrollView") //UIPageViewController
+        }
+
         var superView = superview
         
-        while let superScrollView = superView {
-            //UITableViewWrapperView
+        while let unwrappedSuperView = superview {
             
-            struct InternalClass {
+            if unwrappedSuperView.isKindOfClass(classType) &&
+                ((InternalClass.UITableViewCellScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) ||
+                    (InternalClass.UITableViewWrapperViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) ||
+                    (InternalClass.UIQueuingScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false)) {
+                        return superView
+            } else {
                 
-                static var UITableViewCellScrollViewClass: AnyClass?   =   NSClassFromString("UITableViewCellScrollView") //UITableViewCell
-                static var UITableViewWrapperViewClass: AnyClass?      =   NSClassFromString("UITableViewWrapperView") //UITableViewCell
-                static var UIQueuingScrollViewClass: AnyClass?         =   NSClassFromString("_UIQueuingScrollView") //UIPageViewController
-            }
-            
-            if superScrollView is UIScrollView &&
-                ((InternalClass.UITableViewCellScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) ||
-                (InternalClass.UITableViewWrapperViewClass != nil && superScrollView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) ||
-                (InternalClass.UIQueuingScrollViewClass != nil && superScrollView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false)) {
-                return superView as? UIScrollView
-            } else {
-                superView = superScrollView.superview
+                superView = unwrappedSuperView.superview
             }
         }
         
-        return nil
-    }
-    
-    /** @return Returns the UITableView object if any found in view's upper hierarchy.  */
-    func superTableView()->UITableView? {
-        
-        var superView = superview
-        
-        while let superTableView = superView {
-            if superTableView is UITableView {
-                return superTableView as? UITableView
-            } else {
-                superView = superTableView.superview
-            }
-        }
-        
-        return nil
+        return nil;
     }
 
-    /** @return Returns the UICollectionView object if any found in view's upper hierarchy.  */
-    func superCollectionView()->UICollectionView? {
-        
-        var superView = superview
-        
-        while let superCollectionView = superView {
-            if superCollectionView is UICollectionView {
-                return superCollectionView as? UICollectionView
-            } else {
-                superView = superCollectionView.superview
-            }
-        }
-        
-        return nil
-    }
-
-    private func _IQcanBecomeFirstResponder() -> Bool {
-        
-        isAskingCanBecomeFirstResponder = true
-        
-        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && userInteractionEnabled == true && hidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool;
-
-        isAskingCanBecomeFirstResponder = false
-
-        return _IQcanBecomeFirstResponder
-    }
-    
-    
-    /** @return returns all siblings of the receiver which canBecomeFirstResponder. */
+    /**
+    Returns all siblings of the receiver which canBecomeFirstResponder.
+    */
     func responderSiblings()->NSArray {
         
         //	Getting all siblings
         let siblings = superview?.subviews
-
+        
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
         
@@ -182,16 +164,31 @@ extension UIView {
         return tempTextFields
     }
     
-    /** @return returns all deep subViews of the receiver which canBecomeFirstResponder.    */
+    /**
+    Returns all deep subViews of the receiver which canBecomeFirstResponder.
+    */
     func deepResponderViews()->NSArray {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = (subviews as NSArray).sortedArrayUsingComparator { (let view1: AnyObject!, let view2: AnyObject!) -> NSComparisonResult in
+        let subViews = (subviews as NSArray).sortedArrayUsingComparator { (let obj1: AnyObject!, let obj2: AnyObject!) -> NSComparisonResult in
             
-            if CGFloat(view1.y) < CGFloat(view2.y) {
+            let view1 = obj1 as! UIView
+            let view2 = obj2 as! UIView
+            
+            let x1 = CGRectGetMinX(view1.frame);
+            let y1 = CGRectGetMinY(view1.frame);
+            let x2 = CGRectGetMinX(view2.frame);
+            let y2 = CGRectGetMinY(view2.frame);
+
+            if (y1 < y2) {
                 return .OrderedAscending
-            } else if CGFloat(view1.y) > CGFloat(view2.y) {
+            } else if (y1 > y2) {
+                return .OrderedDescending
+            } else if (x1 < x2) {    //Else both y are same so checking for x positions
+
+                return .OrderedAscending
+            } else if (x1 > x2) {
                 return .OrderedDescending
             } else {
                 return .OrderedSame
@@ -202,7 +199,7 @@ extension UIView {
         var textfields = [UIView]()
         
         for textField in subViews as! [UIView] {
-
+            
             if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             } else if textField.subviews.count != 0 {
@@ -215,7 +212,32 @@ extension UIView {
         return textfields
     }
     
-    /** @return returns YES if the receiver object is UISearchBarTextField, otherwise return NO.    */
+    private func _IQcanBecomeFirstResponder() -> Bool {
+        
+        isAskingCanBecomeFirstResponder = true
+        
+        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && userInteractionEnabled == true && hidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
+
+        //  Setting toolbar to keyboard.
+        if let textField = self as? UITextField {
+            _IQcanBecomeFirstResponder = textField.enabled
+        } else if let textView = self as? UITextView {
+            _IQcanBecomeFirstResponder = textView.editable
+        }
+
+        isAskingCanBecomeFirstResponder = false
+
+        return _IQcanBecomeFirstResponder
+    }
+    
+
+    ///-------------------------
+    /// MARK: Special TextFields
+    ///-------------------------
+    
+    /**
+    Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+    */
     func isSearchBarTextField()-> Bool {
         
         struct InternalClass {
@@ -226,7 +248,9 @@ extension UIView {
         return  (InternalClass.UISearchBarTextFieldClass != nil && isKindOfClass(InternalClass.UISearchBarTextFieldClass!)) || self is UISearchBar
     }
     
-    /** @return returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.   */
+    /**
+    Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
+    */
     func isAlertViewTextField()->Bool {
         
         struct InternalClass {
@@ -239,7 +263,14 @@ extension UIView {
             (InternalClass.UIAlertSheetTextFieldClass_iOS8 != nil && isKindOfClass(InternalClass.UIAlertSheetTextFieldClass_iOS8!))
     }
     
-    /** @return returns current view transform with respect to the 'toView'.    */
+
+    ///----------------
+    /// MARK: Transform
+    ///----------------
+    
+    /**
+    Returns current view transform with respect to the 'toView'.
+    */
     func convertTransformToView(var toView:UIView?)->CGAffineTransform {
         
         if toView == nil {
@@ -255,9 +286,9 @@ extension UIView {
             myTransform = transform
         }
     
-        //view Transform
         var viewTransform = CGAffineTransformIdentity
         
+        //view Transform
         if let unwrappedToView = toView {
             
             if let unwrappedSuperView = unwrappedToView.superview {
@@ -271,253 +302,44 @@ extension UIView {
         //Concating MyTransform and ViewTransform
         return CGAffineTransformConcat(myTransform, CGAffineTransformInvert(viewTransform))
     }
-
-//    /** @return Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.   */
+    
+    ///-----------------
+    /// TODO: Hierarchy
+    ///-----------------
+    
+//    /**
+//    Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
+//    */
 //    func subHierarchy()->NSString {
 //        
 //    }
 //    
-//    /** @return Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.    */
+//    /**
+//    Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
+//    */
 //    func superHierarchy()->NSString {
 //        
 //    }
+//    
+//    /**
+//    Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
+//    */
+//    func debugHierarchy()->NSString {
+//        
+//    }
+
+    private func depth()->Int {
+        var depth : Int = 0
+        
+        if let superView = superview {
+            depth = superView.depth()+1
+        }
+        
+        return depth
+    }
+    
 }
 
-
-extension UIView {
-
-    var x : CGFloat {
-        
-        get {   return frame.x    }
-        set {
-            var frame : CGRect = self.frame
-            frame.x = newValue
-            self.frame = frame }
-    }
-    
-    var y : CGFloat {
-        
-        get {   return frame.y    }
-        set {
-            var frame : CGRect = self.frame
-            frame.y = newValue
-            self.frame = frame }
-    }
-    
-    var width : CGFloat {
-        
-        get {   return frame.width    }
-        set {
-            var frame : CGRect = self.frame
-            frame.width = newValue
-            self.frame = frame }
-    }
-    
-    var height : CGFloat {
-        
-        get {   return frame.height    }
-        set {
-            var frame : CGRect = self.frame
-            frame.height = newValue
-            self.frame = frame }
-    }
-    
-    var origin : CGPoint {
-        
-        get {   return frame.origin    }
-        set {
-            var frame : CGRect = self.frame
-            frame.origin = newValue
-            self.frame = frame }
-    }
-    
-    var size : CGSize {
-        
-        get {   return frame.size    }
-        set {
-            var frame : CGRect = self.frame
-            frame.size = newValue
-            self.frame = frame }
-    }
-
-    
-    public var top: CGFloat {
-        get {
-            return frame.top
-        }
-        set {
-            var frame = self.frame
-            frame.top = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var left: CGFloat {
-        get {
-            return frame.left
-        }
-        set {
-            var frame = self.frame
-            frame.left = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var bottom: CGFloat {
-        get {
-            return frame.bottom
-        }
-        set {
-            var frame = self.frame
-            frame.bottom = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var right: CGFloat {
-        get {
-            return frame.right
-        }
-        set {
-            var frame = self.frame
-            frame.right = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var centerX: CGFloat {
-        get {
-            return frame.centerX
-        }
-        set {
-            var frame = self.frame
-            frame.centerX = newValue
-            self.frame = frame
-        }
-    }
-    
-    public var centerY: CGFloat {
-        get {
-            return frame.centerY
-        }
-        set {
-            var frame = self.frame
-            frame.centerY = newValue
-            self.frame = frame
-        }
-    }
-
-    public var boundsCenter : CGPoint {
-        return bounds.center
-    }
-}
-
-extension CGRect {
-    
-    public var x : CGFloat {
-        
-        get {
-            return origin.x
-        }
-        set {
-            origin.x = newValue
-        }
-    }
-    
-    public var y : CGFloat {
-        
-        get {
-            return origin.y
-        }
-        set {
-            origin.y = newValue
-        }
-     }
-    
-    public var width : CGFloat {
-        
-        get {   return size.width    }
-        set {   size.width = newValue   }
-    }
-    
-    public var height : CGFloat {
-
-        get {   return size.height    }
-        set {   size.height = newValue   }
-    }
-
-    // The left-side coordinate of the rect.
-    public var left: CGFloat {
-        
-        get {   return origin.x }
-        set {
-            
-            origin.x = newValue
-            size.width = max(self.right - newValue , 0)
-        }
-    }
-    
-    public var right: CGFloat {
-        get {
-            return origin.x + size.width
-        }
-        set {
-            size.width = max(newValue - self.left, 0)
-        }
-    }
-    
-    /// The top coordinate of the rect.
-    public var top: CGFloat {
-        
-        get {   return origin.y }
-        set {
-            size.height = max(self.bottom-newValue, 0)
-        }
-    }
-    
-    public var bottom: CGFloat {
-        get {
-            return origin.y + size.height
-        }
-        set {
-            size.height = max(newValue-self.top, 0)
-        }
-    }
-    
-    // The center of the rect.
-    public var center: CGPoint {
-        get {
-            return CGPoint(
-                x: CGRectGetMidX(self),
-                y: CGRectGetMidY(self)
-            )
-        }
-        set {
-            origin.x = newValue.x - size.width / 2
-            origin.y = newValue.y - size.height / 2
-        }
-    }
-    
-    // The center x coordinate of the rect.
-    public var centerX: CGFloat {
-        get {
-            return center.x
-        }
-        set {
-            origin.x = newValue - size.width / 2
-        }
-    }
-    
-    // The center y coordinate of the rect.
-    public var centerY: CGFloat {
-        get {
-            return center.y
-        }
-        set {
-            origin.y = newValue - size.height / 2
-        }
-    }
-}
 
 extension NSObject {
     
