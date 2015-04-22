@@ -24,6 +24,29 @@
 
 import Foundation
 
+///----------------
+/// MARK: Debugging
+///----------------
+
+/**
+Set `-DIQKEYBOARDMANAGER_DEBUG` flag in 'other swift flag' to enable debugging.
+*/
+
+
+///-----------------------------------
+/// MARK: IQAutoToolbarManageBehaviour
+///-----------------------------------
+
+/**
+`IQAutoToolbarBySubviews`
+Creates Toolbar according to subview's hirarchy of Textfield's in view.
+
+`IQAutoToolbarByTag`
+Creates Toolbar according to tag property of TextField's.
+
+`IQAutoToolbarByPosition`
+Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+*/
 enum IQAutoToolbarManageBehaviour {
     case BySubviews
     case ByTag

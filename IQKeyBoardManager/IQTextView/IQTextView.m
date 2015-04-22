@@ -88,6 +88,12 @@
     [self layoutIfNeeded];
 }
 
+- (void)setText:(NSString *)text
+{
+    [super setText:text];
+    [self refreshPlaceholder];
+}
+
 -(void)setFont:(UIFont *)font
 {
     [super setFont:font];
@@ -124,6 +130,13 @@
     
     placeHolderLabel.text = self.placeholder;
     [self refreshPlaceholder];
+}
+
+//When any text changes on textField, the delegate getter is called. At this time we refresh the textView's placeholder
+-(id<UITextViewDelegate>)delegate
+{
+    [self refreshPlaceholder];
+    return [super delegate];
 }
 
 @end

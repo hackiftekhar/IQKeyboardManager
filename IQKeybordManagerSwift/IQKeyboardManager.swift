@@ -27,7 +27,7 @@ import CoreGraphics
 import UIKit
 
 ///---------------------
-/// @name IQToolbar tags
+/// MARK: IQToolbar tags
 ///---------------------
 
 /**
@@ -433,7 +433,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class in which library should not adjust view to show textField.
     */
     func disableInViewControllerClass(disabledClass : AnyClass) {
-        _disabledClasses.addObject(disabledClass)
+        _disabledClasses.addObject(NSStringFromClass(disabledClass))
     }
     
     /**
@@ -442,7 +442,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class in which library should re-enable adjust view to show textField.
     */
     func removeDisableInViewControllerClass(disabledClass : AnyClass) {
-        _disabledClasses.removeObject(disabledClass)
+        _disabledClasses.removeObject(NSStringFromClass(disabledClass))
     }
     
     /**
@@ -451,7 +451,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class which is to check for it's disability.
     */
     func isDisableInViewControllerClass(disabledClass : AnyClass) -> Bool {
-        return _disabledClasses.containsObject(disabledClass)
+        return _disabledClasses.containsObject(NSStringFromClass(disabledClass))
     }
     
     /**
@@ -460,7 +460,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class in which library should not add toolbar over textField.
     */
     func disableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        _disabledToolbarClasses.addObject(toolbarDisabledClass)
+        _disabledToolbarClasses.addObject(NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -469,7 +469,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class in which library should re-enable automatic toolbar creation over textField.
     */
     func removeDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        _disabledToolbarClasses.removeObject(toolbarDisabledClass)
+        _disabledToolbarClasses.removeObject(NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -478,7 +478,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class which is to check for toolbar disability.
     */
     func isDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) -> Bool {
-        return _disabledToolbarClasses.containsObject(toolbarDisabledClass)
+        return _disabledToolbarClasses.containsObject(NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -487,7 +487,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
     */
     func considerToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        _toolbarPreviousNextConsideredClass.addObject(toolbarPreviousNextConsideredClass)
+        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
     
     /**
@@ -496,7 +496,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should remove consideration for all inner textField as superView.
     */
     func removeConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        _toolbarPreviousNextConsideredClass.removeObject(toolbarPreviousNextConsideredClass)
+        _toolbarPreviousNextConsideredClass.removeObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
     
     /**
@@ -505,7 +505,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
     */
     func isConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) -> Bool {
-        return _toolbarPreviousNextConsideredClass.containsObject(toolbarPreviousNextConsideredClass)
+        return _toolbarPreviousNextConsideredClass.containsObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
 
 
@@ -622,9 +622,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
-        _disabledClasses.addObject(UITableViewController)
-        _toolbarPreviousNextConsideredClass.addObject(UITableView)
-        _toolbarPreviousNextConsideredClass.addObject(UICollectionView)
+        
+        _disabledClasses.addObject(NSStringFromClass(UITableViewController))
+        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(UITableView))
+        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(UICollectionView))
     }
     
     
@@ -1253,10 +1254,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     var shouldIgnore = false
                     
-                    for disabledClass in _disabledClasses.allObjects as! [AnyClass] {
+                    for disabledClassString in _disabledClasses {
                         
                         //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                        if textFieldViewController.isKindOfClass(disabledClass) {
+                        if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
                             shouldIgnore = true
                             break;
                         }
@@ -1485,10 +1486,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 var shouldIgnore = false
                 
-                for disabledClass in _disabledClasses.allObjects as! [AnyClass] {
+                for disabledClassString in _disabledClasses {
                     
                     //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                    if textFieldViewController.isKindOfClass(disabledClass) {
+                    if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
                         shouldIgnore = true
                         break;
                     }
@@ -1595,12 +1596,11 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var superConsideredView : UIView?
 
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
-        for disabledClass in _toolbarPreviousNextConsideredClass.allObjects as! [AnyClass] {
+        for disabledClassString in _toolbarPreviousNextConsideredClass {
             
-            //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-            if (_textFieldView?.superviewOfClassType(disabledClass) != nil) {
-                break;
-            }
+                if (_textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)) != nil) {
+                    break;
+                }
         }
     
     //If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
@@ -1632,10 +1632,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         if let textFieldViewController = _textFieldView?.viewController() {
             
-            for disabledClass in _disabledToolbarClasses.allObjects as! [AnyClass] {
+            for disabledClassString in _disabledToolbarClasses {
                 
-                if textFieldViewController.isKindOfClass(disabledClass) {
-
+                if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                    
                     removeToolbarIfRequired()
                     return
                 }

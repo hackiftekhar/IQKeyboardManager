@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../IQKeyBoardManager/IQTextView/IQTextView.m"
-            timestampString = "449693144.569059"
+            timestampString = "451426744.639796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-layoutSubviews"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "-setText:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
