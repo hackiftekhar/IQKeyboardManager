@@ -26,35 +26,16 @@ import UIKit
 
 class IQBarButtonItem: UIBarButtonItem {
    
-    override init() {
-        super.init()
+    override class func initialize() {
 
-        //Removing tint
-        tintColor = nil
-    }
-    
-    override init(barButtonSystemItem systemItem: UIBarButtonSystemItem, target: AnyObject?, action: Selector) {
-        super.init(barButtonSystemItem: systemItem, target: target, action: action)
-        tintColor = nil
-    }
-    
-    override init(image: UIImage?, style: UIBarButtonItemStyle, target: AnyObject?, action: Selector) {
-        super.init(image: image, style: style, target: target, action: action)
-        tintColor = nil
-    }
-    
-    override init(title: String?, style: UIBarButtonItemStyle, target: AnyObject?, action: Selector) {
-        super.init(title: title, style: style, target: target, action: action)
-        tintColor = nil
-    }
-    
-    override init(customView: UIView) {
-        super.init(customView: customView)
-        tintColor = nil
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        tintColor = nil
+        superclass()?.initialize()
+        
+        self.appearance().tintColor = nil
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Normal)
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Highlighted)
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Disabled)
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Selected)
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Application)
+        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Reserved)
     }
 }

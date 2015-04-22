@@ -127,7 +127,7 @@ extension UIView {
 
         var superView = superview
         
-        while let unwrappedSuperView = superview {
+        while let unwrappedSuperView = superView {
             
             if unwrappedSuperView.isKindOfClass(classType) &&
                 ((InternalClass.UITableViewCellScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) ||

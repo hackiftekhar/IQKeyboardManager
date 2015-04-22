@@ -23,16 +23,28 @@
 
 import Foundation
 
+/**
+UIView.subviews sorting category.
+*/
 extension NSArray {
     
-    /** @abstract Returns the array by sorting the UIView's by their tag property. */
+    ///--------------
+    /// MARK: Sorting
+    ///--------------
+    
+    /**
+    Returns the array by sorting the UIView's by their tag property.
+    */
     func sortedArrayByTag() -> NSArray {
         
-        return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
+        return sortedArrayUsingComparator({ (let obj1: AnyObject?, let obj2: AnyObject?) -> NSComparisonResult in
             
-            if view1?.tag < view2?.tag {
+            let view1 = obj1 as! UIView
+            let view2 = obj2 as! UIView
+            
+            if view1.tag < view2.tag {
                 return .OrderedAscending
-            } else if view1?.tag > view2?.tag {
+            } else if view1.tag > view2.tag {
                 return .OrderedDescending
             } else {
                 return .OrderedSame
@@ -40,22 +52,51 @@ extension NSArray {
         })
     }
     
-    /** @abstract Returns the array by sorting the UIView's by their tag property. */
+    /**
+    Returns the array by sorting the UIView's by their tag property.
+    */
     func sortedArrayByPosition() -> NSArray {
         
-        return sortedArrayUsingComparator({ (let view1: AnyObject?, let view2: AnyObject?) -> NSComparisonResult in
+        return sortedArrayUsingComparator({ (let obj1: AnyObject?, let obj2: AnyObject?) -> NSComparisonResult in
             
-            if view1?.y < view2?.y {
+            let view1 = obj1 as! UIView
+            let view2 = obj2 as! UIView
+            
+            let x1 = CGRectGetMinX(view1.frame);
+            let y1 = CGRectGetMinY(view1.frame);
+            let x2 = CGRectGetMinX(view2.frame);
+            let y2 = CGRectGetMinY(view2.frame);
+            
+            if (y1 < y2) {
                 return .OrderedAscending
-            } else if view1?.y > view2?.y {
+            } else if (y1 > y2) {
                 return .OrderedDescending
-            } else if view1?.x < view2?.x {   //Else both y are same so checking for x positions
+            } else if (x1 < x2) {    //Else both y are same so checking for x positions
+                
                 return .OrderedAscending
-            } else if view1?.x > view2?.x {
+            } else if (x1 > x2) {
                 return .OrderedDescending
             } else {
                 return .OrderedSame
             }
         })
+    }
+}
+
+
+extension Array {
+    mutating func removeObject<AnyClass: Equatable>(object: AnyClass) {
+        var index: Int?
+        for (idx, objectToCompare) in enumerate(self) {
+            if let to = objectToCompare as? AnyClass {
+                if object == to {
+                    index = idx
+                }
+            }
+        }
+        
+        if(index != nil) {
+            self.removeAtIndex(index!)
+        }
     }
 }
