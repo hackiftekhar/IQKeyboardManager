@@ -62,19 +62,19 @@ extension NSArray {
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
             
-            let x1 = CGRectGetMinX(view1.frame);
-            let y1 = CGRectGetMinY(view1.frame);
-            let x2 = CGRectGetMinX(view2.frame);
-            let y2 = CGRectGetMinY(view2.frame);
+            let x1 = CGRectGetMinX(view1.frame)
+            let y1 = CGRectGetMinY(view1.frame)
+            let x2 = CGRectGetMinX(view2.frame)
+            let y2 = CGRectGetMinY(view2.frame)
             
-            if (y1 < y2) {
+            if y1 < y2 {
                 return .OrderedAscending
-            } else if (y1 > y2) {
+            } else if y1 > y2 {
                 return .OrderedDescending
-            } else if (x1 < x2) {    //Else both y are same so checking for x positions
+            } else if x1 < x2 {    //Else both y are same so checking for x positions
                 
                 return .OrderedAscending
-            } else if (x1 > x2) {
+            } else if x1 > x2 {
                 return .OrderedDescending
             } else {
                 return .OrderedSame
@@ -83,20 +83,3 @@ extension NSArray {
     }
 }
 
-
-extension Array {
-    mutating func removeObject<AnyClass: Equatable>(object: AnyClass) {
-        var index: Int?
-        for (idx, objectToCompare) in enumerate(self) {
-            if let to = objectToCompare as? AnyClass {
-                if object == to {
-                    index = idx
-                }
-            }
-        }
-        
-        if(index != nil) {
-            self.removeAtIndex(index!)
-        }
-    }
-}

@@ -150,8 +150,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             case .ByTag:        textFields = textFields?.sortedArrayByTag()
                 //If needs to sort it by Position
             case .ByPosition:   textFields = textFields?.sortedArrayByPosition()
-            default:
-                break
+            default:    break
             }
         }
         
@@ -187,7 +186,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         if let textField = view as? UITextField {
             
-            dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.rawValue;
+            dictInfo[kIQTextFieldReturnKeyType] = textField.returnKeyType.rawValue
             
             if let textFieldDelegate = textField.delegate {
                 dictInfo[kIQTextFieldDelegate] = textFieldDelegate
@@ -196,7 +195,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             
         } else if let textView = view as? UITextView {
             
-            dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.rawValue;
+            dictInfo[kIQTextFieldReturnKeyType] = textView.returnKeyType.rawValue
             
             if let textViewDelegate = textView.delegate {
                 dictInfo[kIQTextFieldDelegate] = textViewDelegate
@@ -291,7 +290,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
                 break
             }
         }
-        
+
         if let unwrappedTextFields = textFields {
             
             if unwrappedTextFields.containsObject(view) == true {
