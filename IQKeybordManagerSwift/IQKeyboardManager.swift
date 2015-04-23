@@ -230,12 +230,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //If it is not first textField. then it's previous object canBecomeFirstResponder.
                         if index > 0 {
                             
-                            return true;
+                            return true
                         }
                     }
                 }
             }
-            return false;
+            return false
         }
     }
     
@@ -261,7 +261,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
                 }
             }
-            return false;
+            return false
         }
     }
     
@@ -751,17 +751,16 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var rootViewRect = rootController.view.frame
 
         //Getting statusBarFrame
-        var topLayoutGuide : CGFloat = 0;
+        var topLayoutGuide : CGFloat = 0
         
        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
         
         switch interfaceOrientation {
         case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
-            topLayoutGuide = CGRectGetWidth(statusBarFrame);
+            topLayoutGuide = CGRectGetWidth(statusBarFrame)
         case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
-            topLayoutGuide = CGRectGetHeight(statusBarFrame);
-        default:
-            break
+            topLayoutGuide = CGRectGetHeight(statusBarFrame)
+        default:    break
         }
 
         var move : CGFloat = 0.0
@@ -769,22 +768,16 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Move negative = textField is showing.
         
         //  Calculating move position. Common for both normal and special cases.
-        switch (interfaceOrientation)
-        {
+        switch interfaceOrientation {
         case UIInterfaceOrientation.LandscapeLeft:
-            move = min(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-_kbSize.width));
-            break;
+            move = min(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-_kbSize.width))
         case UIInterfaceOrientation.LandscapeRight:
-            move = min(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
-            break;
+            move = min(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), _kbSize.width-CGRectGetMinX(textFieldViewRect))
         case UIInterfaceOrientation.Portrait:
-            move = min(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-_kbSize.height));
-            break;
+            move = min(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-_kbSize.height))
         case UIInterfaceOrientation.PortraitUpsideDown:
-            move = min(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
-            break;
-        default:
-            break;
+            move = min(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), _kbSize.height-CGRectGetMinY(textFieldViewRect))
+        default:    break
         }
         
         _IQShowLog("Need to move: \(move)")
@@ -871,42 +864,36 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         //shouldOffsetY > 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                         if textFieldView is UITextView == true && scrollView.superviewOfClassType(UIScrollView) == nil && shouldOffsetY > 0 {
-                            var maintainTopLayout : CGFloat = 0;
+                            var maintainTopLayout : CGFloat = 0
                             
                             if let navigationBarFrame = textFieldView.viewController()?.navigationController?.navigationBar.frame {
                                 maintainTopLayout = CGRectGetMaxY(navigationBarFrame)
                             }
                             
-                            maintainTopLayout += 10.0; //For good UI
+                            maintainTopLayout += 10.0 //For good UI
                             
                             //  Converting Rectangle according to window bounds.
                             if let currentTextFieldViewRect = textFieldView.superview?.convertRect(textFieldView.frame, toView: window) {
-                                var expectedFixDistance = shouldOffsetY;
+                                var expectedFixDistance = shouldOffsetY
                                 
                                 //Calculating expected fix distance which needs to be managed from navigation bar
-                                switch (interfaceOrientation)
-                                {
+                                switch interfaceOrientation {
                                 case UIInterfaceOrientation.LandscapeLeft:
-                                    expectedFixDistance = CGRectGetMinX(currentTextFieldViewRect) - maintainTopLayout;
-                                    break;
+                                    expectedFixDistance = CGRectGetMinX(currentTextFieldViewRect) - maintainTopLayout
                                 case UIInterfaceOrientation.LandscapeRight:
-                                    expectedFixDistance = (CGRectGetWidth(window.frame)-CGRectGetMaxX(currentTextFieldViewRect)) - maintainTopLayout;
-                                    break;
+                                    expectedFixDistance = (CGRectGetWidth(window.frame)-CGRectGetMaxX(currentTextFieldViewRect)) - maintainTopLayout
                                 case UIInterfaceOrientation.Portrait:
-                                    expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - maintainTopLayout;
-                                    break;
+                                    expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - maintainTopLayout
                                 case UIInterfaceOrientation.PortraitUpsideDown:
-                                    expectedFixDistance = (CGRectGetHeight(window.frame)-CGRectGetMaxY(currentTextFieldViewRect)) - maintainTopLayout;
-                                    break;
-                                default:
-                                    break;
+                                    expectedFixDistance = (CGRectGetHeight(window.frame)-CGRectGetMaxY(currentTextFieldViewRect)) - maintainTopLayout
+                                default:    break
                                 }
                                 
                                 //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
-                                shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance);
+                                shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
 
                                 //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
-                                move = 0;
+                                move = 0
                             }
                             else {
                                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
@@ -946,22 +933,16 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 var bottom : CGFloat = 0.0
                 
-                switch (interfaceOrientation)
-                {
+                switch interfaceOrientation {
                 case UIInterfaceOrientation.LandscapeLeft:
-                    bottom = _kbSize.width-(CGRectGetWidth(window.frame)-CGRectGetMaxX(lastScrollViewRect));
-                    break;
+                    bottom = _kbSize.width-(CGRectGetWidth(window.frame)-CGRectGetMaxX(lastScrollViewRect))
                 case UIInterfaceOrientation.LandscapeRight:
-                    bottom = _kbSize.width-CGRectGetMinX(lastScrollViewRect);
-                    break;
+                    bottom = _kbSize.width-CGRectGetMinX(lastScrollViewRect)
                 case UIInterfaceOrientation.Portrait:
-                    bottom = _kbSize.height-(CGRectGetHeight(window.frame)-CGRectGetMaxY(lastScrollViewRect));
-                    break;
+                    bottom = _kbSize.height-(CGRectGetHeight(window.frame)-CGRectGetMaxY(lastScrollViewRect))
                 case UIInterfaceOrientation.PortraitUpsideDown:
-                    bottom = _kbSize.height-CGRectGetMinY(lastScrollViewRect);
-                    break;
-                default:
-                    break;
+                    bottom = _kbSize.height-CGRectGetMinY(lastScrollViewRect)
+                default:    break
                 }
                 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
@@ -975,18 +956,17 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
                     lastScrollView.contentInset = movedInsets
 
-                    var newInset = lastScrollView.scrollIndicatorInsets;
-                    newInset.bottom = movedInsets.bottom - 10;
-                    lastScrollView.scrollIndicatorInsets = newInset;
+                    var newInset = lastScrollView.scrollIndicatorInsets
+                    newInset.bottom = movedInsets.bottom - 10
+                    lastScrollView.scrollIndicatorInsets = newInset
 
                     }) { (animated:Bool) -> Void in }
 
                 //Maintaining contentSize
-                if (lastScrollView.contentSize.height<lastScrollView.frame.size.height)
-                {
-                    var contentSize = lastScrollView.contentSize;
-                    contentSize.height = lastScrollView.frame.size.height;
-                    lastScrollView.contentSize = contentSize;
+                if lastScrollView.contentSize.height < lastScrollView.frame.size.height {
+                    var contentSize = lastScrollView.contentSize
+                    contentSize.height = lastScrollView.frame.size.height
+                    lastScrollView.contentSize = contentSize
                 }
                 
                 _IQShowLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
@@ -1003,26 +983,22 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if canAdjustTextView == true && _lastScrollView == nil && textFieldView is UITextView == true && _isTextFieldViewFrameChanged == false {
             var textViewHeight = CGRectGetHeight(textFieldView.frame)
  
-            switch (interfaceOrientation)
-            {
+            switch interfaceOrientation {
             case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
-                textViewHeight = min(textViewHeight, (CGRectGetWidth(window.frame)-_kbSize.width-(topLayoutGuide+5)));
-                break;
+                textViewHeight = min(textViewHeight, (CGRectGetWidth(window.frame)-_kbSize.width-(topLayoutGuide+5)))
             case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
-                textViewHeight = min(textViewHeight, (CGRectGetHeight(window.frame)-_kbSize.height-(topLayoutGuide+5)));
-                break;
-            default:
-                break;
+                textViewHeight = min(textViewHeight, (CGRectGetHeight(window.frame)-_kbSize.height-(topLayoutGuide+5)))
+            default:    break
             }
             
             UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
 
                 self._IQShowLog("\(textFieldView._IQDescription()) Old Frame : \(textFieldView.frame)")
 
-                var textFieldViewRect = textFieldView.frame;
-                textFieldViewRect.size.height = textViewHeight;
-                textFieldView.frame = textFieldViewRect;
-                self._isTextFieldViewFrameChanged = true;
+                var textFieldViewRect = textFieldView.frame
+                textFieldViewRect.size.height = textViewHeight
+                textFieldView.frame = textFieldViewRect
+                self._isTextFieldViewFrameChanged = true
 
                 self._IQShowLog("\(textFieldView._IQDescription()) New Frame : \(textFieldView.frame)")
 
@@ -1043,13 +1019,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 if preventShowingBottomBlankSpace == true {
                     var minimumY: CGFloat = 0
                     
-                    switch (interfaceOrientation)
-                    {
+                    switch interfaceOrientation {
                     case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
-                        minimumY = CGRectGetWidth(window.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-keyboardDistanceFromTextField);  break;
+                        minimumY = CGRectGetWidth(window.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-keyboardDistanceFromTextField)
                     case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
-                        minimumY = (CGRectGetHeight(window.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-keyboardDistanceFromTextField);  break;
-                    default:    break;
+                        minimumY = (CGRectGetHeight(window.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-keyboardDistanceFromTextField)
+                    default:    break
                     }
                     
                     rootViewRect.origin.y = max(CGRectGetMinY(rootViewRect), minimumY)
@@ -1060,7 +1035,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 setRootViewFrame(rootViewRect)
             } else {  //  Negative
                 //  Calculating disturbed distance. Pull Request #3
-                let disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect);
+                let disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect)
                 
                 //  disturbDistance Negative = frame disturbed.
                 //  disturbDistance positive = frame not disturbed.
@@ -1082,8 +1057,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 case UIInterfaceOrientation.LandscapeRight:      rootViewRect.origin.x += move
                 case UIInterfaceOrientation.Portrait:            rootViewRect.origin.y -= move
                 case UIInterfaceOrientation.PortraitUpsideDown:  rootViewRect.origin.y += move
-                default :
-                    break
+                default:    break
                 }
                 
                 //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
@@ -1098,8 +1072,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         rootViewRect.origin.y = max(rootViewRect.origin.y, min(0, -_kbSize.height+keyboardDistanceFromTextField))
                     case UIInterfaceOrientation.PortraitUpsideDown:
                         rootViewRect.origin.y = min(rootViewRect.origin.y, +_kbSize.height-keyboardDistanceFromTextField)
-                    default:
-                        break
+                    default:    break
                     }
                 }
 
@@ -1118,8 +1091,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect)
                 case UIInterfaceOrientation.PortraitUpsideDown:
                     disturbDistance = CGRectGetMinY(_topViewBeginRect)-CGRectGetMinY(rootViewRect)
-                default :
-                    break
+                default:    break
                 }
                 
                 //  disturbDistance Negative = frame disturbed.
@@ -1131,8 +1103,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     case UIInterfaceOrientation.LandscapeRight:      rootViewRect.origin.x += max(move, disturbDistance)
                     case UIInterfaceOrientation.Portrait:            rootViewRect.origin.y -= max(move, disturbDistance)
                     case UIInterfaceOrientation.PortraitUpsideDown:  rootViewRect.origin.y += max(move, disturbDistance)
-                    default :
-                        break
+                    default:    break
                     }
 
                     _IQShowLog("Moving Downward")
@@ -1228,8 +1199,8 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
             let interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : topController.interfaceOrientation
             
-            let _keyboardDistanceFromTextField = keyboardDistanceFromTextField;
-            //    let _keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+            let _keyboardDistanceFromTextField = keyboardDistanceFromTextField
+            //    let _keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField
             
             // Adding Keyboard distance from textField.
             switch interfaceOrientation {
@@ -1237,8 +1208,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _kbSize.width += _keyboardDistanceFromTextField
             case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
                 _kbSize.height += _keyboardDistanceFromTextField
-            default :
-                break
+            default:    break
             }
         }
         
@@ -1259,7 +1229,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //If viewController is kind of disabled viewController class, then ignoring to adjust view.
                         if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
                             shouldIgnore = true
-                            break;
+                            break
                         }
                     }
                     
@@ -1491,7 +1461,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //If viewController is kind of disabled viewController class, then ignoring to adjust view.
                     if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
                         shouldIgnore = true
-                        break;
+                        break
                     }
                 }
                 
@@ -1534,7 +1504,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
     func textFieldViewDidChange(notification:NSNotification) {  //  (Bug ID: #18)
         
-        if (shouldFixTextViewClip) {
+        if  shouldFixTextViewClip {
             let textView = notification.object as! UITextView
             
             let line = textView .caretRectForPosition(textView.selectedTextRange?.start)
@@ -1598,8 +1568,8 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
         for disabledClassString in _toolbarPreviousNextConsideredClass {
             
-                if (_textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)) != nil) {
-                    break;
+                if _textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)) != nil {
+                    break
                 }
         }
     
@@ -1668,10 +1638,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         switch _textField.keyboardAppearance {
 
                         case UIKeyboardAppearance.Dark:
-                            toolbar.barStyle = UIBarStyle.Black;
+                            toolbar.barStyle = UIBarStyle.Black
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
-                            toolbar.barStyle = UIBarStyle.Default;
+                            toolbar.barStyle = UIBarStyle.Default
                             toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
                         }
                     } else if let _textView = textField as? UITextView {
@@ -1680,10 +1650,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         switch _textView.keyboardAppearance {
                             
                         case UIKeyboardAppearance.Dark:
-                            toolbar.barStyle = UIBarStyle.Black;
+                            toolbar.barStyle = UIBarStyle.Black
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
-                            toolbar.barStyle = UIBarStyle.Default;
+                            toolbar.barStyle = UIBarStyle.Default
                             toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
                         }
                     }
@@ -1737,10 +1707,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             switch _textField.keyboardAppearance {
                                 
                             case UIKeyboardAppearance.Dark:
-                                toolbar.barStyle = UIBarStyle.Black;
+                                toolbar.barStyle = UIBarStyle.Black
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
-                                toolbar.barStyle = UIBarStyle.Default;
+                                toolbar.barStyle = UIBarStyle.Default
                                 toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
                             }
                         } else if let _textView = textField as? UITextView {
@@ -1749,10 +1719,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             switch _textView.keyboardAppearance {
                                 
                             case UIKeyboardAppearance.Dark:
-                                toolbar.barStyle = UIBarStyle.Black;
+                                toolbar.barStyle = UIBarStyle.Black
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
-                                toolbar.barStyle = UIBarStyle.Default;
+                                toolbar.barStyle = UIBarStyle.Default
                                 toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
                             }
                         }
@@ -1826,11 +1796,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     private func _IQShowLog(logString: String) {
         
-         let showLog = false
-        
-        if showLog == true {
-            println("IQKeyboardManager: " + logString)
-        }
+        #if IQKEYBOARDMANAGER_DEBUG
+        println("IQKeyboardManager: " + logString)
+        #endif
     }
 }
 

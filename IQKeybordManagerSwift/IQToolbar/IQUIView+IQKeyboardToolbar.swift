@@ -156,9 +156,23 @@ extension UIView {
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
+
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
-            }
+
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+           }
         }
     }
     
@@ -247,8 +261,22 @@ extension UIView {
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             }
         }
     }
@@ -342,8 +370,22 @@ extension UIView {
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             }
         }
     }
@@ -441,8 +483,22 @@ extension UIView {
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             }
         }
     }
@@ -478,7 +534,7 @@ extension UIView {
     ///-------------------------
     
     /**
-    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+    Helper function to add ArrowNextPrevious and Done button on keyboard.
     
     @param target Target object for selector.
     @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -491,7 +547,7 @@ extension UIView {
     }
     
     /**
-    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+    Helper function to add ArrowNextPrevious and Done button on keyboard.
     
     @param target Target object for selector.
     @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -548,14 +604,28 @@ extension UIView {
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
             }
         }
     }
     
     /**
-    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+    Helper function to add ArrowNextPrevious and Done button on keyboard.
     
     @param target Target object for selector.
     @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -579,32 +649,102 @@ extension UIView {
     }
     
     ///--------------------------
-    /// TODO: Previous/Next/Right
+    /// MARK: Previous/Next/Right
     ///--------------------------
     
-//    /**
-//    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
-//    
-//    @param target Target object for selector.
-//    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
-//    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
-//    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
-//    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
-//    */
-//    - (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction;
-//    
-//    /**
-//    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
-//    
-//    @param target Target object for selector.
-//    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
-//    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
-//    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
-//    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
-//    @param titleText text to show as title in IQToolbar'.
-//    */
-//    - (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction titleText:(NSString*)titleText;
-//    
+    /**
+    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+    
+    @param target Target object for selector.
+    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
+    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+    */
+    func addPreviousNextRightOnKeyboardWithTarget( target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector) {
+        
+        addPreviousNextRightOnKeyboardWithTarget(target, rightButtonTitle: rightButtonTitle, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: nil)
+    }
+    
+    /**
+    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+    
+    @param target Target object for selector.
+    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
+    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+    @param titleText text to show as title in IQToolbar'.
+    */
+    func addPreviousNextRightOnKeyboardWithTarget( target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
+        
+        //If can't set InputAccessoryView. Then return
+        if self is UITextField || self is UITextView {
+            //  Creating a toolBar for phoneNumber keyboard
+            let toolbar = IQToolbar()
+            
+            var items : [UIBarButtonItem] = []
+            
+            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: rightButtonAction)
+            
+            let prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+            fixed.width = 23
+            
+            let next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            
+            items.append(prev)
+            items.append(fixed)
+            items.append(next)
+            
+            if let unwrappedTitleText = titleText {
+                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                    /*
+                    72.5 next/previous maximum x.
+                    50 done button frame.
+                    8+8 distance maintenance
+                    */
+                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+                    
+                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
+                    items.append(title)
+                }
+            }
+            
+            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
+            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            
+            items.append(nilButton)
+            items.append(doneButton)
+            
+            //  Adding button to toolBar.
+            toolbar.items = items
+            
+            //  Setting toolbar to keyboard.
+            if let textField = self as? UITextField {
+                textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            } else if let textView = self as? UITextView {
+                textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            }
+        }
+    }
+    
 //    /**
 //    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
 //    
@@ -615,7 +755,20 @@ extension UIView {
 //    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
 //    @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
 //    */
-//    - (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder;
+    func addPreviousNextRightOnKeyboardWithTarget( target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
+        
+        var title : String?
+        
+        if shouldShowPlaceholder == true {
+            if let textField = self as? UITextField {
+                title = textField.placeholder
+            } else if let textView = self as? IQTextView {
+                title = textView.placeholder
+            }
+        }
+        
+        addPreviousNextRightOnKeyboardWithTarget(target, rightButtonTitle: rightButtonTitle, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)
+    }
 
     
     ///-----------------------------------
