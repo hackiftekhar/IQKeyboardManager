@@ -422,7 +422,11 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     var shouldAdoptDefaultKeyboardAnimation = true
 
-    
+    /**
+    If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
+    */
+    var layoutIfNeededOnUpdate = true
+
     ///------------------------------------
     /// MARK: Class Level disabling methods
     ///------------------------------------
@@ -700,10 +704,14 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 unwrappedController.view.frame = frame
                 self._IQShowLog("Set \(controller?._IQDescription()) frame to : \(frame)")
                 
-                //Animating content (Bug ID: #160)
-                unwrappedController.view.setNeedsLayout()
-                unwrappedController.view.layoutIfNeeded()
-
+                //Animating content if needed (Bug ID: #204)
+                if layoutIfNeededOnUpdate == true {
+                    //Animating content (Bug ID: #160)
+                    unwrappedController.view.setNeedsLayout()
+                    unwrappedController.view.layoutIfNeeded()
+                }
+ 
+                
                 }) { (animated:Bool) -> Void in}
         } else {  //  If can't get rootViewController then printing warning to user.
             _IQShowLog("You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager")
@@ -1330,9 +1338,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //  Setting it's new frame
                     rootViewController.view.frame = self._topViewBeginRect
                     
-                    //Animating content (Bug ID: #160)
-                    rootViewController.view.setNeedsLayout()
-                    rootViewController.view.layoutIfNeeded()
+                    //Animating content if needed (Bug ID: #204)
+                    if layoutIfNeededOnUpdate == true {
+                        //Animating content (Bug ID: #160)
+                        rootViewController.view.setNeedsLayout()
+                        rootViewController.view.layoutIfNeeded()
+                    }
                     
                     }) { (finished) -> Void in }
                 
