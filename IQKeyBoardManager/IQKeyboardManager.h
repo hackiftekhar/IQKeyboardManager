@@ -206,6 +206,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
 
+/**
+ If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
+ */
+@property(nonatomic, assign) BOOL layoutIfNeededOnUpdate;
+
 ///------------------------------------
 /// @name Class Level disabling methods
 ///------------------------------------
