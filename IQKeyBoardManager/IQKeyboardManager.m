@@ -261,6 +261,7 @@ void _IQShowLog(NSString *logString);
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setShouldRestoreScrollViewContentOffset:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            [self setLayoutIfNeededOnUpdate:YES];
             
             //Initializing disabled classes Set.
             _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
@@ -432,9 +433,13 @@ void _IQShowLog(NSString *logString);
         //  Setting it's new frame
         [controller.view setFrame:frame];
         
-        //Animating content (Bug ID: #160)
-        [controller.view setNeedsLayout];
-        [controller.view layoutIfNeeded];
+        //Animating content if needed (Bug ID: #204)
+        if (_layoutIfNeededOnUpdate)
+        {
+            //Animating content (Bug ID: #160)
+            [controller.view setNeedsLayout];
+            [controller.view layoutIfNeeded];
+        }
         
         _IQShowLog([NSString stringWithFormat:@"Set %@ frame to : %@",[controller _IQDescription],NSStringFromCGRect(frame)]);
     } completion:NULL];
@@ -1076,9 +1081,13 @@ void _IQShowLog(NSString *logString);
             //  Setting it's new frame
             [_rootViewController.view setFrame:_topViewBeginRect];
             
-            //Animating content (Bug ID: #160)
-            [_rootViewController.view setNeedsLayout];
-            [_rootViewController.view layoutIfNeeded];
+            //Animating content if needed (Bug ID: #204)
+            if (_layoutIfNeededOnUpdate)
+            {
+                //Animating content (Bug ID: #160)
+                [_rootViewController.view setNeedsLayout];
+                [_rootViewController.view layoutIfNeeded];
+            }
             
         } completion:NULL];
         _rootViewController = nil;
