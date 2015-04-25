@@ -476,8 +476,9 @@ void _IQShowLog(NSString *logString);
     //Getting statusBarFrame
     CGFloat topLayoutGuide = 0;
     //Maintain keyboardDistanceFromTextField
-    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
-//    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+//    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
+    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+    CGSize kbSize = _kbSize;
     
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
@@ -486,10 +487,12 @@ void _IQShowLog(NSString *logString);
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
             topLayoutGuide = CGRectGetWidth(statusBarFrame);
+            kbSize.width += keyboardDistanceFromTextField;
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
             topLayoutGuide = CGRectGetHeight(statusBarFrame);
+            kbSize.height += keyboardDistanceFromTextField;
             break;
         default:
             break;
@@ -503,16 +506,16 @@ void _IQShowLog(NSString *logString);
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
-            move = MIN(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-_kbSize.width));
+            move = MIN(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-kbSize.width));
             break;
         case UIInterfaceOrientationLandscapeRight:
-            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), _kbSize.width-CGRectGetMinX(textFieldViewRect));
+            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), kbSize.width-CGRectGetMinX(textFieldViewRect));
             break;
         case UIInterfaceOrientationPortrait:
-            move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-_kbSize.height));
+            move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), _kbSize.height-CGRectGetMinY(textFieldViewRect));
+            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), kbSize.height-CGRectGetMinY(textFieldViewRect));
             break;
         default:
             break;
@@ -680,16 +683,16 @@ void _IQShowLog(NSString *logString);
                 switch (interfaceOrientation)
                 {
                     case UIInterfaceOrientationLandscapeLeft:
-                        bottom = _kbSize.width-(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(lastScrollViewRect));
+                        bottom = kbSize.width-(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(lastScrollViewRect));
                         break;
                     case UIInterfaceOrientationLandscapeRight:
-                        bottom = _kbSize.width-CGRectGetMinX(lastScrollViewRect);
+                        bottom = kbSize.width-CGRectGetMinX(lastScrollViewRect);
                         break;
                     case UIInterfaceOrientationPortrait:
-                        bottom = _kbSize.height-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                        bottom = kbSize.height-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
                         break;
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        bottom = _kbSize.height-CGRectGetMinY(lastScrollViewRect);
+                        bottom = kbSize.height-CGRectGetMinY(lastScrollViewRect);
                         break;
                     default:
                         break;
@@ -737,11 +740,11 @@ void _IQShowLog(NSString *logString);
         {
             case UIInterfaceOrientationLandscapeLeft:
             case UIInterfaceOrientationLandscapeRight:
-                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-_kbSize.width-(topLayoutGuide+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-kbSize.width-(topLayoutGuide+5)));
                 break;
             case UIInterfaceOrientationPortrait:
             case UIInterfaceOrientationPortraitUpsideDown:
-                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-_kbSize.height-(topLayoutGuide+5)));
+                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-kbSize.height-(topLayoutGuide+5)));
                 break;
             default:
                 break;
@@ -782,10 +785,10 @@ void _IQShowLog(NSString *logString);
                 {
                     case UIInterfaceOrientationLandscapeLeft:
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(_kbSize.width-keyboardDistanceFromTextField);  break;
+                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(kbSize.width-keyboardDistanceFromTextField);  break;
                     case UIInterfaceOrientationPortrait:
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(_kbSize.height-keyboardDistanceFromTextField);  break;
+                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(kbSize.height-keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
                 
@@ -835,10 +838,10 @@ void _IQShowLog(NSString *logString);
             {
                 switch (interfaceOrientation)
                 {
-                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-_kbSize.width+keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +_kbSize.width-keyboardDistanceFromTextField);  break;
-                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -_kbSize.height+keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +_kbSize.height-keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-kbSize.width+keyboardDistanceFromTextField));  break;
+                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +kbSize.width-keyboardDistanceFromTextField);  break;
+                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -kbSize.height+keyboardDistanceFromTextField));  break;
+                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +kbSize.height-keyboardDistanceFromTextField);  break;
                     default:    break;
                 }
             }
@@ -947,34 +950,6 @@ void _IQShowLog(NSString *logString);
  
     _IQShowLog([NSString stringWithFormat:@"UIKeyboard Size : %@",NSStringFromCGSize(_kbSize)]);
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
-    UIViewController *topMostController = [_textFieldView topMostController];
-    if (topMostController == nil)  topMostController = [[self keyWindow] topMostController];
-
-    UIInterfaceOrientation interfaceOrientation = IQ_IS_IOS8_OR_GREATER ? UIInterfaceOrientationPortrait : [topMostController interfaceOrientation];
-#pragma GCC diagnostic pop
-    
-    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
-//    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
-
-    switch (interfaceOrientation)
-    {
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-//            _kbSize.width = screenRect.size.width - kbFrame.origin.x;
-            _kbSize.width += keyboardDistanceFromTextField;
-            break;
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-//            _kbSize.height = screenRect.size.height - kbFrame.origin.y;
-            _kbSize.height += keyboardDistanceFromTextField;
-            break;
-        default:
-            break;
-    }
-    
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
