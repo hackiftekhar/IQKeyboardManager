@@ -21,9 +21,6 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
 
-####Recent Blog about IQKeyboardManager
-http://www.theothertomelliott.com/node/1124
-
 ## Screenshot
 [![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
 [![Settings](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
@@ -44,9 +41,15 @@ Minimum iOS Target: iOS 5.0
 
 Minimum Xcode Version: Xcode 4.2
 
+#### IQKeyboardManagerSwift:-
+
+Minimum iOS Target: iOS 8.0
+
+Minimum Xcode Version: Xcode 6.3
+
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 6.0
+Minimum Xcode Version: Xcode 6.3
 
 
 Installation
@@ -83,6 +86,16 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 ***@property enableAutoToolbar :*** It enable/disable automatic creation of toolbar, please set enableAutoToolbar to NO if you don't want to add automatic toolbar.
 
+####3) Not working when pinning textfield from TopLayoutguide ([#124](https://github.com/hackiftekhar/IQKeyboardManager/issues/124), [#137](https://github.com/hackiftekhar/IQKeyboardManager/issues/137), [#160](https://github.com/hackiftekhar/IQKeyboardManager/issues/160) [#206](https://github.com/hackiftekhar/IQKeyboardManager/issues/206))
+
+Technically IQKeyboardManager moves the currently presentViewController's view upwards/downwards. So if you're pinning your textfield from topLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keep x distance from screen top. Here is the screenshot of bad Autolayout configuration(If using IQKeyboardManager) with topLayoutguide.
+
+![TopLayoutGuide Bad Example](./KeyboardTextFieldDemo/Screenshot/BadConstraintExample.jpg)
+
+**Workdaround:** To fix this issue, you just need to pin your textField from self.view's top. Here is the screenshot of good Autolayout configuration(If using IQKeyboardManager) with superview.
+
+![superview Good Example](./KeyboardTextFieldDemo/Screenshot/GoodConstraintExample.jpg)
+
 
 ## Known Issues (Swift):-
 
@@ -108,7 +121,7 @@ Manual Management:-
 
   If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
-![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.png)
+![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.jpg)
 
 
   If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
