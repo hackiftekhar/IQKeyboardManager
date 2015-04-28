@@ -86,13 +86,13 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 ***@property enableAutoToolbar :*** It enable/disable automatic creation of toolbar, please set enableAutoToolbar to NO if you don't want to add automatic toolbar.
 
-####3) Not working when pinning textfield from TopLayoutguide ([#124](https://github.com/hackiftekhar/IQKeyboardManager/issues/124), [#137](https://github.com/hackiftekhar/IQKeyboardManager/issues/137), [#160](https://github.com/hackiftekhar/IQKeyboardManager/issues/160) [#206](https://github.com/hackiftekhar/IQKeyboardManager/issues/206))
+####3) Not working when pinning textfield from TopLayoutguide ([#124](https://github.com/hackiftekhar/IQKeyboardManager/issues/124), [#137](https://github.com/hackiftekhar/IQKeyboardManager/issues/137), [#160](https://github.com/hackiftekhar/IQKeyboardManager/issues/160), [#206](https://github.com/hackiftekhar/IQKeyboardManager/issues/206))
 
-Technically IQKeyboardManager moves the currently presentViewController's view upwards/downwards. So if you're pinning your textfield from topLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keep x distance from screen top. Here is the screenshot of bad Autolayout configuration(If using IQKeyboardManager) with topLayoutguide.
+Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your textfield from topLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top. Here is the screenshot of bad Autolayout configuration(If using IQKeyboardManager) with topLayoutguide.
 
 ![TopLayoutGuide Bad Example](./KeyboardTextFieldDemo/Screenshot/BadConstraintExample.jpg)
 
-**Workdaround:** To fix this issue, you just need to pin your textField from self.view's top. Here is the screenshot of good Autolayout configuration(If using IQKeyboardManager) with superview.
+**Workaround:** To fix this issue, you just need to pin your textField from self.view's top. Here is the screenshot of good Autolayout configuration(If using IQKeyboardManager) with superview.
 
 ![superview Good Example](./KeyboardTextFieldDemo/Screenshot/GoodConstraintExample.jpg)
 
