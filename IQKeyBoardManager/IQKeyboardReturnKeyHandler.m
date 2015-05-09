@@ -271,7 +271,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         return YES;
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     BOOL shouldReturn = YES;
 
