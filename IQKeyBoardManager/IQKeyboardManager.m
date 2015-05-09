@@ -1303,6 +1303,20 @@ void _IQShowLog(NSString *logString);
         //  Retaining textFieldView
         UIView *textFieldRetain = _textFieldView;
         
+        /* MARK: BEGIN: added by dake, callbacke textFieldShouldReturn , 2015-05-09 */
+        if ([textFieldRetain isKindOfClass:[UITextField class]]) {
+            if ([((UITextField *)textFieldRetain).delegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
+                if (![((UITextField *)textFieldRetain).delegate textFieldShouldReturn:(UITextField *)textFieldRetain]) {
+                    return;
+                }
+                else if (textFieldRetain.doneInvocation) {
+                    [textFieldRetain.doneInvocation invoke];
+                }
+                return;
+            }
+        }
+        /* MARK: END */
+        
         //Resigning first responder
         BOOL isResignFirstResponder = [_textFieldView resignFirstResponder];
         
