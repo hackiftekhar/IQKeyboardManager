@@ -94,14 +94,20 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     NSMutableArray *controllersHierarchy = [[NSMutableArray alloc] init];
     
     UIViewController *topController = self.window.rootViewController;
-    
-    [controllersHierarchy addObject:topController];
-    
-    while ([topController presentedViewController]) {
-        
-        topController = [topController presentedViewController];
+    if (topController) {
         [controllersHierarchy addObject:topController];
     }
+    
+    do
+    {
+        topController = [topController presentedViewController];
+        
+        if (topController) {
+            [controllersHierarchy addObject:topController];
+        } else {
+            break;
+        }
+    } while (YES);
     
     UIResponder *matchController = [self viewController];
     
