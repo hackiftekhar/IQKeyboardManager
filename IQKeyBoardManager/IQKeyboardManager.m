@@ -1130,6 +1130,13 @@ void _IQShowLog(NSString *logString);
             [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 [self addToolbarIfRequired];
             } completion:^(BOOL finished) {
+
+                //RestoringTextView before reloading inputViews
+                if (_keyboardManagerFlags.isTextFieldViewFrameChanged)
+                {
+                    _keyboardManagerFlags.isTextFieldViewFrameChanged = NO;
+                    _textFieldView.frame = _textFieldViewIntialFrame;
+                }
                 
                 //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
                 [_textFieldView reloadInputViews];
