@@ -29,6 +29,8 @@
 #import "IQToolbar.h"
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
+#import "IQUITextFieldView+Additions.h"
+#import "IQUIViewController+Additions.h"
 
 #import <UIKit/UINavigationBar.h>
 #import <UIKit/UITapGestureRecognizer.h>
@@ -38,7 +40,6 @@
 #import <UIKit/UINavigationController.h>
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
-#import <objc/runtime.h>
 
 #ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
@@ -102,6 +103,9 @@ void _IQShowLog(NSString *logString);
     /** To save rootViewController */
     __weak  UIViewController *_rootViewController;
     
+    /** To save topBottomLayoutConstraint original constant */
+    CGFloat                  _layoutGuideConstraintInitialConstant;
+
     /*******************************************/
     
     /** Variable to save lastScrollView that was scrolled. */
@@ -262,7 +266,7 @@ void _IQShowLog(NSString *logString);
             [self setShouldRestoreScrollViewContentOffset:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             [self setLayoutIfNeededOnUpdate:NO];
-            
+            _animationCurve = 7<<16;
             //Initializing disabled classes Set.
             _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
             _disabledToolbarClasses = [[NSMutableSet alloc] init];
@@ -763,132 +767,162 @@ void _IQShowLog(NSString *logString);
 
         } completion:NULL];
     }
-    
-    //  Special case for iPad modalPresentationStyle.
-    if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
-        [rootController modalPresentationStyle] == UIModalPresentationPageSheet)
-    {
-        _IQShowLog([NSString stringWithFormat:@"Found Special case for Model Presentation Style: %ld",(long)(rootController.modalPresentationStyle)]);
 
-        //  Positive or zero.
-        if (move>=0)
+    NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+
+    //If topLayoutGuide constraint
+    if (constraint && (constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] topLayoutGuide]))
+    {
+        CGFloat constant = MIN(_layoutGuideConstraintInitialConstant, constraint.constant-move);
+        
+        [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            constraint.constant = constant;
+            [_rootViewController.view setNeedsLayout];
+            [_rootViewController.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        }];
+    }
+    //If bottomLayoutGuice constraint
+    else if (constraint && (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide]))
+    {
+        CGFloat constant = MAX(_layoutGuideConstraintInitialConstant, constraint.constant+move);
+        
+        [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            constraint.constant = constant;
+            [_rootViewController.view setNeedsLayout];
+            [_rootViewController.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        }];
+    }
+    //If not constraint
+    else
+    {
+        //  Special case for iPad modalPresentationStyle.
+        if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
+            [rootController modalPresentationStyle] == UIModalPresentationPageSheet)
         {
-            // We should only manipulate y.
-            rootViewRect.origin.y -= move;
+            _IQShowLog([NSString stringWithFormat:@"Found Special case for Model Presentation Style: %ld",(long)(rootController.modalPresentationStyle)]);
             
-            //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-            if (_preventShowingBottomBlankSpace == YES)
+            //  Positive or zero.
+            if (move>=0)
             {
-                CGFloat minimumY = 0;
+                // We should only manipulate y.
+                rootViewRect.origin.y -= move;
+                
+                //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
+                if (_preventShowingBottomBlankSpace == YES)
+                {
+                    CGFloat minimumY = 0;
+                    
+                    switch (interfaceOrientation)
+                    {
+                        case UIInterfaceOrientationLandscapeLeft:
+                        case UIInterfaceOrientationLandscapeRight:
+                            minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(kbSize.width-keyboardDistanceFromTextField);  break;
+                        case UIInterfaceOrientationPortrait:
+                        case UIInterfaceOrientationPortraitUpsideDown:
+                            minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(kbSize.height-keyboardDistanceFromTextField);  break;
+                        default:    break;
+                    }
+                    
+                    rootViewRect.origin.y = MAX(rootViewRect.origin.y, minimumY);
+                }
+                
+                _IQShowLog(@"Moving Upward");
+                //  Setting adjusted rootViewRect
+                [self setRootViewFrame:rootViewRect];
+            }
+            //  Negative
+            else
+            {
+                //  Calculating disturbed distance. Pull Request #3
+                CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect);
+                
+                //  disturbDistance Negative = frame disturbed.
+                //  disturbDistance positive = frame not disturbed.
+                if(disturbDistance<0)
+                {
+                    // We should only manipulate y.
+                    rootViewRect.origin.y -= MAX(move, disturbDistance);
+                    
+                    _IQShowLog(@"Moving Downward");
+                    //  Setting adjusted rootViewRect
+                    [self setRootViewFrame:rootViewRect];
+                }
+            }
+        }
+        //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
+        else
+        {
+            //  Positive or zero.
+            if (move>=0)
+            {
+                switch (interfaceOrientation)
+                {
+                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
+                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
+                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
+                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
+                    default:    break;
+                }
+                
+                //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
+                if (_preventShowingBottomBlankSpace == YES)
+                {
+                    switch (interfaceOrientation)
+                    {
+                        case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-kbSize.width+keyboardDistanceFromTextField));  break;
+                        case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +kbSize.width-keyboardDistanceFromTextField);  break;
+                        case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -kbSize.height+keyboardDistanceFromTextField));  break;
+                        case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +kbSize.height-keyboardDistanceFromTextField);  break;
+                        default:    break;
+                    }
+                }
+                
+                _IQShowLog(@"Moving Upward");
+                //  Setting adjusted rootViewRect
+                [self setRootViewFrame:rootViewRect];
+            }
+            //  Negative
+            else
+            {
+                CGFloat disturbDistance = 0;
                 
                 switch (interfaceOrientation)
                 {
                     case UIInterfaceOrientationLandscapeLeft:
+                        disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(_topViewBeginRect);
+                        break;
                     case UIInterfaceOrientationLandscapeRight:
-                        minimumY = CGRectGetWidth(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide-(kbSize.width-keyboardDistanceFromTextField);  break;
+                        disturbDistance = CGRectGetMinX(_topViewBeginRect)-CGRectGetMinX(rootViewRect);
+                        break;
                     case UIInterfaceOrientationPortrait:
+                        disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect);
+                        break;
                     case UIInterfaceOrientationPortraitUpsideDown:
-                        minimumY = (CGRectGetHeight(keyWindow.frame)-rootViewRect.size.height-topLayoutGuide)/2-(kbSize.height-keyboardDistanceFromTextField);  break;
-                    default:    break;
+                        disturbDistance = CGRectGetMinY(_topViewBeginRect)-CGRectGetMinY(rootViewRect);
+                        break;
+                    default:
+                        break;
                 }
                 
-                rootViewRect.origin.y = MAX(rootViewRect.origin.y, minimumY);
-            }
-            
-            _IQShowLog(@"Moving Upward");
-            //  Setting adjusted rootViewRect
-            [self setRootViewFrame:rootViewRect];
-        }
-        //  Negative
-        else
-        {
-            //  Calculating disturbed distance. Pull Request #3
-            CGFloat disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect);
-			
-            //  disturbDistance Negative = frame disturbed.
-            //  disturbDistance positive = frame not disturbed.
-            if(disturbDistance<0)
-            {
-                // We should only manipulate y.
-                rootViewRect.origin.y -= MAX(move, disturbDistance);
-
-                _IQShowLog(@"Moving Downward");
-                //  Setting adjusted rootViewRect
-                [self setRootViewFrame:rootViewRect];
-            }
-        }
-    }
-    //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
-    else
-    {
-        //  Positive or zero.
-        if (move>=0)
-        {
-            switch (interfaceOrientation)
-            {
-                case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= move;  break;
-                case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += move;  break;
-                case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= move;  break;
-                case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += move;  break;
-                default:    break;
-            }
-			
-            //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-            if (_preventShowingBottomBlankSpace == YES)
-            {
-                switch (interfaceOrientation)
+                //  disturbDistance Negative = frame disturbed. Pull Request #3
+                //  disturbDistance positive = frame not disturbed.
+                if(disturbDistance<0)
                 {
-                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x = MAX(rootViewRect.origin.x, MIN(0,-kbSize.width+keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x = MIN(rootViewRect.origin.x, +kbSize.width-keyboardDistanceFromTextField);  break;
-                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y = MAX(rootViewRect.origin.y, MIN(0, -kbSize.height+keyboardDistanceFromTextField));  break;
-                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y = MIN(rootViewRect.origin.y, +kbSize.height-keyboardDistanceFromTextField);  break;
-                    default:    break;
+                    switch (interfaceOrientation)
+                    {
+                        case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
+                        case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
+                        case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
+                        case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
+                        default:    break;
+                    }
+                    
+                    _IQShowLog(@"Moving Downward");
+                    //  Setting adjusted rootViewRect
+                    [self setRootViewFrame:rootViewRect];
                 }
-            }
-            
-            _IQShowLog(@"Moving Upward");
-            //  Setting adjusted rootViewRect
-            [self setRootViewFrame:rootViewRect];
-        }
-        //  Negative
-        else
-        {
-            CGFloat disturbDistance = 0;
-            
-            switch (interfaceOrientation)
-            {
-                case UIInterfaceOrientationLandscapeLeft:
-                    disturbDistance = CGRectGetMinX(rootViewRect)-CGRectGetMinX(_topViewBeginRect);
-                    break;
-                case UIInterfaceOrientationLandscapeRight:
-                    disturbDistance = CGRectGetMinX(_topViewBeginRect)-CGRectGetMinX(rootViewRect);
-                    break;
-                case UIInterfaceOrientationPortrait:
-                    disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect);
-                    break;
-                case UIInterfaceOrientationPortraitUpsideDown:
-                    disturbDistance = CGRectGetMinY(_topViewBeginRect)-CGRectGetMinY(rootViewRect);
-                    break;
-                default:
-                    break;
-            }
-
-            //  disturbDistance Negative = frame disturbed. Pull Request #3
-            //  disturbDistance positive = frame not disturbed.
-            if(disturbDistance<0)
-            {
-                switch (interfaceOrientation)
-                {
-                    case UIInterfaceOrientationLandscapeLeft:       rootViewRect.origin.x -= MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationLandscapeRight:      rootViewRect.origin.x += MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationPortrait:            rootViewRect.origin.y -= MAX(move, disturbDistance);  break;
-                    case UIInterfaceOrientationPortraitUpsideDown:  rootViewRect.origin.y += MAX(move, disturbDistance);  break;
-                    default:    break;
-                }
-                
-                _IQShowLog(@"Moving Downward");
-                //  Setting adjusted rootViewRect
-                [self setRootViewFrame:rootViewRect];
             }
         }
     }
@@ -1052,18 +1086,31 @@ void _IQShowLog(NSString *logString);
         //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
-            _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_rootViewController _IQDescription],NSStringFromCGRect(_topViewBeginRect)]);
-            //  Setting it's new frame
-            [_rootViewController.view setFrame:_topViewBeginRect];
-            
-            //Animating content if needed (Bug ID: #204)
-            if (_layoutIfNeededOnUpdate)
+            if([[_textFieldView viewController] IQLayoutGuideConstraint])
             {
-                //Animating content (Bug ID: #160)
-                [_rootViewController.view setNeedsLayout];
-                [_rootViewController.view layoutIfNeeded];
+                NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+                
+                [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                    constraint.constant = _layoutGuideConstraintInitialConstant;
+                    [_rootViewController.view setNeedsLayout];
+                    [_rootViewController.view layoutIfNeeded];
+                } completion:NULL];
             }
-            
+            else
+            {
+                _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_rootViewController _IQDescription],NSStringFromCGRect(_topViewBeginRect)]);
+                //  Setting it's new frame
+                [_rootViewController.view setFrame:_topViewBeginRect];
+                
+                //Animating content if needed (Bug ID: #204)
+                if (_layoutIfNeededOnUpdate)
+                {
+                    //Animating content (Bug ID: #160)
+                    [_rootViewController.view setNeedsLayout];
+                    [_rootViewController.view layoutIfNeeded];
+                }
+            }
+
         } completion:NULL];
         _rootViewController = nil;
     }
@@ -1160,7 +1207,9 @@ void _IQShowLog(NSString *logString);
     
     if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect.
+        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
+        _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
+
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
         
@@ -1776,39 +1825,6 @@ void _IQShowLog(NSString *logString);
 }
 
 @end
-
-
-///------------------------------------
-/// @name keyboardDistanceFromTextField
-///------------------------------------
-
-/**
- Uses default keyboard distance for textField.
- */
-CGFloat const kIQUseDefaultKeyboardDistance = CGFLOAT_MAX;
-
-/**
- UIView category for IQKeyboardManager
- */
-@implementation UIView (IQKeyboardManagerAdditions)
-
--(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
-{
-    //Can't be less than zero. Minimum is zero.
-    keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
-
-    objc_setAssociatedObject(self, @selector(keyboardDistanceFromTextField), [NSNumber numberWithFloat:keyboardDistanceFromTextField], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(CGFloat)keyboardDistanceFromTextField
-{
-    NSNumber *keyboardDistanceFromTextField = objc_getAssociatedObject(self, @selector(keyboardDistanceFromTextField));
-    
-    return (keyboardDistanceFromTextField)?[keyboardDistanceFromTextField floatValue]:kIQUseDefaultKeyboardDistance;
-}
-
-@end
-
 
 
 void _IQShowLog(NSString *logString)

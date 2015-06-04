@@ -295,31 +295,3 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 @end
 
-
-
-///-------------------------------------------
-/// @name Custom KeyboardDistanceFromTextField
-///-------------------------------------------
-
-/**
- Uses default keyboard distance for textField.
- */
-extern CGFloat const kIQUseDefaultKeyboardDistance;
-
-/**
- UIView category for IQKeyboardManager
- */
-@interface UIView (IQKeyboardManagerAdditions)
-
-/**
- To set customized distance from keyboard for textField/textView. Can't be less than zero
- */
-//#if TARGET_INTERFACE_BUILDER
-//@property(nonatomic, assign) IBInspectable CGFloat keyboardDistanceFromTextField;
-//#else
-@property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
-//#endif
-
-@end
-
-
