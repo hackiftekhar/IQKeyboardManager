@@ -261,7 +261,7 @@ void _IQShowLog(NSString *logString);
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
             [self setShouldRestoreScrollViewContentOffset:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
-            [self setLayoutIfNeededOnUpdate:YES];
+            [self setLayoutIfNeededOnUpdate:NO];
             
             //Initializing disabled classes Set.
             _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
