@@ -88,14 +88,7 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 ####3) Not working when pinning textfield from TopLayoutguide ([#124](https://github.com/hackiftekhar/IQKeyboardManager/issues/124), [#137](https://github.com/hackiftekhar/IQKeyboardManager/issues/137), [#160](https://github.com/hackiftekhar/IQKeyboardManager/issues/160), [#206](https://github.com/hackiftekhar/IQKeyboardManager/issues/206))
 
-Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your textfield from topLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top. Here is the screenshot of bad Autolayout configuration(If using IQKeyboardManager) with topLayoutguide.
-
-![TopLayoutGuide Bad Example](./KeyboardTextFieldDemo/Screenshot/BadConstraintExample.jpg)
-
-**Workaround:** To fix this issue, you just need to pin your textField from self.view's top. Here is the screenshot of good Autolayout configuration(If using IQKeyboardManager) with superview.
-
-![superview Good Example](./KeyboardTextFieldDemo/Screenshot/GoodConstraintExample.jpg)
-
+Now IQKeyboardManager can work with topLayoutConstraint and bottomLayoutConstraint with a bit of manual management. Please check below ***Manual Management->Working with TopLayoutGuide and BottomLayoutGuide*** section.
 
 ## Known Issues (Swift):-
 
@@ -132,6 +125,17 @@ Manual Management:-
         self.view = scrollView;
     }
  
+#### Working with TopLayoutGuide and BottomLayoutGuide:-
+
+ Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your UITextfield/UITextView with TopLayoutGuide/BottomLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top.
+ 
+ To fix it, just let IQKeyboardManager know the constraint which is pinned with **TopLayoutGuide/BottomLayoutGuide**, just map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. Here is the screenshot:- 
+![image](./KeyboardTextFieldDemo/Screenshot/TopLayoutGuideDirectMapping.jpg)
+
+ If your textFields are inside any UIView and your UIView is pinned with **TopLayoutGuide/BotomLayoutGuide** then also you can map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. here are the screenshots:-
+![image](./KeyboardTextFieldDemo/Screenshot/TopLayoutGuideIndirectMapping.jpg)
+![image](./KeyboardTextFieldDemo/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
+
 #### Disable for a ViewController:-
 
  If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
