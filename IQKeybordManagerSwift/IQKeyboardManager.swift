@@ -425,7 +425,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
     */
-    var layoutIfNeededOnUpdate = true
+    var layoutIfNeededOnUpdate = false
 
     ///------------------------------------
     /// MARK: Class Level disabling methods
