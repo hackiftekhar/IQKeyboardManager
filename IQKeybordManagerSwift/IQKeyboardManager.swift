@@ -705,7 +705,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 self._IQShowLog("Set \(controller?._IQDescription()) frame to : \(frame)")
                 
                 //Animating content if needed (Bug ID: #204)
-                if layoutIfNeededOnUpdate == true {
+                if self.layoutIfNeededOnUpdate == true {
                     //Animating content (Bug ID: #160)
                     unwrappedController.view.setNeedsLayout()
                     unwrappedController.view.layoutIfNeeded()
@@ -1339,7 +1339,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     rootViewController.view.frame = self._topViewBeginRect
                     
                     //Animating content if needed (Bug ID: #204)
-                    if layoutIfNeededOnUpdate == true {
+                    if self.layoutIfNeededOnUpdate == true {
                         //Animating content (Bug ID: #160)
                         rootViewController.view.setNeedsLayout()
                         rootViewController.view.layoutIfNeeded()
