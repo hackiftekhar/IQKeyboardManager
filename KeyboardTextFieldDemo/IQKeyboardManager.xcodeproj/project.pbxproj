@@ -23,6 +23,7 @@
 		9D9A0FC318C9DB5700585D3F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9DFD564D18BCAA1F001007A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		9DFD564E18BCAA26001007A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		AA8887A41B274834007D7A9A /* DismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8887A31B274834007D7A9A /* DismissSegue.m */; };
 		B53A8A2D1A4C2A3900951878 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = B53A8A2B1A4C2A3900951878 /* iTunesArtwork */; };
 		B53A8A2E1A4C2A3900951878 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = B53A8A2B1A4C2A3900951878 /* iTunesArtwork */; };
 		B53A8A2F1A4C2A3900951878 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = B53A8A2C1A4C2A3900951878 /* iTunesArtwork@2x */; };
@@ -155,6 +156,8 @@
 		9DC4CE2418DAE03800DB2CB0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9DC4CE3118DAF77700DB2CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9DFD56AB18BCB281001007A2 /* IQKeyboardManager-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IQKeyboardManager-Info.plist"; sourceTree = "<group>"; };
+		AA8887A21B274834007D7A9A /* DismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissSegue.h; sourceTree = "<group>"; };
+		AA8887A31B274834007D7A9A /* DismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissSegue.m; sourceTree = "<group>"; };
 		B53A8A2B1A4C2A3900951878 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		B53A8A2C1A4C2A3900951878 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		B53A8A311A4C2D7A00951878 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 				1C2270111AE69224003A9D15 /* CustomViewController.m */,
 				1C22700D1AE68EEE003A9D15 /* CustomSubclassView.h */,
 				1C22700E1AE68EEE003A9D15 /* CustomSubclassView.m */,
+				AA8887A21B274834007D7A9A /* DismissSegue.h */,
+				AA8887A31B274834007D7A9A /* DismissSegue.m */,
 				C0A25BD219D72AAA009E074D /* TableViewController Example */,
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
@@ -919,6 +924,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8887A41B274834007D7A9A /* DismissSegue.m in Sources */,
 				C06579CE19D61BF000DAA3EA /* OptionTableViewCell.m in Sources */,
 				C02790341A01404000FCB517 /* CollectionViewDemoController.m in Sources */,
 				C08549D019FAA91E00973573 /* IQUIView+IQKeyboardToolbar.m in Sources */,
