@@ -2248,9 +2248,6 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ov9-Ml-faU" id="520-yq-vVu"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="4Zo-tN-3jN">
                                 <rect key="frame" x="20" y="268" width="280" height="30"/>
@@ -2295,12 +2292,6 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Navigation Bar" id="ABI-Qt-7LI">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="I8Q-f2-8le"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="textField2" destination="D80-m2-Eh2" id="zTL-AM-FKz"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjd-VZ-hno" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
