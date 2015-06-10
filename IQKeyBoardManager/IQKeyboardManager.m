@@ -1419,6 +1419,23 @@ void _IQShowLog(NSString *logString);
     return NO;
 }
 
+-(void)notifyEditingDidEnd:(UIResponder*)responder{
+    if ([responder isKindOfClass:[UITextField class]]) {
+        UITextField* textFieldResponder = (UITextField*)responder;
+        if (textFieldResponder.delegate && [textFieldResponder.delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+            [textFieldResponder.delegate textFieldDidEndEditing:textFieldResponder];
+        }
+        
+    }else if ([responder isKindOfClass:[UITextView class]]){
+        UITextView* textViewResponder = (UITextView*)responder;
+        if (textViewResponder.delegate && [textViewResponder.delegate respondsToSelector:@selector(textViewDidEndEditing:)]) {
+            [textViewResponder.delegate textViewDidEndEditing:textViewResponder];
+        }
+    }else {
+        _IQShowLog([NSString stringWithFormat:@"Unknown subclass of UIResponder (%@), unable to notify delegates",responder.class]);
+    }
+}
+
 /** Navigate to previous responder textField/textView.  */
 -(void)goPrevious
 {
@@ -1439,9 +1456,11 @@ void _IQShowLog(NSString *logString);
             UIView *textFieldRetain = _textFieldView;
             
             BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-            
-            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-            if (isAcceptAsFirstResponder == NO)
+            if (isAcceptAsFirstResponder) {
+                [self notifyEditingDidEnd:textFieldRetain];
+                
+                //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+            }else if (isAcceptAsFirstResponder == NO)
             {
                 //If next field refuses to become first responder then restoring old textField as first responder.
                 [textFieldRetain becomeFirstResponder];
@@ -1476,9 +1495,11 @@ void _IQShowLog(NSString *logString);
             UIView *textFieldRetain = _textFieldView;
             
             BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-            
-            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-            if (isAcceptAsFirstResponder == NO)
+            if (isAcceptAsFirstResponder) {
+                [self notifyEditingDidEnd:textFieldRetain];
+                
+                //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+            }else if (isAcceptAsFirstResponder == NO)
             {
                 //If next field refuses to become first responder then restoring old textField as first responder.
                 [textFieldRetain becomeFirstResponder];
