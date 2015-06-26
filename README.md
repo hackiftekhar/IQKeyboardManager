@@ -395,3 +395,7 @@ Author
 ---
 If you wish to contact me, email at: hack.iftekhar@gmail.com
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hackiftekhar/iqkeyboardmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
