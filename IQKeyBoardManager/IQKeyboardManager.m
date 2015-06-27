@@ -24,6 +24,7 @@
 #import "IQKeyboardManager.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQUIView+IQKeyboardToolbar.h"
+#import "IQUIView+IQIgnoreGroup.h"
 #import "IQUIWindow+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 #import "IQToolbar.h"
@@ -1513,6 +1514,15 @@ void _IQShowLog(NSString *logString);
     if (superConsideredView)
     {
         return [superConsideredView deepResponderViews];
+    }
+    //If the textFieldVie's parentview has setting the property YES, then find the parent's parent ...
+    else if (_textFieldView.superview && _textFieldView.superview.IQIgnoreGroup == YES)
+    {
+        UIView *parentview = _textFieldView.superview;
+        while (parentview.superview && _textFieldView.superview.IQIgnoreGroup == YES) {
+            parentview = parentview.superview;
+        }
+        return [parentview deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
