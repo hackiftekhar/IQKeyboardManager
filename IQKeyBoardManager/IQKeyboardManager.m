@@ -76,11 +76,12 @@ void _IQShowLog(NSString *logString);
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
 
 //  Next/Previous/Done methods
--(void)previousAction:(id)segmentedControl;
--(void)nextAction:(id)segmentedControl;
--(void)doneAction:(IQBarButtonItem*)barButton;
+- (void)previousAction:(id)segmentedControl;
+- (void)nextAction:(id)segmentedControl;
+- (void)doneAction:(IQBarButtonItem*)barButton;
 
 //  Adding Removing IQToolbar methods
+- (NSArray*)responderViews;
 - (void)addToolbarIfRequired;
 - (void)removeToolbarIfRequired;
 
@@ -103,9 +104,10 @@ void _IQShowLog(NSString *logString);
     /** To save rootViewController */
     __weak  UIViewController *_rootViewController;
     
+#ifdef NSFoundationVersionNumber_iOS_5_1
     /** To save topBottomLayoutConstraint original constant */
     CGFloat                  _layoutGuideConstraintInitialConstant;
-
+#endif
     /*******************************************/
     
     /** Variable to save lastScrollView that was scrolled. */
@@ -202,7 +204,7 @@ void _IQShowLog(NSString *logString);
 
 //Animation handling
 @synthesize shouldAdoptDefaultKeyboardAnimation =   _shouldAdoptDefaultKeyboardAnimation;
-
+@synthesize layoutIfNeededOnUpdate              =   _layoutIfNeededOnUpdate;
 //ScrollView handling
 @synthesize shouldRestoreScrollViewContentOffset=   _shouldRestoreScrollViewContentOffset;
 
@@ -759,6 +761,7 @@ void _IQShowLog(NSString *logString);
 
         } completion:NULL];
     }
+#ifdef NSFoundationVersionNumber_iOS_5_1
 
     NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
 
@@ -788,6 +791,7 @@ void _IQShowLog(NSString *logString);
     }
     //If not constraint
     else
+#endif
     {
         //  Special case for iPad modalPresentationStyle.
         if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
@@ -1076,6 +1080,8 @@ void _IQShowLog(NSString *logString);
         //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
+#ifdef NSFoundationVersionNumber_iOS_5_1
+
             if([[_textFieldView viewController] IQLayoutGuideConstraint])
             {
                 NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
@@ -1087,6 +1093,7 @@ void _IQShowLog(NSString *logString);
                 } completion:NULL];
             }
             else
+#endif
             {
                 _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_rootViewController _IQDescription],NSStringFromCGRect(_topViewBeginRect)]);
                 //  Setting it's new frame
@@ -1197,9 +1204,12 @@ void _IQShowLog(NSString *logString);
     
     if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
+#ifdef NSFoundationVersionNumber_iOS_5_1
+
         //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
         _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
-
+#endif
+        
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
         
