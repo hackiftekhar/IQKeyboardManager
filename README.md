@@ -33,6 +33,11 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 <a href="http://youtu.be/WAYc2Qj-OQg" target="_blank"><img src="http://img.youtube.com/vi/WAYc2Qj-OQg/0.jpg" 
 alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
+## Warning
+
+- **If you're planning to build SDK/library/framework and wants to handle UITextField/UITextView with IQKeyboardManager then you're totally going on wrong way.** I would never suggest to add IQKeyboardManager as dependency/adding/shipping with any third-party library, instead of adding IQKeyboardManager you should implement your custom solution to achieve same result. IQKeyboardManager is totally designed for projects to help developers for their convenience, it's not designed for adding/dependency/shipping with any third-party library, because **doing this could block adoption by other developers for their projects as well(who are not using IQKeyboardManager and implemented their custom solution to handle UITextField/UITextView throught the project).** 
+- If IQKeybaordManager conflicts with other third-party library, then it's developer responsibility to enable/disable IQKeyboardManager when presenting/dismissing third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
+
 ## Requirements
 
 #### IQKeyboardManager:-
@@ -394,4 +399,8 @@ Any contribution is more than welcome! You can contribute through pull requests 
 Author
 ---
 If you wish to contact me, email at: hack.iftekhar@gmail.com
+
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hackiftekhar/iqkeyboardmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
