@@ -47,8 +47,9 @@
 
 - (IBAction)showAlertClicked:(UIButton *)sender
 {
+    [self.view endEditing:YES];
+
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     [alertView show];
 }
@@ -119,7 +120,6 @@
         {
 ////            //Do your work on tapping textField.
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
             [alertView show];
         }
 
