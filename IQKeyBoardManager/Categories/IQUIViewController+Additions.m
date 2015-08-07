@@ -26,6 +26,8 @@
 
 @implementation UIViewController (Additions)
 
+#ifdef NSFoundationVersionNumber_iOS_5_1
+
 -(void)setIQLayoutGuideConstraint:(NSLayoutConstraint *)IQLayoutGuideConstraint
 {
     objc_setAssociatedObject(self, @selector(IQLayoutGuideConstraint), IQLayoutGuideConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -35,5 +37,7 @@
 {
     return objc_getAssociatedObject(self, @selector(IQLayoutGuideConstraint));
 }
+
+#endif
 
 @end
