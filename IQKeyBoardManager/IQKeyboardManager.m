@@ -246,19 +246,17 @@ void _IQShowLog(NSString *logString);
             _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [_tapGesture setDelegate:self];
             
-            //  Default settings
-			[self setKeyboardDistanceFromTextField:10.0];
-            _animationDuration = 0.25;
-            
             //Setting it's initial values
-            _enable = NO;
+            _enable = NO;   //This enables in +(void)load method.
+            _animationDuration = 0.25;
+            _animationCurve = 7<<16;
+			[self setKeyboardDistanceFromTextField:10.0];
             _defaultToolbarTintColor = [UIColor blackColor];
             [self setCanAdjustTextView:NO];
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
             [self setOverrideKeyboardAppearance:NO];
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
-            
             [self setEnableAutoToolbar:YES];
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
@@ -266,7 +264,7 @@ void _IQShowLog(NSString *logString);
             [self setShouldRestoreScrollViewContentOffset:NO];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             [self setLayoutIfNeededOnUpdate:NO];
-            _animationCurve = 7<<16;
+
             //Initializing disabled classes Set.
             _disabledClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
             _disabledToolbarClasses = [[NSMutableSet alloc] init];
@@ -293,15 +291,12 @@ void _IQShowLog(NSString *logString);
 	//Singleton instance
 	static IQKeyboardManager *kbManager;
 	
-	//Dispatching it once.
 	static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-		//  Initializing keyboard manger.
         kbManager = [[self alloc] init];
     });
 	
-	//Returning kbManager.
 	return kbManager;
 }
 
@@ -410,7 +405,6 @@ void _IQShowLog(NSString *logString);
         //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
         if (originalKeyWindow != nil && _keyWindow != originalKeyWindow)  _keyWindow = originalKeyWindow;
         
-        //Return KeyWindow
         return _keyWindow;
     }
 }
@@ -480,7 +474,6 @@ void _IQShowLog(NSString *logString);
     //Getting statusBarFrame
     CGFloat topLayoutGuide = 0;
     //Maintain keyboardDistanceFromTextField
-//    CGFloat keyboardDistanceFromTextField = _keyboardDistanceFromTextField;
     CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
     CGSize kbSize = _kbSize;
     
@@ -503,8 +496,8 @@ void _IQShowLog(NSString *logString);
     }
 
     CGFloat move = 0;
-    //  Move positive = textField is hidden.
-    //  Move negative = textField is showing.
+    //  +Move positive = textField is hidden.
+    //  -Move negative = textField is showing.
 	
     //  Calculating move position. Common for both normal and special cases.
     switch (interfaceOrientation)
@@ -609,8 +602,8 @@ void _IQShowLog(NSString *logString);
                 //Rearranging the expected Y offset according to the view.
                 shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
                 
-                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                 //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                 //shouldOffsetY > 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                 if ([_textFieldView isKindOfClass:[UITextView class]] && [superScrollView superviewOfClassType:[UIScrollView class]] == nil && shouldOffsetY > 0)
                 {
@@ -679,7 +672,6 @@ void _IQShowLog(NSString *logString);
             
             //Updating contentInset
             {
-                
                CGFloat bottom = 0;
                 
                 CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
@@ -803,7 +795,7 @@ void _IQShowLog(NSString *logString);
         {
             _IQShowLog([NSString stringWithFormat:@"Found Special case for Model Presentation Style: %ld",(long)(rootController.modalPresentationStyle)]);
             
-            //  Positive or zero.
+            //  +Positive or zero.
             if (move>=0)
             {
                 // We should only manipulate y.
@@ -832,7 +824,7 @@ void _IQShowLog(NSString *logString);
                 //  Setting adjusted rootViewRect
                 [self setRootViewFrame:rootViewRect];
             }
-            //  Negative
+            //  -Negative
             else
             {
                 //  Calculating disturbed distance. Pull Request #3
@@ -854,7 +846,7 @@ void _IQShowLog(NSString *logString);
         //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
         else
         {
-            //  Positive or zero.
+            //  +Positive or zero.
             if (move>=0)
             {
                 switch (interfaceOrientation)
@@ -883,7 +875,7 @@ void _IQShowLog(NSString *logString);
                 //  Setting adjusted rootViewRect
                 [self setRootViewFrame:rootViewRect];
             }
-            //  Negative
+            //  -Negative
             else
             {
                 CGFloat disturbDistance = 0;
@@ -978,7 +970,6 @@ void _IQShowLog(NSString *logString);
     CGSize oldKBSize = _kbSize;
     
     //  Getting UIKeyboardSize.
-//    CGRect screenRect = [self keyWindow].bounds;
     CGRect kbFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     _kbSize = kbFrame.size;
  
@@ -987,7 +978,7 @@ void _IQShowLog(NSString *logString);
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
-        //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
+        //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
         {
@@ -1036,7 +1027,6 @@ void _IQShowLog(NSString *logString);
     CGFloat aDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (aDuration!= 0.0f)
     {
-        //  Setitng keyboard animation duration
         _animationDuration = aDuration;
     }
     
@@ -1189,9 +1179,9 @@ void _IQShowLog(NSString *logString);
                 [_textFieldView reloadInputViews];
             }];
         }
+        //Else adding toolbar
         else
         {
-            //Adding toolbar
             [self addToolbarIfRequired];
         }
     }
@@ -1218,7 +1208,7 @@ void _IQShowLog(NSString *logString);
         _IQShowLog([NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]);
     }
     
-    //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
+    //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
     //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
     if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
     {
@@ -1726,10 +1716,9 @@ void _IQShowLog(NSString *logString);
 /**	previousAction. */
 -(void)previousAction:(id)segmentedControl
 {
-    //If user wants to play input Click sound.
+    //If user wants to play input Click sound. Then Play Input Click Sound.
     if (_shouldPlayInputClicks)
     {
-        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
@@ -1742,10 +1731,9 @@ void _IQShowLog(NSString *logString);
 /**	nextAction. */
 -(void)nextAction:(id)segmentedControl
 {
-    //If user wants to play input Click sound.
+    //If user wants to play input Click sound. Then Play Input Click Sound.
     if (_shouldPlayInputClicks)
     {
-        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
@@ -1758,10 +1746,9 @@ void _IQShowLog(NSString *logString);
 /**	doneAction. Resigning current textField. */
 -(void)doneAction:(IQBarButtonItem*)barButton
 {
-    //If user wants to play input Click sound.
+    //If user wants to play input Click sound. Then Play Input Click Sound.
     if (_shouldPlayInputClicks)
     {
-        //Play Input Click Sound.
         [[UIDevice currentDevice] playInputClick];
     }
 
