@@ -1001,7 +1001,9 @@ void _IQShowLog(NSString *logString);
     
             if (shouldIgnore == NO)
             {
-                [self adjustFrame];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self adjustFrame];
+                });
             }
         }
     }
