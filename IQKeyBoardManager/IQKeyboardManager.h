@@ -155,7 +155,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  Resigns currently first responder field.
  */
-- (void)resignFirstResponder;
+- (BOOL)resignFirstResponder;
 
 /**
  Returns YES if can navigate to previous responder textField/textView, otherwise NO.
@@ -170,12 +170,12 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  Navigate to previous responder textField/textView.
  */
-- (void)goPrevious;
+- (BOOL)goPrevious;
 
 /**
  Navigate to next responder textField/textView.
  */
-- (void)goNext;
+- (BOOL)goNext;
 
 ///----------------------------
 /// @name UIScrollView handling

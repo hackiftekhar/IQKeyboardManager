@@ -1352,7 +1352,7 @@ void _IQShowLog(NSString *logString);
 }
 
 /** Resigning textField. */
-- (void)resignFirstResponder
+- (BOOL)resignFirstResponder
 {
     if (_textFieldView)
     {
@@ -1370,10 +1370,12 @@ void _IQShowLog(NSString *logString);
             
             _IQShowLog([NSString stringWithFormat:@"Refuses to Resign first responder: %@",[_textFieldView _IQDescription]]);
         }
-        else if (textFieldRetain.doneInvocation)
-        {
-            [textFieldRetain.doneInvocation invoke];
-        }
+        
+        return isResignFirstResponder;
+    }
+    else
+    {
+        return NO;
     }
 }
 
@@ -1420,7 +1422,7 @@ void _IQShowLog(NSString *logString);
 }
 
 /** Navigate to previous responder textField/textView.  */
--(void)goPrevious
+-(BOOL)goPrevious
 {
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
@@ -1448,16 +1450,22 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
-            else if (textFieldRetain.previousInvocation)
-            {
-                [textFieldRetain.previousInvocation invoke];
-            }
+            
+            return isAcceptAsFirstResponder;
         }
+        else
+        {
+            return NO;
+        }
+    }
+    else
+    {
+        return NO;
     }
 }
 
 /** Navigate to next responder textField/textView.  */
--(void)goNext
+-(BOOL)goNext
 {
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
@@ -1485,11 +1493,17 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
-            else if (textFieldRetain.nextInvocation)
-            {
-                [textFieldRetain.nextInvocation invoke];
-            }
+            
+            return isAcceptAsFirstResponder;
         }
+        else
+        {
+            return NO;
+        }
+    }
+    else
+    {
+        return NO;
     }
 }
 
@@ -1734,7 +1748,14 @@ void _IQShowLog(NSString *logString);
 
     if ([self canGoPrevious])
     {
-        [self goPrevious];
+        UIView *textFieldRetain = _textFieldView;
+
+        BOOL isAcceptAsFirstResponder = [self goPrevious];
+        
+        if (isAcceptAsFirstResponder == YES && textFieldRetain.previousInvocation)
+        {
+            [textFieldRetain.previousInvocation invoke];
+        }
     }
 }
 
@@ -1749,7 +1770,14 @@ void _IQShowLog(NSString *logString);
 
     if ([self canGoNext])
     {
-        [self goNext];
+        UIView *textFieldRetain = _textFieldView;
+
+        BOOL isAcceptAsFirstResponder = [self goNext];
+        
+        if (isAcceptAsFirstResponder == YES && textFieldRetain.nextInvocation)
+        {
+            [textFieldRetain.nextInvocation invoke];
+        }
     }
 }
 
@@ -1762,7 +1790,14 @@ void _IQShowLog(NSString *logString);
         [[UIDevice currentDevice] playInputClick];
     }
 
-    [self resignFirstResponder];
+    UIView *textFieldRetain = _textFieldView;
+
+    BOOL isResignedFirstResponder = [self resignFirstResponder];
+    
+    if (isResignedFirstResponder == YES && textFieldRetain.doneInvocation)
+    {
+        [textFieldRetain.doneInvocation invoke];
+    }
 }
 
 #pragma mark - Tracking untracking
