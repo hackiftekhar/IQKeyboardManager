@@ -49,7 +49,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -156,7 +156,7 @@ extension UIView {
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
         
-        for textField in siblings as! [UIView] {
+        for textField in siblings! {
             
             if textField._IQcanBecomeFirstResponder() == true {
                 tempTextFields.append(textField)

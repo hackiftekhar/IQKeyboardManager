@@ -45,9 +45,10 @@ class IQTitleBarButtonItem: UIBarButtonItem {
     }
     
     init(frame : CGRect, title : String?) {
+        super.init()
+        self.style = .Plain
 
-        super.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-        
+
         _titleView = UIView(frame: frame)
         _titleView?.backgroundColor = UIColor.clearColor()
         _titleView?.autoresizingMask = .FlexibleWidth
@@ -58,6 +59,7 @@ class IQTitleBarButtonItem: UIBarButtonItem {
         _titleLabel?.textAlignment = .Center
         _titleLabel?.text = title
         _titleLabel?.autoresizingMask = .FlexibleWidth
+
         font = UIFont.boldSystemFontOfSize(12.0)
         _titleLabel?.font = self.font
         customView = _titleLabel
