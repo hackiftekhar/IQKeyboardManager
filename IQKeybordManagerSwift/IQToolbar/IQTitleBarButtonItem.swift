@@ -44,9 +44,10 @@ class IQTitleBarButtonItem: UIBarButtonItem {
     }
     
     init(frame : CGRect, title : String?) {
-
-        super.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
+        super.init()
+        self.style = .Plain
+
         titleLabel = UILabel(frame: frame)
         titleLabel?.backgroundColor = UIColor.clearColor()
         titleLabel?.textAlignment = .Center

@@ -32,7 +32,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         didSet {
             
             if items != nil {
-                for item in items as! [UIBarButtonItem] {
+                for item in items! {
                     
                     if item is IQTitleBarButtonItem == true {
                         (item as! IQTitleBarButtonItem).font = titleFont
@@ -47,7 +47,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         didSet {
             
             if items != nil {
-                for item in items as! [UIBarButtonItem] {
+                for item in items! {
                     
                     if item is IQTitleBarButtonItem == true {
                         (item as! IQTitleBarButtonItem).title = title
@@ -85,7 +85,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             if items != nil {
-                for item in items as! [UIBarButtonItem] {
+                for item in items! {
                     
                     if item is IQTitleBarButtonItem {
                         (item as! IQTitleBarButtonItem).tintColor = tintColor

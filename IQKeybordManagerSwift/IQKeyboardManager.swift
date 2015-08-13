@@ -1235,7 +1235,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     for disabledClassString in _disabledClasses {
                         
                         //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                        if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                        if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))!) {
                             shouldIgnore = true
                             break
                         }
@@ -1470,7 +1470,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 for disabledClassString in _disabledClasses {
                     
                     //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                    if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                    if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String)!)) {
                         shouldIgnore = true
                         break
                     }
@@ -1518,7 +1518,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if  shouldFixTextViewClip {
             let textView = notification.object as! UITextView
             
-            let line = textView .caretRectForPosition(textView.selectedTextRange?.start)
+            let line = textView.caretRectForPosition(textView.selectedTextRange!.start)
             
             let overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top)
             
@@ -1574,12 +1574,12 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**	Get all UITextField/UITextView siblings of textFieldView. */
     func responderViews()-> NSArray? {
         
-        var superConsideredView : UIView?
+        let superConsideredView : UIView? = nil
 
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
         for disabledClassString in _toolbarPreviousNextConsideredClass {
             
-                if _textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)) != nil {
+                if _textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)!) != nil {
                     break
                 }
         }
@@ -1615,7 +1615,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             for disabledClassString in _disabledToolbarClasses {
                 
-                if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))!) {
                     
                     removeToolbarIfRequired()
                     return

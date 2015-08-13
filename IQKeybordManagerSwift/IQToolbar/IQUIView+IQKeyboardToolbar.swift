@@ -48,7 +48,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, "shouldHideTitle", newValue, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, "shouldHideTitle", newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
