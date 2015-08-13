@@ -49,7 +49,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
 
@@ -64,7 +64,7 @@ extension UIView {
         
         var nextResponder: UIResponder? = self
         
-        do {
+        repeat {
             nextResponder = nextResponder?.nextResponder()!
             
             if nextResponder is UIViewController {
@@ -95,9 +95,9 @@ extension UIView {
             
             var matchController :UIResponder? = viewController()
 
-            while matchController != nil && contains(controllersHierarchy, matchController as! UIViewController) == false {
+            while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
-                do {
+                repeat {
                     matchController = matchController?.nextResponder()
 
                 } while matchController != nil && matchController is UIViewController == false

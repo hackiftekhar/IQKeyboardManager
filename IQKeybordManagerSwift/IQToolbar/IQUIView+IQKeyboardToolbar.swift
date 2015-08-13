@@ -50,7 +50,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldHideTitle, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, "shouldHideTitle", newValue, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -131,7 +131,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     /*
                     50 done button frame.
                     24 distance maintenance
@@ -236,7 +236,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     
                     /*
                     50 done button frame.
@@ -345,7 +345,7 @@ extension UIView {
             items.append(cancelButton)
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     /*
                     66 Cancel button maximum x.
                     50 done button frame.
@@ -458,7 +458,7 @@ extension UIView {
             items.append(cancelButton)
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     /*
                     66 Cancel button maximum x.
                     50 done button frame.
@@ -581,7 +581,7 @@ extension UIView {
             items.append(next)
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     /*
                     72.5 next/previous maximum x.
                     50 done button frame.
@@ -702,7 +702,7 @@ extension UIView {
             items.append(next)
             
             if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
+                if unwrappedTitleText.characters.count != 0 && shouldHideTitle == false {
                     /*
                     72.5 next/previous maximum x.
                     50 done button frame.
