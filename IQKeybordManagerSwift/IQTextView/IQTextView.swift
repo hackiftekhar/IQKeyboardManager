@@ -27,7 +27,7 @@ import UIKit
 /** @abstract UITextView with placeholder support   */
 class IQTextView : UITextView {
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -48,7 +48,7 @@ class IQTextView : UITextView {
                 
                 if let unwrappedPlaceholderLabel = placeholderLabel {
                     
-                    unwrappedPlaceholderLabel.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+                    unwrappedPlaceholderLabel.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                     unwrappedPlaceholderLabel.lineBreakMode = .ByWordWrapping
                     unwrappedPlaceholderLabel.numberOfLines = 0
                     unwrappedPlaceholderLabel.font = self.font
@@ -66,7 +66,7 @@ class IQTextView : UITextView {
     
     private func refreshPlaceholder() {
         
-        if count(text) != 0 {
+        if text.characters.count != 0 {
             placeholderLabel?.alpha = 0
         } else {
             placeholderLabel?.alpha = 1

@@ -118,7 +118,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
             enableAutoToolbar ?addToolbarIfRequired():removeToolbarIfRequired()
 
-            var enableToolbar = enableAutoToolbar ? "Yes" : "NO"
+            let enableToolbar = enableAutoToolbar ? "Yes" : "NO"
 
             _IQShowLog("enableAutoToolbar: \(enableToolbar)")
         }
@@ -698,7 +698,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             
             //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 
                 //  Setting it's new frame
                 unwrappedController.view.frame = frame
@@ -800,7 +800,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 _IQShowLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
 
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
                     lastScrollView.contentInset = self._startingContentInsets
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
@@ -818,7 +818,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 _IQShowLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
                 
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
                     lastScrollView.contentInset = self._startingContentInsets
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
@@ -917,7 +917,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         
                         //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                        UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                        UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                         
                             self._IQShowLog("Adjusting \(scrollView.contentOffset.y-shouldOffsetY) to \(scrollView._IQDescription()) ContentOffset")
                             
@@ -961,7 +961,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _IQShowLog("\(lastScrollView._IQDescription()) old ContentInset : \(lastScrollView.contentInset)")
                 
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     lastScrollView.contentInset = movedInsets
 
                     var newInset = lastScrollView.scrollIndicatorInsets
@@ -999,7 +999,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             default:    break
             }
             
-            UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
+            UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.BeginFromCurrentState)), animations: { () -> Void in
 
                 self._IQShowLog("\(textFieldView._IQDescription()) Old Frame : \(textFieldView.frame)")
 
@@ -1189,7 +1189,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             
             //  Getting UIKeyboardSize.
-            if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue() {
+            if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue {
                 _kbSize = kbFrame.size
                 
                 _IQShowLog("UIKeyboard Size : \(_kbSize)")
@@ -1288,7 +1288,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Restoring the contentOffset of the lastScrollView
         if let lastScrollView = _lastScrollView {
             
-            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 
                 lastScrollView.contentInset = self._startingContentInsets
                 lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
@@ -1331,7 +1331,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 }
                 
                 //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
                     self._IQShowLog("Restoring \(rootViewController._IQDescription()) frame to : \(self._topViewBeginRect)")
                     
@@ -1420,7 +1420,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
             if _textFieldView is UITextView == true && _textFieldView?.inputAccessoryView == nil {
                 
-                UIView.animateWithDuration(0.00001, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(0.00001, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
 
                     self.addToolbarIfRequired()
                     
@@ -1497,7 +1497,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         // We check if there's a change in original frame or not.
         if _isTextFieldViewFrameChanged == true {
-            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 self._isTextFieldViewFrameChanged = false
                 
                 self._IQShowLog("Restoring \(self._textFieldView?._IQDescription()) frame to : \(self._textFieldViewIntialFrame)")
@@ -1530,7 +1530,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 offset.y += overflow + 7 // leave 7 pixels margin
                 
                 // Cannot animate with setContentOffset:animated: or caret will not appear
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState|_animationCurve, animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     textView.contentOffset = offset
                     }, completion: { (finished) -> Void in })
             }
@@ -1551,7 +1551,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if _isTextFieldViewFrameChanged == true {
             if let textFieldView = _textFieldView {
                 //Due to orientation callback we need to set it's original position.
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.BeginFromCurrentState)), animations: { () -> Void in
                     self._isTextFieldViewFrameChanged = false
 
                     self._IQShowLog("Restoring \(textFieldView._IQDescription()) frame to : \(self._textFieldViewIntialFrame)")
