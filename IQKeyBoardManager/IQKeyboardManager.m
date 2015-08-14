@@ -247,11 +247,12 @@ void _IQShowLog(NSString *logString);
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             [_tapGesture setDelegate:self];
-            
+            _tapGesture.enabled = _shouldResignOnTouchOutside;
+
             //Setting it's initial values
             _enable = NO;   //This enables in +(void)load method.
             _animationDuration = 0.25;
-            _animationCurve = 7<<16;
+            _animationCurve = UIViewAnimationCurveEaseInOut;
 			[self setKeyboardDistanceFromTextField:10.0];
             _defaultToolbarTintColor = [UIColor blackColor];
             [self setCanAdjustTextView:NO];
@@ -712,6 +713,7 @@ void _IQShowLog(NSString *logString);
 
                 } completion:NULL];
 
+                //Maintaining contentSize
                 if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
                 {
                     CGSize contentSize = _lastScrollView.contentSize;
@@ -962,7 +964,7 @@ void _IQShowLog(NSString *logString);
     }
     else
     {
-        _animationCurve = 0;
+        _animationCurve = UIViewAnimationOptionsCurveEaseOut
     }
 
     //  Getting keyboard animation duration
@@ -1082,15 +1084,16 @@ void _IQShowLog(NSString *logString);
 
 #ifdef NSFoundationVersionNumber_iOS_5_1
 
-            if([[_textFieldView viewController] IQLayoutGuideConstraint])
+            NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+            
+            //If done LayoutGuide tweak
+            if (constraint &&
+                ((constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] topLayoutGuide]) ||
+                 (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide])))
             {
-                NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-                
-                [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                    constraint.constant = _layoutGuideConstraintInitialConstant;
-                    [_rootViewController.view setNeedsLayout];
-                    [_rootViewController.view layoutIfNeeded];
-                } completion:NULL];
+                constraint.constant = _layoutGuideConstraintInitialConstant;
+                [_rootViewController.view setNeedsLayout];
+                [_rootViewController.view layoutIfNeeded];
             }
             else
 #endif
@@ -1579,8 +1582,7 @@ void _IQShowLog(NSString *logString);
         UITextField *textField = nil;
         
         if ([siblings count])
-            textField = [siblings objectAtIndex:0];
-
+            textField = [siblings objectAtIndex:0]; //Not using firstObject method because iOS5 doesn't not support 'firstObject' method.
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
         if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))

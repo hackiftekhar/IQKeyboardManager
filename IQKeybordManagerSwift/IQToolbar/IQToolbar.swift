@@ -27,6 +27,14 @@ import UIKit
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
+    override class func initialize() {
+        
+        superclass()?.initialize()
+        
+        self.appearance().barTintColor = nil
+        self.appearance().backgroundColor = nil
+    }
+    
     var titleFont : UIFont? {
         
         didSet {
@@ -62,7 +70,6 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        
         tintColor = UIColor .blackColor()
     }
     
@@ -71,7 +78,6 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-        
         tintColor = UIColor .blackColor()
     }
 
@@ -84,11 +90,11 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     override var tintColor: UIColor! {
         
         didSet {
-            if items != nil {
-                for item in items as! [UIBarButtonItem] {
+            if let unwrappedItems = items {
+                for item in unwrappedItems as! [UIBarButtonItem] {
                     
                     if item is IQTitleBarButtonItem {
-                        (item as! IQTitleBarButtonItem).tintColor = tintColor
+                        item.tintColor = tintColor
                     }
                 }
             }

@@ -25,6 +25,8 @@
 import Foundation
 import UIKit
 
+private var kIQShouldHideTitle = "kIQShouldHideTitle"
+
 /**
 UIView category methods to add IQToolbar on UIKeyboard.
 */
@@ -39,7 +41,7 @@ extension UIView {
     */
     var shouldHideTitle: Bool? {
         get {
-            let aValue: AnyObject? = objc_getAssociatedObject(self, "shouldHideTitle")
+            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHideTitle)
             
             if aValue == nil {
                 return false
@@ -48,7 +50,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, "shouldHideTitle", newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &kIQShouldHideTitle, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -452,7 +454,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
-            let cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: leftButtonAction)
+            let cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: leftButtonAction)
             items.append(cancelButton)
             
             if let unwrappedTitleText = titleText {
@@ -474,7 +476,7 @@ extension UIView {
             items.append(nilButton)
             
             //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: rightButtonAction)
+            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: rightButtonAction)
             items.append(doneButton)
             
             //  Adding button to toolBar.
@@ -686,7 +688,7 @@ extension UIView {
             var items : [UIBarButtonItem] = []
             
             //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Bordered, target: target, action: rightButtonAction)
+            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: rightButtonAction)
             
             let prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
             

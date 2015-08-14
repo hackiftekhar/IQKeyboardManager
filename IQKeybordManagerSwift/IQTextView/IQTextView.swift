@@ -29,8 +29,23 @@ class IQTextView : UITextView {
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
     }
 
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
+    }
+    
+    override func awakeFromNib() {
+         super.awakeFromNib()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     private var placeholderLabel: UILabel?
     
     /** @abstract To set textView's placeholder text. Default is ni.    */
