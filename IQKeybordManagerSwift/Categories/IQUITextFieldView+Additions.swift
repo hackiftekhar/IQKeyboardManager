@@ -49,7 +49,7 @@ extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

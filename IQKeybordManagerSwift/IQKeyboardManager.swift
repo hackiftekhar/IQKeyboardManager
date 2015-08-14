@@ -798,7 +798,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Getting statusBarFrame
         var topLayoutGuide : CGFloat = 0
         //Maintain keyboardDistanceFromTextField
-        let newKeyboardDistanceFromTextField = (textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : textFieldView.keyboardDistanceFromTextField
+        let newKeyboardDistanceFromTextField = (textFieldView.keyboardDistanceFromTextField == CGFloat.max) ? keyboardDistanceFromTextField : textFieldView.keyboardDistanceFromTextField
         var kbSize = _kbSize;
         
        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
@@ -1069,7 +1069,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     {
                         let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move);
                         
-                        UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
+                        UIView.animateWithDuration(_animationDuration, delay: 0, options: ([_animationCurve, .BeginFromCurrentState]), animations: { () -> Void in
                             
                             constraint.constant = constant;
                             self._rootViewController?.view.setNeedsLayout()
@@ -1083,7 +1083,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     {
                         let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move);
                         
-                        UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
+                        UIView.animateWithDuration(_animationDuration, delay: 0, options: ([_animationCurve, .BeginFromCurrentState]), animations: { () -> Void in
                             
                             constraint.constant = constant;
                             self._rootViewController?.view.setNeedsLayout()
@@ -1608,7 +1608,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _textFieldView?.window?.removeGestureRecognizer(_tapGesture)
         
         // We check if there's a change in original frame or not.
-        if _isTextFieldViewFrameChanged == true {
+        if self._isTextFieldViewFrameChanged == true {
             UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 self._isTextFieldViewFrameChanged = false
                 

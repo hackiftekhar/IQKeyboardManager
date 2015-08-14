@@ -40,7 +40,7 @@ extension UIViewController {
         }
 
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQLayoutGuideConstraint, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &kIQLayoutGuideConstraint, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
     }
 }
