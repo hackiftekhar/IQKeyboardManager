@@ -25,6 +25,8 @@
 import Foundation
 import UIKit
 
+private var kIQIsAskingCanBecomeFirstResponder = "kIQIsAskingCanBecomeFirstResponder"
+
 /**
 UIView hierarchy category.
 */
@@ -40,14 +42,14 @@ extension UIView {
     var isAskingCanBecomeFirstResponder: Bool {
         get {
             
-            if let aValue = objc_getAssociatedObject(self, "isAskingCanBecomeFirstResponder") as? Bool {
+            if let aValue = objc_getAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder) as? Bool {
                 return aValue
             } else {
                 return false
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, "isAskingCanBecomeFirstResponder", newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
 
@@ -218,18 +220,19 @@ extension UIView {
         
         var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && userInteractionEnabled == true && hidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
 
-        //  Setting toolbar to keyboard.
-        if let textField = self as? UITextField {
-            _IQcanBecomeFirstResponder = textField.enabled
-        } else if let textView = self as? UITextView {
-            _IQcanBecomeFirstResponder = textView.editable
+        if _IQcanBecomeFirstResponder == true {
+            //  Setting toolbar to keyboard.
+            if let textField = self as? UITextField {
+                _IQcanBecomeFirstResponder = textField.enabled
+            } else if let textView = self as? UITextView {
+                _IQcanBecomeFirstResponder = textView.editable
+            }
         }
 
         isAskingCanBecomeFirstResponder = false
 
         return _IQcanBecomeFirstResponder
     }
-    
 
     ///-------------------------
     /// MARK: Special TextFields

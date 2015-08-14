@@ -1,5 +1,5 @@
 //
-//  UIWindow+Hierarchy.m
+//  IQUITextFieldView+Additions.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-15 Iftekhar Qurashi.
 //
@@ -21,31 +21,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQUIWindow+Hierarchy.h"
-#import <UIKit/UINavigationController.h>
+import Foundation
+import UIKit
 
-@implementation UIWindow (IQ_UIWindow_Hierarchy)
+/**
+Uses default keyboard distance for textField.
+*/
+let kIQUseDefaultKeyboardDistance = CGFloat.max
 
-- (UIViewController*)topMostController
-{
-    UIViewController *topController = [self rootViewController];
-    
-    //  Getting topMost ViewController
-    while ([topController presentedViewController])	topController = [topController presentedViewController];
-	
-    //  Returning topMost ViewController
-    return topController;
+private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
+
+/**
+UIView category for managing UITextField/UITextView
+*/
+extension UIView {
+
+    /**
+    To set customized distance from keyboard for textField/textView. Can't be less than zero
+    */
+    var keyboardDistanceFromTextField: CGFloat {
+        get {
+            
+            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardDistanceFromTextField) as? CGFloat {
+                return aValue
+            } else {
+                return kIQUseDefaultKeyboardDistance
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
 }
 
-- (UIViewController*)currentViewController;
-{
-    UIViewController *currentViewController = [self topMostController];
-    
-    while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
-        currentViewController = [(UINavigationController*)currentViewController topViewController];
-    
-    return currentViewController;
-}
-
-
-@end
