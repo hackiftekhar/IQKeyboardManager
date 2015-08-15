@@ -107,7 +107,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
     ///------------------------
     /// MARK: Private variables
     ///------------------------
-    private var textFieldInfoCache  = NSMutableSet()
+    private var textFieldInfoCache          =   NSMutableSet()
     private let kIQTextField                =   "kIQTextField"
     private let kIQTextFieldDelegate        =   "kIQTextFieldDelegate"
     private let kIQTextFieldReturnKeyType   =   "kIQTextFieldReturnKeyType"
@@ -135,7 +135,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             tableView = tableView?.superviewOfClassType(UICollectionView)
         }
         
-        var textFields : NSArray?
+        var textFields : [UIView]?
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = tableView {     //   (Enhancement ID: #22)
@@ -154,7 +154,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             }
         }
         
-        if let lastView = textFields?.lastObject as? UIView {
+        if let lastView = textFields?.last {
             
             if let textField = view as? UITextField {
                 
@@ -243,7 +243,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         let textFields = view.deepResponderViews()
         
-        for textField in textFields as! [UIView] {
+        for textField in textFields {
             
             addTextFieldView(textField)
         }
@@ -258,7 +258,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
         
         let textFields = view.deepResponderViews()
         
-        for textField in textFields as! [UIView] {
+        for textField in textFields {
             
             removeTextFieldView(textField)
         }
@@ -271,7 +271,7 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
             tableView = tableView?.superviewOfClassType(UICollectionView)
         }
 
-        var textFields : NSArray?
+        var textFields : [UIView]?
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = tableView {     //   (Enhancement ID: #22)
@@ -293,18 +293,18 @@ class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDele
 
         if let unwrappedTextFields = textFields {
             
-            if unwrappedTextFields.containsObject(view) == true {
+            if contains(unwrappedTextFields, view) == true {
                 //Getting index of current textField.
-                let index = unwrappedTextFields.indexOfObject(view)
-                
-                //If it is not last textField. then it's next object becomeFirstResponder.
-                if index < (unwrappedTextFields.count - 1) {
-                    
-                    let nextTextField = unwrappedTextFields[index+1] as! UIView
-                    nextTextField.becomeFirstResponder()
-                } else {
-
-                    view.resignFirstResponder()
+                if let index = find(unwrappedTextFields, view) {
+                    //If it is not last textField. then it's next object becomeFirstResponder.
+                    if index < (unwrappedTextFields.count - 1) {
+                        
+                        let nextTextField = unwrappedTextFields[index+1]
+                        nextTextField.becomeFirstResponder()
+                    } else {
+                        
+                        view.resignFirstResponder()
+                    }
                 }
             }
         }

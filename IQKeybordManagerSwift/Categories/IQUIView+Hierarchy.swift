@@ -148,7 +148,7 @@ extension UIView {
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
-    func responderSiblings()->NSArray {
+    func responderSiblings()->[UIView] {
         
         //	Getting all siblings
         let siblings = superview?.subviews
@@ -169,11 +169,11 @@ extension UIView {
     /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    func deepResponderViews()->NSArray {
+    func deepResponderViews()->[UIView] {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = (subviews as NSArray).sortedArrayUsingComparator { (let obj1: AnyObject!, let obj2: AnyObject!) -> NSComparisonResult in
+        let subViews = subviews.sorted({ (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
             
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
@@ -182,21 +182,14 @@ extension UIView {
             let y1 = CGRectGetMinY(view1.frame)
             let x2 = CGRectGetMinX(view2.frame)
             let y2 = CGRectGetMinY(view2.frame)
-
-            if y1 < y2 {
-                return .OrderedAscending
-            } else if y1 > y2 {
-                return .OrderedDescending
-            } else if x1 < x2 {    //Else both y are same so checking for x positions
-
-                return .OrderedAscending
-            } else if x1 > x2 {
-                return .OrderedDescending
+            
+            if y1 != y2 {
+                return y1 < y2
             } else {
-                return .OrderedSame
+                return x1 < x2
             }
-        }
-        
+        })
+
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
         
@@ -205,7 +198,7 @@ extension UIView {
             if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             } else if textField.subviews.count != 0 {
-                for deepView in textField.deepResponderViews() as! [UIView] {
+                for deepView in textField.deepResponderViews() {
                     textfields.append(deepView)
                 }
             }
