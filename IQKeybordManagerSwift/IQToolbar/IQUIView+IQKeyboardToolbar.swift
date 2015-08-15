@@ -25,7 +25,14 @@
 import Foundation
 import UIKit
 
-private var kIQShouldHideTitle = "kIQShouldHideTitle"
+private var kIQShouldHideTitle      = "kIQShouldHideTitle"
+
+private var kIQPreviousInvocationTarget     = "kIQPreviousInvocationTarget"
+private var kIQPreviousInvocationSelector   = "kIQPreviousInvocationSelector"
+private var kIQNextInvocationTarget         = "kIQNextInvocationTarget"
+private var kIQNextInvocationSelector       = "kIQNextInvocationSelector"
+private var kIQDoneInvocationTarget         = "kIQDoneInvocationTarget"
+private var kIQDoneInvocationSelector       = "kIQDoneInvocationSelector"
 
 /**
 UIView category methods to add IQToolbar on UIKeyboard.
@@ -58,46 +65,110 @@ extension UIView {
     /// TODO: Customised Invocation Registration
     ///-----------------------------------------
     
-//    /**
-//    Additional target & action to do get callback action. Note that setting custom `previous` selector doesn't affect native `previous` functionality, this is just used to notifiy user to do additional work according to need.
-//    
-//    @param target Target object.
-//    @param action Target Selector.
-//    */
-//    -(void)setCustomPreviousTarget:(id)target action:(SEL)action;
-//    
-//    /**
-//    Additional target & action to do get callback action. Note that setting custom `next` selector doesn't affect native `next` functionality, this is just used to notifiy user to do additional work according to need.
-//    
-//    @param target Target object.
-//    @param action Target Selector.
-//    */
-//    -(void)setCustomNextTarget:(id)target action:(SEL)action;
-//    
-//    /**
-//    Additional target & action to do get callback action. Note that setting custom `done` selector doesn't affect native `done` functionality, this is just used to notifiy user to do additional work according to need.
-//    
-//    @param target Target object.
-//    @param action Target Selector.
-//    */
-//    -(void)setCustomDoneTarget:(id)target action:(SEL)action;
-//    
-//    /**
-//    Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget: method.
-//    */
-//    @property (strong, nonatomic) NSInvocation *previousInvocation;
-//    
-//    /**
-//    Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget: method.
-//    */
-//    @property (strong, nonatomic) NSInvocation *nextInvocation;
-//    
-//    /**
-//    Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget: method.
-//    */
-//    @property (strong, nonatomic) NSInvocation *doneInvocation;
+    /**
+    Additional target & action to do get callback action. Note that setting custom `previous` selector doesn't affect native `previous` functionality, this is just used to notifiy user to do additional work according to need.
     
+    @param target Target object.
+    @param action Target Selector.
+    */
+    func setCustomPreviousTarget(target: AnyObject?, selector: Selector?) {
+        previousInvocation = (target, selector)
+    }
+    
+    /**
+    Additional target & action to do get callback action. Note that setting custom `next` selector doesn't affect native `next` functionality, this is just used to notifiy user to do additional work according to need.
+    
+    @param target Target object.
+    @param action Target Selector.
+    */
+    func setCustomNextTarget(target: AnyObject?, selector: Selector?) {
+        nextInvocation = (target, selector)
+    }
+    
+    /**
+    Additional target & action to do get callback action. Note that setting custom `done` selector doesn't affect native `done` functionality, this is just used to notifiy user to do additional work according to need.
+    
+    @param target Target object.
+    @param action Target Selector.
+    */
+    func setCustomDoneTarget(target: AnyObject?, selector: Selector?) {
+        doneInvocation = (target, selector)
+    }
+    
+    /**
+    Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget: method.
+    */
+    var previousInvocation : (target: AnyObject?, selector: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget)
+            var selector : Selector?
 
+            if let selectorString = objc_getAssociatedObject(self, &kIQPreviousInvocationSelector) as? String {
+                selector = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, selector: selector)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQPreviousInvocationTarget, newValue.target, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            
+            if let unwrappedSelector = newValue.selector {
+                objc_setAssociatedObject(self, &kIQPreviousInvocationSelector, NSStringFromSelector(unwrappedSelector), UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            } else {
+                objc_setAssociatedObject(self, &kIQPreviousInvocationSelector, nil, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            }
+        }
+    }
+
+    /**
+    Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget: method.
+    */
+    var nextInvocation : (target: AnyObject?, selector: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQNextInvocationTarget)
+            var selector : Selector?
+            
+            if let selectorString = objc_getAssociatedObject(self, &kIQNextInvocationSelector) as? String {
+                selector = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, selector: selector)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQNextInvocationTarget, newValue.target, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            
+            if let unwrappedSelector = newValue.selector {
+                objc_setAssociatedObject(self, &kIQNextInvocationSelector, NSStringFromSelector(unwrappedSelector), UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            } else {
+                objc_setAssociatedObject(self, &kIQNextInvocationSelector, nil, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            }
+        }
+    }
+    
+    /**
+    Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget: method.
+    */
+    var doneInvocation : (target: AnyObject?, selector: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQDoneInvocationTarget)
+            var selector : Selector?
+            
+            if let selectorString = objc_getAssociatedObject(self, &kIQDoneInvocationSelector) as? String {
+                selector = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, selector: selector)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQDoneInvocationTarget, newValue.target, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            
+            if let unwrappedSelector = newValue.selector {
+                objc_setAssociatedObject(self, &kIQDoneInvocationSelector, NSStringFromSelector(unwrappedSelector), UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            } else {
+                objc_setAssociatedObject(self, &kIQDoneInvocationSelector, nil, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            }
+        }
+    }
     
     ///------------
     /// MARK: Done

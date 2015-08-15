@@ -355,9 +355,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goPrevious()
                 
-//                if isAcceptAsFirstResponder && textFieldRetain.previousInvocation == nil {
-//                    textFieldRetain.previousInvocation.invoke()
-//                }
+                if isAcceptAsFirstResponder && textFieldRetain.previousInvocation.target != nil && textFieldRetain.previousInvocation.selector != nil {
+                    
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.previousInvocation.selector!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, forEvent: nil)
+                }
             }
         }
     }
@@ -376,9 +377,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goNext()
                 
-//                if isAcceptAsFirstResponder && textFieldRetain.nextInvocation == nil {
-//                    textFieldRetain.nextInvocation.invoke()
-//                }
+                if isAcceptAsFirstResponder && textFieldRetain.nextInvocation.target != nil && textFieldRetain.nextInvocation.selector != nil {
+                    
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.nextInvocation.selector!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, forEvent: nil)
+                }
             }
         }
     }
@@ -396,9 +398,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Resign textFieldView.
             let isResignedFirstResponder = resignFirstResponder()
             
-//                if isResignedFirstResponder && textFieldRetain.doneInvocation == nil {
-//                    textFieldRetain.doneInvocation.invoke()
-//                }
+            if isResignedFirstResponder && textFieldRetain.doneInvocation.target != nil  && textFieldRetain.doneInvocation.selector != nil{
+                
+                UIApplication.sharedApplication().sendAction(textFieldRetain.doneInvocation.selector!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, forEvent: nil)
+            }
         }
     }
     
