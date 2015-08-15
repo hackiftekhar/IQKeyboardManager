@@ -226,14 +226,16 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Getting all responder view's.
             if let textFields = responderViews() {
                 if let  textFieldRetain = _textFieldView {
-                    if textFields.containsObject(textFieldRetain) == true {
-                        //Getting index of current textField.
-                        let index = textFields.indexOfObject(textFieldRetain)
+                    
+                    if contains(textFields, textFieldRetain) == true {
                         
-                        //If it is not first textField. then it's previous object canBecomeFirstResponder.
-                        if index > 0 {
-                            
-                            return true
+                        //Getting index of current textField.
+                        if let index = find(textFields, textFieldRetain) {
+
+                            //If it is not first textField. then it's previous object canBecomeFirstResponder.
+                            if index > 0 {
+                                return true
+                            }
                         }
                     }
                 }
@@ -251,15 +253,15 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Getting all responder view's.
             if let textFields = responderViews() {
                 if let  textFieldRetain = _textFieldView {
-                    if textFields.containsObject(textFieldRetain) == true {
+                    if contains(textFields, textFieldRetain) == true {
                         
                         //Getting index of current textField.
-                        let index = textFields.indexOfObject(textFieldRetain)
-                        
-                        //If it is not last textField. then it's next object canBecomeFirstResponder.
-                        if index < textFields.count-1 {
+                        if let index = find(textFields, textFieldRetain) {
                             
-                            return true
+                            //If it is not first textField. then it's previous object canBecomeFirstResponder.
+                            if index < textFields.count-1 {
+                                return true
+                            }
                         }
                     }
                 }
@@ -276,26 +278,28 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
             if let textFields = responderViews() {
-                if textFields.containsObject(textFieldRetain) == true {
-                    //Getting index of current textField.
-                    let index = textFields.indexOfObject(textFieldRetain)
+                if contains(textFields, textFieldRetain) == true {
                     
-                    //If it is not first textField. then it's previous object becomeFirstResponder.
-                    if index > 0 {
+                    //Getting index of current textField.
+                    if let index = find(textFields, textFieldRetain) {
                         
-                        let nextTextField = textFields[index-1] as! UIView
-                        
-                        let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-                        
-                        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
-                            //If next field refuses to become first responder then restoring old textField as first responder.
-                            textFieldRetain.becomeFirstResponder()
+                        //If it is not first textField. then it's previous object becomeFirstResponder.
+                        if index > 0 {
                             
-                            _IQShowLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            let nextTextField = textFields[index-1]
+                            
+                            let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
+                            
+                            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+                            if isAcceptAsFirstResponder == false {
+                                //If next field refuses to become first responder then restoring old textField as first responder.
+                                textFieldRetain.becomeFirstResponder()
+                                
+                                _IQShowLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            }
+                            
+                            return isAcceptAsFirstResponder
                         }
-                        
-                        return isAcceptAsFirstResponder
                     }
                 }
             }
@@ -312,27 +316,27 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
             if let textFields = responderViews() {
-                if textFields.containsObject(textFieldRetain) == true {
+                if contains(textFields, textFieldRetain) == true {
                     
                     //Getting index of current textField.
-                    let index = textFields.indexOfObject(textFieldRetain)
-                    
-                    //If it is not last textField. then it's next object becomeFirstResponder.
-                    if index < textFields.count-1 {
-                        
-                        let nextTextField = textFields[index+1] as! UIView
-                        
-                        let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-                        
-                        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
-                            //If next field refuses to become first responder then restoring old textField as first responder.
-                            textFieldRetain.becomeFirstResponder()
+                    if let index = find(textFields, textFieldRetain) {
+                        //If it is not last textField. then it's next object becomeFirstResponder.
+                        if index < textFields.count-1 {
                             
-                            _IQShowLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            let nextTextField = textFields[index+1]
+                            
+                            let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
+                            
+                            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+                            if isAcceptAsFirstResponder == false {
+                                //If next field refuses to become first responder then restoring old textField as first responder.
+                                textFieldRetain.becomeFirstResponder()
+                                
+                                _IQShowLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            }
+                            
+                            return isAcceptAsFirstResponder
                         }
-                        
-                        return isAcceptAsFirstResponder
                     }
                 }
             }
@@ -357,7 +361,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 if isAcceptAsFirstResponder && textFieldRetain.previousInvocation.target != nil && textFieldRetain.previousInvocation.selector != nil {
                     
-                    UIApplication.sharedApplication().sendAction(textFieldRetain.previousInvocation.selector!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, forEvent: nil)
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.previousInvocation.selector!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, forEvent: UIEvent())
                 }
             }
         }
@@ -379,7 +383,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 if isAcceptAsFirstResponder && textFieldRetain.nextInvocation.target != nil && textFieldRetain.nextInvocation.selector != nil {
                     
-                    UIApplication.sharedApplication().sendAction(textFieldRetain.nextInvocation.selector!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, forEvent: nil)
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.nextInvocation.selector!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, forEvent: UIEvent())
                 }
             }
         }
@@ -400,7 +404,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             if isResignedFirstResponder && textFieldRetain.doneInvocation.target != nil  && textFieldRetain.doneInvocation.selector != nil{
                 
-                UIApplication.sharedApplication().sendAction(textFieldRetain.doneInvocation.selector!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, forEvent: nil)
+                UIApplication.sharedApplication().sendAction(textFieldRetain.doneInvocation.selector!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, forEvent: UIEvent())
             }
         }
     }
@@ -472,7 +476,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class in which library should not adjust view to show textField.
     */
     func disableInViewControllerClass(disabledClass : AnyClass) {
-        _disabledClasses.addObject(NSStringFromClass(disabledClass))
+        _disabledClasses.insert(NSStringFromClass(disabledClass))
     }
     
     /**
@@ -481,7 +485,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class in which library should re-enable adjust view to show textField.
     */
     func removeDisableInViewControllerClass(disabledClass : AnyClass) {
-        _disabledClasses.removeObject(NSStringFromClass(disabledClass))
+        _disabledClasses.remove(NSStringFromClass(disabledClass))
     }
     
     /**
@@ -490,7 +494,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param disabledClass Class which is to check for it's disability.
     */
     func isDisableInViewControllerClass(disabledClass : AnyClass) -> Bool {
-        return _disabledClasses.containsObject(NSStringFromClass(disabledClass))
+        return contains(_disabledClasses, NSStringFromClass(disabledClass))
     }
     
     /**
@@ -499,7 +503,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class in which library should not add toolbar over textField.
     */
     func disableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        _disabledToolbarClasses.addObject(NSStringFromClass(toolbarDisabledClass))
+        _disabledToolbarClasses.insert(NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -508,7 +512,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class in which library should re-enable automatic toolbar creation over textField.
     */
     func removeDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        _disabledToolbarClasses.removeObject(NSStringFromClass(toolbarDisabledClass))
+        _disabledToolbarClasses.remove(NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -517,7 +521,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarDisabledClass Class which is to check for toolbar disability.
     */
     func isDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) -> Bool {
-        return _disabledToolbarClasses.containsObject(NSStringFromClass(toolbarDisabledClass))
+        return contains(_disabledToolbarClasses, NSStringFromClass(toolbarDisabledClass))
     }
     
     /**
@@ -526,7 +530,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
     */
     func considerToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
+        _toolbarPreviousNextConsideredClass.insert(NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
     
     /**
@@ -535,7 +539,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should remove consideration for all inner textField as superView.
     */
     func removeConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        _toolbarPreviousNextConsideredClass.removeObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
+        _toolbarPreviousNextConsideredClass.remove(NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
     
     /**
@@ -544,7 +548,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
     */
     func isConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) -> Bool {
-        return _toolbarPreviousNextConsideredClass.containsObject(NSStringFromClass(toolbarPreviousNextConsideredClass))
+        return contains(_toolbarPreviousNextConsideredClass, NSStringFromClass(toolbarPreviousNextConsideredClass))
     }
 
 
@@ -611,13 +615,13 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /*******************************************/
     
     /** Set of restricted classes for library */
-    private var         _disabledClasses  = NSMutableSet()
+    private var         _disabledClasses  = Set<String>()
     
     /** Set of restricted classes for adding toolbar */
-    private var         _disabledToolbarClasses  = NSMutableSet()
+    private var         _disabledToolbarClasses  = Set<String>()
     
     /** Set of permitted classes to add all inner textField as siblings */
-    private var         _toolbarPreviousNextConsideredClass  = NSMutableSet()
+    private var         _toolbarPreviousNextConsideredClass  = Set<String>()
  
     /*******************************************/
 
@@ -667,10 +671,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
-        
-        _disabledClasses.addObject(NSStringFromClass(UITableViewController))
-        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(UITableView))
-        _toolbarPreviousNextConsideredClass.addObject(NSStringFromClass(UICollectionView))
+        disableInViewControllerClass(UITableViewController)
+        considerToolbarPreviousNextInViewClass(UITableView)
+        considerToolbarPreviousNextInViewClass(UICollectionView)
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
@@ -1309,7 +1312,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     for disabledClassString in _disabledClasses {
                         
                         //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                        if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                        if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString))) {
                             shouldIgnore = true
                             break
                         }
@@ -1585,7 +1588,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 for disabledClassString in _disabledClasses {
                     
                     //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                    if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                    if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString))) {
                         shouldIgnore = true
                         break
                     }
@@ -1685,14 +1688,14 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     ///------------------
     
     /**	Get all UITextField/UITextView siblings of textFieldView. */
-    func responderViews()-> NSArray? {
+    func responderViews()-> [UIView]? {
         
         var superConsideredView : UIView?
 
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
         for disabledClassString in _toolbarPreviousNextConsideredClass {
             
-                if _textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString as! String)) != nil {
+                if _textFieldView?.superviewOfClassType(NSClassFromString(disabledClassString)) != nil {
                     break
                 }
         }
@@ -1728,7 +1731,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             for disabledClassString in _disabledToolbarClasses {
                 
-                if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString as! String))) {
+                if textFieldViewController.isKindOfClass((NSClassFromString(disabledClassString))) {
                     
                     removeToolbarIfRequired()
                     return
@@ -1741,7 +1744,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //	If only one object is found, then adding only Done button.
             if siblings.count == 1 {
-                let textField = siblings.firstObject as! UIView
+                let textField = siblings[0]
                 
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
                 if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
@@ -1810,7 +1813,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             } else if siblings.count != 0 {
                 
                 //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-                for textField in siblings as! [UIView] {
+                for textField in siblings {
                     
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
                     if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == kIQDoneButtonToolbarTag {
@@ -1881,9 +1884,9 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                         //	If firstTextField, then previous should not be enabled.
-                        if siblings[0] as! UIView == textField {
+                        if siblings[0] == textField {
                             textField.setEnablePrevious(false, isNextEnabled: true)
-                        } else if siblings.lastObject as! UIView  == textField {   //	If lastTextField then next should not be enaled.
+                        } else if siblings.last  == textField {   //	If lastTextField then next should not be enaled.
                             textField.setEnablePrevious(true, isNextEnabled: false)
                         } else {
                             textField.setEnablePrevious(true, isNextEnabled: true)
@@ -1900,7 +1903,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //	Getting all the sibling textFields.
         if let siblings = responderViews() {
             
-            for view in siblings as! [UIView] {
+            for view in siblings {
                 
                 let toolbar = view.inputAccessoryView
                 

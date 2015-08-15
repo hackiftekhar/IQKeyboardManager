@@ -964,7 +964,7 @@ void _IQShowLog(NSString *logString);
     }
     else
     {
-        _animationCurve = UIViewAnimationOptionsCurveEaseOut
+        _animationCurve = UIViewAnimationOptionCurveEaseOut;
     }
 
     //  Getting keyboard animation duration

@@ -29,15 +29,15 @@ class TextFieldViewController: UIViewController {
         refreshUI()
     }
     
-    func previousAction((sender : UITextField!)) {
+    func previousAction(sender : UITextField) {
         println("PreviousAction")
     }
     
-    func nextAction((sender : UITextField!)) {
+    func nextAction(sender : UITextField) {
         println("nextAction")
     }
     
-    func doneAction((sender : UITextField!)) {
+    func doneAction(sender : UITextField) {
         println("doneAction")
     }
 

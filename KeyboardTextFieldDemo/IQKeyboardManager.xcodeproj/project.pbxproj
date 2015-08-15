@@ -511,7 +511,6 @@
 			children = (
 				C0E9FD161B7DEEE800C62579 /* Swift */,
 				C0E9FD151B7DEEC900C62579 /* Objective-C */,
-				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
 				C0B63BA61781FAB1008D3B64 /* Supporting Files */,
 			);
 			path = KeyboardTextFieldDemo;
@@ -542,9 +541,7 @@
 				C0EC59D919D0C0EE00997FFE /* NavigationBarViewController.swift */,
 				C0EC59DB19D0C0FB00997FFE /* SpecialCaseViewController.swift */,
 				C056E1F31AE41B0100F09472 /* ViewController.swift */,
-				C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */,
 				C056E1F71AE4371A00F09472 /* IQKeyboardManger-Swift-Bridging-Header.h */,
-				C056E1F21AE41B0100F09472 /* AppDelegate.swift */,
 				1C1ADFBC1AE50D78007A73E3 /* TextSelectionViewController.swift */,
 				1C1ADFBE1AE50D9B007A73E3 /* ManualToolbarViewController.swift */,
 				1C1ADFC01AE50DAF007A73E3 /* BottomBlankSpaceViewController.swift */,
@@ -552,6 +549,8 @@
 				1C1ADFC41AE50E66007A73E3 /* TableViewInContainerViewController.swift */,
 				1C1ADFC61AE51F64007A73E3 /* TableViewController Example */,
 				1C1ADFC71AE51F74007A73E3 /* Settings */,
+				C056E1F21AE41B0100F09472 /* AppDelegate.swift */,
+				C0EC59DD19D0C11200997FFE /* MainSwift.storyboard */,
 			);
 			name = KeyboardTextFieldDemoSwift;
 			path = ..;
@@ -665,6 +664,7 @@
 				C06579C119D60AAF00DAA3EA /* Settings */,
 				C0B63BAE1781FAB1008D3B64 /* AppDelegate.h */,
 				C0B63BAF1781FAB1008D3B64 /* AppDelegate.m */,
+				9DC4CE2E18DAF77300DB2CB0 /* Main.storyboard */,
 			);
 			name = "Objective-C";
 			sourceTree = "<group>";
