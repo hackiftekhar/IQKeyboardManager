@@ -1754,7 +1754,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     textField.inputAccessoryView?.tag = kIQDoneButtonToolbarTag //  (Bug ID: #78)
                 }
                 
-                if textField.inputAccessoryView?.isKindOfClass(IQToolbar) == true && textField.inputAccessoryView?.tag == kIQDoneButtonToolbarTag {
+                if textField.inputAccessoryView is IQToolbar && textField.inputAccessoryView?.tag == kIQDoneButtonToolbarTag {
                     
                     let toolbar = textField.inputAccessoryView as! IQToolbar
                     
@@ -1823,7 +1823,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         textField.inputAccessoryView?.tag = kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
                    }
                     
-                    if textField.inputAccessoryView?.isKindOfClass(IQToolbar) == true && textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
+                    if textField.inputAccessoryView is IQToolbar && textField.inputAccessoryView?.tag == kIQPreviousNextButtonToolbarTag {
                         
                         let toolbar = textField.inputAccessoryView as! IQToolbar
                         
