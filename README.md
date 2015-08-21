@@ -97,13 +97,7 @@ Now IQKeyboardManager can work with topLayoutConstraint and bottomLayoutConstrai
 
 ## Known Issues (Swift):-
 
-####1) Crashes in Release Mode ([#111](https://github.com/hackiftekhar/IQKeyboardManager/issues/111))
-
-It may be compiler issue when compiler tries to optimize Code for best performance and compiler changes something in the middle which is not expected. Changing **Optimization Level** in Build Settings solve the problem.
-
-**Workdaround:** Goto ***Target->Build Settings->Code Generation->Optimization Level***, and set it to ***None[-O0]***.([StackOverflow](http://stackoverflow.com/questions/3327981/app-runs-as-debug-but-crashes-as-release))
-
-####2) Manually enable IQKeyboardManager Swift Version.
+####1) Manually enable IQKeyboardManager Swift Version.
 
 From Swift 1.2, compiler no longer allows to override `class func load()` method, so you need to manually enable IQKeyboardManager using below line of code in AppDelegate.
 
