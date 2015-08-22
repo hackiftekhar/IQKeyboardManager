@@ -177,9 +177,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		757983581B886B3D00F8E41F /* IQKeyboardManager */ = {
+		757983581B886B3D00F8E41F /* IQKeyboardManagerSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7579836F1B886B3D00F8E41F /* Build configuration list for PBXNativeTarget "IQKeyboardManager" */;
+			buildConfigurationList = 7579836F1B886B3D00F8E41F /* Build configuration list for PBXNativeTarget "IQKeyboardManagerSwift" */;
 			buildPhases = (
 				757983541B886B3D00F8E41F /* Sources */,
 				757983551B886B3D00F8E41F /* Frameworks */,
@@ -190,7 +190,7 @@
 			);
 			dependencies = (
 			);
-			name = IQKeyboardManager;
+			name = IQKeyboardManagerSwift;
 			productName = IQKeyboardManager;
 			productReference = 757983591B886B3D00F8E41F /* IQKeyboardManager.framework */;
 			productType = "com.apple.product-type.framework";
@@ -221,7 +221,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				757983581B886B3D00F8E41F /* IQKeyboardManager */,
+				757983581B886B3D00F8E41F /* IQKeyboardManagerSwift */,
 			);
 		};
 /* End PBXProject section */
@@ -400,7 +400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7579836F1B886B3D00F8E41F /* Build configuration list for PBXNativeTarget "IQKeyboardManager" */ = {
+		7579836F1B886B3D00F8E41F /* Build configuration list for PBXNativeTarget "IQKeyboardManagerSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				757983701B886B3D00F8E41F /* Debug */,
