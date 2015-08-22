@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		757983591B886B3D00F8E41F /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManager.h; path = ../IQKeyboardManager/IQKeyboardManager.h; sourceTree = "<group>"; };
-		757983751B886C2700F8E41F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IQKeybordManagerSwift/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		757983751B886C2700F8E41F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IQKeyboardManagerSwift/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		757983781B886C6700F8E41F /* IQNSArray+Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQNSArray+Sort.swift"; sourceTree = "<group>"; };
 		757983791B886C6700F8E41F /* IQUITextFieldView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUITextFieldView+Additions.swift"; sourceTree = "<group>"; };
 		7579837A1B886C6700F8E41F /* IQUIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+Hierarchy.swift"; sourceTree = "<group>"; };
@@ -91,8 +91,7 @@
 				757983891B886C6700F8E41F /* Resources */,
 				7579835C1B886B3D00F8E41F /* Supporting Files */,
 			);
-			name = IQKeyboardManagerSwift;
-			path = IQKeybordManagerSwift;
+			path = IQKeyboardManagerSwift;
 			sourceTree = "<group>";
 		};
 		7579835C1B886B3D00F8E41F /* Supporting Files */ = {
@@ -360,7 +359,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/IQKeybordManagerSwift/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/IQKeyboardManagerSwift/Resources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -379,7 +378,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/IQKeybordManagerSwift/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/IQKeyboardManagerSwift/Resources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
