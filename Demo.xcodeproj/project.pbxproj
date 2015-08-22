@@ -88,9 +88,9 @@
 		C0CB626C1B8850BA00C33368 /* IQToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB625C1B8850BA00C33368 /* IQToolbar.swift */; };
 		C0CB626D1B8850BA00C33368 /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB625D1B8850BA00C33368 /* IQUIView+IQKeyboardToolbar.swift */; };
 		C0CB626E1B8850BA00C33368 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0CB625F1B8850BA00C33368 /* IQKeyboardManager.bundle */; };
-		C0CB62701B88516600C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB626F1B88516600C33368 /* IQKeyboardManagerScreenshot.png */; };
-		C0CB62711B88516600C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB626F1B88516600C33368 /* IQKeyboardManagerScreenshot.png */; };
 		C0CB62721B88541F00C33368 /* CustomSubclassView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61AD1B884D4100C33368 /* CustomSubclassView.m */; };
+		C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
+		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,7 +221,7 @@
 		C0CB625C1B8850BA00C33368 /* IQToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQToolbar.swift; sourceTree = "<group>"; };
 		C0CB625D1B8850BA00C33368 /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		C0CB625F1B8850BA00C33368 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
-		C0CB626F1B88516600C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IQKeyboardManagerScreenshot.png; sourceTree = "<group>"; };
+		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,7 +415,7 @@
 		C0CB61CB1B884D4100C33368 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C0CB626F1B88516600C33368 /* IQKeyboardManagerScreenshot.png */,
+				C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */,
 				C0CB61CC1B884D4100C33368 /* Images.xcassets */,
 				C0CB61CD1B884D4100C33368 /* iTunesArtwork */,
 			);
@@ -717,7 +717,7 @@
 				C0CB61EC1B884F1E00C33368 /* Images.xcassets in Resources */,
 				C0CB61FA1B884F3400C33368 /* MainSwift.storyboard in Resources */,
 				C0CB626E1B8850BA00C33368 /* IQKeyboardManager.bundle in Resources */,
-				C0CB62711B88516600C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
+				C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
 				C0CB61FB1B884F3D00C33368 /* Info.plist in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
@@ -731,7 +731,7 @@
 				C0CB61EB1B884F1D00C33368 /* Images.xcassets in Resources */,
 				C0CB61EA1B884F1600C33368 /* iTunesArtwork@2x in Resources */,
 				C0CB624A1B8850AE00C33368 /* IQKeyboardManager.bundle in Resources */,
-				C0CB62701B88516600C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
+				C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E91B884F1600C33368 /* iTunesArtwork in Resources */,
 				C0CB62171B884FD100C33368 /* Info.plist in Resources */,
 				C0CB62161B884FB000C33368 /* Main.storyboard in Resources */,
