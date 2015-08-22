@@ -156,8 +156,8 @@
 		C0CB61C91B884D4100C33368 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		C0CB61CA1B884D4100C33368 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		C0CB61CC1B884D4100C33368 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C0CB61CE1B884D4100C33368 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		C0CB61CF1B884D4100C33368 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		C0CB61CE1B884D4100C33368 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = text; path = iTunesArtwork; sourceTree = "<group>"; };
+		C0CB61CF1B884D4100C33368 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		C0CB61D11B884D4100C33368 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0CB61D41B884D4100C33368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CB61D51B884D4100C33368 /* IQKeyboardManger-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManger-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		C0CB625C1B8850BA00C33368 /* IQToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQToolbar.swift; sourceTree = "<group>"; };
 		C0CB625D1B8850BA00C33368 /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		C0CB625F1B8850BA00C33368 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
-		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
+		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = ../Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -503,7 +503,8 @@
 				C0CB623A1B8850AE00C33368 /* KeyboardManager.h */,
 				C0CB623B1B8850AE00C33368 /* Resources */,
 			);
-			path = IQKeyBoardManager;
+			name = IQKeyBoardManager;
+			path = ../IQKeyBoardManager;
 			sourceTree = "<group>";
 		};
 		C0CB62191B8850AE00C33368 /* Categories */ = {
@@ -584,7 +585,8 @@
 				C0CB62591B8850BA00C33368 /* IQToolbar */,
 				C0CB625E1B8850BA00C33368 /* Resources */,
 			);
-			path = IQKeybordManagerSwift;
+			name = IQKeybordManagerSwift;
+			path = ../IQKeyboardManagerSwift;
 			sourceTree = "<group>";
 		};
 		C0CB624C1B8850BA00C33368 /* Categories */ = {
@@ -843,7 +845,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Demo/Swift_Demo/Resources/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swift_Demo/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -869,7 +871,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Demo/Swift_Demo/Resources/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swift_Demo/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -966,7 +968,7 @@
 					"IQKEYBOARDMANAGER_DEBUG=1",
 					"DEBUG=1",
 				);
-				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swift_Demo/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboardManager;
@@ -987,7 +989,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swift_Demo/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = IQKeyboardManager;
