@@ -25,9 +25,9 @@
 import UIKit
 
 /** @abstract UITextView with placeholder support   */
-class IQTextView : UITextView {
+public class IQTextView : UITextView {
 
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
     }
@@ -37,7 +37,7 @@ class IQTextView : UITextView {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
     }
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
          super.awakeFromNib()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
     }
@@ -49,7 +49,7 @@ class IQTextView : UITextView {
     private var placeholderLabel: UILabel?
     
     /** @abstract To set textView's placeholder text. Default is ni.    */
-    var placeholder : String? {
+    public var placeholder : String? {
 
         get {
             return placeholderLabel?.text
@@ -88,7 +88,7 @@ class IQTextView : UITextView {
         }
     }
     
-    override var text: String! {
+    override public var text: String! {
         
         didSet {
             
@@ -97,7 +97,7 @@ class IQTextView : UITextView {
         }
     }
     
-    override var font : UIFont? {
+    override public var font : UIFont? {
        
         didSet {
             
@@ -109,7 +109,7 @@ class IQTextView : UITextView {
         }
     }
     
-    override var delegate : UITextViewDelegate? {
+    override public var delegate : UITextViewDelegate? {
         
         get {
             refreshPlaceholder()

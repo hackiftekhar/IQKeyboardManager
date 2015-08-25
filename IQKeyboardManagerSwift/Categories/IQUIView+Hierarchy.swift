@@ -30,7 +30,7 @@ private var kIQIsAskingCanBecomeFirstResponder = "kIQIsAskingCanBecomeFirstRespo
 /**
 UIView hierarchy category.
 */
-extension UIView {
+public extension UIView {
     
     ///------------------------------
     /// MARK: canBecomeFirstResponder
@@ -39,7 +39,7 @@ extension UIView {
     /**
     Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
     */
-    var isAskingCanBecomeFirstResponder: Bool {
+    public var isAskingCanBecomeFirstResponder: Bool {
         get {
             
             if let aValue = objc_getAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder) as? Bool {
@@ -60,7 +60,7 @@ extension UIView {
     /**
     Returns the UIViewController object that manages the receiver.
     */
-    func viewController()->UIViewController? {
+    public func viewController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
         
@@ -79,7 +79,7 @@ extension UIView {
     /**
     Returns the topMost UIViewController object in hierarchy.
     */
-    func topMostController()->UIViewController? {
+    public func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
 
@@ -118,7 +118,7 @@ extension UIView {
     /**
     Returns the superView of provided class type.
     */
-    func superviewOfClassType(classType:AnyClass)->UIView? {
+    public func superviewOfClassType(classType:AnyClass)->UIView? {
 
         struct InternalClass {
             
@@ -148,7 +148,7 @@ extension UIView {
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
-    func responderSiblings()->[UIView] {
+    public func responderSiblings()->[UIView] {
         
         //	Getting all siblings
         let siblings = superview?.subviews
@@ -169,7 +169,7 @@ extension UIView {
     /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    func deepResponderViews()->[UIView] {
+    public func deepResponderViews()->[UIView] {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
@@ -234,7 +234,7 @@ extension UIView {
     /**
     Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
     */
-    func isSearchBarTextField()-> Bool {
+    public func isSearchBarTextField()-> Bool {
         
         struct InternalClass {
             
@@ -247,7 +247,7 @@ extension UIView {
     /**
     Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
     */
-    func isAlertViewTextField()->Bool {
+    public func isAlertViewTextField()->Bool {
         
         struct InternalClass {
             
@@ -267,7 +267,7 @@ extension UIView {
     /**
     Returns current view transform with respect to the 'toView'.
     */
-    func convertTransformToView(var toView:UIView?)->CGAffineTransform {
+    public func convertTransformToView(var toView:UIView?)->CGAffineTransform {
         
         if toView == nil {
             toView = window

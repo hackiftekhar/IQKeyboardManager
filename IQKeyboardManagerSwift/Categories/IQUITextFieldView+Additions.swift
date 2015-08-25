@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQUITextFieldView+Additions.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-15 Iftekhar Qurashi.
 //
@@ -25,49 +25,32 @@ import Foundation
 import UIKit
 
 /**
-UIView.subviews sorting category.
+Uses default keyboard distance for textField.
 */
-extension Array {
-    
-    ///--------------
-    /// MARK: Sorting
-    ///--------------
-    
+public let kIQUseDefaultKeyboardDistance = CGFloat.max
+
+private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
+
+/**
+UIView category for managing UITextField/UITextView
+*/
+public extension UIView {
+
     /**
-    Returns the array by sorting the UIView's by their tag property.
+    To set customized distance from keyboard for textField/textView. Can't be less than zero
     */
-    func sortedArrayByTag() -> [T] {
-        
-        return sorted({ (obj1 : T, obj2 : T) -> Bool in
+    public var keyboardDistanceFromTextField: CGFloat {
+        get {
             
-            let view1 = obj1 as! UIView
-            let view2 = obj2 as! UIView
-            
-            return (view1.tag < view2.tag)
-        })
-    }
-    
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByPosition() -> [T] {
-        
-        return sorted({ (obj1 : T, obj2 : T) -> Bool in
-            
-            let view1 = obj1 as! UIView
-            let view2 = obj2 as! UIView
-            
-            let x1 = CGRectGetMinX(view1.frame)
-            let y1 = CGRectGetMinY(view1.frame)
-            let x2 = CGRectGetMinX(view2.frame)
-            let y2 = CGRectGetMinY(view2.frame)
-            
-            if y1 != y2 {
-                return y1 < y2
+            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardDistanceFromTextField) as? CGFloat {
+                return aValue
             } else {
-                return x1 < x2
+                return kIQUseDefaultKeyboardDistance
             }
-        })
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
     }
 }
 
