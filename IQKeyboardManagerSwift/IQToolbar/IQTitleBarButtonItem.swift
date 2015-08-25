@@ -24,9 +24,9 @@
 
 import UIKit
 
-class IQTitleBarButtonItem: UIBarButtonItem {
+public class IQTitleBarButtonItem: UIBarButtonItem {
    
-    var font : UIFont? {
+    public var font : UIFont? {
     
         didSet {
             if let unwrappedFont = font {
@@ -64,7 +64,7 @@ class IQTitleBarButtonItem: UIBarButtonItem {
         enabled = false
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }

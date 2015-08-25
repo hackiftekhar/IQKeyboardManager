@@ -1,5 +1,5 @@
 //
-//  IQUITextFieldView+Additions.swift
+//  IQUIWindow+Hierarchy.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-15 Iftekhar Qurashi.
 //
@@ -21,36 +21,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 import Foundation
 import UIKit
 
-/**
-Uses default keyboard distance for textField.
-*/
-let kIQUseDefaultKeyboardDistance = CGFloat.max
+/** @abstract UIWindow hierarchy category.  */
+public extension UIWindow {
 
-private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
-
-/**
-UIView category for managing UITextField/UITextView
-*/
-extension UIView {
-
-    /**
-    To set customized distance from keyboard for textField/textView. Can't be less than zero
-    */
-    var keyboardDistanceFromTextField: CGFloat {
-        get {
-            
-            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardDistanceFromTextField) as? CGFloat {
-                return aValue
-            } else {
-                return kIQUseDefaultKeyboardDistance
-            }
+    /** @return Returns the current Top Most ViewController in hierarchy.   */
+    override public func topMostController()->UIViewController? {
+        
+        var topController = rootViewController
+        
+        while let presentedController = topController?.presentedViewController {
+            topController = presentedController
         }
-        set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        
+        return topController
+    }
+    
+    /** @return Returns the topViewController in stack of topMostController.    */
+    public func currentViewController()->UIViewController? {
+        
+        var currentViewController = topMostController()
+        
+        while currentViewController != nil && currentViewController is UINavigationController && (currentViewController as! UINavigationController).topViewController != nil {
+            currentViewController = (currentViewController as! UINavigationController).topViewController
         }
+
+        return currentViewController
     }
 }
-

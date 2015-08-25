@@ -25,9 +25,9 @@
 import UIKit
 
 /** @abstract   IQToolbar for IQKeyboardManager.    */
-class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
+public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
-    override class func initialize() {
+    override public class func initialize() {
         
         superclass()?.initialize()
         
@@ -35,7 +35,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         self.appearance().backgroundColor = nil
     }
     
-    var titleFont : UIFont? {
+    public var titleFont : UIFont? {
         
         didSet {
             
@@ -50,7 +50,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
-    var title : String? {
+    public var title : String? {
         
         didSet {
             
@@ -73,7 +73,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         tintColor = UIColor .blackColor()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         sizeToFit()
@@ -81,13 +81,13 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         tintColor = UIColor .blackColor()
     }
 
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override public func sizeThatFits(size: CGSize) -> CGSize {
         var sizeThatFit = super.sizeThatFits(size)
         sizeThatFit.height = 44
         return sizeThatFit
     }
 
-    override var tintColor: UIColor! {
+    override public var tintColor: UIColor! {
         
         didSet {
             if let unwrappedItems = items {
@@ -101,7 +101,7 @@ class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
-    var enableInputClicksWhenVisible: Bool {
+    public var enableInputClicksWhenVisible: Bool {
         return true
     }
 }
