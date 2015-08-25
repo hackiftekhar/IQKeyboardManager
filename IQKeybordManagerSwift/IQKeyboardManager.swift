@@ -1786,7 +1786,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
 
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
-                    if shouldShowTextFieldPlaceholder == true && placeholderFont != nil {
+                    if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                         
                         let toolbar = textField.inputAccessoryView as! IQToolbar
 
@@ -1808,6 +1808,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         if placeholderFont != nil {
                             toolbar.titleFont = placeholderFont
                         }
+                    } else {
+                        
+                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        toolbar.title = nil
                     }
                 }
             } else if siblings.count != 0 {
@@ -1855,7 +1859,7 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true && placeholderFont != nil {
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                             
                             let toolbar = textField.inputAccessoryView as! IQToolbar
                             
@@ -1878,6 +1882,10 @@ class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.titleFont = placeholderFont
                             }
                         }
+                    } else {
+                        
+                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        toolbar.title = nil
                     }
                     
                     //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
