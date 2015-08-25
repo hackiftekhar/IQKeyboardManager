@@ -366,6 +366,7 @@
 		C0CB61A71B884D4100C33368 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C0CB61B81B884D4100C33368 /* Settings */,
 				C0CB61A81B884D4100C33368 /* BottomBlankSpaceViewController.h */,
 				C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */,
 				C0CB61AA1B884D4100C33368 /* CollectionViewDemoController.h */,
@@ -382,7 +383,6 @@
 				C0CB61B51B884D4100C33368 /* NavigationBarViewController.m */,
 				C0CB61B61B884D4100C33368 /* ScrollViewController.h */,
 				C0CB61B71B884D4100C33368 /* ScrollViewController.m */,
-				C0CB61B81B884D4100C33368 /* Settings */,
 				C0CB61BD1B884D4100C33368 /* SpecialCaseViewController.h */,
 				C0CB61BE1B884D4100C33368 /* SpecialCaseViewController.m */,
 				C0CB61BF1B884D4100C33368 /* TableViewInContainerViewController.h */,

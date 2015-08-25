@@ -1632,15 +1632,21 @@ void _IQShowLog(NSString *logString);
             }
             
             //If need to show placeholder
-            if (_shouldShowTextFieldPlaceholder)
+            if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
             {
-                //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                //Updating placeholder     //(Bug ID: #148)
                 if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
                     [toolbar setTitle:textField.placeholder];
                 
                 //Setting toolbar title font.   //  (Enhancement ID: #30)
                 if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
                     [toolbar setTitleFont:_placeholderFont];
+            }
+            else
+            {
+                //Updating placeholder     //(Bug ID: #272)
+                if ([textField respondsToSelector:@selector(placeholder)])
+                    [toolbar setTitle:nil];
             }
         }
     }
@@ -1689,15 +1695,21 @@ void _IQShowLog(NSString *logString);
                 }
                 
                 //If need to show placeholder
-                if (_shouldShowTextFieldPlaceholder)
+                if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
                 {
-                    //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                    //Updating placeholder     //(Bug ID: #148)
                     if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
                         [toolbar setTitle:textField.placeholder];
                     
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
                         [toolbar setTitleFont:_placeholderFont];
+                }
+                else
+                {
+                    //Updating placeholder     //(Bug ID: #272)
+                    if ([textField respondsToSelector:@selector(placeholder)])
+                        [toolbar setTitle:nil];
                 }
 
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
