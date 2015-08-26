@@ -6,7 +6,48 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
+protocol OptionsViewControllerDelegate: class {
+    
+    func optionsViewController(controller : OptionsViewController, index:NSInteger)
+}
 
 class OptionsViewController: UITableViewController {
 
+    weak var delegate : OptionsViewControllerDelegate?
+    
+    var options = NSArray()
+    
+    var selectedIndex : Int = 0
+    
+        
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.options.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell") as! OptionTableViewCell
+        
+        cell.labelOption.text = options[indexPath.row] as? String
+        
+        if indexPath.row == self.selectedIndex  {
+            
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
+
+        return cell
+    }
+
+        
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        selectedIndex = indexPath.row
+        
+        delegate?.optionsViewController(self, index: indexPath.row)
+        
+        tableView.reloadRowsAtIndexPaths(tableView.indexPathsForVisibleRows()!, withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
 }
