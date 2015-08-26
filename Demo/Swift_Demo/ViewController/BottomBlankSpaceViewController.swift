@@ -10,7 +10,7 @@ import UIKit
 
 class BottomBlankSpaceViewController : UIViewController {
     
-    @IBOutlet private var switchPreventShowingBottomBlankSpace : UISwitch!;
+    @IBOutlet private var switchPreventShowingBottomBlankSpace : UISwitch!
 
     override func viewWillAppear(animated : Bool) {
         super.viewWillAppear(animated)

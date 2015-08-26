@@ -11,28 +11,28 @@ import UIKit
 
 class ScrollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate {
     
-    @IBOutlet private var scrollViewDemo : UIScrollView!;
-    @IBOutlet private var simpleTableView : UITableView!;
-    @IBOutlet private var scrollViewOfTableViews : UIScrollView!;
-    @IBOutlet private var tableViewInsideScrollView : UITableView!;
-    @IBOutlet private var scrollViewInsideScrollView : UIScrollView!;
+    @IBOutlet private var scrollViewDemo : UIScrollView!
+    @IBOutlet private var simpleTableView : UITableView!
+    @IBOutlet private var scrollViewOfTableViews : UIScrollView!
+    @IBOutlet private var tableViewInsideScrollView : UITableView!
+    @IBOutlet private var scrollViewInsideScrollView : UIScrollView!
     
-    @IBOutlet private var topTextField : UITextField!;
-    @IBOutlet private var bottomTextField : UITextField!;
+    @IBOutlet private var topTextField : UITextField!
+    @IBOutlet private var bottomTextField : UITextField!
     
-    @IBOutlet private var topTextView : UITextView!;
-    @IBOutlet private var bottomTextView : UITextView!;
+    @IBOutlet private var topTextView : UITextView!
+    @IBOutlet private var bottomTextView : UITextView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollViewDemo.contentSize = CGSizeMake(0, 321);
-        scrollViewInsideScrollView.contentSize = CGSizeMake(0,321);
+        scrollViewDemo.contentSize = CGSizeMake(0, 321)
+        scrollViewInsideScrollView.contentSize = CGSizeMake(0,321)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        return 5
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

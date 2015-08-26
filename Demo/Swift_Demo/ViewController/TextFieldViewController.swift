@@ -73,7 +73,7 @@ class TextFieldViewController: UIViewController {
 
         dropDownTextField.itemList = itemLists
         
-        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self);
+        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
     }
     
     override func viewWillAppear(animated : Bool) {
@@ -110,15 +110,15 @@ class TextFieldViewController: UIViewController {
             var controller: UIViewController = storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as! UIViewController
             var navController : UINavigationController = UINavigationController(rootViewController: controller)
             navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
-            navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor;
-            navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes;
+            navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
+            navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
 //            navController.modalTransitionStyle = Int(arc4random()%4)
 
             // TransitionStylePartialCurl can only be presented by FullScreen style.
 //            if (navController.modalTransitionStyle == UIModalTransitionStyle.PartialCurl) {
-//                navController.modalPresentationStyle = UIModalPresentationStyle.FullScreen;
+//                navController.modalPresentationStyle = UIModalPresentationStyle.FullScreen
 //            } else {
-//                navController.modalPresentationStyle = UIModalPresentationStyle.PageSheet;
+//                navController.modalPresentationStyle = UIModalPresentationStyle.PageSheet
 //            }
 
             presentViewController(navController, animated: true, completion: nil)

@@ -211,7 +211,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _IQShowLog("Refuses to resign first responder: \(_textFieldView?._IQDescription())")
             }
             
-            return isResignFirstResponder;
+            return isResignFirstResponder
         }
         
         return false
@@ -805,7 +805,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var topLayoutGuide : CGFloat = 0
         //Maintain keyboardDistanceFromTextField
         let newKeyboardDistanceFromTextField = (textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : textFieldView.keyboardDistanceFromTextField
-        var kbSize = _kbSize;
+        var kbSize = _kbSize
         
        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
         
@@ -1073,11 +1073,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     if (itemLayoutGuide === viewController.topLayoutGuide)    //If topLayoutGuide constraint
                     {
-                        let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move);
+                        let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move)
                         
                         UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
                             
-                            constraint.constant = constant;
+                            constraint.constant = constant
                             self._rootViewController?.view.setNeedsLayout()
                             self._rootViewController?.view.layoutIfNeeded()
                             
@@ -1087,11 +1087,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
                     else if (itemLayoutGuide === viewController.bottomLayoutGuide)    //If bottomLayoutGuice constraint
                     {
-                        let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move);
+                        let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move)
                         
                         UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
                             
-                            constraint.constant = constant;
+                            constraint.constant = constant
                             self._rootViewController?.view.setNeedsLayout()
                             self._rootViewController?.view.layoutIfNeeded()
                             
@@ -1533,10 +1533,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //RestoringTextView before reloading inputViews
                         if (self._keyboardManagerFlags.isTextFieldViewFrameChanged)
                         {
-                            self._keyboardManagerFlags.isTextFieldViewFrameChanged = false;
+                            self._keyboardManagerFlags.isTextFieldViewFrameChanged = false
                             
                             if let textFieldView = self._textFieldView {
-                                textFieldView.frame = self._textFieldViewIntialFrame;
+                                textFieldView.frame = self._textFieldViewIntialFrame
                             }
                         }
 

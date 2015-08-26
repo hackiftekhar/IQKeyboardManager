@@ -30,14 +30,14 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
             
             let textField = UITextField(frame: CGRectMake(10,0,contentView.frame.size.width-20,33))
             textField.autoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth
-            textField.center = contentView.center;
+            textField.center = contentView.center
             textField.backgroundColor = UIColor.clearColor()
             textField.borderStyle = UITextBorderStyle.RoundedRect
             textField.tag = 123
             cell?.contentView.addSubview(textField)
         }
 
-        let textField : UITextField = cell!.viewWithTag(123) as! UITextField;
+        let textField : UITextField = cell!.viewWithTag(123) as! UITextField
         textField.placeholder = "Cell \(indexPath.row)"
         
         return cell!

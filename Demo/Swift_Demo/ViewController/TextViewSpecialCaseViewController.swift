@@ -11,9 +11,9 @@ import UIKit
 
 class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet private var buttonPush : UIButton!;
-    @IBOutlet private var buttonPresent : UIButton!;
-    @IBOutlet private var barButtonAdjust : UIBarButtonItem!;
+    @IBOutlet private var buttonPush : UIButton!
+    @IBOutlet private var buttonPresent : UIButton!
+    @IBOutlet private var barButtonAdjust : UIBarButtonItem!
     
     @IBAction func canAdjustTextView (barButton : UIBarButtonItem!) {
         
