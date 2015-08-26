@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
-import Cocoa
 
 class OptionsViewController: UITableViewController {
 
