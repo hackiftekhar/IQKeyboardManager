@@ -989,7 +989,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
         <!--Settings-->
         <scene sceneID="lWk-45-ZVd">
             <objects>
-                <tableViewController id="rE6-y5-M4y" customClass="SettingsViewController" sceneMemberID="viewController">
+                <tableViewController id="rE6-y5-M4y" customClass="SettingsViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="55" sectionHeaderHeight="10" sectionFooterHeight="10" id="05L-Va-M3b">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1134,7 +1134,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
         <!--Options-->
         <scene sceneID="aug-Jw-QH1">
             <objects>
-                <tableViewController id="GoZ-HS-OeZ" customClass="OptionsViewController" sceneMemberID="viewController">
+                <tableViewController id="GoZ-HS-OeZ" customClass="OptionsViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="A5E-lg-djn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1573,7 +1573,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </searchBar>
                             <view contentMode="scaleToFill" id="kf9-xZ-tHX">
-                                <rect key="frame" x="10" y="161" width="305" height="269.99999931523377"/>
+                                <rect key="frame" x="10" y="161" width="305" height="269.99999931079105"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="rMX-Ou-Uj9">
@@ -1612,7 +1612,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="Wn5-db-lXd">
-                                        <rect key="frame" x="10" y="169.99999955226824" width="285" height="90"/>
+                                        <rect key="frame" x="10" y="169.99999954936339" width="285" height="90"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="KOu-F4-RpL">

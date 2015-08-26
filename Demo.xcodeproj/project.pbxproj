@@ -24,6 +24,10 @@
 		4CEC3A791B8CECDF00909DCA /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4CEC3A6A1B8CECDF00909DCA /* IQKeyboardManager.bundle */; };
 		C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */; };
 		C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */; };
+		C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */; };
+		C03C87FB1B8DCED400295DFA /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87FA1B8DCED400295DFA /* OptionTableViewCell.swift */; };
+		C03C87FD1B8DCEE700295DFA /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87FC1B8DCEE700295DFA /* StepperTableViewCell.swift */; };
+		C03C87FF1B8DCEF400295DFA /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87FE1B8DCEF400295DFA /* SwitchTableViewCell.swift */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -120,6 +124,10 @@
 		9D9A0FC418C9DB5F00585D3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewCell.swift; sourceTree = "<group>"; };
+		C03C87FA1B8DCED400295DFA /* OptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
+		C03C87FC1B8DCEE700295DFA /* StepperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
+		C03C87FE1B8DCEF400295DFA /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		C0ACB0F519CF104B0057B571 /* DemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9B1781FAB1008D3B64 /* IQKeyboardManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQKeyboardManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9F1781FAB1008D3B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -521,6 +529,10 @@
 		C0CB61D21B884D4100C33368 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */,
+				C03C87FA1B8DCED400295DFA /* OptionTableViewCell.swift */,
+				C03C87FC1B8DCEE700295DFA /* StepperTableViewCell.swift */,
+				C03C87FE1B8DCEF400295DFA /* SwitchTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -763,8 +775,11 @@
 				C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */,
 				C0CB61F01B884F2700C33368 /* ManualToolbarViewController.swift in Sources */,
 				C0CB61F21B884F2700C33368 /* ScrollViewController.swift in Sources */,
+				C03C87FB1B8DCED400295DFA /* OptionTableViewCell.swift in Sources */,
+				C03C87FF1B8DCEF400295DFA /* SwitchTableViewCell.swift in Sources */,
 				4CEC3A751B8CECDF00909DCA /* IQBarButtonItem.swift in Sources */,
 				4CEC3A6E1B8CECDF00909DCA /* IQUIViewController+Additions.swift in Sources */,
+				C03C87FD1B8DCEE700295DFA /* StepperTableViewCell.swift in Sources */,
 				C0CB61EF1B884F2700C33368 /* ExampleTableViewController.swift in Sources */,
 				C0CB61F31B884F2700C33368 /* SpecialCaseViewController.swift in Sources */,
 				4CEC3A731B8CECDF00909DCA /* IQKeyboardReturnKeyHandler.swift in Sources */,
@@ -791,6 +806,7 @@
 				4CEC3A741B8CECDF00909DCA /* IQTextView.swift in Sources */,
 				C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */,
 				C0CB61F51B884F2700C33368 /* TextFieldViewController.swift in Sources */,
+				C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
