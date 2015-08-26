@@ -346,7 +346,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	previousAction. */
-    private func previousAction (segmentedControl : AnyObject?) {
+    internal func previousAction (segmentedControl : AnyObject?) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -368,7 +368,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	nextAction. */
-    private func nextAction (segmentedControl : AnyObject?) {
+    internal func nextAction (segmentedControl : AnyObject?) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -390,7 +390,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	doneAction. Resigning current textField. */
-    private func doneAction (barButton : IQBarButtonItem?) {
+    internal func doneAction (barButton : IQBarButtonItem?) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
