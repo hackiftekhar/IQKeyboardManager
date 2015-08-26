@@ -28,7 +28,7 @@ class ViewController: UITableViewController {
         activityItems.append(UIActivityTypeSaveToCameraRoll)
         
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        controller.excludedActivityTypes = excludedActivities;
+        controller.excludedActivityTypes = excludedActivities
         presentViewController(controller, animated: true) { () -> Void in
 
         }

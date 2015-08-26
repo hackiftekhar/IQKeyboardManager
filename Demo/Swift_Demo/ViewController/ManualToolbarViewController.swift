@@ -10,11 +10,11 @@ import UIKit
 
 class ManualToolbarViewController : UIViewController {
     
-    @IBOutlet private var textField1 : UITextField!;
-    @IBOutlet private var textField2 : UITextField!;
-    @IBOutlet private var textView3 : UITextView!;
-    @IBOutlet private var textField4 : UITextField!;
-    @IBOutlet private var textField5 : UITextField!;
+    @IBOutlet private var textField1 : UITextField!
+    @IBOutlet private var textField2 : UITextField!
+    @IBOutlet private var textView3 : UITextView!
+    @IBOutlet private var textField4 : UITextField!
+    @IBOutlet private var textField5 : UITextField!
 
 
     override func viewDidLoad() {
@@ -38,15 +38,15 @@ class ManualToolbarViewController : UIViewController {
         
         if (textField4.isFirstResponder())
         {
-            textField2.becomeFirstResponder();
+            textField2.becomeFirstResponder()
         }
         else if (textField2.isFirstResponder())
         {
-            textView3.becomeFirstResponder();
+            textView3.becomeFirstResponder()
         }
         else if (textView3.isFirstResponder())
         {
-            textField1.becomeFirstResponder();
+            textField1.becomeFirstResponder()
         }
     }
     
@@ -54,15 +54,15 @@ class ManualToolbarViewController : UIViewController {
         
         if (textField1.isFirstResponder())
         {
-            textView3.becomeFirstResponder();
+            textView3.becomeFirstResponder()
         }
         else if (textView3.isFirstResponder())
         {
-            textField2.becomeFirstResponder();
+            textField2.becomeFirstResponder()
         }
         else if (textField2.isFirstResponder())
         {
-            textField4.becomeFirstResponder();
+            textField4.becomeFirstResponder()
         }
     }
     

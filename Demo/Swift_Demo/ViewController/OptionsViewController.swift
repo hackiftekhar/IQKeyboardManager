@@ -15,7 +15,7 @@ class OptionsViewController: UITableViewController {
 
     weak var delegate : OptionsViewControllerDelegate?
     
-    var options = NSArray()
+    var options = [String]()
     
     var selectedIndex : Int = 0
     
@@ -28,7 +28,7 @@ class OptionsViewController: UITableViewController {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell") as! OptionTableViewCell
         
-        cell.labelOption.text = options[indexPath.row] as? String
+        cell.labelOption.text = options[indexPath.row]
         
         if indexPath.row == self.selectedIndex  {
             

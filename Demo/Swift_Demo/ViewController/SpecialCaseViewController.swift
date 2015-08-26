@@ -11,29 +11,29 @@ import UIKit
 
 class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate {
     
-    @IBOutlet private var customWorkTextField : UITextField!;
+    @IBOutlet private var customWorkTextField : UITextField!
     
-    @IBOutlet private var textField6 : UITextField!;
-    @IBOutlet private var textField7 : UITextField!;
-    @IBOutlet private var textField8 : UITextField!;
+    @IBOutlet private var textField6 : UITextField!
+    @IBOutlet private var textField7 : UITextField!
+    @IBOutlet private var textField8 : UITextField!
     
-    @IBOutlet private var switchInteraction1 : UISwitch!;
-    @IBOutlet private var switchInteraction2 : UISwitch!;
-    @IBOutlet private var switchInteraction3 : UISwitch!;
-    @IBOutlet private var switchEnabled1 : UISwitch!;
-    @IBOutlet private var switchEnabled2 : UISwitch!;
-    @IBOutlet private var switchEnabled3 : UISwitch!;
+    @IBOutlet private var switchInteraction1 : UISwitch!
+    @IBOutlet private var switchInteraction2 : UISwitch!
+    @IBOutlet private var switchInteraction3 : UISwitch!
+    @IBOutlet private var switchEnabled1 : UISwitch!
+    @IBOutlet private var switchEnabled2 : UISwitch!
+    @IBOutlet private var switchEnabled3 : UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textField6.userInteractionEnabled = switchInteraction1.on;
-        textField7.userInteractionEnabled = switchInteraction2.on;
-        textField8.userInteractionEnabled = switchInteraction3.on;
+        textField6.userInteractionEnabled = switchInteraction1.on
+        textField7.userInteractionEnabled = switchInteraction2.on
+        textField8.userInteractionEnabled = switchInteraction3.on
         
-        textField6.enabled = switchEnabled1.on;
-        textField7.enabled = switchEnabled2.on;
-        textField8.enabled = switchEnabled3.on;
+        textField6.enabled = switchEnabled1.on
+        textField7.enabled = switchEnabled2.on
+        textField8.enabled = switchEnabled3.on
         
         updateUI()
     }
@@ -63,32 +63,32 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     }
     
     func switch1UserInteractionAction(sender: UISwitch) {
-        textField6.userInteractionEnabled = sender.on;
+        textField6.userInteractionEnabled = sender.on
         updateUI()
     }
     
     func switch2UserInteractionAction(sender: UISwitch) {
-        textField7.userInteractionEnabled = sender.on;
+        textField7.userInteractionEnabled = sender.on
         updateUI()
     }
     
     func switch3UserInteractionAction(sender: UISwitch) {
-        textField8.userInteractionEnabled = sender.on;
+        textField8.userInteractionEnabled = sender.on
         updateUI()
     }
     
     func switch1Action(sender: UISwitch) {
-        textField6.enabled = sender.on;
+        textField6.enabled = sender.on
         updateUI()
     }
     
     func switch2Action(sender: UISwitch) {
-        textField7.enabled = sender.on;
+        textField7.enabled = sender.on
         updateUI()
     }
     
     func switch3Action(sender: UISwitch) {
-        textField8.enabled = sender.on;
+        textField8.enabled = sender.on
         updateUI()
     }
     
@@ -107,21 +107,21 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        switchEnabled1.enabled = false;
-        switchEnabled2.enabled = false;
-        switchEnabled3.enabled = false;
-        switchInteraction1.enabled = false;
-        switchInteraction2.enabled = false;
-        switchInteraction3.enabled = false;
+        switchEnabled1.enabled = false
+        switchEnabled2.enabled = false
+        switchEnabled3.enabled = false
+        switchInteraction1.enabled = false
+        switchInteraction2.enabled = false
+        switchInteraction3.enabled = false
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        switchEnabled1.enabled = true;
-        switchEnabled2.enabled = true;
-        switchEnabled3.enabled = true;
-        switchInteraction1.enabled = true;
-        switchInteraction2.enabled = true;
-        switchInteraction3.enabled = true;
+        switchEnabled1.enabled = true
+        switchEnabled2.enabled = true
+        switchEnabled3.enabled = true
+        switchInteraction1.enabled = true
+        switchInteraction2.enabled = true
+        switchInteraction3.enabled = true
     }
     
     override func shouldAutorotate() -> Bool {
