@@ -315,7 +315,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /// MARK: UITextField/UITextView delegates
     ///----------------------------------------------
     
-    private func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
         if delegate?.respondsToSelector("textFieldShouldBeginEditing:") != nil {
             return (delegate?.textFieldShouldBeginEditing?(textField) == true)
@@ -324,7 +324,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         
         if delegate?.respondsToSelector("textFieldShouldEndEditing:") != nil {
             return (delegate?.textFieldShouldEndEditing?(textField) == true)
@@ -333,18 +333,18 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(textField: UITextField) {
         updateReturnKeyTypeOnTextField(textField)
         
         delegate?.textFieldShouldBeginEditing?(textField)
     }
     
-    private func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(textField: UITextField) {
         
         delegate?.textFieldDidEndEditing?(textField)
     }
     
-    private func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         if delegate?.respondsToSelector("textField:shouldChangeCharactersInRange:replacementString:") != nil {
             return (delegate?.textField?(textField, shouldChangeCharactersInRange: range, replacementString: string) == true)
@@ -353,7 +353,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func textFieldShouldClear(textField: UITextField) -> Bool {
+    func textFieldShouldClear(textField: UITextField) -> Bool {
         
         if delegate?.respondsToSelector("textFieldShouldClear:") != nil {
             return (delegate?.textFieldShouldClear?(textField) == true)
@@ -363,7 +363,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     }
     
     
-    private func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         var shouldReturn = true
         
@@ -379,7 +379,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     }
     
     
-    private func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         
         if delegate?.respondsToSelector("textViewShouldBeginEditing:") != nil {
             return (delegate?.textViewShouldBeginEditing?(textView) == true)
@@ -388,7 +388,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
         
         if delegate?.respondsToSelector("textViewShouldEndEditing:") != nil {
             return (delegate?.textViewShouldEndEditing?(textView) == true)
@@ -397,18 +397,18 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(textView: UITextView) {
         updateReturnKeyTypeOnTextField(textView)
         
         delegate?.textViewDidBeginEditing?(textView)
     }
     
-    private func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(textView: UITextView) {
         
         delegate?.textViewDidEndEditing?(textView)
     }
     
-    private func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         var shouldReturn = true
         
@@ -424,17 +424,17 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         return shouldReturn
     }
     
-    private func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(textView: UITextView) {
         
         delegate?.textViewDidChange?(textView)
     }
     
-    private func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(textView: UITextView) {
         
         delegate?.textViewDidChangeSelection?(textView)
     }
     
-    private func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
         
         if delegate?.respondsToSelector("textView:shouldInteractWithURL:inRange:") != nil {
             return ((delegate?.textView?(textView, shouldInteractWithURL: URL, inRange: characterRange)) == true)
@@ -444,7 +444,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         
     }
     
-    private func textView(textView: UITextView, shouldInteractWithTextAttachment textAttachment: NSTextAttachment, inRange characterRange: NSRange) -> Bool {
+    func textView(textView: UITextView, shouldInteractWithTextAttachment textAttachment: NSTextAttachment, inRange characterRange: NSRange) -> Bool {
         
         if delegate?.respondsToSelector("textView:shouldInteractWithTextAttachment:inRange:") != nil {
             return ((delegate?.textView?(textView, shouldInteractWithTextAttachment: textAttachment, inRange: characterRange)) == true)
