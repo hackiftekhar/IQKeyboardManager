@@ -1635,8 +1635,14 @@ void _IQShowLog(NSString *logString);
             if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
             {
                 //Updating placeholder     //(Bug ID: #148)
-                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
-                    [toolbar setTitle:textField.placeholder];
+                if ([textField respondsToSelector:@selector(placeholder)])
+                {
+                    if ([toolbar.title isEqualToString:textField.placeholder] == NO)
+                        [toolbar setTitle:textField.placeholder];
+                }
+                //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)
+                else
+                    [toolbar setTitle:nil];
                 
                 //Setting toolbar title font.   //  (Enhancement ID: #30)
                 if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
@@ -1645,8 +1651,7 @@ void _IQShowLog(NSString *logString);
             else
             {
                 //Updating placeholder     //(Bug ID: #272)
-                if ([textField respondsToSelector:@selector(placeholder)])
-                    [toolbar setTitle:nil];
+                [toolbar setTitle:nil];
             }
         }
     }
@@ -1698,8 +1703,14 @@ void _IQShowLog(NSString *logString);
                 if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
                 {
                     //Updating placeholder     //(Bug ID: #148)
-                    if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
-                        [toolbar setTitle:textField.placeholder];
+                    if ([textField respondsToSelector:@selector(placeholder)])
+                    {
+                        if ([toolbar.title isEqualToString:textField.placeholder] == NO)
+                            [toolbar setTitle:textField.placeholder];
+                    }
+                    //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)
+                    else
+                        [toolbar setTitle:nil];
                     
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
@@ -1708,8 +1719,7 @@ void _IQShowLog(NSString *logString);
                 else
                 {
                     //Updating placeholder     //(Bug ID: #272)
-                    if ([textField respondsToSelector:@selector(placeholder)])
-                        [toolbar setTitle:nil];
+                    [toolbar setTitle:nil];
                 }
 
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
