@@ -760,7 +760,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
-    /* Adjusting RootViewController's frame according to device orientation. */
+    /* Adjusting RootViewController's frame according to interface orientation. */
     private func adjustFrame() {
         
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
@@ -1792,13 +1792,13 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //Updating placeholder font to toolbar.     //(Bug ID: #148)
                         if let _textField = textField as? UITextField {
                             
-                            if toolbar.title != _textField.placeholder {
+                            if toolbar.title == nil || toolbar.title != _textField.placeholder {
                                 toolbar.title = _textField.placeholder
                             }
 
                         } else if let _textView = textField as? IQTextView {
                             
-                            if toolbar.title != _textView.placeholder {
+                            if toolbar.title == nil || toolbar.title != _textView.placeholder {
                                 toolbar.title = _textView.placeholder
                             }
                         } else {
@@ -1867,13 +1867,13 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             //Updating placeholder font to toolbar.     //(Bug ID: #148)
                             if let _textField = textField as? UITextField {
                                 
-                                if toolbar.title != _textField.placeholder {
+                                if toolbar.title == nil || toolbar.title != _textField.placeholder {
                                     toolbar.title = _textField.placeholder
                                 }
                                 
                             } else if let _textView = textField as? IQTextView {
                                 
-                                if toolbar.title != _textView.placeholder {
+                                if toolbar.title == nil || toolbar.title != _textView.placeholder {
                                     toolbar.title = _textView.placeholder
                                 }
                             } else {

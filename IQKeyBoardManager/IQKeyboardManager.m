@@ -446,7 +446,7 @@ void _IQShowLog(NSString *logString);
     } completion:NULL];
 }
 
-/* Adjusting RootViewController's frame according to device orientation. */
+/* Adjusting RootViewController's frame according to interface orientation. */
 -(void)adjustFrame
 {
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
@@ -1637,7 +1637,7 @@ void _IQShowLog(NSString *logString);
                 //Updating placeholder     //(Bug ID: #148)
                 if ([textField respondsToSelector:@selector(placeholder)])
                 {
-                    if ([toolbar.title isEqualToString:textField.placeholder] == NO)
+                    if (toolbar.title == nil || [toolbar.title isEqualToString:textField.placeholder] == NO)
                         [toolbar setTitle:textField.placeholder];
                 }
                 //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)
@@ -1705,7 +1705,7 @@ void _IQShowLog(NSString *logString);
                     //Updating placeholder     //(Bug ID: #148)
                     if ([textField respondsToSelector:@selector(placeholder)])
                     {
-                        if ([toolbar.title isEqualToString:textField.placeholder] == NO)
+                        if (toolbar.title == nil || [toolbar.title isEqualToString:textField.placeholder] == NO)
                             [toolbar setTitle:textField.placeholder];
                     }
                     //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)

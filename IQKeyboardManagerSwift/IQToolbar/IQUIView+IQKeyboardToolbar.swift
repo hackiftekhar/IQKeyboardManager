@@ -58,6 +58,14 @@ public extension UIView {
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQShouldHideTitle, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            
+            if let toolbar = self.inputAccessoryView as? IQToolbar {
+                if let textField = self as? UITextField {
+                    toolbar.title = textField.placeholder;
+                } else if let textView = self as? IQTextView {
+                    toolbar.title = textView.placeholder;
+                }
+            }
         }
     }
     
@@ -201,19 +209,14 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    /*
-                    50 done button frame.
-                    24 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-12.0, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            50 done button frame.
+            24 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-12.0, 44)
             
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
@@ -306,19 +309,14 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    
-                    /*
-                    50 done button frame.
-                    24 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            50 done button frame.
+            24 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
+            
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
@@ -415,19 +413,15 @@ public extension UIView {
             let cancelButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: target, action: cancelAction)
             items.append(cancelButton)
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    /*
-                    66 Cancel button maximum x.
-                    50 done button frame.
-                    8+8 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            66 Cancel button maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+            
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
@@ -528,19 +522,15 @@ public extension UIView {
             let cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: leftButtonAction)
             items.append(cancelButton)
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    /*
-                    66 Cancel button maximum x.
-                    50 done button frame.
-                    8+8 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            66 Cancel button maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+            
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
@@ -651,19 +641,15 @@ public extension UIView {
             items.append(fixed)
             items.append(next)
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    /*
-                    72.5 next/previous maximum x.
-                    50 done button frame.
-                    8+8 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            72.5 next/previous maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+            
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
@@ -772,19 +758,15 @@ public extension UIView {
             items.append(fixed)
             items.append(next)
             
-            if let unwrappedTitleText = titleText {
-                if count(unwrappedTitleText) != 0 && shouldHideTitle == false {
-                    /*
-                    72.5 next/previous maximum x.
-                    50 done button frame.
-                    8+8 distance maintenance
-                    */
-                    let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
-                    
-                    let title = IQTitleBarButtonItem(frame: buttonFrame, title: unwrappedTitleText)
-                    items.append(title)
-                }
-            }
+            /*
+            72.5 next/previous maximum x.
+            50 done button frame.
+            8+8 distance maintenance
+            */
+            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+            
+            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
             
             //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
             let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
