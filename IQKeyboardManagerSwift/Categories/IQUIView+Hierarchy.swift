@@ -132,8 +132,8 @@ public extension UIView {
         while let unwrappedSuperView = superView {
             
             if unwrappedSuperView.isKindOfClass(classType) &&
-                ((InternalClass.UITableViewCellScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) ||
-                    (InternalClass.UITableViewWrapperViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) ||
+                ((InternalClass.UITableViewCellScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewCellScrollViewClass!) == false) &&
+                    (InternalClass.UITableViewWrapperViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UITableViewWrapperViewClass!) == false) &&
                     (InternalClass.UIQueuingScrollViewClass != nil && unwrappedSuperView.isKindOfClass(InternalClass.UIQueuingScrollViewClass!) == false)) {
                         return superView
             } else {
