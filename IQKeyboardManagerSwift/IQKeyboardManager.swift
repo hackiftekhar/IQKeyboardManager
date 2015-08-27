@@ -1801,6 +1801,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             if toolbar.title != _textView.placeholder {
                                 toolbar.title = _textView.placeholder
                             }
+                        } else {
+                            toolbar.title = nil
                         }
 
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
@@ -1874,6 +1876,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 if toolbar.title != _textView.placeholder {
                                     toolbar.title = _textView.placeholder
                                 }
+                            } else {
+                                toolbar.title = nil
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)

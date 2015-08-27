@@ -257,7 +257,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" minimumFontSize="17" id="khu-Ss-QgV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="1" minimumFontSize="17" id="khu-Ss-QgV">
                                 <rect key="frame" x="20" y="94" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -267,7 +267,7 @@
                                 <rect key="frame" x="20" y="134" width="280" height="70"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" minimumFontSize="17" id="e8e-QD-zdt">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" placeholder="3" minimumFontSize="17" id="e8e-QD-zdt">
                                         <rect key="frame" x="10" y="20" width="260" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -280,7 +280,7 @@
                                 <rect key="frame" x="20" y="345" width="280" height="70"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4" borderStyle="roundedRect" minimumFontSize="17" id="HK5-F9-gk8">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4" borderStyle="roundedRect" placeholder="4" minimumFontSize="17" id="HK5-F9-gk8">
                                         <rect key="frame" x="10" y="20" width="260" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -297,7 +297,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ZfA-hz-vQy">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="No toolbar" minimumFontSize="17" id="ZfA-hz-vQy">
                                 <rect key="frame" x="20" y="508" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1780,7 +1780,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
             </objects>
             <point key="canvasLocation" x="-2105" y="234"/>
         </scene>
-        <!--Special Case-->
+        <!--UITextView-->
         <scene sceneID="h2s-u1-pNX">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ors-9g-GKO" customClass="TextViewSpecialCaseViewController" customModule="DemoSwift" sceneMemberID="viewController">
@@ -1856,7 +1856,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Special Case" id="EaY-Hi-Epe">
+                    <navigationItem key="navigationItem" title="UITextView" id="EaY-Hi-Epe">
                         <barButtonItem key="rightBarButtonItem" title="Enable Adjust" id="4cn-aT-uY1">
                             <connections>
                                 <action selector="canAdjustTextView:" destination="Ors-9g-GKO" id="DGS-f2-Uvf"/>
