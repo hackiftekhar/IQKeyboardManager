@@ -28,7 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		757983591B886B3D00F8E41F /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		757983591B886B3D00F8E41F /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManager.h; path = ../IQKeyboardManager/IQKeyboardManager.h; sourceTree = "<group>"; };
 		757983751B886C2700F8E41F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IQKeyboardManagerSwift/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		757983781B886C6700F8E41F /* IQNSArray+Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQNSArray+Sort.swift"; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		7579835A1B886B3D00F8E41F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				757983591B886B3D00F8E41F /* IQKeyboardManager.framework */,
+				757983591B886B3D00F8E41F /* IQKeyboardManagerSwift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,7 +192,7 @@
 			);
 			name = IQKeyboardManagerSwift;
 			productName = IQKeyboardManager;
-			productReference = 757983591B886B3D00F8E41F /* IQKeyboardManager.framework */;
+			productReference = 757983591B886B3D00F8E41F /* IQKeyboardManagerSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
