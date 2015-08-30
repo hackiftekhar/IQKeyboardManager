@@ -95,7 +95,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 #### Source Code Method:-
 
-Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
+***IQKeyboardManager (Objective-C):-*** Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
+
+***IQKeyboardManager (Swift):-*** ***Drag and drop*** `IQKeyBoardManagerSwift` directory from demo project to your project
+
+In AppDelegate.swift, just enable IQKeyboardManager.
+
+```
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+    IQKeyboardManager.sharedManager().enable = true
+
+    return true
+    }
+}
+```
+
 
 ## Known Issues:-
 
