@@ -62,10 +62,36 @@ Installation
 
 #### Cocoapod Method:-
 
-IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
+***IQKeyboardManager (Objective-C):-*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
-    pod 'IQKeyboardManager'
+pod 'IQKeyboardManager'
+
+***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
+it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
+
+pod 'IQKeyboardManagerSwift'
+
+In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
+
+```
+import IQKeyboardManagerSwift
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+    IQKeyboardManager.sharedManager().enable = true
+
+    return true
+    }
+}
+```
+
+
 
 #### Source Code Method:-
 
