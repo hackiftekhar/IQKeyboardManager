@@ -22,11 +22,11 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
 
 ## Screenshot
-[![IQKeyboardManager](./Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
-[![Settings](./Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
+[![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
+[![Settings](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
 
 ## GIF animation
-[![IQKeyboardManager](./Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
+[![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
 
 ## Video
 
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 ## Known Issues:-
 
-![Known Issue 1](./Screenshot/IQKeyboardManagerKnownIssue1.png)
+![Known Issue 1](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerKnownIssue1.png)
 
 ####1) Keyboard does not appear in iOS Simulator ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
@@ -159,7 +159,7 @@ Manual Management:-
 
   If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
-![image](./Screenshot/UINavigationBarExample.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/UINavigationBarExample.jpg)
 
 
   If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
@@ -175,11 +175,11 @@ Manual Management:-
  Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your UITextfield/UITextView with TopLayoutGuide/BottomLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top.
  
  To fix it, just let IQKeyboardManager know the constraint which is pinned with **TopLayoutGuide/BottomLayoutGuide**, just map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. Here is the screenshot:- 
-![image](./Screenshot/TopLayoutGuideDirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/TopLayoutGuideDirectMapping.jpg)
 
  If your textFields are inside any UIView and your UIView is pinned with **TopLayoutGuide/BotomLayoutGuide** then also you can map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. here are the screenshots:-
-![image](./Screenshot/TopLayoutGuideIndirectMapping.jpg)
-![image](./Screenshot/BottomLayoutGuideIndirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/TopLayoutGuideIndirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
 
 #### Disable for a ViewController:-
 
@@ -325,7 +325,7 @@ Generally if developer need to perform some custom task on a particular textFiel
 ```
 
 ## Control Flow Diagram
-[![IQKeyboardManager CFD](./Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerCFD.jpg)
+[![IQKeyboardManager CFD](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg)
 
 
 ##Properties and functions usage:-
