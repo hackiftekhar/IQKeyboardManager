@@ -104,19 +104,58 @@
 //}
 
 
-/////-------------------------
-///// @name IQToolbar handling
-/////-------------------------
-//
-///**
-// enableAutoToolbar  Automatic add the IQToolbar functionality. Default is YES.
-// toolbarManageBehaviour AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
-// */
-//- (void)testAutoToolbarAndManageBehaviour {
-//    
-//}
-//
-//
+///-------------------------
+/// @name IQToolbar handling
+///-------------------------
+
+/**
+ enableAutoToolbar  Automatic add the IQToolbar functionality. Default is YES.
+ toolbarManageBehaviour AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
+ */
+- (void)testAutoToolbarAndManageBehaviour {
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElementQuery *tablesQuery = app.tables;
+    [tablesQuery.staticTexts[@"UITextField/UITextView example"] tap];
+    
+    XCUIElement *element = [[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element;
+    
+    XCUIElement *textView = [[element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:2];
+    [textView tap];
+    
+    XCUIElement *doneButton = app.toolbars.buttons[@"Done"];
+    
+    XCTAssertTrue(doneButton.exists);
+    
+    [doneButton tap];
+    [[[[app.navigationBars[@"TextField Demo"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
+    [app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"] tap];
+    [tablesQuery.switches[@"Enable AutoToolbar, Automatic add the IQToolbar on UIKeyboard"] tap];
+    [app.navigationBars[@"Settings"].buttons[@"Done"] tap];
+    [tablesQuery.staticTexts[@"enable, shouldToolbarUsesTextFieldTintColor"] tap];
+    
+    [[[element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:1] tap];
+
+    XCTAssertFalse(doneButton.exists);
+
+    [app typeText:@"\n"];
+    
+    XCTAssertFalse(doneButton.exists);
+
+    [app typeText:@"\n"];
+    
+    XCTAssertFalse(doneButton.exists);
+    
+    [app typeText:@"\n"];
+    
+    XCTAssertFalse(doneButton.exists);
+    
+    [app typeText:@"\n"];
+    
+    XCTAssertFalse(doneButton.exists);
+}
+
+
 ///**
 // shouldShowTextFieldPlaceholder   If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
 // ShouldToolbarUsesTextFieldTintColor    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
