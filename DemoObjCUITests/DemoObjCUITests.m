@@ -38,13 +38,14 @@
 /**
  Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
  */
-- (void)testEnable {
+- (void)testEnableDisable {
     
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElement *window = [app.windows elementBoundByIndex:0];
     XCUIElement *rootViewController = [[window childrenMatchingType:XCUIElementTypeOther] elementBoundByIndex:0];
-
     XCUIElementQuery *tablesQuery = app.tables;
+    XCUIElement *doneButton = app.toolbars.buttons[@"Done"];
+    
     [tablesQuery.staticTexts[@"UITextField/UITextView example"] tap];
 
     XCUIElement *textView = [[[[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:2];
@@ -53,7 +54,6 @@
     //Should move up
     XCTAssertLessThan(rootViewController.frame.origin.y, 0);
 
-    XCUIElement *doneButton = app.toolbars.buttons[@"Done"];
     [doneButton tap];
 
     //Should back to normal
@@ -115,52 +115,119 @@
 - (void)testAutoToolbarAndManageBehaviour {
     
     XCUIApplication *app = [[XCUIApplication alloc] init];
+    
     XCUIElementQuery *tablesQuery = app.tables;
-    [tablesQuery.staticTexts[@"UITextField/UITextView example"] tap];
     
-    XCUIElement *element = [[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element;
+    XCUIElement *textFieldTextViewExample = tablesQuery.staticTexts[@"UITextField/UITextView example"];
+    XCUIElement *textFieldDemoBackButton = [[[app.navigationBars[@"TextField Demo"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0];
     
-    XCUIElement *textView = [[element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:2];
-    [textView tap];
-    
-    XCUIElement *doneButton = app.toolbars.buttons[@"Done"];
-    
-    XCTAssertTrue(doneButton.exists);
-    
-    [doneButton tap];
-    [[[[app.navigationBars[@"TextField Demo"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
-    [app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"] tap];
-    [tablesQuery.switches[@"Enable AutoToolbar, Automatic add the IQToolbar on UIKeyboard"] tap];
-    [app.navigationBars[@"Settings"].buttons[@"Done"] tap];
-    [tablesQuery.staticTexts[@"enable, shouldToolbarUsesTextFieldTintColor"] tap];
-    
-    [[[element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:1] tap];
+    XCUIElement *easiestIntegrationTextField = app.textFields[@"Easiest integration"];
+    XCUIElement *easiestIntegrationNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Easiest integration"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *deviceOrientationNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Device Orientation support"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *categoryForKeyboardNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"UITextField Category for Keyboard"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *enableDisableKeyboardNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Enable/Desable Keyboard Manager"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *customizeInputViewNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Customize InputView support"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *textViewPlaceholderNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"IQTextView for placeholder support"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *lastTextView = [[[[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:4];
 
-    XCTAssertFalse(doneButton.exists);
+    XCUIElement *keyboardDoneButton = app.toolbars.buttons[@"Done"];
+    
+    XCUIElement *settingsButton = app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"];
+    XCUIElement *settingsDoneButton = app.navigationBars[@"Settings"].buttons[@"Done"];
+    XCUIElement *switchEnableAutoToolbar = tablesQuery.switches[@"Enable AutoToolbar, Automatic add the IQToolbar on UIKeyboard"];
+    
+    XCUIElement *toolbarManageBehaviourSettings = tablesQuery.staticTexts[@"Toolbar Manage Behaviour"];
+    XCUIElement *toolbarManageBehaviourBack = app.navigationBars[@"Toolbar Manage Behaviour"].buttons[@"Settings"];
+    XCUIElement *autoToolbarByTag = tablesQuery.staticTexts[@"IQAutoToolbar By Tag"];
+    XCUIElement *autoToolbarBySubviews = tablesQuery.staticTexts[@"IQAutoToolbar By Subviews"];
+    
+    
+    [textFieldTextViewExample tap];
+    
+    [easiestIntegrationTextField tap];
+    
+    XCTAssertTrue(keyboardDoneButton.exists);
+    
+    [keyboardDoneButton tap];
+    
+    [textFieldDemoBackButton tap];
+
+    [settingsButton tap];
+
+    [switchEnableAutoToolbar tap];
+    [settingsDoneButton tap];
+
+    [textFieldTextViewExample tap];
+    [lastTextView tap];
+
+    XCTAssertFalse(keyboardDoneButton.exists);
 
     [app typeText:@"\n"];
     
-    XCTAssertFalse(doneButton.exists);
+    XCTAssertFalse(keyboardDoneButton.exists);
 
-    [app typeText:@"\n"];
+    [textFieldDemoBackButton tap];
     
-    XCTAssertFalse(doneButton.exists);
+    [settingsButton tap];
     
-    [app typeText:@"\n"];
+    [switchEnableAutoToolbar tap];
+    [settingsDoneButton tap];
     
-    XCTAssertFalse(doneButton.exists);
+    [textFieldTextViewExample tap];
+
+    [easiestIntegrationTextField tap];
     
-    [app typeText:@"\n"];
+    XCTAssertTrue(keyboardDoneButton.exists);
+
+    [easiestIntegrationNext tap];
+    [deviceOrientationNext tap];
+    [categoryForKeyboardNext tap];
+    [enableDisableKeyboardNext tap];
+    [customizeInputViewNext tap];
+    [textViewPlaceholderNext tap];
+    [keyboardDoneButton tap];
     
-    XCTAssertFalse(doneButton.exists);
+    [textFieldDemoBackButton tap];
+    
+    [settingsButton tap];
+    
+    [toolbarManageBehaviourSettings tap];
+    [autoToolbarByTag tap];
+    
+    [toolbarManageBehaviourBack tap];
+    
+    [settingsDoneButton tap];
+    
+    
+    [textFieldTextViewExample tap];
+    [easiestIntegrationTextField tap];
+    [easiestIntegrationNext tap];
+    [textViewPlaceholderNext tap];
+    [categoryForKeyboardNext tap];
+    [customizeInputViewNext tap];
+    [keyboardDoneButton tap];
+    
+    [textFieldDemoBackButton tap];
+    
+    [settingsButton tap];
+    [toolbarManageBehaviourSettings tap];
+    [autoToolbarBySubviews tap];
+    [toolbarManageBehaviourBack tap];
+    [settingsDoneButton tap];
+    [textFieldTextViewExample tap];
+    [easiestIntegrationTextField tap];
+    [easiestIntegrationNext tap];
+    [categoryForKeyboardNext tap];
+    [customizeInputViewNext tap];
+    
+    [keyboardDoneButton tap];
 }
 
-
-///**
-// shouldShowTextFieldPlaceholder   If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
-// ShouldToolbarUsesTextFieldTintColor    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
-// placeholderFont    Placeholder Font. Default is nil.
-// */
+/**
+ shouldShowTextFieldPlaceholder   If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+ ShouldToolbarUsesTextFieldTintColor    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+ placeholderFont    Placeholder Font. Default is nil.
+ */
 //- (void)testTextFieldPlaceholder {
 //    
 //}
