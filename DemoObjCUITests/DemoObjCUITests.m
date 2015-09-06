@@ -44,49 +44,59 @@
     XCUIElement *window = [app.windows elementBoundByIndex:0];
     XCUIElement *rootViewController = [[window childrenMatchingType:XCUIElementTypeOther] elementBoundByIndex:0];
     XCUIElementQuery *tablesQuery = app.tables;
-    XCUIElement *doneButton = app.toolbars.buttons[@"Done"];
     
-    [tablesQuery.staticTexts[@"UITextField/UITextView example"] tap];
+    XCUIElement *textFieldTextViewExample = tablesQuery.staticTexts[@"UITextField/UITextView example"];
+    XCUIElement *textFieldDemoBackButton = [[[app.navigationBars[@"TextField Demo"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0];
+    XCUIElement *textfieldDemoNavigationBarEnableButton = app.navigationBars[@"TextField Demo"].buttons[@"Enable"];
+    XCUIElement *textfieldDemoNavigationBarDisableButton = app.navigationBars[@"TextField Demo"].buttons[@"Disable"];
 
-    XCUIElement *textView = [[[[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:2];
+    XCUIElement *textView = [[[[[[app.otherElements containingType:XCUIElementTypeNavigationBar identifier:@"TextField Demo"] childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeOther].element childrenMatchingType:XCUIElementTypeTextView] elementBoundByIndex:4];
+    XCUIElement *keyboardDoneButton = app.toolbars.buttons[@"Done"];
+    
+    XCUIElement *settingsButton = app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"];
+    XCUIElement *switchEnable = tablesQuery.switches[@"Enable, Enable/Disable IQKeyboardManager"];
+    XCUIElement *settingsDoneButton = app.navigationBars[@"Settings"].buttons[@"Done"];
+
+    
+    [textFieldTextViewExample tap];
+
     [textView tap];
     
     //Should move up
     XCTAssertLessThan(rootViewController.frame.origin.y, 0);
 
-    [doneButton tap];
+    [keyboardDoneButton tap];
 
     //Should back to normal
     XCTAssertEqual(rootViewController.frame.origin.y, 0);
 
-    XCUIElement *textfieldDemoNavigationBar = app.navigationBars[@"TextField Demo"];
-    [textfieldDemoNavigationBar.buttons[@"Disable"] tap];
+    [textfieldDemoNavigationBarDisableButton tap];
     [textView tap];
     
     //Should not move, because it is disabled now
     XCTAssertEqual(rootViewController.frame.origin.y, 0);
 
-    [textfieldDemoNavigationBar.buttons[@"Enable"] tap];
+    [textfieldDemoNavigationBarEnableButton tap];
 
     //Should move up
     XCTAssertLessThan(rootViewController.frame.origin.y, 0);
 
-    [doneButton tap];
+    [keyboardDoneButton tap];
 
     //Should back to normal
     XCTAssertEqual(rootViewController.frame.origin.y, 0);
 
-    [[[[textfieldDemoNavigationBar childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
-    [app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"] tap];
-    [tablesQuery.switches[@"Enable, Enable/Disable IQKeyboardManager"] tap];
-    [app.navigationBars[@"Settings"].buttons[@"Done"] tap];
-    [tablesQuery.staticTexts[@"enable, shouldToolbarUsesTextFieldTintColor"] tap];
+    [textFieldDemoBackButton tap];
+    [settingsButton tap];
+    [switchEnable tap];
+    [settingsDoneButton tap];
+    [textFieldTextViewExample tap];
     [textView tap];
     
     //Should not move, because it is disabled now
     XCTAssertEqual(rootViewController.frame.origin.y, 0);
     
-    [doneButton tap];
+    [keyboardDoneButton tap];
 }
 
 ///**
@@ -228,11 +238,107 @@
  ShouldToolbarUsesTextFieldTintColor    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  placeholderFont    Placeholder Font. Default is nil.
  */
-//- (void)testTextFieldPlaceholder {
-//    
-//}
-//
-//
+- (void)testTextFieldPlaceholder {
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    
+    XCUIElementQuery *tablesQuery = app.tables;
+    
+    XCUIElement *textFieldTextViewExample = tablesQuery.staticTexts[@"UITextField/UITextView example"];
+    XCUIElement *specialCasesExample = tablesQuery.staticTexts[@"Special Cases"];
+
+    XCUIElement *textFieldDemoBackButton = [[[app.navigationBars[@"TextField Demo"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0];
+    XCUIElement *specialCaseDemoBackButton = [[[app.navigationBars[@"Special Cases"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0];
+
+    XCUIElement *enableDisableTextField = app.textFields[@"Enable/Desable Keyboard Manager"];
+    XCUIElement *enableDisableKeyboardNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Enable/Desable Keyboard Manager"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *customizeInputViewNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"Customize InputView support"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *textViewPlaceholderNext = [[[app.toolbars containingType:XCUIElementTypeOther identifier:@"IQTextView for placeholder support"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+
+    XCUIElement *specialCaseTextField = app.textFields[@"TextField 3"];
+    XCUIElement *specialCaseToolbar = [app.toolbars containingType:XCUIElementTypeOther identifier:@"TextField 3"].element;
+
+    XCUIElement *keyboardNextButton = [[[app.toolbars containingType:XCUIElementTypeButton identifier:@"Done"] childrenMatchingType:XCUIElementTypeButton] elementBoundByIndex:1];
+    XCUIElement *keyboardDoneButton = app.toolbars.buttons[@"Done"];
+    
+    XCUIElement *settingsButton = app.navigationBars[@"IQKeyboardManager"].buttons[@"settings"];
+    XCUIElement *settingsDoneButton = app.navigationBars[@"Settings"].buttons[@"Done"];
+    XCUIElement *switchShouldShowTextfieldPlaceholder = tablesQuery.switches[@"Should Show TextField Placeholder, Add the textField's placeholder text on IQToolbar"];
+    XCUIElement *switchShouldToolbarUsesTextFieldTintColor = tablesQuery.switches[@"Should Toolbar Uses TextField TintColor, Uses textField's tintColor property for IQToolbar"];
+    XCUIElement *placeholderFont = tablesQuery.staticTexts[@"Placeholder Font"];
+    XCUIElement *italicSystemFont = tablesQuery.staticTexts[@"Italic system font"];
+    
+    XCUIElement *fontsBack = app.navigationBars[@"Fonts"].buttons[@"Settings"];
+
+    [settingsButton tap];
+    [switchShouldShowTextfieldPlaceholder tap];
+    [settingsDoneButton tap];
+    
+    [textFieldTextViewExample tap];
+    
+    [enableDisableTextField tap];
+    XCTAssertFalse(enableDisableKeyboardNext.exists);
+    [keyboardNextButton tap];
+    XCTAssertFalse(customizeInputViewNext.exists);
+    [keyboardNextButton tap];
+    XCTAssertFalse(textViewPlaceholderNext.exists);
+    [keyboardDoneButton tap];
+    [textFieldDemoBackButton tap];
+
+    [specialCasesExample tap];
+    [specialCaseTextField tap];
+    XCTAssertFalse(specialCaseToolbar.exists);
+    [keyboardDoneButton tap];
+    [specialCaseDemoBackButton tap];
+    
+    [settingsButton tap];
+    [switchShouldShowTextfieldPlaceholder tap];
+    [settingsDoneButton tap];
+    
+    [textFieldTextViewExample tap];
+    
+    [enableDisableTextField tap];
+    XCTAssertTrue(enableDisableKeyboardNext.exists);
+    [keyboardNextButton tap];
+    XCTAssertTrue(customizeInputViewNext.exists);
+    [keyboardNextButton tap];
+    XCTAssertTrue(textViewPlaceholderNext.exists);
+    [keyboardDoneButton tap];
+    [textFieldDemoBackButton tap];
+
+    [specialCasesExample tap];
+    [specialCaseTextField tap];
+    XCTAssertTrue(specialCaseToolbar.exists);
+    [keyboardDoneButton tap];
+    [specialCaseDemoBackButton tap];
+
+    [settingsButton tap];
+    [placeholderFont tap];
+    [italicSystemFont tap];
+    [fontsBack tap];
+    [settingsDoneButton tap];
+    
+    [textFieldTextViewExample tap];
+    
+    [enableDisableTextField tap];
+    [keyboardNextButton tap];
+    [keyboardNextButton tap];
+    [keyboardDoneButton tap];
+    
+    [textFieldDemoBackButton tap];
+    [settingsButton tap];
+    [switchShouldToolbarUsesTextFieldTintColor tap];
+    [settingsDoneButton tap];
+    
+    [textFieldTextViewExample tap];
+    
+    [enableDisableTextField tap];
+    [keyboardNextButton tap];
+    [keyboardNextButton tap];
+    [keyboardDoneButton tap];
+}
+
+
 /////--------------------------
 ///// @name UITextView handling
 /////--------------------------
