@@ -1069,10 +1069,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         //Going ahead. No else if.
         
-        let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
-        
         if layoutGuidePosition == .Top {
-            
+
+            let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
+
             let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move)
             
             UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
@@ -1085,6 +1085,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         } else if layoutGuidePosition == .Bottom {
             
+            let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
+
             let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move)
             
             UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
