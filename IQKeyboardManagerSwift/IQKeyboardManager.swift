@@ -855,9 +855,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  Calculating move position.
             switch interfaceOrientation {
             case UIInterfaceOrientation.LandscapeLeft:
-                move =CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width))
+                move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width)
             case UIInterfaceOrientation.LandscapeRight:
-                move =kbSize.width-CGRectGetMinX(textFieldViewRect)
+                move = kbSize.width-CGRectGetMinX(textFieldViewRect)
             case UIInterfaceOrientation.Portrait:
                 move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height)
             case UIInterfaceOrientation.PortraitUpsideDown:
@@ -1069,6 +1069,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         //Going ahead. No else if.
         
+        let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
         
         if layoutGuidePosition == .Top {
             
