@@ -100,7 +100,18 @@
 		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4C7853001B9DCEDE00A557B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0B63B921781FAB0008D3B64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0B63B9A1781FAB1008D3B64;
+			remoteInfo = DemoObjC;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		4C7852FB1B9DCEDE00A557B9 /* IQKeyboardManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IQKeyboardManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE6119D1B98B7250020591A /* DemoObjCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoObjCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE6119F1B98B7250020591A /* DemoObjCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoObjCUITests.m; sourceTree = "<group>"; };
 		4CE611A11B98B7250020591A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -241,6 +252,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C7852F81B9DCEDE00A557B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CE6119A1B98B7250020591A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,6 +394,7 @@
 				C0B63B9B1781FAB1008D3B64 /* IQKeyboardManager.app */,
 				C0ACB0F519CF104B0057B571 /* DemoSwift.app */,
 				4CE6119D1B98B7250020591A /* DemoObjCUITests.xctest */,
+				4C7852FB1B9DCEDE00A557B9 /* IQKeyboardManagerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -686,6 +705,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C7852FA1B9DCEDE00A557B9 /* IQKeyboardManagerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C7853041B9DCEDE00A557B9 /* Build configuration list for PBXNativeTarget "IQKeyboardManagerUITests" */;
+			buildPhases = (
+				4C7852F71B9DCEDE00A557B9 /* Sources */,
+				4C7852F81B9DCEDE00A557B9 /* Frameworks */,
+				4C7852F91B9DCEDE00A557B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C7853011B9DCEDE00A557B9 /* PBXTargetDependency */,
+			);
+			name = IQKeyboardManagerUITests;
+			productName = IQKeyboardManagerUITests;
+			productReference = 4C7852FB1B9DCEDE00A557B9 /* IQKeyboardManagerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		4CE6119C1B98B7250020591A /* DemoObjCUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CE611A61B98B7250020591A /* Build configuration list for PBXNativeTarget "DemoObjCUITests" */;
@@ -747,6 +784,10 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Iftekhar;
 				TargetAttributes = {
+					4C7852FA1B9DCEDE00A557B9 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = C0B63B9A1781FAB1008D3B64;
+					};
 					4CE6119C1B98B7250020591A = {
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = C0B63B9A1781FAB1008D3B64;
@@ -776,11 +817,19 @@
 				C0B63B9A1781FAB1008D3B64 /* DemoObjC */,
 				C0ACB0F419CF104B0057B571 /* DemoSwift */,
 				4CE6119C1B98B7250020591A /* DemoObjCUITests */,
+				4C7852FA1B9DCEDE00A557B9 /* IQKeyboardManagerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C7852F91B9DCEDE00A557B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CE6119B1B98B7250020591A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -819,6 +868,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4C7852F71B9DCEDE00A557B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CE611991B98B7250020591A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -916,7 +972,63 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4C7853011B9DCEDE00A557B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0B63B9A1781FAB1008D3B64 /* DemoObjC */;
+			targetProxy = 4C7853001B9DCEDE00A557B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4C7853021B9DCEDE00A557B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = IQKeyboardManagerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = DemoObjC;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		4C7853031B9DCEDE00A557B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = IQKeyboardManagerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = DemoObjC;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		4CE611A41B98B7250020591A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1139,6 +1251,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C7853041B9DCEDE00A557B9 /* Build configuration list for PBXNativeTarget "IQKeyboardManagerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C7853021B9DCEDE00A557B9 /* Debug */,
+				4C7853031B9DCEDE00A557B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4CE611A61B98B7250020591A /* Build configuration list for PBXNativeTarget "DemoObjCUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
