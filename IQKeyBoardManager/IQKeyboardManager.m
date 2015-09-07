@@ -482,6 +482,25 @@ void _IQShowLog(NSString *logString);
     
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
+    //  (Bug ID: #250)
+    IQLayoutGuidePosition layoutGuidePosition = IQLayoutGuidePositionNone;
+    
+#ifdef NSFoundationVersionNumber_iOS_5_1
+    
+    NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+    
+    //If topLayoutGuide constraint
+    if (constraint && (constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] topLayoutGuide]))
+    {
+        layoutGuidePosition = IQLayoutGuidePositionTop;
+    }
+    //If bottomLayoutGuice constraint
+    else if (constraint && (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide]))
+    {
+        layoutGuidePosition = IQLayoutGuidePositionBottom;
+    }
+#endif
+    
     switch (interfaceOrientation)
     {
         case UIInterfaceOrientationLandscapeLeft:
@@ -502,23 +521,48 @@ void _IQShowLog(NSString *logString);
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
 	
-    //  Calculating move position. Common for both normal and special cases.
-    switch (interfaceOrientation)
+    //  Checking if there is bottomLayoutGuide attached (Bug ID: #250)
+    if (layoutGuidePosition == IQLayoutGuidePositionBottom)
     {
-        case UIInterfaceOrientationLandscapeLeft:
-            move = MIN(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-kbSize.width));
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), kbSize.width-CGRectGetMinX(textFieldViewRect));
-            break;
-        case UIInterfaceOrientationPortrait:
-            move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), kbSize.height-CGRectGetMinY(textFieldViewRect));
-            break;
-        default:
-            break;
+        //  Calculating move position.
+        switch (interfaceOrientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+                move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-kbSize.width);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                move = kbSize.width-CGRectGetMinX(textFieldViewRect);
+                break;
+            case UIInterfaceOrientationPortrait:
+                move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height);
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                move = kbSize.height-CGRectGetMinY(textFieldViewRect);
+                break;
+            default:
+                break;
+        }
+    }
+    else
+    {
+        //  Calculating move position. Common for both normal and special cases.
+        switch (interfaceOrientation)
+        {
+            case UIInterfaceOrientationLandscapeLeft:
+                move = MIN(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(keyWindow.frame)-kbSize.width));
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                move = MIN(CGRectGetWidth(keyWindow.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), kbSize.width-CGRectGetMinX(textFieldViewRect));
+                break;
+            case UIInterfaceOrientationPortrait:
+                move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                move = MIN(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), kbSize.height-CGRectGetMinY(textFieldViewRect));
+                break;
+            default:
+                break;
+        }
     }
 	
     _IQShowLog([NSString stringWithFormat:@"Need to move: %.2f",move]);
@@ -727,48 +771,9 @@ void _IQShowLog(NSString *logString);
         //Going ahead. No else if.
     }
     
-    //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
-    //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
-    //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
-    //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-    //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
-    if (_canAdjustTextView && (_lastScrollView == nil) && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
-    {
-        CGFloat textViewHeight = CGRectGetHeight(_textFieldView.frame);
-        
-        switch (interfaceOrientation)
-        {
-            case UIInterfaceOrientationLandscapeLeft:
-            case UIInterfaceOrientationLandscapeRight:
-                textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-kbSize.width-(topLayoutGuide+5)));
-                break;
-            case UIInterfaceOrientationPortrait:
-            case UIInterfaceOrientationPortraitUpsideDown:
-                textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-kbSize.height-(topLayoutGuide+5)));
-                break;
-            default:
-                break;
-        }
-        
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            
-            _IQShowLog([NSString stringWithFormat:@"%@ Old Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
-
-            CGRect textFieldViewRect = _textFieldView.frame;
-            textFieldViewRect.size.height = textViewHeight;
-            _textFieldView.frame = textFieldViewRect;
-            _keyboardManagerFlags.isTextFieldViewFrameChanged = YES;
-
-            _IQShowLog([NSString stringWithFormat:@"%@ New Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
-
-        } completion:NULL];
-    }
 #ifdef NSFoundationVersionNumber_iOS_5_1
 
-    NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-
-    //If topLayoutGuide constraint
-    if (constraint && (constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] topLayoutGuide]))
+    if (layoutGuidePosition == IQLayoutGuidePositionTop)
     {
         CGFloat constant = MIN(_layoutGuideConstraintInitialConstant, constraint.constant-move);
         
@@ -780,7 +785,7 @@ void _IQShowLog(NSString *logString);
         }];
     }
     //If bottomLayoutGuice constraint
-    else if (constraint && (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] || constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide]))
+    else if (layoutGuidePosition == IQLayoutGuidePositionBottom)
     {
         CGFloat constant = MAX(_layoutGuideConstraintInitialConstant, constraint.constant+move);
         
@@ -795,6 +800,43 @@ void _IQShowLog(NSString *logString);
     else
 #endif
     {
+        //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
+        //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
+        //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
+        //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+        //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
+        if (_canAdjustTextView && (_lastScrollView == nil) && [_textFieldView isKindOfClass:[UITextView class]] && _keyboardManagerFlags.isTextFieldViewFrameChanged == NO)
+        {
+            CGFloat textViewHeight = CGRectGetHeight(_textFieldView.frame);
+            
+            switch (interfaceOrientation)
+            {
+                case UIInterfaceOrientationLandscapeLeft:
+                case UIInterfaceOrientationLandscapeRight:
+                    textViewHeight = MIN(textViewHeight, (CGRectGetWidth(keyWindow.frame)-kbSize.width-(topLayoutGuide+5)));
+                    break;
+                case UIInterfaceOrientationPortrait:
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    textViewHeight = MIN(textViewHeight, (CGRectGetHeight(keyWindow.frame)-kbSize.height-(topLayoutGuide+5)));
+                    break;
+                default:
+                    break;
+            }
+            
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                
+                _IQShowLog([NSString stringWithFormat:@"%@ Old Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
+                
+                CGRect textFieldViewRect = _textFieldView.frame;
+                textFieldViewRect.size.height = textViewHeight;
+                _textFieldView.frame = textFieldViewRect;
+                _keyboardManagerFlags.isTextFieldViewFrameChanged = YES;
+                
+                _IQShowLog([NSString stringWithFormat:@"%@ New Frame : %@",[_textFieldView _IQDescription], NSStringFromCGRect(_textFieldView.frame)]);
+                
+            } completion:NULL];
+        }
+
         //  Special case for iPad modalPresentationStyle.
         if ([rootController modalPresentationStyle] == UIModalPresentationFormSheet ||
             [rootController modalPresentationStyle] == UIModalPresentationPageSheet)
