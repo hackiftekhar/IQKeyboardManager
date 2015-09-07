@@ -806,7 +806,35 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let newKeyboardDistanceFromTextField = (textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : textFieldView.keyboardDistanceFromTextField
         var kbSize = _kbSize
         
-       let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
+        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
+        
+        //  (Bug ID: #250)
+        var layoutGuidePosition = IQLayoutGuidePosition.None
+        
+        if let viewController = textFieldView.viewController() {
+            
+            if let constraint = viewController.IQLayoutGuideConstraint {
+                
+                var layoutGuide : UILayoutSupport?
+                if let itemLayoutGuide = constraint.firstItem as? UILayoutSupport {
+                    layoutGuide = itemLayoutGuide
+                } else if let itemLayoutGuide = constraint.secondItem as? UILayoutSupport {
+                    layoutGuide = itemLayoutGuide
+                }
+                
+                if let itemLayoutGuide : UILayoutSupport = layoutGuide {
+                    
+                    if (itemLayoutGuide === viewController.topLayoutGuide)    //If topLayoutGuide constraint
+                    {
+                        layoutGuidePosition = .Top
+                    }
+                    else if (itemLayoutGuide === viewController.bottomLayoutGuide)    //If bottomLayoutGuice constraint
+                    {
+                        layoutGuidePosition = .Bottom
+                    }
+                }
+            }
+        }
         
         switch interfaceOrientation {
         case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
@@ -822,17 +850,33 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Move positive = textField is hidden.
         //  Move negative = textField is showing.
         
-        //  Calculating move position. Common for both normal and special cases.
-        switch interfaceOrientation {
-        case UIInterfaceOrientation.LandscapeLeft:
-            move = min(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width))
-        case UIInterfaceOrientation.LandscapeRight:
-            move = min(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), kbSize.width-CGRectGetMinX(textFieldViewRect))
-        case UIInterfaceOrientation.Portrait:
-            move = min(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height))
-        case UIInterfaceOrientation.PortraitUpsideDown:
-            move = min(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), kbSize.height-CGRectGetMinY(textFieldViewRect))
-        default:    break
+        //  Checking if there is bottomLayoutGuide attached (Bug ID: #250)
+        if layoutGuidePosition == .Bottom {
+            //  Calculating move position.
+            switch interfaceOrientation {
+            case UIInterfaceOrientation.LandscapeLeft:
+                move = CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width)
+            case UIInterfaceOrientation.LandscapeRight:
+                move = kbSize.width-CGRectGetMinX(textFieldViewRect)
+            case UIInterfaceOrientation.Portrait:
+                move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height)
+            case UIInterfaceOrientation.PortraitUpsideDown:
+                move = kbSize.height-CGRectGetMinY(textFieldViewRect)
+            default:    break
+            }
+        } else {
+            //  Calculating move position. Common for both normal and special cases.
+            switch interfaceOrientation {
+            case UIInterfaceOrientation.LandscapeLeft:
+                move = min(CGRectGetMinX(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxX(textFieldViewRect)-(CGRectGetWidth(window.frame)-kbSize.width))
+            case UIInterfaceOrientation.LandscapeRight:
+                move = min(CGRectGetWidth(window.frame)-CGRectGetMaxX(textFieldViewRect)-(topLayoutGuide+5), kbSize.width-CGRectGetMinX(textFieldViewRect))
+            case UIInterfaceOrientation.Portrait:
+                move = min(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(window.frame)-kbSize.height))
+            case UIInterfaceOrientation.PortraitUpsideDown:
+                move = min(CGRectGetHeight(window.frame)-CGRectGetMaxY(textFieldViewRect)-(topLayoutGuide+5), kbSize.height-CGRectGetMinY(textFieldViewRect))
+            default:    break
+            }
         }
         
         _IQShowLog("Need to move: \(move)")
@@ -1025,86 +1069,66 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         //Going ahead. No else if.
         
-        //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
-        //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
-        //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
-        //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-        //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
-        if canAdjustTextView == true && _lastScrollView == nil && textFieldView is UITextView == true && _keyboardManagerFlags.isTextFieldViewFrameChanged == false {
-            var textViewHeight = CGRectGetHeight(textFieldView.frame)
- 
-            switch interfaceOrientation {
-            case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
-                textViewHeight = min(textViewHeight, (CGRectGetWidth(window.frame)-kbSize.width-(topLayoutGuide+5)))
-            case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
-                textViewHeight = min(textViewHeight, (CGRectGetHeight(window.frame)-kbSize.height-(topLayoutGuide+5)))
-            default:    break
-            }
+        if layoutGuidePosition == .Top {
+
+            let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
+
+            let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move)
             
             UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
-
-                self._IQShowLog("\(textFieldView._IQDescription()) Old Frame : \(textFieldView.frame)")
-
-                var textFieldViewRect = textFieldView.frame
-                textFieldViewRect.size.height = textViewHeight
-                textFieldView.frame = textFieldViewRect
-                self._keyboardManagerFlags.isTextFieldViewFrameChanged = true
-
-                self._IQShowLog("\(textFieldView._IQDescription()) New Frame : \(textFieldView.frame)")
-
+                
+                constraint.constant = constant
+                self._rootViewController?.view.setNeedsLayout()
+                self._rootViewController?.view.layoutIfNeeded()
+                
                 }, completion: { (finished) -> Void in })
-        }
 
-        var hasDoneTweakLayoutGuide = false
-        
-        if let viewController = textFieldView.viewController() {
+        } else if layoutGuidePosition == .Bottom {
             
-            if let constraint = viewController.IQLayoutGuideConstraint {
+            let constraint = textFieldView.viewController()!.IQLayoutGuideConstraint!
+
+            let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move)
+            
+            UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
                 
-                var layoutGuide : UILayoutSupport?
-                if let itemLayoutGuide = constraint.firstItem as? UILayoutSupport {
-                    layoutGuide = itemLayoutGuide
-                } else if let itemLayoutGuide = constraint.secondItem as? UILayoutSupport {
-                    layoutGuide = itemLayoutGuide
+                constraint.constant = constant
+                self._rootViewController?.view.setNeedsLayout()
+                self._rootViewController?.view.layoutIfNeeded()
+                
+                }, completion: { (finished) -> Void in })
+
+        } else {
+            
+            //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
+            //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
+            //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
+            //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+            //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
+            if canAdjustTextView == true && _lastScrollView == nil && textFieldView is UITextView == true && _keyboardManagerFlags.isTextFieldViewFrameChanged == false {
+                var textViewHeight = CGRectGetHeight(textFieldView.frame)
+                
+                switch interfaceOrientation {
+                case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
+                    textViewHeight = min(textViewHeight, (CGRectGetWidth(window.frame)-kbSize.width-(topLayoutGuide+5)))
+                case UIInterfaceOrientation.Portrait, UIInterfaceOrientation.PortraitUpsideDown:
+                    textViewHeight = min(textViewHeight, (CGRectGetHeight(window.frame)-kbSize.height-(topLayoutGuide+5)))
+                default:    break
                 }
                 
-                if let itemLayoutGuide : UILayoutSupport = layoutGuide {
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
                     
-                    if (itemLayoutGuide === viewController.topLayoutGuide)    //If topLayoutGuide constraint
-                    {
-                        let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move)
-                        
-                        UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
-                            
-                            constraint.constant = constant
-                            self._rootViewController?.view.setNeedsLayout()
-                            self._rootViewController?.view.layoutIfNeeded()
-                            
-                            }, completion: { (finished) -> Void in })
-                        
-                        hasDoneTweakLayoutGuide = true
-                    }
-                    else if (itemLayoutGuide === viewController.bottomLayoutGuide)    //If bottomLayoutGuice constraint
-                    {
-                        let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move)
-                        
-                        UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve|UIViewAnimationOptions.BeginFromCurrentState), animations: { () -> Void in
-                            
-                            constraint.constant = constant
-                            self._rootViewController?.view.setNeedsLayout()
-                            self._rootViewController?.view.layoutIfNeeded()
-                            
-                            }, completion: { (finished) -> Void in })
-
-                        hasDoneTweakLayoutGuide = true
-                    }
-                }
+                    self._IQShowLog("\(textFieldView._IQDescription()) Old Frame : \(textFieldView.frame)")
+                    
+                    var textFieldViewRect = textFieldView.frame
+                    textFieldViewRect.size.height = textViewHeight
+                    textFieldView.frame = textFieldViewRect
+                    self._keyboardManagerFlags.isTextFieldViewFrameChanged = true
+                    
+                    self._IQShowLog("\(textFieldView._IQDescription()) New Frame : \(textFieldView.frame)")
+                    
+                    }, completion: { (finished) -> Void in })
             }
-        }
-        
-        //If not constraint
-        if hasDoneTweakLayoutGuide == false {
-            
+
             //  Special case for iPad modalPresentationStyle.
             if rootController.modalPresentationStyle == UIModalPresentationStyle.FormSheet || rootController.modalPresentationStyle == UIModalPresentationStyle.PageSheet {
                 
