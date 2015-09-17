@@ -57,6 +57,12 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 @synthesize toolbarManageBehaviour = _toolbarManageBehaviour;
 @synthesize delegate = _delegate;
 
+- (instancetype)init
+{
+    self = [self initWithViewController:nil];
+    return self;
+}
+
 -(instancetype)initWithViewController:(UIViewController*)controller
 {
     self = [super init];
