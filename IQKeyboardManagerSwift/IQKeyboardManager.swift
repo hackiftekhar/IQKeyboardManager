@@ -796,8 +796,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let textFieldViewRect = optionalTextFieldViewRect!
         
         //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
-        let interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : rootController.interfaceOrientation
-
+        let interfaceOrientation = (IQ_IS_IOS8_OR_GREATER) ? UIInterfaceOrientation.Portrait : UIApplication.sharedApplication().statusBarOrientation
         //  Getting RootViewRect.
         var rootViewRect = rootController.view.frame
         //Getting statusBarFrame
