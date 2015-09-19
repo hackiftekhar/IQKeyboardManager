@@ -26,7 +26,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         
         let identifier = "\(indexPath.section) \(indexPath.row)"
         
-        var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(identifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
         
         if cell == nil {
             
@@ -39,7 +39,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
             if ((indexPath.row % 2) == 0) {
                 
                 let textField = UITextField(frame: CGRectMake(5,5,contentView.frame.size.width-10,30))
-                textField.autoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth
+                textField.autoresizingMask = [UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleWidth]
                 textField.placeholder = identifier
                 textField.backgroundColor = UIColor.clearColor()
                 textField.borderStyle = UITextBorderStyle.RoundedRect
@@ -48,7 +48,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
             } else {
 
                 let textView = UITextView(frame: CGRectInset(contentView.bounds, 5, 5))
-                textView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+                textView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
                 textView.text = "Sample Text"
                 cell?.contentView.addSubview(textView)
             }

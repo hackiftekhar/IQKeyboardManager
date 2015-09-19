@@ -39,8 +39,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             
-            if items != nil {
-                for item in items as! [UIBarButtonItem] {
+            if let newItems = items {
+                for item in newItems {
                     
                     if item is IQTitleBarButtonItem == true {
                         (item as! IQTitleBarButtonItem).font = titleFont
@@ -54,8 +54,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             
-            if items != nil {
-                for item in items as! [UIBarButtonItem] {
+            if let newItems = items {
+                for item in newItems {
                     
                     if item is IQTitleBarButtonItem == true {
                         (item as! IQTitleBarButtonItem).title = title
@@ -73,11 +73,11 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         tintColor = UIColor .blackColor()
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         sizeToFit()
-        autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         tintColor = UIColor .blackColor()
     }
 
@@ -91,7 +91,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         didSet {
             if let unwrappedItems = items {
-                for item in unwrappedItems as! [UIBarButtonItem] {
+                for item in unwrappedItems {
                     
                     if item is IQTitleBarButtonItem {
                         item.tintColor = tintColor

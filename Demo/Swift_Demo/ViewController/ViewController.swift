@@ -21,7 +21,7 @@ class ViewController: UITableViewController {
         activityItems.append(shareImage)
         activityItems.append(youtubeUrl)
 
-        var excludedActivities = [NSString]()
+        let excludedActivities = [String]()
         activityItems.append(UIActivityTypePrint)
         activityItems.append(UIActivityTypeCopyToPasteboard)
         activityItems.append(UIActivityTypeAssignToContact)
