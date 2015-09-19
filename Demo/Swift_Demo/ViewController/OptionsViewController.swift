@@ -26,7 +26,7 @@ class OptionsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell") as! OptionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell") as! OptionTableViewCell
         
         cell.labelOption.text = options[indexPath.row]
         
@@ -48,6 +48,6 @@ class OptionsViewController: UITableViewController {
         
         delegate?.optionsViewController(self, index: indexPath.row)
         
-        tableView.reloadRowsAtIndexPaths(tableView.indexPathsForVisibleRows()!, withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.reloadRowsAtIndexPaths(tableView.indexPathsForVisibleRows!, withRowAnimation: UITableViewRowAnimation.Automatic)
     }
 }

@@ -49,7 +49,7 @@ public extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -64,7 +64,7 @@ public extension UIView {
         
         var nextResponder: UIResponder? = self
         
-        do {
+        repeat {
             nextResponder = nextResponder?.nextResponder()!
             
             if nextResponder is UIViewController {
@@ -95,9 +95,9 @@ public extension UIView {
             
             var matchController :UIResponder? = viewController()
 
-            while matchController != nil && contains(controllersHierarchy, matchController as! UIViewController) == false {
+            while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
-                do {
+                repeat {
                     matchController = matchController?.nextResponder()
 
                 } while matchController != nil && matchController is UIViewController == false
@@ -149,20 +149,21 @@ public extension UIView {
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
     public func responderSiblings()->[UIView] {
-        
-        //	Getting all siblings
-        let siblings = superview?.subviews
-        
+
         //Array of (UITextField/UITextView's).
         var tempTextFields = [UIView]()
-        
-        for textField in siblings as! [UIView] {
+
+        //	Getting all siblings
+        if let siblings = superview?.subviews {
             
-            if textField._IQcanBecomeFirstResponder() == true {
-                tempTextFields.append(textField)
+            for textField in siblings {
+                
+                if textField._IQcanBecomeFirstResponder() == true {
+                    tempTextFields.append(textField)
+                }
             }
         }
-        
+
         return tempTextFields
     }
     
@@ -173,7 +174,7 @@ public extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = subviews.sorted({ (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
+        let subViews = subviews.sort({ (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
             
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
@@ -193,7 +194,7 @@ public extension UIView {
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
         
-        for textField in subViews as! [UIView] {
+        for textField in subViews {
             
             if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)

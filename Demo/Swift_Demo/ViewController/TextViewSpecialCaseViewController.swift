@@ -63,7 +63,7 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     @IBAction func presentClicked (barButton : UIButton!) {
         
         if (navigationController) != nil {
-            var controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
+            let controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
             presentViewController(controller, animated: true, completion: nil)
         } else {
             dismissViewControllerAnimated(true, completion: nil)

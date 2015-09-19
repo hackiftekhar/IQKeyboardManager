@@ -31,7 +31,7 @@ class WebViewController: UIViewController , UIWebViewDelegate {
         activity.stopAnimating()
     }
 
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         activity.stopAnimating()
     }
     

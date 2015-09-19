@@ -30,15 +30,15 @@ class TextFieldViewController: UIViewController {
     }
     
     func previousAction(sender : UITextField) {
-        println("PreviousAction")
+        print("PreviousAction")
     }
     
     func nextAction(sender : UITextField) {
-        println("nextAction")
+        print("nextAction")
     }
     
     func doneAction(sender : UITextField) {
-        println("doneAction")
+        print("doneAction")
     }
 
     override func viewDidLoad() {
@@ -107,8 +107,8 @@ class TextFieldViewController: UIViewController {
         
         if self.presentingViewController == nil {
             
-            var controller: UIViewController = storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController") as! UIViewController
-            var navController : UINavigationController = UINavigationController(rootViewController: controller)
+            let controller: UIViewController = (storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController"))!
+            let navController : UINavigationController = UINavigationController(rootViewController: controller)
             navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
             navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
             navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes

@@ -200,7 +200,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
      
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -215,7 +215,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                
             case 1:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("StepperTableViewCell") as! StepperTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("StepperTableViewCell") as! StepperTableViewCell
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
@@ -230,7 +230,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 2:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -254,7 +254,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -269,7 +269,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
 
             case 1:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
@@ -278,7 +278,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
 
             case 2:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -293,7 +293,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 3:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -308,7 +308,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 4:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
@@ -326,7 +326,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -341,7 +341,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
 
             case 1:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -365,7 +365,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -380,7 +380,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
 
             case 1:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("NavigationTableViewCell") as! NavigationTableViewCell
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
@@ -398,7 +398,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -422,7 +422,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -446,7 +446,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -469,7 +469,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
             case 0:
                 
-                var cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
                 cell.switchEnable.enabled = true
                 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
@@ -528,7 +528,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                         
                         if let placeholderFont = IQKeyboardManager.sharedManager().placeholderFont {
                             
-                            if let index = find(fonts, placeholderFont) {
+                            if let index = fonts.indexOf(placeholderFont) {
                                 
                                 controller.selectedIndex = index
                             }

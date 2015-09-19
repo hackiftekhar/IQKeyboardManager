@@ -214,14 +214,11 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         }
     }
         
-    if ([textFields containsObject:textField])
-    {
-        //Getting index of current textField.
-        NSUInteger index = [textFields indexOfObject:textField];
-        
-        //If it is not last textField. then it's next object becomeFirstResponder.
-        (index < textFields.count-1) ?   [[textFields objectAtIndex:index+1] becomeFirstResponder]  :   [textField resignFirstResponder];
-    }
+    //Getting index of current textField.
+    NSUInteger index = [textFields indexOfObject:textField];
+    
+    //If it is not last textField. then it's next object becomeFirstResponder.
+    (index != NSNotFound && index < textFields.count-1) ?   [[textFields objectAtIndex:index+1] becomeFirstResponder]  :   [textField resignFirstResponder];
 }
 
 #pragma mark - TextField delegate

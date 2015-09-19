@@ -39,7 +39,7 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
 
         let identifier = "\(indexPath.section) \(indexPath.row)"
         
-        var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(identifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
 
         if cell == nil {
             
@@ -48,7 +48,7 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
             cell?.backgroundColor = UIColor.clearColor()
             
             let textField = UITextField(frame: CGRectInset(cell!.contentView.bounds, 5, 5))
-            textField.autoresizingMask = UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth
+            textField.autoresizingMask = [UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleWidth]
             textField.placeholder = identifier
             textField.borderStyle = UITextBorderStyle.RoundedRect
             cell?.contentView.addSubview(textField)
