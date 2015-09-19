@@ -633,7 +633,7 @@ public extension UIView {
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
-            if IQ_IS_IOS8_OR_GREATER {
+            if #available(iOS 8.0, *) {
                 
                 // Get the top level "bundle" which may actually be the framework
                 var bundle = NSBundle(forClass: IQKeyboardManager.self)
@@ -769,7 +769,7 @@ public extension UIView {
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
-            if IQ_IS_IOS8_OR_GREATER {
+            if #available(iOS 8.0, *) {
                 
                 // Get the top level "bundle" which may actually be the framework
                 var bundle = NSBundle(forClass: IQKeyboardManager.self)
