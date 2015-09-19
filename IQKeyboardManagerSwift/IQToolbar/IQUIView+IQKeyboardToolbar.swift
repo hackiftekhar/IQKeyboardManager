@@ -630,12 +630,31 @@ public extension UIView {
             //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
             let doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: doneAction)
             
-            let prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            let prev : IQBarButtonItem
+            let next : IQBarButtonItem
+            
+            if IQ_IS_IOS8_OR_GREATER {
+                
+                // Get the top level "bundle" which may actually be the framework
+                var bundle = NSBundle(forClass: IQKeyboardManager.self)
+                
+                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                    if let resourcesBundle = NSBundle(path: resourcePath) {
+                        bundle = resourcesBundle;
+                    }
+                }
+                
+                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            } else {
+                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            }
             
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
             fixed.width = 23
-            
-            let next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             
             items.append(prev)
             items.append(fixed)
@@ -747,12 +766,31 @@ public extension UIView {
             //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
             let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: rightButtonAction)
             
-            let prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            let prev : IQBarButtonItem
+            let next : IQBarButtonItem
+            
+            if IQ_IS_IOS8_OR_GREATER {
+                
+                // Get the top level "bundle" which may actually be the framework
+                var bundle = NSBundle(forClass: IQKeyboardManager.self)
+                
+                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                    if let resourcesBundle = NSBundle(path: resourcePath) {
+                        bundle = resourcesBundle;
+                    }
+                }
+                
+                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            } else {
+                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            }
             
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
             fixed.width = 23
-            
-            let next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             
             items.append(prev)
             items.append(fixed)
