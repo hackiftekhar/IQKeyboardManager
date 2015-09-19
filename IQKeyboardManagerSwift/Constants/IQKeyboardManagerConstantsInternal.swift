@@ -43,6 +43,3 @@ public enum IQLayoutGuidePosition : Int {
     case Top
     case Bottom
 }
-
-
-internal let IQ_IS_IOS8_OR_GREATER = (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
