@@ -277,18 +277,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         if let unwrappedTableView = tableView {     //   (Enhancement ID: #22)
             textFields = unwrappedTableView.deepResponderViews()
         } else {  //Otherwise fetching all the siblings
-            
-            textFields = view.responderSiblings()
-            
-            //Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
-                //If needs to sort it by tag
-            case .ByTag:        textFields = textFields?.sortedArrayByTag()
-                //If needs to sort it by Position
-            case .ByPosition:   textFields = textFields?.sortedArrayByPosition()
-            default:
-                break
-            }
+            textFields = IQKeyboardManager.sharedManager().responderViews()
         }
 
         if let unwrappedTextFields = textFields {
