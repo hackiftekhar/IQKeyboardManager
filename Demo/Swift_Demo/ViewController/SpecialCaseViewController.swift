@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+class CustomSubclassView : UIScrollView {}
+
 class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet private var customWorkTextField : UITextField!
@@ -36,6 +38,8 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         textField8.enabled = switchEnabled3.on
         
         updateUI()
+      
+        IQKeyboardManager.sharedManager().considerToolbarPreviousNextInViewClass(CustomSubclassView)
     }
     
     @IBAction func showAlertClicked (barButton : UIBarButtonItem!) {
