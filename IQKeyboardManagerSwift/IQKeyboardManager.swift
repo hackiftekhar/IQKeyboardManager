@@ -1709,7 +1709,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     ///------------------
     
     /**	Get all UITextField/UITextView siblings of textFieldView. */
-    private func responderViews()-> [UIView]? {
+    internal func responderViews()-> [UIView]? {
         
         var superConsideredView : UIView?
 
