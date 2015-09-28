@@ -248,7 +248,7 @@
 
 -(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
 {
-    NSString *title;
+    NSString *title = nil;
     
     if (showPlaceholder && [self respondsToSelector:@selector(placeholder)])    title = [(UITextField*)self placeholder];
     
