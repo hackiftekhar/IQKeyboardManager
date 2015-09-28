@@ -28,7 +28,7 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
         
         let identifier = "\(indexPath.section) \(indexPath.row)"
         
-        var cell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(identifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
         
         if cell == nil {
             
@@ -37,7 +37,7 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
             cell?.backgroundColor = UIColor.clearColor()
             
             let textView = UITextView(frame: CGRectMake(5,7,135,30))
-            textView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+            textView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
             textView.backgroundColor = UIColor.clearColor()
             textView.text = _data[indexPath.row]
             textView.dataDetectorTypes = UIDataDetectorTypes.All

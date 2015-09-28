@@ -39,7 +39,7 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     }
     
     @IBAction func showAlertClicked (barButton : UIBarButtonItem!) {
-        var alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField", delegate: nil, cancelButtonTitle: "OK")
+        let alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField", delegate: nil, cancelButtonTitle: "OK")
         alertView.alertViewStyle = UIAlertViewStyle.LoginAndPasswordInput
         alertView.show()
     }
@@ -96,7 +96,7 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         
         if (textField == customWorkTextField) {
             if(textField.isAskingCanBecomeFirstResponder == false) {
-                var alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "Do your custom work here", delegate: nil, cancelButtonTitle: "OK")
+                let alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "Do your custom work here", delegate: nil, cancelButtonTitle: "OK")
                 alertView.show()
             }
             

@@ -52,7 +52,6 @@
 		C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61E51B884D4100C33368 /* ViewController.swift */; };
 		C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61E61B884D4100C33368 /* WebViewController.swift */; };
 		C0CB61FA1B884F3400C33368 /* MainSwift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61D81B884D4100C33368 /* MainSwift.storyboard */; };
-		C0CB61FB1B884F3D00C33368 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61D41B884D4100C33368 /* Info.plist */; };
 		C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61D11B884D4100C33368 /* AppDelegate.swift */; };
 		C0CB61FD1B884FA100C33368 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61911B884D4100C33368 /* AppDelegate.m */; };
 		C0CB61FE1B884FA100C33368 /* NavigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61941B884D4100C33368 /* NavigationTableViewCell.m */; };
@@ -80,7 +79,6 @@
 		C0CB62141B884FA100C33368 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61CA1B884D4100C33368 /* WebViewController.m */; };
 		C0CB62151B884FA700C33368 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A61B884D4100C33368 /* IQDropDownTextField.m */; };
 		C0CB62161B884FB000C33368 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61A21B884D4100C33368 /* Main.storyboard */; };
-		C0CB62171B884FD100C33368 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0CB619F1B884D4100C33368 /* Info.plist */; };
 		C0CB623D1B8850AE00C33368 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB621B1B8850AE00C33368 /* IQNSArray+Sort.m */; };
 		C0CB623E1B8850AE00C33368 /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB621D1B8850AE00C33368 /* IQUITextFieldView+Additions.m */; };
 		C0CB623F1B8850AE00C33368 /* IQUIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB621F1B8850AE00C33368 /* IQUIView+Hierarchy.m */; };
@@ -743,8 +741,9 @@
 		C0B63B921781FAB0008D3B64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Iftekhar;
 				TargetAttributes = {
 					4CE6119C1B98B7250020591A = {
@@ -797,7 +796,6 @@
 				C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
 				4CEC3A791B8CECDF00909DCA /* IQKeyboardManager.bundle in Resources */,
-				C0CB61FB1B884F3D00C33368 /* Info.plist in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -811,7 +809,6 @@
 				C0CB624A1B8850AE00C33368 /* IQKeyboardManager.bundle in Resources */,
 				C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E91B884F1600C33368 /* iTunesArtwork in Resources */,
-				C0CB62171B884FD100C33368 /* Info.plist in Resources */,
 				C0CB62161B884FB000C33368 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -987,6 +984,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Swift_Demo/Resources/IQKeyboardManger-Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1013,6 +1011,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Swift_Demo/Resources/IQKeyboardManger-Swift-Bridging-Header.h";
 			};
@@ -1034,6 +1033,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1108,6 +1108,7 @@
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManager;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1129,6 +1130,7 @@
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManager;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

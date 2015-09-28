@@ -34,7 +34,7 @@ class ManualToolbarViewController : UIViewController {
     }
     
     
-    func previousAction((sender : UITextField!)) {
+    func previousAction(sender : UITextField!) {
         
         if (textField4.isFirstResponder())
         {
@@ -50,7 +50,7 @@ class ManualToolbarViewController : UIViewController {
         }
     }
     
-    func nextAction((sender : UITextField!)) {
+    func nextAction(sender : UITextField!) {
         
         if (textField1.isFirstResponder())
         {
@@ -66,7 +66,7 @@ class ManualToolbarViewController : UIViewController {
         }
     }
     
-    func doneAction((sender : UITextField!)) {
+    func doneAction(sender : UITextField!) {
         self.view.endEditing(true)
     }
 

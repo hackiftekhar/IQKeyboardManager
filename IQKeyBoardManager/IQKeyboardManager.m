@@ -1429,20 +1429,19 @@ void _IQShowLog(NSString *logString);
 {
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
-    
-    if ([textFields containsObject:_textFieldView])
+
+    //Getting index of current textField.
+    NSUInteger index = [textFields indexOfObject:_textFieldView];
+
+    //If it is not first textField. then it's previous object can becomeFirstResponder.
+    if (index != NSNotFound && index > 0)
     {
-        //Getting index of current textField.
-        NSUInteger index = [textFields indexOfObject:_textFieldView];
-        
-        //If it is not first textField. then it's previous object can becomeFirstResponder.
-        if (index > 0)
-        {
-            return YES;
-        }
+        return YES;
     }
-    
-    return NO;
+    else
+    {
+        return NO;
+    }
 }
 
 /** Returns YES if can navigate to next responder textField/textView, otherwise NO. */
@@ -1451,19 +1450,18 @@ void _IQShowLog(NSString *logString);
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
     
-    if ([textFields containsObject:_textFieldView])
-    {
-        //Getting index of current textField.
-        NSUInteger index = [textFields indexOfObject:_textFieldView];
-        
-        //If it is not last textField. then it's next object becomeFirstResponder.
-        if (index < textFields.count-1)
-        {
-            return YES;
-        }
-    }
+    //Getting index of current textField.
+    NSUInteger index = [textFields indexOfObject:_textFieldView];
     
-    return NO;
+    //If it is not last textField. then it's next object becomeFirstResponder.
+    if (index != NSNotFound && index < textFields.count-1)
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
 }
 
 /** Navigate to previous responder textField/textView.  */
@@ -1472,36 +1470,29 @@ void _IQShowLog(NSString *logString);
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
     
-    if ([textFields containsObject:_textFieldView])
+    //Getting index of current textField.
+    NSUInteger index = [textFields indexOfObject:_textFieldView];
+    
+    //If it is not first textField. then it's previous object becomeFirstResponder.
+    if (index != NSNotFound && index > 0)
     {
-        //Getting index of current textField.
-        NSUInteger index = [textFields indexOfObject:_textFieldView];
+        UITextField *nextTextField = [textFields objectAtIndex:index-1];
         
-        //If it is not first textField. then it's previous object becomeFirstResponder.
-        if (index > 0)
+        //  Retaining textFieldView
+        UIView *textFieldRetain = _textFieldView;
+        
+        BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
+        
+        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+        if (isAcceptAsFirstResponder == NO)
         {
-            UITextField *nextTextField = [textFields objectAtIndex:index-1];
+            //If next field refuses to become first responder then restoring old textField as first responder.
+            [textFieldRetain becomeFirstResponder];
             
-            //  Retaining textFieldView
-            UIView *textFieldRetain = _textFieldView;
-            
-            BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-            
-            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-            if (isAcceptAsFirstResponder == NO)
-            {
-                //If next field refuses to become first responder then restoring old textField as first responder.
-                [textFieldRetain becomeFirstResponder];
-                
-                _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
-            }
-            
-            return isAcceptAsFirstResponder;
+            _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
         }
-        else
-        {
-            return NO;
-        }
+        
+        return isAcceptAsFirstResponder;
     }
     else
     {
@@ -1515,36 +1506,29 @@ void _IQShowLog(NSString *logString);
     //Getting all responder view's.
     NSArray *textFields = [self responderViews];
     
-    if ([textFields containsObject:_textFieldView])
+    //Getting index of current textField.
+    NSUInteger index = [textFields indexOfObject:_textFieldView];
+    
+    //If it is not last textField. then it's next object becomeFirstResponder.
+    if (index != NSNotFound && index < textFields.count-1)
     {
-        //Getting index of current textField.
-        NSUInteger index = [textFields indexOfObject:_textFieldView];
+        UITextField *nextTextField = [textFields objectAtIndex:index+1];
         
-        //If it is not last textField. then it's next object becomeFirstResponder.
-        if (index < textFields.count-1)
+        //  Retaining textFieldView
+        UIView *textFieldRetain = _textFieldView;
+        
+        BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
+        
+        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+        if (isAcceptAsFirstResponder == NO)
         {
-            UITextField *nextTextField = [textFields objectAtIndex:index+1];
+            //If next field refuses to become first responder then restoring old textField as first responder.
+            [textFieldRetain becomeFirstResponder];
             
-            //  Retaining textFieldView
-            UIView *textFieldRetain = _textFieldView;
-            
-            BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-            
-            //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-            if (isAcceptAsFirstResponder == NO)
-            {
-                //If next field refuses to become first responder then restoring old textField as first responder.
-                [textFieldRetain becomeFirstResponder];
-                
-                _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
-            }
-            
-            return isAcceptAsFirstResponder;
+            _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
         }
-        else
-        {
-            return NO;
-        }
+        
+        return isAcceptAsFirstResponder;
     }
     else
     {

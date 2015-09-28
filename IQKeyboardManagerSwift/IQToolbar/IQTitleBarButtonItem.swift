@@ -46,7 +46,7 @@ public class IQTitleBarButtonItem: UIBarButtonItem {
     
     init(frame : CGRect, title : String?) {
 
-        super.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         _titleView = UIView(frame: frame)
         _titleView?.backgroundColor = UIColor.clearColor()
@@ -64,7 +64,7 @@ public class IQTitleBarButtonItem: UIBarButtonItem {
         enabled = false
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }
