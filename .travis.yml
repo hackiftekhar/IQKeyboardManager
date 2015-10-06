@@ -1,5 +1,7 @@
 language: objective-c
 osx_image: xcode7
+xcode_project: Demo.xcodeproj
+xcode_scheme: DemoObjC
 branches:
   only:
     - master
