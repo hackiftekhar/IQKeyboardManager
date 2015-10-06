@@ -1,0 +1,6 @@
+language: objective-c
+osx_image: xcode7
+branches:
+  only:
+    - master
+    
