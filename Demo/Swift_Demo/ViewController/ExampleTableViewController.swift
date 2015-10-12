@@ -18,7 +18,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         if ((indexPath.row % 2) == 0) {
             return 40
         } else {
-            return 150
+            return 160
         }
     }
     

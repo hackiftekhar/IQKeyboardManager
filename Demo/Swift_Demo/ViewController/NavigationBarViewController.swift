@@ -27,5 +27,8 @@ class NavigationBarViewController: UIViewController {
         return true
     }
 
+    @IBAction func textFieldClicked(sender : UITextField!) {
+        
+    }
 }
 

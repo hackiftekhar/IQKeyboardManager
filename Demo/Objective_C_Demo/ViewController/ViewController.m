@@ -60,7 +60,7 @@
 
 #ifdef NSFoundationVersionNumber_iOS_5_1
 
--(NSUInteger)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }

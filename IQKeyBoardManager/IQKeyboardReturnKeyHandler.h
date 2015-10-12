@@ -47,7 +47,12 @@
 /**
  Add all the textFields available in UIViewController's view.
  */
--(instancetype)initWithViewController:(UIViewController*)controller NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithViewController:(nullable UIViewController*)controller NS_DESIGNATED_INITIALIZER;
+
+/**
+ Unavailable. Please use initWithViewController: or init method
+ */
+-(nonnull instancetype)initWithCoder:(nullable NSCoder *)aDecoder NS_UNAVAILABLE;
 
 ///---------------
 /// @name Settings
@@ -56,7 +61,7 @@
 /**
  Delegate of textField/textView.
  */
-@property(nonatomic, weak) id<UITextFieldDelegate,UITextViewDelegate> delegate;
+@property(nullable, nonatomic, weak) id<UITextFieldDelegate,UITextViewDelegate> delegate;
 
 /**
  It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews.
@@ -77,27 +82,27 @@
  
  @param textFieldView UITextField/UITextView object to register.
  */
--(void)addTextFieldView:(UIView*)textFieldView;
+-(void)addTextFieldView:(nonnull UIView*)textFieldView;
 
 /**
  Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType.
 
  @param textFieldView UITextField/UITextView object to unregister.
  */
--(void)removeTextFieldView:(UIView*)textFieldView;
+-(void)removeTextFieldView:(nonnull UIView*)textFieldView;
 
 /**
  Add all the UITextField/UITextView responderView's.
  
  @param UIView object to register all it's responder subviews.
  */
--(void)addResponderFromView:(UIView*)view;
+-(void)addResponderFromView:(nonnull UIView*)view;
 
 /**
  Remove all the UITextField/UITextView responderView's.
  
  @param UIView object to unregister all it's responder subviews.
  */
--(void)removeResponderFromView:(UIView*)view;
+-(void)removeResponderFromView:(nonnull UIView*)view;
 
 @end
