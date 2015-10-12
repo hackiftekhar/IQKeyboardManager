@@ -1,0 +1,8 @@
+language: objective-c
+osx_image: xcode7
+xcode_project: Demo.xcodeproj
+xcode_scheme: DemoObjC
+branches:
+  only:
+    - master
+script: xctool -project Demo.xcodeproj -scheme DemoObjC build  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
