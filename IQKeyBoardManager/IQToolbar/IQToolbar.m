@@ -41,15 +41,34 @@
 {
     [super initialize];
     
+    //Tint Color
     [[self appearance] setTintColor:nil];
-    
+
 #ifdef NSFoundationVersionNumber_iOS_6_1
     if ([[self appearance] respondsToSelector:@selector(setBarTintColor:)])
     {
         [[self appearance] setBarTintColor:nil];
+        [[self appearance] setTranslucent:YES];
+    }
+    else
+    {
+        [[self appearance] setTranslucent:NO];
     }
 #endif
     
+    //Background image
+    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
+    
+    //Shadow image
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionAny];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTop];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTopAttached];
+    
+    //Background color
     [[self appearance] setBackgroundColor:nil];
 }
 
