@@ -35,11 +35,11 @@
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-- (NSArray*)sortedArrayByTag;
+- (nonnull NSArray*)sortedArrayByTag;
 
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-- (NSArray*)sortedArrayByPosition;
+- (nonnull NSArray*)sortedArrayByPosition;
 
 @end

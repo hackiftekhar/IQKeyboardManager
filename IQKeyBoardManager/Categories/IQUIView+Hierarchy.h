@@ -47,12 +47,12 @@
 /**
  Returns the UIViewController object that manages the receiver.
  */
-@property (nonatomic, readonly, strong) UIViewController *viewController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *viewController;
 
 /**
  Returns the topMost UIViewController object in hierarchy.
  */
-@property (nonatomic, readonly, strong) UIViewController *topMostController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *topMostController;
 
 ///-----------------------------------
 /// @name Superviews/Subviews/Siglings
@@ -61,17 +61,17 @@
 /**
  Returns the superView of provided class type.
  */
--(UIView*)superviewOfClassType:(Class)classType;
+-(nullable UIView*)superviewOfClassType:(nonnull Class)classType;
 
 /**
  Returns all siblings of the receiver which canBecomeFirstResponder.
  */
-@property (nonatomic, readonly, copy) NSArray *responderSiblings;
+@property (nonnull, nonatomic, readonly, copy) NSArray *responderSiblings;
 
 /**
  Returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
-@property (nonatomic, readonly, copy) NSArray *deepResponderViews;
+@property (nonnull, nonatomic, readonly, copy) NSArray *deepResponderViews;
 
 ///-------------------------
 /// @name Special TextFields
@@ -94,7 +94,7 @@
 /**
  Returns current view transform with respect to the 'toView'.
  */
--(CGAffineTransform)convertTransformToView:(UIView*)toView;
+-(CGAffineTransform)convertTransformToView:(nullable UIView*)toView;
 
 ///-----------------
 /// @name Hierarchy
@@ -103,17 +103,17 @@
 /**
  Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
-@property (nonatomic, readonly, copy) NSString *subHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *subHierarchy;
 
 /**
  Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
-@property (nonatomic, readonly, copy) NSString *superHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *superHierarchy;
 
 /**
  Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
  */
-@property (nonatomic, readonly, copy) NSString *debugHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *debugHierarchy;
 
 @end
 
@@ -126,6 +126,6 @@
 /**
  Short description for logging purpose.
  */
-@property (nonatomic, readonly, copy) NSString *_IQDescription;
+@property (nonnull, nonatomic, readonly, copy) NSString *_IQDescription;
 
 @end

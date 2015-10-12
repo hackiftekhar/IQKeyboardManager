@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-               BuildableName = "IQKeyboardManager.app"
-               BlueprintName = "DemoObjC"
+               BlueprintIdentifier = "4CE6119C1B98B7250020591A"
+               BuildableName = "DemoObjCUITests.xctest"
+               BlueprintName = "DemoObjCUITests"
                ReferencedContainer = "container:Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,13 +28,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4CE6119C1B98B7250020591A"
+               BuildableName = "DemoObjCUITests.xctest"
+               BlueprintName = "DemoObjCUITests"
+               ReferencedContainer = "container:Demo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "4CE6119C1B98B7250020591A"
+            BuildableName = "DemoObjCUITests.xctest"
+            BlueprintName = "DemoObjCUITests"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,16 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "4CE6119C1B98B7250020591A"
+            BuildableName = "DemoObjCUITests.xctest"
+            BlueprintName = "DemoObjCUITests"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "4CE6119C1B98B7250020591A"
+            BuildableName = "DemoObjCUITests.xctest"
+            BlueprintName = "DemoObjCUITests"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

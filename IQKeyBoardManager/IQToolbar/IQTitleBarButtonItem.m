@@ -40,7 +40,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame title:(NSString *)title
 {
-    self = [self initWithTitle:nil style:UIBarButtonItemStylePlain target:nil action:nil];
+    self = [super init];
     if (self)
     {
         _titleView = [[UIView alloc] initWithFrame:frame];

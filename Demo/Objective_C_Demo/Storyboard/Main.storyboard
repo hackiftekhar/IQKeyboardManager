@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="En3-R6-bks">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="En3-R6-bks">
     <dependencies>
         <deployment version="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--TextField Demo-->
@@ -532,7 +532,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                         <sections>
                             <tableViewSection id="YTE-kI-p1t">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="JFS-sj-PKU" detailTextLabel="kSX-8R-3sG" style="IBUITableViewCellStyleSubtitle" id="sCs-hP-i8Y">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="JFS-sj-PKU" detailTextLabel="kSX-8R-3sG" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="sCs-hP-i8Y">
                                         <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sCs-hP-i8Y" id="rP5-Q3-kTU">
@@ -562,7 +562,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="csO-qF-Ohn" kind="push" id="aWb-8P-5BY"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="7en-HG-KdY" detailTextLabel="O5A-qp-Z36" style="IBUITableViewCellStyleSubtitle" id="nDf-ts-g11">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="7en-HG-KdY" detailTextLabel="O5A-qp-Z36" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="nDf-ts-g11">
                                         <rect key="frame" x="0.0" y="108" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nDf-ts-g11" id="D12-nZ-zzm">
@@ -592,7 +592,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="Z1T-rR-mis" kind="push" id="jwk-m7-IpJ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oLv-wV-JEL" detailTextLabel="kMa-uD-bmh" style="IBUITableViewCellStyleSubtitle" id="ehJ-9W-rSw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oLv-wV-JEL" detailTextLabel="kMa-uD-bmh" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="ehJ-9W-rSw">
                                         <rect key="frame" x="0.0" y="152" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ehJ-9W-rSw" id="9u0-PD-iNt">
@@ -622,7 +622,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="0gz-x6-ylR" kind="push" id="WEe-pL-oxS"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="eFV-Hu-yZu" detailTextLabel="pth-FB-7uz" style="IBUITableViewCellStyleSubtitle" id="4qQ-uH-3Mb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="eFV-Hu-yZu" detailTextLabel="pth-FB-7uz" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="4qQ-uH-3Mb">
                                         <rect key="frame" x="0.0" y="196" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4qQ-uH-3Mb" id="nkj-yb-leT">
@@ -652,7 +652,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="TgE-bl-CyE" kind="push" id="Rfu-MP-GML"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="l7E-Mp-YYn" detailTextLabel="tKl-ae-U0U" style="IBUITableViewCellStyleSubtitle" id="Bmn-6r-9rN">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="l7E-Mp-YYn" detailTextLabel="tKl-ae-U0U" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="Bmn-6r-9rN">
                                         <rect key="frame" x="0.0" y="240" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bmn-6r-9rN" id="XDb-SF-hhD">
@@ -682,7 +682,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="Trg-4t-Fsg" kind="push" id="TKW-tw-tT6"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="TQC-dO-VET" detailTextLabel="uvf-Qo-FbG" style="IBUITableViewCellStyleSubtitle" id="XXU-fu-xxa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="TQC-dO-VET" detailTextLabel="uvf-Qo-FbG" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="XXU-fu-xxa">
                                         <rect key="frame" x="0.0" y="284" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XXU-fu-xxa" id="BEW-5C-Cpw">
@@ -834,7 +834,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="fxp-9v-8cZ" kind="push" id="wS1-t9-Ycx"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Uae-6t-6Sj" detailTextLabel="58p-7P-t8z" style="IBUITableViewCellStyleSubtitle" id="bMd-Bf-n21">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Uae-6t-6Sj" detailTextLabel="58p-7P-t8z" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="bMd-Bf-n21">
                                         <rect key="frame" x="0.0" y="596" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMd-Bf-n21" id="pKj-nA-uRL">
@@ -842,7 +842,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Text Selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uae-6t-6Sj">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <rect key="frame" x="15" y="7" width="104" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -850,6 +850,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Text Selection #56" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="58p-7P-t8z">
+                                                    <rect key="frame" x="15" y="25" width="97" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -863,7 +864,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="IHN-1B-3KS" kind="push" id="w9d-sW-tRh"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bKO-gT-FVG" detailTextLabel="Fyc-dl-ydb" style="IBUITableViewCellStyleSubtitle" id="GbI-Bd-1Ey">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bKO-gT-FVG" detailTextLabel="Fyc-dl-ydb" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="GbI-Bd-1Ey">
                                         <rect key="frame" x="0.0" y="640" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GbI-Bd-1Ey" id="PHz-9f-kJ7">
@@ -871,7 +872,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Blank Space between UIKeyboard and UIView handling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bKO-gT-FVG">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <rect key="frame" x="15" y="7" width="270" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -879,6 +880,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="preventShowingBottomBlankSpace" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fyc-dl-ydb">
+                                                    <rect key="frame" x="15" y="25" width="182" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -892,7 +894,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="d7w-1F-KeR" kind="push" id="DCc-ZU-0ZJ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="UsR-Fv-SvT" detailTextLabel="gK5-Jo-5Kt" style="IBUITableViewCellStyleSubtitle" id="FfM-0m-gaT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="UsR-Fv-SvT" detailTextLabel="gK5-Jo-5Kt" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="FfM-0m-gaT">
                                         <rect key="frame" x="0.0" y="684" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FfM-0m-gaT" id="MkH-eY-2vg">
@@ -900,7 +902,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="UICollectionView example" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UsR-Fv-SvT">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <rect key="frame" x="15" y="7" width="190" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -908,6 +910,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="navigate next/prev in collectionView" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gK5-Jo-5Kt">
+                                                    <rect key="frame" x="15" y="25" width="186" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -921,15 +924,15 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                             <segue destination="QIM-iU-H2P" kind="push" id="JnV-8L-B4W"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="fC6-8C-VXq" detailTextLabel="Yrs-qJ-0g3" style="IBUITableViewCellStyleSubtitle" id="c5h-lH-evf">
-                                        <rect key="frame" x="0.0" y="728" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="fC6-8C-VXq" detailTextLabel="Yrs-qJ-0g3" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="c5h-lH-evf">
+                                        <rect key="frame" x="0.0" y="728" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5h-lH-evf" id="Zxn-YZ-CvY">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="CustomView Example" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fC6-8C-VXq">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <rect key="frame" x="15" y="3" width="158" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -937,6 +940,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="demonstration of `-(void)considerToolbarPreviousNextInViewClass` method" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yrs-qJ-0g3">
+                                                    <rect key="frame" x="15" y="21" width="252" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1198,7 +1202,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <tableViewSection id="t96-I2-xYK">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="FaL-19-zky">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FaL-19-zky" id="tTa-Og-6g2">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1215,7 +1219,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Oe1-i6-nJZ">
-                                        <rect key="frame" x="0.0" y="41" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="105" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Oe1-i6-nJZ" id="2Oh-32-JDn">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1233,7 +1237,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="3lx-6h-twx">
-                                        <rect key="frame" x="0.0" y="391" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="455" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3lx-6h-twx" id="nH2-kY-d2t">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1250,7 +1254,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Csd-T9-cQK">
-                                        <rect key="frame" x="0.0" y="432" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="496" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Csd-T9-cQK" id="40W-FL-aO3">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1268,7 +1272,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="SGZ-BU-Cc0">
-                                        <rect key="frame" x="0.0" y="782" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="846" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SGZ-BU-Cc0" id="Szn-af-4i0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1285,7 +1289,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Wfp-bY-ZWU">
-                                        <rect key="frame" x="0.0" y="823" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="887" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wfp-bY-ZWU" id="b9R-dh-ePP">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1303,7 +1307,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="vvZ-c7-eBo">
-                                        <rect key="frame" x="0.0" y="1173" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="1237" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vvZ-c7-eBo" id="wTE-ag-Cbf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1320,7 +1324,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Ego-If-gyk">
-                                        <rect key="frame" x="0.0" y="1214" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="1278" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ego-If-gyk" id="P4p-ss-iv2">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1338,7 +1342,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="VAE-Zy-WoN">
-                                        <rect key="frame" x="0.0" y="1564" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="1628" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VAE-Zy-WoN" id="xLf-mj-K4d">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1355,7 +1359,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="fZy-eQ-hXM">
-                                        <rect key="frame" x="0.0" y="1605" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="1669" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZy-eQ-hXM" id="sFJ-zD-DrA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1373,7 +1377,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="pwM-BD-F3E">
-                                        <rect key="frame" x="0.0" y="1955" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2019" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pwM-BD-F3E" id="x38-ab-L3i">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1390,7 +1394,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="M69-7a-p9I">
-                                        <rect key="frame" x="0.0" y="1996" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2060" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M69-7a-p9I" id="wTg-2o-j8b">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1408,7 +1412,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="Y5C-vW-9q2">
-                                        <rect key="frame" x="0.0" y="2346" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2410" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y5C-vW-9q2" id="LdN-dG-2Xo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1425,7 +1429,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="kS4-wf-gdb">
-                                        <rect key="frame" x="0.0" y="2387" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2451" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kS4-wf-gdb" id="X9y-jm-1sM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1443,7 +1447,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="zP8-hL-yUz">
-                                        <rect key="frame" x="0.0" y="2737" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2801" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zP8-hL-yUz" id="5ew-eq-OSY">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1460,7 +1464,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Dbj-Tr-RCC">
-                                        <rect key="frame" x="0.0" y="2778" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2842" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dbj-Tr-RCC" id="dEe-1n-imP">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1582,7 +1586,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </searchBar>
                             <view contentMode="scaleToFill" id="SHK-82-xFg">
-                                <rect key="frame" x="10" y="161" width="305" height="269.99999931128463"/>
+                                <rect key="frame" x="10" y="161" width="305" height="269.99999963535691"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="k8L-Hj-hKb">
@@ -1621,7 +1625,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" red="0.80000001192092896" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="uYv-to-iCC">
-                                        <rect key="frame" x="10" y="169.99999954968609" width="285" height="90"/>
+                                        <rect key="frame" x="10" y="170" width="285" height="89.999999873777384"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="yDj-sx-3pn">

@@ -33,17 +33,4 @@
 //    [[[UIAlertView alloc] initWithTitle:@"Message" message:@"New Message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
 }
 
-
-//-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-//{
-//    if (textField == textField2)
-//    {
-//        return NO;
-//    }
-//    else
-//    {
-//        return YES;
-//    }
-//}
-
 @end

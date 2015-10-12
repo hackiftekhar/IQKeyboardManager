@@ -31,12 +31,12 @@
 /**
  Title font for toolbar.
  */
-@property(nonatomic, strong) UIFont *titleFont;
+@property(nullable, nonatomic, strong) UIFont *titleFont;
 
 /**
  Toolbar title
  */
-@property(nonatomic, strong) NSString *title;
+@property(nullable, nonatomic, strong) NSString *title;
 
 @end
 
