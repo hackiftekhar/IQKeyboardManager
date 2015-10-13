@@ -14,9 +14,6 @@
 
 - (IBAction)shareClicked:(UIBarButtonItem *)sender
 {
-    
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
     NSString *shareString = @"IQKeyboardManager is really great control for iOS developer to manage keyboard-textField.";
     UIImage *shareImage = [UIImage imageNamed:@"IQKeyboardManagerScreenshot"];
     NSURL *youtubeUrl = [NSURL URLWithString:@"http://youtu.be/6nhLw6hju2A"];
@@ -32,7 +29,6 @@
                                     UIActivityTypeSaveToCameraRoll];
     controller.excludedActivityTypes = excludedActivities;
     [self presentViewController:controller animated:YES completion:nil];
-#endif
 }
 
 -(void)viewDidLoad
@@ -58,14 +54,10 @@
     return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
-
-#endif
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {

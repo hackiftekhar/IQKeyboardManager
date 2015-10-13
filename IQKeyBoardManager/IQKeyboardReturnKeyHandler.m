@@ -33,9 +33,7 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UIViewController.h>
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
-#endif
 
 NSString *const kIQTextField                =   @"kIQTextField";
 NSString *const kIQTextFieldDelegate        =   @"kIQTextFieldDelegate";
@@ -142,10 +140,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     UIView *tableView = [textField superviewOfClassType:[UITableView class]];
     
-#ifdef NSFoundationVersionNumber_iOS_5_1
     if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
-#endif
-
 
     NSArray *textFields = nil;
 
@@ -186,9 +181,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 -(void)goToNextResponderOrResign:(UIView*)textField
 {
     UIView *tableView = [textField superviewOfClassType:[UITableView class]];
-#ifdef NSFoundationVersionNumber_iOS_5_1
     if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
-#endif
     
     NSArray *textFields = nil;
     
