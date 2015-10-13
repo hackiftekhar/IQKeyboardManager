@@ -23,9 +23,7 @@
 
 #import "IQUIView+Hierarchy.h"
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
-#endif
 
 #import <UIKit/UITableView.h>
 #import <UIKit/UITextView.h>

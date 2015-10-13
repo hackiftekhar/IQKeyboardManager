@@ -41,10 +41,8 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
 #import <UIKit/UICollectionView.h>
 #import <UIKit/NSLayoutConstraint.h>
-#endif
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -104,10 +102,9 @@ void _IQShowLog(NSString *logString);
     /** To save rootViewController */
     __weak  UIViewController *_rootViewController;
     
-#ifdef NSFoundationVersionNumber_iOS_5_1
     /** To save topBottomLayoutConstraint original constant */
     CGFloat                  _layoutGuideConstraintInitialConstant;
-#endif
+
     /*******************************************/
     
     /** Variable to save lastScrollView that was scrolled. */
@@ -277,12 +274,7 @@ void _IQShowLog(NSString *logString);
             [self setShouldFixTextViewClip:YES];
 #endif
             
-#ifdef NSFoundationVersionNumber_iOS_5_1
             _toolbarPreviousNextConsideredClass = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class], nil];
-#else
-            _toolbarPreviousNextConsideredClass = [[NSMutableSet alloc] initWithObjects:[UITableView class], nil];
-#endif
-
         });
     }
     return self;
@@ -485,8 +477,6 @@ void _IQShowLog(NSString *logString);
     //  (Bug ID: #250)
     IQLayoutGuidePosition layoutGuidePosition = IQLayoutGuidePositionNone;
     
-#ifdef NSFoundationVersionNumber_iOS_5_1
-    
     NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
     
     //If topLayoutGuide constraint
@@ -499,7 +489,6 @@ void _IQShowLog(NSString *logString);
     {
         layoutGuidePosition = IQLayoutGuidePositionBottom;
     }
-#endif
     
     switch (interfaceOrientation)
     {
@@ -657,11 +646,9 @@ void _IQShowLog(NSString *logString);
                     CGFloat maintainTopLayout = 0;
                     
                     //When uncommenting this, each calculation goes to well, but don't know why scrollView doesn't adjusting it's contentOffset at bottom
-#ifdef NSFoundationVersionNumber_iOS_5_1
 //                    if ([_textFieldView.viewController respondsToSelector:@selector(topLayoutGuide)])
 //                        maintainTopLayout = [_textFieldView.viewController.topLayoutGuide length];
 //                    else
-#endif
                         maintainTopLayout = CGRectGetMaxY(_textFieldView.viewController.navigationController.navigationBar.frame);
 
                     maintainTopLayout+= 10; //For good UI
@@ -771,8 +758,6 @@ void _IQShowLog(NSString *logString);
         //Going ahead. No else if.
     }
     
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
     if (layoutGuidePosition == IQLayoutGuidePositionTop)
     {
         CGFloat constant = MIN(_layoutGuideConstraintInitialConstant, constraint.constant-move);
@@ -798,7 +783,6 @@ void _IQShowLog(NSString *logString);
     }
     //If not constraint
     else
-#endif
     {
         //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
         //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
@@ -1124,8 +1108,6 @@ void _IQShowLog(NSString *logString);
         //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
             NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
             
             //If done LayoutGuide tweak
@@ -1138,7 +1120,6 @@ void _IQShowLog(NSString *logString);
                 [_rootViewController.view layoutIfNeeded];
             }
             else
-#endif
             {
                 _IQShowLog([NSString stringWithFormat:@"Restoring %@ frame to : %@",[_rootViewController _IQDescription],NSStringFromCGRect(_topViewBeginRect)]);
                 //  Setting it's new frame
@@ -1249,11 +1230,8 @@ void _IQShowLog(NSString *logString);
     
     if (_keyboardManagerFlags.isKeyboardShowing == NO)    //  (Bug ID: #5)
     {
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
         //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
         _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
-#endif
         
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];

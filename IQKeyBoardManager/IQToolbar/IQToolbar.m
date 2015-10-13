@@ -57,10 +57,10 @@
 #endif
     
     //Background image
-    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forBarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
     
     //Shadow image
     [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionAny];
@@ -68,6 +68,10 @@
     [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTop];
     [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTopAttached];
     
+    
+//    'setBackgroundImage:forBarPosition:barMetrics:'
+    
+
     //Background color
     [[self appearance] setBackgroundColor:nil];
 }
