@@ -3,7 +3,7 @@
 </p>
 <H1 align="center">IQKeyboardManager</H1>
 
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![GitHub license](https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg)]()
 [![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
 [![Coverage Status](http://img.shields.io/coveralls/hackiftekhar/IQKeyboardManager/master.svg)](https://coveralls.io/r/hackiftekhar/IQKeyboardManager?branch=master)
 [![Code Health](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master/landscape.svg?style=flat)](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master)
@@ -68,6 +68,8 @@ Installation
 
 #### Cocoapod Method:-
 
+[![Cocoapods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
+
 ***IQKeyboardManager (Objective-C):-*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
@@ -100,6 +102,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 #### Source Code Method:-
+
+[![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)]()
+
+
 
 ***IQKeyboardManager (Objective-C):-*** Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
 
