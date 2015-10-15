@@ -1,0 +1,5 @@
+languages:
+   Objective C: true
+   Swift: true
+exclude_paths:
+- "Screenshot/*"
