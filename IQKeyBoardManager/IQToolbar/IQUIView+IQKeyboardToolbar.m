@@ -164,7 +164,7 @@
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStyleDone target:target action:action];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:action target:target];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -236,7 +236,7 @@
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:action];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:action target:target];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -313,7 +313,7 @@
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:target action:rightAction];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:rightAction target:target];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -390,7 +390,7 @@
     [items addObject:nilButton];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:doneAction target:target];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -433,7 +433,7 @@
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
 	//  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:doneAction target:target];
 	
 	if (IQ_IS_IOS7_OR_GREATER)
     {
@@ -558,7 +558,7 @@
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-	IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStyleDone target:target action:rightButtonAction];
+    IQBarButtonItem *doneButton = [self customDoneButtonWithAction:rightButtonAction target:target];
     
     if (IQ_IS_IOS7_OR_GREATER)
     {
@@ -718,6 +718,12 @@
 			}
 		}
     }
+}
+
+#pragma mark - Custom methods (not part of the default pod)
+- (IQBarButtonItem *)customDoneButtonWithAction:(SEL)action target:(id)target
+{
+    return [[IQBarButtonItem alloc] initWithTitle:@"Concluir" style:UIBarButtonItemStylePlain target:target action:action];
 }
 
 @end
