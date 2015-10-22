@@ -86,7 +86,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             if let textField = view as? UITextField {
                 
                 let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as! NSNumber
-                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textField.returnKeyType = UIReturnKeyType(rawValue: Int(returnKeyTypeValue.unsignedIntegerValue))!
                 
                 textField.delegate = infoDict[kIQTextFieldDelegate] as! UITextFieldDelegate?
             } else if let textView = view as? UITextView {
@@ -94,7 +94,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
                 textView.returnKeyType = UIReturnKeyType(rawValue: (infoDict[kIQTextFieldReturnKeyType] as! NSNumber).integerValue)!
                 
                 let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as! NSNumber
-                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textView.returnKeyType = UIReturnKeyType(rawValue: Int(returnKeyTypeValue.unsignedIntegerValue))!
                 
                 textView.delegate = infoDict[kIQTextFieldDelegate] as! UITextViewDelegate?
             }
@@ -219,13 +219,13 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             if let textField = view as? UITextField {
                 
                 let returnKeyTypeValue = dict[kIQTextFieldReturnKeyType] as! NSNumber
-                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textField.returnKeyType = UIReturnKeyType(rawValue: Int(returnKeyTypeValue.unsignedIntegerValue))!
                 
                 textField.delegate = dict[kIQTextFieldDelegate] as! UITextFieldDelegate?
             } else if let textView = view as? UITextView {
                 
                 let returnKeyTypeValue = dict[kIQTextFieldReturnKeyType] as! NSNumber
-                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textView.returnKeyType = UIReturnKeyType(rawValue: Int(returnKeyTypeValue.unsignedIntegerValue))!
                 
                 textView.delegate = dict[kIQTextFieldDelegate] as! UITextViewDelegate?
             }
