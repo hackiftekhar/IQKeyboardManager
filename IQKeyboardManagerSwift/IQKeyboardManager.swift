@@ -1817,8 +1817,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
-
                         //Updating placeholder font to toolbar.     //(Bug ID: #148)
                         if let _textField = textField as? UITextField {
                             
@@ -1841,7 +1839,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                     } else {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
                         toolbar.title = nil
                     }
                 }
@@ -1892,8 +1889,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
                         if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                             
-                            let toolbar = textField.inputAccessoryView as! IQToolbar
-                            
                             //Updating placeholder font to toolbar.     //(Bug ID: #148)
                             if let _textField = textField as? UITextField {
                                 
@@ -1915,14 +1910,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.titleFont = placeholderFont
                             }
                         }
-                    } else {
-                        
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
-                        toolbar.title = nil
-                    }
-                    
-                    //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
-                    if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                        else {
+                            
+                            toolbar.title = nil
+                        }
+
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                         //	If firstTextField, then previous should not be enabled.
                         if siblings[0] == textField {
@@ -1950,11 +1942,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 if toolbar is IQToolbar == true  && (toolbar?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
                     
-                    if view is UITextField == true {
-                        let textField = view as! UITextField
+                    if let textField = view as? UITextField {
                         textField.inputAccessoryView = nil
-                    } else if view is UITextView == true {
-                        let textView = view as! UITextView
+                    } else if let textView = view as? UITextView {
                         textView.inputAccessoryView = nil
                     }
                 }
