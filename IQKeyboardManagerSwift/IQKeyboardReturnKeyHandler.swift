@@ -64,14 +64,14 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /// MARK: Initialization/Deinitialization
     ///--------------------------------------
 
-    override init() {
+    public override init() {
         super.init()
     }
     
     /**
     Add all the textFields available in UIViewController's view.
     */
-    init(controller : UIViewController) {
+    public init(controller : UIViewController) {
         super.init()
         
         addResponderFromView(controller.view)
