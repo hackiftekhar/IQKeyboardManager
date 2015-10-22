@@ -42,8 +42,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let newItems = items {
                 for item in newItems {
                     
-                    if item is IQTitleBarButtonItem == true {
-                        (item as! IQTitleBarButtonItem).font = titleFont
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.font = titleFont
                     }
                 }
             }
@@ -57,8 +57,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let newItems = items {
                 for item in newItems {
                     
-                    if item is IQTitleBarButtonItem == true {
-                        (item as! IQTitleBarButtonItem).title = title
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.font = titleFont
                     }
                 }
             }
@@ -93,8 +93,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let unwrappedItems = items {
                 for item in unwrappedItems {
                     
-                    if item is IQTitleBarButtonItem {
-                        item.tintColor = tintColor
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.tintColor = tintColor
                     }
                 }
             }
