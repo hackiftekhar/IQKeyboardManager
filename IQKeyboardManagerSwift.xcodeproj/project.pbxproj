@@ -201,6 +201,7 @@
 		757983501B886B3D00F8E41F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = IQKeyboardManager;
 				TargetAttributes = {
