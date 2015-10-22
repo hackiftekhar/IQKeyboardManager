@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import "IQKeyboardReturnKeyHandler.h"
-
+#import "IQKeyboardManager.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 
@@ -52,7 +52,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 }
 
 @synthesize lastTextFieldReturnKeyType = _lastTextFieldReturnKeyType;
-@synthesize toolbarManageBehaviour = _toolbarManageBehaviour;
 @synthesize delegate = _delegate;
 
 - (instancetype)init
@@ -123,19 +122,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     [textFieldInfoCache addObject:dictInfo];
 }
 
-#pragma mark - Overriding lastTextFieldReturnKeyType
--(void)setLastTextFieldReturnKeyType:(UIReturnKeyType)lastTextFieldReturnKeyType
-{
-    _lastTextFieldReturnKeyType = lastTextFieldReturnKeyType;
-    
-    for (NSDictionary *infoDict in textFieldInfoCache)
-    {
-        UITextField *textField = [infoDict objectForKey:kIQTextField];
-
-        [self updateReturnKeyTypeOnTextField:textField];
-    }
-}
-
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
 {
     UIView *tableView = [textField superviewOfClassType:[UITableView class]];
@@ -155,7 +141,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         textFields = [textField responderSiblings];
         
         //Sorting textFields according to behaviour
-        switch (_toolbarManageBehaviour)
+        switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:
@@ -196,7 +182,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         textFields = [textField responderSiblings];
         
         //Sorting textFields according to behaviour
-        switch (_toolbarManageBehaviour)
+        switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:

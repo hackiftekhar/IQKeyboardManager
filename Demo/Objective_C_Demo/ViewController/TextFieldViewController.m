@@ -61,7 +61,6 @@
     
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
-    returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarByPosition;
     
     [dropDownTextField setItemList:[NSArray arrayWithObjects:@"Zero Line Of Code",
                                      @"No More UIScrollView",
