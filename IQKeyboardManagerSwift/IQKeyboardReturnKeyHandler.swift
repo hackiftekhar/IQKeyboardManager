@@ -42,7 +42,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /**
     It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews.
     */
-    public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
+    @available(*, deprecated, message="This property will be removed in future release, from now changing this property have no effect and it will read from [[IQKeyboardManager sharedManager] toolbarManageBehaviour.") public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
     
     /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.
@@ -145,7 +145,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
+            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .ByTag:        textFields = textFields?.sortedArrayByTag()
                 //If needs to sort it by Position
@@ -281,7 +281,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
+            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .ByTag:        textFields = textFields?.sortedArrayByTag()
                 //If needs to sort it by Position

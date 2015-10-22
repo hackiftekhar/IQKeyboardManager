@@ -66,7 +66,7 @@
 /**
  It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews.
  */
-@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
+@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour __attribute__ ((deprecated("This property will be removed in future release, from now changing this property have no effect and it will read from [[IQKeyboardManager sharedManager] toolbarManageBehaviour.")));
 
 /**
  Set the last textfield return key type. Default is UIReturnKeyDefault.
