@@ -1263,12 +1263,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  (Bug ID: #5)
         if CGRectEqualToRect(_topViewBeginRect, CGRectZero) == true {
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            var rootController = _textFieldView?.topMostController()
-            if rootController == nil {
-                rootController = keyWindow()?.topMostController()
+            _rootViewController = _textFieldView?.topMostController()
+            if _rootViewController == nil {
+                _rootViewController = keyWindow()?.topMostController()
             }
             
-            if let unwrappedRootController = rootController {
+            if let unwrappedRootController = _rootViewController {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 _IQShowLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
             } else {

@@ -52,10 +52,10 @@
 #endif
     
     //Background image
-    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionAny           barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom        barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTop           barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTopAttached   barMetrics:UIBarMetricsDefault];
     
     //Shadow image
     [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionAny];
