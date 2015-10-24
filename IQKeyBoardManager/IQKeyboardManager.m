@@ -1589,7 +1589,8 @@ void _IQShowLog(NSString *logString);
             textField = [siblings objectAtIndex:0]; //Not using firstObject method because iOS5 doesn't not support 'firstObject' method.
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-        if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
+        //setInputAccessoryView: check   (Bug ID: #307)
+        if ([textField respondsToSelector:@selector(setInputAccessoryView:)] && (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag)))
         {
             static UIView *doneToolbar = nil;
             
@@ -1665,7 +1666,8 @@ void _IQShowLog(NSString *logString);
         for (UITextField *textField in siblings)
         {
             //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-            if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
+            //setInputAccessoryView: check   (Bug ID: #307)
+            if ([textField respondsToSelector:@selector(setInputAccessoryView:)] && (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag))
             {
                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                 [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
@@ -1757,7 +1759,8 @@ void _IQShowLog(NSString *logString);
         UIView *toolbar = [textField inputAccessoryView];
         
         //  (Bug ID: #78)
-        if ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag))
+        //setInputAccessoryView: check   (Bug ID: #307)
+        if ([textField respondsToSelector:@selector(setInputAccessoryView:)] && ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag)))
         {
             textField.inputAccessoryView = nil;
         }

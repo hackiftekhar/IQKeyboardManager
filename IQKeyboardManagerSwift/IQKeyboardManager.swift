@@ -1776,7 +1776,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let textField = siblings[0]
                 
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-                if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                //setInputAccessoryView: check   (Bug ID: #307)
+                if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
                     
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                     textField.addDoneOnKeyboardWithTarget(self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
@@ -1848,7 +1849,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 for textField in siblings {
                     
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-                    if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) {
                         
                         //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                         textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: "previousAction:", nextAction: "nextAction:", doneAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
@@ -1938,14 +1940,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             for view in siblings {
                 
-                let toolbar = view.inputAccessoryView
-                
-                if toolbar is IQToolbar == true  && (toolbar?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
-                    
-                    if let textField = view as? UITextField {
-                        textField.inputAccessoryView = nil
-                    } else if let textView = view as? UITextView {
-                        textView.inputAccessoryView = nil
+                if let toolbar = view.inputAccessoryView as? IQToolbar {
+
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if view.respondsToSelector(Selector("setInputAccessoryView:")) && (toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
+                        
+                        if let textField = view as? UITextField {
+                            textField.inputAccessoryView = nil
+                        } else if let textView = view as? UITextView {
+                            textView.inputAccessoryView = nil
+                        }
                     }
                 }
             }
