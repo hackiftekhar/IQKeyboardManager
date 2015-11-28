@@ -241,6 +241,7 @@ void _IQShowLog(NSString *logString);
             
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            _tapGesture.cancelsTouchesInView = YES;
             [_tapGesture setDelegate:self];
             _tapGesture.enabled = _shouldResignOnTouchOutside;
 
