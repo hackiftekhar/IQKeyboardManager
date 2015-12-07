@@ -655,7 +655,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: "tapRecognized:")
-        _tapGesture.cancelsTouchesInView = true
+        _tapGesture.cancelsTouchesInView = false
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
