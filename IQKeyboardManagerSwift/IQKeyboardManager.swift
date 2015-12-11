@@ -1398,9 +1398,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView = lastScrollView
-                
-                while let scrollView = superScrollView.superviewOfClassType(UIScrollView) as? UIScrollView {
+                var superScrollView : UIScrollView? = lastScrollView
+
+                while let scrollView = superScrollView {
 
                     let contentSize = CGSizeMake(max(scrollView.contentSize.width, CGRectGetWidth(scrollView.frame)), max(scrollView.contentSize.height, CGRectGetHeight(scrollView.frame)))
                     
@@ -1412,7 +1412,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self._IQShowLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
                     
-                    superScrollView = scrollView
+                    superScrollView = scrollView.superviewOfClassType(UIScrollView) as? UIScrollView
                 }
                 }) { (finished) -> Void in }
         }

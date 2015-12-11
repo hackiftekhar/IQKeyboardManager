@@ -1078,7 +1078,7 @@ void _IQShowLog(NSString *logString);
             // TODO: restore scrollView state
             // This is temporary solution. Have to implement the save and restore scrollView state
             UIScrollView *superscrollView = _lastScrollView;
-            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]))
+            do
             {
                 CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, CGRectGetWidth(superscrollView.frame)), MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame)));
                 
@@ -1090,7 +1090,7 @@ void _IQShowLog(NSString *logString);
                     
                     _IQShowLog([NSString stringWithFormat:@"Restoring %@ contentOffset to : %@",[superscrollView _IQDescription],NSStringFromCGPoint(superscrollView.contentOffset)]);
                 }
-            }
+            } while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
 
         } completion:NULL];
     }
