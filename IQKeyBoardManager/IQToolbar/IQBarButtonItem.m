@@ -50,13 +50,15 @@
     [[self appearance] setBackgroundImage:nil forState:UIControlStateApplication    barMetrics:UIBarMetricsDefault];
     [[self appearance] setBackgroundImage:nil forState:UIControlStateReserved       barMetrics:UIBarMetricsDefault];
 
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateNormal         style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateHighlighted    style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateDisabled       style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateSelected       style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateApplication    style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-    [[self appearance] setBackgroundImage:nil forState:UIControlStateReserved       style:UIBarButtonItemStyleBordered barMetrics:UIBarMetricsDefault];
-
+    
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateNormal         style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateHighlighted    style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateDisabled       style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateSelected       style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateApplication    style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forState:UIControlStateReserved       style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+   
+    
     [[self appearance] setBackgroundImage:nil forState:UIControlStateNormal         style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
     [[self appearance] setBackgroundImage:nil forState:UIControlStateHighlighted    style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
     [[self appearance] setBackgroundImage:nil forState:UIControlStateDisabled       style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
