@@ -32,10 +32,8 @@
 @synthesize titleFont = _titleFont;
 @synthesize title = _title;
 
-+(void)initialize
++(void)load
 {
-    [super initialize];
-    
     //Tint Color
     [[self appearance] setTintColor:nil];
 
