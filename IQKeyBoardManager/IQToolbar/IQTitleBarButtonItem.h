@@ -25,11 +25,6 @@
 #import "IQKeyboardManagerConstants.h"
 #import "IQBarButtonItem.h"
 
-#if !(__has_feature(objc_instancetype))
-    #define instancetype id
-#endif
-
-
 /**
  BarButtonItem with title text.
  */

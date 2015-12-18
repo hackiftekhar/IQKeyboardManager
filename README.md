@@ -58,14 +58,14 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 #### IQKeyboardManager:-
 [![Objective-c](https://img.shields.io/badge/Language-Objective C-blue.svg?style=flat)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
 
-Minimum iOS Target: iOS 6.0
+Minimum iOS Target: iOS 7.0
 
-Minimum Xcode Version: Xcode 4.5
+Minimum Xcode Version: Xcode 5.1.1
 
 #### IQKeyboardManagerSwift:-
 [![Swift 2 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
 
-Minimum iOS Target: iOS 8.0
+Minimum iOS Target: iOS 7.0
 
 Minimum Xcode Version: Xcode 7
 

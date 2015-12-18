@@ -31,10 +31,6 @@
 #import <UIKit/UITextInputTraits.h>
 #import <UIKit/UIView.h>
 
-#if !(__has_feature(objc_instancetype))
-#define instancetype id
-#endif
-
 @class UIFont;
 
 ///---------------------
@@ -96,12 +92,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
-#ifdef NSFoundationVersionNumber_iOS_6_1
 /**
  If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor;
-#endif
 
 /**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -122,12 +116,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
-#ifdef NSFoundationVersionNumber_iOS_6_1
 /**
  Adjust textView's contentInset to fix a bug. for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldFixTextViewClip;
-#endif
 
 ///---------------------------------------
 /// @name UIKeyboard appearance overriding

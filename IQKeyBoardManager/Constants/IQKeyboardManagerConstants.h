@@ -48,19 +48,11 @@
  `IQAutoToolbarByPosition`
  Creates Toolbar according to the y,x position of textField in it's superview coordinate.
  */
-#ifndef NS_ENUM
-typedef enum IQAutoToolbarManageBehaviour {
-    IQAutoToolbarBySubviews,
-    IQAutoToolbarByTag,
-    IQAutoToolbarByPosition,
-}IQAutoToolbarManageBehaviour;
-#else
 typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
 };
-#endif
 
 ///-------------------
 /// @name Localization
