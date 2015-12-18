@@ -178,6 +178,22 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 Now IQKeyboardManager can work with topLayoutConstraint and bottomLayoutConstraint with a bit of manual management. Please check below ***Manual Management->Working with TopLayoutGuide and BottomLayoutGuide*** section.
 
+####4) Toolbar becomes black while popping from a view controller ([#374](https://github.com/hackiftekhar/IQKeyboardManager/issues/374))
+
+This issue happens when there is a textField active on a view controller and you navigate to another view controller without resigning currently active textField. This is an iOS issue and happens even if you don't integrate library.
+
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/BlackToolbarIssue.jpg)
+
+For a workaround, you can resign currently active textField in `viewWillDisappear` method.
+
+```
+  -(void)viewWillDisappear:(BOOL)animated
+  {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+  }
+```
+
 ## Known Issues (Swift):-
 
 ####1) Manually enable IQKeyboardManager Swift Version.
