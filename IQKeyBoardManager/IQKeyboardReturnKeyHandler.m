@@ -327,8 +327,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         [self.delegate textViewDidChangeSelection:textView];
 }
 
-#ifdef NSFoundationVersionNumber_iOS_6_1
-
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
     if ([self.delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
@@ -344,8 +342,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     else
         return YES;
 }
-
-#endif
 
 -(void)dealloc
 {
