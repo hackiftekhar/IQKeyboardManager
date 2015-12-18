@@ -24,7 +24,7 @@
 
 import UIKit
 
-public class IQTitleBarButtonItem: UIBarButtonItem {
+public class IQTitleBarButtonItem: IQBarButtonItem {
    
     public var font : UIFont? {
     

@@ -26,10 +26,8 @@
 
 @implementation IQBarButtonItem
 
-+(void)initialize
++(void)load
 {
-    [super initialize];
-
     //Tint color
     [[self appearance] setTintColor:nil];
 

@@ -662,11 +662,17 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         disableInViewControllerClass(UITableViewController)
         considerToolbarPreviousNextInViewClass(UITableView)
         considerToolbarPreviousNextInViewClass(UICollectionView)
+        
+        //Workaround to load all appearance proxies at startup
+        let barButtonItem2 = IQTitleBarButtonItem()
+        barButtonItem2.title = ""
+        let toolbar = IQToolbar()
+        toolbar.title = ""
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    /** It doesn't work on Swift 1.2 */
-//    override class func load() {
+    /** It doesn't work from Swift 1.2 */
+//    override public class func load() {
 //        super.load()
 //        
 //        //Enabling IQKeyboardManager.
