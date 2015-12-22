@@ -30,8 +30,21 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     override public class func initialize() {
         
         superclass()?.initialize()
-        
+                
         self.appearance().barTintColor = nil
+        
+        //Background image
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.Any,            barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.Bottom,         barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.Top,            barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.TopAttached,    barMetrics: UIBarMetrics.Default)
+
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.Any)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.Bottom)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.Top)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.TopAttached)
+        
+        //Background color
         self.appearance().backgroundColor = nil
     }
     
@@ -42,8 +55,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let newItems = items {
                 for item in newItems {
                     
-                    if item is IQTitleBarButtonItem == true {
-                        (item as! IQTitleBarButtonItem).font = titleFont
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.font = titleFont
                     }
                 }
             }
@@ -57,8 +70,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let newItems = items {
                 for item in newItems {
                     
-                    if item is IQTitleBarButtonItem == true {
-                        (item as! IQTitleBarButtonItem).title = title
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.font = titleFont
                     }
                 }
             }
@@ -71,14 +84,16 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.FlexibleWidth
         tintColor = UIColor .blackColor()
+        self.translucent = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         sizeToFit()
-        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        autoresizingMask = UIViewAutoresizing.FlexibleWidth
         tintColor = UIColor .blackColor()
+        self.translucent = true
     }
 
     override public func sizeThatFits(size: CGSize) -> CGSize {
@@ -93,8 +108,8 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if let unwrappedItems = items {
                 for item in unwrappedItems {
                     
-                    if item is IQTitleBarButtonItem {
-                        item.tintColor = tintColor
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.tintColor = tintColor
                     }
                 }
             }

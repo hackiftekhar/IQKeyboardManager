@@ -50,7 +50,6 @@ class TextFieldViewController: UIViewController {
         
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
-        returnKeyHandler.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.ByPosition
         
         var itemLists = [NSString]()
         itemLists.append("Zero Line Of Code")

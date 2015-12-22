@@ -28,28 +28,30 @@
 
 #import <UIKit/UIViewController.h>
 
-#if !(__has_feature(objc_instancetype))
-    #define instancetype id
-#endif
-
-
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
 @synthesize title = _title;
 
-+(void)initialize
++(void)load
 {
-    [super initialize];
-    
+    //Tint Color
     [[self appearance] setTintColor:nil];
+
+    [[self appearance] setBarTintColor:nil];
     
-#ifdef NSFoundationVersionNumber_iOS_6_1
-    if ([[self appearance] respondsToSelector:@selector(setBarTintColor:)])
-    {
-        [[self appearance] setBarTintColor:nil];
-    }
-#endif
+    //Background image
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionAny           barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom        barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTop           barMetrics:UIBarMetricsDefault];
+    [[self appearance] setBackgroundImage:nil forToolbarPosition:UIBarPositionTopAttached   barMetrics:UIBarMetricsDefault];
     
+    //Shadow image
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionAny];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTop];
+    [[self appearance] setShadowImage:nil forToolbarPosition:UIBarPositionTopAttached];
+    
+    //Background color
     [[self appearance] setBackgroundColor:nil];
 }
 
@@ -57,15 +59,8 @@
 {
     [self sizeToFit];
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;// | UIViewAutoresizingFlexibleHeight;
-    
-     if (IQ_IS_IOS7_OR_GREATER)
-    {
-        [self setTintColor:[UIColor blackColor]];
-    }
-    else
-    {
-        [self setBarStyle:UIBarStyleBlackTranslucent];
-    }
+    self.translucent = YES;
+    [self setTintColor:[UIColor blackColor]];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

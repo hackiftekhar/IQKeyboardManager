@@ -65,10 +65,10 @@ public extension UIView {
         var nextResponder: UIResponder? = self
         
         repeat {
-            nextResponder = nextResponder?.nextResponder()!
+            nextResponder = nextResponder?.nextResponder()
             
-            if nextResponder is UIViewController {
-                return nextResponder as? UIViewController
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
             }
             
         } while nextResponder != nil

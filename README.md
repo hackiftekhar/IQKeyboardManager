@@ -2,10 +2,23 @@
   <img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Demo/Resources/icon.png" alt="Icon"/>
 </p>
 <H1 align="center">IQKeyboardManager</H1>
+<p align="center">
+  <img src="https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg"
+  alt="GitHub license"/>
+
+
+[![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
+[![Coverage Status](http://img.shields.io/coveralls/hackiftekhar/IQKeyboardManager/master.svg)](https://coveralls.io/r/hackiftekhar/IQKeyboardManager?branch=master)
+[![Code Health](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master/landscape.svg?style=flat)](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master)
+
 
 Often while developing an app, We ran into an issues where the iPhone keyboard slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and cover `UITextField/UITextView` without needing you to enter any code and no additional setup required. To use `IQKeyboardManager` you simply need to add source files to your project.
 
+
 ####Key Features
+
+[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/pr?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
+[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/issue?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
 
 1) `**CODELESS**, Zero Line Of Code`
 
@@ -20,6 +33,7 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 6) `No More #imports`
 
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
+
 
 ## Screenshot
 [![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
@@ -39,28 +53,33 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 - If IQKeybaordManager conflicts with other third-party library, then it's developer responsibility to enable/disable IQKeyboardManager when presenting/dismissing third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
 
 ## Requirements
+[![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)]()
 
 #### IQKeyboardManager:-
+[![Objective-c](https://img.shields.io/badge/Language-Objective C-blue.svg?style=flat)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
 
-Minimum iOS Target: iOS 5.0
+Minimum iOS Target: iOS 7.0
 
-Minimum Xcode Version: Xcode 4.2
+Minimum Xcode Version: Xcode 5.1.1
 
 #### IQKeyboardManagerSwift:-
+[![Swift 2 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
 
-Minimum iOS Target: iOS 8.0
+Minimum iOS Target: iOS 7.0
 
-Minimum Xcode Version: Xcode 6.3
+Minimum Xcode Version: Xcode 7
 
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 6.3
+Minimum Xcode Version: Xcode 7
 
 
 Installation
 ==========================
 
 #### Cocoapod Method:-
+
+[![Cocoapods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
 
 ***IQKeyboardManager (Objective-C):-*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
@@ -70,7 +89,21 @@ it simply add the following line to your Podfile: ([#9](https://github.com/hacki
 ***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
+*Swift 2.1 (Xcode 7.1)*
+
 `pod 'IQKeyboardManagerSwift'`
+
+*Or*
+
+`pod 'IQKeyboardManagerSwift', '3.3.4'`
+
+*Swift 2.0 (Xcode 7.0)*
+
+`pod 'IQKeyboardManagerSwift', '3.3.3.1'`
+
+*Swift 1.2 (Xcode 6.4)*
+
+`pod 'IQKeyboardManagerSwift', '3.3.1'`
 
 In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
 
@@ -94,6 +127,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 #### Source Code Method:-
+
+[![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)]()
+
+
 
 ***IQKeyboardManager (Objective-C):-*** Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
 
@@ -140,6 +177,22 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 ####3) Not working when pinning textfield from TopLayoutguide ([#124](https://github.com/hackiftekhar/IQKeyboardManager/issues/124), [#137](https://github.com/hackiftekhar/IQKeyboardManager/issues/137), [#160](https://github.com/hackiftekhar/IQKeyboardManager/issues/160), [#206](https://github.com/hackiftekhar/IQKeyboardManager/issues/206))
 
 Now IQKeyboardManager can work with topLayoutConstraint and bottomLayoutConstraint with a bit of manual management. Please check below ***Manual Management->Working with TopLayoutGuide and BottomLayoutGuide*** section.
+
+####4) Toolbar becomes black while popping from a view controller ([#374](https://github.com/hackiftekhar/IQKeyboardManager/issues/374))
+
+This issue happens when there is a textField active on a view controller and you navigate to another view controller without resigning currently active textField. This is an iOS issue and happens even if you don't integrate library.
+
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/BlackToolbarIssue.jpg)
+
+For a workaround, you can resign currently active textField in `viewWillDisappear` method.
+
+```
+  -(void)viewWillDisappear:(BOOL)animated
+  {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+  }
+```
 
 ## Known Issues (Swift):-
 

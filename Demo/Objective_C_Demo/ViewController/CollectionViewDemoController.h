@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#ifdef NSFoundationVersionNumber_iOS_5_1
-
 @interface CollectionViewDemoController : UIViewController
 
 @end
-
-#endif

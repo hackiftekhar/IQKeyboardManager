@@ -37,12 +37,12 @@
 /**
  Returns the current Top Most ViewController in hierarchy.
  */
-@property (nonatomic, readonly, strong) UIViewController *topMostController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *topMostController;
 
 /**
  Returns the topViewController in stack of topMostController.
  */
-@property (nonatomic, readonly, strong) UIViewController *currentViewController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *currentViewController;
 
 
 @end

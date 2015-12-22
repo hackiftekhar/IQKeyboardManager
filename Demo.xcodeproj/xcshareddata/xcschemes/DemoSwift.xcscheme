@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-               BuildableName = "IQKeyboardManager.app"
-               BlueprintName = "DemoObjC"
+               BlueprintIdentifier = "C0ACB0F419CF104B0057B571"
+               BuildableName = "DemoSwift.app"
+               BlueprintName = "DemoSwift"
                ReferencedContainer = "container:Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "C0ACB0F419CF104B0057B571"
+            BuildableName = "DemoSwift.app"
+            BlueprintName = "DemoSwift"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "C0ACB0F419CF104B0057B571"
+            BuildableName = "DemoSwift.app"
+            BlueprintName = "DemoSwift"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
-            BlueprintName = "DemoObjC"
+            BlueprintIdentifier = "C0ACB0F419CF104B0057B571"
+            BuildableName = "DemoSwift.app"
+            BlueprintName = "DemoSwift"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

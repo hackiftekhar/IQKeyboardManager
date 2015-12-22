@@ -655,17 +655,24 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: "tapRecognized:")
+        _tapGesture.cancelsTouchesInView = false
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
         disableInViewControllerClass(UITableViewController)
         considerToolbarPreviousNextInViewClass(UITableView)
         considerToolbarPreviousNextInViewClass(UICollectionView)
+        
+        //Workaround to load all appearance proxies at startup
+        let barButtonItem2 = IQTitleBarButtonItem()
+        barButtonItem2.title = ""
+        let toolbar = IQToolbar()
+        toolbar.title = ""
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    /** It doesn't work on Swift 1.2 */
-//    override class func load() {
+    /** It doesn't work from Swift 1.2 */
+//    override public class func load() {
 //        super.load()
 //        
 //        //Enabling IQKeyboardManager.
@@ -1263,12 +1270,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  (Bug ID: #5)
         if CGRectEqualToRect(_topViewBeginRect, CGRectZero) == true {
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            var rootController = _textFieldView?.topMostController()
-            if rootController == nil {
-                rootController = keyWindow()?.topMostController()
+            _rootViewController = _textFieldView?.topMostController()
+            if _rootViewController == nil {
+                _rootViewController = keyWindow()?.topMostController()
             }
             
-            if let unwrappedRootController = rootController {
+            if let unwrappedRootController = _rootViewController {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 _IQShowLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
             } else {
@@ -1397,9 +1404,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView = lastScrollView
-                
-                while let scrollView = superScrollView.superviewOfClassType(UIScrollView) as? UIScrollView {
+                var superScrollView : UIScrollView? = lastScrollView
+
+                while let scrollView = superScrollView {
 
                     let contentSize = CGSizeMake(max(scrollView.contentSize.width, CGRectGetWidth(scrollView.frame)), max(scrollView.contentSize.height, CGRectGetHeight(scrollView.frame)))
                     
@@ -1411,7 +1418,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self._IQShowLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
                     
-                    superScrollView = scrollView
+                    superScrollView = scrollView.superviewOfClassType(UIScrollView) as? UIScrollView
                 }
                 }) { (finished) -> Void in }
         }
@@ -1776,7 +1783,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let textField = siblings[0]
                 
                 //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-                if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                //setInputAccessoryView: check   (Bug ID: #307)
+                if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
                     
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                     textField.addDoneOnKeyboardWithTarget(self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
@@ -1817,8 +1825,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
-
                         //Updating placeholder font to toolbar.     //(Bug ID: #148)
                         if let _textField = textField as? UITextField {
                             
@@ -1841,7 +1847,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                     } else {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
                         toolbar.title = nil
                     }
                 }
@@ -1851,7 +1856,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 for textField in siblings {
                     
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-                    if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) {
                         
                         //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                         textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: "previousAction:", nextAction: "nextAction:", doneAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
@@ -1892,8 +1898,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
                         if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                             
-                            let toolbar = textField.inputAccessoryView as! IQToolbar
-                            
                             //Updating placeholder font to toolbar.     //(Bug ID: #148)
                             if let _textField = textField as? UITextField {
                                 
@@ -1915,14 +1919,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.titleFont = placeholderFont
                             }
                         }
-                    } else {
-                        
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
-                        toolbar.title = nil
-                    }
-                    
-                    //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
-                    if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                        else {
+                            
+                            toolbar.title = nil
+                        }
+
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                         //	If firstTextField, then previous should not be enabled.
                         if siblings[0] == textField {
@@ -1946,16 +1947,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             for view in siblings {
                 
-                let toolbar = view.inputAccessoryView
-                
-                if toolbar is IQToolbar == true  && (toolbar?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
-                    
-                    if view is UITextField == true {
-                        let textField = view as! UITextField
-                        textField.inputAccessoryView = nil
-                    } else if view is UITextView == true {
-                        let textView = view as! UITextView
-                        textView.inputAccessoryView = nil
+                if let toolbar = view.inputAccessoryView as? IQToolbar {
+
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if view.respondsToSelector(Selector("setInputAccessoryView:")) && (toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
+                        
+                        if let textField = view as? UITextField {
+                            textField.inputAccessoryView = nil
+                        } else if let textView = view as? UITextView {
+                            textView.inputAccessoryView = nil
+                        }
                     }
                 }
             }

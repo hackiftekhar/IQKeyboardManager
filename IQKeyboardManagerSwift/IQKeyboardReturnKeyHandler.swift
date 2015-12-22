@@ -40,11 +40,6 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     public var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
     
     /**
-    It help to choose the lastTextField instance from sibling responderViews. Default is IQAutoToolbarBySubviews.
-    */
-    public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.BySubviews
-    
-    /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.
     */
     public var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.Default {
@@ -64,14 +59,14 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /// MARK: Initialization/Deinitialization
     ///--------------------------------------
 
-    override init() {
+    public override init() {
         super.init()
     }
     
     /**
     Add all the textFields available in UIViewController's view.
     */
-    init(controller : UIViewController) {
+    public init(controller : UIViewController) {
         super.init()
         
         addResponderFromView(controller.view)
@@ -86,7 +81,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             if let textField = view as? UITextField {
                 
                 let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as! NSNumber
-                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.integerValue)!
                 
                 textField.delegate = infoDict[kIQTextFieldDelegate] as! UITextFieldDelegate?
             } else if let textView = view as? UITextView {
@@ -94,7 +89,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
                 textView.returnKeyType = UIReturnKeyType(rawValue: (infoDict[kIQTextFieldReturnKeyType] as! NSNumber).integerValue)!
                 
                 let returnKeyTypeValue = infoDict[kIQTextFieldReturnKeyType] as! NSNumber
-                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.integerValue)!
                 
                 textView.delegate = infoDict[kIQTextFieldDelegate] as! UITextViewDelegate?
             }
@@ -145,7 +140,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
+            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .ByTag:        textFields = textFields?.sortedArrayByTag()
                 //If needs to sort it by Position
@@ -219,13 +214,13 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             if let textField = view as? UITextField {
                 
                 let returnKeyTypeValue = dict[kIQTextFieldReturnKeyType] as! NSNumber
-                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textField.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.integerValue)!
                 
                 textField.delegate = dict[kIQTextFieldDelegate] as! UITextFieldDelegate?
             } else if let textView = view as? UITextView {
                 
                 let returnKeyTypeValue = dict[kIQTextFieldReturnKeyType] as! NSNumber
-                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.unsignedIntegerValue)!
+                textView.returnKeyType = UIReturnKeyType(rawValue: returnKeyTypeValue.integerValue)!
                 
                 textView.delegate = dict[kIQTextFieldDelegate] as! UITextViewDelegate?
             }
@@ -281,7 +276,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
+            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .ByTag:        textFields = textFields?.sortedArrayByTag()
                 //If needs to sort it by Position
