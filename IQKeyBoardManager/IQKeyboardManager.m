@@ -1833,10 +1833,10 @@ void _IQShowLog(NSString *logString);
     [_disabledClasses removeObject:disabledClass];
 }
 
-/** Returns YES if ViewController class is disabled for library, otherwise returns NO. */
--(BOOL)isDisableInViewControllerClass:(Class)disabledClass
+//Returns all disabled classes
+-(NSSet*)disabledInViewControllerClasses
 {
-    return [_disabledClasses containsObject:disabledClass];
+    return [_disabledClasses copy];
 }
 
 /** Disable automatic toolbar creation in in toolbarDisabledClass   */
@@ -1851,10 +1851,10 @@ void _IQShowLog(NSString *logString);
     [_disabledToolbarClasses removeObject:toolbarDisabledClass];
 }
 
-/** Returns YES if toolbar is disabled in ViewController class, otherwise returns NO.   */
--(BOOL)isDisableToolbarInViewControllerClass:(Class)toolbarDisabledClass
+//Returns all toolbar disabled classes
+-(NSSet *)disabledToolbarInViewControllerClasses
 {
-    return [_disabledToolbarClasses containsObject:toolbarDisabledClass];
+    return [_disabledToolbarClasses copy];
 }
 
 /** Consider provided customView class as superView of all inner textField for calculating next/previous button logic.  */
@@ -1869,10 +1869,12 @@ void _IQShowLog(NSString *logString);
     [_toolbarPreviousNextConsideredClass removeObject:toolbarPreviousNextConsideredClass];
 }
 
-/** Returns YES if inner hierarchy is considered for previous/next in class, otherwise returns NO.  */
--(BOOL)isConsiderToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass
+/**
+ Returns All toolbar considered classes
+ */
+-(NSSet* _Nonnull)consideredToolbarPreviousNextViewClasses
 {
-    return [_toolbarPreviousNextConsideredClass containsObject:toolbarPreviousNextConsideredClass];
+    return [_toolbarPreviousNextConsideredClass copy];
 }
 
 @end

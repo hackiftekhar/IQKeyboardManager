@@ -125,15 +125,25 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
 
     private func updateReturnKeyTypeOnTextField(view : UIView)
     {
-        var tableView : UIView? = view.superviewOfClassType(UITableView)
-        if tableView == nil {
-            tableView = tableView?.superviewOfClassType(UICollectionView)
-        }
+        var superConsideredView : UIView?
         
+        //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+        for disabledClassString in IQKeyboardManager.sharedManager().consideredToolbarPreviousNextViewClassesString() {
+            
+            if let disabledClass = NSClassFromString(disabledClassString) {
+                
+                superConsideredView = view.superviewOfClassType(disabledClass)
+                
+                if superConsideredView != nil {
+                    break
+                }
+            }
+        }
+
         var textFields : [UIView]?
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
-        if let unwrappedTableView = tableView {     //   (Enhancement ID: #22)
+        if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
             textFields = unwrappedTableView.deepResponderViews()
         } else {  //Otherwise fetching all the siblings
             
@@ -261,15 +271,25 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     private func goToNextResponderOrResign(view : UIView) {
         
-        var tableView : UIView? = view.superviewOfClassType(UITableView)
-        if tableView == nil {
-            tableView = tableView?.superviewOfClassType(UICollectionView)
+        var superConsideredView : UIView?
+        
+        //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+        for disabledClassString in IQKeyboardManager.sharedManager().consideredToolbarPreviousNextViewClassesString() {
+            
+            if let disabledClass = NSClassFromString(disabledClassString) {
+                
+                superConsideredView = view.superviewOfClassType(disabledClass)
+                
+                if superConsideredView != nil {
+                    break
+                }
+            }
         }
-
+        
         var textFields : [UIView]?
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
-        if let unwrappedTableView = tableView {     //   (Enhancement ID: #22)
+        if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
             textFields = unwrappedTableView.deepResponderViews()
         } else {  //Otherwise fetching all the siblings
             

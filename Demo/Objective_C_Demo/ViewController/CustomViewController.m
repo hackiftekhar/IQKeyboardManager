@@ -9,9 +9,11 @@
 #import "CustomViewController.h"
 #import "IQKeyboardManager.h"
 #import "CustomSubclassView.h"
+#import "IQKeyboardReturnKeyHandler.h"
 
 @interface CustomViewController ()
 {
+    IQKeyboardReturnKeyHandler *returnHandler;
     IBOutlet UISwitch *switchDisableViewController;
     IBOutlet UISwitch *switchDisableToolbar;
     IBOutlet UISwitch *switchConsiderPreviousNext;
@@ -23,15 +25,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    returnHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    switchDisableViewController.on = [[IQKeyboardManager sharedManager] isDisableInViewControllerClass:[CustomViewController class]];
-    switchDisableToolbar.on = [[IQKeyboardManager sharedManager] isDisableToolbarInViewControllerClass:[CustomViewController class]];
-    switchConsiderPreviousNext.on = [[IQKeyboardManager sharedManager] isConsiderToolbarPreviousNextInViewClass:[CustomSubclassView class]];
+    switchDisableViewController.on = ([[[IQKeyboardManager sharedManager] disabledInViewControllerClasses] containsObject:[self class]]);
+    switchDisableToolbar.on = ([[[IQKeyboardManager sharedManager] disabledToolbarInViewControllerClasses] containsObject:[self class]]);
+    switchConsiderPreviousNext.on = ([[[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses] containsObject:[self class]]);
 }
 
 - (void)didReceiveMemoryWarning {

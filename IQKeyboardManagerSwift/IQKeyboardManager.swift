@@ -476,12 +476,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**
-    Returns YES if ViewController class is disabled for library, otherwise returns NO.
-    
-    @param disabledClass Class which is to check for it's disability.
-    */
-    public func isDisableInViewControllerClass(disabledClass : AnyClass) -> Bool {
-        return _disabledClasses.contains(NSStringFromClass(disabledClass))
+     Returns All disabled classes reigstered with disableInViewControllerClass.
+     */
+    public func disabledInViewControllerClassesString() -> Set<String> {
+        
+        return _disabledClasses;
     }
     
     /**
@@ -507,8 +506,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarDisabledClass Class which is to check for toolbar disability.
     */
-    public func isDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) -> Bool {
-        return _disabledToolbarClasses.contains(NSStringFromClass(toolbarDisabledClass))
+    public func disabledToolbarInViewControllerClassesString() -> Set<String> {
+        return _disabledToolbarClasses;
     }
     
     /**
@@ -534,8 +533,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
     */
-    public func isConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) -> Bool {
-        return _toolbarPreviousNextConsideredClass.contains(NSStringFromClass(toolbarPreviousNextConsideredClass))
+    public func consideredToolbarPreviousNextViewClassesString() -> Set<String> {
+        return _toolbarPreviousNextConsideredClass;
     }
 
 

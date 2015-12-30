@@ -222,11 +222,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeDisableInViewControllerClass:(nonnull Class)disabledClass;
 
 /**
- Returns YES if ViewController class is disabled for library, otherwise returns NO.
- 
- @param disabledClass Class which is to check for it's disability.
+ Returns All disabled classes reigstered with disableInViewControllerClass.
  */
--(BOOL)isDisableInViewControllerClass:(nonnull Class)disabledClass;
+-( NSSet* _Nonnull )disabledInViewControllerClasses;
 
 /**
  Disable automatic toolbar creation in in toolbarDisabledClass
@@ -243,11 +241,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeDisableToolbarInViewControllerClass:(nonnull Class)toolbarDisabledClass;
 
 /**
- Returns YES if toolbar is disabled in ViewController class, otherwise returns NO.
- 
- @param toolbarDisabledClass Class which is to check for toolbar disability.
+ Returns All toolbar disabled classes reigstered with disableToolbarInViewControllerClass.
  */
--(BOOL)isDisableToolbarInViewControllerClass:(nonnull Class)toolbarDisabledClass;
+-( NSSet* _Nonnull )disabledToolbarInViewControllerClasses;
 
 /**
  Consider provided customView class as superView of all inner textField for calculating next/previous button logic.
@@ -264,11 +260,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeConsiderToolbarPreviousNextInViewClass:(nonnull Class)toolbarPreviousNextConsideredClass;
 
 /**
- Returns YES if inner hierarchy is considered for previous/next in class, otherwise returns NO.
- 
- @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
+ Returns All toolbar considered classes reigstered with considerToolbarPreviousNextInViewClass.
  */
--(BOOL)isConsiderToolbarPreviousNextInViewClass:(nonnull Class)toolbarPreviousNextConsideredClass;
+-(NSSet* _Nonnull)consideredToolbarPreviousNextViewClasses;
 
 
 ///----------------------------------------

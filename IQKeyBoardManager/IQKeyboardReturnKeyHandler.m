@@ -30,10 +30,7 @@
 
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
-#import <UIKit/UITableView.h>
 #import <UIKit/UIViewController.h>
-
-#import <UIKit/UICollectionView.h>
 
 NSString *const kIQTextField                =   @"kIQTextField";
 NSString *const kIQTextFieldDelegate        =   @"kIQTextFieldDelegate";
@@ -124,16 +121,23 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
 {
-    UIView *tableView = [textField superviewOfClassType:[UITableView class]];
+    UIView *superConsideredView;
     
-    if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
+    //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+    for (Class consideredClass in [[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses])
+    {
+        superConsideredView = [textField superviewOfClassType:consideredClass];
+        
+        if (superConsideredView != nil)
+            break;
+    }
 
     NSArray *textFields = nil;
 
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
-    if (tableView)  //     //   (Enhancement ID: #22)
+    if (superConsideredView)  //     //   (Enhancement ID: #22)
     {
-        textFields = [tableView deepResponderViews];
+        textFields = [superConsideredView deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
@@ -166,15 +170,23 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(void)goToNextResponderOrResign:(UIView*)textField
 {
-    UIView *tableView = [textField superviewOfClassType:[UITableView class]];
-    if (tableView == nil)   tableView = [textField superviewOfClassType:[UICollectionView class]];
+    UIView *superConsideredView;
+    
+    //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+    for (Class consideredClass in [[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses])
+    {
+        superConsideredView = [textField superviewOfClassType:consideredClass];
+        
+        if (superConsideredView != nil)
+            break;
+    }
     
     NSArray *textFields = nil;
     
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
-    if (tableView)  //     //   (Enhancement ID: #22)
+    if (superConsideredView)  //     //   (Enhancement ID: #22)
     {
-        textFields = [tableView deepResponderViews];
+        textFields = [superConsideredView deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
