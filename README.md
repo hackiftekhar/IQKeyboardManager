@@ -1,11 +1,24 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/KeyboardTextFieldDemo/KeyboardTextFieldDemo/icon.png" alt="Icon"/>
+  <img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Demo/Resources/icon.png" alt="Icon"/>
 </p>
 <H1 align="center">IQKeyboardManager</H1>
+<p align="center">
+  <img src="https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg"
+  alt="GitHub license"/>
+
+
+[![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
+[![Coverage Status](http://img.shields.io/coveralls/hackiftekhar/IQKeyboardManager/master.svg)](https://coveralls.io/r/hackiftekhar/IQKeyboardManager?branch=master)
+[![Code Health](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master/landscape.svg?style=flat)](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master)
+
 
 Often while developing an app, We ran into an issues where the iPhone keyboard slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and cover `UITextField/UITextView` without needing you to enter any code and no additional setup required. To use `IQKeyboardManager` you simply need to add source files to your project.
 
+
 ####Key Features
+
+[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/pr?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
+[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/issue?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
 
 1) `**CODELESS**, Zero Line Of Code`
 
@@ -21,35 +34,44 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 
 `IQKeyboardManager` works on all orientations, and with the toolbar. There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more.
 
+
 ## Screenshot
-[![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
-[![Settings](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
+[![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
+[![Settings](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
 
 ## GIF animation
-[![IQKeyboardManager](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
+[![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
 
 ## Video
 
 <a href="http://youtu.be/WAYc2Qj-OQg" target="_blank"><img src="http://img.youtube.com/vi/WAYc2Qj-OQg/0.jpg" 
 alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
+## Warning
+
+- **If you're planning to build SDK/library/framework and wants to handle UITextField/UITextView with IQKeyboardManager then you're totally going on wrong way.** I would never suggest to add IQKeyboardManager as dependency/adding/shipping with any third-party library, instead of adding IQKeyboardManager you should implement your custom solution to achieve same result. IQKeyboardManager is totally designed for projects to help developers for their convenience, it's not designed for adding/dependency/shipping with any third-party library, because **doing this could block adoption by other developers for their projects as well(who are not using IQKeyboardManager and implemented their custom solution to handle UITextField/UITextView throught the project).** 
+- If IQKeybaordManager conflicts with other third-party library, then it's developer responsibility to enable/disable IQKeyboardManager when presenting/dismissing third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
+
 ## Requirements
+[![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)]()
 
 #### IQKeyboardManager:-
+[![Objective-c](https://img.shields.io/badge/Language-Objective C-blue.svg?style=flat)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
 
-Minimum iOS Target: iOS 5.0
+Minimum iOS Target: iOS 7.0
 
-Minimum Xcode Version: Xcode 4.2
+Minimum Xcode Version: Xcode 5.1.1
 
 #### IQKeyboardManagerSwift:-
+[![Swift 2 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
 
-Minimum iOS Target: iOS 8.0
+Minimum iOS Target: iOS 7.0
 
-Minimum Xcode Version: Xcode 6.3
+Minimum Xcode Version: Xcode 7
 
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 6.3
+Minimum Xcode Version: Xcode 7
 
 
 Installation
@@ -57,18 +79,84 @@ Installation
 
 #### Cocoapod Method:-
 
-IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
+[![Cocoapods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
+
+***IQKeyboardManager (Objective-C):-*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
-    pod 'IQKeyboardManager'
+`pod 'IQKeyboardManager'`
+
+***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
+it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
+
+*Swift 2.1 (Xcode 7.1)*
+
+`pod 'IQKeyboardManagerSwift'`
+
+*Or*
+
+`pod 'IQKeyboardManagerSwift', '3.3.4'`
+
+*Swift 2.0 (Xcode 7.0)*
+
+`pod 'IQKeyboardManagerSwift', '3.3.3.1'`
+
+*Swift 1.2 (Xcode 6.4)*
+
+`pod 'IQKeyboardManagerSwift', '3.3.1'`
+
+In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
+
+```
+import IQKeyboardManagerSwift
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+    IQKeyboardManager.sharedManager().enable = true
+
+    return true
+    }
+}
+```
+
+
 
 #### Source Code Method:-
 
-Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
+[![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)]()
+
+
+
+***IQKeyboardManager (Objective-C):-*** Just ***drag and drop*** `IQKeyBoardManager` directory from demo project to your project. That's it.
+
+***IQKeyboardManager (Swift):-*** ***Drag and drop*** `IQKeyBoardManagerSwift` directory from demo project to your project
+
+In AppDelegate.swift, just enable IQKeyboardManager.
+
+```
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+    IQKeyboardManager.sharedManager().enable = true
+
+    return true
+    }
+}
+```
+
 
 ## Known Issues:-
 
-![Known Issue 1](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerKnownIssue1.png)
+![Known Issue 1](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerKnownIssue1.png)
 
 ####1) Keyboard does not appear in iOS Simulator ([#62](https://github.com/hackiftekhar/IQKeyboardManager/issues/62), [#72](https://github.com/hackiftekhar/IQKeyboardManager/issues/72), [#75](https://github.com/hackiftekhar/IQKeyboardManager/issues/75), [#90](https://github.com/hackiftekhar/IQKeyboardManager/issues/90), [#100](https://github.com/hackiftekhar/IQKeyboardManager/issues/100))
      
@@ -90,15 +178,25 @@ If you set ***[[IQKeyboardManager sharedManager] setEnable:NO]*** and still auto
 
 Now IQKeyboardManager can work with topLayoutConstraint and bottomLayoutConstraint with a bit of manual management. Please check below ***Manual Management->Working with TopLayoutGuide and BottomLayoutGuide*** section.
 
+####4) Toolbar becomes black while popping from a view controller ([#374](https://github.com/hackiftekhar/IQKeyboardManager/issues/374))
+
+This issue happens when there is a textField active on a view controller and you navigate to another view controller without resigning currently active textField. This is an iOS issue and happens even if you don't integrate library.
+
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/BlackToolbarIssue.jpg)
+
+For a workaround, you can resign currently active textField in `viewWillDisappear` method.
+
+```
+  -(void)viewWillDisappear:(BOOL)animated
+  {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+  }
+```
+
 ## Known Issues (Swift):-
 
-####1) Crashes in Release Mode ([#111](https://github.com/hackiftekhar/IQKeyboardManager/issues/111))
-
-It may be compiler issue when compiler tries to optimize Code for best performance and compiler changes something in the middle which is not expected. Changing **Optimization Level** in Build Settings solve the problem.
-
-**Workdaround:** Goto ***Target->Build Settings->Code Generation->Optimization Level***, and set it to ***None[-O0]***.([StackOverflow](http://stackoverflow.com/questions/3327981/app-runs-as-debug-but-crashes-as-release))
-
-####2) Manually enable IQKeyboardManager Swift Version.
+####1) Manually enable IQKeyboardManager Swift Version.
 
 From Swift 1.2, compiler no longer allows to override `class func load()` method, so you need to manually enable IQKeyboardManager using below line of code in AppDelegate.
 
@@ -114,7 +212,7 @@ Manual Management:-
 
   If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
-![image](./KeyboardTextFieldDemo/Screenshot/UINavigationBarExample.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/UINavigationBarExample.jpg)
 
 
   If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
@@ -130,11 +228,11 @@ Manual Management:-
  Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your UITextfield/UITextView with TopLayoutGuide/BottomLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top.
  
  To fix it, just let IQKeyboardManager know the constraint which is pinned with **TopLayoutGuide/BottomLayoutGuide**, just map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. Here is the screenshot:- 
-![image](./KeyboardTextFieldDemo/Screenshot/TopLayoutGuideDirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/TopLayoutGuideDirectMapping.jpg)
 
  If your textFields are inside any UIView and your UIView is pinned with **TopLayoutGuide/BotomLayoutGuide** then also you can map **TopLayoutGuide/BottomLayoutGuide** constraint with **IQLayoutGuideConstraint**. here are the screenshots:-
-![image](./KeyboardTextFieldDemo/Screenshot/TopLayoutGuideIndirectMapping.jpg)
-![image](./KeyboardTextFieldDemo/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/TopLayoutGuideIndirectMapping.jpg)
+![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
 
 #### Disable for a ViewController:-
 
@@ -280,7 +378,7 @@ Generally if developer need to perform some custom task on a particular textFiel
 ```
 
 ## Control Flow Diagram
-[![IQKeyboardManager CFD](./KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/KeyboardTextFieldDemo/Screenshot/IQKeyboardManagerCFD.jpg)
+[![IQKeyboardManager CFD](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg)
 
 
 ##Properties and functions usage:-
@@ -394,4 +492,6 @@ Any contribution is more than welcome! You can contribute through pull requests 
 Author
 ---
 If you wish to contact me, email at: hack.iftekhar@gmail.com
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hackiftekhar/iqkeyboardmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

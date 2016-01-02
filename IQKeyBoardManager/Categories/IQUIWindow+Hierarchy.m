@@ -26,7 +26,7 @@
 
 @implementation UIWindow (IQ_UIWindow_Hierarchy)
 
-- (UIViewController*) topMostController
+- (UIViewController*)topMostController
 {
     UIViewController *topController = [self rootViewController];
     
