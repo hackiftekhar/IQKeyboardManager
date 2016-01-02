@@ -161,17 +161,24 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     return _IQcanBecomeFirstResponder;
 }
 
-- (NSArray*)responderSiblings
+- (NSArray *)responderSiblings
 {
-    //	Getting all siblings
+    // Getting all siblings
     NSArray *siblings = self.superview.subviews;
     
     //Array of (UITextField/UITextView's).
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
-    for (UITextField *textField in siblings)
-        if ([textField _IQcanBecomeFirstResponder])
+    for (UITextField *textField in siblings) {
+        if (textField.subviews.count) {
+            [textField.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+                [tempTextFields addObjectsFromArray:[subview responderSiblings]];
+            }];
+        }
+        if ([textField _IQcanBecomeFirstResponder]) {
             [tempTextFields addObject:textField];
+        }
+    }
     
     return tempTextFields;
 }
@@ -213,6 +220,16 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     }
 
     return textFields;
+}
+
+- (UIView *)parentView
+{
+    UIView *parentView = self;
+    while (![parentView.superview isKindOfClass:[UIWindow class]]) {
+        parentView = parentView.superview;
+    }
+
+    return parentView;
 }
 
 -(CGAffineTransform)convertTransformToView:(UIView*)toView

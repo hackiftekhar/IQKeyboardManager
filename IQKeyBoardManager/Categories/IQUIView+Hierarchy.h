@@ -73,6 +73,11 @@
  */
 @property (nonatomic, readonly, copy) NSArray *deepResponderViews;
 
+/** 
+ Topmost view in view controller
+ */
+@property (nonatomic, readonly, copy) UIView *parentView;
+
 ///-------------------------
 /// @name Special TextFields
 ///-------------------------
