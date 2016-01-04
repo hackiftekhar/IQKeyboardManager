@@ -222,7 +222,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeDisableInViewControllerClass:(nonnull Class)disabledClass;
 
 /**
- Returns All disabled classes reigstered with disableInViewControllerClass.
+ Returns All disabled classes registered with disableInViewControllerClass.
  */
 -( NSSet* _Nonnull )disabledInViewControllerClasses;
 
@@ -241,7 +241,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeDisableToolbarInViewControllerClass:(nonnull Class)toolbarDisabledClass;
 
 /**
- Returns All toolbar disabled classes reigstered with disableToolbarInViewControllerClass.
+ Returns All toolbar disabled classes registered with disableToolbarInViewControllerClass.
  */
 -( NSSet* _Nonnull )disabledToolbarInViewControllerClasses;
 
@@ -260,7 +260,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(void)removeConsiderToolbarPreviousNextInViewClass:(nonnull Class)toolbarPreviousNextConsideredClass;
 
 /**
- Returns All toolbar considered classes reigstered with considerToolbarPreviousNextInViewClass.
+ Returns All toolbar considered classes registered with considerToolbarPreviousNextInViewClass.
  */
 -(NSSet* _Nonnull)consideredToolbarPreviousNextViewClasses;
 
