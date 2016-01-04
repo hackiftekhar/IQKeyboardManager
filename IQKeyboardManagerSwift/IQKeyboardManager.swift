@@ -476,7 +476,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**
-     Returns All disabled classes reigstered with disableInViewControllerClass.
+     Returns All disabled classes registered with disableInViewControllerClass.
      */
     public func disabledInViewControllerClassesString() -> Set<String> {
         
