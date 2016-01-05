@@ -79,7 +79,7 @@ public class IQTextView : UITextView {
         }
     }
     
-    private func refreshPlaceholder() {
+    public func refreshPlaceholder() {
         
         if text.characters.count != 0 {
             placeholderLabel?.alpha = 0
