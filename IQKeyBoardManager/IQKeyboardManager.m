@@ -1824,11 +1824,21 @@ void _IQShowLog(NSString *logString);
 /** Disable adjusting view in disabledClass     */
 -(void)disableInViewControllerClass:(Class)disabledClass
 {
+    [self disableDistanceHandlingInViewControllerClass:disabledClass];
+}
+
+-(void)disableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass
+{
     [_disabledClasses addObject:disabledClass];
 }
 
 /** Re-enable adjusting textField in disabledClass  */
 -(void)removeDisableInViewControllerClass:(Class)disabledClass
+{
+    [self removeDisableDistanceHandlingInViewControllerClass:disabledClass];
+}
+
+-(void)removeDisableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass
 {
     [_disabledClasses removeObject:disabledClass];
 }

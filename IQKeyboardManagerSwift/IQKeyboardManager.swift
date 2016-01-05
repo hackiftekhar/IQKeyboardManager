@@ -462,7 +462,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param disabledClass Class in which library should not adjust view to show textField.
     */
+    @available(*, deprecated, message="This method is replaced with disableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")
     public func disableInViewControllerClass(disabledClass : AnyClass) {
+        disableDistanceHandlingInViewControllerClass(disabledClass)
+    }
+    
+    public func disableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
         _disabledClasses.insert(NSStringFromClass(disabledClass))
     }
     
@@ -471,7 +476,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param disabledClass Class in which library should re-enable adjust view to show textField.
     */
+    @available(*, deprecated, message="This method is replaced with removeDisableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")
     public func removeDisableInViewControllerClass(disabledClass : AnyClass) {
+        removeDisableDistanceHandlingInViewControllerClass(disabledClass);
+    }
+    
+    public func removeDisableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
         _disabledClasses.remove(NSStringFromClass(disabledClass))
     }
     
