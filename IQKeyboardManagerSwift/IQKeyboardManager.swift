@@ -1820,7 +1820,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             //Setting toolbar tintColor //  (Enhancement ID: #30)
                             if shouldToolbarUsesTextFieldTintColor {
                                 toolbar.tintColor = _textField.tintColor
-                            } else if let tintColor = _toolbarTintColor {
+                            } else if let tintColor = toolbarTintColor {
                                 toolbar.tintColor = tintColor
                             } else {
                                 toolbar.tintColor = UIColor.blackColor()
@@ -1838,8 +1838,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             toolbar.barStyle = UIBarStyle.Default
                             
                             if shouldToolbarUsesTextFieldTintColor {
-                                toolbar.tintColor = _textField.tintColor
-                            } else if let tintColor = _toolbarTintColor {
+                                toolbar.tintColor = textField.tintColor
+                            } else if let tintColor = toolbarTintColor {
                                 toolbar.tintColor = tintColor
                             } else {
                                 toolbar.tintColor = UIColor.blackColor()
@@ -1907,7 +1907,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                                 if shouldToolbarUsesTextFieldTintColor {
                                     toolbar.tintColor = _textField.tintColor
-                                } else if let tintColor = _toolbarTintColor {
+                                } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
                                     toolbar.tintColor = UIColor.blackColor()
@@ -1925,8 +1925,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.barStyle = UIBarStyle.Default
 
                                 if shouldToolbarUsesTextFieldTintColor {
-                                    toolbar.tintColor = _textField.tintColor
-                                } else if let tintColor = _toolbarTintColor {
+                                    toolbar.tintColor = textField.tintColor
+                                } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
                                     toolbar.tintColor = UIColor.blackColor()
