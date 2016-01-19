@@ -32,8 +32,15 @@
 @synthesize titleFont = _titleFont;
 @synthesize title = _title;
 
+Class IQUIToolbarTextButtonClass;
+Class IQUIToolbarButtonClass;
+
+
 +(void)load
 {
+    IQUIToolbarTextButtonClass = NSClassFromString(@"UIToolbarTextButton");
+    IQUIToolbarButtonClass = NSClassFromString(@"UIToolbarButton");
+
     //Tint Color
     [[self appearance] setTintColor:nil];
 
@@ -124,6 +131,72 @@
         if ([item isKindOfClass:[IQTitleBarButtonItem class]])
         {
             [(IQTitleBarButtonItem*)item setTitle:title];
+        }
+    }
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGRect leftRect = CGRectNull;
+    CGRect rightRect = CGRectNull;
+    
+    BOOL isTitleBarButtonFound = NO;
+    
+    NSArray *subviews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
+        
+        CGFloat x1 = CGRectGetMinX(view1.frame);
+        CGFloat y1 = CGRectGetMinY(view1.frame);
+        CGFloat x2 = CGRectGetMinX(view2.frame);
+        CGFloat y2 = CGRectGetMinY(view2.frame);
+        
+        if (x1 < x2)  return NSOrderedAscending;
+        
+        else if (x1 > x2) return NSOrderedDescending;
+        
+        //Else both y are same so checking for x positions
+        else if (y1 < y2)  return NSOrderedAscending;
+        
+        else if (y1 > y2) return NSOrderedDescending;
+        
+        else    return NSOrderedSame;
+    }];
+    
+    for (UIView *barButtonItemView in subviews)
+    {
+        if (isTitleBarButtonFound == YES)
+        {
+            rightRect = barButtonItemView.frame;
+            break;
+        }
+        else if ([barButtonItemView isMemberOfClass:[UIView class]])
+        {
+            isTitleBarButtonFound = YES;
+        }
+        else if ([barButtonItemView isKindOfClass:IQUIToolbarTextButtonClass] ||
+            [barButtonItemView isKindOfClass:IQUIToolbarButtonClass])
+        {
+            leftRect = barButtonItemView.frame;
+        }
+    }
+    
+    CGFloat x = 16;
+    
+    if (CGRectIsNull(leftRect) == false)
+    {
+        x = CGRectGetMaxX(leftRect) + 16;
+    }
+    
+    CGFloat width = CGRectGetWidth(self.frame) - 32 - (CGRectIsNull(leftRect)?0:CGRectGetMaxX(leftRect)) - (CGRectIsNull(rightRect)?0:CGRectGetWidth(self.frame)-CGRectGetMinX(rightRect));
+    
+    for (UIBarButtonItem *item in self.items)
+    {
+        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
+        {
+            CGRect titleRect = CGRectMake(x, 0, width, self.frame.size.height);
+            item.customView.frame = titleRect;
+            break;
         }
     }
 }

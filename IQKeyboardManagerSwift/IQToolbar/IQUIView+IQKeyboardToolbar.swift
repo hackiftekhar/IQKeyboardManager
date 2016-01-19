@@ -61,9 +61,9 @@ public extension UIView {
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if let textField = self as? UITextField {
-                    toolbar.title = textField.placeholder;
+                    toolbar.title = textField.placeholder
                 } else if let textView = self as? IQTextView {
-                    toolbar.title = textView.placeholder;
+                    toolbar.title = textView.placeholder
                 }
             }
         }
@@ -178,6 +178,19 @@ public extension UIView {
         }
     }
     
+    ///---------------------
+    /// MARK: Private helper
+    ///---------------------
+    
+    public static func flexibleBarButtonItem () -> IQBarButtonItem {
+        
+        struct Static {
+            static let nilButton = IQBarButtonItem(barButtonSystemItem:UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        }
+        
+        return Static.nilButton
+    }
+
     ///------------
     /// MARK: Done
     ///------------
@@ -209,20 +222,14 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            /*
-            50 done button frame.
-            24 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-12.0, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            items.append(nilButton)
-            
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+
+            //Done button
             let doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: action)
             items.append(doneButton)
             
@@ -309,20 +316,14 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            /*
-            50 done button frame.
-            24 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44)
-            
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            items.append(nilButton)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+            //Right button
             let doneButton = IQBarButtonItem(title: text, style: UIBarButtonItemStyle.Done, target: target, action: action)
             items.append(doneButton)
             
@@ -409,25 +410,21 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
+            //Cancel button
             let cancelButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: target, action: cancelAction)
             items.append(cancelButton)
             
-            /*
-            66 Cancel button maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            items.append(nilButton)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+            //Done button
             let doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: doneAction)
             items.append(doneButton)
             
@@ -518,26 +515,22 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
+            //Left button
             let cancelButton = IQBarButtonItem(title: leftButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: leftButtonAction)
             items.append(cancelButton)
             
-            /*
-            66 Cancel button maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            items.append(nilButton)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: rightButtonAction)
+            //Right button
+            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Done, target: target, action: rightButtonAction)
             items.append(doneButton)
             
             //  Adding button to toolBar.
@@ -627,9 +620,6 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-            let doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: doneAction)
-            
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
@@ -640,7 +630,7 @@ public extension UIView {
                 
                 if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
                     if let resourcesBundle = NSBundle(path: resourcePath) {
-                        bundle = resourcesBundle;
+                        bundle = resourcesBundle
                     }
                 }
                 
@@ -653,27 +643,29 @@ public extension UIView {
                 next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             }
             
+            //Previous button
+            items.append(prev)
+
+            //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
             fixed.width = 23
-            
-            items.append(prev)
             items.append(fixed)
+
+            //Next button
             items.append(next)
             
-            /*
-            72.5 next/previous maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            items.append(nilButton)
+            //Done button
+            let doneButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: target, action: doneAction)
             items.append(doneButton)
             
             //  Adding button to toolBar.
@@ -763,9 +755,6 @@ public extension UIView {
             
             var items : [UIBarButtonItem] = []
             
-            //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Plain, target: target, action: rightButtonAction)
-            
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
@@ -776,7 +765,7 @@ public extension UIView {
                 
                 if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
                     if let resourcesBundle = NSBundle(path: resourcePath) {
-                        bundle = resourcesBundle;
+                        bundle = resourcesBundle
                     }
                 }
                 
@@ -789,27 +778,29 @@ public extension UIView {
                 next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             }
             
+            //Previous button
+            items.append(prev)
+
+            //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
             fixed.width = 23
-            
-            items.append(prev)
             items.append(fixed)
+
+            //Next button
             items.append(next)
             
-            /*
-            72.5 next/previous maximum x.
-            50 done button frame.
-            8+8 distance maintenance
-            */
-            let buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            let title = IQTitleBarButtonItem(frame: buttonFrame, title: shouldHideTitle == true ? nil : titleText)
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
             items.append(title)
             
-            //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-            let nilButton = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
             
-            items.append(nilButton)
+            //Right button
+            let doneButton = IQBarButtonItem(title: rightButtonTitle, style: UIBarButtonItemStyle.Done, target: target, action: rightButtonAction)
             items.append(doneButton)
             
             //  Adding button to toolBar.

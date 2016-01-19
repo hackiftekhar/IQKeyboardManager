@@ -34,24 +34,23 @@
 @synthesize font = _font;
 
 
--(instancetype)initWithFrame:(CGRect)frame title:(NSString *)title
+-(nonnull instancetype)initWithTitle:(nullable NSString *)title
 {
     self = [super init];
     if (self)
     {
-        _titleView = [[UIView alloc] initWithFrame:frame];
+        _titleView = [[UIView alloc] init];
         _titleView.backgroundColor = [UIColor clearColor];
-        _titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
-        _titleLabel = [[UILabel alloc] initWithFrame:_titleView.bounds];
-
-        [_titleLabel setTextColor:[UIColor lightGrayColor]];
-        
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.numberOfLines = 0;
+        [_titleLabel setTextColor:[UIColor grayColor]];
         [_titleLabel setBackgroundColor:[UIColor clearColor]];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self setTitle:title];
-        [self setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [self setFont:[UIFont systemFontOfSize:13.0]];
         [_titleView addSubview:_titleLabel];
         
         self.customView = _titleView;
@@ -63,7 +62,15 @@
 -(void)setFont:(UIFont *)font
 {
     _font = font;
-    [_titleLabel setFont:font];
+    
+    if (font)
+    {
+        _titleLabel.font = font;
+    }
+    else
+    {
+        _titleLabel.font = [UIFont systemFontOfSize:13];
+    }
 }
 
 -(void)setTitle:(NSString *)title

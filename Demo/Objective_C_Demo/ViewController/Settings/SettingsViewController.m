@@ -38,7 +38,6 @@
                      @"UITextView handling",
                      @"UIKeyboard appearance overriding",
                      @"Resign first responder handling",
-                     @"UIScrollView handling",
                      @"UISound handling",
                      @"UIAnimation handling",nil];
 
@@ -49,7 +48,6 @@
                                  [NSArray arrayWithObjects:@"Can Adjust TextView",@"Should Fix TextView Clip",nil],
                                  [NSArray arrayWithObjects:@"Override Keyboard Appearance",@"UIKeyboard Appearance",nil],
                                  [NSArray arrayWithObjects:@"Should Resign On Touch Outside",nil],
-                                 [NSArray arrayWithObjects:@"Should Restore ScrollView ContentOffset",nil],
                                  [NSArray arrayWithObjects:@"Should Play Input Clicks",nil],
                                  [NSArray arrayWithObjects:@"Should Adopt Default Keyboard Animation",nil],nil];
 
@@ -60,7 +58,6 @@
                                        [NSArray arrayWithObjects:@"Adjust textView's frame when it is too big in height",@"Adjust textView's contentInset to fix a bug",nil],
                                        [NSArray arrayWithObjects:@"Override the keyboardAppearance for all UITextField/UITextView",@"All the UITextField keyboardAppearance is set using this property",nil],
                                       [NSArray arrayWithObjects:@"Resigns Keyboard on touching outside of UITextField/View",nil],
-                                      [NSArray arrayWithObjects:@"Restore scrollViewContentOffset when resigning from scrollView.",nil],
                                        [NSArray arrayWithObjects:@"Plays inputClick sound on next/previous/done click",nil],
                                        [NSArray arrayWithObjects:@"Uses keyboard default animation curve style to move view",nil],nil];
 }
@@ -145,13 +142,6 @@
     [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:sender.on];
 }
 
-/**  UIScrollView handling    */
-
-- (void)shouldRestoreScrollViewContentOffsetAction:(UISwitch *)sender
-{
-    [[IQKeyboardManager sharedManager] setShouldRestoreScrollViewContentOffset:sender.on];
-}
-
 /**  Sound handling         */
 
 - (void)shouldPlayInputClicksAction:(UISwitch *)sender
@@ -208,7 +198,6 @@
         case 4:
         case 5:
         case 6:
-        case 7:
             return [[keyboardManagerProperties objectAtIndex:section] count];
             break;
 
@@ -428,25 +417,6 @@
                     cell.switchEnable.enabled = YES;
                     cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
                     cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldRestoreScrollViewContentOffset];
-                    [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-                    [cell.switchEnable addTarget:self action:@selector(shouldRestoreScrollViewContentOffsetAction:) forControlEvents:UIControlEventValueChanged];
-                    return cell;
-                }
-                    break;
-            }
-        }
-            break;
-        case 6:
-        {
-            switch (indexPath.row)
-            {
-                case 0:
-                {
-                    SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
-                    cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldPlayInputClicks];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldPlayInputClicksAction:) forControlEvents:UIControlEventValueChanged];
@@ -456,7 +426,7 @@
             }
         }
             break;
-        case 7:
+        case 6:
         {
             switch (indexPath.row)
             {

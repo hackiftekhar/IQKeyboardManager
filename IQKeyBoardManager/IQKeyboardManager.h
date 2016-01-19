@@ -103,6 +103,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
+ Toolbar done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
+ */
+@property(nullable, nonatomic, strong) NSString *toolbarDoneBarButtonItemText;
+
+/**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;

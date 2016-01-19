@@ -15,7 +15,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         "UITextView handling",
         "UIKeyboard appearance overriding",
         "Resign first responder handling",
-        "UIScrollView handling",
         "UISound handling",
         "UIAnimation handling"]
     
@@ -25,7 +24,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         ["Can Adjust TextView","Should Fix TextView Clip"],
         ["Override Keyboard Appearance","UIKeyboard Appearance"],
         ["Should Resign On Touch Outside"],
-        ["Should Restore ScrollView ContentOffset"],
         ["Should Play Input Clicks"],
         ["Should Adopt Default Keyboard Animation"]]
     
@@ -35,7 +33,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         ["Adjust textView's frame when it is too big in height","Adjust textView's contentInset to fix a bug"],
         ["Override the keyboardAppearance for all UITextField/UITextView","All the UITextField keyboardAppearance is set using this property"],
         ["Resigns Keyboard on touching outside of UITextField/View"],
-        ["Restore scrollViewContentOffset when resigning from scrollView."],
         ["Plays inputClick sound on next/previous/done click"],
         ["Uses keyboard default animation curve style to move view"]]
         
@@ -117,12 +114,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = sender.on
     }
     
-    /**  UIScrollView handling    */
-    func shouldRestoreScrollViewContentOffsetAction (sender: UISwitch) {
-        
-        IQKeyboardManager.sharedManager().shouldRestoreScrollViewContentOffset = sender.on
-    }
-    
     /**  Sound handling         */
     func shouldPlayInputClicksAction (sender: UISwitch) {
         
@@ -175,7 +166,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 return 1
             }
             
-        case 2,4,5,6,7:
+        case 2,4,5,6:
             let properties = keyboardManagerProperties[section]
             
             return properties.count
@@ -415,32 +406,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 break
             }
             
-            
         case 5:
-            
-            switch (indexPath.row) {
-                
-            case 0:
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
-                cell.switchEnable.enabled = true
-                
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                
-                cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldRestoreScrollViewContentOffset
-                
-                cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldRestoreScrollViewContentOffsetAction:"), forControlEvents: UIControlEvents.ValueChanged)
-                
-                return cell
-                
-            default:
-                break
-            }
-            
-            
-        case 6:
             
             switch (indexPath.row) {
                 

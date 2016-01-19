@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 	s.screenshots = "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png"
 	s.license = 'MIT'
 	s.author = { "Iftekhar Qurashi" => "hack.iftekhar@gmail.com" }
-	s.platform = :ios, '5.0'
+	s.platform = :ios, '7.0'
 	s.source = { :git => "https://github.com/hackiftekhar/IQKeyboardManager.git", :tag => "v3.3.5" }
 	s.source_files = 'Classes', 'IQKeyBoardManager/**/*.{h,m}'
 	s.resources = "IQKeyBoardManager/Resources/IQKeyboardManager.bundle"

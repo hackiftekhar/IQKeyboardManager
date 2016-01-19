@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="lbB-3r-ndI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="lbB-3r-ndI">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--TextField Demo-->
@@ -116,7 +116,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="TextField Demo" id="POd-m9-iOb">
                         <barButtonItem key="rightBarButtonItem" title="Disable" id="Hz5-Uv-bJH">
@@ -152,7 +152,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="UITableView in Container" id="MbE-un-AQm"/>
@@ -185,7 +185,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <sections/>
                                 <connections>
@@ -194,7 +193,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                 </viewController>
@@ -241,7 +240,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITableView Example" id="hPg-LK-ySD"/>
                 </viewController>
@@ -314,7 +313,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manual UIToolbar" id="dVr-A5-oBM"/>
                     <connections>
@@ -500,7 +499,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <color key="backgroundColor" red="1" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UIScrollView Example" id="5ib-n1-WzZ"/>
                     <connections>
@@ -526,7 +525,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qhK-PG-HtC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
@@ -983,12 +982,13 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
         <scene sceneID="qXm-pC-Oz1">
             <objects>
                 <navigationController id="aue-Kt-RcP" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z89-6a-bgO">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="z89-6a-bgO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.80438169439999996" blue="0.6195632324" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -1006,9 +1006,8 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="55" sectionHeaderHeight="10" sectionFooterHeight="10" id="05L-Va-M3b">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexColor" red="0.51787215470000003" green="0.1395971228" blue="0.16490636680000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchTableViewCell" id="zV4-5w-AC1" customClass="SwitchTableViewCell" customModule="DemoSwift">
                                 <rect key="frame" x="0.0" y="114" width="320" height="55"/>
@@ -1038,7 +1037,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         </switch>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="accessoryView" destination="hTo-XH-0CC" id="9nz-m4-QY0"/>
                                     <outlet property="labelSubtitle" destination="fTO-fY-Ggq" id="sAt-Xf-qcg"/>
@@ -1086,7 +1085,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         </view>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="accessoryView" destination="dem-gH-elo" id="9JR-F3-Fpw"/>
                                     <outlet property="labelStepperValue" destination="CCf-1W-Dto" id="v6e-WA-WUZ"/>
@@ -1118,7 +1117,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="labelSubtitle" destination="FcB-eI-5Sr" id="ART-SL-yKQ"/>
                                     <outlet property="labelTitle" destination="OFK-NI-oI0" id="fX7-Cg-RXE"/>
@@ -1151,8 +1150,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="A5E-lg-djn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.73405612239999996" green="0.0" blue="0.0079652476369999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="OptionTableViewCell" id="mJq-Rn-UxB" customClass="OptionTableViewCell" customModule="DemoSwift">
                                 <rect key="frame" x="0.0" y="86" width="320" height="50"/>
@@ -1171,7 +1169,6 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.73405612239999996" green="0.0" blue="0.0079652476369999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="labelOption" destination="hyU-s1-diy" id="Zfc-gr-0ct"/>
                                 </connections>
@@ -1195,14 +1192,14 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pWW-Nb-VJt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <sections>
                             <tableViewSection id="HUy-dr-Vlk">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="RLJ-W1-HVr">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RLJ-W1-HVr" id="k7a-7Z-xJE">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1219,7 +1216,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="oTf-UH-EYH">
-                                        <rect key="frame" x="0.0" y="41" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="105" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oTf-UH-EYH" id="1yd-Co-xYB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1237,7 +1234,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="PHd-rm-abT">
-                                        <rect key="frame" x="0.0" y="391" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="455" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PHd-rm-abT" id="NEd-DS-sDe">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1254,7 +1251,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="DnZ-mU-Sck">
-                                        <rect key="frame" x="0.0" y="432" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="496" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DnZ-mU-Sck" id="tjY-XG-JGz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1272,7 +1269,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="oxg-dt-NV7">
-                                        <rect key="frame" x="0.0" y="782" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="846" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oxg-dt-NV7" id="PEF-CY-i2K">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1289,7 +1286,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="NBC-v9-Osy">
-                                        <rect key="frame" x="0.0" y="823" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="887" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NBC-v9-Osy" id="SrW-M8-48N">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1307,7 +1304,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="qDt-fm-GlZ">
-                                        <rect key="frame" x="0.0" y="1173" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="1237" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qDt-fm-GlZ" id="Ilr-BY-i0h">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1324,7 +1321,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="6oW-E9-tia">
-                                        <rect key="frame" x="0.0" y="1214" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="1278" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6oW-E9-tia" id="tu7-uy-sHl">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1342,7 +1339,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="Qkz-a0-7lg">
-                                        <rect key="frame" x="0.0" y="1564" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="1628" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qkz-a0-7lg" id="AWW-3F-3mx">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1359,7 +1356,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="Uda-Za-Ohj">
-                                        <rect key="frame" x="0.0" y="1605" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="1669" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uda-Za-Ohj" id="zJ6-Kf-ds2">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1377,7 +1374,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="Z29-rH-nda">
-                                        <rect key="frame" x="0.0" y="1955" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2019" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z29-rH-nda" id="clD-HB-kAc">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1394,7 +1391,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="g1Z-ol-BRG">
-                                        <rect key="frame" x="0.0" y="1996" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2060" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g1Z-ol-BRG" id="bUa-Dc-aYD">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1412,7 +1409,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="USM-fa-j11">
-                                        <rect key="frame" x="0.0" y="2346" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2410" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="USM-fa-j11" id="NsW-D5-0Gg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1429,7 +1426,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="oS8-yK-RmF">
-                                        <rect key="frame" x="0.0" y="2387" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2451" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oS8-yK-RmF" id="prg-5D-8GL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1447,7 +1444,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="pud-t3-pWP">
-                                        <rect key="frame" x="0.0" y="2737" width="320" height="41"/>
+                                        <rect key="frame" x="0.0" y="2801" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pud-t3-pWP" id="zWy-fu-Kw1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -1464,7 +1461,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="BUH-EF-zQU">
-                                        <rect key="frame" x="0.0" y="2778" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="2842" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BUH-EF-zQU" id="SDF-BA-hsQ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
@@ -1556,7 +1553,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Navigation Bar" id="5BH-9w-jfr">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="g6F-wR-s96"/>
@@ -1586,7 +1583,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </searchBar>
                             <view contentMode="scaleToFill" id="kf9-xZ-tHX">
-                                <rect key="frame" x="10" y="161" width="305" height="269.99999927733995"/>
+                                <rect key="frame" x="10" y="161" width="305" height="270"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="rMX-Ou-Uj9">
@@ -1625,7 +1622,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="Wn5-db-lXd">
-                                        <rect key="frame" x="10" y="169.99999952749152" width="285" height="90"/>
+                                        <rect key="frame" x="10" y="170" width="285" height="90"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TextField 4" minimumFontSize="17" id="KOu-F4-RpL">
@@ -1651,6 +1648,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="LF2-8u-6gf">
                                 <rect key="frame" x="10" y="443" width="52" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch1Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="1dP-z5-Fza"/>
                                     <action selector="switch1UserInteractionAction:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="2Tl-pA-5Z4"/>
@@ -1659,6 +1657,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Sgp-rl-tHy">
                                 <rect key="frame" x="10" y="485" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch2Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="iIx-d2-cM4"/>
                                     <action selector="switch2UserInteractionAction:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="jxI-zE-MA8"/>
@@ -1667,6 +1666,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="YcG-qS-0Ez">
                                 <rect key="frame" x="10" y="527" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch3Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="n4S-oe-RXt"/>
                                     <action selector="switch3UserInteractionAction:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="SR8-sK-oJU"/>
@@ -1706,6 +1706,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="zgq-4G-vlZ">
                                 <rect key="frame" x="266" y="443" width="52" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch1Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="U7f-IQ-co5"/>
                                 </connections>
@@ -1713,6 +1714,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="5Om-fb-ahU">
                                 <rect key="frame" x="266" y="485" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch2Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="KgC-Jh-ewl"/>
                                 </connections>
@@ -1720,6 +1722,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Qt0-sE-lRB">
                                 <rect key="frame" x="266" y="527" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="switch3Action:" destination="pA8-Dn-gnQ" eventType="valueChanged" id="RpD-u2-WIM"/>
                                 </connections>
@@ -1745,7 +1748,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Special Cases" id="7dA-FZ-lr0"/>
                     <connections>
@@ -1782,7 +1785,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </webView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UIWebView Example" id="e8v-xJ-bNA"/>
                     <connections>
@@ -1867,7 +1870,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITextView" id="EaY-Hi-Epe">
                         <barButtonItem key="rightBarButtonItem" title="Enable Adjust" id="4cn-aT-uY1">
@@ -1891,13 +1894,15 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
             <objects>
                 <navigationController id="lbB-3r-ndI" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="r1Y-1z-Cyg">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="r1Y-1z-Cyg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.80438169439999996" blue="0.6195632324" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1950,7 +1955,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <color key="backgroundColor" red="0.73405612239999996" green="0.0" blue="0.0079652476369999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITextView Text Selection (#56)" id="LpC-sV-G6H"/>
                     <connections>
@@ -1972,16 +1977,12 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cB9-eG-W5G">
                                 <rect key="frame" x="10" y="65" width="250" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="preventShowingBottomBlankSpace">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="preventShowingBottomBlankSpace"/>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="PR9-4J-3Uv">
                                 <rect key="frame" x="268" y="65" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="onTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="preventSwitchAction:" destination="UDX-AY-6oX" eventType="valueChanged" id="bcL-ai-a30"/>
                                 </connections>
@@ -2006,7 +2007,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Bottom Blank Space" id="El0-xu-uyn"/>
                     <connections>
@@ -2060,7 +2061,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="UICollectionView Example" id="CcE-cZ-teT"/>
                 </viewController>
@@ -2086,6 +2087,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="QgD-mN-Pxh">
                                 <rect key="frame" x="261" y="79" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="disableInViewControllerAction:" destination="69R-6m-gRP" eventType="valueChanged" id="AQg-6O-HBW"/>
                                 </connections>
@@ -2100,6 +2102,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="JDb-Xe-yc7">
                                 <rect key="frame" x="261" y="113" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="disableToolbarAction:" destination="69R-6m-gRP" eventType="valueChanged" id="E08-f5-fcP"/>
                                 </connections>
@@ -2114,6 +2117,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="aug-lZ-4t2">
                                 <rect key="frame" x="261" y="147" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="considerPreviousNextAction:" destination="69R-6m-gRP" eventType="valueChanged" id="kkG-6y-tel"/>
                                 </connections>
@@ -2203,7 +2207,8 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                     </view>
                     <navigationItem key="navigationItem" title="CustomView Demo" id="Be6-SN-snC"/>
                     <connections>

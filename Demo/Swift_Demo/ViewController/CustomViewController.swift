@@ -30,10 +30,10 @@ class CustomViewController : UIViewController {
     @IBAction func disableInViewControllerAction(sender: UISwitch) {
         self.view.endEditing(true)
         if sender.on {
-            IQKeyboardManager.sharedManager().disableInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().disableDistanceHandlingInViewControllerClass(CustomViewController)
         }
         else {
-            IQKeyboardManager.sharedManager().removeDisableInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().removeDisableDistanceHandlingInViewControllerClass(CustomViewController)
         }
     }
     

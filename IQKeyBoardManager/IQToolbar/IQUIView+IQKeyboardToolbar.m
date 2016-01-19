@@ -113,6 +113,19 @@
     return objc_getAssociatedObject(self, @selector(doneInvocation));
 }
 
+#pragma mark - Private helper
+
++(UIBarButtonItem*)flexibleBarButtonItem
+{
+    static IQBarButtonItem *nilButton = nil;
+    
+    if (nilButton == nil)
+    {
+        nilButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    }
+    
+    return nilButton;
+}
 
 #pragma mark - Toolbar on UIKeyboard
 
@@ -134,20 +147,14 @@
     
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    /*
-     50 done button frame.
-     24 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-50.0-24, 44);
-    
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [items addObject:nilButton];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+    //Right button
     IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStyleDone target:target action:action];
     [items addObject:doneButton];
     
@@ -191,20 +198,14 @@
  	
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 
-    /*
-     50 done button frame.
-     8 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-64.0-12.0, 44);
-    
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [items addObject:nilButton];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+    //Done button
     IQBarButtonItem *doneButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:action];
     [items addObject:doneButton];
     
@@ -247,26 +248,22 @@
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
+    //Left button
     IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithTitle:leftTitle style:UIBarButtonItemStylePlain target:target action:leftAction];
     [items addObject:cancelButton];
     
-    /*
-     66 Cancel button maximum x.
-     50 done button frame.
-     8+8 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44);
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [items addObject:nilButton];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:target action:rightAction];
+    //Right button
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightTitle style:UIBarButtonItemStyleDone target:target action:rightAction];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -308,25 +305,21 @@
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    //  Create a cancel button to show on keyboard to resign it. Adding a selector to resign it.
+    //Cancel button
     IQBarButtonItem *cancelButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:target action:cancelAction];
     [items addObject:cancelButton];
     
-    /*
-     66 Cancel button maximum x.
-     50 done button frame.
-     8+8 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-66-50.0-16, 44);
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    //  Create a fake button to maintain flexibleSpace between doneButton and nilButton. (Actually it moves done button to right side.
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [items addObject:nilButton];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
+    //Done button
     IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
     [items addObject:doneButton];
     
@@ -369,9 +362,6 @@
  
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 	
-	//  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
-    
     //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
     //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
     
@@ -423,27 +413,31 @@
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
 #endif
     
+    //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
-    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:23];
-    IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
     [items addObject:prev];
+
+    //Fixed space
+    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [fixed setWidth:20];
     [items addObject:fixed];
+    
+    //Next button
+    IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
     [items addObject:next];
 
-    /*
-     72.5 next/previous maximum x.
-     50 done button frame.
-     8+8 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44);
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-	[items addObject:nilButton];
+    //Done button
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:target action:doneAction];
 	[items addObject:doneButton];
 	
     //  Adding button to toolBar.
@@ -484,9 +478,6 @@
     }
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
-    
-    //  Create a done button to show on keyboard to resign it. Adding a selector to resign it.
-    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStyleDone target:target action:rightButtonAction];
     
     //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
     //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
@@ -539,27 +530,31 @@
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
 #endif
     
+    //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
-    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:23];
-    IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
     [items addObject:prev];
-    [items addObject:fixed];
-    [items addObject:next];
-
-    /*
-     72.5 next/previous maximum x.
-     50 done button frame.
-     8+8 distance maintenance
-     */
-    CGRect buttonFrame = CGRectMake(0, 0, toolbar.frame.size.width-72.5-50.0-16, 44);
     
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithFrame:buttonFrame title:self.shouldHideTitle?nil:titleText];
+    //Fixed space
+    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [fixed setWidth:20];
+    [items addObject:fixed];
+    
+    //Next button
+    IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
+    [items addObject:next];
+    
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
+    
+    //Title button
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
     [items addObject:title];
     
-    IQBarButtonItem *nilButton =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
     
-    [items addObject:nilButton];
+    //Right button
+    IQBarButtonItem *doneButton =[[IQBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStyleDone target:target action:rightButtonAction];
     [items addObject:doneButton];
     
     //  Adding button to toolBar.

@@ -116,6 +116,75 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
+    override public func layoutSubviews() {
+
+        super.layoutSubviews()
+        
+        struct InternalClass {
+            
+            static var IQUIToolbarTextButtonClass: AnyClass?   =   NSClassFromString("UIToolbarTextButton")
+            static var IQUIToolbarButtonClass: AnyClass?      =   NSClassFromString("UIToolbarButton")
+        }
+
+
+        var leftRect = CGRectNull
+        var rightRect = CGRectNull
+        var isTitleBarButtonFound = false
+        
+        let sortedSubviews = self.subviews.sort({ (view1 : UIView, view2 : UIView) -> Bool in
+            
+            let x1 = CGRectGetMinX(view1.frame)
+            let y1 = CGRectGetMinY(view1.frame)
+            let x2 = CGRectGetMinX(view2.frame)
+            let y2 = CGRectGetMinY(view2.frame)
+            
+            if x1 != x2 {
+                return x1 < x2
+            } else {
+                return y1 < y2
+            }
+        })
+        
+        for barButtonItemView in sortedSubviews {
+
+            if (isTitleBarButtonFound == true)
+            {
+                rightRect = barButtonItemView.frame
+                break;
+            }
+            else if (barButtonItemView.dynamicType === UIView.self)
+            {
+                isTitleBarButtonFound = true
+            }
+            else if ((InternalClass.IQUIToolbarTextButtonClass != nil && barButtonItemView.isKindOfClass(InternalClass.IQUIToolbarTextButtonClass!) == true) || (InternalClass.IQUIToolbarButtonClass != nil && barButtonItemView.isKindOfClass(InternalClass.IQUIToolbarButtonClass!) == true))
+            {
+                leftRect = barButtonItemView.frame
+            }
+        }
+        
+        var x : CGFloat = 16
+        
+        if (CGRectIsNull(leftRect) == false)
+        {
+            x = CGRectGetMaxX(leftRect) + 16
+        }
+        
+        let width : CGFloat = CGRectGetWidth(self.frame) - 32 - (CGRectIsNull(leftRect) ? 0 : CGRectGetMaxX(leftRect)) - (CGRectIsNull(rightRect) ? 0 : CGRectGetWidth(self.frame) - CGRectGetMinX(rightRect))
+        
+        
+        if let unwrappedItems = items {
+            for item in unwrappedItems {
+                
+                if let newItem = item as? IQTitleBarButtonItem {
+
+                    let titleRect = CGRectMake(x, 0, width, self.frame.size.height)
+                    newItem.customView?.frame = titleRect
+                    break
+                }
+            }
+        }
+    }
+    
     public var enableInputClicksWhenVisible: Bool {
         return true
     }
