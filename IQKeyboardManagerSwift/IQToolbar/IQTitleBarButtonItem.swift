@@ -32,7 +32,7 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
             if let unwrappedFont = font {
                 _titleLabel?.font = unwrappedFont
             } else {
-                _titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+                _titleLabel?.font = UIFont.systemFontOfSize(13)
             }
         }
     }
@@ -44,23 +44,25 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
         super.init()
     }
     
-    init(frame : CGRect, title : String?) {
+    init(title : String?) {
 
         self.init(title: nil, style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
-        _titleView = UIView(frame: frame)
+        _titleView = UIView()
         _titleView?.backgroundColor = UIColor.clearColor()
-        _titleView?.autoresizingMask = .FlexibleWidth
+        _titleView?.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         
-        _titleLabel = UILabel(frame: _titleView!.bounds)
-        _titleLabel?.textColor = UIColor.lightGrayColor()
+        _titleLabel = UILabel()
+        _titleLabel?.numberOfLines = 0
+        _titleLabel?.textColor = UIColor.grayColor()
         _titleLabel?.backgroundColor = UIColor.clearColor()
         _titleLabel?.textAlignment = .Center
         _titleLabel?.text = title
-        _titleLabel?.autoresizingMask = .FlexibleWidth
-        font = UIFont.boldSystemFontOfSize(12.0)
+        _titleLabel?.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        font = UIFont.systemFontOfSize(13.0)
         _titleLabel?.font = self.font
-        customView = _titleLabel
+        _titleView?.addSubview(_titleLabel!)
+        customView = _titleView
         enabled = false
     }
 
