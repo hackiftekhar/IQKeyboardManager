@@ -685,14 +685,31 @@ void _IQShowLog(NSString *logString);
 
                 
                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                    
-                    _IQShowLog([NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]);
-                    _IQShowLog([NSString stringWithFormat:@"Remaining Move: %.2f",move]);
-
-                    superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
-
-                } completion:NULL];
+                if (_textFieldView.frame.size.height > (_lastScrollView.frame.size.height - kbSize.height)) {
+                    //Large text views in scrollviews need special UX consideration, so we scroll to caret so user doesn't have to scroll.
+                    if ([[(UITextView *)_textFieldView selectedTextRange] start]) {
+                        //Delay so caret position can update.
+                        dispatch_after(.2, dispatch_get_main_queue(), ^{
+                            CGRect caretRect = [(UITextView *)_textFieldView caretRectForPosition:[[(UITextView *)_textFieldView selectedTextRange] start]];
+                            caretRect = [_lastScrollView convertRect:caretRect
+                                                            fromView:_textFieldView.superview];
+                            CGFloat visibleHeight = (superScrollView.frame.size.height - (superScrollView.contentInset.top + superScrollView.contentInset.bottom));
+                            caretRect.origin.y = MIN(caretRect.origin.y,  superScrollView.contentSize.height - visibleHeight);
+                            _IQShowLog([NSString stringWithFormat:@"Scroll to caret rect %@", NSStringFromCGRect(caretRect)]);
+                            CGPoint visibleOffset = CGPointMake(superScrollView.contentOffset.x, caretRect.origin.y);
+                            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                                superScrollView.contentOffset = visibleOffset;
+                            } completion:NULL];
+                        });
+                        break;
+                    }
+                } else {
+                    [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                        _IQShowLog([NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]);
+                        _IQShowLog([NSString stringWithFormat:@"Remaining Move: %.2f",move]);
+                        superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+                    } completion:NULL];
+                }
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
@@ -701,8 +718,8 @@ void _IQShowLog(NSString *logString);
             
             //Updating contentInset
             {
-               CGFloat bottom = 0;
-                
+                CGFloat bottom = 0;
+
                 CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
 
                 switch (interfaceOrientation)
@@ -1531,8 +1548,8 @@ void _IQShowLog(NSString *logString);
     //Otherwise fetching all the siblings
     else
     {
-        NSArray *textFields = [_textFieldView responderSiblings];
-        
+        NSArray *textFields = [_textFieldView.parentView responderSiblings];
+
         //Sorting textFields according to behaviour
         switch (_toolbarManageBehaviour)
         {

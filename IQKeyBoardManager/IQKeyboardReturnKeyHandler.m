@@ -142,7 +142,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     //Otherwise fetching all the siblings
     else
     {
-        textFields = [textField responderSiblings];
+        textFields = [textField.parentView responderSiblings];
         
         //Sorting textFields according to behaviour
         switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
@@ -191,7 +191,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     //Otherwise fetching all the siblings
     else
     {
-        textFields = [textField responderSiblings];
+        textFields = [textField.parentView responderSiblings];
         
         //Sorting textFields according to behaviour
         switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
