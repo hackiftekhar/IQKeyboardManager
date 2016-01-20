@@ -429,7 +429,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 break
             }
             
-        case 7:
+        case 6:
             
             switch (indexPath.row) {
                 
