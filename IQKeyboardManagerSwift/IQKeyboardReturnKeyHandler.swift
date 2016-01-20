@@ -48,7 +48,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             
             for infoDict in textFieldInfoCache {
                 
-                if let view = infoDict[kIQTextField] as? UIView {
+                if let view = infoDict.objectForKey(kIQTextField) as? UIView {
                     updateReturnKeyTypeOnTextField(view)
                 }
             }
@@ -76,7 +76,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         
         for infoDict in textFieldInfoCache {
             
-            let view : AnyObject = infoDict[kIQTextField]!!
+            let view : AnyObject = infoDict.objectForKey(kIQTextField)!
             
             if let textField = view as? UITextField {
                 
@@ -115,7 +115,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         
         for infoDict in textFieldInfoCache {
             
-            if infoDict[kIQTextField] as! NSObject == textField {
+            if infoDict.objectForKey(kIQTextField) as! NSObject == textField {
                 return infoDict as? [String : AnyObject]
             }
         }
