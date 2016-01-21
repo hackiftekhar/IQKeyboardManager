@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C182A4F1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */; };
 		7579835F1B886B3D00F8E41F /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7579838C1B886C6700F8E41F /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983781B886C6700F8E41F /* IQNSArray+Sort.swift */; };
 		7579838D1B886C6700F8E41F /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983791B886C6700F8E41F /* IQUITextFieldView+Additions.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIScrollView+Additions.swift"; sourceTree = "<group>"; };
 		757983591B886B3D00F8E41F /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManager.h; path = ../IQKeyboardManager/IQKeyboardManager.h; sourceTree = "<group>"; };
 		757983751B886C2700F8E41F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IQKeyboardManagerSwift/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				757983781B886C6700F8E41F /* IQNSArray+Sort.swift */,
+				4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */,
 				757983791B886C6700F8E41F /* IQUITextFieldView+Additions.swift */,
 				7579837A1B886C6700F8E41F /* IQUIView+Hierarchy.swift */,
 				7579837B1B886C6700F8E41F /* IQUIViewController+Additions.swift */,
@@ -251,6 +254,7 @@
 				7579838D1B886C6700F8E41F /* IQUITextFieldView+Additions.swift in Sources */,
 				7579838E1B886C6700F8E41F /* IQUIView+Hierarchy.swift in Sources */,
 				757983951B886C6700F8E41F /* IQTextView.swift in Sources */,
+				4C182A4F1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift in Sources */,
 				7579838F1B886C6700F8E41F /* IQUIViewController+Additions.swift in Sources */,
 				757983911B886C6700F8E41F /* IQKeyboardManagerConstants.swift in Sources */,
 				757983971B886C6700F8E41F /* IQTitleBarButtonItem.swift in Sources */,
