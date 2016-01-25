@@ -744,7 +744,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         if let unwrappedController = controller {
             //frame size needs to be adjusted on iOS8 due to orientation structure changes.
-            if #available(iOS 8.0, *) {
+            if isIOS8AndAbove() {
                 frame.size = unwrappedController.view.frame.size
             }
             
@@ -807,7 +807,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If it's iOS8 then we should do calculations according to portrait orientations.   //  (Bug ID: #64, #66)
         let interfaceOrientation : UIInterfaceOrientation
         
-        if #available(iOS 8.0, *) {
+        if isIOS8AndAbove() {
             interfaceOrientation = UIInterfaceOrientation.Portrait
         } else {
             interfaceOrientation = rootController.interfaceOrientation
@@ -1443,7 +1443,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let rootViewController = _rootViewController {
                 
                 //frame size needs to be adjusted on iOS8 due to orientation API changes.
-                if #available(iOS 8.0, *) {
+                if isIOS8AndAbove() {
                     _topViewBeginRect.size = rootViewController.view.frame.size
                 }
                 

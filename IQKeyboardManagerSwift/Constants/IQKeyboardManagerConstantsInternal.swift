@@ -23,6 +23,7 @@
 
 
 import Foundation
+import UIKit
 
 ///-----------------------------------
 /// MARK: IQLayoutGuidePosition
@@ -42,4 +43,13 @@ public enum IQLayoutGuidePosition : Int {
     case None
     case Top
     case Bottom
+}
+
+internal func isIOS8AndAbove() -> Bool {
+    switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
+    case .OrderedSame, .OrderedDescending:
+        return true
+    case .OrderedAscending:
+        return false
+    }
 }
