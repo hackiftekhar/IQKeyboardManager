@@ -148,6 +148,26 @@
  */
 - (void)addRightButtonOnKeyboardWithText:(nullable NSString*)text target:(nullable id)target action:(nullable SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder;
 
+/**
+ Helper function to add Right button on keyboard.
+ 
+ @param image Image icon to use as right button.
+ @param target Target object for selector.
+ @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+ @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
+ */
+- (void)addRightButtonOnKeyboardWithImage:(nullable UIImage*)image target:(nullable id)target action:(nullable SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder;
+
+/**
+ Helper function to add Right button on keyboard.
+ 
+ @param image Image icon to use as right button.
+ @param target Target object for selector.
+ @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+ @param titleText text to show as title in IQToolbar'.
+ */
+- (void)addRightButtonOnKeyboardWithImage:(nullable UIImage*)image target:(nullable id)target action:(nullable SEL)action titleText:(nullable NSString*)titleText;
+
 ///------------------
 /// @name Cancel/Done
 ///------------------
@@ -225,7 +245,7 @@
 ///-------------------------
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+ Helper function to add ArrowNextPrevious and Done button on keyboard.
  
  @param target Target object for selector.
  @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -235,7 +255,7 @@
 - (void)addPreviousNextDoneOnKeyboardWithTarget:(nullable id)target previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction doneAction:(nullable SEL)doneAction;
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+ Helper function to add ArrowNextPrevious and Done button on keyboard.
  
  @param target Target object for selector.
  @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -246,7 +266,7 @@
 - (void)addPreviousNextDoneOnKeyboardWithTarget:(nullable id)target previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction doneAction:(nullable SEL)doneAction titleText:(nullable NSString*)titleText;
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Done button on keyboard.
+ Helper function to add ArrowNextPrevious and Done button on keyboard.
  
  @param target Target object for selector.
  @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
@@ -261,7 +281,7 @@
 ///--------------------------
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+ Helper function to add ArrowNextPrevious and Right button on keyboard.
  
  @param target Target object for selector.
  @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
@@ -272,7 +292,7 @@
 - (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonTitle:(nullable NSString*)rightButtonTitle previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction;
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+ Helper function to add ArrowNextPrevious and Right button on keyboard.
  
  @param target Target object for selector.
  @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
@@ -284,7 +304,7 @@
 - (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonTitle:(nullable NSString*)rightButtonTitle previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction titleText:(nullable NSString*)titleText;
 
 /**
- Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+ Helper function to add ArrowNextPrevious and Right button on keyboard.
  
  @param target Target object for selector.
  @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
@@ -294,6 +314,31 @@
  @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
  */
 - (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonTitle:(nullable NSString*)rightButtonTitle previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder;
+
+/**
+ Helper function to add ArrowNextPrevious and Right button on keyboard.
+ 
+ @param target Target object for selector.
+ @param rightButtonImage Image icon to use as rightBarButtonItem.
+ @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+ @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+ @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+ @param titleText text to show as title in IQToolbar'.
+ */
+- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction titleText:(nullable NSString*)titleText;
+
+/**
+ Helper function to add ArrowNextPrevious and Right button on keyboard.
+ 
+ @param target Target object for selector.
+ @param rightButtonImage Image icon to use as rightBarButtonItem.
+ @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+ @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+ @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+ @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
+ */
+- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder;
+
 
 ///-----------------------------------
 /// @name Enable/Disable Previous/Next
