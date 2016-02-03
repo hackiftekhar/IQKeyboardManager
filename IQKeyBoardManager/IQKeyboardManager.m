@@ -75,8 +75,8 @@ void _IQShowLog(NSString *logString);
 - (void)tapRecognized:(UITapGestureRecognizer*)gesture;
 
 //  Next/Previous/Done methods
-- (void)previousAction:(id)segmentedControl;
-- (void)nextAction:(id)segmentedControl;
+- (void)previousAction:(IQBarButtonItem*)barButton;
+- (void)nextAction:(IQBarButtonItem*)barButton;
 - (void)doneAction:(IQBarButtonItem*)barButton;
 
 //  Adding Removing IQToolbar methods
@@ -1585,8 +1585,13 @@ void _IQShowLog(NSString *logString);
         //setInputAccessoryView: check   (Bug ID: #307)
         if ([textField respondsToSelector:@selector(setInputAccessoryView:)] && (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag)))
         {
+            //Supporting Custom Done button image (Enhancement ID: #366)
+            if (_toolbarDoneBarButtonItemImage)
+            {
+                [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+            }
             //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-            if (_toolbarDoneBarButtonItemText)
+            else if (_toolbarDoneBarButtonItemText)
             {
                 [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
             }
@@ -1669,8 +1674,13 @@ void _IQShowLog(NSString *logString);
             //setInputAccessoryView: check   (Bug ID: #307)
             if ([textField respondsToSelector:@selector(setInputAccessoryView:)] && (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag))
             {
+                //Supporting Custom Done button image (Enhancement ID: #366)
+                if (_toolbarDoneBarButtonItemImage)
+                {
+                    [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                }
                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                if (_toolbarDoneBarButtonItemText)
+                else if (_toolbarDoneBarButtonItemText)
                 {
                     [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                 }

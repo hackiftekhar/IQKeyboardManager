@@ -103,6 +103,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
+ Toolbar done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
+ */
+@property(nullable, nonatomic, strong) UIImage *toolbarDoneBarButtonItemImage;
+
+/**
  Toolbar done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
  */
 @property(nullable, nonatomic, strong) NSString *toolbarDoneBarButtonItemText;

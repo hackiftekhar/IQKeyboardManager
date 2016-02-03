@@ -285,6 +285,84 @@ public extension UIView {
     ///------------
     /// MARK: Right
     ///------------
+
+    /**
+     Helper function to add Right button on keyboard.
+     
+     @param image Image icon to use as right button.
+     @param target Target object for selector.
+     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+     @param titleText text to show as title in IQToolbar'.
+     */
+    public func addRightButtonOnKeyboardWithImage (image : UIImage, target : AnyObject?, action : Selector, titleText: String?) {
+        
+        //If can't set InputAccessoryView. Then return
+        if self is UITextField || self is UITextView {
+            
+            //  Creating a toolBar for phoneNumber keyboard
+            let toolbar = IQToolbar()
+            
+            var items : [UIBarButtonItem] = []
+            
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
+            
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+            
+            //Right button
+            let doneButton = IQBarButtonItem(image: image, style: UIBarButtonItemStyle.Done, target: target, action: action)
+            items.append(doneButton)
+            
+            //  Adding button to toolBar.
+            toolbar.items = items
+            
+            //  Setting toolbar to keyboard.
+            if let textField = self as? UITextField {
+                textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            } else if let textView = self as? UITextView {
+                textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            }
+        }
+    }
+    
+    /**
+     Helper function to add Right button on keyboard.
+     
+     @param image Image icon to use as right button.
+     @param target Target object for selector.
+     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
+     */
+    public func addRightButtonOnKeyboardWithImage (image : UIImage, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
+        
+        var title : String?
+        
+        if shouldShowPlaceholder == true {
+            if let textField = self as? UITextField {
+                title = textField.placeholder
+            } else if let textView = self as? IQTextView {
+                title = textView.placeholder
+            }
+        }
+        
+        addRightButtonOnKeyboardWithImage(image, target: target, action: action, titleText: title)
+    }
     
     /**
     Helper function to add Right button on keyboard.
@@ -723,7 +801,126 @@ public extension UIView {
     ///--------------------------
     
     /**
-    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+    Helper function to add ArrowNextPrevious and Right button on keyboard.
+    
+    @param target Target object for selector.
+    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
+    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+    @param titleText text to show as title in IQToolbar'.
+    */
+    public func addPreviousNextRightOnKeyboardWithTarget( target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
+        
+        //If can't set InputAccessoryView. Then return
+        if self is UITextField || self is UITextView {
+            //  Creating a toolBar for phoneNumber keyboard
+            let toolbar = IQToolbar()
+            
+            var items : [UIBarButtonItem] = []
+            
+            let prev : IQBarButtonItem
+            let next : IQBarButtonItem
+            
+            if #available(iOS 8.0, *) {
+                
+                // Get the top level "bundle" which may actually be the framework
+                var bundle = NSBundle(forClass: IQKeyboardManager.self)
+                
+                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                    if let resourcesBundle = NSBundle(path: resourcePath) {
+                        bundle = resourcesBundle
+                    }
+                }
+                
+                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            } else {
+                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+                
+                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            }
+            
+            //Previous button
+            items.append(prev)
+            
+            //Fixed space
+            let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+            fixed.width = 23
+            items.append(fixed)
+            
+            //Next button
+            items.append(next)
+            
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+            
+            //Title button
+            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            items.append(title)
+            
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+            
+            //Right button
+            let doneButton = IQBarButtonItem(image: rightButtonImage, style: UIBarButtonItemStyle.Done, target: target, action: rightButtonAction)
+            items.append(doneButton)
+            
+            //  Adding button to toolBar.
+            toolbar.items = items
+            
+            //  Setting toolbar to keyboard.
+            if let textField = self as? UITextField {
+                textField.inputAccessoryView = toolbar
+                
+                switch textField.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            } else if let textView = self as? UITextView {
+                textView.inputAccessoryView = toolbar
+                
+                switch textView.keyboardAppearance {
+                case UIKeyboardAppearance.Dark:
+                    toolbar.barStyle = UIBarStyle.Black
+                default:
+                    toolbar.barStyle = UIBarStyle.Default
+                }
+            }
+        }
+    }
+    
+    //    /**
+    //    Helper function to add ArrowNextPrevious and Right button on keyboard.
+    //
+    //    @param target Target object for selector.
+    //    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
+    //    @param previousAction Previous button action name. Usually 'previousAction:(id)item'.
+    //    @param nextAction Next button action name. Usually 'nextAction:(id)item'.
+    //    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
+    //    @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
+    //    */
+    public func addPreviousNextRightOnKeyboardWithTarget( target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
+        
+        var title : String?
+        
+        if shouldShowPlaceholder == true {
+            if let textField = self as? UITextField {
+                title = textField.placeholder
+            } else if let textView = self as? IQTextView {
+                title = textView.placeholder
+            }
+        }
+        
+        addPreviousNextRightOnKeyboardWithTarget(target, rightButtonImage: rightButtonImage, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)
+    }
+    
+    
+    /**
+    Helper function to add ArrowNextPrevious and Right button on keyboard.
     
     @param target Target object for selector.
     @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
@@ -737,7 +934,7 @@ public extension UIView {
     }
     
     /**
-    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+    Helper function to add ArrowNextPrevious and Right button on keyboard.
     
     @param target Target object for selector.
     @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
@@ -830,7 +1027,7 @@ public extension UIView {
     }
     
 //    /**
-//    Helper function to add SegmentedNextPrevious/ArrowNextPrevious and Right button on keyboard.
+//    Helper function to add ArrowNextPrevious and Right button on keyboard.
 //    
 //    @param target Target object for selector.
 //    @param rightButtonTitle Title for rightBarButtonItem, usually 'Done'.
