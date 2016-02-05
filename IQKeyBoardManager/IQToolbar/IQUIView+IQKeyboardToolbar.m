@@ -410,9 +410,6 @@
     //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
     //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
     
-#ifdef __IPHONE_8_0
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0    //Minimum Target iOS 8+
-    
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
     
@@ -425,38 +422,6 @@
     
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    #else   //Minimum Target iOS7+
-
-    UIImage *imageLeftArrow;
-    UIImage *imageRightArrow;
-
-    if (IQ_IS_IOS8_OR_GREATER)
-    {
-        // Get the top level "bundle" which may actually be the framework
-        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
-        
-        // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
-        
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    }
-    else
-    {
-        imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-        imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-    }
-
-    #endif
-    
-#else   //Maximum target iOS 7
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-#endif
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
@@ -527,9 +492,6 @@
     //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
     //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
     
-#ifdef __IPHONE_8_0
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0    //Minimum Target iOS 8+
-    
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
     
@@ -542,38 +504,6 @@
     
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-#else   //Minimum Target iOS7+
-    
-    UIImage *imageLeftArrow;
-    UIImage *imageRightArrow;
-    
-    if (IQ_IS_IOS8_OR_GREATER)
-    {
-        // Get the top level "bundle" which may actually be the framework
-        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
-        
-        // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
-        
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    }
-    else
-    {
-        imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-        imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-    }
-    
-#endif
-    
-#else   //Maximum target iOS 7
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-#endif
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
@@ -639,9 +569,6 @@
     //        UIBarButtonItem *prev = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:target action:previousAction];
     //        UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:target action:nextAction];
     
-#ifdef __IPHONE_8_0
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0    //Minimum Target iOS 8+
-    
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
     
@@ -654,38 +581,6 @@
     
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-#else   //Minimum Target iOS7+
-    
-    UIImage *imageLeftArrow;
-    UIImage *imageRightArrow;
-    
-    if (IQ_IS_IOS8_OR_GREATER)
-    {
-        // Get the top level "bundle" which may actually be the framework
-        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
-        
-        // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
-        
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    }
-    else
-    {
-        imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-        imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-    }
-    
-    #endif
-    
-#else   //Maximum target iOS 7
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowLeft"];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQKeyboardManager.bundle/IQButtonBarArrowRight"];
-#endif
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];

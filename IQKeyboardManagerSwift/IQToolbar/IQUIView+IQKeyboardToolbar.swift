@@ -701,25 +701,18 @@ public extension UIView {
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
-            if #available(iOS 8.0, *) {
-                
-                // Get the top level "bundle" which may actually be the framework
-                var bundle = NSBundle(forClass: IQKeyboardManager.self)
-                
-                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
-                    if let resourcesBundle = NSBundle(path: resourcePath) {
-                        bundle = resourcesBundle
-                    }
+            // Get the top level "bundle" which may actually be the framework
+            var bundle = NSBundle(forClass: IQKeyboardManager.self)
+            
+            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                if let resourcesBundle = NSBundle(path: resourcePath) {
+                    bundle = resourcesBundle
                 }
-                
-                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
-            } else {
-                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             }
+            
+            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             
             //Previous button
             items.append(prev)
@@ -822,25 +815,18 @@ public extension UIView {
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
-            if #available(iOS 8.0, *) {
-                
-                // Get the top level "bundle" which may actually be the framework
-                var bundle = NSBundle(forClass: IQKeyboardManager.self)
-                
-                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
-                    if let resourcesBundle = NSBundle(path: resourcePath) {
-                        bundle = resourcesBundle
-                    }
+            // Get the top level "bundle" which may actually be the framework
+            var bundle = NSBundle(forClass: IQKeyboardManager.self)
+            
+            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                if let resourcesBundle = NSBundle(path: resourcePath) {
+                    bundle = resourcesBundle
                 }
-                
-                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-            } else {
-                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             }
+            
+            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
             
             //Previous button
             items.append(prev)
@@ -955,25 +941,18 @@ public extension UIView {
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
-            if #available(iOS 8.0, *) {
-                
-                // Get the top level "bundle" which may actually be the framework
-                var bundle = NSBundle(forClass: IQKeyboardManager.self)
-                
-                if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
-                    if let resourcesBundle = NSBundle(path: resourcePath) {
-                        bundle = resourcesBundle
-                    }
+            // Get the top level "bundle" which may actually be the framework
+            var bundle = NSBundle(forClass: IQKeyboardManager.self)
+            
+            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+                if let resourcesBundle = NSBundle(path: resourcePath) {
+                    bundle = resourcesBundle
                 }
-                
-                prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-            } else {
-                prev = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowLeft"), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
-                
-                next = IQBarButtonItem(image: UIImage(named: "IQKeyboardManager.bundle/IQButtonBarArrowRight"), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             }
+            
+            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
             
             //Previous button
             items.append(prev)

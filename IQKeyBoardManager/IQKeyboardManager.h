@@ -184,15 +184,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 - (BOOL)goNext;
 
-///----------------------------
-/// @name UIScrollView handling
-///----------------------------
-
-/**
- Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
- */
-@property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset __attribute__ ((deprecated("Please use IQUIScrollView+Additions category instead. This property will be removed from here in future release.")));
-
 ///------------------------------------------------
 /// @name UISound handling
 ///------------------------------------------------
@@ -227,7 +218,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  
  @param disabledClass Class in which library should not adjust view to show textField.
  */
--(void)disableInViewControllerClass:(nonnull Class)disabledClass __attribute__ ((deprecated("This method is replaced with disableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")));
 -(void)disableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass;
 
 /**
@@ -235,7 +225,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  
  @param disabledClass Class in which library should re-enable adjust view to show textField.
  */
--(void)removeDisableInViewControllerClass:(nonnull Class)disabledClass __attribute__ ((deprecated("This method is replaced with removeDisableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")));
 -(void)removeDisableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass;
 
 /**
