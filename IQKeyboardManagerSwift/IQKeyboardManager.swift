@@ -133,6 +133,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var shouldToolbarUsesTextFieldTintColor = false
     
     /**
+    This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+    */
+    public var toolbarTintColor : UIColor?
+
+    /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
     public var shouldShowTextFieldPlaceholder = true
@@ -424,6 +429,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
     */
+    @available(*, deprecated, message="Please use IQUIScrollView+Additions category instead. This property will be removed from here in future release.")
     public var shouldRestoreScrollViewContentOffset = false
 
     
@@ -603,11 +609,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** TapGesture to resign keyboard on view's touch. */
     private var         _tapGesture: UITapGestureRecognizer!
     
-    /*******************************************/
-    
-    /** Default toolbar tintColor to be used within the project. Default is black. */
-    private var         _defaultToolbarTintColor = UIColor.blackColor()
-
     /*******************************************/
     
     /** Set of restricted classes for library */
@@ -907,7 +908,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                     }) { (animated:Bool) -> Void in }
                 
-                if shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                 }
                 
@@ -925,7 +926,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                     }) { (animated:Bool) -> Void in }
                 
-                if shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                 }
 
@@ -1405,7 +1406,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 lastScrollView.contentInset = self._startingContentInsets
                 lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                 
-                if self.shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.contentOffset = self._startingContentOffset
                 }
                 
@@ -1815,7 +1816,15 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
                             toolbar.barStyle = UIBarStyle.Default
-                            toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
+                            
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if shouldToolbarUsesTextFieldTintColor {
+                                toolbar.tintColor = _textField.tintColor
+                            } else if let tintColor = _toolbarTintColor {
+                                toolbar.tintColor = tintColor
+                            } else {
+                                toolbar.tintColor = UIColor.blackColor()
+                            }
                         }
                     } else if let _textView = textField as? UITextView {
 
@@ -1827,7 +1836,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
                             toolbar.barStyle = UIBarStyle.Default
-                            toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
+                            
+                            if shouldToolbarUsesTextFieldTintColor {
+                                toolbar.tintColor = _textField.tintColor
+                            } else if let tintColor = _toolbarTintColor {
+                                toolbar.tintColor = tintColor
+                            } else {
+                                toolbar.tintColor = UIColor.blackColor()
+                            }
                         }
                     }
 
@@ -1888,7 +1904,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
                                 toolbar.barStyle = UIBarStyle.Default
-                                toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
+
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textField.tintColor
+                                } else if let tintColor = _toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
                             }
                         } else if let _textView = textField as? UITextView {
                             
@@ -1900,7 +1923,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
                                 toolbar.barStyle = UIBarStyle.Default
-                                toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
+
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textField.tintColor
+                                } else if let tintColor = _toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
                             }
                         }
                         

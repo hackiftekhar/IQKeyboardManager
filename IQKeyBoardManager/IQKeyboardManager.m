@@ -29,6 +29,7 @@
 #import "IQToolbar.h"
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
+#import "IQUIScrollView+Additions.h"
 #import "IQUITextFieldView+Additions.h"
 #import "IQUIViewController+Additions.h"
 
@@ -140,11 +141,6 @@ void _IQShowLog(NSString *logString);
 
     /*******************************************/
 
-    /** Default toolbar tintColor to be used within the project. Default is black. */
-    UIColor                 *_defaultToolbarTintColor;
-    
-    /*******************************************/
-
     /** Set of restricted classes for library */
     NSMutableSet            *_disabledClasses;
 
@@ -180,6 +176,7 @@ void _IQShowLog(NSString *logString);
 @synthesize toolbarManageBehaviour              =   _toolbarManageBehaviour;
 
 @synthesize shouldToolbarUsesTextFieldTintColor =   _shouldToolbarUsesTextFieldTintColor;
+@synthesize toolbarTintColor                    =   _toolbarTintColor;
 
 @synthesize shouldShowTextFieldPlaceholder      =   _shouldShowTextFieldPlaceholder;
 @synthesize placeholderFont                     =   _placeholderFont;
@@ -246,7 +243,6 @@ void _IQShowLog(NSString *logString);
             _animationDuration = 0.25;
             _animationCurve = UIViewAnimationCurveEaseInOut;
 			[self setKeyboardDistanceFromTextField:10.0];
-            _defaultToolbarTintColor = [UIColor blackColor];
             [self setCanAdjustTextView:NO];
             [self setShouldPlayInputClicks:NO];
             [self setShouldResignOnTouchOutside:NO];
@@ -571,7 +567,7 @@ void _IQShowLog(NSString *logString);
                 _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             } completion:NULL];
             
-            if (_shouldRestoreScrollViewContentOffset)
+            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
             {
                 [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
             }
@@ -591,7 +587,7 @@ void _IQShowLog(NSString *logString);
                 _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             } completion:NULL];
 
-            if (_shouldRestoreScrollViewContentOffset)
+            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
             {
                 [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
             }
@@ -1068,7 +1064,7 @@ void _IQShowLog(NSString *logString);
             _lastScrollView.contentInset = _startingContentInsets;
             _lastScrollView.scrollIndicatorInsets = _startingScrollIndicatorInsets;
             
-            if (_shouldRestoreScrollViewContentOffset)
+            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
             {
                 _lastScrollView.contentOffset = _startingContentOffset;
             }
@@ -1622,7 +1618,20 @@ void _IQShowLog(NSString *logString);
                     default:
                     {
                         toolbar.barStyle = UIBarStyleDefault;
-                        [toolbar setTintColor:_shouldToolbarUsesTextFieldTintColor?[textField tintColor]:_defaultToolbarTintColor];
+                        
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if (_shouldToolbarUsesTextFieldTintColor)
+                        {
+                            toolbar.tintColor = [textField tintColor];
+                        }
+                        else if (_toolbarTintColor)
+                        {
+                            toolbar.tintColor = _toolbarTintColor;
+                        }
+                        else
+                        {
+                            toolbar.tintColor = [UIColor blackColor];
+                        }
                     }
                         break;
                 }
@@ -1686,8 +1695,18 @@ void _IQShowLog(NSString *logString);
                             toolbar.barStyle = UIBarStyleDefault;
                             
                             //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            [toolbar setTintColor:_shouldToolbarUsesTextFieldTintColor?[textField tintColor]:_defaultToolbarTintColor];
-                            
+                            if (_shouldToolbarUsesTextFieldTintColor)
+                            {
+                                toolbar.tintColor = [textField tintColor];
+                            }
+                            else if (_toolbarTintColor)
+                            {
+                                toolbar.tintColor = _toolbarTintColor;
+                            }
+                            else
+                            {
+                                toolbar.tintColor = [UIColor blackColor];
+                            }
                         }
                             break;
                     }

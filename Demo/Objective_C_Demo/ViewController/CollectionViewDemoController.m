@@ -10,6 +10,8 @@
 
 @interface CollectionViewDemoController ()<UICollectionViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @end
 
 @implementation CollectionViewDemoController

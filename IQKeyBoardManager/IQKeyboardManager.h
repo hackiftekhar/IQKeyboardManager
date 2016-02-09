@@ -83,7 +83,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 ///-------------------------
 
 /**
- Automatic add the IQToolbar functionality. Default is YES.
+ Automatic add IQToolbar functionality. Default is YES.
  */
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
 
@@ -96,6 +96,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor;
+
+/**
+ This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+ */
+@property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -176,7 +181,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
  */
-@property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset;
+@property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset __attribute__ ((deprecated("Please use IQUIScrollView+Additions category instead. This property will be removed from here in future release.")));
 
 ///------------------------------------------------
 /// @name UISound handling

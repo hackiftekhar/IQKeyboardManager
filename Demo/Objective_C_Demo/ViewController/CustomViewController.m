@@ -50,11 +50,11 @@
 
     if (sender.on)
     {
-        [[IQKeyboardManager sharedManager] disableInViewControllerClass:[CustomViewController class]];
+        [[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[CustomViewController class]];
     }
     else
     {
-        [[IQKeyboardManager sharedManager] removeDisableInViewControllerClass:[CustomViewController class]];
+        [[IQKeyboardManager sharedManager] removeDisableDistanceHandlingInViewControllerClass:[CustomViewController class]];
     }
 }
 
