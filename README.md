@@ -60,10 +60,10 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
 Minimum iOS Target: iOS 8.0
 
-Minimum Xcode Version: Xcode 6.0
+Minimum Xcode Version: Xcode 6.0.1
 
 #### IQKeyboardManagerSwift:-
-[![Swift 2 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 2.1.1 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
 
 Minimum iOS Target: iOS 8.0
 
@@ -91,7 +91,7 @@ it simply add the following line to your Podfile: ([#9](https://github.com/hacki
 ***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 2.1 (Xcode 7.2)*
+*Swift 2.1.1 (Xcode 7.2)*
 
 `pod 'IQKeyboardManagerSwift'`
 
