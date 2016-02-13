@@ -79,7 +79,7 @@ Installation
 
 #### Cocoapod Method:-
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
+[![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
 
 **Note:-** 3.3.7 is the last iOS 7 supported version.
 
