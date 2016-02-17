@@ -1595,6 +1595,38 @@ void _IQShowLog(NSString *logString);
     }
 }
 
+/**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+- (void)reloadInputViews
+{
+    //	Getting all the sibling textFields.
+    NSArray *siblings = [self responderViews];
+    
+    for (UITextField *textField in siblings)
+    {
+        //	If firstTextField, then previous should not be enabled.
+        if ([siblings objectAtIndex:0] == textField)
+        {
+            if (siblings.count == 1)
+            {
+                [textField setEnablePrevious:NO next:NO];
+            }
+            else
+            {
+                [textField setEnablePrevious:NO next:YES];
+            }
+        }
+        //	If lastTextField then next should not be enaled.
+        else if ([siblings lastObject] == textField)
+        {
+            [textField setEnablePrevious:YES next:NO];
+        }
+        else
+        {
+            [textField setEnablePrevious:YES next:YES];
+        }
+    }
+}
+
 #pragma mark previous/next/done functionality
 /**	previousAction. */
 -(void)previousAction:(id)segmentedControl
