@@ -710,10 +710,19 @@ public extension UIView {
                 }
             }
             
-            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil)
+            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil)
             
-            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+            if #available(iOS 9.0, *) {
+                imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
+                imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
+            }
+
+            prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
             
+            next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+
             //Previous button
             items.append(prev)
 
@@ -824,9 +833,18 @@ public extension UIView {
                 }
             }
             
-            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil)
+            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil)
             
-            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+            if #available(iOS 9.0, *) {
+                imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
+                imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
+            }
+            
+            prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             
             //Previous button
             items.append(prev)
@@ -950,9 +968,18 @@ public extension UIView {
                 }
             }
             
-            prev = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", inBundle: bundle, compatibleWithTraitCollection: nil)
+            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil)
             
-            next = IQBarButtonItem(image: UIImage(named: "IQButtonBarArrowRight", inBundle: bundle, compatibleWithTraitCollection: nil), style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+            if #available(iOS 9.0, *) {
+                imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
+                imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
+            }
+            
+            prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            
+            next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
             
             //Previous button
             items.append(prev)

@@ -423,6 +423,13 @@
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     
+    //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+    {
+        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    }
+    
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
     [items addObject:prev];
@@ -505,6 +512,13 @@
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     
+    //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+    {
+        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    }
+
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
     [items addObject:prev];
@@ -581,6 +595,13 @@
     
     UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    
+    //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
+    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+    {
+        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    }
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
