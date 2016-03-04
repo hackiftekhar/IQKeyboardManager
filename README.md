@@ -238,12 +238,12 @@ Manual Management:-
 
 #### Disable for a ViewController:-
 
- If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
+ If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableDistanceHandlingInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
 
 ```
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[IQKeyboardManager sharedManager] disableInViewControllerClass:[ViewController class]];
+    [[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[ViewController class]];
     return YES;
 }
 ```

@@ -37,7 +37,6 @@
 		4CD2C4F31C5A63A300975A7A /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4D41C5A63A300975A7A /* IQUIView+IQKeyboardToolbar.m */; };
 		4CD2C4F41C5A63A300975A7A /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4D51C5A63A300975A7A /* KeyboardManager.h */; };
 		4CD2C4F51C5A63A300975A7A /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4CD2C4D71C5A63A300975A7A /* IQKeyboardManager.bundle */; };
-		4CD2C4F81C5A640900975A7A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD2C4F71C5A640900975A7A /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -280,7 +279,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CD2C4F81C5A640900975A7A /* Info.plist in Resources */,
 				4CD2C4F51C5A63A300975A7A /* IQKeyboardManager.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
