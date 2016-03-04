@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4C182A4F1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */; };
-		4CD2C4B21C5A633400975A7A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD2C4B11C5A633400975A7A /* Info.plist */; };
 		7579835F1B886B3D00F8E41F /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7579838C1B886C6700F8E41F /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983781B886C6700F8E41F /* IQNSArray+Sort.swift */; };
 		7579838D1B886C6700F8E41F /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983791B886C6700F8E41F /* IQUITextFieldView+Additions.swift */; };
@@ -189,7 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = IQKeyboardManager;
 				TargetAttributes = {
 					757983581B886B3D00F8E41F = {
@@ -219,7 +218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CD2C4B21C5A633400975A7A /* Info.plist in Resources */,
 				7579839B1B886C6700F8E41F /* IQKeyboardManager.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +272,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -353,6 +352,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -372,6 +372,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManagerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
