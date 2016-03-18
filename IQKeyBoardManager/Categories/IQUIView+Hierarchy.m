@@ -186,7 +186,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     for (UITextField *textField in subViews)
     {
 
-        if(textField.hidden == YES)
+        if(textField.isHidden == YES)
         {
             continue;
         }
