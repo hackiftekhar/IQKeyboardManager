@@ -541,6 +541,22 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         return _toolbarPreviousNextConsideredClass
     }
 
+    ///-------------------------------------------
+    /// MARK: Third Party Library support
+    /// Add TextField/TextView Notifications customised NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
+    ///-------------------------------------------
+    
+    /**
+    Add customised Notification for third party customised TextField/TextView. Please be aware that the NSNotification object must be idential to UITextField/UITextView NSNotification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
+    @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
+    @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
+    */
+    
+    public func addTextFieldViewDidBeginEditingNotificationName(didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidBeginEditing:",    name: didBeginEditingNotificationName, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidEndEditing:",      name: didEndEditingNotificationName, object: nil)
+    }
 
     /**************************************************************************************/
     ///------------------------
@@ -639,13 +655,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",                name: UIKeyboardWillHideNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:",                name: UIKeyboardDidHideNotification, object: nil)
         
-        //  Registering for textField notification.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidBeginEditing:",    name: UITextFieldTextDidBeginEditingNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidEndEditing:",      name: UITextFieldTextDidEndEditingNotification, object: nil)
+        //  Registering for UITextField notification.
+        addTextFieldViewDidBeginEditingNotificationName(UITextFieldTextDidBeginEditingNotification, didEndEditingNotificationName: UITextFieldTextDidEndEditingNotification)
         
-        //  Registering for textView notification.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidBeginEditing:",    name: UITextViewTextDidBeginEditingNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidEndEditing:",      name: UITextViewTextDidEndEditingNotification, object: nil)
+        //  Registering for UITextView notification.
+        addTextFieldViewDidBeginEditingNotificationName(UITextViewTextDidBeginEditingNotification, didEndEditingNotificationName: UITextViewTextDidEndEditingNotification)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldViewDidChange:",          name: UITextViewTextDidChangeNotification, object: nil)
         
         //  Registering for orientation changes notification

@@ -186,15 +186,16 @@ void _IQShowLog(NSString *logString);
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 
-			//  Registering for textField notification.
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextFieldTextDidEndEditingNotification object:nil];
-			
-			//  Registering for textView notification.
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidChange:) name:UITextViewTextDidChangeNotification object:nil];
-			
+			//  Registering for UITextField notification.
+            [self addTextFieldViewDidBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+                                    didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+
+            //  Registering for UITextView notification.
+            [self addTextFieldViewDidBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+                                    didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidChange:) name:UITextViewTextDidChangeNotification object:nil];
+
             //  Registering for orientation changes notification
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
             
@@ -1757,6 +1758,16 @@ void _IQShowLog(NSString *logString);
 -(NSSet* _Nonnull)consideredToolbarPreviousNextViewClasses
 {
     return [_toolbarPreviousNextConsideredClass copy];
+}
+
+/**
+ Add customised Notification for third party customised TextField/TextView.
+ */
+-(void)addTextFieldViewDidBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+                         didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:didBeginEditingNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:didEndEditingNotificationName object:nil];
 }
 
 @end
