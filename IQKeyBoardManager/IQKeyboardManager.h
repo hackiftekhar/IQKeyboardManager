@@ -276,6 +276,19 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 -(NSSet* _Nonnull)consideredToolbarPreviousNextViewClasses;
 
 
+///-------------------------------------------
+/// @name Third Party Library support
+/// Add TextField/TextView Notifications customised NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
+///-------------------------------------------
+
+/**
+ Add customised Notification for third party customised TextField/TextView. Please be aware that the NSNotification object must be idential to UITextField/UITextView NSNotification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
+ @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
+ @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
+ */
+-(void)addTextFieldViewDidBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+                         didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName;
+
 ///----------------------------------------
 /// @name Must not be used for subclassing.
 ///----------------------------------------
