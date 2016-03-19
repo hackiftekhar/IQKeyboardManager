@@ -236,6 +236,27 @@ Manual Management:-
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/TopLayoutGuideIndirectMapping.jpg)
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
 
+
+#### Working with Full Screen UITextView:-
+
+ Often we have a situation where a **full screen UITextView** need to show in full screen mode with keyboard handling. To deal with this kind of situation, here is an easy workaround.
+
+ Assuming that `UITextView` needs to be displayed in full screen within a ViewController View and default UINavigationBar of UINavigationController is displaying at at the top of ViewController. Assuming that `Adjust Sroll View Insets` checkmark is ticked. Add these constraint to UITextView:-
+
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/FullScreenTextView.jpeg)
+
+ - Top Space to SuperView
+ - Leading Space to SuperView
+ - Trailing Space to SuperView
+ - Bottom Space to Bottom Layout Guide (Important)
+
+
+ Connect bottom layout guide constraint with `IQLayoutGuideConstraint` and that's all. You have a full working **UITextViewController**.
+ 
+ 
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/FullScreenTextViewStoryboard.jpeg)
+
+ 
 #### Disable for a ViewController:-
 
  If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableDistanceHandlingInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
