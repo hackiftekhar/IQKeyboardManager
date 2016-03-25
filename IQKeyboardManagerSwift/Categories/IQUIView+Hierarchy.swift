@@ -268,10 +268,12 @@ public extension UIView {
     /**
     Returns current view transform with respect to the 'toView'.
     */
-    public func convertTransformToView(var toView:UIView?)->CGAffineTransform {
+    public func convertTransformToView(toView:UIView?)->CGAffineTransform {
         
-        if toView == nil {
-            toView = window
+        var newView = toView;
+        
+        if newView == nil {
+            newView = window
         }
         
         //My Transform
@@ -286,7 +288,7 @@ public extension UIView {
         var viewTransform = CGAffineTransformIdentity
         
         //view Transform
-        if let unwrappedToView = toView {
+        if let unwrappedToView = newView {
             
             if let unwrappedSuperView = unwrappedToView.superview {
                 viewTransform = CGAffineTransformConcat(unwrappedToView.transform, unwrappedSuperView.convertTransformToView(nil))

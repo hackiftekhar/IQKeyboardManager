@@ -20,14 +20,14 @@ class ManualToolbarViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textField1.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: Selector("previousAction"), nextAction: Selector("nextAction"), doneAction: Selector("doneAction"))
+        textField1.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
         textField1.setEnablePrevious(false, isNextEnabled: true)
         
-        textField2.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: Selector("previousAction"), nextAction: Selector("nextAction"), doneAction: Selector("doneAction"))
+        textField2.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
 
-        textView3.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: Selector("previousAction"), nextAction: Selector("nextAction"), doneAction: Selector("doneAction"))
+        textView3.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
 
-        textField4.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: Selector("previousAction"), nextAction: Selector("nextAction"), doneAction: Selector("doneAction"))
+        textField4.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
         textField4.setEnablePrevious(false, isNextEnabled: true)
 
         textField5.inputAccessoryView = UIView()

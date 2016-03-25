@@ -200,7 +200,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().enable
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("enableAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.enableAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                
@@ -215,7 +215,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.labelStepperValue.text = NSString(format: "%.0f", IQKeyboardManager.sharedManager().keyboardDistanceFromTextField) as String
                 
                 cell.stepper.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.stepper.addTarget(self, action: Selector("keyboardDistanceFromTextFieldAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.stepper.addTarget(self, action: #selector(self.keyboardDistanceFromTextFieldAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -230,7 +230,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("preventShowingBottomBlankSpaceAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.preventShowingBottomBlankSpaceAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -254,7 +254,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().enableAutoToolbar
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("enableAutoToolbarAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.enableAutoToolbarAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
 
@@ -278,7 +278,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldToolbarUsesTextFieldTintColorAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldToolbarUsesTextFieldTintColorAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -293,7 +293,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldShowTextFieldPlaceholder
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldShowTextFieldPlaceholder:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldShowTextFieldPlaceholder(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -326,7 +326,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().canAdjustTextView
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("canAdjustTextViewAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.canAdjustTextViewAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
 
@@ -341,7 +341,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldFixTextViewClip
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldFixTextViewClipwAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldFixTextViewClipAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -365,7 +365,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().overrideKeyboardAppearance
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("overrideKeyboardAppearanceAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.overrideKeyboardAppearanceAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
 
@@ -398,7 +398,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldResignOnTouchOutside
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldResignOnTouchOutsideAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldResignOnTouchOutsideAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -421,7 +421,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldPlayInputClicks
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldPlayInputClicksAction:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldPlayInputClicksAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 
@@ -444,7 +444,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldAdoptDefaultKeyboardAnimation
                 
                 cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: Selector("shouldAdoptDefaultKeyboardAnimation:"), forControlEvents: UIControlEvents.ValueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldAdoptDefaultKeyboardAnimation(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
                 

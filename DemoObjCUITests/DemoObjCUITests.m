@@ -400,12 +400,12 @@
 /////------------------------------------
 //
 ///**
-// @method disableInViewControllerClass: Disable adjusting view in disabledClass
+// @method disableDistanceHandlingInViewControllerClass: Disable adjusting view in disabledClass
 // @method removeDisableInViewControllerClass: Re-enable adjusting textField in disabledClass
 // @method disableToolbarInViewControllerClass: Disable automatic toolbar creation in in toolbarDisabledClass
 // @method removeDisableToolbarInViewControllerClass: Re-enable automatic toolbar creation in in toolbarDisabledClass
 // @method considerToolbarPreviousNextInViewClass: Consider provided customView class as superView of all inner textField for calculating next/previous button logic.
-// @method disableInViewControllerClass: Remove Consideration for provided customView class as superView of all inner textField for calculating next/previous button logic.
+// @method disableDistanceHandlingInViewControllerClass: Remove Consideration for provided customView class as superView of all inner textField for calculating next/previous button logic.
 // */
 //- (void)testClassLevelEnableDisable {
 //    
