@@ -29,17 +29,17 @@ public class IQTextView : UITextView {
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
     
     override public func awakeFromNib() {
          super.awakeFromNib()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshPlaceholder", name: UITextViewTextDidChangeNotification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
     
     deinit {

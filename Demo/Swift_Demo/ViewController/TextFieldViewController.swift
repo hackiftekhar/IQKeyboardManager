@@ -44,9 +44,9 @@ class TextFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dropDownTextField.setCustomPreviousTarget(self, selector: Selector("previousAction:"))
-        dropDownTextField.setCustomNextTarget(self, selector: Selector("nextAction:"))
-        dropDownTextField.setCustomDoneTarget(self, selector: Selector("doneAction:"))
+        dropDownTextField.setCustomPreviousTarget(self, selector: #selector(self.previousAction(_:)))
+        dropDownTextField.setCustomNextTarget(self, selector: #selector(self.nextAction(_:)))
+        dropDownTextField.setCustomDoneTarget(self, selector: #selector(self.doneAction(_:)))
         
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done

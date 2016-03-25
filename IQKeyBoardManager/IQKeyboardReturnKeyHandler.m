@@ -124,7 +124,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     UIView *superConsideredView;
     
     //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-    for (Class consideredClass in [[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses])
+    for (Class consideredClass in [[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses])
     {
         superConsideredView = [textField superviewOfClassType:consideredClass];
         
@@ -173,7 +173,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     UIView *superConsideredView;
     
     //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-    for (Class consideredClass in [[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses])
+    for (Class consideredClass in [[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses])
     {
         superConsideredView = [textField superviewOfClassType:consideredClass];
         

@@ -34,9 +34,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    switchDisableViewController.on = ([[[IQKeyboardManager sharedManager] disabledInViewControllerClasses] containsObject:[self class]]);
-    switchDisableToolbar.on = ([[[IQKeyboardManager sharedManager] disabledToolbarInViewControllerClasses] containsObject:[self class]]);
-    switchConsiderPreviousNext.on = ([[[IQKeyboardManager sharedManager] consideredToolbarPreviousNextViewClasses] containsObject:[self class]]);
+    switchDisableViewController.on = ([[[IQKeyboardManager sharedManager] disabledDistanceHandlingClasses] containsObject:[self class]]);
+    switchDisableToolbar.on = ([[[IQKeyboardManager sharedManager] disabledToolbarClasses] containsObject:[self class]]);
+    switchConsiderPreviousNext.on = ([[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] containsObject:[self class]]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,11 +50,11 @@
 
     if (sender.on)
     {
-        [[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[CustomViewController class]];
+        [[[IQKeyboardManager sharedManager] disabledDistanceHandlingClasses] addObject:[self class]];
     }
     else
     {
-        [[IQKeyboardManager sharedManager] removeDisableDistanceHandlingInViewControllerClass:[CustomViewController class]];
+        [[[IQKeyboardManager sharedManager] disabledDistanceHandlingClasses] removeObject:[self class]];
     }
 }
 
@@ -64,11 +64,11 @@
     
     if (sender.on)
     {
-        [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[CustomViewController class]];
+        [[[IQKeyboardManager sharedManager] disabledToolbarClasses] addObject:[self class]];
     }
     else
     {
-        [[IQKeyboardManager sharedManager] removeDisableToolbarInViewControllerClass:[CustomViewController class]];
+        [[[IQKeyboardManager sharedManager] disabledToolbarClasses] removeObject:[self class]];
     }
 }
 
@@ -78,11 +78,11 @@
     
     if (sender.on)
     {
-        [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[CustomSubclassView class]];
+        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] addObject:[self class]];
     }
     else
     {
-        [[IQKeyboardManager sharedManager] removeConsiderToolbarPreviousNextInViewClass:[CustomSubclassView class]];
+        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] removeObject:[self class]];
     }
 }
 

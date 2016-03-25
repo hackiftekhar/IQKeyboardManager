@@ -21,39 +21,39 @@ class CustomViewController : UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        switchDisableViewController.on = IQKeyboardManager.sharedManager().disabledInViewControllerClassesString().contains(NSStringFromClass(CustomViewController))
-        switchDisableToolbar.on = IQKeyboardManager.sharedManager().disabledInViewControllerClassesString().contains(NSStringFromClass(CustomViewController))
+        switchDisableViewController.on = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains(NSStringFromClass(CustomViewController))
+        switchDisableToolbar.on = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains(NSStringFromClass(CustomViewController))
 
-        switchConsiderPreviousNext.on = IQKeyboardManager.sharedManager().consideredToolbarPreviousNextViewClassesString().contains(NSStringFromClass(CustomViewController))
+        switchConsiderPreviousNext.on = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains(NSStringFromClass(CustomViewController))
     }
     
     @IBAction func disableInViewControllerAction(sender: UISwitch) {
         self.view.endEditing(true)
         if sender.on {
-            IQKeyboardManager.sharedManager().disableDistanceHandlingInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.insert(NSStringFromClass(CustomViewController))
         }
         else {
-            IQKeyboardManager.sharedManager().removeDisableDistanceHandlingInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.remove(NSStringFromClass(CustomViewController))
         }
     }
     
     @IBAction func disableToolbarAction(sender: UISwitch) {
         self.view.endEditing(true)
         if sender.on {
-            IQKeyboardManager.sharedManager().disableToolbarInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().disabledToolbarClasses.insert(NSStringFromClass(CustomViewController))
         }
         else {
-            IQKeyboardManager.sharedManager().removeDisableToolbarInViewControllerClass(CustomViewController)
+            IQKeyboardManager.sharedManager().disabledToolbarClasses.remove(NSStringFromClass(CustomViewController))
         }
     }
     
     @IBAction func considerPreviousNextAction(sender: UISwitch) {
         self.view.endEditing(true)
         if sender.on {
-            IQKeyboardManager.sharedManager().considerToolbarPreviousNextInViewClass(CustomSubclassView)
+            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(CustomViewController))
         }
         else {
-            IQKeyboardManager.sharedManager().removeConsiderToolbarPreviousNextInViewClass(CustomSubclassView)
+            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.remove(NSStringFromClass(CustomViewController))
         }
     }
 }
