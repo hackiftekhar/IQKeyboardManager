@@ -250,11 +250,42 @@ Manual Management:-
  - Trailing Space to SuperView
  - Bottom Space to Bottom Layout Guide (Important)
 
-
  Connect bottom layout guide constraint with `IQLayoutGuideConstraint` and that's all. You have a full working **UITextViewController**.
- 
- 
+
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/FullScreenTextViewStoryboard.jpeg)
+
+
+#### Working with Chat Screen UITableView:-
+
+ Often we have another situation where we have to implement our own **Chat Style Screen** with keyboard handling. To deal with this kind of situation, here is an easy workaround.
+
+ Assuming that `ChatViewController` is subclass of `UIViewController` not `UITableViewController`. Assuming that `ChatViewController` has `UITableView` at top and `UIView` at bottom. Bottom UIView contains a `UITextField/UITextView` with a `Send` button. Assuming that default UINavigationBar of UINavigationController is displaying at at the top of `ChatViewController`. Assuming that `Adjust Sroll View Insets` checkmark is ticked. Add these constraint to UITableView:-
+
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ChatScreenTableView.jpg)
+
+ - Top Space to SuperView
+ - Leading Space to SuperView
+ - Trailing Space to SuperView
+ - Bottom Space to bottom UIView
+
+Add thse constraint to bottom UIView
+ - Leading Space to SuperView
+ - Trailing Space to SuperView
+ - Bottom Space to Bottom Layout Guide (Important)
+
+ Connect bottom layout guide constraint with `IQLayoutGuideConstraint`.
+ 
+ Map UITextField/UITextView Outlet with a textField object in `ChatViewController`.
+
+ Add this two line in viewDidLoad
+```
+    self.textField.inputAccessoryView = [[UIView alloc] init];  //This will remove toolbar which have done button.
+    self.textField.keyboardDistanceFromTextField = 8; //This will modify default distance between textField and keyboard. For exact value, please manually check how far your textField from the bottom of the page. Mine was 8pt.
+```
+ 
+That's all. You have a working keyboard handling with **ChatViewController**.
+
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ChatScreenTableView.jpg)
 
  
 #### Disable for a ViewController:-
