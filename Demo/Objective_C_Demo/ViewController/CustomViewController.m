@@ -78,11 +78,11 @@
     
     if (sender.on)
     {
-        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] addObject:[self class]];
+        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] addObject:[CustomSubclassView class]];
     }
     else
     {
-        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] removeObject:[self class]];
+        [[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] removeObject:[CustomSubclassView class]];
     }
 }
 
