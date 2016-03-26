@@ -63,15 +63,15 @@ Minimum iOS Target: iOS 8.0
 Minimum Xcode Version: Xcode 6.0.1
 
 #### IQKeyboardManagerSwift:-
-[![Swift 2.1.1 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 2.2 compatible](https://img.shields.io/badge/Language-Swift2-blue.svg?style=flat)](https://developer.apple.com/swift)
 
 Minimum iOS Target: iOS 8.0
 
-Minimum Xcode Version: Xcode 7.2
+Minimum Xcode Version: Xcode 7.3
 
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 7.2
+Minimum Xcode Version: Xcode 7.3
 
 
 Installation
