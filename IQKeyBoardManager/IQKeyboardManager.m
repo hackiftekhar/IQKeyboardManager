@@ -665,8 +665,7 @@ void _IQShowLog(NSString *logString);
             constraint.constant = constant;
             [strongSelf.rootViewController.view setNeedsLayout];
             [strongSelf.rootViewController.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-        }];
+        } completion:NULL];
     }
     //If bottomLayoutGuice constraint
     else if (layoutGuidePosition == IQLayoutGuidePositionBottom)
@@ -682,8 +681,7 @@ void _IQShowLog(NSString *logString);
             constraint.constant = constant;
             [strongSelf.rootViewController.view setNeedsLayout];
             [strongSelf.rootViewController.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-        }];
+        } completion:NULL];
     }
     //If not constraint
     else
