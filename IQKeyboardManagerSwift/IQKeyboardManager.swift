@@ -114,7 +114,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         didSet {
 
-            enableAutoToolbar ?addToolbarIfRequired():removeToolbarIfRequired()
+            privateIsEnableAutoToolbar() ?addToolbarIfRequired():removeToolbarIfRequired()
 
             let enableToolbar = enableAutoToolbar ? "Yes" : "NO"
 
@@ -122,6 +122,46 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
+    private func privateIsEnableAutoToolbar -> Bool {
+        
+        var enableToolbar = enableAutoToolbar;
+        
+        if let textFieldViewController = _textFieldView?.viewController() {
+            
+            if enableToolbar == false {
+                
+                //If found any toolbar enabled classes then return.
+                for enabledClassString in enabledToolbarClasses {
+                    
+                    if let enabledClass = NSClassFromString(enabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(enabledClass) {
+                            enableToolbar = true;
+                            break
+                        }
+                    }
+                }
+            }
+            
+            if enableToolbar == true {
+                
+                //If found any toolbar disabled classes then return.
+                for diabledClassString in disabledToolbarClasses {
+                    
+                    if let disabledClass = NSClassFromString(diabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(disabledClass) {
+                            enableToolbar = false;
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+        return enableToolbar;
+    }
+
     /**
     AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
     */
@@ -481,8 +521,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
      Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then we ignore enabledToolbarClasses list.
      */
-//    public var enabledToolbarClasses  = Set<String>()
-    
+    public var enabledToolbarClasses  = Set<String>()
+
     /**
      Allowed subclasses of UIView to add all inner textField, this will allow to navigate between textField contains in different superview. Class should be kind of UIView.
      */
@@ -1446,7 +1486,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        if enableAutoToolbar == true {
+        if privateIsEnableAutoToolbar() == true {
 
             _IQShowLog("adding UIToolbars if required")
 
@@ -1476,6 +1516,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Adding toolbar
                 addToolbarIfRequired()
             }
+        } else {
+            removeToolbarIfRequired()
         }
 
         if enable == false {
@@ -1662,21 +1704,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /** Add toolbar if it is required to add on textFields and it's siblings. */
     private func addToolbarIfRequired() {
-        
-        if let textFieldViewController = _textFieldView?.viewController() {
-            
-            for disabledClassString in disabledToolbarClasses {
-                
-                if let disabledClass = NSClassFromString(disabledClassString) {
-                    
-                    if textFieldViewController.isKindOfClass(disabledClass) {
-                        
-                        removeToolbarIfRequired()
-                        return
-                    }
-                }
-            }
-        }
         
         //	Getting all the sibling textFields.
         if let siblings = responderViews() {

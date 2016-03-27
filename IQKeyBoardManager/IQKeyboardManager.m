@@ -333,7 +333,7 @@ void _IQShowLog(NSString *logString);
     _IQShowLog([NSString stringWithFormat:@"enableAutoToolbar: %@",enableAutoToolbar?@"Yes":@"No"]);
 
     //If enabled then adding toolbar.
-    if (_enableAutoToolbar == YES)
+    if ([self privateIsEnableAutoToolbar] == YES)
     {
         [self addToolbarIfRequired];
     }
@@ -342,6 +342,44 @@ void _IQShowLog(NSString *logString);
     {
         [self removeToolbarIfRequired];
     }
+}
+
+-(BOOL)privateIsEnableAutoToolbar
+{
+    BOOL enableAutoToolbar = _enableAutoToolbar;
+    
+    UIViewController *textFieldViewController = [_textFieldView viewController];
+    
+    if (textFieldViewController)
+    {
+        if (enableAutoToolbar == NO)
+        {
+            //If found any toolbar enabled classes then return.
+            for (Class enabledToolbarClass in _enabledToolbarClasses)
+            {
+                if ([textFieldViewController isKindOfClass:enabledToolbarClass])
+                {
+                    enableAutoToolbar = YES;
+                    break;
+                }
+            }
+        }
+        
+        if (enableAutoToolbar)
+        {
+            //If found any toolbar disabled classes then return.
+            for (Class disabledToolbarClass in _disabledToolbarClasses)
+            {
+                if ([textFieldViewController isKindOfClass:disabledToolbarClass])
+                {
+                    enableAutoToolbar = NO;
+                    break;
+                }
+            }
+        }
+    }
+    
+    return enableAutoToolbar;
 }
 
 #pragma mark - Private Methods
@@ -1038,7 +1076,7 @@ void _IQShowLog(NSString *logString);
     }
     
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-	if (_enableAutoToolbar)
+	if ([self privateIsEnableAutoToolbar])
     {
         _IQShowLog(@"adding UIToolbars if required");
 
@@ -1069,6 +1107,10 @@ void _IQShowLog(NSString *logString);
         {
             [self addToolbarIfRequired];
         }
+    }
+    else
+    {
+        [self removeToolbarIfRequired];
     }
     
 	if (_enable == NO)
@@ -1427,18 +1469,6 @@ void _IQShowLog(NSString *logString);
 /** Add toolbar if it is required to add on textFields and it's siblings. */
 -(void)addToolbarIfRequired
 {
-    UIViewController *textFieldViewController = [_textFieldView viewController];
-    
-    //If found any toolbar disabled classes then return. Will not add any toolbar.
-    for (Class disabledToolbarClass in _disabledToolbarClasses)
-    {
-        if ([textFieldViewController isKindOfClass:disabledToolbarClass])
-        {
-            [self removeToolbarIfRequired];
-            return;
-        }
-    }
-    
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
