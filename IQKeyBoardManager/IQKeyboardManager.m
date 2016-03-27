@@ -111,7 +111,9 @@ void _IQShowLog(NSString *logString);
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledToolbarClasses;
 
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *toolbarPreviousNextAllowedClasses;
-@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *toolbarPreviousNextDeniedClasses;
+
+@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledTouchResignedClasses;
+@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledTouchResignedClasses;
 
 /*******************************************/
 
@@ -212,7 +214,6 @@ void _IQShowLog(NSString *logString);
             strongSelf.tapGesture.enabled = strongSelf.shouldResignOnTouchOutside;
 
             //Setting it's initial values
-            strongSelf->_enable = NO;   //This enables in +(void)load method.
             strongSelf.animationDuration = 0.25;
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
 			[self setKeyboardDistanceFromTextField:10.0];
@@ -234,7 +235,8 @@ void _IQShowLog(NSString *logString);
             strongSelf.disabledToolbarClasses = [[NSMutableSet alloc] init];
             strongSelf.enabledToolbarClasses = [[NSMutableSet alloc] init];
             strongSelf.toolbarPreviousNextAllowedClasses = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class], nil];
-            strongSelf.toolbarPreviousNextDeniedClasses = [[NSMutableSet alloc] init];
+            strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] init];
+            strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
 
             [self setShouldToolbarUsesTextFieldTintColor:NO];
             [self setShouldFixTextViewClip:YES];
@@ -305,6 +307,44 @@ void _IQShowLog(NSString *logString);
 	}
 }
 
+-(BOOL)privateIsEnabled
+{
+    BOOL enable = _enable;
+    
+    UIViewController *textFieldViewController = [_textFieldView viewController];
+    
+    if (textFieldViewController)
+    {
+        if (enable == NO)
+        {
+            //If viewController is kind of enable viewController class, then assuming it's enabled.
+            for (Class enabledClass in _enabledDistanceHandlingClasses)
+            {
+                if ([textFieldViewController isKindOfClass:enabledClass])
+                {
+                    enable = YES;
+                    break;
+                }
+            }
+        }
+        
+        if (enable)
+        {
+            //If viewController is kind of disable viewController class, then assuming it's disable.
+            for (Class disabledClass in _disabledDistanceHandlingClasses)
+            {
+                if ([textFieldViewController isKindOfClass:disabledClass])
+                {
+                    enable = NO;
+                    break;
+                }
+            }
+        }
+    }
+    
+    return enable;
+}
+
 //	Setting keyboard distance from text field.
 -(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
 {
@@ -322,7 +362,45 @@ void _IQShowLog(NSString *logString);
     _shouldResignOnTouchOutside = shouldResignOnTouchOutside;
     
     //Enable/Disable gesture recognizer   (Enhancement ID: #14)
-    [_tapGesture setEnabled:_shouldResignOnTouchOutside];
+    [_tapGesture setEnabled:[self privateShouldResignOnTouchOutside]];
+}
+
+-(BOOL)privateShouldResignOnTouchOutside
+{
+    BOOL shouldResignOnTouchOutside = _shouldResignOnTouchOutside;
+    
+    UIViewController *textFieldViewController = [_textFieldView viewController];
+    
+    if (textFieldViewController)
+    {
+        if (shouldResignOnTouchOutside == NO)
+        {
+            //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
+            for (Class enabledClass in _enabledTouchResignedClasses)
+            {
+                if ([textFieldViewController isKindOfClass:enabledClass])
+                {
+                    shouldResignOnTouchOutside = YES;
+                    break;
+                }
+            }
+        }
+        
+        if (shouldResignOnTouchOutside)
+        {
+            //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
+            for (Class disabledClass in _disabledTouchResignedClasses)
+            {
+                if ([textFieldViewController isKindOfClass:disabledClass])
+                {
+                    shouldResignOnTouchOutside = NO;
+                    break;
+                }
+            }
+        }
+    }
+    
+    return shouldResignOnTouchOutside;
 }
 
 /** Enable/disable autotoolbar. Adding and removing toolbar if required. */
@@ -840,7 +918,7 @@ void _IQShowLog(NSString *logString);
 {
     _kbShowNotification = aNotification;
 	
-	if (_enable == NO)	return;
+	if ([self privateIsEnabled] == NO)	return;
 	
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
 
@@ -894,23 +972,7 @@ void _IQShowLog(NSString *logString);
         //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
         {
-            UIViewController *textFieldViewController = [_textFieldView viewController];
-            
-            BOOL shouldIgnore = NO;
-            
-            for (Class disabledClass in _disabledDistanceHandlingClasses)
-            {
-                if ([textFieldViewController isKindOfClass:disabledClass])
-                {
-                    shouldIgnore = YES;
-                    break;
-                }
-            }
-    
-            if (shouldIgnore == NO)
-            {
-                [self adjustFrame];
-            }
+            [self adjustFrame];
         }
     }
 
@@ -924,7 +986,7 @@ void _IQShowLog(NSString *logString);
     if (aNotification != nil)	_kbShowNotification = nil;
     
     //If not enabled then do nothing.
-    if (_enable == NO)	return;
+    if ([self privateIsEnabled] == NO)	return;
     
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
 
@@ -1113,7 +1175,7 @@ void _IQShowLog(NSString *logString);
         [self removeToolbarIfRequired];
     }
     
-	if (_enable == NO)
+	if ([self privateIsEnabled] == NO)
     {
         _IQShowLog([NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]);
         return;

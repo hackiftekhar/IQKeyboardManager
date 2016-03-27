@@ -70,6 +70,46 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
+    public func privateIsEnabled()-> Bool {
+        
+        var isEnabled = enable;
+        
+        if let textFieldViewController = _textFieldView?.viewController() {
+            
+            if isEnabled == false {
+                
+                //If viewController is kind of enable viewController class, then assuming it's enabled.
+                for enabledClassString in enabledDistanceHandlingClasses {
+                    
+                    if let enabledClass = NSClassFromString(enabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(enabledClass) {
+                            isEnabled = true;
+                            break
+                        }
+                    }
+                }
+            }
+            
+            if isEnabled == true {
+                
+                //If viewController is kind of disabled viewController class, then assuming it's disabled.
+                for diabledClassString in disabledDistanceHandlingClasses {
+                    
+                    if let disabledClass = NSClassFromString(diabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(disabledClass) {
+                            isEnabled = false;
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        
+        return isEnabled;
+    }
+    
     /**
     To set keyboard distance from textField. can't be less than zero. Default is 10.0.
     */
@@ -122,7 +162,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    private func privateIsEnableAutoToolbar -> Bool {
+    private func privateIsEnableAutoToolbar() -> Bool {
         
         var enableToolbar = enableAutoToolbar;
         
@@ -239,12 +279,52 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var shouldResignOnTouchOutside = false {
         
         didSet {
-            _tapGesture.enabled = shouldResignOnTouchOutside
+            _tapGesture.enabled = privateShouldResignOnTouchOutside()
             
             let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
             
             _IQShowLog("shouldResignOnTouchOutside: \(shouldResign)")
         }
+    }
+    
+    private func privateShouldResignOnTouchOutside() -> Bool {
+        
+        var shouldResign = shouldResignOnTouchOutside;
+        
+        if let textFieldViewController = _textFieldView?.viewController() {
+            
+            if shouldResign == false {
+                
+                //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
+                for enabledClassString in enabledTouchResignedClasses {
+                    
+                    if let enabledClass = NSClassFromString(enabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(enabledClass) {
+                            shouldResign = true;
+                            break
+                        }
+                    }
+                }
+            }
+            
+            if shouldResign == true {
+                
+                //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
+                for diabledClassString in disabledTouchResignedClasses {
+                    
+                    if let disabledClass = NSClassFromString(diabledClassString) {
+                        
+                        if textFieldViewController.isKindOfClass(disabledClass) {
+                            shouldResign = false;
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        
+        return shouldResign;
     }
     
     /**
@@ -509,9 +589,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var disabledDistanceHandlingClasses  = Set<String>()
     
     /**
-     Enable distance handling within the scope of enabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledDistanceHandlingClasses list, then we ignore enabledDistanceHandlingClasses list.
+     Enable distance handling within the scope of enabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledDistanceHandlingClasses list, then enabledDistanceHandlingClasses will be ignored.
      */
-//    public var enabledDistanceHandlingClasses  = Set<String>()
+    public var enabledDistanceHandlingClasses  = Set<String>()
     
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
@@ -519,7 +599,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var disabledToolbarClasses  = Set<String>()
     
     /**
-     Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then we ignore enabledToolbarClasses list.
+     Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
     public var enabledToolbarClasses  = Set<String>()
 
@@ -529,10 +609,15 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var toolbarPreviousNextAllowedClasses  = Set<String>()
     
     /**
-     Denied subclasses of UIView to not show next-previous button. this will deny to navigate between textField contains in superview. Class should be kind of UIView.
+     Disabled classes to ignore 'shouldResignOnTouchOutside' property, Class should be kind of UIViewController.
      */
-//    public var toolbarPreviousNextDeniedClasses  = Set<String>()
+    public var disabledTouchResignedClasses  = Set<String>()
     
+    /**
+     Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
+     */
+    public var enabledTouchResignedClasses  = Set<String>()
+
     /**
     Disable adjusting view in disabledClass
     
@@ -1197,7 +1282,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         _kbShowNotification = notification
 
-        if enable == false {
+        if privateIsEnabled() == false {
             return
         }
         
@@ -1276,24 +1361,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Getting textField viewController
                 if let textFieldViewController = _textFieldView?.viewController() {
                     
-                    var shouldIgnore = false
-                    
-                    for disabledClassString in disabledDistanceHandlingClasses {
-                        
-                        if let disabledClass = NSClassFromString(disabledClassString) {
-                            //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                            if textFieldViewController.isKindOfClass(disabledClass) {
-                                shouldIgnore = true
-                                break
-                            }
-                        }
-                    }
-                    
-                    //If shouldn't ignore.
-                    if shouldIgnore == false  {
-                        //  keyboard is already showing. adjust frame.
-                        adjustFrame()
-                    }
+                    //  keyboard is already showing. adjust frame.
+                    adjustFrame()
                 }
             }
         }
@@ -1310,7 +1379,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         //If not enabled then do nothing.
-        if enable == false {
+        if privateIsEnabled() == false {
             return
         }
         
@@ -1520,7 +1589,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             removeToolbarIfRequired()
         }
 
-        if enable == false {
+        if privateIsEnabled() == false {
             _IQShowLog("****** \(#function) ended ******")
             return
         }
