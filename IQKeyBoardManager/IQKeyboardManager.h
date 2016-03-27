@@ -236,7 +236,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then we ignore enabledToolbarClasses list.
  */
-//@property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *enabledToolbarClasses;
+@property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *enabledToolbarClasses;
 
 /**
  Allowed subclasses of UIView to add all inner textField, this will allow to navigate between textField contains in different superview. Class should be kind of UIView.
