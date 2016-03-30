@@ -1000,8 +1000,6 @@ void _IQShowLog(NSString *logString);
     if ([self privateIsEnabled] == NO)	return;
     
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
-    _IQShowLog([NSString stringWithFormat:@"Keyboard Notification Object: %@",aNotification.object]);
-    _IQShowLog([NSString stringWithFormat:@"Keyboard Notification User Info: %@",aNotification.userInfo]);
 
     //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
