@@ -961,10 +961,21 @@ void _IQShowLog(NSString *logString);
     
     //  Getting UIKeyboardSize.
     CGRect kbFrame = [[[aNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    _kbSize = kbFrame.size;
- 
-    _IQShowLog([NSString stringWithFormat:@"UIKeyboard Size : %@",NSStringFromCGSize(_kbSize)]);
 
+    CGRect screenSize = [[UIScreen mainScreen] bounds];
+
+    //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
+    CGRect intersectRect = CGRectIntersection(kbFrame, screenSize);
+
+    if (CGRectIsNull(intersectRect))
+    {
+        _kbSize = CGSizeMake(screenSize.size.width, 0);
+    }
+    else
+    {
+        _kbSize = intersectRect.size;
+    }
+ 
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
@@ -989,6 +1000,8 @@ void _IQShowLog(NSString *logString);
     if ([self privateIsEnabled] == NO)	return;
     
     _IQShowLog([NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]);
+    _IQShowLog([NSString stringWithFormat:@"Keyboard Notification Object: %@",aNotification.object]);
+    _IQShowLog([NSString stringWithFormat:@"Keyboard Notification User Info: %@",aNotification.userInfo]);
 
     //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
