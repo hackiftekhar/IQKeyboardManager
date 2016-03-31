@@ -1274,7 +1274,7 @@ void _IQShowLog(NSString *logString);
 /** UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
-    if (_shouldFixTextViewClip == YES)
+    if (_shouldFixTextViewClip == YES && _enable == YES)
     {
         UITextView *textView = (UITextView *)notification.object;
         CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
