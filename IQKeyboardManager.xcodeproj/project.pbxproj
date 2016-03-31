@@ -88,7 +88,7 @@
 		4CD2C49C1C5A615600975A7A = {
 			isa = PBXGroup;
 			children = (
-				4CD2C4B31C5A63A300975A7A /* IQKeyBoardManager */,
+				4CD2C4B31C5A63A300975A7A /* IQKeyboardManager */,
 				4CD2C4F61C5A63DF00975A7A /* Supporting Files */,
 				4CD2C4A71C5A615600975A7A /* Products */,
 			);
@@ -102,7 +102,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4CD2C4B31C5A63A300975A7A /* IQKeyBoardManager */ = {
+		4CD2C4B31C5A63A300975A7A /* IQKeyboardManager */ = {
 			isa = PBXGroup;
 			children = (
 				4CD2C4B41C5A63A300975A7A /* Categories */,
@@ -117,7 +117,7 @@
 				4CD2C4D51C5A63A300975A7A /* KeyboardManager.h */,
 				4CD2C4D61C5A63A300975A7A /* Resources */,
 			);
-			path = IQKeyBoardManager;
+			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
 		4CD2C4B41C5A63A300975A7A /* Categories */ = {
@@ -193,7 +193,7 @@
 				4CD2C4F71C5A640900975A7A /* Info.plist */,
 			);
 			name = "Supporting Files";
-			path = IQKeyBoardManager;
+			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

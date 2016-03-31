@@ -366,7 +366,7 @@
 		C0B63B901781FAB0008D3B64 = {
 			isa = PBXGroup;
 			children = (
-				C0CB62181B8850AE00C33368 /* IQKeyBoardManager */,
+				C0CB62181B8850AE00C33368 /* IQKeyboardManager */,
 				4CEC3A561B8CECDF00909DCA /* IQKeyboardManagerSwift */,
 				C0CB618E1B884D4100C33368 /* Demo */,
 				4CE6119E1B98B7250020591A /* DemoObjCUITests */,
@@ -605,7 +605,7 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		C0CB62181B8850AE00C33368 /* IQKeyBoardManager */ = {
+		C0CB62181B8850AE00C33368 /* IQKeyboardManager */ = {
 			isa = PBXGroup;
 			children = (
 				C0CB62191B8850AE00C33368 /* Categories */,
@@ -619,7 +619,7 @@
 				C0CB623A1B8850AE00C33368 /* KeyboardManager.h */,
 				C0CB623B1B8850AE00C33368 /* Resources */,
 			);
-			path = IQKeyBoardManager;
+			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
 		C0CB62191B8850AE00C33368 /* Categories */ = {
