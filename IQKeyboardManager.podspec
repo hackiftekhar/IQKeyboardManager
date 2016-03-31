@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
 	s.author = { "Iftekhar Qurashi" => "hack.iftekhar@gmail.com" }
 	s.platform = :ios, '8.0'
 	s.source = { :git => "https://github.com/hackiftekhar/IQKeyboardManager.git", :tag => "v4.0.0" }
-	s.source_files = 'IQKeyBoardManager/**/*.{h,m}'
-	s.resources = "IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
+	s.source_files = 'IQKeyboardManager/**/*.{h,m}'
+	s.resources = "IQKeyboardManager/Resources/IQKeyboardManager.bundle"
     s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics'
 	s.requires_arc = true
 end
