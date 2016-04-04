@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C631B161CB24A8E0078E59F /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C631B151CB24A8E0078E59F /* IQPreviousNextView.m */; };
+		4C631B181CB24AAD0078E59F /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C631B171CB24AAD0078E59F /* IQPreviousNextView.swift */; };
 		4C7FCC271C6A507E00537BA0 /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FCC261C6A507E00537BA0 /* IQUIScrollView+Additions.m */; };
 		4C7FCC291C6A57FF00537BA0 /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FCC281C6A57FF00537BA0 /* IQUIScrollView+Additions.swift */; };
 		4CE611A01B98B7250020591A /* DemoObjCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE6119F1B98B7250020591A /* DemoObjCUITests.m */; };
@@ -102,6 +104,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C631B141CB24A8E0078E59F /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
+		4C631B151CB24A8E0078E59F /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
+		4C631B171CB24AAD0078E59F /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
 		4C7FCC251C6A507E00537BA0 /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
 		4C7FCC261C6A507E00537BA0 /* IQUIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIScrollView+Additions.m"; sourceTree = "<group>"; };
 		4C7FCC281C6A57FF00537BA0 /* IQUIScrollView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIScrollView+Additions.swift"; sourceTree = "<group>"; };
@@ -332,6 +337,7 @@
 				4CEC3A661B8CECDF00909DCA /* IQTitleBarButtonItem.swift */,
 				4CEC3A671B8CECDF00909DCA /* IQToolbar.swift */,
 				4CEC3A681B8CECDF00909DCA /* IQUIView+IQKeyboardToolbar.swift */,
+				4C631B171CB24AAD0078E59F /* IQPreviousNextView.swift */,
 			);
 			path = IQToolbar;
 			sourceTree = "<group>";
@@ -670,6 +676,8 @@
 				C0CB62371B8850AE00C33368 /* IQToolbar.m */,
 				C0CB62381B8850AE00C33368 /* IQUIView+IQKeyboardToolbar.h */,
 				C0CB62391B8850AE00C33368 /* IQUIView+IQKeyboardToolbar.m */,
+				4C631B141CB24A8E0078E59F /* IQPreviousNextView.h */,
+				4C631B151CB24A8E0078E59F /* IQPreviousNextView.m */,
 			);
 			path = IQToolbar;
 			sourceTree = "<group>";
@@ -865,6 +873,7 @@
 				4CEC3A6C1B8CECDF00909DCA /* IQUITextFieldView+Additions.swift in Sources */,
 				C0CB61F41B884F2700C33368 /* TableViewInContainerViewController.swift in Sources */,
 				4CEC3A741B8CECDF00909DCA /* IQTextView.swift in Sources */,
+				4C631B181CB24AAD0078E59F /* IQPreviousNextView.swift in Sources */,
 				C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */,
 				C0CB61F51B884F2700C33368 /* TextFieldViewController.swift in Sources */,
 				C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */,
@@ -893,6 +902,7 @@
 				C0CB62051B884FA100C33368 /* CollectionViewDemoController.m in Sources */,
 				C0CB61FF1B884FA100C33368 /* OptionTableViewCell.m in Sources */,
 				C0CB620D1B884FA100C33368 /* SettingsViewController.m in Sources */,
+				4C631B161CB24A8E0078E59F /* IQPreviousNextView.m in Sources */,
 				C0CB62461B8850AE00C33368 /* IQBarButtonItem.m in Sources */,
 				C0CB62081B884FA100C33368 /* ExampleTableViewController.m in Sources */,
 				C0CB61FD1B884FA100C33368 /* AppDelegate.m in Sources */,

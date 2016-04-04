@@ -32,6 +32,7 @@
 #import "IQUIScrollView+Additions.h"
 #import "IQUITextFieldView+Additions.h"
 #import "IQUIViewController+Additions.h"
+#import "IQPreviousNextView.h"
 
 #import <UIKit/UINavigationBar.h>
 #import <UIKit/UITapGestureRecognizer.h>
@@ -232,9 +233,12 @@ void _IQShowLog(NSString *logString);
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
+            
             strongSelf.disabledToolbarClasses = [[NSMutableSet alloc] init];
             strongSelf.enabledToolbarClasses = [[NSMutableSet alloc] init];
-            strongSelf.toolbarPreviousNextAllowedClasses = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class], nil];
+            
+            strongSelf.toolbarPreviousNextAllowedClasses = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class],[IQPreviousNextView class], nil];
+            
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
 

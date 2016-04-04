@@ -801,7 +801,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         disabledDistanceHandlingClasses.insert(NSStringFromClass(UITableViewController))
         toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(UITableView))
         toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(UICollectionView))
-        
+        toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(IQPreviousNextView))
         //Workaround to load all appearance proxies at startup
         let barButtonItem2 = IQTitleBarButtonItem()
         barButtonItem2.title = ""
@@ -1369,7 +1369,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if _textFieldView != nil && _textFieldView?.isAlertViewTextField() == false {
                 
                 //Getting textField viewController
-                if let textFieldViewController = _textFieldView?.viewController() {
+                if _textFieldView?.viewController() != nil {
                     
                     //  keyboard is already showing. adjust frame.
                     adjustFrame()

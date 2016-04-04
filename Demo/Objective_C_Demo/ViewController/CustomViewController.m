@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     returnHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    
+    returnHandler.lastTextFieldReturnKeyType = UIReturnKeyDone;
     // Do any additional setup after loading the view.
 }
 
