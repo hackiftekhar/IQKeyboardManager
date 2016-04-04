@@ -59,7 +59,7 @@ public class IQTextView : UITextView {
             
             if placeholderLabel == nil {
                 
-                placeholderLabel = UILabel(frame: CGRectInset(self.bounds, 5, 0))
+                placeholderLabel = UILabel()
                 
                 if let unwrappedPlaceholderLabel = placeholderLabel {
                     
@@ -79,6 +79,15 @@ public class IQTextView : UITextView {
         }
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let unwrappedPlaceholderLabel = placeholderLabel {
+            unwrappedPlaceholderLabel.sizeToFit()
+            unwrappedPlaceholderLabel.frame = CGRectMake(8, 8, CGRectGetWidth(self.frame)-16, CGRectGetHeight(unwrappedPlaceholderLabel.frame))
+        }
+    }
+
     public func refreshPlaceholder() {
         
         if text.characters.count != 0 {
