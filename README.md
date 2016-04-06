@@ -91,21 +91,17 @@ it simply add the following line to your Podfile: ([#9](https://github.com/hacki
 ***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 2.1.1 (Xcode 7.2)*
+*Swift 2.2 (Xcode 7.3)*
 
 `pod 'IQKeyboardManagerSwift'`
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '3.3.4'`
+`pod 'IQKeyboardManagerSwift', '4.0.1'`
 
-*Swift 2.0 (Xcode 7.0)*
+*Swift 2.1.1 (Xcode 7.2)* `pod 'IQKeyboardManagerSwift', '4.0.0'`
 
-`pod 'IQKeyboardManagerSwift', '3.3.3.1'`
-
-*Swift 1.2 (Xcode 6.4)*
-
-`pod 'IQKeyboardManagerSwift', '3.3.1'`
+*Swift 2.0 (Xcode 7.0)* `pod 'IQKeyboardManagerSwift', '3.3.3.1'`
 
 In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
 
