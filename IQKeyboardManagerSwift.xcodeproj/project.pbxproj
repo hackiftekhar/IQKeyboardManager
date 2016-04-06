@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C182A4F1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */; };
+		4C68CB211CB577B700F7286E /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68CB201CB577B700F7286E /* IQPreviousNextView.swift */; };
 		7579835F1B886B3D00F8E41F /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7579838C1B886C6700F8E41F /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983781B886C6700F8E41F /* IQNSArray+Sort.swift */; };
 		7579838D1B886C6700F8E41F /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757983791B886C6700F8E41F /* IQUITextFieldView+Additions.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		4C182A4E1C50C5B200F7C9D4 /* IQUIScrollView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIScrollView+Additions.swift"; sourceTree = "<group>"; };
+		4C68CB201CB577B700F7286E /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
 		4CD2C4B11C5A633400975A7A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Demo/Swift_Demo/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		757983591B886B3D00F8E41F /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7579835E1B886B3D00F8E41F /* IQKeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManager.h; path = ../IQKeyboardManager/IQKeyboardManager.h; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				757983851B886C6700F8E41F /* IQBarButtonItem.swift */,
+				4C68CB201CB577B700F7286E /* IQPreviousNextView.swift */,
 				757983861B886C6700F8E41F /* IQTitleBarButtonItem.swift */,
 				757983871B886C6700F8E41F /* IQToolbar.swift */,
 				757983881B886C6700F8E41F /* IQUIView+IQKeyboardToolbar.swift */,
@@ -233,6 +236,7 @@
 				757983931B886C6700F8E41F /* IQKeyboardManager.swift in Sources */,
 				757983901B886C6700F8E41F /* IQUIWindow+Hierarchy.swift in Sources */,
 				757983961B886C6700F8E41F /* IQBarButtonItem.swift in Sources */,
+				4C68CB211CB577B700F7286E /* IQPreviousNextView.swift in Sources */,
 				757983921B886C6700F8E41F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				7579838D1B886C6700F8E41F /* IQUITextFieldView+Additions.swift in Sources */,
 				7579838E1B886C6700F8E41F /* IQUIView+Hierarchy.swift in Sources */,

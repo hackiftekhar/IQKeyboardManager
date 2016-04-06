@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C68CB1E1CB5779300F7286E /* IQPreviousNextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */; };
+		4C68CB1F1CB5779300F7286E /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */; };
 		4CD2C4D81C5A63A300975A7A /* IQNSArray+Sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4B51C5A63A300975A7A /* IQNSArray+Sort.h */; };
 		4CD2C4D91C5A63A300975A7A /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4B61C5A63A300975A7A /* IQNSArray+Sort.m */; };
 		4CD2C4DA1C5A63A300975A7A /* IQUIScrollView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4B71C5A63A300975A7A /* IQUIScrollView+Additions.h */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
+		4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
 		4CD2C4A61C5A615600975A7A /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD2C4B51C5A63A300975A7A /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
 		4CD2C4B61C5A63A300975A7A /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
@@ -111,7 +115,6 @@
 				4CD2C4C51C5A63A300975A7A /* IQKeyboardManager.m */,
 				4CD2C4C61C5A63A300975A7A /* IQKeyboardReturnKeyHandler.h */,
 				4CD2C4C71C5A63A300975A7A /* IQKeyboardReturnKeyHandler.m */,
-				4CD2C4C81C5A63A300975A7A /* IQSegmentedNextPrevious */,
 				4CD2C4C91C5A63A300975A7A /* IQTextView */,
 				4CD2C4CC1C5A63A300975A7A /* IQToolbar */,
 				4CD2C4D51C5A63A300975A7A /* KeyboardManager.h */,
@@ -148,13 +151,6 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		4CD2C4C81C5A63A300975A7A /* IQSegmentedNextPrevious */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IQSegmentedNextPrevious;
-			sourceTree = "<group>";
-		};
 		4CD2C4C91C5A63A300975A7A /* IQTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +165,8 @@
 			children = (
 				4CD2C4CD1C5A63A300975A7A /* IQBarButtonItem.h */,
 				4CD2C4CE1C5A63A300975A7A /* IQBarButtonItem.m */,
+				4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */,
+				4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */,
 				4CD2C4CF1C5A63A300975A7A /* IQTitleBarButtonItem.h */,
 				4CD2C4D01C5A63A300975A7A /* IQTitleBarButtonItem.m */,
 				4CD2C4D11C5A63A300975A7A /* IQToolbar.h */,
@@ -219,6 +217,7 @@
 				4CD2C4E41C5A63A300975A7A /* IQKeyboardManagerConstants.h in Headers */,
 				4CD2C4F01C5A63A300975A7A /* IQToolbar.h in Headers */,
 				4CD2C4DE1C5A63A300975A7A /* IQUIView+Hierarchy.h in Headers */,
+				4C68CB1E1CB5779300F7286E /* IQPreviousNextView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +301,7 @@
 				4CD2C4EF1C5A63A300975A7A /* IQTitleBarButtonItem.m in Sources */,
 				4CD2C4DB1C5A63A300975A7A /* IQUIScrollView+Additions.m in Sources */,
 				4CD2C4F31C5A63A300975A7A /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				4C68CB1F1CB5779300F7286E /* IQPreviousNextView.m in Sources */,
 				4CD2C4F11C5A63A300975A7A /* IQToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
