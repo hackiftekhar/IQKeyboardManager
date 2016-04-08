@@ -105,7 +105,7 @@ it simply add the following line to your Podfile: ([#236](https://github.com/hac
 
 In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
 
-```
+```swift
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 In AppDelegate.swift, just enable IQKeyboardManager.
 
-```
+```swift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -184,7 +184,7 @@ This issue happens when there is a textField active on a view controller and you
 
 For a workaround, you can resign currently active textField in `viewWillDisappear` method.
 
-```
+```objc
   -(void)viewWillDisappear:(BOOL)animated
   {
     [super viewWillDisappear:animated];
@@ -198,7 +198,7 @@ For a workaround, you can resign currently active textField in `viewWillDisappea
 
 From Swift 1.2, compiler no longer allows to override `class func load()` method, so you need to manually enable IQKeyboardManager using below line of code in AppDelegate.
 
-```
+```swift
     IQKeyboardManager.sharedManager().enable = true
 ```
 
@@ -215,11 +215,13 @@ Manual Management:-
 
   If you are not using storyboard or xib and creating your view programmatically. Then you need to override '-(void)loadView' method of UIViewController, and need to set an UIScrollView instance to self.view.
 
+```objc
     -(void)loadView
     {
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         self.view = scrollView;
     }
+```
 
 #### Working with TopLayoutGuide and BottomLayoutGuide:-
 
@@ -274,7 +276,8 @@ Add thse constraint to bottom UIView
  Map UITextField/UITextView Outlet with a textField object in `ChatViewController`.
 
  Add this two line in viewDidLoad
-```
+ 
+```objc
     self.textField.inputAccessoryView = [[UIView alloc] init];  //This will remove toolbar which have done button.
     self.textField.keyboardDistanceFromTextField = 8; //This will modify default distance between textField and keyboard. For exact value, please manually check how far your textField from the bottom of the page. Mine was 8pt.
 ```
@@ -288,7 +291,7 @@ That's all. You have a working keyboard handling with **ChatViewController**.
 
  If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableDistanceHandlingInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
 
-```
+```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[ViewController class]];
@@ -300,7 +303,7 @@ That's all. You have a working keyboard handling with **ChatViewController**.
 
 If you would like to disable `Auto Toolbar` for a particular ViewController then register ViewController with `-(void)disableToolbarInViewControllerClass:(Class)disabledClass` method in AppDelegate.
 
-```
+```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[ViewController class]];
@@ -312,7 +315,7 @@ If you would like to disable `Auto Toolbar` for a particular ViewController then
 
 If your textFields are on different customView and do not show previous/next to navigate between textField. Then you should create a SpecialView subclass of UIView, then put all customView inside SpecialView, then register SpecialView class using `-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass` method in AppDelegate.([#154](https://github.com/hackiftekhar/IQKeyboardManager/issues/154), [#179](https://github.com/hackiftekhar/IQKeyboardManager/issues/179))
 
-```
+```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[SpecialView class]];
@@ -325,7 +328,7 @@ If your textFields are on different customView and do not show previous/next to 
 
   1) Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this:-
 
-```
+```objc
 @implementation ViewController
 {
     IQKeyboardReturnKeyHandler *returnKeyHandler;
@@ -338,11 +341,12 @@ If your textFields are on different customView and do not show previous/next to 
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
 }
 ```
+
    It assign all the responderView delegates to self, and change keybord Return Key to Next key.
 
 2) set instance variable to nil in `dealloc` method.
 
-```
+```objc
 -(void)dealloc
 {
     returnKeyHandler = nil;
@@ -353,12 +357,14 @@ If your textFields are on different customView and do not show previous/next to 
 #### UIToolbar(IQToolbar):-
 
 1) If you don't want to add automatic toolbar over keyboard for a specific textField then you should add a UIView as it's toolbar like this:-([#89](https://github.com/hackiftekhar/IQKeyboardManager/issues/89))
-```
+
+```objc
 textField.inputAccessoryView = [[UIView alloc] init];
 ```
 
 2) If you need your own control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQUIView+IQKeyboardToolbar.h` file. You can use them like this:-([#40](https://github.com/hackiftekhar/IQKeyboardManager/issues/40))
-```
+
+```objc
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -404,13 +410,14 @@ textField.inputAccessoryView = [[UIView alloc] init];
 Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside ***textFieldShouldBeginEditing:*** and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using ***canBecomeFirstResponder*** in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use ***isAskingCanBecomeFirstResponder*** BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
 
 1) You may need to import `IQUIView+Hierarchy` category
-```
+
+```objc
 #import "IQUIView+Hierarchy.h"
 ```
 
 2) check for ***isAskingCanBecomeFirstResponder*** in `textFieldShouldBeginEditing:` delegate.
 
-```
+```objc
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField == customWorkTextField)
