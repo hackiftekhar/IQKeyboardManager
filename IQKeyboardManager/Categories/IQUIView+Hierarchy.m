@@ -170,7 +170,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UITextField *textField in siblings)
-        if ([textField _IQcanBecomeFirstResponder])
+        if (![textField isEqual:self] && [textField _IQcanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
