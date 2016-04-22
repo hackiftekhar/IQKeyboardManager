@@ -338,15 +338,6 @@
     [keyboardDoneButton tap];
 }
 
-
-/////--------------------------
-///// @name UITextView handling
-/////--------------------------
-//
-///**
-// canAdjustTextView  Adjust textView's frame when it is too big in height. Default is NO.
-// shouldFixTextViewClip  Adjust textView's contentInset to fix a bug. for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
-// */
 //- (void)testTextView {
 //    
 //}

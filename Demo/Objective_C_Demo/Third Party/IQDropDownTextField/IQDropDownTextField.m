@@ -149,7 +149,7 @@
     UILabel *labelText = [[UILabel alloc] init];
     [labelText setTextAlignment:NSTextAlignmentCenter];
     [labelText setAdjustsFontSizeToFitWidth:YES];
-    [labelText setText:[_ItemListsInternal objectAtIndex:row]];
+    [labelText setText:_ItemListsInternal[row]];
     labelText.backgroundColor = [UIColor clearColor];
     
     if (self.isOptionalDropDown && row == 0)
@@ -167,7 +167,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [self setSelectedItem:[_ItemListsInternal objectAtIndex:row]];
+    [self setSelectedItem:_ItemListsInternal[row]];
 }
 
 #pragma mark - UIDatePicker delegate
@@ -211,7 +211,7 @@
         }
         else
         {
-            self.text = [_ItemListsInternal objectAtIndex:row];
+            self.text = _ItemListsInternal[row];
         }
         
         [self.pickerView selectRow:row inComponent:0 animated:animated];
@@ -404,7 +404,7 @@
     
     if (_isOptionalDropDown)
     {
-        NSArray *array = [NSArray arrayWithObject:@"Select"];
+        NSArray *array = @[@"Select"];
         _ItemListsInternal = [array arrayByAddingObjectsFromArray:_itemList];
     }
     else

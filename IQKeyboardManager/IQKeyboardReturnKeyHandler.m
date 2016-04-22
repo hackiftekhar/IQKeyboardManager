@@ -73,7 +73,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 -(NSDictionary*)textFieldCachedInfo:(UITextField*)textField
 {
     for (NSDictionary *infoDict in textFieldInfoCache)
-        if ([infoDict objectForKey:kIQTextField] == textField)  return infoDict;
+        if (infoDict[kIQTextField] == textField)  return infoDict;
     
     return nil;
 }
@@ -99,8 +99,8 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (dict)
     {
-        textField.keyboardType = [[dict objectForKey:kIQTextFieldReturnKeyType] integerValue];
-        textField.delegate = [dict objectForKey:kIQTextFieldDelegate];
+        textField.keyboardType = [dict[kIQTextFieldReturnKeyType] integerValue];
+        textField.delegate = dict[kIQTextFieldDelegate];
         [textFieldInfoCache removeObject:dict];
     }
 }
@@ -109,10 +109,10 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     NSMutableDictionary *dictInfo = [[NSMutableDictionary alloc] init];
     
-    [dictInfo setObject:textField forKey:kIQTextField];
-    [dictInfo setObject:[NSNumber numberWithInteger:textField.returnKeyType] forKey:kIQTextFieldReturnKeyType];
+    dictInfo[kIQTextField] = textField;
+    dictInfo[kIQTextFieldReturnKeyType] = @(textField.returnKeyType);
     
-    if (textField.delegate) [dictInfo setObject:textField.delegate forKey:kIQTextFieldDelegate];
+    if (textField.delegate) dictInfo[kIQTextFieldDelegate] = textField.delegate;
 
     [textField setDelegate:self];
 
@@ -215,7 +215,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     NSUInteger index = [textFields indexOfObject:textField];
     
     //If it is not last textField. then it's next object becomeFirstResponder.
-    (index != NSNotFound && index < textFields.count-1) ?   [[textFields objectAtIndex:index+1] becomeFirstResponder]  :   [textField resignFirstResponder];
+    (index != NSNotFound && index < textFields.count-1) ?   [textFields[index+1] becomeFirstResponder]  :   [textField resignFirstResponder];
 }
 
 #pragma mark - TextField delegate
@@ -359,9 +359,9 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     for (NSDictionary *dict in textFieldInfoCache)
     {
-        UITextField *textField  = [dict objectForKey:kIQTextField];
-        textField.keyboardType  = [[dict objectForKey:kIQTextFieldReturnKeyType] integerValue];
-        textField.delegate      = [dict objectForKey:kIQTextFieldDelegate];
+        UITextField *textField  = dict[kIQTextField];
+        textField.keyboardType  = [dict[kIQTextFieldReturnKeyType] integerValue];
+        textField.delegate      = dict[kIQTextFieldDelegate];
     }
 
     [textFieldInfoCache removeAllObjects];

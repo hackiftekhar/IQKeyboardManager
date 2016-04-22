@@ -64,7 +64,7 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 
 -(void)_setIsAskingCanBecomeFirstResponder:(BOOL)isAskingCanBecomeFirstResponder
 {
-    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), [NSNumber numberWithBool:isAskingCanBecomeFirstResponder], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), @(isAskingCanBecomeFirstResponder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(BOOL)isAskingCanBecomeFirstResponder

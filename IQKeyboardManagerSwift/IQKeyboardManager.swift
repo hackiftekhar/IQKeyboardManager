@@ -247,12 +247,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     public var canAdjustTextView = false
 
-    /**
-    Adjust textView's contentInset to fix a bug. for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
-    */
-    public var shouldFixTextViewClip = true
 
-    
     ///---------------------------------------
     /// MARK: UIKeyboard appearance overriding
     ///---------------------------------------
@@ -787,7 +782,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //  Registering for UITextView notification.
         addTextFieldViewDidBeginEditingNotificationName(UITextViewTextDidBeginEditingNotification, didEndEditingNotificationName: UITextViewTextDidEndEditingNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textFieldViewDidChange(_:)),          name: UITextViewTextDidChangeNotification, object: nil)
         
         //  Registering for orientation changes notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)),          name: UIApplicationWillChangeStatusBarOrientationNotification, object: nil)
@@ -1680,31 +1674,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _textFieldView = nil
 
         _IQShowLog("****** \(#function) ended ******")
-    }
-
-    /** UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
-    internal func textFieldViewDidChange(notification:NSNotification) {  //  (Bug ID: #18)
-        
-        if  shouldFixTextViewClip {
-            let textView = notification.object as! UITextView
-            
-            let line = textView.caretRectForPosition((textView.selectedTextRange?.start)!)
-            
-            let overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top)
-            
-            //Added overflow conditions (Bug ID: 95)
-            if overflow > 0.0 && overflow < CGFloat(FLT_MAX) {
-                // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
-                // Scroll caret to visible area
-                var offset = textView.contentOffset
-                offset.y += overflow + 7 // leave 7 pixels margin
-                
-                // Cannot animate with setContentOffset:animated: or caret will not appear
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    textView.contentOffset = offset
-                    }, completion: { (finished) -> Void in })
-            }
-        }
     }
 
     ///------------------------------------------

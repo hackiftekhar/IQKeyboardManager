@@ -136,11 +136,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL canAdjustTextView;
 
-/**
- Adjust textView's contentInset to fix a bug. for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string Default is YES.
- */
-@property(nonatomic, assign) BOOL shouldFixTextViewClip;
-
 ///---------------------------------------
 /// @name UIKeyboard appearance overriding
 ///---------------------------------------

@@ -21,7 +21,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     let keyboardManagerProperties = [
         ["Enable", "Keyboard Distance From TextField", "Prevent Showing Bottom Blank Space"],
         ["Enable AutoToolbar","Toolbar Manage Behaviour","Should Toolbar Uses TextField TintColor","Should Show TextField Placeholder","Placeholder Font"],
-        ["Can Adjust TextView","Should Fix TextView Clip"],
+        ["Can Adjust TextView"],
         ["Override Keyboard Appearance","UIKeyboard Appearance"],
         ["Should Resign On Touch Outside"],
         ["Should Play Input Clicks"],
@@ -30,7 +30,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     let keyboardManagerPropertyDetails = [
         ["Enable/Disable IQKeyboardManager","Set keyboard distance from textField","Prevent to show blank space between UIKeyboard and View"],
         ["Automatic add the IQToolbar on UIKeyboard","AutoToolbar previous/next button managing behaviour","Uses textField's tintColor property for IQToolbar","Add the textField's placeholder text on IQToolbar","UIFont for IQToolbar placeholder text"],
-        ["Adjust textView's frame when it is too big in height","Adjust textView's contentInset to fix a bug"],
+        ["Adjust textView's frame when it is too big in height"],
         ["Override the keyboardAppearance for all UITextField/UITextView","All the UITextField keyboardAppearance is set using this property"],
         ["Resigns Keyboard on touching outside of UITextField/View"],
         ["Plays inputClick sound on next/previous/done click"],
@@ -91,13 +91,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         IQKeyboardManager.sharedManager().canAdjustTextView = sender.on
         
         self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-    }
-    
-    func shouldFixTextViewClipAction (sender: UISwitch) {
-        
-        IQKeyboardManager.sharedManager().shouldFixTextViewClip = sender.on
-        
-        self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     /**  "Keyboard appearance overriding    */
@@ -329,22 +322,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.addTarget(self, action: #selector(self.canAdjustTextViewAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 
                 return cell
-
-            case 1:
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
-                cell.switchEnable.enabled = true
-                
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                
-                cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldFixTextViewClip
-                
-                cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldFixTextViewClipAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
-                
-                return cell
-                
             default:
                 break
             }
