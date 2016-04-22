@@ -31,7 +31,7 @@
 {
     OptionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([OptionTableViewCell class])];
 
-    cell.labelOption.text = [self.options objectAtIndex:indexPath.row];
+    cell.labelOption.text = (self.options)[indexPath.row];
 
     cell.accessoryType = (indexPath.row == self.selectedIndex)  ? UITableViewCellAccessoryCheckmark    :   UITableViewCellAccessoryNone;
     

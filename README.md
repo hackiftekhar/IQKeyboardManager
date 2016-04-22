@@ -97,7 +97,7 @@ it simply add the following line to your Podfile: ([#236](https://github.com/hac
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '4.0.1'`
+`pod 'IQKeyboardManagerSwift', '4.0.2'`
 
 *Swift 2.1.1 (Xcode 7.2)* `pod 'IQKeyboardManagerSwift', '4.0.0'`
 

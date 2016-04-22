@@ -33,33 +33,31 @@
 {
     [super viewDidLoad];
     
-    sectionTitles = [NSArray arrayWithObjects:@"UIKeyboard handling",
+    sectionTitles = @[@"UIKeyboard handling",
                      @"IQToolbar handling",
                      @"UITextView handling",
                      @"UIKeyboard appearance overriding",
                      @"Resign first responder handling",
                      @"UISound handling",
-                     @"UIAnimation handling",nil];
+                     @"UIAnimation handling"];
 
     
-    keyboardManagerProperties = [NSArray arrayWithObjects:
-                                 [NSArray arrayWithObjects:@"Enable", @"Keyboard Distance From TextField", @"Prevent Showing Bottom Blank Space",nil],
-                                 [NSArray arrayWithObjects:@"Enable AutoToolbar",@"Toolbar Manage Behaviour",@"Should Toolbar Uses TextField TintColor",@"Should Show TextField Placeholder",@"Placeholder Font",nil],
-                                 [NSArray arrayWithObjects:@"Can Adjust TextView",@"Should Fix TextView Clip",nil],
-                                 [NSArray arrayWithObjects:@"Override Keyboard Appearance",@"UIKeyboard Appearance",nil],
-                                 [NSArray arrayWithObjects:@"Should Resign On Touch Outside",nil],
-                                 [NSArray arrayWithObjects:@"Should Play Input Clicks",nil],
-                                 [NSArray arrayWithObjects:@"Should Adopt Default Keyboard Animation",nil],nil];
+    keyboardManagerProperties = @[@[@"Enable", @"Keyboard Distance From TextField", @"Prevent Showing Bottom Blank Space"],
+                                 @[@"Enable AutoToolbar",@"Toolbar Manage Behaviour",@"Should Toolbar Uses TextField TintColor",@"Should Show TextField Placeholder",@"Placeholder Font"],
+                                 @[@"Can Adjust TextView"],
+                                 @[@"Override Keyboard Appearance",@"UIKeyboard Appearance"],
+                                 @[@"Should Resign On Touch Outside"],
+                                 @[@"Should Play Input Clicks"],
+                                 @[@"Should Adopt Default Keyboard Animation"]];
 
     
-    keyboardManagerPropertyDetails = [NSArray arrayWithObjects:
-                                      [NSArray arrayWithObjects:@"Enable/Disable IQKeyboardManager",@"Set keyboard distance from textField",@"Prevent to show blank space between UIKeyboard and View",nil],
-                                       [NSArray arrayWithObjects:@"Automatic add the IQToolbar on UIKeyboard",@"AutoToolbar previous/next button managing behaviour",@"Uses textField's tintColor property for IQToolbar",@"Add the textField's placeholder text on IQToolbar",@"UIFont for IQToolbar placeholder text",nil],
-                                       [NSArray arrayWithObjects:@"Adjust textView's frame when it is too big in height",@"Adjust textView's contentInset to fix a bug",nil],
-                                       [NSArray arrayWithObjects:@"Override the keyboardAppearance for all UITextField/UITextView",@"All the UITextField keyboardAppearance is set using this property",nil],
-                                      [NSArray arrayWithObjects:@"Resigns Keyboard on touching outside of UITextField/View",nil],
-                                       [NSArray arrayWithObjects:@"Plays inputClick sound on next/previous/done click",nil],
-                                       [NSArray arrayWithObjects:@"Uses keyboard default animation curve style to move view",nil],nil];
+    keyboardManagerPropertyDetails = @[@[@"Enable/Disable IQKeyboardManager",@"Set keyboard distance from textField",@"Prevent to show blank space between UIKeyboard and View"],
+                                       @[@"Automatic add the IQToolbar on UIKeyboard",@"AutoToolbar previous/next button managing behaviour",@"Uses textField's tintColor property for IQToolbar",@"Add the textField's placeholder text on IQToolbar",@"UIFont for IQToolbar placeholder text"],
+                                       @[@"Adjust textView's frame when it is too big in height"],
+                                       @[@"Override the keyboardAppearance for all UITextField/UITextView",@"All the UITextField keyboardAppearance is set using this property"],
+                                      @[@"Resigns Keyboard on touching outside of UITextField/View"],
+                                       @[@"Plays inputClick sound on next/previous/done click"],
+                                       @[@"Uses keyboard default animation curve style to move view"]];
 }
 
 - (IBAction)doneAction:(UIBarButtonItem *)sender
@@ -79,7 +77,7 @@
 - (void)keyboardDistanceFromTextFieldAction:(UIStepper *)sender
 {
     [[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:sender.value];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)preventShowingBottomBlankSpaceAction:(UISwitch *)sender
@@ -100,9 +98,7 @@
 
 - (void)shouldToolbarUsesTextFieldTintColorAction:(UISwitch *)sender
 {
-#ifdef NSFoundationVersionNumber_iOS_6_1
     [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:sender.on];
-#endif
 }
 
 - (void)shouldShowTextFieldPlaceholder:(UISwitch *)sender
@@ -117,13 +113,6 @@
 - (void)canAdjustTextViewAction:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setCanAdjustTextView:sender.on];
-}
-
-- (void)shouldFixTextViewClipwAction:(UISwitch *)sender
-{
-#ifdef NSFoundationVersionNumber_iOS_6_1
-    [[IQKeyboardManager sharedManager] setShouldFixTextViewClip:sender.on];
-#endif
 }
 
 /**  "Keyboard appearance overriding    */
@@ -170,7 +159,7 @@
     {
         case 0:
         {
-            return ([[IQKeyboardManager sharedManager] isEnabled] == NO)  ?  1:  [[keyboardManagerProperties objectAtIndex:section] count];
+            return ([[IQKeyboardManager sharedManager] isEnabled] == NO)  ?  1:  [keyboardManagerProperties[section] count];
         }
             break;
         case 1:
@@ -185,20 +174,20 @@
             }
             else
             {
-                return [[keyboardManagerProperties objectAtIndex:section] count];
+                return [keyboardManagerProperties[section] count];
             }
         }
             break;
         case 3:
         {
-            return ([[IQKeyboardManager sharedManager] overrideKeyboardAppearance] == NO)  ?  1:  [[keyboardManagerProperties objectAtIndex:section] count];
+            return ([[IQKeyboardManager sharedManager] overrideKeyboardAppearance] == NO)  ?  1:  [keyboardManagerProperties[section] count];
         }
             break;
         case 2:
         case 4:
         case 5:
         case 6:
-            return [[keyboardManagerProperties objectAtIndex:section] count];
+            return [keyboardManagerProperties[section] count];
             break;
 
         default:
@@ -209,7 +198,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [sectionTitles objectAtIndex:section];
+    return sectionTitles[section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -224,8 +213,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] isEnabled];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(enableAction:) forControlEvents:UIControlEventValueChanged];
@@ -235,8 +224,8 @@
                 case 1:
                 {
                     StepperTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([StepperTableViewCell class])];
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.stepper.value = [[IQKeyboardManager sharedManager] keyboardDistanceFromTextField];
                     cell.labelStepperValue.text = [NSString stringWithFormat:@"%.0f",[[IQKeyboardManager sharedManager] keyboardDistanceFromTextField]];
                     [cell.stepper removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
@@ -248,8 +237,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] preventShowingBottomBlankSpace];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(preventShowingBottomBlankSpaceAction:) forControlEvents:UIControlEventValueChanged];
@@ -267,8 +256,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] isEnableAutoToolbar];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(enableAutoToolbarAction:) forControlEvents:UIControlEventValueChanged];
@@ -278,8 +267,8 @@
                 case 1:
                 {
                     NavigationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NavigationTableViewCell class])];
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     return cell;
                 }
                     break;
@@ -287,15 +276,11 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     
-#ifdef NSFoundationVersionNumber_iOS_6_1
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldToolbarUsesTextFieldTintColor];
-#else
-                    cell.switchEnable.on = NO;
-                    cell.switchEnable.enabled = NO;
-#endif
+
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldToolbarUsesTextFieldTintColorAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
@@ -305,8 +290,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldShowTextFieldPlaceholder];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldShowTextFieldPlaceholder:) forControlEvents:UIControlEventValueChanged];
@@ -316,8 +301,8 @@
                 case 4:
                 {
                     NavigationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NavigationTableViewCell class])];
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     return cell;
                 }
                     break;
@@ -332,29 +317,11 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] canAdjustTextView];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(canAdjustTextViewAction:) forControlEvents:UIControlEventValueChanged];
-                    return cell;
-                }
-                    break;
-                case 1:
-                {
-                    SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
-                    cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    
-#ifdef NSFoundationVersionNumber_iOS_6_1
-                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldFixTextViewClip];
-#else
-                    cell.switchEnable.on = NO;
-                    cell.switchEnable.enabled = NO;
-#endif
-                    [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-                    [cell.switchEnable addTarget:self action:@selector(shouldFixTextViewClipwAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                 }
                     break;
@@ -369,8 +336,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] overrideKeyboardAppearance];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(overrideKeyboardAppearanceAction:) forControlEvents:UIControlEventValueChanged];
@@ -380,8 +347,8 @@
                 case 1:
                 {
                     NavigationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NavigationTableViewCell class])];
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     return cell;
                 }
                     break;
@@ -396,8 +363,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldResignOnTouchOutside];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldResignOnTouchOutsideAction:) forControlEvents:UIControlEventValueChanged];
@@ -415,8 +382,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldPlayInputClicks];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldPlayInputClicksAction:) forControlEvents:UIControlEventValueChanged];
@@ -434,8 +401,8 @@
                 {
                     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
                     cell.switchEnable.enabled = YES;
-                    cell.labelTitle.text = [[keyboardManagerProperties objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                    cell.labelSubtitle.text = [[keyboardManagerPropertyDetails objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldAdoptDefaultKeyboardAnimation];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldAdoptDefaultKeyboardAnimation:) forControlEvents:UIControlEventValueChanged];
@@ -469,16 +436,16 @@
         if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 1)
         {
             controller.title = @"Toolbar Manage Behaviour";
-            controller.options = [NSArray arrayWithObjects:@"IQAutoToolbar By Subviews",@"IQAutoToolbar By Tag",@"IQAutoToolbar By Position",nil];
+            controller.options = @[@"IQAutoToolbar By Subviews",@"IQAutoToolbar By Tag",@"IQAutoToolbar By Position"];
             controller.selectedIndex = [[IQKeyboardManager sharedManager] toolbarManageBehaviour];
         }
         else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
         {
             controller.title = @"Fonts";
             
-            controller.options = [NSArray arrayWithObjects:@"Bold System Font",@"Italic system font",@"Regular",nil];
+            controller.options = @[@"Bold System Font",@"Italic system font",@"Regular"];
             
-            NSArray *fonts = [NSArray arrayWithObjects:[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12],nil];
+            NSArray *fonts = @[[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12]];
             
             UIFont *placeholderFont = [[IQKeyboardManager sharedManager] placeholderFont];
             
@@ -490,7 +457,7 @@
         else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
         {
             controller.title = @"Keyboard Appearance";
-            controller.options = [NSArray arrayWithObjects:@"UIKeyboardAppearance Default",@"UIKeyboardAppearance Dark",@"UIKeyboardAppearance Light",nil];
+            controller.options = @[@"UIKeyboardAppearance Default",@"UIKeyboardAppearance Dark",@"UIKeyboardAppearance Light"];
             controller.selectedIndex = [[IQKeyboardManager sharedManager] keyboardAppearance];
         }
     }
@@ -504,9 +471,9 @@
     }
     else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
     {
-        NSArray *fonts = [NSArray arrayWithObjects:[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12],nil];
+        NSArray *fonts = @[[UIFont boldSystemFontOfSize:12.0],[UIFont italicSystemFontOfSize:12],[UIFont systemFontOfSize:12]];
         
-        [[IQKeyboardManager sharedManager] setPlaceholderFont:[fonts objectAtIndex:index]];
+        [[IQKeyboardManager sharedManager] setPlaceholderFont:fonts[index]];
     }
     else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
     {

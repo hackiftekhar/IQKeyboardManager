@@ -62,7 +62,7 @@
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
     
-    [dropDownTextField setItemList:[NSArray arrayWithObjects:@"Zero Line Of Code",
+    [dropDownTextField setItemList:@[@"Zero Line Of Code",
                                      @"No More UIScrollView",
                                      @"No More Subclasses",
                                      @"No More Manual Work",
@@ -78,7 +78,7 @@
                                      @"Auto adjust textView's height ",
                                      @"Adopt tintColor from textField",
                                      @"Customize keyboardAppearance",
-                                     @"play sound on next/prev/done",nil]];
+                                     @"play sound on next/prev/done"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -120,10 +120,7 @@
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
             navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
             
-#ifdef NSFoundationVersionNumber_iOS_6_1
             navigationController.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
-#endif
-            navigationController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
             
             [navigationController setModalTransitionStyle:arc4random()%4];
             

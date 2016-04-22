@@ -38,7 +38,7 @@
     }
     
     UITextField *textField = (UITextField *)[cell.contentView viewWithTag:123];
-    textField.placeholder = [NSString stringWithFormat:@"Cell %@",[NSNumber numberWithInteger:indexPath.row]];
+    textField.placeholder = [NSString stringWithFormat:@"Cell %@",@(indexPath.row)];
     
     return cell;
 }
