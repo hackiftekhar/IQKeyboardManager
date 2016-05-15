@@ -313,6 +313,7 @@ public extension UIView {
             
             //Right button
             let doneButton = IQBarButtonItem(image: image, style: UIBarButtonItemStyle.Done, target: target, action: action)
+            doneButton.accessibilityLabel = @"Toolbar Done Button";
             items.append(doneButton)
             
             //  Adding button to toolBar.
@@ -720,8 +721,10 @@ public extension UIView {
             }
 
             prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            prev.accessibilityLabel = @"Toolbar Previous Button";
             
             next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            next.accessibilityLabel = @"Toolbar Next Button";
 
             //Previous button
             items.append(prev)
@@ -843,8 +846,10 @@ public extension UIView {
             }
             
             prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            prev.accessibilityLabel = @"Toolbar Previous Button";
             
             next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            next.accessibilityLabel = @"Toolbar Next Button";
             
             //Previous button
             items.append(prev)
@@ -869,6 +874,7 @@ public extension UIView {
             
             //Right button
             let doneButton = IQBarButtonItem(image: rightButtonImage, style: UIBarButtonItemStyle.Done, target: target, action: rightButtonAction)
+            doneButton.accessibilityLabel = @"Toolbar Done Button";
             items.append(doneButton)
             
             //  Adding button to toolBar.
@@ -978,8 +984,10 @@ public extension UIView {
             }
             
             prev = IQBarButtonItem(image: imageLeftArrow, style: UIBarButtonItemStyle.Plain, target: target, action: previousAction)
+            prev.accessibilityLabel = @"Toolbar Previous Button";
             
             next = IQBarButtonItem(image: imageRightArrow, style: UIBarButtonItemStyle.Plain, target: target, action: nextAction)
+            next.accessibilityLabel = @"Toolbar Next Button";
             
             //Previous button
             items.append(prev)
