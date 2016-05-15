@@ -150,7 +150,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             if (isTitleBarButtonFound == true)
             {
                 rightRect = barButtonItemView.frame
-                break;
+                break
             }
             else if (barButtonItemView.dynamicType === UIView.self)
             {

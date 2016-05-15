@@ -72,7 +72,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     public func privateIsEnabled()-> Bool {
         
-        var isEnabled = enable;
+        var isEnabled = enable
         
         if let textFieldViewController = _textFieldView?.viewController() {
             
@@ -84,7 +84,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let enabledClass = NSClassFromString(enabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(enabledClass) {
-                            isEnabled = true;
+                            isEnabled = true
                             break
                         }
                     }
@@ -99,7 +99,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let disabledClass = NSClassFromString(diabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(disabledClass) {
-                            isEnabled = false;
+                            isEnabled = false
                             break
                         }
                     }
@@ -107,7 +107,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
         
-        return isEnabled;
+        return isEnabled
     }
     
     /**
@@ -164,7 +164,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     private func privateIsEnableAutoToolbar() -> Bool {
         
-        var enableToolbar = enableAutoToolbar;
+        var enableToolbar = enableAutoToolbar
         
         if let textFieldViewController = _textFieldView?.viewController() {
             
@@ -176,7 +176,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let enabledClass = NSClassFromString(enabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(enabledClass) {
-                            enableToolbar = true;
+                            enableToolbar = true
                             break
                         }
                     }
@@ -191,7 +191,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let disabledClass = NSClassFromString(diabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(disabledClass) {
-                            enableToolbar = false;
+                            enableToolbar = false
                             break
                         }
                     }
@@ -199,7 +199,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        return enableToolbar;
+        return enableToolbar
     }
 
     /**
@@ -284,7 +284,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     private func privateShouldResignOnTouchOutside() -> Bool {
         
-        var shouldResign = shouldResignOnTouchOutside;
+        var shouldResign = shouldResignOnTouchOutside
         
         if let textFieldViewController = _textFieldView?.viewController() {
             
@@ -296,7 +296,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let enabledClass = NSClassFromString(enabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(enabledClass) {
-                            shouldResign = true;
+                            shouldResign = true
                             break
                         }
                     }
@@ -311,7 +311,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if let disabledClass = NSClassFromString(diabledClassString) {
                         
                         if textFieldViewController.isKindOfClass(disabledClass) {
-                            shouldResign = false;
+                            shouldResign = false
                             break
                         }
                     }
@@ -319,7 +319,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
         
-        return shouldResign;
+        return shouldResign
     }
     
     /**
@@ -862,7 +862,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         if let unwrappedController = controller {
             
-            var newFrame = frame;
+            var newFrame = frame
             //frame size needs to be adjusted on iOS8 due to orientation structure changes.
             newFrame.size = unwrappedController.view.frame.size
             
@@ -1266,7 +1266,26 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         _IQShowLog("****** \(#function) ended ******")
     }
+
+    ///-------------------------------
+    /// MARK: Public Methods
+    ///-------------------------------
     
+    /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
+    public func reloadLayoutIfNeeded() -> Void {
+
+        if privateIsEnabled() == false {
+            return
+        }
+
+        if _textFieldView != nil &&
+        _keyboardManagerFlags.isKeyboardShowing == true &&
+        CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
+        _textFieldView?.isAlertViewTextField() == false {
+            adjustFrame()
+        }
+    }
+
     ///-------------------------------
     /// MARK: UIKeyboard Notifications
     ///-------------------------------

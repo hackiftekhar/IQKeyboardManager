@@ -911,6 +911,22 @@ void _IQShowLog(NSString *logString);
     _IQShowLog([NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]);
 }
 
+#pragma mark - Public Methods
+
+/*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
+- (void)reloadLayoutIfNeeded
+{
+    if ([self privateIsEnabled] == NO)	return;
+    
+    if (_textFieldView != nil &&
+        _isKeyboardShowing == YES &&
+        CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
+        [_textFieldView isAlertViewTextField] == NO)
+    {
+        [self adjustFrame];
+    }
+}
+
 #pragma mark - UIKeyboad Notification methods
 /*  UIKeyboardWillShowNotification. */
 -(void)keyboardWillShow:(NSNotification*)aNotification
