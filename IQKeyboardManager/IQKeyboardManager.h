@@ -78,6 +78,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL preventShowingBottomBlankSpace;
 
+/**
+ Refreshes textField/textView position if any external changes is explicitly made by user.
+ */
+- (void)reloadLayoutIfNeeded;
+
 ///-------------------------
 /// @name IQToolbar handling
 ///-------------------------
