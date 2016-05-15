@@ -30,6 +30,7 @@
 #import "IQKeyboardManager.h"
 #import <UIKit/UIImage.h>
 #import <UIKit/UILabel.h>
+#import <UIKit/UIAccessibility.h>
 #import <objc/runtime.h>
 
 /*UIKeyboardToolbar Category implementation*/
@@ -156,6 +157,7 @@
     
     //Right button
     IQBarButtonItem *doneButton = [[IQBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:target action:action];
+    doneButton.accessibilityLabel = @"Toolbar Done Button";
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -432,6 +434,7 @@
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
+    prev.accessibilityLabel = @"Toolbar Previous Button";
     [items addObject:prev];
 
     //Fixed space
@@ -441,6 +444,7 @@
     
     //Next button
     IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
+    next.accessibilityLabel = @"Toolbar Next Button";
     [items addObject:next];
 
     //Flexible space
@@ -521,6 +525,7 @@
 
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
+    prev.accessibilityLabel = @"Toolbar Previous Button";
     [items addObject:prev];
     
     //Fixed space
@@ -530,6 +535,7 @@
     
     //Next button
     IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
+    next.accessibilityLabel = @"Toolbar Next Button";
     [items addObject:next];
     
     //Flexible space
@@ -544,6 +550,7 @@
     
     //Right button
     IQBarButtonItem *doneButton = [[IQBarButtonItem alloc] initWithImage:rightButtonImage style:UIBarButtonItemStyleDone target:target action:rightButtonAction];
+    doneButton.accessibilityLabel = @"Toolbar Done Button";
     [items addObject:doneButton];
     
     //  Adding button to toolBar.
@@ -605,6 +612,7 @@
     
     //Previous button
     IQBarButtonItem *prev = [[IQBarButtonItem alloc] initWithImage:imageLeftArrow style:UIBarButtonItemStylePlain target:target action:previousAction];
+    prev.accessibilityLabel = @"Toolbar Previous Button";
     [items addObject:prev];
     
     //Fixed space
@@ -614,6 +622,7 @@
     
     //Next button
     IQBarButtonItem *next = [[IQBarButtonItem alloc] initWithImage:imageRightArrow style:UIBarButtonItemStylePlain target:target action:nextAction];
+    next.accessibilityLabel = @"Toolbar Next Button";
     [items addObject:next];
     
     //Flexible space
