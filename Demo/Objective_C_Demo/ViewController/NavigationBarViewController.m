@@ -11,11 +11,19 @@
 @implementation NavigationBarViewController
 {
     __weak IBOutlet UITextField *textField2;
+    IBOutlet UIScrollView *scrollView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    scrollView.contentSize = self.view.bounds.size;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
