@@ -1112,7 +1112,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Updating contentInset
             if let lastScrollViewRect = lastScrollView.superview?.convertRect(lastScrollView.frame, toView: window) {
                 
-                let bottom : CGFloat = kbSize.height-(CGRectGetHeight(window.frame)-CGRectGetMaxY(lastScrollViewRect))
+                let bottom : CGFloat = kbSize.height-keyboardDistanceFromTextField-(CGRectGetHeight(window.frame)-CGRectGetMaxY(lastScrollViewRect))
                 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 var movedInsets = lastScrollView.contentInset
@@ -1126,18 +1126,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.contentInset = movedInsets
 
                     var newInset = lastScrollView.scrollIndicatorInsets
-                    newInset.bottom = movedInsets.bottom - 10
+                    newInset.bottom = movedInsets.bottom
                     lastScrollView.scrollIndicatorInsets = newInset
 
                     }) { (animated:Bool) -> Void in }
 
-                //Maintaining contentSize
-                if lastScrollView.contentSize.height < lastScrollView.frame.size.height {
-                    var contentSize = lastScrollView.contentSize
-                    contentSize.height = lastScrollView.frame.size.height
-                    lastScrollView.contentSize = contentSize
-                }
-                
                 _IQShowLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
             }
         }

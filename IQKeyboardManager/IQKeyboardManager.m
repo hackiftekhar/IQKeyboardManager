@@ -730,7 +730,7 @@ void _IQShowLog(NSString *logString);
             {
                 CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
 
-                CGFloat bottom = kbSize.height-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottom = kbSize.height-keyboardDistanceFromTextField-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 UIEdgeInsets movedInsets = _lastScrollView.contentInset;
@@ -748,19 +748,11 @@ void _IQShowLog(NSString *logString);
                     strongSelf.lastScrollView.contentInset = movedInsets;
                     
                     UIEdgeInsets newInset = strongSelf.lastScrollView.scrollIndicatorInsets;
-                    newInset.bottom = movedInsets.bottom - 10;
+                    newInset.bottom = movedInsets.bottom;
                     strongSelf.lastScrollView.scrollIndicatorInsets = newInset;
 
                 } completion:NULL];
 
-                //Maintaining contentSize
-                if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
-                {
-                    CGSize contentSize = _lastScrollView.contentSize;
-                    contentSize.height = _lastScrollView.frame.size.height;
-                    _lastScrollView.contentSize = contentSize;
-                }
-                
                 _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
             }
         }
