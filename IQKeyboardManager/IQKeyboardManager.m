@@ -585,8 +585,23 @@ void _IQShowLog(NSString *logString);
 	
     _IQShowLog([NSString stringWithFormat:@"Need to move: %.2f",move]);
 
-    //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-    UIScrollView *superScrollView = (UIScrollView*)[_textFieldView superviewOfClassType:[UIScrollView class]];
+    UIScrollView *superScrollView = nil;
+    UIScrollView *superView = (UIScrollView*)[_textFieldView superviewOfClassType:[UIScrollView class]];
+
+    //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
+    while (superView)
+    {
+        if (superView.isScrollEnabled)
+        {
+            superScrollView = superView;
+            break;
+        }
+        else
+        {
+            //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
+            superView = (UIScrollView*)[superView superviewOfClassType:[UIScrollView class]];
+        }
+    }
     
     //If there was a lastScrollView.    //  (Bug ID: #34)
     if (_lastScrollView)
