@@ -105,6 +105,8 @@ void _IQShowLog(NSString *logString);
 
 /*******************************************/
 
+@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *registeredClasses;
+
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledDistanceHandlingClasses;
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledDistanceHandlingClasses;
 
@@ -193,13 +195,17 @@ void _IQShowLog(NSString *logString);
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 
+            strongSelf.registeredClasses = [[NSMutableSet alloc] init];
+
 			//  Registering for UITextField notification.
-            [self addTextFieldViewDidBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
-                                    didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+            [self registerTextFieldViewClass:[UITextField class]
+             didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+               didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
 
             //  Registering for UITextView notification.
-            [self addTextFieldViewDidBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
-                                    didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+            [self registerTextFieldViewClass:[UITextView class]
+             didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+               didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
 
             //  Registering for orientation changes notification
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
@@ -1862,9 +1868,12 @@ void _IQShowLog(NSString *logString);
 /**
  Add customised Notification for third party customised TextField/TextView.
  */
--(void)addTextFieldViewDidBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
-                         didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
+-(void)registerTextFieldViewClass:(nonnull Class)aClass
+  didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+    didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
 {
+    [_registeredClasses addObject:aClass];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:didBeginEditingNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:didEndEditingNotificationName object:nil];
 }
