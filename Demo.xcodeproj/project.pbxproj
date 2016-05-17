@@ -761,6 +761,7 @@
 					};
 					C0ACB0F419CF104B0057B571 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 7UUTF6T5P9;
 					};
 					C0B63B9A1781FAB1008D3B64 = {
 						DevelopmentTeam = 7UUTF6T5P9;
