@@ -36,11 +36,29 @@
 @property(nullable, nonatomic, strong) UIFont *font;
 
 /**
+ selectableTextColor to be used for displaying button text when button is enabled.
+ */
+@property(nullable, nonatomic, strong) UIColor *selectableTextColor;
+
+/**
  Initialize with frame and title.
  
  @param title Title of barButtonItem.
  */
 -(nonnull instancetype)initWithTitle:(nullable NSString *)title NS_DESIGNATED_INITIALIZER;
+
+/**
+ Optional target & action to behave toolbar title button as clickable button
+ 
+ @param target Target object.
+ @param action Target Selector.
+ */
+-(void)setTitleTarget:(nullable id)target action:(nullable SEL)action;
+
+/**
+ Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
+ */
+@property (nullable, strong, nonatomic) NSInvocation *titleInvocation;
 
 /**
  Unavailable. Please use initWithFrame:title: method

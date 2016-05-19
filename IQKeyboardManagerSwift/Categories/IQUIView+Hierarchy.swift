@@ -272,7 +272,7 @@ public extension UIView {
     */
     public func convertTransformToView(toView:UIView?)->CGAffineTransform {
         
-        var newView = toView;
+        var newView = toView
         
         if newView == nil {
             newView = window

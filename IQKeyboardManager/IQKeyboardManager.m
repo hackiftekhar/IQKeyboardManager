@@ -1619,15 +1619,9 @@ void _IQShowLog(NSString *logString);
             //If need to show placeholder
             if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
             {
-                //Updating placeholder     //(Bug ID: #148)
-                if ([textField respondsToSelector:@selector(placeholder)])
-                {
-                    if (toolbar.title == nil || [toolbar.title isEqualToString:textField.placeholder] == NO)
-                        [toolbar setTitle:textField.placeholder];
-                }
-                //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)
-                else
-                    [toolbar setTitle:nil];
+                //Updating placeholder     //(Bug ID: #148, #272)
+                if (toolbar.title == nil || [toolbar.title isEqualToString:textField.drawingPlaceholderText] == NO)
+                    [toolbar setTitle:textField.drawingPlaceholderText];
                 
                 //Setting toolbar title font.   //  (Enhancement ID: #30)
                 if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
@@ -1708,15 +1702,9 @@ void _IQShowLog(NSString *logString);
                 //If need to show placeholder
                 if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
                 {
-                    //Updating placeholder     //(Bug ID: #148)
-                    if ([textField respondsToSelector:@selector(placeholder)])
-                    {
-                        if (toolbar.title == nil || [toolbar.title isEqualToString:textField.placeholder] == NO)
-                            [toolbar setTitle:textField.placeholder];
-                    }
-                    //If doesn't recognised 'placeholder' method, then setting it's title to nil    //(Bug ID: #272)
-                    else
-                        [toolbar setTitle:nil];
+                    //Updating placeholder     //(Bug ID: #148, #272)
+                    if (toolbar.title == nil || [toolbar.title isEqualToString:textField.drawingPlaceholderText] == NO)
+                            [toolbar setTitle:textField.drawingPlaceholderText];
                     
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])

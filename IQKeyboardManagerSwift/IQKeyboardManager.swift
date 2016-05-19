@@ -481,9 +481,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goPrevious()
                 
-                if isAcceptAsFirstResponder && textFieldRetain.previousInvocation.target != nil && textFieldRetain.previousInvocation.selector != nil {
+                if isAcceptAsFirstResponder && textFieldRetain.previousInvocation.target != nil && textFieldRetain.previousInvocation.action != nil {
                     
-                    UIApplication.sharedApplication().sendAction(textFieldRetain.previousInvocation.selector!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, forEvent: UIEvent())
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.previousInvocation.action!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, forEvent: UIEvent())
                 }
             }
         }
@@ -503,9 +503,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goNext()
                 
-                if isAcceptAsFirstResponder && textFieldRetain.nextInvocation.target != nil && textFieldRetain.nextInvocation.selector != nil {
+                if isAcceptAsFirstResponder && textFieldRetain.nextInvocation.target != nil && textFieldRetain.nextInvocation.action != nil {
                     
-                    UIApplication.sharedApplication().sendAction(textFieldRetain.nextInvocation.selector!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, forEvent: UIEvent())
+                    UIApplication.sharedApplication().sendAction(textFieldRetain.nextInvocation.action!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, forEvent: UIEvent())
                 }
             }
         }
@@ -524,9 +524,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Resign textFieldView.
             let isResignedFirstResponder = resignFirstResponder()
             
-            if isResignedFirstResponder && textFieldRetain.doneInvocation.target != nil  && textFieldRetain.doneInvocation.selector != nil{
+            if isResignedFirstResponder && textFieldRetain.doneInvocation.target != nil  && textFieldRetain.doneInvocation.action != nil{
                 
-                UIApplication.sharedApplication().sendAction(textFieldRetain.doneInvocation.selector!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, forEvent: UIEvent())
+                UIApplication.sharedApplication().sendAction(textFieldRetain.doneInvocation.action!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, forEvent: UIEvent())
             }
         }
     }
@@ -1860,20 +1860,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
                     if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                         
-                        //Updating placeholder font to toolbar.     //(Bug ID: #148)
-                        if let _textField = textField as? UITextField {
-                            
-                            if toolbar.title == nil || toolbar.title != _textField.placeholder {
-                                toolbar.title = _textField.placeholder
-                            }
-
-                        } else if let _textView = textField as? IQTextView {
-                            
-                            if toolbar.title == nil || toolbar.title != _textView.placeholder {
-                                toolbar.title = _textView.placeholder
-                            }
-                        } else {
-                            toolbar.title = nil
+                        //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
+                        if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
+                            toolbar.title = textField.drawingPlaceholderText
                         }
 
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
@@ -1957,20 +1946,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
                         if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                             
-                            //Updating placeholder font to toolbar.     //(Bug ID: #148)
-                            if let _textField = textField as? UITextField {
-                                
-                                if toolbar.title == nil || toolbar.title != _textField.placeholder {
-                                    toolbar.title = _textField.placeholder
-                                }
-                                
-                            } else if let _textView = textField as? IQTextView {
-                                
-                                if toolbar.title == nil || toolbar.title != _textView.placeholder {
-                                    toolbar.title = _textView.placeholder
-                                }
-                            } else {
-                                toolbar.title = nil
+                            //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
+                            if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
+                                toolbar.title = textField.drawingPlaceholderText
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)

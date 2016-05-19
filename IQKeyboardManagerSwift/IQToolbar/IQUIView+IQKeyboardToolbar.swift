@@ -26,6 +26,11 @@ import Foundation
 import UIKit
 
 private var kIQShouldHideTitle      = "kIQShouldHideTitle"
+private var kIQPlaceholderText      = "kIQPlaceholderText"
+
+
+private var kIQTitleInvocationTarget     = "kIQTitleInvocationTarget"
+private var kIQTitleInvocationSelector   = "kIQTitleInvocationSelector"
 
 private var kIQPreviousInvocationTarget     = "kIQPreviousInvocationTarget"
 private var kIQPreviousInvocationSelector   = "kIQPreviousInvocationSelector"
@@ -44,7 +49,7 @@ public extension UIView {
     ///-------------------------
     
     /**
-    If shouldHideTitle is YES, then title will not be added to the toolbar. Default to NO.
+    If `shouldHideTitle` is YES, then title will not be added to the toolbar. Default to NO.
     */
     public var shouldHideTitle: Bool? {
         get {
@@ -62,8 +67,75 @@ public extension UIView {
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.respondsToSelector(Selector("placeholder")) {
                     let textField = self as AnyObject
-                    toolbar.title = textField.placeholder
+                    toolbar.title = textField.drawingPlaceholderText
                 }
+            }
+        }
+    }
+
+    /**
+     `placeholderText` to override default `placeholder` text when drawing text on toolbar.
+     */
+    public var placeholderText: String? {
+        get {
+            let aValue = objc_getAssociatedObject(self, &kIQPlaceholderText) as? String
+            
+            return aValue
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQPlaceholderText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /**
+     `drawingPlaceholderText` will be actual text used to draw on toolbar. This would either `placeholder` or `placeholderText`.
+     */
+    public var drawingPlaceholderText: String? {
+        get {
+            if (self.placeholderText?.isEmpty == false) {
+                return self.placeholderText
+            }
+            else if self.respondsToSelector(Selector("placeholder")) {
+                let textField = self as AnyObject
+                return textField.placeholder
+            }
+            else {
+                return nil
+            }
+        }
+    }
+
+    /**
+     Optional target & action to behave toolbar title button as clickable button
+     
+     @param target Target object.
+     @param action Target Selector.
+     */
+    public func setCustomTitleTarget(target: AnyObject?, action: Selector?) {
+        titleInvocation = (target, action)
+    }
+    
+    /**
+     Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
+     */
+    public var titleInvocation : (target: AnyObject?, action: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQTitleInvocationTarget)
+            var action : Selector?
+            
+            if let selectorString = objc_getAssociatedObject(self, &kIQTitleInvocationSelector) as? String {
+                action = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, action: action)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQTitleInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if let unwrappedSelector = newValue.action {
+                objc_setAssociatedObject(self, &kIQTitleInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            } else {
+                objc_setAssociatedObject(self, &kIQTitleInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
     }
@@ -78,8 +150,8 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomPreviousTarget(target: AnyObject?, selector: Selector?) {
-        previousInvocation = (target, selector)
+    public func setCustomPreviousTarget(target: AnyObject?, action: Selector?) {
+        previousInvocation = (target, action)
     }
     
     /**
@@ -88,8 +160,8 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomNextTarget(target: AnyObject?, selector: Selector?) {
-        nextInvocation = (target, selector)
+    public func setCustomNextTarget(target: AnyObject?, action: Selector?) {
+        nextInvocation = (target, action)
     }
     
     /**
@@ -98,28 +170,28 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomDoneTarget(target: AnyObject?, selector: Selector?) {
-        doneInvocation = (target, selector)
+    public func setCustomDoneTarget(target: AnyObject?, action: Selector?) {
+        doneInvocation = (target, action)
     }
     
     /**
-    Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget: method.
+    Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget:action: method.
     */
-    public var previousInvocation : (target: AnyObject?, selector: Selector?) {
+    public var previousInvocation : (target: AnyObject?, action: Selector?) {
         get {
             let target: AnyObject? = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget)
-            var selector : Selector?
+            var action : Selector?
 
             if let selectorString = objc_getAssociatedObject(self, &kIQPreviousInvocationSelector) as? String {
-                selector = NSSelectorFromString(selectorString)
+                action = NSSelectorFromString(selectorString)
             }
             
-            return (target: target, selector: selector)
+            return (target: target, action: action)
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQPreviousInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if let unwrappedSelector = newValue.selector {
+            if let unwrappedSelector = newValue.action {
                 objc_setAssociatedObject(self, &kIQPreviousInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             } else {
                 objc_setAssociatedObject(self, &kIQPreviousInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -128,23 +200,23 @@ public extension UIView {
     }
 
     /**
-    Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget: method.
+    Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget:action: method.
     */
-    public var nextInvocation : (target: AnyObject?, selector: Selector?) {
+    public var nextInvocation : (target: AnyObject?, action: Selector?) {
         get {
             let target: AnyObject? = objc_getAssociatedObject(self, &kIQNextInvocationTarget)
-            var selector : Selector?
+            var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQNextInvocationSelector) as? String {
-                selector = NSSelectorFromString(selectorString)
+                action = NSSelectorFromString(selectorString)
             }
             
-            return (target: target, selector: selector)
+            return (target: target, action: action)
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQNextInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if let unwrappedSelector = newValue.selector {
+            if let unwrappedSelector = newValue.action {
                 objc_setAssociatedObject(self, &kIQNextInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             } else {
                 objc_setAssociatedObject(self, &kIQNextInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -153,23 +225,23 @@ public extension UIView {
     }
     
     /**
-    Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget: method.
+    Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget:action: method.
     */
-    public var doneInvocation : (target: AnyObject?, selector: Selector?) {
+    public var doneInvocation : (target: AnyObject?, action: Selector?) {
         get {
             let target: AnyObject? = objc_getAssociatedObject(self, &kIQDoneInvocationTarget)
-            var selector : Selector?
+            var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQDoneInvocationSelector) as? String {
-                selector = NSSelectorFromString(selectorString)
+                action = NSSelectorFromString(selectorString)
             }
             
-            return (target: target, selector: selector)
+            return (target: target, action: action)
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQDoneInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if let unwrappedSelector = newValue.selector {
+            if let unwrappedSelector = newValue.action {
                 objc_setAssociatedObject(self, &kIQDoneInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             } else {
                 objc_setAssociatedObject(self, &kIQDoneInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -235,6 +307,7 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
+            toolbar.toolbarTitleInvocation = self.titleInvocation
             
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
@@ -271,10 +344,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addDoneOnKeyboardWithTarget(target, action: action, titleText: title)
@@ -317,7 +387,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -354,10 +425,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addRightButtonOnKeyboardWithImage(image, target: target, action: action, titleText: title)
@@ -406,7 +474,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -443,10 +512,7 @@ public extension UIView {
         var title : String?
 
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: title)
@@ -506,7 +572,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -543,10 +610,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addCancelDoneOnKeyboardWithTarget(target, cancelAction: cancelAction, doneAction: doneAction, titleText: title)
@@ -610,7 +674,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -649,10 +714,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addRightLeftOnKeyboardWithTarget(target, leftButtonTitle: leftButtonTitle, rightButtonTitle: rightButtonTitle, rightButtonAction: rightButtonAction, leftButtonAction: leftButtonAction, titleText: title)
@@ -748,7 +810,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -786,10 +849,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addPreviousNextDoneOnKeyboardWithTarget(target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, titleText: title)
@@ -873,7 +933,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -912,10 +973,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addPreviousNextRightOnKeyboardWithTarget(target, rightButtonImage: rightButtonImage, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)
@@ -1009,7 +1067,8 @@ public extension UIView {
             
             //  Adding button to toolBar.
             toolbar.items = items
-            
+            toolbar.toolbarTitleInvocation = self.titleInvocation
+
             //  Setting toolbar to keyboard.
             if let textField = self as? UITextField {
                 textField.inputAccessoryView = toolbar
@@ -1048,10 +1107,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                title = textField.placeholder
-            }
+            title = self.drawingPlaceholderText
         }
         
         addPreviousNextRightOnKeyboardWithTarget(target, rightButtonTitle: rightButtonTitle, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)

@@ -24,6 +24,9 @@
 
 import UIKit
 
+private var kIQToolbarTitleInvocationTarget     = "kIQToolbarTitleInvocationTarget"
+private var kIQToolbarTitleInvocationSelector   = "kIQToolbarTitleInvocationSelector"
+
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
@@ -57,6 +60,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                     
                     if let newItem = item as? IQTitleBarButtonItem {
                         newItem.font = titleFont
+                        break
                     }
                 }
             }
@@ -72,6 +76,52 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                     
                     if let newItem = item as? IQTitleBarButtonItem {
                         newItem.font = titleFont
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     Optional target & action to behave toolbar title button as clickable button
+     
+     @param target Target object.
+     @param action Target Selector.
+     */
+    public func setCustomToolbarTitleTarget(target: AnyObject?, action: Selector?) {
+        toolbarTitleInvocation = (target, action)
+    }
+    
+    /**
+     Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
+     */
+    public var toolbarTitleInvocation : (target: AnyObject?, action: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationTarget)
+            var action : Selector?
+            
+            if let selectorString = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationSelector) as? String {
+                action = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, action: action)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQToolbarTitleInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if let unwrappedSelector = newValue.action {
+                objc_setAssociatedObject(self, &kIQToolbarTitleInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            } else {
+                objc_setAssociatedObject(self, &kIQToolbarTitleInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+            
+            if let unwrappedItems = items {
+                for item in unwrappedItems {
+                    
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        newItem.titleInvocation = newValue
+                        break
                     }
                 }
             }
@@ -107,9 +157,27 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         didSet {
             if let unwrappedItems = items {
                 for item in unwrappedItems {
+                    item.tintColor = tintColor
+                }
+            }
+        }
+    }
+    
+    override public var barStyle: UIBarStyle {
+        didSet {
+            
+            if let unwrappedItems = items {
+                for item in unwrappedItems {
                     
                     if let newItem = item as? IQTitleBarButtonItem {
-                        newItem.tintColor = tintColor
+
+                        if barStyle == .Default {
+                            newItem.selectableTextColor = UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1)
+                        } else {
+                            newItem.selectableTextColor = UIColor.yellowColor()
+                        }
+                        
+                        break
                     }
                 }
             }

@@ -50,9 +50,20 @@
 {
     [self.view endEditing:YES];
 
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    alertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-    [alertView show];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Username";
+    }];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Password";
+        textField.secureTextEntry = YES;
+    }];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -126,8 +137,11 @@
         if (textField.isAskingCanBecomeFirstResponder == NO)
         {
 ////            //Do your work on tapping textField.
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
         }
 
         return NO;
