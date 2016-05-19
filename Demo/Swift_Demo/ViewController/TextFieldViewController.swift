@@ -11,6 +11,8 @@ import UIKit
 
 class TextFieldViewController: UIViewController {
     
+    @IBOutlet private var textField3 : UITextField!
+
     private var returnKeyHandler : IQKeyboardReturnKeyHandler!
     @IBOutlet private var dropDownTextField : IQDropDownTextField!
 
@@ -44,9 +46,12 @@ class TextFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dropDownTextField.setCustomPreviousTarget(self, selector: #selector(self.previousAction(_:)))
-        dropDownTextField.setCustomNextTarget(self, selector: #selector(self.nextAction(_:)))
-        dropDownTextField.setCustomDoneTarget(self, selector: #selector(self.doneAction(_:)))
+        textField3.setCustomTitleTarget(self, action: #selector(self.titleAction(_:)))
+        textField3.placeholderText = "Saved Passwords"
+
+        dropDownTextField.setCustomPreviousTarget(self, action: #selector(self.previousAction(_:)))
+        dropDownTextField.setCustomNextTarget(self, action: #selector(self.nextAction(_:)))
+        dropDownTextField.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
         
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
@@ -101,6 +106,24 @@ class TextFieldViewController: UIViewController {
             barButtonDisable.title = "Enable"
         }
     }
+    
+    func titleAction(sender : UIButton) {
+
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+
+        alertController.addAction(UIAlertAction(title: "test@example.com", style: .Default, handler: { (action : UIAlertAction) in
+            self.textField3.text = "test";
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .Default, handler: { (action : UIAlertAction) in
+            self.textField3.text = "demo";
+        }))
+
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+
     
     @IBAction func presentClicked (sender: AnyObject!) {
         

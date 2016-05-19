@@ -5,7 +5,7 @@
 #import "ViewController.h"
 #import "IQKeyboardManager.h"
 
-@interface ViewController ()<UIActionSheetDelegate>
+@interface ViewController ()
 
 @end
 

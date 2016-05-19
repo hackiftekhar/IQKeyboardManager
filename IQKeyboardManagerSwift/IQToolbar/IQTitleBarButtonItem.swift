@@ -24,20 +24,85 @@
 
 import UIKit
 
+private var kIQBarTitleInvocationTarget     = "kIQBarTitleInvocationTarget"
+private var kIQBarTitleInvocationSelector   = "kIQBarTitleInvocationSelector"
+
 public class IQTitleBarButtonItem: IQBarButtonItem {
    
     public var font : UIFont? {
     
         didSet {
             if let unwrappedFont = font {
-                _titleLabel?.font = unwrappedFont
+                _titleButton?.titleLabel?.font = unwrappedFont
             } else {
-                _titleLabel?.font = UIFont.systemFontOfSize(13)
+                _titleButton?.titleLabel?.font = UIFont.systemFontOfSize(13)
             }
         }
     }
+
+    /**
+     selectableTextColor to be used for displaying button text when button is enabled.
+     */
+    public var selectableTextColor : UIColor? {
+        
+        didSet {
+            if let color = selectableTextColor {
+                _titleButton?.setTitleColor(color, forState:.Normal)
+            } else {
+                _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), forState:.Normal)
+            }
+        }
+    }
+
+    /**
+     Optional target & action to behave toolbar title button as clickable button
+     
+     @param target Target object.
+     @param action Target Selector.
+     */
+    public func setCustomTitleTarget(target: AnyObject?, action: Selector?) {
+        titleInvocation = (target, action)
+    }
     
-    private var _titleLabel : UILabel?
+    /**
+     Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
+     */
+    public var titleInvocation : (target: AnyObject?, action: Selector?) {
+        get {
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQBarTitleInvocationTarget)
+            var action : Selector?
+            
+            if let selectorString = objc_getAssociatedObject(self, &kIQBarTitleInvocationSelector) as? String {
+                action = NSSelectorFromString(selectorString)
+            }
+            
+            return (target: target, action: action)
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQBarTitleInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if let unwrappedSelector = newValue.action {
+                objc_setAssociatedObject(self, &kIQBarTitleInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            } else {
+                objc_setAssociatedObject(self, &kIQBarTitleInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+            
+            if (newValue.target == nil || newValue.action == nil)
+            {
+                self.enabled = false
+                _titleButton?.enabled = false
+                _titleButton?.removeTarget(nil, action: nil, forControlEvents: .TouchUpInside)
+            }
+            else
+            {
+                self.enabled = true
+                _titleButton?.enabled = true
+                _titleButton?.addTarget(newValue.target, action: newValue.action!, forControlEvents: .TouchUpInside)
+            }
+        }
+    }
+
+    private var _titleButton : UIButton?
     private var _titleView : UIView?
 
     override init() {
@@ -52,18 +117,19 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
         _titleView?.backgroundColor = UIColor.clearColor()
         _titleView?.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         
-        _titleLabel = UILabel()
-        _titleLabel?.numberOfLines = 0
-        _titleLabel?.textColor = UIColor.grayColor()
-        _titleLabel?.backgroundColor = UIColor.clearColor()
-        _titleLabel?.textAlignment = .Center
-        _titleLabel?.text = title
-        _titleLabel?.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
+        _titleButton = UIButton(type: .System)
+        _titleButton?.enabled = false
+        _titleButton?.titleLabel?.numberOfLines = 0
+        _titleButton?.setTitleColor(UIColor.lightGrayColor(), forState:.Disabled)
+        _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), forState:.Normal)
+        _titleButton?.backgroundColor = UIColor.clearColor()
+        _titleButton?.titleLabel?.textAlignment = .Center
+        _titleButton?.setTitle(title, forState: .Normal)
+        _titleButton?.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
         font = UIFont.systemFontOfSize(13.0)
-        _titleLabel?.font = self.font
-        _titleView?.addSubview(_titleLabel!)
+        _titleButton?.titleLabel?.font = self.font
+        _titleView?.addSubview(_titleButton!)
         customView = _titleView
-        enabled = false
     }
 
     required public init?(coder aDecoder: NSCoder) {

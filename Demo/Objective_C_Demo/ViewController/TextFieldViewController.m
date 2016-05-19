@@ -16,6 +16,7 @@
 
 @implementation TextFieldViewController
 {
+    IBOutlet UITextField *textField3;
     IQKeyboardReturnKeyHandler *returnKeyHandler;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
@@ -55,6 +56,9 @@
 {
     [super viewDidLoad];
     
+    [textField3 setTitleTarget:self action:@selector(titleAction:)];
+    textField3.placeholderText = @"Saved Passwords";
+    
     [dropDownTextField setCustomPreviousTarget:self action:@selector(previousAction:)];
     [dropDownTextField setCustomNextTarget:self action:@selector(nextAction:)];
     [dropDownTextField setCustomDoneTarget:self action:@selector(doneAction:)];
@@ -79,6 +83,23 @@
                                      @"Adopt tintColor from textField",
                                      @"Customize keyboardAppearance",
                                      @"play sound on next/prev/done"]];
+}
+
+-(void)titleAction:(UIButton*)button
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"test@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        textField3.text = @"test";
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"demo@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        textField3.text = @"demo";
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated

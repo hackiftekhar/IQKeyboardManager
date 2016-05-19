@@ -39,9 +39,19 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     }
     
     @IBAction func showAlertClicked (barButton : UIBarButtonItem!) {
-        let alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "It doesn't affect UIAlertView (Doesn't add IQToolbar on it's textField", delegate: nil, cancelButtonTitle: "OK")
-        alertView.alertViewStyle = UIAlertViewStyle.LoginAndPasswordInput
-        alertView.show()
+        let alertController = UIAlertController(title: "IQKeyboardManager", message: "It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField", preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        
+        alertController.addTextFieldWithConfigurationHandler({ (textField : UITextField) in
+            textField.placeholder = "Username"
+        })
+        
+        alertController.addTextFieldWithConfigurationHandler({ (textField : UITextField) in
+            textField.placeholder = "Password"
+            textField.secureTextEntry = true
+        })
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -96,8 +106,10 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         
         if (textField == customWorkTextField) {
             if(textField.isAskingCanBecomeFirstResponder == false) {
-                let alertView : UIAlertView = UIAlertView(title: "IQKeyboardManager", message: "Do your custom work here", delegate: nil, cancelButtonTitle: "OK")
-                alertView.show()
+                let alertController = UIAlertController(title: "IQKeyboardManager", message: "Do your custom work here", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
             
             return false
