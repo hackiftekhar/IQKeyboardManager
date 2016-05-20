@@ -97,7 +97,7 @@ it simply add the following line to your Podfile: ([#236](https://github.com/hac
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '4.0.2'`
+`pod 'IQKeyboardManagerSwift', '4.0.3'`
 
 *Swift 2.1.1 (Xcode 7.2)* `pod 'IQKeyboardManagerSwift', '4.0.0'`
 
@@ -208,7 +208,7 @@ Manual Management:-
 
 #### UINavigationBar:-
 
-  If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard or xib.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
+  If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard  or xib. Make sure that scrollView is able to get it's contentSize from constraints.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/UINavigationBarExample.jpg)
 
@@ -219,6 +219,7 @@ Manual Management:-
     -(void)loadView
     {
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        scrollView.contentSize = CGSizeMake(CONTENT_WIDTH, CONTENT_HEIGHT); //You may not need this code if you are working with Autolayout and scrollView is able to get it's contentSize from constraints.
         self.view = scrollView;
     }
 ```
