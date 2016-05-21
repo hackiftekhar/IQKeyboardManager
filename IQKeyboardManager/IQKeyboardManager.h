@@ -253,6 +253,12 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
     didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName;
 
 ///----------------------------------------
+/// @name Debugging.
+///----------------------------------------
+
+@property(nonatomic, assign) BOOL enableDebugging;
+
+///----------------------------------------
 /// @name Must not be used for subclassing.
 ///----------------------------------------
 
