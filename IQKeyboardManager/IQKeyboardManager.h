@@ -132,15 +132,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 - (void)reloadInputViews;
 
-///--------------------------
-/// @name UITextView handling
-///--------------------------
-
-/**
- Adjust textView's frame when it is too big in height. Default is NO.
- */
-@property(nonatomic, assign) BOOL canAdjustTextView;
-
 ///---------------------------------------
 /// @name UIKeyboard appearance overriding
 ///---------------------------------------
@@ -194,20 +185,13 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 ///------------------------------------------------
 
 /**
- If YES, then it plays inputClick sound on next/previous/done click.
+ If YES, then it plays inputClick sound on next/previous/done click. Default is YES.
  */
 @property(nonatomic, assign) BOOL shouldPlayInputClicks;
 
 ///---------------------------
 /// @name UIAnimation handling
 ///---------------------------
-
-/**
- If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
- 
- @warning Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
- */
-@property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation;
 
 /**
  If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
@@ -286,48 +270,21 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 @interface IQKeyboardManager(IQKeyboardManagerDeprecated)
 
-/**
- Disable adjusting view in disabledClass
- 
- @param disabledClass Class in which library should not adjust view to show textField.
- */
--(void)disableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass __attribute__((deprecated("Use disabledDistanceHandlingClasses NSMutableSet, this will be removed in future releases.")));
-
+///--------------------------
+/// @name UITextView handling
+///--------------------------
 
 /**
- Re-enable adjusting textField in disabledClass
- 
- @param disabledClass Class in which library should re-enable adjust view to show textField.
+ Adjust textView's frame when it is too big in height. Default is NO.
  */
--(void)removeDisableDistanceHandlingInViewControllerClass:(nonnull Class)disabledClass __attribute__((deprecated("Use disabledDistanceHandlingClasses NSMutableSet, this will be removed in future releases.")));
+@property(nonatomic, assign) BOOL canAdjustTextView __attribute__((deprecated("Now adjusting UITextView is automatically handled by adjusting contentInset property of UITextView(UIScrollView) internally, so there is no need of this property and will be removed in future releases.")));
 
 /**
- Disable automatic toolbar creation in in toolbarDisabledClass
+ If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
  
- @param toolbarDisabledClass Class in which library should not add toolbar over textField.
+ @warning Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
  */
--(void)disableToolbarInViewControllerClass:(nonnull Class)toolbarDisabledClass __attribute__((deprecated("Use disabledToolbarClasses NSMutableSet, this will be removed in future releases.")));
-
-/**
- Re-enable automatic toolbar creation in in toolbarDisabledClass
- 
- @param toolbarDisabledClass Class in which library should re-enable automatic toolbar creation over textField.
- */
--(void)removeDisableToolbarInViewControllerClass:(nonnull Class)toolbarDisabledClass __attribute__((deprecated("Use disabledToolbarClasses NSMutableSet, this will be removed in future releases.")));
-
-/**
- Consider provided customView class as superView of all inner textField for calculating next/previous button logic.
- 
- @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
- */
--(void)considerToolbarPreviousNextInViewClass:(nonnull Class)toolbarPreviousNextConsideredClass __attribute__((deprecated("Use toolbarPreviousNextAllowedClasses NSMutableSet, this will be removed in future releases.")));
-
-/**
- Remove Consideration for provided customView class as superView of all inner textField for calculating next/previous button logic.
- 
- @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should remove consideration for all inner textField as superView.
- */
--(void)removeConsiderToolbarPreviousNextInViewClass:(nonnull Class)toolbarPreviousNextConsideredClass __attribute__((deprecated("Use toolbarPreviousNextAllowedClasses NSMutableSet, this will be removed in future releases.")));
+@property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation  __attribute__((deprecated("Now there is no animation glitch with default animation style so this property no longer needed and will be removed in future releases.")));
 
 @end
 
