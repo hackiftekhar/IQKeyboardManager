@@ -247,9 +247,22 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /// MARK: UITextView handling
     ///--------------------------
     
+    /** used to adjust contentInset of UITextView. */
+    private var         startingTextViewContentInsets = UIEdgeInsetsZero
+    
+    /** used to adjust scrollIndicatorInsets of UITextView. */
+    private var         startingTextViewScrollIndicatorInsets = UIEdgeInsetsZero
+    
+    /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
+    private var         isTextViewContentInsetChanged = false
+    
+    /*******************************************/
+    
+
     /**
     Adjust textView's frame when it is too big in height. Default is NO.
     */
+    @available(*,deprecated, message="Now adjusting UITextView is automatically handled by adjusting contentInset property of UITextView(UIScrollView) internally, so there is no need of this property and will be removed in future releases.")
     public var canAdjustTextView = false
 
 
@@ -559,7 +572,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     If YES, then it plays inputClick sound on next/previous/done click.
     */
-    public var shouldPlayInputClicks = false
+    public var shouldPlayInputClicks = true
     
     
     ///---------------------------
@@ -571,6 +584,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @warning Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
     */
+    @available(*,deprecated, message="Now there is no animation glitch with default animation style so this property no longer needed and will be removed in future releases")
     public var shouldAdoptDefaultKeyboardAnimation = true
 
     /**
@@ -618,67 +632,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
      */
     public var enabledTouchResignedClasses  = Set<String>()
 
-    /**
-    Disable adjusting view in disabledClass
-    
-    @param disabledClass Class in which library should not adjust view to show textField.
-    */
-    @available(*,deprecated, message="Use disabledDistanceHandlingClasses NSMutableSet, this will be removed in future releases.")
-    public func disableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
-        disabledDistanceHandlingClasses.insert(NSStringFromClass(disabledClass))
-    }
-    
-    /**
-    Re-enable adjusting textField in disabledClass
-    
-    @param disabledClass Class in which library should re-enable adjust view to show textField.
-    */
-    @available(*,deprecated, message="Use disabledDistanceHandlingClasses NSMutableSet, this will be removed in future releases.")
-    public func removeDisableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
-        disabledDistanceHandlingClasses.remove(NSStringFromClass(disabledClass))
-    }
-    
-    /**
-    Disable automatic toolbar creation in in toolbarDisabledClass
-    
-    @param toolbarDisabledClass Class in which library should not add toolbar over textField.
-    */
-    @available(*,deprecated, message="Use disabledToolbarClasses NSMutableSet, this will be removed in future releases.")
-    public func disableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        disabledToolbarClasses.insert(NSStringFromClass(toolbarDisabledClass))
-    }
-    
-    /**
-    Re-enable automatic toolbar creation in in toolbarDisabledClass
-    
-    @param toolbarDisabledClass Class in which library should re-enable automatic toolbar creation over textField.
-     @available(*,deprecated, message="Use disabledDistanceHandlingClasses NSMutableSet, this will be removed in future releases.")
-    */
-    @available(*,deprecated, message="Use disabledToolbarClasses NSMutableSet, this will be removed in future releases.")
-    public func removeDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) {
-        disabledToolbarClasses.remove(NSStringFromClass(toolbarDisabledClass))
-    }
-
-    /**
-    Consider provided customView class as superView of all inner textField for calculating next/previous button logic.
-    
-    @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should consider all inner textField as siblings and add next/previous accordingly.
-    */
-    @available(*,deprecated, message="Use toolbarPreviousNextAllowedClasses NSMutableSet, this will be removed in future releases.")
-    public func considerToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(toolbarPreviousNextConsideredClass))
-    }
-    
-    /**
-    Remove Consideration for provided customView class as superView of all inner textField for calculating next/previous button logic.
-    
-    @param toolbarPreviousNextConsideredClass Custom UIView subclass Class in which library should remove consideration for all inner textField as superView.
-    */
-    @available(*,deprecated, message="Use toolbarPreviousNextAllowedClasses NSMutableSet, this will be removed in future releases.")
-    public func removeConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) {
-        toolbarPreviousNextAllowedClasses.remove(NSStringFromClass(toolbarPreviousNextConsideredClass))
-    }
-
     ///-------------------------------------------
     /// MARK: Third Party Library support
     /// Add TextField/TextView Notifications customised NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
@@ -707,9 +660,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
     /** To save UITextField/UITextView object voa textField/textView notifications. */
     private weak var    _textFieldView: UIView?
-    
-    /** used with canAdjustTextView boolean. */
-    private var         _textFieldViewIntialFrame = CGRectZero
     
     /** To save rootViewController.view.frame. */
     private var         _topViewBeginRect = CGRectZero
@@ -756,14 +706,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /*******************************************/
     
     private struct flags {
-        /** used with canAdjustTextView to detect a textFieldView frame is changes or not. (Bug ID: #92)*/
-        var isTextFieldViewFrameChanged = false
         /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
         var isKeyboardShowing = false
     }
     
     /** Private flags to use within the project */
-    private var _keyboardManagerFlags = flags(isTextFieldViewFrameChanged: false, isKeyboardShowing: false)
+    private var _keyboardManagerFlags = flags(isKeyboardShowing: false)
 
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
@@ -1186,27 +1134,36 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         } else {
             
-            //Special case for UITextView(Readjusting the move variable when textView hight is too big to fit on screen)
-            //_canAdjustTextView    If we have permission to adjust the textView, then let's do it on behalf of user  (Enhancement ID: #15)
+            //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-            //_isTextFieldViewFrameChanged  If frame is not change by library in past  (Bug ID: #92)
-            if canAdjustTextView == true && _lastScrollView == nil && textFieldView is UITextView == true && _keyboardManagerFlags.isTextFieldViewFrameChanged == false {
-                var textViewHeight = CGRectGetHeight(textFieldView.frame)
-                textViewHeight = min(textViewHeight, (CGRectGetHeight(window.frame)-kbSize.height-(topLayoutGuide+5)))
+            if let textView = textFieldView as? UITextView {
+                let textViewHeight = min(CGRectGetHeight(textView.frame), (CGRectGetHeight(window.frame)-kbSize.height-(topLayoutGuide)))
                 
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.BeginFromCurrentState)), animations: { () -> Void in
-                    
-                    self._IQShowLog("\(textFieldView._IQDescription()) Old Frame : \(textFieldView.frame)")
-                    
-                    var textFieldViewRect = textFieldView.frame
-                    textFieldViewRect.size.height = textViewHeight
-                    textFieldView.frame = textFieldViewRect
-                    self._keyboardManagerFlags.isTextFieldViewFrameChanged = true
-                    
-                    self._IQShowLog("\(textFieldView._IQDescription()) New Frame : \(textFieldView.frame)")
-                    
-                    }, completion: { (finished) -> Void in })
+                if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight)
+                {
+                    UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.BeginFromCurrentState)), animations: { () -> Void in
+                        
+                        self._IQShowLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
+                        
+                        //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
+                        if (self.isTextViewContentInsetChanged == false)
+                        {
+                            self.startingTextViewContentInsets = textView.contentInset
+                            self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets
+                        }
+                        
+                        var newContentInset = textView.contentInset
+                        newContentInset.bottom = textView.frame.size.height-textViewHeight
+                        textView.contentInset = newContentInset
+                        textView.scrollIndicatorInsets = newContentInset
+                        self.isTextViewContentInsetChanged = true
+                        
+                        self._IQShowLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
+                        
+                        
+                        }, completion: { (finished) -> Void in })
+                }
             }
 
             //  Special case for iPad modalPresentationStyle.
@@ -1314,15 +1271,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         _IQShowLog("****** \(#function) started ******")
 
-        //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
-        //Added _isTextFieldViewFrameChanged check. Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed. (Bug ID: #92)
-        if _keyboardManagerFlags.isTextFieldViewFrameChanged == false && _textFieldView != nil {
-            if let textFieldView = _textFieldView {
-                _textFieldViewIntialFrame = textFieldView.frame
-                _IQShowLog("Saving \(textFieldView._IQDescription()) Initial frame : \(_textFieldViewIntialFrame)")
-            }
-        }
-
         //  (Bug ID: #5)
         if CGRectEqualToRect(_topViewBeginRect, CGRectZero) == true {
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
@@ -1343,12 +1291,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         if let info = notification?.userInfo {
             
-            if shouldAdoptDefaultKeyboardAnimation {
-
-                //  Getting keyboard animation.
-                if let curve = info[UIKeyboardAnimationCurveUserInfoKey]?.unsignedLongValue {
-                    _animationCurve = UIViewAnimationOptions(rawValue: curve)
-                }
+            //  Getting keyboard animation.
+            if let curve = info[UIKeyboardAnimationCurveUserInfoKey]?.unsignedLongValue {
+                _animationCurve = UIViewAnimationOptions(rawValue: curve)
             } else {
                 _animationCurve = UIViewAnimationOptions.CurveEaseOut
             }
@@ -1360,6 +1305,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 if duration != 0.0 {
                     _animationDuration = duration
                 }
+            } else {
+                _animationDuration = 0.25
             }
             
             //  Getting UIKeyboardSize.
@@ -1581,15 +1528,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
         
-        // Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed.
-        //Added _isTextFieldViewFrameChanged check. (Bug ID: #92)
-        if _keyboardManagerFlags.isTextFieldViewFrameChanged == false {
-            if let textFieldView = _textFieldView {
-                _textFieldViewIntialFrame = textFieldView.frame
-                _IQShowLog("Saving \(textFieldView._IQDescription()) Initial frame : \(_textFieldViewIntialFrame)")
-            }
-        }
-        
         //If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
         if privateIsEnableAutoToolbar() == true {
 
@@ -1603,16 +1541,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     self.addToolbarIfRequired()
                     
                     }, completion: { (finished) -> Void in
-
-                        //RestoringTextView before reloading inputViews
-                        if (self._keyboardManagerFlags.isTextFieldViewFrameChanged)
-                        {
-                            self._keyboardManagerFlags.isTextFieldViewFrameChanged = false
-                            
-                            if let textFieldView = self._textFieldView {
-                                textFieldView.frame = self._textFieldViewIntialFrame
-                            }
-                        }
 
                         //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
                         self._textFieldView?.reloadInputViews()
@@ -1692,14 +1620,23 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _textFieldView?.window?.removeGestureRecognizer(_tapGesture)
         
         // We check if there's a change in original frame or not.
-        if _keyboardManagerFlags.isTextFieldViewFrameChanged == true {
-            UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                self._keyboardManagerFlags.isTextFieldViewFrameChanged = false
-                
-                self._IQShowLog("Restoring \(self._textFieldView?._IQDescription()) frame to : \(self._textFieldViewIntialFrame)")
+        
+        if let textView = _textFieldView as? UITextView {
 
-                self._textFieldView?.frame = self._textFieldViewIntialFrame
-                }, completion: { (finished) -> Void in })
+            if isTextViewContentInsetChanged == true {
+                
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
+                    
+                    self.isTextViewContentInsetChanged = false
+                    
+                    self._IQShowLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
+                    
+                    //Setting textField to it's initial contentInset
+                    textView.contentInset = self.startingTextViewContentInsets
+                    textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
+
+                    }, completion: { (finished) -> Void in })
+            }
         }
         
         //Setting object to nil
@@ -1717,17 +1654,20 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         _IQShowLog("****** \(#function) started ******")
         
-        //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
-        if _keyboardManagerFlags.isTextFieldViewFrameChanged == true {
-            if let textFieldView = _textFieldView {
-                //Due to orientation callback we need to set it's original position.
-                UIView.animateWithDuration(_animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.BeginFromCurrentState)), animations: { () -> Void in
-                    self._keyboardManagerFlags.isTextFieldViewFrameChanged = false
-
-                    self._IQShowLog("Restoring \(textFieldView._IQDescription()) frame to : \(self._textFieldViewIntialFrame)")
+        //If textViewContentInsetChanged is saved then restore it.
+        if let textView = _textFieldView as? UITextView {
+            
+            if isTextViewContentInsetChanged == true {
+                
+                UIView.animateWithDuration(_animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
-                    //Setting textField to it's initial frame
-                    textFieldView.frame = self._textFieldViewIntialFrame
+                    self.isTextViewContentInsetChanged = false
+                    
+                    self._IQShowLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
+                    
+                    //Setting textField to it's initial contentInset
+                    textView.contentInset = self.startingTextViewContentInsets
+                    textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
                     
                     }, completion: { (finished) -> Void in })
             }
