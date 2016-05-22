@@ -13,6 +13,5 @@ class OptionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.clearColor()
     }
 }

@@ -12,29 +12,23 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     let sectionTitles = [
         "UIKeyboard handling",
         "IQToolbar handling",
-        "UITextView handling",
         "UIKeyboard appearance overriding",
         "Resign first responder handling",
-        "UISound handling",
-        "UIAnimation handling"]
+        "UISound handling"]
     
     let keyboardManagerProperties = [
         ["Enable", "Keyboard Distance From TextField", "Prevent Showing Bottom Blank Space"],
         ["Enable AutoToolbar","Toolbar Manage Behaviour","Should Toolbar Uses TextField TintColor","Should Show TextField Placeholder","Placeholder Font"],
-        ["Can Adjust TextView"],
         ["Override Keyboard Appearance","UIKeyboard Appearance"],
         ["Should Resign On Touch Outside"],
-        ["Should Play Input Clicks"],
-        ["Should Adopt Default Keyboard Animation"]]
+        ["Should Play Input Clicks"]]
     
     let keyboardManagerPropertyDetails = [
         ["Enable/Disable IQKeyboardManager","Set keyboard distance from textField","Prevent to show blank space between UIKeyboard and View"],
         ["Automatic add the IQToolbar on UIKeyboard","AutoToolbar previous/next button managing behaviour","Uses textField's tintColor property for IQToolbar","Add the textField's placeholder text on IQToolbar","UIFont for IQToolbar placeholder text"],
-        ["Adjust textView's frame when it is too big in height"],
         ["Override the keyboardAppearance for all UITextField/UITextView","All the UITextField keyboardAppearance is set using this property"],
         ["Resigns Keyboard on touching outside of UITextField/View"],
-        ["Plays inputClick sound on next/previous/done click"],
-        ["Uses keyboard default animation curve style to move view"]]
+        ["Plays inputClick sound on next/previous/done click"]]
         
     var selectedIndexPathForOptions : NSIndexPath?
     
@@ -85,20 +79,12 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
-    /**  UITextView handling    */
-    func canAdjustTextViewAction (sender: UISwitch) {
-        
-        IQKeyboardManager.sharedManager().canAdjustTextView = sender.on
-        
-        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-    }
-    
     /**  "Keyboard appearance overriding    */
     func overrideKeyboardAppearanceAction (sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().overrideKeyboardAppearance = sender.on
         
-        self.tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: UITableViewRowAnimation.Fade)
+        self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     /**  Resign first responder handling    */
@@ -112,13 +98,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         
         IQKeyboardManager.sharedManager().shouldPlayInputClicks = sender.on
     }
-    
-    /**  Animation handling     */
-    func shouldAdoptDefaultKeyboardAnimation (sender: UISwitch) {
-        
-        IQKeyboardManager.sharedManager().shouldAdoptDefaultKeyboardAnimation = sender.on
-    }
-    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sectionTitles.count
@@ -148,7 +127,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 return properties.count
             }
             
-        case 3:
+        case 2:
             
             if IQKeyboardManager.sharedManager().overrideKeyboardAppearance == true {
                 
@@ -159,7 +138,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 return 1
             }
             
-        case 2,4,5,6:
+        case 3,4:
             let properties = keyboardManagerProperties[section]
             
             return properties.count
@@ -303,31 +282,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 break
             }
             
-            
         case 2:
-            
-            switch (indexPath.row) {
-                
-            case 0:
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
-                cell.switchEnable.enabled = true
-                
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                
-                cell.switchEnable.on = IQKeyboardManager.sharedManager().canAdjustTextView
-                
-                cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.canAdjustTextViewAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
-                
-                return cell
-            default:
-                break
-            }
-            
-            
-        case 3:
             
             switch (indexPath.row) {
                 
@@ -360,7 +315,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
             }
             
             
-        case 4:
+        case 3:
             
             switch (indexPath.row) {
                 
@@ -383,7 +338,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 break
             }
             
-        case 5:
+        case 4:
             
             switch (indexPath.row) {
                 
@@ -406,29 +361,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 break
             }
             
-        case 6:
-            
-            switch (indexPath.row) {
-                
-            case 0:
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchTableViewCell") as! SwitchTableViewCell
-                cell.switchEnable.enabled = true
-                
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                
-                cell.switchEnable.on = IQKeyboardManager.sharedManager().shouldAdoptDefaultKeyboardAnimation
-                
-                cell.switchEnable.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldAdoptDefaultKeyboardAnimation(_:)), forControlEvents: UIControlEvents.ValueChanged)
-                
-                return cell
-                
-            default:
-                break
-            }
-
         default:
             break
         }
@@ -477,7 +409,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                             }
                         }
                         
-                    } else if selectedIndexPath.section == 3 && selectedIndexPath.row == 1 {
+                    } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
                         
                         controller.title = "Keyboard Appearance"
                         controller.options = ["UIKeyboardAppearance Default","UIKeyboardAppearance Dark","UIKeyboardAppearance Light"]
@@ -498,7 +430,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 
                 let fonts = [UIFont.boldSystemFontOfSize(12),UIFont.italicSystemFontOfSize(12),UIFont.systemFontOfSize(12)]
                 IQKeyboardManager.sharedManager().placeholderFont = fonts[index]
-            } else if selectedIndexPath.section == 3 && selectedIndexPath.row == 1 {
+            } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
                 
                 IQKeyboardManager.sharedManager().keyboardAppearance = UIKeyboardAppearance(rawValue: index)!
             }

@@ -50,10 +50,10 @@ class CustomViewController : UIViewController {
     @IBAction func considerPreviousNextAction(sender: UISwitch) {
         self.view.endEditing(true)
         if sender.on {
-            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(CustomSubclassView))
+            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(IQPreviousNextView))
         }
         else {
-            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.remove(NSStringFromClass(CustomSubclassView))
+            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.remove(NSStringFromClass(IQPreviousNextView))
         }
     }
 }

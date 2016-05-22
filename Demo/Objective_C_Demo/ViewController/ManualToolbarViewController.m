@@ -10,7 +10,7 @@
 #import "IQUIView+IQKeyboardToolbar.h"
 
 
-@interface ManualToolbarViewController ()
+@interface ManualToolbarViewController ()<UIPopoverPresentationControllerDelegate>
 
 -(void)previousAction:(id)sender;
 -(void)nextAction:(id)sender;
@@ -34,26 +34,25 @@
 {
     [super viewDidLoad];
     
-    [textField1 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+    [textField1 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
     [textField1 setEnablePrevious:NO next:YES];
     
-    [textField2 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+    [textField2 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
+    [textField2 setEnablePrevious:YES next:NO];
 
-    [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
+    [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
 
-    [textField4 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:)];
-    [textField4 setEnablePrevious:YES next:NO];
+    [textField4 setTitleTarget:self action:@selector(titleAction:)];
+    textField4.placeholderText = @"Saved Users";
+    
+    [textField4 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];
     
     textField5.inputAccessoryView = [[UIView alloc] init];
 }
 
 -(void)previousAction:(id)sender
 {
-    if ([textField4 isFirstResponder])
-    {
-        [textField2 becomeFirstResponder];
-    }
-    else if ([textField2 isFirstResponder])
+    if ([textField2 isFirstResponder])
     {
         [textView3 becomeFirstResponder];
     }
@@ -73,10 +72,6 @@
     {
         [textField2 becomeFirstResponder];
     }
-    else if ([textField2 isFirstResponder])
-    {
-        [textField4 becomeFirstResponder];
-    }
 }
 
 -(void)doneAction:(id)sender
@@ -84,6 +79,45 @@
     [self.view endEditing:YES];
 }
 
+-(void)titleAction:(UIButton*)button
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"test@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        textField4.text = @"test@example.com";
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"demo@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        textField4.text = @"demo@example.com";
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
+    {
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
+        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
+        
+        CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
+        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
+        segue.destinationViewController.popoverPresentationController.delegate = self;
+    }
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+-(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
+{
+    [self.view endEditing:YES];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

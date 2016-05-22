@@ -5,27 +5,11 @@
 #import "TextViewSpecialCaseViewController.h"
 #import "IQKeyboardManager.h"
 
-@interface TextViewSpecialCaseViewController ()
-
--(void)refreshUI;
+@interface TextViewSpecialCaseViewController ()<UIPopoverPresentationControllerDelegate>
 
 @end
 
 @implementation TextViewSpecialCaseViewController
-
--(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton
-{
-    if ([[IQKeyboardManager sharedManager] canAdjustTextView])
-    {
-        [[IQKeyboardManager sharedManager] setCanAdjustTextView:NO];
-    }
-    else
-    {
-        [[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
-    }
-    
-    [self refreshUI];
-}
 
 #pragma mark - View lifecycle
 
@@ -43,20 +27,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self refreshUI];
-}
-
--(void)refreshUI
-{
-    if ([[IQKeyboardManager sharedManager] canAdjustTextView])
-    {
-        [barButtonAdjust setTitle:@"Disable Adjust"];
-    }
-    else
-    {
-        [barButtonAdjust setTitle:@"Enable Adjust"];
-    }
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -95,6 +65,29 @@
     @finally {
         
     }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
+    {
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
+        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
+        
+        CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
+        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
+        segue.destinationViewController.popoverPresentationController.delegate = self;
+    }
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+-(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
+{
+    [self.view endEditing:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

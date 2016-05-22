@@ -14,9 +14,11 @@
 #import "SwitchTableViewCell.h"
 #import "StepperTableViewCell.h"
 #import "NavigationTableViewCell.h"
+#import "ColorTableViewCell.h"
+#import "TextFieldTableViewCell.h"
+#import "ImageSwitchTableViewCell.h"
 
-
-@interface SettingsViewController ()<OptionsViewControllerDelegate>
+@interface SettingsViewController ()<OptionsViewControllerDelegate,ColorPickerTextFieldDelegate>
 
 @end
 
@@ -34,30 +36,27 @@
     [super viewDidLoad];
     
     sectionTitles = @[@"UIKeyboard handling",
-                     @"IQToolbar handling",
-                     @"UITextView handling",
-                     @"UIKeyboard appearance overriding",
-                     @"Resign first responder handling",
-                     @"UISound handling",
-                     @"UIAnimation handling"];
+                      @"IQToolbar handling",
+                      @"UIKeyboard appearance overriding",
+                      @"Resign first responder handling",
+                      @"UISound handling",
+                      @"IQKeyboardManager Debug"];
 
     
     keyboardManagerProperties = @[@[@"Enable", @"Keyboard Distance From TextField", @"Prevent Showing Bottom Blank Space"],
-                                 @[@"Enable AutoToolbar",@"Toolbar Manage Behaviour",@"Should Toolbar Uses TextField TintColor",@"Should Show TextField Placeholder",@"Placeholder Font"],
-                                 @[@"Can Adjust TextView"],
-                                 @[@"Override Keyboard Appearance",@"UIKeyboard Appearance"],
-                                 @[@"Should Resign On Touch Outside"],
-                                 @[@"Should Play Input Clicks"],
-                                 @[@"Should Adopt Default Keyboard Animation"]];
+                                  @[@"Enable AutoToolbar",@"Toolbar Manage Behaviour",@"Should Toolbar Uses TextField TintColor",@"Should Show TextField Placeholder",@"Placeholder Font",@"Toolbar Tint Color",@"Toolbar Done BarButtonItem Image",@"Toolbar Done Button Text"],
+                                  @[@"Override Keyboard Appearance",@"UIKeyboard Appearance"],
+                                  @[@"Should Resign On Touch Outside"],
+                                  @[@"Should Play Input Clicks"],
+                                  @[@"Debugging logs in Console"]];
 
     
     keyboardManagerPropertyDetails = @[@[@"Enable/Disable IQKeyboardManager",@"Set keyboard distance from textField",@"Prevent to show blank space between UIKeyboard and View"],
-                                       @[@"Automatic add the IQToolbar on UIKeyboard",@"AutoToolbar previous/next button managing behaviour",@"Uses textField's tintColor property for IQToolbar",@"Add the textField's placeholder text on IQToolbar",@"UIFont for IQToolbar placeholder text"],
-                                       @[@"Adjust textView's frame when it is too big in height"],
+                                       @[@"Automatic add the IQToolbar on UIKeyboard",@"AutoToolbar previous/next button managing behaviour",@"Uses textField's tintColor property for IQToolbar",@"Add the textField's placeholder text on IQToolbar",@"UIFont for IQToolbar placeholder text",@"Override toolbar tintColor property",@"Replace toolbar done button text with provided image",@"Override toolbar done button text"],
                                        @[@"Override the keyboardAppearance for all UITextField/UITextView",@"All the UITextField keyboardAppearance is set using this property"],
-                                      @[@"Resigns Keyboard on touching outside of UITextField/View"],
+                                       @[@"Resigns Keyboard on touching outside of UITextField/View"],
                                        @[@"Plays inputClick sound on next/previous/done click"],
-                                       @[@"Uses keyboard default animation curve style to move view"]];
+                                       @[@"Setting enableDebugging to YES/No to turn on/off debugging mode"]];
 }
 
 - (IBAction)doneAction:(UIBarButtonItem *)sender
@@ -104,16 +103,24 @@
 - (void)shouldShowTextFieldPlaceholder:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:sender.on];
-
+    
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-/**  UITextView handling    */
-
-- (void)canAdjustTextViewAction:(UISwitch *)sender
+- (void)toolbarDoneBarButtonItemImage:(UISwitch *)sender
 {
-    [[IQKeyboardManager sharedManager] setCanAdjustTextView:sender.on];
+    if (sender.on)
+    {
+        [[IQKeyboardManager sharedManager] setToolbarDoneBarButtonItemImage:[UIImage imageNamed:@"IQButtonBarArrowDown"]];
+    }
+    else
+    {
+        [[IQKeyboardManager sharedManager] setToolbarDoneBarButtonItemImage:nil];
+    }
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
+
 
 /**  "Keyboard appearance overriding    */
 
@@ -121,7 +128,7 @@
 {
     [[IQKeyboardManager sharedManager] setOverrideKeyboardAppearance:sender.on];
 
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 /**  Resign first responder handling    */
@@ -138,15 +145,25 @@
     [[IQKeyboardManager sharedManager] setShouldPlayInputClicks:sender.on];
 }
 
-/**  Animation handling     */
+/**  Debugging         */
 
-- (void)shouldAdoptDefaultKeyboardAnimation:(UISwitch *)sender
+- (void)enableDebugging:(UISwitch *)sender
 {
-    [[IQKeyboardManager sharedManager] setShouldAdoptDefaultKeyboardAnimation:sender.on];
+    [[IQKeyboardManager sharedManager] setEnableDebugging:sender.on];
 }
 
 
 #pragma mark - Table view data source
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewAutomaticDimension;
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -178,15 +195,14 @@
             }
         }
             break;
-        case 3:
+        case 2:
         {
             return ([[IQKeyboardManager sharedManager] overrideKeyboardAppearance] == NO)  ?  1:  [keyboardManagerProperties[section] count];
         }
             break;
-        case 2:
+        case 3:
         case 4:
         case 5:
-        case 6:
             return [keyboardManagerProperties[section] count];
             break;
 
@@ -306,29 +322,45 @@
                     return cell;
                 }
                     break;
-            }
-        }
-            break;
-        case 2:
-        {
-            switch (indexPath.row)
-            {
-                case 0:
+                case 5:
                 {
-                    SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SwitchTableViewCell class])];
-                    cell.switchEnable.enabled = YES;
+                    ColorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ColorTableViewCell class])];
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
-                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] canAdjustTextView];
+                    cell.colorPickerTextField.selectedColor = [[IQKeyboardManager sharedManager] toolbarTintColor];
+                    cell.colorPickerTextField.tag = 15;
+                    cell.colorPickerTextField.delegate = self;
+                    return cell;
+                }
+                    break;
+                case 6:
+                {
+                    ImageSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ImageSwitchTableViewCell class])];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
+                    cell.arrowImageView.image = [[IQKeyboardManager sharedManager] toolbarDoneBarButtonItemImage];
+                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] toolbarDoneBarButtonItemImage] != nil;
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-                    [cell.switchEnable addTarget:self action:@selector(canAdjustTextViewAction:) forControlEvents:UIControlEventValueChanged];
+                    [cell.switchEnable addTarget:self action:@selector(toolbarDoneBarButtonItemImage:) forControlEvents:UIControlEventValueChanged];
+
+                    return cell;
+                }
+                    break;
+                case 7:
+                {
+                    TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TextFieldTableViewCell class])];
+                    cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
+                    cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
+                    cell.textField.text = [[IQKeyboardManager sharedManager] toolbarDoneBarButtonItemText];
+                    cell.textField.tag = 17;
+                    cell.textField.delegate = self;
                     return cell;
                 }
                     break;
             }
         }
             break;
-        case 3:
+        case 2:
         {
             switch (indexPath.row)
             {
@@ -355,7 +387,7 @@
             }
         }
             break;
-        case 4:
+        case 3:
         {
             switch (indexPath.row)
             {
@@ -374,7 +406,7 @@
             }
         }
             break;
-        case 5:
+        case 4:
         {
             switch (indexPath.row)
             {
@@ -393,7 +425,7 @@
             }
         }
             break;
-        case 6:
+        case 5:
         {
             switch (indexPath.row)
             {
@@ -403,15 +435,16 @@
                     cell.switchEnable.enabled = YES;
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
-                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldAdoptDefaultKeyboardAnimation];
+                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] enableDebugging];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-                    [cell.switchEnable addTarget:self action:@selector(shouldAdoptDefaultKeyboardAnimation:) forControlEvents:UIControlEventValueChanged];
+                    [cell.switchEnable addTarget:self action:@selector(enableDebugging:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                 }
                     break;
             }
         }
             break;
+            
     }
     
     return nil;
@@ -420,6 +453,31 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)colorPickerTextField:(ColorPickerTextField*)textField selectedColorAttributes:(NSDictionary*)colorAttributes
+{
+    if (textField.tag == 15)
+    {
+        UIColor *color = colorAttributes[@"color"];
+        
+        if ([color isEqual:[UIColor clearColor]])
+        {
+            [[IQKeyboardManager sharedManager] setToolbarTintColor:nil];
+        }
+        else
+        {
+            [[IQKeyboardManager sharedManager] setToolbarTintColor:colorAttributes[@"color"]];
+        }
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == 17)
+    {
+        [[IQKeyboardManager sharedManager] setToolbarDoneBarButtonItemText:[textField.text length]?textField.text:nil];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -454,7 +512,7 @@
                 controller.selectedIndex = [fonts indexOfObject:placeholderFont];
             }
         }
-        else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
+        else if (selectedIndexPathForOptions.section == 2 && selectedIndexPathForOptions.row == 1)
         {
             controller.title = @"Keyboard Appearance";
             controller.options = @[@"UIKeyboardAppearance Default",@"UIKeyboardAppearance Dark",@"UIKeyboardAppearance Light"];
@@ -475,7 +533,7 @@
         
         [[IQKeyboardManager sharedManager] setPlaceholderFont:fonts[index]];
     }
-    else if (selectedIndexPathForOptions.section == 3 && selectedIndexPathForOptions.row == 1)
+    else if (selectedIndexPathForOptions.section == 2 && selectedIndexPathForOptions.row == 1)
     {
         [[IQKeyboardManager sharedManager] setKeyboardAppearance:index];
     }
