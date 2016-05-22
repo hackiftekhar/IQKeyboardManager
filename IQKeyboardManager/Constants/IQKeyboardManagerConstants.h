@@ -26,14 +26,6 @@
 
 #import <Foundation/NSObjCRuntime.h>
 
-///----------------
-/// @name Debugging
-///----------------
-
-/**
- Set IQKEYBOARDMANAGER_DEBUG=1 in preprocessor macros under build settings to enable debugging.
- */
-
 ///-----------------------------------
 /// @name IQAutoToolbarManageBehaviour
 ///-----------------------------------

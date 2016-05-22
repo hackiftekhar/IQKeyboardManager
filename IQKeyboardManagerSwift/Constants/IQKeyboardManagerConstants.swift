@@ -24,15 +24,6 @@
 
 import Foundation
 
-///----------------
-/// MARK: Debugging
-///----------------
-
-/**
-Set `-DIQKEYBOARDMANAGER_DEBUG` flag in 'other swift flag' to enable debugging.
-*/
-
-
 ///-----------------------------------
 /// MARK: IQAutoToolbarManageBehaviour
 ///-----------------------------------

@@ -83,6 +83,9 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
+    public var doneTitle : String?
+    public var doneImage : UIImage?
+
     /**
      Optional target & action to behave toolbar title button as clickable button
      
