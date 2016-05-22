@@ -119,7 +119,7 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
         
         _titleButton = UIButton(type: .System)
         _titleButton?.enabled = false
-        _titleButton?.titleLabel?.numberOfLines = 0
+        _titleButton?.titleLabel?.numberOfLines = 3
         _titleButton?.setTitleColor(UIColor.lightGrayColor(), forState:.Disabled)
         _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), forState:.Normal)
         _titleButton?.backgroundColor = UIColor.clearColor()

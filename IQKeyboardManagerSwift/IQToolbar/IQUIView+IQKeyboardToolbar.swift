@@ -51,14 +51,14 @@ public extension UIView {
     /**
     If `shouldHideTitle` is YES, then title will not be added to the toolbar. Default to NO.
     */
-    public var shouldHideTitle: Bool? {
+    public var shouldHideTitle: Bool {
         get {
             let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHideTitle)
             
-            if aValue == nil {
-                return false
+            if let unwrapedValue = aValue as? Bool {
+                return unwrapedValue
             } else {
-                return aValue as? Bool
+                return false
             }
         }
         set(newValue) {
@@ -84,6 +84,13 @@ public extension UIView {
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQPlaceholderText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if let toolbar = self.inputAccessoryView as? IQToolbar {
+                if self.respondsToSelector(Selector("placeholder")) {
+                    let textField = self as AnyObject
+                    toolbar.title = textField.drawingPlaceholderText
+                }
+            }
         }
     }
 
@@ -92,7 +99,11 @@ public extension UIView {
      */
     public var drawingPlaceholderText: String? {
         get {
-            if (self.placeholderText?.isEmpty == false) {
+            if (self.shouldHideTitle)
+            {
+                return nil;
+            }
+            else if (self.placeholderText?.isEmpty == false) {
                 return self.placeholderText
             }
             else if self.respondsToSelector(Selector("placeholder")) {
@@ -370,6 +381,7 @@ public extension UIView {
             
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar = IQToolbar()
+            toolbar.doneImage = image
             
             var items : [UIBarButtonItem] = []
             
@@ -458,6 +470,7 @@ public extension UIView {
 
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar = IQToolbar()
+            toolbar.doneTitle = text
             
             var items : [UIBarButtonItem] = []
             
@@ -651,6 +664,7 @@ public extension UIView {
         if self.respondsToSelector(Selector("setInputAccessoryView:")) {
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar = IQToolbar()
+            toolbar.doneTitle = rightButtonTitle
             
             var items : [UIBarButtonItem] = []
             
@@ -875,6 +889,7 @@ public extension UIView {
         if self.respondsToSelector(Selector("setInputAccessoryView:")) {
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar = IQToolbar()
+            toolbar.doneImage = rightButtonImage
             
             var items : [UIBarButtonItem] = []
             
@@ -1010,6 +1025,7 @@ public extension UIView {
         if self.respondsToSelector(Selector("setInputAccessoryView:")) {
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar = IQToolbar()
+            toolbar.doneTitle = rightButtonTitle
             
             var items : [UIBarButtonItem] = []
             

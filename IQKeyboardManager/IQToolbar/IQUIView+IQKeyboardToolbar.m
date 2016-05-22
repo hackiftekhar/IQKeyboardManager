@@ -57,6 +57,13 @@
 -(void)setPlaceholderText:(NSString*)placeholderText
 {
     objc_setAssociatedObject(self, @selector(placeholderText), placeholderText, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    if ([self respondsToSelector:@selector(placeholder)] && [self.inputAccessoryView respondsToSelector:@selector(setTitle:)])
+    {
+        UITextField *textField = (UITextField*)self;
+        IQToolbar *toolbar = (IQToolbar*)[self inputAccessoryView];
+        toolbar.title = textField.drawingPlaceholderText;
+    }
 }
 
 -(NSString*)placeholderText
@@ -67,7 +74,11 @@
 
 -(NSString*)drawingPlaceholderText
 {
-    if (self.placeholderText.length != 0)
+    if (self.shouldHideTitle)
+    {
+        return nil;
+    }
+    else if (self.placeholderText.length != 0)
     {
         return self.placeholderText;
     }
@@ -215,6 +226,8 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+    toolbar.doneImage = image;
+    
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
@@ -263,6 +276,8 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+    toolbar.doneTitle = text;
+
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
@@ -316,6 +331,7 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
@@ -368,6 +384,8 @@
     
     //  Creating a toolBar for keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+    toolbar.doneTitle = rightTitle;
+    
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
@@ -579,6 +597,8 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+    toolbar.doneImage = rightButtonImage;
+    
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])
@@ -668,6 +688,8 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = [[IQToolbar alloc] init];
+    toolbar.doneTitle = rightButtonTitle;
+
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
         switch ([(UITextField*)self keyboardAppearance])

@@ -34,6 +34,16 @@
 @property(nullable, nonatomic, strong) UIFont *titleFont;
 
 /**
+ Toolbar done title
+ */
+@property(nullable, nonatomic, strong) NSString *doneTitle;
+
+/**
+ Toolbar done image
+ */
+@property(nullable, nonatomic, strong) UIImage *doneImage;
+
+/**
  Toolbar title
  */
 @property(nullable, nonatomic, strong) NSString *title;
