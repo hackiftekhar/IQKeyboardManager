@@ -1562,22 +1562,28 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                     [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                 }
+                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
-            else if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]])
+            else if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]] && ([[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag))
             {
                 IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
                 
                 //Supporting Custom Done button image (Enhancement ID: #366)
-                if (_toolbarDoneBarButtonItemImage &&
-                    [toolbar.doneImage isEqual:_toolbarDoneBarButtonItemImage] == NO)
+                if (_toolbarDoneBarButtonItemImage)
                 {
-                    [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                    if ([toolbar.doneImage isEqual:_toolbarDoneBarButtonItemImage] == NO)
+                    {
+                        [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                    }
                 }
                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                 else if (_toolbarDoneBarButtonItemText &&
                          [toolbar.doneTitle isEqualToString:_toolbarDoneBarButtonItemText] == NO)
                 {
-                    [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                    if ([toolbar.doneTitle isEqualToString:_toolbarDoneBarButtonItemText] == NO)
+                    {
+                        [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                    }
                 }
                 else if ((_toolbarDoneBarButtonItemText == nil && toolbar.doneTitle) ||
                          (_toolbarDoneBarButtonItemImage == nil && toolbar.doneImage))
@@ -1585,9 +1591,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                     [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                 }
+                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
-
-            textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
         }
         
         if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
@@ -1671,22 +1676,27 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                     }
+                    textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
                 }
-                else if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]])
+                else if ([[textField inputAccessoryView] isKindOfClass:[IQToolbar class]]  && ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
                 {
                     IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
                 
                     //Supporting Custom Done button image (Enhancement ID: #366)
-                    if (_toolbarDoneBarButtonItemImage &&
-                        [toolbar.doneImage isEqual:_toolbarDoneBarButtonItemImage] == NO)
+                    if (_toolbarDoneBarButtonItemImage)
                     {
-                        [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                        if ([toolbar.doneImage isEqual:_toolbarDoneBarButtonItemImage] == NO)
+                        {
+                            [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                        }
                     }
                     //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                    else if (_toolbarDoneBarButtonItemText &&
-                             [toolbar.doneTitle isEqualToString:_toolbarDoneBarButtonItemText] == NO)
+                    else if (_toolbarDoneBarButtonItemText)
                     {
-                        [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                        if ([toolbar.doneTitle isEqualToString:_toolbarDoneBarButtonItemText] == NO)
+                        {
+                            [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
+                        }
                     }
                     else if ((_toolbarDoneBarButtonItemText == nil && toolbar.doneTitle) ||
                              (_toolbarDoneBarButtonItemImage == nil && toolbar.doneImage))
@@ -1694,10 +1704,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                         [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                     }
+                    textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
                 }
-                
-
-                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
             }
             
             if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
