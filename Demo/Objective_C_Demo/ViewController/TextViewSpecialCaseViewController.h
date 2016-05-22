@@ -8,11 +8,8 @@
 {
     IBOutlet UIButton *buttonPush;
     IBOutlet UIButton *buttonPresent;
-    IBOutlet UIBarButtonItem *barButtonAdjust;
 }
 
 - (IBAction)presentClicked:(id)sender;
-
--(IBAction)canAdjustTextView:(UIBarButtonItem*)barButton;
 
 @end

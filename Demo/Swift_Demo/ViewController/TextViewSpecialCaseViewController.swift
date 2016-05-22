@@ -13,18 +13,6 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet private var buttonPush : UIButton!
     @IBOutlet private var buttonPresent : UIButton!
-    @IBOutlet private var barButtonAdjust : UIBarButtonItem!
-    
-    @IBAction func canAdjustTextView (barButton : UIBarButtonItem!) {
-        
-        if (IQKeyboardManager.sharedManager().canAdjustTextView == true) {
-            IQKeyboardManager.sharedManager().canAdjustTextView = false
-        } else {
-            IQKeyboardManager.sharedManager().canAdjustTextView = true
-        }
-
-        refreshUI()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +27,7 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate {
     override func viewWillAppear (animated : Bool) {
         
         super.viewWillAppear(animated)
-        refreshUI()
     }
-    
-    func refreshUI() {
-        if (IQKeyboardManager.sharedManager().canAdjustTextView == true) {
-            barButtonAdjust.title = "Disable Adjust"
-        } else {
-            barButtonAdjust.title = "Enable Adjust"
-        }
-    }
-
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         

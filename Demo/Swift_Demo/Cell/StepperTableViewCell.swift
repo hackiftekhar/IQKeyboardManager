@@ -15,6 +15,5 @@ class StepperTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.clearColor()
     }
 }

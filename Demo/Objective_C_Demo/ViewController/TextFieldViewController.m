@@ -4,67 +4,46 @@
 
 #import "TextFieldViewController.h"
 #import "IQKeyboardManager.h"
-#import "IQKeyboardReturnKeyHandler.h"
 #import "IQDropDownTextField.h"
 #import "IQUIView+IQKeyboardToolbar.h"
+#import "IQUITextFieldView+Additions.h"
 
-@interface TextFieldViewController ()
-
--(void)refreshUI;
+@interface TextFieldViewController ()<UIPopoverPresentationControllerDelegate>
 
 @end
 
 @implementation TextFieldViewController
 {
     IBOutlet UITextField *textField3;
-    IQKeyboardReturnKeyHandler *returnKeyHandler;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
 
 #pragma mark - View lifecycle
 
--(IBAction)disableKeyboardManager:(UIBarButtonItem*)barButton
-{
-    if ([[IQKeyboardManager sharedManager] isEnabled])
-    {
-        [[IQKeyboardManager sharedManager] setEnable:NO];
-    }
-    else
-    {
-        [[IQKeyboardManager sharedManager] setEnable:YES];
-    }
-
-    [self refreshUI];
-}
-
 -(void)previousAction:(UITextField*)textField
 {
-    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+    NSLog(@"%@",NSStringFromSelector(_cmd));
 }
 
 -(void)nextAction:(UITextField*)textField
 {
-    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+    NSLog(@"%@",NSStringFromSelector(_cmd));
 }
 
 -(void)doneAction:(UITextField*)textField
 {
-    NSLog(@"%@ : %@",textField,NSStringFromSelector(_cmd));
+    NSLog(@"%@",NSStringFromSelector(_cmd));
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [textField3 setTitleTarget:self action:@selector(titleAction:)];
-    textField3.placeholderText = @"Saved Passwords";
+    [textField3 setCustomPreviousTarget:self action:@selector(previousAction:)];
+    [textField3 setCustomNextTarget:self action:@selector(nextAction:)];
+    [textField3 setCustomDoneTarget:self action:@selector(doneAction:)];
     
-    [dropDownTextField setCustomPreviousTarget:self action:@selector(previousAction:)];
-    [dropDownTextField setCustomNextTarget:self action:@selector(nextAction:)];
-    [dropDownTextField setCustomDoneTarget:self action:@selector(doneAction:)];
-    
-    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
+    dropDownTextField.keyboardDistanceFromTextField = 150;
     
     [dropDownTextField setItemList:@[@"Zero Line Of Code",
                                      @"No More UIScrollView",
@@ -85,23 +64,6 @@
                                      @"play sound on next/prev/done"]];
 }
 
--(void)titleAction:(UIButton*)button
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"test@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        textField3.text = @"test";
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"demo@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        textField3.text = @"demo";
-    }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -111,25 +73,6 @@
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
     }
-
-    [self refreshUI];
-}
-
--(void)refreshUI
-{
-    if ([[IQKeyboardManager sharedManager] isEnabled])
-    {
-        [barButtonDisable setTitle:@"Disable"];
-    }
-    else
-    {
-        [barButtonDisable setTitle:@"Enable"];
-    }
-}
-
--(void)dealloc
-{
-    returnKeyHandler = nil;
 }
 
 - (IBAction)presentClicked:(id)sender
@@ -164,6 +107,29 @@
     @finally {
         
     }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
+    {
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
+        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
+        
+        CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
+        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
+        segue.destinationViewController.popoverPresentationController.delegate = self;
+    }
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+-(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
+{
+    [self.view endEditing:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

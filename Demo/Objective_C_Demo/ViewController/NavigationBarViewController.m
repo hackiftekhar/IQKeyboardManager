@@ -3,27 +3,72 @@
 //  IQKeyboard
 
 #import "NavigationBarViewController.h"
+#import "IQKeyboardReturnKeyHandler.h"
+#import "IQUIView+IQKeyboardToolbar.h"
 
-@interface NavigationBarViewController ()<UITextFieldDelegate>
+@interface NavigationBarViewController ()<UITextFieldDelegate,UIPopoverPresentationControllerDelegate>
 
 @end
 
 @implementation NavigationBarViewController
 {
-    __weak IBOutlet UITextField *textField2;
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
+    IBOutlet UITextField *textField2;
+    IBOutlet UITextField *textField3;
     IBOutlet UIScrollView *scrollView;
+}
+
+-(void)dealloc
+{
+    returnKeyHandler = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    textField3.placeholderText = @"This is the customised placeholder title for displaying as toolbar title";
+    
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+    [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
 
-    scrollView.contentSize = self.view.bounds.size;
+- (IBAction)enableScrollAction:(UISwitch *)sender {
+    
+    scrollView.scrollEnabled = sender.on;
+}
+
+- (IBAction)shouldHideTitle:(UISwitch *)sender
+{
+    textField2.shouldHideTitle = !textField2.shouldHideTitle;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
+    {
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
+        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
+        
+        CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
+        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
+        segue.destinationViewController.popoverPresentationController.delegate = self;
+    }
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
+-(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
+{
+    [self.view endEditing:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
