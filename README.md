@@ -154,12 +154,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 ## Known Issues:-
 
-You can find known issues list ([here](https://github.com/hackiftekhar/IQKeyboardManager/KNOWN ISSUES.md)).
+You can find known issues list [here](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN ISSUES.md).
 
 Manual Management:-
 ---
 
-You can find some manual management tweaks & examples ([here](https://github.com/hackiftekhar/IQKeyboardManager/MANUAL MANAGEMENT.md)).
+You can find some manual management tweaks & examples [here](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/MANUAL MANAGEMENT.md).
 
 
 
@@ -169,7 +169,7 @@ You can find some manual management tweaks & examples ([here](https://github.com
 
 ##Properties and functions usage:-
 
-You can find some documentation about properties, methods and their uses here ([here](https://github.com/hackiftekhar/IQKeyboardManager/PROPERTIES & FUNCTIONS.md)).
+You can find some documentation about properties, methods and their uses [here](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/PROPERTIES & FUNCTIONS.md).
 
 
 LICENSE
