@@ -49,30 +49,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (IBAction)tapAction:(UITapGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateEnded)
-    {
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction|7<<16 animations:^{
-
-            if (settingsTopConstraint.constant != 0)
-            {
-                settingsTopConstraint.constant = 0;
-            }
-            else
-            {
-                settingsTopConstraint.constant = -settingsView.frame.size.height+30;
-            }
-            
-            [self.view setNeedsLayout];
-            [self.view layoutIfNeeded];
-            
-        } completion:^(BOOL finished) {
-
-        }];
-    }
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -87,6 +63,30 @@
     switchEnableTouchResign.on = ([[[IQKeyboardManager sharedManager] enabledTouchResignedClasses] containsObject:[self class]]);
 
     switchAllowPreviousNext.on = ([[[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses] containsObject:[IQPreviousNextView class]]);
+}
+
+- (IBAction)tapAction:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction|7<<16 animations:^{
+            
+            if (settingsTopConstraint.constant != 0)
+            {
+                settingsTopConstraint.constant = 0;
+            }
+            else
+            {
+                settingsTopConstraint.constant = -settingsView.frame.size.height+30;
+            }
+            
+            [self.view setNeedsLayout];
+            [self.view layoutIfNeeded];
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 - (IBAction)disableInViewControllerAction:(UISwitch *)sender

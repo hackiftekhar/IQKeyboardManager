@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
     @IBAction func shareClicked (sender : UIBarButtonItem) {
         
@@ -40,15 +40,33 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func shouldAutorotate() -> Bool {
-        return false
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
     }
     
-//    override func supportedInterfaceOrientations() -> Int {
-//        return UIInterfaceOrientationMask.Portrait
-//    }
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
     }
 }

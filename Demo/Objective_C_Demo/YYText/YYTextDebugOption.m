@@ -18,6 +18,9 @@ static pthread_mutex_t _sharedDebugLock;
 static CFMutableSetRef _sharedDebugTargets = nil;
 static YYTextDebugOption *_sharedDebugOption = nil;
 
+void _sharedDebugSetFunction(const void *value, void *context);
+
+
 static const void* _sharedDebugSetRetain(CFAllocatorRef allocator, const void *value) {
     return value;
 }

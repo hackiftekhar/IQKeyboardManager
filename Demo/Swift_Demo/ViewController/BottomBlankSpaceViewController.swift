@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BottomBlankSpaceViewController : UIViewController {
+class BottomBlankSpaceViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet private var switchPreventShowingBottomBlankSpace : UISwitch!
 
@@ -19,9 +19,35 @@ class BottomBlankSpaceViewController : UIViewController {
     }
     
     @IBAction func preventSwitchAction (sender: UISwitch!) {
-        IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = true
+        IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = sender.on
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
+    }
+
     override func shouldAutorotate() -> Bool {
         return true
     }

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class CollectionViewDemoController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource {
+class CollectionViewDemoController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
+
+    @IBOutlet private var collectionView : UICollectionView!
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -22,6 +24,32 @@ class CollectionViewDemoController: UIViewController , UICollectionViewDelegate 
         textField.placeholder = "\(indexPath.section) \(indexPath.row)"
 
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
     }
     
     override func shouldAutorotate() -> Bool {

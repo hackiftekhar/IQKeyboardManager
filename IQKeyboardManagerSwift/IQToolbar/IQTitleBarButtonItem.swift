@@ -40,6 +40,12 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
         }
     }
 
+    override public var title: String? {
+        didSet {
+                _titleButton?.setTitle(title, forState: .Normal)
+        }
+    }
+    
     /**
      selectableTextColor to be used for displaying button text when button is enabled.
      */
@@ -60,7 +66,7 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
      @param target Target object.
      @param action Target Selector.
      */
-    public func setCustomTitleTarget(target: AnyObject?, action: Selector?) {
+    public func setTitleTarget(target: AnyObject?, action: Selector?) {
         titleInvocation = (target, action)
     }
     

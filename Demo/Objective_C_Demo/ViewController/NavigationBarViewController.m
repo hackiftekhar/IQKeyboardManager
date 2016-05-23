@@ -33,11 +33,6 @@
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 - (IBAction)enableScrollAction:(UISwitch *)sender {
     
     scrollView.scrollEnabled = sender.on;

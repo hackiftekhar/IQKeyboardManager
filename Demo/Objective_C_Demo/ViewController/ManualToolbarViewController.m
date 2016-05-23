@@ -22,12 +22,12 @@
 
 @implementation ManualToolbarViewController
 {
-    __weak IBOutlet UITextField *textField1;
-    __weak IBOutlet UITextField *textField2;
-    __weak IBOutlet UITextView *textView3;
-    __weak IBOutlet UITextField *textField4;
+    IBOutlet UITextField *textField1;
+    IBOutlet UITextField *textField2;
+    IBOutlet UITextView *textView3;
+    IBOutlet UITextField *textField4;
     
-    __weak IBOutlet UITextField *textField5;
+    IBOutlet UITextField *textField5;
 }
 
 - (void)viewDidLoad
@@ -79,7 +79,7 @@
     [self.view endEditing:YES];
 }
 
--(void)titleAction:(UIButton*)button
+-(void)titleAction:(UIButton*)sender
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -93,6 +93,7 @@
         textField4.text = @"demo@example.com";
     }]];
     
+    alertController.popoverPresentationController.sourceView = sender;
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
