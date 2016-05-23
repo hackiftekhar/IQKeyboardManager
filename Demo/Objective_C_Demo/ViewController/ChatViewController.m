@@ -8,7 +8,6 @@
 
 #import "ChatViewController.h"
 #import "ChatTableViewCell.h"
-#import "UIScrollView+ScrollToBottom.h"
 
 @interface ChatViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
