@@ -9,32 +9,62 @@
 import Foundation
 import UIKit
 
-class NavigationBarViewController: UIViewController {
+class NavigationBarViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    private var returnKeyHandler : IQKeyboardReturnKeyHandler!
     @IBOutlet private var textField2 : UITextField!
+    @IBOutlet private var textField3 : UITextField!
     @IBOutlet private var scrollView : UIScrollView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        scrollView.contentSize = self.view.bounds.size
-    }
+        textField3.placeholderText = "This is the customised placeholder title for displaying as toolbar title"
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return true
+        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
+        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
     }
 
     @IBAction func textFieldClicked(sender : UITextField!) {
         
+    }
+    
+    @IBAction func enableScrollAction(sender : UISwitch!) {
+        scrollView.scrollEnabled = sender.on;
+    }
+    
+    @IBAction func shouldHideTitle(sender : UISwitch!) {
+        textField2.shouldHideTitle = !textField2.shouldHideTitle;
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
     }
 }
 

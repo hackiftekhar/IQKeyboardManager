@@ -13,14 +13,14 @@
 @protocol ColorPickerTextFieldDelegate <UITextFieldDelegate>
 
 @optional
--(void)colorPickerTextField:(ColorPickerTextField*)textField selectedColorAttributes:(NSDictionary*)colorAttributes;
+-(void)colorPickerTextField:(nonnull ColorPickerTextField*)textField selectedColorAttributes:(nonnull NSDictionary<NSString*,id>*)colorAttributes;
 
 @end
 
 @interface ColorPickerTextField : UITextField
 
-@property(nonatomic, strong) UIColor *selectedColor;
-@property(strong, nonatomic) NSDictionary *selectedColorAttributes;
-@property (weak,nonatomic)id<ColorPickerTextFieldDelegate> delegate;
+@property(nullable, nonatomic, strong) UIColor *selectedColor;
+@property(nullable, strong, nonatomic) NSDictionary *selectedColorAttributes;
+@property (nullable, weak, nonatomic)id<ColorPickerTextFieldDelegate> delegate;
 
 @end

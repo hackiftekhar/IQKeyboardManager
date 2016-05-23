@@ -15,10 +15,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [scrollViewDemo setContentSize:CGSizeMake(0,321)];
-    [scrollViewInsideScrollView setContentSize:CGSizeMake(0,321)];
-//    [scrollViewOfTableViews setContentSize:CGSizeMake(0,scrollViewOfTableViews.bounds.size.height)];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

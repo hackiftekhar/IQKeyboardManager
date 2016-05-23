@@ -10,14 +10,6 @@
 
 @implementation ChatLabel
 
--(CGSize)sizeThatFits:(CGSize)size
-{
-    CGSize sizeThatFits = [super sizeThatFits:size];
-    sizeThatFits.width += 10;
-    sizeThatFits.height += 10;
-    return sizeThatFits;
-}
-
 -(CGSize)intrinsicContentSize
 {
     CGSize sizeThatFits = [super intrinsicContentSize];

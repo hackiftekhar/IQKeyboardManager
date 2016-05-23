@@ -336,6 +336,7 @@
                 case 6:
                 {
                     ImageSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ImageSwitchTableViewCell class])];
+                    cell.switchEnable.enabled = YES;
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.arrowImageView.image = [[IQKeyboardManager sharedManager] toolbarDoneBarButtonItemImage];

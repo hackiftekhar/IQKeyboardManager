@@ -4,7 +4,7 @@
 
 #import "WebViewController.h"
 
-@interface WebViewController ()<UIPopoverPresentationControllerDelegate>
+@interface WebViewController ()
 
 @end
 
@@ -38,39 +38,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [activity stopAnimating];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
-    {
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
-        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
-        
-        CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
-        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
-        segue.destinationViewController.popoverPresentationController.delegate = self;
-    }
-}
-
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
-{
-    return UIModalPresentationNone;
-}
-
--(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController
-{
-    [self.view endEditing:YES];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
 }
 
 @end

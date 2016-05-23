@@ -49,7 +49,7 @@ public class IQTextView : UITextView {
     private var placeholderLabel: UILabel?
     
     /** @abstract To set textView's placeholder text. Default is ni.    */
-    public var placeholder : String? {
+    @IBInspectable public var placeholder : String? {
 
         get {
             return placeholderLabel?.text

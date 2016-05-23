@@ -9,28 +9,15 @@
 import Foundation
 import UIKit
 
-class TextFieldViewController: UIViewController {
+class TextFieldViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet private var textField3 : UITextField!
 
-    private var returnKeyHandler : IQKeyboardReturnKeyHandler!
     @IBOutlet private var dropDownTextField : IQDropDownTextField!
 
     @IBOutlet private var buttonPush : UIButton!
     @IBOutlet private var buttonPresent : UIButton!
-    @IBOutlet private var barButtonDisable : UIBarButtonItem!
 
-    @IBAction func disableKeyboardManager (barButton : UIBarButtonItem!) {
-        
-        if (IQKeyboardManager.sharedManager().enable == true) {
-            IQKeyboardManager.sharedManager().enable = false
-        } else {
-            IQKeyboardManager.sharedManager().enable = true
-        }
-
-        refreshUI()
-    }
-    
     func previousAction(sender : UITextField) {
         print("PreviousAction")
     }
@@ -46,15 +33,10 @@ class TextFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textField3.setCustomTitleTarget(self, action: #selector(self.titleAction(_:)))
-        textField3.placeholderText = "Saved Passwords"
-
-        dropDownTextField.setCustomPreviousTarget(self, action: #selector(self.previousAction(_:)))
-        dropDownTextField.setCustomNextTarget(self, action: #selector(self.nextAction(_:)))
-        dropDownTextField.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
-        
-        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
+        textField3.setCustomPreviousTarget(self, action: #selector(self.previousAction(_:)))
+        textField3.setCustomNextTarget(self, action: #selector(self.nextAction(_:)))
+        textField3.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
+        dropDownTextField.keyboardDistanceFromTextField = 150;
         
         var itemLists = [NSString]()
         itemLists.append("Zero Line Of Code")
@@ -76,8 +58,6 @@ class TextFieldViewController: UIViewController {
         itemLists.append("Play sound on next/prev/done")
 
         dropDownTextField.itemList = itemLists
-        
-        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
     }
     
     override func viewWillAppear(animated : Bool) {
@@ -88,42 +68,7 @@ class TextFieldViewController: UIViewController {
             buttonPush.hidden = true
             buttonPresent.setTitle("Dismiss", forState:UIControlState.Normal)
         }
-        
-        refreshUI()
     }
-    
-    override func viewWillDisappear(animated : Bool) {
-        super.viewWillDisappear(animated)
-        
-        IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = false
-
-    }
-    
-    func refreshUI() {
-        if (IQKeyboardManager.sharedManager().enable == true) {
-            barButtonDisable.title = "Disable"
-        } else {
-            barButtonDisable.title = "Enable"
-        }
-    }
-    
-    func titleAction(sender : UIButton) {
-
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-
-        alertController.addAction(UIAlertAction(title: "test@example.com", style: .Default, handler: { (action : UIAlertAction) in
-            self.textField3.text = "test";
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .Default, handler: { (action : UIAlertAction) in
-            self.textField3.text = "demo";
-        }))
-
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-
     
     @IBAction func presentClicked (sender: AnyObject!) {
         
@@ -149,6 +94,32 @@ class TextFieldViewController: UIViewController {
         }
     }
  
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
+    }
+    
     override func shouldAutorotate() -> Bool {
         return true
     }

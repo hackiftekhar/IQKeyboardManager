@@ -53,7 +53,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
      Registered classes list with library.
      */
-    private var registeredClasses  = Set<String>()
+    private var registeredClasses  = [UIView.Type]()
     
     /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
@@ -84,14 +84,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if isEnabled == false {
                 
                 //If viewController is kind of enable viewController class, then assuming it's enabled.
-                for enabledClassString in enabledDistanceHandlingClasses {
+                for enabledClass in enabledDistanceHandlingClasses {
                     
-                    if let enabledClass = NSClassFromString(enabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(enabledClass) {
-                            isEnabled = true
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(enabledClass) {
+                        isEnabled = true
+                        break
                     }
                 }
             }
@@ -99,14 +96,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if isEnabled == true {
                 
                 //If viewController is kind of disabled viewController class, then assuming it's disabled.
-                for diabledClassString in disabledDistanceHandlingClasses {
+                for disabledClass in disabledDistanceHandlingClasses {
                     
-                    if let disabledClass = NSClassFromString(diabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(disabledClass) {
-                            isEnabled = false
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(disabledClass) {
+                        isEnabled = false
+                        break
                     }
                 }
             }
@@ -176,14 +170,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if enableToolbar == false {
                 
                 //If found any toolbar enabled classes then return.
-                for enabledClassString in enabledToolbarClasses {
+                for enabledClass in enabledToolbarClasses {
                     
-                    if let enabledClass = NSClassFromString(enabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(enabledClass) {
-                            enableToolbar = true
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(enabledClass) {
+                        enableToolbar = true
+                        break
                     }
                 }
             }
@@ -191,14 +182,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if enableToolbar == true {
                 
                 //If found any toolbar disabled classes then return.
-                for diabledClassString in disabledToolbarClasses {
+                for disabledClass in disabledToolbarClasses {
                     
-                    if let disabledClass = NSClassFromString(diabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(disabledClass) {
-                            enableToolbar = false
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(disabledClass) {
+                        enableToolbar = false
+                        break
                     }
                 }
             }
@@ -309,14 +297,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if shouldResign == false {
                 
                 //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
-                for enabledClassString in enabledTouchResignedClasses {
+                for enabledClass in enabledTouchResignedClasses {
                     
-                    if let enabledClass = NSClassFromString(enabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(enabledClass) {
-                            shouldResign = true
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(enabledClass) {
+                        shouldResign = true
+                        break
                     }
                 }
             }
@@ -324,14 +309,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if shouldResign == true {
                 
                 //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
-                for diabledClassString in disabledTouchResignedClasses {
+                for disabledClass in disabledTouchResignedClasses {
                     
-                    if let disabledClass = NSClassFromString(diabledClassString) {
-                        
-                        if textFieldViewController.isKindOfClass(disabledClass) {
-                            shouldResign = false
-                            break
-                        }
+                    if textFieldViewController.isKindOfClass(disabledClass) {
+                        shouldResign = false
+                        break
                     }
                 }
             }
@@ -600,37 +582,37 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
      Disable distance handling within the scope of disabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
-    public var disabledDistanceHandlingClasses  = Set<String>()
+    public var disabledDistanceHandlingClasses  = [UIViewController.Type]()
     
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledDistanceHandlingClasses list, then enabledDistanceHandlingClasses will be ignored.
      */
-    public var enabledDistanceHandlingClasses  = Set<String>()
+    public var enabledDistanceHandlingClasses  = [UIViewController.Type]()
     
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
-    public var disabledToolbarClasses  = Set<String>()
+    public var disabledToolbarClasses  = [UIViewController.Type]()
     
     /**
      Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
-    public var enabledToolbarClasses  = Set<String>()
+    public var enabledToolbarClasses  = [UIViewController.Type]()
 
     /**
      Allowed subclasses of UIView to add all inner textField, this will allow to navigate between textField contains in different superview. Class should be kind of UIView.
      */
-    public var toolbarPreviousNextAllowedClasses  = Set<String>()
+    public var toolbarPreviousNextAllowedClasses  = [UIView.Type]()
     
     /**
      Disabled classes to ignore 'shouldResignOnTouchOutside' property, Class should be kind of UIViewController.
      */
-    public var disabledTouchResignedClasses  = Set<String>()
+    public var disabledTouchResignedClasses  = [UIViewController.Type]()
     
     /**
      Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
-    public var enabledTouchResignedClasses  = Set<String>()
+    public var enabledTouchResignedClasses  = [UIViewController.Type]()
 
     ///-------------------------------------------
     /// MARK: Third Party Library support
@@ -643,9 +625,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
     */
     
-    public func registerTextFieldViewClass(aClass: AnyClass, didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
+    public func registerTextFieldViewClass(aClass: UIView.Type, didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
         
-        disabledDistanceHandlingClasses.insert(NSStringFromClass(aClass))
+        registeredClasses.append(aClass)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)),    name: didBeginEditingNotificationName, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)),      name: didEndEditingNotificationName, object: nil)
@@ -747,10 +729,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
-        disabledDistanceHandlingClasses.insert(NSStringFromClass(UITableViewController))
-        toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(UITableView))
-        toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(UICollectionView))
-        toolbarPreviousNextAllowedClasses.insert(NSStringFromClass(IQPreviousNextView))
+        disabledDistanceHandlingClasses.append(UITableViewController)
+        toolbarPreviousNextAllowedClasses.append(UITableView)
+        toolbarPreviousNextAllowedClasses.append(UICollectionView)
+        toolbarPreviousNextAllowedClasses.append(IQPreviousNextView)
         //Workaround to load all appearance proxies at startup
         let barButtonItem2 = IQTitleBarButtonItem()
         barButtonItem2.title = ""
@@ -1589,14 +1571,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 var shouldIgnore = false
                 
-                for disabledClassString in disabledDistanceHandlingClasses {
+                for disabledClass in disabledDistanceHandlingClasses {
                     
-                    if let disabledClass = NSClassFromString(disabledClassString) {
-                        //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                        if textFieldViewController.isKindOfClass(disabledClass) {
-                            shouldIgnore = true
-                            break
-                        }
+                    //If viewController is kind of disabled viewController class, then ignoring to adjust view.
+                    if textFieldViewController.isKindOfClass(disabledClass) {
+                        shouldIgnore = true
+                        break
                     }
                 }
                 
@@ -1686,15 +1666,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var superConsideredView : UIView?
 
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
-        for disabledClassString in toolbarPreviousNextAllowedClasses {
+        for disabledClass in toolbarPreviousNextAllowedClasses {
             
-            if let disabledClass = NSClassFromString(disabledClassString) {
-                
-                superConsideredView = _textFieldView?.superviewOfClassType(disabledClass)
-                
-                if superConsideredView != nil {
-                    break
-                }
+            superConsideredView = _textFieldView?.superviewOfClassType(disabledClass)
+            
+            if superConsideredView != nil {
+                break
             }
         }
     

@@ -2739,13 +2739,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <constraint firstItem="enb-ZG-DIS" firstAttribute="top" secondItem="XOS-eg-1xO" secondAttribute="top" constant="64" id="xuE-Eu-9Zr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="UIWebView Example" id="3s1-JL-XZo">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="w4O-Ot-BrW">
-                            <connections>
-                                <segue destination="yh7-P7-TKe" kind="modal" identifier="SettingsNavigationController" id="Wwr-mw-mEC"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="UIWebView Example" id="3s1-JL-XZo"/>
                     <connections>
                         <outlet property="_webView" destination="enb-ZG-DIS" id="Qbp-3E-7f0"/>
                     </connections>
@@ -2916,6 +2910,10 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="050-lc-byG">
                                 <rect key="frame" x="0.0" y="64" width="320" height="404"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="IHN-1B-3KS" id="6WI-jf-wLa"/>
+                                    <outlet property="delegate" destination="IHN-1B-3KS" id="APq-5w-QV1"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3Z-yn-ZlL">
                                 <rect key="frame" x="0.0" y="468" width="320" height="50"/>
@@ -3148,7 +3146,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLB-dv-85O" customClass="IQPreviousNextView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLB-dv-85O" customClass="IQPreviousNextView" customModule="DemoSwift">
                                 <rect key="frame" x="10" y="100" width="300" height="458"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oad-Sj-fOj">
@@ -3794,8 +3792,8 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jwk-m7-IpJ"/>
         <segue reference="aWb-8P-5BY"/>
-        <segue reference="7Bo-To-T0V"/>
+        <segue reference="jwk-m7-IpJ"/>
+        <segue reference="kqZ-Zg-RsU"/>
     </inferredMetricsTieBreakers>
 </document>

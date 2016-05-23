@@ -75,7 +75,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 for item in newItems {
                     
                     if let newItem = item as? IQTitleBarButtonItem {
-                        newItem.font = titleFont
+                        newItem.title = title
                         break
                     }
                 }

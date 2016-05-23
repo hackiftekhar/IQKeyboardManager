@@ -17,10 +17,6 @@
 
 @implementation RefreshLayoutViewController
 
-
-
-
-
 - (IBAction)stepperChanged:(UIStepper *)sender
 {
     [UIView animateWithDuration:0.1 animations:^{

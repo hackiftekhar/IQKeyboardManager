@@ -122,7 +122,7 @@ public extension UIView {
      @param target Target object.
      @param action Target Selector.
      */
-    public func setCustomTitleTarget(target: AnyObject?, action: Selector?) {
+    public func setTitleTarget(target: AnyObject?, action: Selector?) {
         titleInvocation = (target, action)
     }
     

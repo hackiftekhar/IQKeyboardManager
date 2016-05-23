@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0EFE1D1CF2F8A800C908D3 /* MainSwift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */; };
+		4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */; };
+		4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */; };
+		4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */; };
+		4C0EFE251CF2FA8000C908D3 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */; };
+		4C0EFE271CF332B300C908D3 /* YYTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */; };
+		4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */; };
+		4C0EFE2B1CF332C900C908D3 /* LayoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */; };
+		4C0EFE2D1CF332D200C908D3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */; };
+		4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */; };
 		4C631B161CB24A8E0078E59F /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C631B151CB24A8E0078E59F /* IQPreviousNextView.m */; };
 		4C631B181CB24AAD0078E59F /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C631B171CB24AAD0078E59F /* IQPreviousNextView.swift */; };
 		4C7FCC271C6A507E00537BA0 /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FCC261C6A507E00537BA0 /* IQUIScrollView+Additions.m */; };
@@ -121,7 +131,6 @@
 		C0CB61F71B884F2700C33368 /* TextViewSpecialCaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61E41B884D4100C33368 /* TextViewSpecialCaseViewController.swift */; };
 		C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61E51B884D4100C33368 /* ViewController.swift */; };
 		C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61E61B884D4100C33368 /* WebViewController.swift */; };
-		C0CB61FA1B884F3400C33368 /* MainSwift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61D81B884D4100C33368 /* MainSwift.storyboard */; };
 		C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61D11B884D4100C33368 /* AppDelegate.swift */; };
 		C0CB61FD1B884FA100C33368 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61911B884D4100C33368 /* AppDelegate.m */; };
 		C0CB61FE1B884FA100C33368 /* NavigationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61941B884D4100C33368 /* NavigationTableViewCell.m */; };
@@ -166,6 +175,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainSwift.storyboard; sourceTree = "<group>"; };
+		4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
+		4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYTextViewController.swift; sourceTree = "<group>"; };
+		4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshLayoutViewController.swift; sourceTree = "<group>"; };
+		4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutGuideViewController.swift; sourceTree = "<group>"; };
+		4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		4C631B141CB24A8E0078E59F /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
 		4C631B151CB24A8E0078E59F /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
 		4C631B171CB24AAD0078E59F /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
@@ -337,8 +356,6 @@
 		C0CB61D11B884D4100C33368 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0CB61D41B884D4100C33368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CB61D51B884D4100C33368 /* IQKeyboardManger-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManger-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
-		C0CB61D61B884D4100C33368 /* Swift Pending.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Swift Pending.rtf"; sourceTree = "<group>"; };
-		C0CB61D81B884D4100C33368 /* MainSwift.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainSwift.storyboard; sourceTree = "<group>"; };
 		C0CB61DA1B884D4100C33368 /* BottomBlankSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBlankSpaceViewController.swift; sourceTree = "<group>"; };
 		C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDemoController.swift; sourceTree = "<group>"; };
 		C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTableViewController.swift; sourceTree = "<group>"; };
@@ -577,8 +594,8 @@
 		C03C87F31B8DCBC900295DFA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */,
 				C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */,
+				C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -798,6 +815,10 @@
 				C03C87FA1B8DCED400295DFA /* OptionTableViewCell.swift */,
 				C03C87FC1B8DCEE700295DFA /* StepperTableViewCell.swift */,
 				C03C87FE1B8DCEF400295DFA /* SwitchTableViewCell.swift */,
+				4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */,
+				4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */,
+				4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */,
+				4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -807,7 +828,6 @@
 			children = (
 				C0CB61D41B884D4100C33368 /* Info.plist */,
 				C0CB61D51B884D4100C33368 /* IQKeyboardManger-Swift-Bridging-Header.h */,
-				C0CB61D61B884D4100C33368 /* Swift Pending.rtf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -815,7 +835,7 @@
 		C0CB61D71B884D4100C33368 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				C0CB61D81B884D4100C33368 /* MainSwift.storyboard */,
+				4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -838,6 +858,11 @@
 				C0CB61E41B884D4100C33368 /* TextViewSpecialCaseViewController.swift */,
 				C0CB61E51B884D4100C33368 /* ViewController.swift */,
 				C0CB61E61B884D4100C33368 /* WebViewController.swift */,
+				4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */,
+				4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */,
+				4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */,
+				4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */,
+				4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1033,9 +1058,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0CB61EC1B884F1E00C33368 /* Images.xcassets in Resources */,
-				C0CB61FA1B884F3400C33368 /* MainSwift.storyboard in Resources */,
 				C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
+				4C0EFE1D1CF2F8A800C908D3 /* MainSwift.storyboard in Resources */,
 				4CEC3A791B8CECDF00909DCA /* IQKeyboardManager.bundle in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
 			);
@@ -1089,6 +1114,7 @@
 				C0CB61F31B884F2700C33368 /* SpecialCaseViewController.swift in Sources */,
 				4C7FCC291C6A57FF00537BA0 /* IQUIScrollView+Additions.swift in Sources */,
 				4CE74FB01CF206E40093AC0C /* YYTextEffectWindow.m in Sources */,
+				4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */,
 				4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				4CEC3A731B8CECDF00909DCA /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				4CEC3A6B1B8CECDF00909DCA /* IQNSArray+Sort.swift in Sources */,
@@ -1107,7 +1133,9 @@
 				4CE74FAA1CF206E40093AC0C /* YYTextAttribute.m in Sources */,
 				4CEC3A6D1B8CECDF00909DCA /* IQUIView+Hierarchy.swift in Sources */,
 				4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
+				4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */,
 				4CEC3A771B8CECDF00909DCA /* IQToolbar.swift in Sources */,
+				4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */,
 				4CE74F5F1CF185F70093AC0C /* UIColor+HexColors.m in Sources */,
 				4CEC3A781B8CECDF00909DCA /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				4CE74FB61CF206E40093AC0C /* YYTextLayout.m in Sources */,
@@ -1115,10 +1143,13 @@
 				4CEC3A701B8CECDF00909DCA /* IQKeyboardManagerConstants.swift in Sources */,
 				C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */,
 				4CE74F9E1CF206E40093AC0C /* NSParagraphStyle+YYText.m in Sources */,
+				4C0EFE271CF332B300C908D3 /* YYTextViewController.swift in Sources */,
+				4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */,
 				4CE74F5B1CF185F70093AC0C /* HFColorButton.m in Sources */,
 				C0CB61F71B884F2700C33368 /* TextViewSpecialCaseViewController.swift in Sources */,
 				4CE74FBA1CF206E40093AC0C /* YYTextMagnifier.m in Sources */,
 				C0CB62151B884FA700C33368 /* IQDropDownTextField.m in Sources */,
+				4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */,
 				4CE74FC21CF206E40093AC0C /* YYTextSelectionView.m in Sources */,
 				4CE74FC01CF206E40093AC0C /* YYTextRunDelegate.m in Sources */,
 				C0CB61F61B884F2700C33368 /* TextSelectionViewController.swift in Sources */,
@@ -1133,6 +1164,9 @@
 				4C631B181CB24AAD0078E59F /* IQPreviousNextView.swift in Sources */,
 				C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */,
 				C0CB61F51B884F2700C33368 /* TextFieldViewController.swift in Sources */,
+				4C0EFE251CF2FA8000C908D3 /* ChatTableViewCell.swift in Sources */,
+				4C0EFE2D1CF332D200C908D3 /* ChatViewController.swift in Sources */,
+				4C0EFE2B1CF332C900C908D3 /* LayoutGuideViewController.swift in Sources */,
 				C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */,
 				4CE74FC61CF206E40093AC0C /* YYTextUtilities.m in Sources */,
 			);

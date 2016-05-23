@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate {
+class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet private var customWorkTextField : UITextField!
     
@@ -136,10 +136,35 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         switchInteraction3.enabled = true
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            
+            if identifier == "SettingsNavigationController" {
+                
+                let controller = segue.destinationViewController
+                
+                controller.modalPresentationStyle = .Popover
+                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                
+                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
+                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        self.view.endEditing(true)
+    }
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
-
 }
 
 
