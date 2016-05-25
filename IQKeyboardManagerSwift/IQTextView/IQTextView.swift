@@ -126,7 +126,7 @@ public class IQTextView : UITextView {
         }
         
         set {
-            
+            super.delegate = newValue
         }
     }
 }
