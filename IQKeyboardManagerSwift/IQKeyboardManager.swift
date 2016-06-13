@@ -711,6 +711,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         //  Registering for keyboard notification.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)),                name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)),                name: UIKeyboardDidShowNotification, object: nil)
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)),                name: UIKeyboardWillHideNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidHide(_:)),                name: UIKeyboardDidHideNotification, object: nil)
         
@@ -1334,7 +1336,32 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         showLog("****** \(#function) ended ******")
     }
-    
+
+    /*  UIKeyboardDidShowNotification. */
+    internal func keyboardDidShow(notification : NSNotification?) -> Void {
+        
+        if privateIsEnabled() == false {
+            return
+        }
+        
+        showLog("****** \(#function) started ******")
+        
+        //  Getting topMost ViewController.
+        var topMostController = _textFieldView?.topMostController()
+        
+        if topMostController == nil {
+            topMostController = keyWindow()?.topMostController()
+        }
+        
+        if _textFieldView != nil && topMostController?.modalPresentationStyle == UIModalPresentationStyle.FormSheet && _textFieldView?.isAlertViewTextField() == false {
+            
+            //  keyboard is already showing. adjust frame.
+            adjustFrame()
+        }
+        
+        showLog("****** \(#function) ended ******")
+    }
+
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
     internal func keyboardWillHide(notification : NSNotification?) -> Void {
         
@@ -1566,26 +1593,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         if _textFieldView != nil && _textFieldView?.isAlertViewTextField() == false {
 
-            //Getting textField viewController
-            if let textFieldViewController = _textFieldView?.viewController() {
-                
-                var shouldIgnore = false
-                
-                for disabledClass in disabledDistanceHandlingClasses {
-                    
-                    //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-                    if textFieldViewController.isKindOfClass(disabledClass) {
-                        shouldIgnore = true
-                        break
-                    }
-                }
-                
-                //If shouldn't ignore.
-                if shouldIgnore == false  {
-                    //  keyboard is already showing. adjust frame.
-                    adjustFrame()
-                }
-            }
+            //  keyboard is already showing. adjust frame.
+            adjustFrame()
         }
 
         showLog("****** \(#function) ended ******")

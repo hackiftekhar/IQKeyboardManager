@@ -192,6 +192,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
             //  Registering for keyboard notification.
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 
@@ -1012,6 +1013,26 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
 }
 
+/*  UIKeyboardDidShowNotification. */
+- (void)keyboardDidShow:(NSNotification*)aNotification
+{
+    if ([self privateIsEnabled] == NO)	return;
+    
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    
+    //  Getting topMost ViewController.
+    UIViewController *controller = [_textFieldView topMostController];
+    if (controller == nil)  controller = [[self keyWindow] topMostController];
+
+    //If _textFieldView viewController is presented as formSheet, then adjustFrame again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
+    if (_textFieldView != nil && controller.modalPresentationStyle == UIModalPresentationFormSheet && [_textFieldView isAlertViewTextField] == NO)
+    {
+        [self adjustFrame];
+    }
+    
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+}
+
 /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
 - (void)keyboardWillHide:(NSNotification*)aNotification
 {
@@ -1219,27 +1240,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
     if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
     {
-        //Getting textField viewController
-        UIViewController *textFieldViewController = [_textFieldView viewController];
-        
-        BOOL shouldIgnore = NO;
-        
-        for (Class disabledClass in _disabledDistanceHandlingClasses)
-        {
-            //If viewController is kind of disabled viewController class, then ignoring to adjust view.
-            if ([textFieldViewController isKindOfClass:disabledClass])
-            {
-                shouldIgnore = YES;
-                break;
-            }
-        }
-        
-        //If shouldn't ignore.
-        if (shouldIgnore == NO)
-        {
-            //  keyboard is already showing. adjust frame.
-            [self adjustFrame];
-        }
+        //  keyboard is already showing. adjust frame.
+        [self adjustFrame];
     }
 
     [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
