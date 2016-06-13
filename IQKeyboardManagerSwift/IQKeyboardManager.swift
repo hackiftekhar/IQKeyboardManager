@@ -574,6 +574,15 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     public var layoutIfNeededOnUpdate = false
 
+    ///-----------------------------------------------
+    /// @name InteractivePopGestureRecognizer handling
+    ///-----------------------------------------------
+    
+    /**
+     If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
+     */
+    public var shouldFixInteractivePopGestureRecognizer = true
+    
     
     ///------------------------------------
     /// MARK: Class Level disabling methods
@@ -1221,9 +1230,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) ended ******")
     }
 
-    ///-------------------------------
+    ///---------------------
     /// MARK: Public Methods
-    ///-------------------------------
+    ///---------------------
     
     /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
     public func reloadLayoutIfNeeded() -> Void {
@@ -1265,6 +1274,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             if let unwrappedRootController = _rootViewController {
                 _topViewBeginRect = unwrappedRootController.view.frame
+                
+                if shouldFixInteractivePopGestureRecognizer == true && unwrappedRootController is UINavigationController {
+                    _topViewBeginRect.origin = CGPointZero;
+                }
+
                 showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
             } else {
                 _topViewBeginRect = CGRectZero
@@ -1585,6 +1599,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 _topViewBeginRect = rootViewController.view.frame
                 
+                if shouldFixInteractivePopGestureRecognizer == true && rootViewController is UINavigationController {
+                    _topViewBeginRect.origin = CGPointZero;
+                }
+
                 showLog("Saving \(rootViewController._IQDescription()) beginning frame : \(_topViewBeginRect)")
             }
         }

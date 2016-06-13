@@ -230,7 +230,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             [self setLayoutIfNeededOnUpdate:NO];
-
+            [self setShouldFixInteractivePopGestureRecognizer:YES];
+            
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
@@ -967,6 +968,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
 
         _topViewBeginRect = _rootViewController.view.frame;
+        
+        if (_shouldFixInteractivePopGestureRecognizer && [_rootViewController isKindOfClass:[UINavigationController class]])
+        {
+            _topViewBeginRect.origin = CGPointZero;
+        }
+
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
     }
 
@@ -1232,6 +1239,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
         
         _topViewBeginRect = _rootViewController.view.frame;
+
+        if (_shouldFixInteractivePopGestureRecognizer && [_rootViewController isKindOfClass:[UINavigationController class]])
+        {
+            _topViewBeginRect.origin = CGPointZero;
+        }
 
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]];
     }

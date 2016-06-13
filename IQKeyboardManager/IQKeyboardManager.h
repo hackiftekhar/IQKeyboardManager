@@ -146,9 +146,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
-///---------------------------------------------
+///-----------------------------------------------------------
 /// @name UITextField/UITextView Next/Previous/Resign handling
-///---------------------------------------------
+///-----------------------------------------------------------
 
 /**
  Resigns Keyboard on touching outside of UITextField/View. Default is NO.
@@ -180,9 +180,9 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 - (BOOL)goNext;
 
-///------------------------------------------------
+///-----------------------
 /// @name UISound handling
-///------------------------------------------------
+///-----------------------
 
 /**
  If YES, then it plays inputClick sound on next/previous/done click. Default is YES.
@@ -198,9 +198,18 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL layoutIfNeededOnUpdate;
 
-///------------------------------------
+///-----------------------------------------------
+/// @name InteractivePopGestureRecognizer handling
+///-----------------------------------------------
+
+/**
+ If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
+ */
+@property(nonatomic, assign) BOOL shouldFixInteractivePopGestureRecognizer;
+
+///---------------------------------------------
 /// @name Class Level enabling/disabling methods
-///------------------------------------
+///---------------------------------------------
 
 /**
  Disable distance handling within the scope of disabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
