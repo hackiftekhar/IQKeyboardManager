@@ -1010,7 +1010,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
         //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
-        //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
         {
             [self adjustFrame];
@@ -1249,7 +1249,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
-    //See notes:- https://developer.apple.com/Library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html. If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+    //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
     if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
     {
         //  keyboard is already showing. adjust frame.
