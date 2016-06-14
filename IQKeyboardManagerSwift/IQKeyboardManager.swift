@@ -702,7 +702,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /** Private flags to use within the project */
-    private var _keyboardManagerFlags = flags(isKeyboardShowing: false)
+    private var         _keyboardManagerFlags = flags(isKeyboardShowing: false)
 
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
@@ -875,7 +875,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Getting statusBarFrame
 
         //Maintain keyboardDistanceFromTextField
-        let newKeyboardDistanceFromTextField = (textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : textFieldView.keyboardDistanceFromTextField
+        var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
+        
+        if textFieldView.isSearchBarTextField() {
+            
+            if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
+                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+            }
+        }
+        
+        let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
         var kbSize = _kbSize
         kbSize.height += newKeyboardDistanceFromTextField
 

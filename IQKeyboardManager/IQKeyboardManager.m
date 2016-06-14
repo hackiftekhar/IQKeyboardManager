@@ -549,7 +549,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Getting statusBarFrame
 
     //Maintain keyboardDistanceFromTextField
-    CGFloat keyboardDistanceFromTextField = (_textFieldView.keyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:_textFieldView.keyboardDistanceFromTextField;
+    CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
+    
+    if (_textFieldView.isSearchBarTextField)
+    {
+        UISearchBar *searchBar = [_textFieldView superviewOfClassType:[UISearchBar class]];
+        specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+    }
+    
+    CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
     CGSize kbSize = _kbSize;
     kbSize.height += keyboardDistanceFromTextField;
 
