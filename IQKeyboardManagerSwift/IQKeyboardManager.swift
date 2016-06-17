@@ -211,6 +211,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var toolbarTintColor : UIColor?
 
     /**
+     If YES, then hide previous/next button. Default is NO.
+     */
+    public var shouldHidePreviousNext = false
+
+    /**
      Toolbar done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
      */
     public var toolbarDoneBarButtonItemImage : UIImage?
@@ -1742,111 +1747,216 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if let siblings = responderViews() {
             
             //	If only one object is found, then adding only Done button.
-            if siblings.count == 1 {
-                let textField = siblings[0]
+            if siblings.count == 1 || shouldHidePreviousNext == true {
                 
-                //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-                //setInputAccessoryView: check   (Bug ID: #307)
-                if textField.respondsToSelector(Selector("setInputAccessoryView:")) {
-                    
-                    if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
-                        //Supporting Custom Done button image (Enhancement ID: #366)
-                        if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                            textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
-                        }
-                            //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                        else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                            textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
-                        } else {
-                            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                            textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
-                        }
-                    }
-                    else if let toolbar = textField.inputAccessoryView as? IQToolbar {
-                    
-                        if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                if let textField = _textFieldView {
+                    //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if textField.respondsToSelector(Selector("setInputAccessoryView:")) {
+                        
+                        if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                            //Supporting Custom Done button image (Enhancement ID: #366)
                             if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                                if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
-                                    textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
-                                }
+                                textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
                             }
                                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                             else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                if toolbar.doneTitle != doneBarButtonItemText {
-                                    textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
-                                }
-                            } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
-                                (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
+                                textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                            } else {
                                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                                 textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
                             }
                         }
-                    }
-
-                    textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
-                }
-                
-                if textField.inputAccessoryView is IQToolbar && textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                    
-                    let toolbar = textField.inputAccessoryView as! IQToolbar
-                    
-                    //  Setting toolbar to keyboard.
-                    if let _textField = textField as? UITextField {
-
-                        //Bar style according to keyboard appearance
-                        switch _textField.keyboardAppearance {
-
-                        case UIKeyboardAppearance.Dark:
-                            toolbar.barStyle = UIBarStyle.Black
-                            toolbar.tintColor = UIColor.whiteColor()
-                        default:
-                            toolbar.barStyle = UIBarStyle.Default
+                        else if let toolbar = textField.inputAccessoryView as? IQToolbar {
                             
-                            //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            if shouldToolbarUsesTextFieldTintColor {
-                                toolbar.tintColor = _textField.tintColor
-                            } else if let tintColor = toolbarTintColor {
-                                toolbar.tintColor = tintColor
-                            } else {
-                                toolbar.tintColor = UIColor.blackColor()
+                            if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                                if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
+                                    if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
+                                        textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                    }
+                                }
+                                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                                else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
+                                    if toolbar.doneTitle != doneBarButtonItemText {
+                                        textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                    }
+                                } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
+                                    (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
+                                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                                    textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                }
                             }
                         }
-                    } else if let _textView = textField as? UITextView {
-
-                        //Bar style according to keyboard appearance
-                        switch _textView.keyboardAppearance {
-                            
-                        case UIKeyboardAppearance.Dark:
-                            toolbar.barStyle = UIBarStyle.Black
-                            toolbar.tintColor = UIColor.whiteColor()
-                        default:
-                            toolbar.barStyle = UIBarStyle.Default
-                            
-                            if shouldToolbarUsesTextFieldTintColor {
-                                toolbar.tintColor = _textView.tintColor
-                            } else if let tintColor = toolbarTintColor {
-                                toolbar.tintColor = tintColor
-                            } else {
-                                toolbar.tintColor = UIColor.blackColor()
-                            }
-                        }
-                    }
-
-                    //Setting toolbar title font.   //  (Enhancement ID: #30)
-                    if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
                         
-                        //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
-                        if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
-                            toolbar.title = textField.drawingPlaceholderText
+                        textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
+                    }
+                    
+                    if textField.inputAccessoryView is IQToolbar && textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                        
+                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        
+                        //  Setting toolbar to keyboard.
+                        if let _textField = textField as? UITextField {
+                            
+                            //Bar style according to keyboard appearance
+                            switch _textField.keyboardAppearance {
+                                
+                            case UIKeyboardAppearance.Dark:
+                                toolbar.barStyle = UIBarStyle.Black
+                                toolbar.tintColor = UIColor.whiteColor()
+                            default:
+                                toolbar.barStyle = UIBarStyle.Default
+                                
+                                //Setting toolbar tintColor //  (Enhancement ID: #30)
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textField.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
+                            }
+                        } else if let _textView = textField as? UITextView {
+                            
+                            //Bar style according to keyboard appearance
+                            switch _textView.keyboardAppearance {
+                                
+                            case UIKeyboardAppearance.Dark:
+                                toolbar.barStyle = UIBarStyle.Black
+                                toolbar.tintColor = UIColor.whiteColor()
+                            default:
+                                toolbar.barStyle = UIBarStyle.Default
+                                
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textView.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
+                            }
                         }
-
+                        
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if placeholderFont != nil {
-                            toolbar.titleFont = placeholderFont
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
+                            
+                            //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
+                            if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
+                                toolbar.title = textField.drawingPlaceholderText
+                            }
+                            
+                            //Setting toolbar title font.   //  (Enhancement ID: #30)
+                            if placeholderFont != nil {
+                                toolbar.titleFont = placeholderFont
+                            }
+                        } else {
+                            
+                            toolbar.title = nil
                         }
-                    } else {
+                    }
+                    //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+                    //setInputAccessoryView: check   (Bug ID: #307)
+                    if textField.respondsToSelector(Selector("setInputAccessoryView:")) {
                         
-                        toolbar.title = nil
+                        if textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
+                            //Supporting Custom Done button image (Enhancement ID: #366)
+                            if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
+                                textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                            }
+                                //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                            else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
+                                textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                            } else {
+                                //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                                textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                            }
+                        }
+                        else if let toolbar = textField.inputAccessoryView as? IQToolbar {
+                            
+                            if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                                if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
+                                    if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
+                                        textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                    }
+                                }
+                                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                                else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
+                                    if toolbar.doneTitle != doneBarButtonItemText {
+                                        textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                    }
+                                } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
+                                    (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
+                                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                                    textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                }
+                            }
+                        }
+                        
+                        textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
+                    }
+                    
+                    if textField.inputAccessoryView is IQToolbar && textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                        
+                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        
+                        //  Setting toolbar to keyboard.
+                        if let _textField = textField as? UITextField {
+                            
+                            //Bar style according to keyboard appearance
+                            switch _textField.keyboardAppearance {
+                                
+                            case UIKeyboardAppearance.Dark:
+                                toolbar.barStyle = UIBarStyle.Black
+                                toolbar.tintColor = UIColor.whiteColor()
+                            default:
+                                toolbar.barStyle = UIBarStyle.Default
+                                
+                                //Setting toolbar tintColor //  (Enhancement ID: #30)
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textField.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
+                            }
+                        } else if let _textView = textField as? UITextView {
+                            
+                            //Bar style according to keyboard appearance
+                            switch _textView.keyboardAppearance {
+                                
+                            case UIKeyboardAppearance.Dark:
+                                toolbar.barStyle = UIBarStyle.Black
+                                toolbar.tintColor = UIColor.whiteColor()
+                            default:
+                                toolbar.barStyle = UIBarStyle.Default
+                                
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textView.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
+                            }
+                        }
+                        
+                        //Setting toolbar title font.   //  (Enhancement ID: #30)
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
+                            
+                            //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
+                            if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
+                                toolbar.title = textField.drawingPlaceholderText
+                            }
+                            
+                            //Setting toolbar title font.   //  (Enhancement ID: #30)
+                            if placeholderFont != nil {
+                                toolbar.titleFont = placeholderFont
+                            }
+                        } else {
+                            
+                            toolbar.title = nil
+                        }
                     }
                 }
             } else if siblings.count != 0 {

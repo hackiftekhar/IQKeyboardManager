@@ -1556,12 +1556,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     NSArray *siblings = [self responderViews];
     
     //	If only one object is found, then adding only Done button.
-    if (siblings.count==1)
+    if (siblings.count==1 || self.shouldHidePreviousNext)
     {
-        UITextField *textField = nil;
-        
-        if ([siblings count])
-            textField = siblings[0];
+        UITextField *textField = (UITextField*)_textFieldView;
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
         //setInputAccessoryView: check   (Bug ID: #307)
