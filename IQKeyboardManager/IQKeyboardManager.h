@@ -108,6 +108,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
+ If YES, then hide previous/next button. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldHidePreviousNext;
+
+/**
  Toolbar done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
  */
 @property(nullable, nonatomic, strong) UIImage *toolbarDoneBarButtonItemImage;
