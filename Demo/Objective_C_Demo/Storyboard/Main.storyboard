@@ -1381,17 +1381,15 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Special Cases" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yh4-3c-1nA">
-                                                    <rect key="frame" x="15" y="7" width="103" height="18"/>
+                                                    <rect key="frame" x="15" y="13" width="103" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="- isAskingCanBecomeFirstResponder
-(Category)
-- UISearchBar, UIAlertView, UITextField within different UIView" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hpe-jQ-iio">
-                                                    <rect key="frame" x="15" y="25" width="240" height="48"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="- isAskingCanBecomeFirstResponder (Category) - UISearchBar, UIAlertView, UITextField within different UIView" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hpe-jQ-iio">
+                                                    <rect key="frame" x="15" y="31" width="260" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1404,15 +1402,15 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                             <segue destination="dPG-sk-vRY" kind="push" id="msk-OU-pqX"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="g3x-ph-jFA" detailTextLabel="c1S-nC-oPc" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="Chz-F0-TK9">
-                                        <rect key="frame" x="0.0" y="1571" width="320" height="80"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="g3x-ph-jFA" detailTextLabel="c1S-nC-oPc" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="Chz-F0-TK9">
+                                        <rect key="frame" x="0.0" y="1571" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Chz-F0-TK9" id="4rZ-XR-CU4">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="StackView" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g3x-ph-jFA">
-                                                    <rect key="frame" x="15" y="25" width="78" height="18"/>
+                                                    <rect key="frame" x="15" y="7" width="78" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -1420,7 +1418,7 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="UIStackView example in iOS9" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c1S-nC-oPc">
-                                                    <rect key="frame" x="15" y="43" width="151" height="12"/>
+                                                    <rect key="frame" x="15" y="25" width="151" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1434,7 +1432,7 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="NXV-ww-IIT" detailTextLabel="UrJ-gz-Axr" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="mmm-pn-XIG">
-                                        <rect key="frame" x="0.0" y="1651" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="1615" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mmm-pn-XIG" id="qZC-7h-CV3">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
@@ -1464,7 +1462,7 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Uae-6t-6Sj" detailTextLabel="58p-7P-t8z" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="bMd-Bf-n21">
-                                        <rect key="frame" x="0.0" y="1711" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="1675" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMd-Bf-n21" id="pKj-nA-uRL">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1490,6 +1488,35 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <segue destination="IHN-1B-3KS" kind="push" id="w9d-sW-tRh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="lwC-Rr-cEx" detailTextLabel="Q9O-0Z-MkV" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="3TE-Lz-jBY">
+                                        <rect key="frame" x="0.0" y="1719" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TE-Lz-jBY" id="jnm-nz-ifs">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="UISearchController" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lwC-Rr-cEx">
+                                                    <rect key="frame" x="15" y="7" width="141" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Search Controller" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q9O-0Z-MkV">
+                                                    <rect key="frame" x="15" y="25" width="91" height="12"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="hlh-p3-uIe" kind="push" id="WnC-bl-TlZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -3924,6 +3951,35 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sQr-G0-Esr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3932" y="217"/>
+        </scene>
+        <!--UISearchController-->
+        <scene sceneID="CVj-Wb-f5Y">
+            <objects>
+                <tableViewController id="hlh-p3-uIe" customClass="SearchViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="9ve-I9-oEj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="CvB-L5-ACt">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CvB-L5-ACt" id="xwg-Zj-e0S">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hlh-p3-uIe" id="f0H-Ks-E8T"/>
+                            <outlet property="delegate" destination="hlh-p3-uIe" id="a8F-lD-fT3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="UISearchController" id="PmA-9G-8fd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BE0-zn-cwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4359" y="217"/>
         </scene>
     </scenes>
     <resources>

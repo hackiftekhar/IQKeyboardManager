@@ -553,7 +553,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     if (_textFieldView.isSearchBarTextField)
     {
-        UISearchBar *searchBar = [_textFieldView superviewOfClassType:[UISearchBar class]];
+        UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
         specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
     }
     
