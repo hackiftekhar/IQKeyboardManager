@@ -69,14 +69,14 @@
 ///----------------------------------------------
 
 /**
- Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType.
+ Should pass UITextField/UITextView instance. Assign textFieldView delegate to self, change it's returnKeyType.
  
  @param textFieldView UITextField/UITextView object to register.
  */
 -(void)addTextFieldView:(nonnull UIView*)textFieldView;
 
 /**
- Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType.
+ Should pass UITextField/UITextView instance. Restore it's textFieldView delegate and it's returnKeyType.
 
  @param textFieldView UITextField/UITextView object to unregister.
  */
