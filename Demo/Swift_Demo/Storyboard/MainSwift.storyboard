@@ -126,6 +126,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="IQTextView for placeholder support"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="csO-qF-Ohn" id="pDT-l9-8GW"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <constraints>
@@ -287,6 +290,7 @@
                         <outlet property="buttonPush" destination="Tt5-47-EvZ" id="OaH-l9-8QM"/>
                         <outlet property="dropDownTextField" destination="z7r-JB-8xa" id="lNo-Ce-mO7"/>
                         <outlet property="textField3" destination="f9i-hv-EJj" id="DBN-J6-duh"/>
+                        <outlet property="textView1" destination="Nry-4j-VcI" id="nJ9-Rh-icS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLS-w0-J9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3955,6 +3959,6 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
     <inferredMetricsTieBreakers>
         <segue reference="jwk-m7-IpJ"/>
         <segue reference="aWb-8P-5BY"/>
-        <segue reference="4fl-46-T2Z"/>
+        <segue reference="l34-ps-MjR"/>
     </inferredMetricsTieBreakers>
 </document>

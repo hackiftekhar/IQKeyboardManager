@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 
-class TextFieldViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet private var textField3 : UITextField!
+    @IBOutlet var textView1: IQTextView!
 
     @IBOutlet private var dropDownTextField : IQDropDownTextField!
 
@@ -33,6 +34,8 @@ class TextFieldViewController: UIViewController, UIPopoverPresentationController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        textView1.delegate = self
         textField3.setCustomPreviousTarget(self, action: #selector(self.previousAction(_:)))
         textField3.setCustomNextTarget(self, action: #selector(self.nextAction(_:)))
         textField3.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
@@ -118,6 +121,11 @@ class TextFieldViewController: UIViewController, UIPopoverPresentationController
     
     func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+
+        print("textViewDidBeginEditing");
     }
     
     override func shouldAutorotate() -> Bool {
