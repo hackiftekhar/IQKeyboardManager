@@ -37,9 +37,9 @@
 ///-------------------------
 
 /**
- If `shouldHideTitle` is YES, then title will not be added to the toolbar. Default to NO.
+ If `shouldHidePlaceholderText` is YES, then title will not be added to the toolbar. Default to NO.
  */
-@property (assign, nonatomic) BOOL shouldHideTitle;
+@property (assign, nonatomic) BOOL shouldHidePlaceholderText;
 
 /**
  `placeholderText` to override default `placeholder` text when drawing text on toolbar.

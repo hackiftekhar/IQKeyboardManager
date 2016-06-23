@@ -40,7 +40,7 @@
 
 - (IBAction)shouldHideTitle:(UISwitch *)sender
 {
-    textField2.shouldHideTitle = !textField2.shouldHideTitle;
+    textField2.shouldHidePlaceholderText = !textField2.shouldHidePlaceholderText;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
