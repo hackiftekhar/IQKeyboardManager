@@ -25,12 +25,12 @@
 import Foundation
 import UIKit
 
-private var kIQShouldHideTitle      = "kIQShouldHideTitle"
-private var kIQPlaceholderText      = "kIQPlaceholderText"
+private var kIQShouldHidePlaceholderText    = "kIQShouldHidePlaceholderText"
+private var kIQPlaceholderText              = "kIQPlaceholderText"
 
 
-private var kIQTitleInvocationTarget     = "kIQTitleInvocationTarget"
-private var kIQTitleInvocationSelector   = "kIQTitleInvocationSelector"
+private var kIQTitleInvocationTarget        = "kIQTitleInvocationTarget"
+private var kIQTitleInvocationSelector      = "kIQTitleInvocationSelector"
 
 private var kIQPreviousInvocationTarget     = "kIQPreviousInvocationTarget"
 private var kIQPreviousInvocationSelector   = "kIQPreviousInvocationSelector"
@@ -49,11 +49,11 @@ public extension UIView {
     ///-------------------------
     
     /**
-    If `shouldHideTitle` is YES, then title will not be added to the toolbar. Default to NO.
+    If `shouldHidePlaceholderText` is YES, then title will not be added to the toolbar. Default to NO.
     */
-    public var shouldHideTitle: Bool {
+    public var shouldHidePlaceholderText: Bool {
         get {
-            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHideTitle)
+            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText)
             
             if let unwrapedValue = aValue as? Bool {
                 return unwrapedValue
@@ -62,7 +62,7 @@ public extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldHideTitle, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kIQShouldHidePlaceholderText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.respondsToSelector(Selector("placeholder")) {
@@ -99,7 +99,7 @@ public extension UIView {
      */
     public var drawingPlaceholderText: String? {
         get {
-            if (self.shouldHideTitle)
+            if (self.shouldHidePlaceholderText)
             {
                 return nil;
             }
@@ -306,7 +306,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -386,7 +386,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -475,7 +475,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -573,7 +573,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -676,7 +676,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -812,7 +812,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -935,7 +935,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -1071,7 +1071,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHideTitle == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
             items.append(title)
             
             //Flexible space

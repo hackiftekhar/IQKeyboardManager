@@ -1838,7 +1838,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHidePlaceholderText == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
@@ -1942,7 +1942,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHidePlaceholderText == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {
@@ -2051,7 +2051,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true && textField.shouldHideTitle == false {
+                        if shouldShowTextFieldPlaceholder == true && textField.shouldHidePlaceholderText == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.title == nil || toolbar.title != textField.drawingPlaceholderText {

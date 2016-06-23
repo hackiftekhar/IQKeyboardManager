@@ -1652,7 +1652,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
             
             //If need to show placeholder
-            if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
+            if (_shouldShowTextFieldPlaceholder && textField.shouldHidePlaceholderText == NO)
             {
                 //Updating placeholder     //(Bug ID: #148, #272)
                 if (toolbar.title == nil || [toolbar.title isEqualToString:textField.drawingPlaceholderText] == NO)
@@ -1765,7 +1765,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 }
                 
                 //If need to show placeholder
-                if (_shouldShowTextFieldPlaceholder && textField.shouldHideTitle == NO)
+                if (_shouldShowTextFieldPlaceholder && textField.shouldHidePlaceholderText == NO)
                 {
                     //Updating placeholder     //(Bug ID: #148, #272)
                     if (toolbar.title == nil || [toolbar.title isEqualToString:textField.drawingPlaceholderText] == NO)

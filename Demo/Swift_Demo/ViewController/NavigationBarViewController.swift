@@ -34,7 +34,7 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
     }
     
     @IBAction func shouldHideTitle(sender : UISwitch!) {
-        textField2.shouldHideTitle = !textField2.shouldHideTitle;
+        textField2.shouldHidePlaceholderText = !textField2.shouldHidePlaceholderText;
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

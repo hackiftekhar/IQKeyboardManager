@@ -931,7 +931,7 @@ textField.inputAcessoryView = [[UIView alloc] init];</string>
 - keyboardAppearance
 - shouldResignOnTouchOutside
 - IQKeyboardReturnKeyHandler (Class)
-- shouldHideTitle (Category)
+- shouldHidePlaceholderText (Category)
 - placeholderText (Category)
 - toolbarTintColor
 - toolbarDoneBarButtonItemImage
@@ -3994,6 +3994,6 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
     <inferredMetricsTieBreakers>
         <segue reference="aWb-8P-5BY"/>
         <segue reference="jwk-m7-IpJ"/>
-        <segue reference="kqZ-Zg-RsU"/>
+        <segue reference="NDq-rq-knb"/>
     </inferredMetricsTieBreakers>
 </document>

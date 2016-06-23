@@ -36,9 +36,9 @@
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
--(void)setShouldHideTitle:(BOOL)shouldHideTitle
+-(void)setShouldHidePlaceholderText:(BOOL)shouldHidePlaceholderText
 {
-    objc_setAssociatedObject(self, @selector(shouldHideTitle), @(shouldHideTitle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(shouldHidePlaceholderText), @(shouldHidePlaceholderText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     if ([self respondsToSelector:@selector(placeholder)] && [self.inputAccessoryView respondsToSelector:@selector(setTitle:)])
     {
@@ -48,10 +48,10 @@
     }
 }
 
--(BOOL)shouldHideTitle
+-(BOOL)shouldHidePlaceholderText
 {
-    NSNumber *shouldHideTitle = objc_getAssociatedObject(self, @selector(shouldHideTitle));
-    return [shouldHideTitle boolValue];
+    NSNumber *shouldHidePlaceholderText = objc_getAssociatedObject(self, @selector(shouldHidePlaceholderText));
+    return [shouldHidePlaceholderText boolValue];
 }
 
 -(void)setPlaceholderText:(NSString*)placeholderText
@@ -74,7 +74,7 @@
 
 -(NSString*)drawingPlaceholderText
 {
-    if (self.shouldHideTitle)
+    if (self.shouldHidePlaceholderText)
     {
         return nil;
     }
@@ -240,7 +240,7 @@
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -290,7 +290,7 @@
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -344,7 +344,7 @@
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -405,7 +405,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -464,7 +464,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -557,7 +557,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -652,7 +652,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -743,7 +743,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideTitle?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
     [items addObject:title];
     
     //Flexible space
