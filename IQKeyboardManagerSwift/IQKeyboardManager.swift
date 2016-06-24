@@ -75,7 +75,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    public func privateIsEnabled()-> Bool {
+    private func privateIsEnabled()-> Bool {
         
         var isEnabled = enable
         
@@ -251,13 +251,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /*******************************************/
     
-
-    /**
-    Adjust textView's frame when it is too big in height. Default is NO.
-    */
-    @available(*,deprecated, message="Now adjusting UITextView is automatically handled by adjusting contentInset property of UITextView(UIScrollView) internally, so there is no need of this property and will be removed in future releases.")
-    public var canAdjustTextView = false
-
 
     ///---------------------------------------
     /// MARK: UIKeyboard appearance overriding
@@ -567,14 +560,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     ///---------------------------
 
     /**
-    If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
-    
-    @warning Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
-    */
-    @available(*,deprecated, message="Now there is no animation glitch with default animation style so this property no longer needed and will be removed in future releases")
-    public var shouldAdoptDefaultKeyboardAnimation = true
-
-    /**
     If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
     */
     public var layoutIfNeededOnUpdate = false
@@ -737,7 +722,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         registerTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextViewTextDidBeginEditingNotification, didEndEditingNotificationName: UITextViewTextDidEndEditingNotification)
         
         //  Registering for orientation changes notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)),          name: UIApplicationWillChangeStatusBarOrientationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)),          name: UIApplicationWillChangeStatusBarOrientationNotification, object: UIApplication.sharedApplication())
+
+        //  Registering for status bar frame change notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.didChangeStatusBarFrame(_:)),          name: UIApplicationDidChangeStatusBarFrameNotification, object: UIApplication.sharedApplication())
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
@@ -885,7 +873,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if textFieldView.isSearchBarTextField() {
             
             if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
-                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
             }
         }
         
@@ -1290,7 +1278,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
                 if shouldFixInteractivePopGestureRecognizer == true && unwrappedRootController is UINavigationController {
-                    _topViewBeginRect.origin = CGPointZero;
+                    
+                    if let window = keyWindow() {
+                        _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-unwrappedRootController.view.frame.size.height)
+                    } else {
+                        _topViewBeginRect.origin = CGPointZero
+                    }
                 }
 
                 showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
@@ -1614,7 +1607,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _topViewBeginRect = rootViewController.view.frame
                 
                 if shouldFixInteractivePopGestureRecognizer == true && rootViewController is UINavigationController {
-                    _topViewBeginRect.origin = CGPointZero;
+                    if let window = keyWindow() {
+                        _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-rootViewController.view.frame.size.height)
+                    } else {
+                        _topViewBeginRect.origin = CGPointZero
+                    }
                 }
 
                 showLog("Saving \(rootViewController._IQDescription()) beginning frame : \(_topViewBeginRect)")
@@ -1697,6 +1694,54 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) ended ******")
     }
     
+    ///------------------------------------------
+    /// MARK: Status Bar Frame change Notifications
+    ///------------------------------------------
+    
+    /**  UIApplicationDidChangeStatusBarFrameNotification. Need to refresh view position and update _topViewBeginRect. (Bug ID: #446)*/
+    internal func didChangeStatusBarFrame(notification : NSNotification?) -> Void {
+        
+        if privateIsEnabled() == false {
+            return
+        }
+        
+        showLog("****** \(#function) started ******")
+        
+        if _rootViewController != nil && !CGRectEqualToRect(_topViewBeginRect, _rootViewController!.view.frame) == true {
+
+            if let unwrappedRootController = _rootViewController {
+                _topViewBeginRect = unwrappedRootController.view.frame
+                
+                if shouldFixInteractivePopGestureRecognizer == true && unwrappedRootController is UINavigationController {
+                    
+                    if let window = keyWindow() {
+                        _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-unwrappedRootController.view.frame.size.height)
+                    } else {
+                        _topViewBeginRect.origin = CGPointZero
+                    }
+                }
+                
+                showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
+            } else {
+                _topViewBeginRect = CGRectZero
+            }
+        }
+        
+        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        
+        if _textFieldView != nil && _textFieldView?.isAlertViewTextField() == false {
+            
+            //Getting textField viewController
+            if _textFieldView?.viewController() != nil {
+                
+                //  keyboard is already showing. adjust frame.
+                adjustFrame()
+            }
+        }
+        
+        showLog("****** \(#function) ended ******")
+    }
+
     ///------------------
     /// MARK: AutoToolbar
     ///------------------

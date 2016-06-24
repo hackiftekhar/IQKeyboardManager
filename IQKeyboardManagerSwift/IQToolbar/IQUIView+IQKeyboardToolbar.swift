@@ -101,7 +101,7 @@ public extension UIView {
         get {
             if (self.shouldHidePlaceholderText)
             {
-                return nil;
+                return nil
             }
             else if (self.placeholderText?.isEmpty == false) {
                 return self.placeholderText
@@ -264,7 +264,7 @@ public extension UIView {
     /// MARK: Private helper
     ///---------------------
     
-    public static func flexibleBarButtonItem () -> IQBarButtonItem {
+    private static func flexibleBarButtonItem () -> IQBarButtonItem {
         
         struct Static {
             static let nilButton = IQBarButtonItem(barButtonSystemItem:UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)

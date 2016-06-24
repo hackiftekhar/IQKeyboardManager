@@ -288,23 +288,8 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 @end
 
+
 @interface IQKeyboardManager(IQKeyboardManagerDeprecated)
-
-///--------------------------
-/// @name UITextView handling
-///--------------------------
-
-/**
- Adjust textView's frame when it is too big in height. Default is NO.
- */
-@property(nonatomic, assign) BOOL canAdjustTextView __attribute__((deprecated("Now adjusting UITextView is automatically handled by adjusting contentInset property of UITextView(UIScrollView) internally, so there is no need of this property and will be removed in future releases.")));
-
-/**
- If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseInOut animation style. Default is YES.
- 
- @warning Sometimes strange animations may be produced if uses default curve style animation in iOS 7 and changing the textFields very frequently.
- */
-@property(nonatomic, assign) BOOL shouldAdoptDefaultKeyboardAnimation  __attribute__((deprecated("Now there is no animation glitch with default animation style so this property no longer needed and will be removed in future releases.")));
 
 @end
 

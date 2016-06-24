@@ -209,7 +209,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
 
             //  Registering for orientation changes notification
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+
+            //  Registering for status bar frame change notification
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
             
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             strongSelf.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
@@ -979,7 +982,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         if (_shouldFixInteractivePopGestureRecognizer && [_rootViewController isKindOfClass:[UINavigationController class]])
         {
-            _topViewBeginRect.origin = CGPointZero;
+            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
         }
 
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
@@ -1250,7 +1253,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         if (_shouldFixInteractivePopGestureRecognizer && [_rootViewController isKindOfClass:[UINavigationController class]])
         {
-            _topViewBeginRect.origin = CGPointZero;
+            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
         }
 
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]];
@@ -1331,6 +1334,37 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         } completion:NULL];
     }
 
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+}
+
+#pragma mark - Status Bar Frame change Notifications
+
+/**  UIApplicationDidChangeStatusBarFrameNotification. Need to refresh view position and update _topViewBeginRect. (Bug ID: #446)*/
+- (void)didChangeStatusBarFrame:(NSNotification*)aNotification
+{
+    if ([self privateIsEnabled] == NO)	return;
+    
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+
+    if (_rootViewController && !CGRectEqualToRect(_topViewBeginRect, _rootViewController.view.frame))
+    {
+        _topViewBeginRect = _rootViewController.view.frame;
+        
+        if (_shouldFixInteractivePopGestureRecognizer && [_rootViewController isKindOfClass:[UINavigationController class]])
+        {
+            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+        }
+        
+        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
+    }
+    
+    //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
+    //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+    if (_textFieldView != nil  && [_textFieldView isAlertViewTextField] == NO)
+    {
+        [self adjustFrame];
+    }
+    
     [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
 }
 
@@ -1941,28 +1975,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 @end
 
+
 @implementation IQKeyboardManager(IQKeyboardManagerDeprecated)
-
-@dynamic shouldAdoptDefaultKeyboardAnimation;
-
--(void)setCanAdjustTextView:(BOOL)canAdjustTextView
-{
-
-}
-
--(BOOL)canAdjustTextView
-{
-    return NO;
-}
-
--(void)setShouldAdoptDefaultKeyboardAnimation:(BOOL)shouldAdoptDefaultKeyboardAnimation
-{
-
-}
-
--(BOOL)isShouldAdoptDefaultKeyboardAnimation
-{
-    return YES;
-}
 
 @end
