@@ -400,7 +400,6 @@
 		C0CB62371B8850AE00C33368 /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
 		C0CB62381B8850AE00C33368 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
 		C0CB62391B8850AE00C33368 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
-		C0CB623A1B8850AE00C33368 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
 		C0CB623C1B8850AE00C33368 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -886,7 +885,6 @@
 				C0CB622A1B8850AE00C33368 /* IQKeyboardReturnKeyHandler.m */,
 				C0CB622E1B8850AE00C33368 /* IQTextView */,
 				C0CB62311B8850AE00C33368 /* IQToolbar */,
-				C0CB623A1B8850AE00C33368 /* KeyboardManager.h */,
 				C0CB623B1B8850AE00C33368 /* Resources */,
 			);
 			path = IQKeyboardManager;

@@ -1,5 +1,5 @@
 //
-//  KeyboardManager.h
+//  IQKeyboardManagerSwift.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-16 Iftekhar Qurashi.
 //
@@ -21,19 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
 
-#ifndef KeyboardManager_h
-#define KeyboardManager_h
+//! Project version number for IQKeyboardManagerSwift.
+FOUNDATION_EXPORT double IQKeyboardManagerSwiftVersionNumber;
 
-#import "IQBarButtonItem.h"
-#import "IQKeyboardManager.h"
-#import "IQKeyboardManagerConstants.h"
-#import "IQKeyboardReturnKeyHandler.h"
-#import "IQTextView.h"
-#import "IQTitleBarButtonItem.h"
-#import "IQToolbar.h"
-#import "IQUIView+Hierarchy.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQUIWindow+Hierarchy.h"
+//! Project version string for IQKeyboardManagerSwift.
+FOUNDATION_EXPORT const unsigned char IQKeyboardManagerSwiftVersionString[];
 
-#endif
+// In this header, you should import all the public headers of your framework using statements like #import <IQKeyboardManagerSwift/PublicHeader.h>
+
+
