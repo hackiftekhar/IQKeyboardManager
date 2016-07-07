@@ -19,17 +19,17 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, U
         
         if (self.navigationController == nil)
         {
-            buttonPush.hidden = true
-            buttonPresent.setTitle("Dismiss", forState: UIControlState.Normal)
+            buttonPush.isHidden = true
+            buttonPresent.setTitle("Dismiss", for: UIControlState())
         }
     }
     
-    override func viewWillAppear (animated : Bool) {
+    override func viewWillAppear (_ animated : Bool) {
         
         super.viewWillAppear(animated)
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if text == "\n" {
             textView.resignFirstResponder()
@@ -38,17 +38,17 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, U
         return true
     }
     
-    @IBAction func presentClicked (barButton : UIButton!) {
+    @IBAction func presentClicked (_ barButton : UIButton!) {
         
         if (navigationController) != nil {
             let controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
-            presentViewController(controller, animated: true, completion: nil)
+            present(controller, animated: true, completion: nil)
         } else {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let identifier = segue.identifier {
             
@@ -56,21 +56,21 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, U
                 
                 let controller = segue.destinationViewController
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     

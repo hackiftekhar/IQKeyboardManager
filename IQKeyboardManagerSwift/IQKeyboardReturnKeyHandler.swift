@@ -344,7 +344,6 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     updateReturnKeyTypeOnTextField(textField)
     
     delegate?.textFieldShouldBeginEditing?(textField)
-    
   }
   
   public func textFieldDidEndEditing(_ textField: UITextField) {
@@ -354,18 +353,11 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   
   public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if delegate?.responds(to: #selector(textField(_:shouldChangeCharactersIn:replacementString:))) != nil {
+    if delegate?.responds(to: #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:replacementString:))) != nil {
       return (delegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == true)
     } else {
       return true
     }
-    
-    //  modified in July 6th 2016
-    //        if delegate?.responds(to: #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:replacementString:))) != nil {
-    //            return (delegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == true)
-    //        } else {
-    //            return true
-    //        }
   }
   
   public func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -404,6 +396,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   }
   
   public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    
     if delegate?.responds(to: #selector(UITextViewDelegate.textViewShouldEndEditing(_:))) != nil {
       return (delegate?.textViewShouldEndEditing?(textView) == true)
     } else {
@@ -448,53 +441,45 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     delegate?.textViewDidChangeSelection?(textView)
   }
   
-  
   @available(iOS 10.0, *)
   public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-  
-  
-  if delegate?.responds(to: selectorTextView) != nil {
-  return (delegate?.textView!(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction))! == true
-  } else {
-  return true
-  }
-  
-  }
-  
-  @available(iOS 10.0, *)
-  public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-  if delegate?.responds(to: selectorTextView) != nil {
-  return delegate?.textView!(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
-  } else {
-  return true
-  }
-  
-  
-  }
-  
-  public func textView(textView: UITextView, shouldInteractWithURL URL: URL, inRange characterRange: NSRange) -> Bool {
-  
-  if delegate?.responds(to: #selector(UITextViewDelegate.textView)) != nil {
-    return ((delegate?.textView?(textView, shouldInteractWithURL: URL, inRange: characterRange)) == true)
-  } else {
-    return true
-  }
-  
-  }
-  
-  public func textView(textView: UITextView, shouldInteractWithTextAttachment textAttachment: NSTextAttachment, inRange characterRange: NSRange) -> Bool {
-  
-    if delegate?.responds(to: #selector(UITextViewDelegate.textView)) != nil {
-      return ((delegate?.textView?(textView, shouldInteractWithTextAttachment: textAttachment, inRange: characterRange)) == true)
+    
+    
+    if delegate?.responds(to: #selector(textView(_:shouldInteractWith:in:interaction:))) != nil {
+      return delegate?.textView!(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
     } else {
       return true
     }
   }
   
+  @available(iOS 10.0, *)
+  public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    
+    if delegate?.responds(to: #selector(textView(_:shouldInteractWith:in:interaction:))) != nil {
+      return delegate?.textView!(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
+    } else {
+        return true
+    }
+    
   }
   
+  public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    
+    if delegate?.responds(to: #selector(UITextViewDelegate.textView(_:shouldInteractWith:in:))) != nil {
+      return (delegate?.textView!(textView, shouldInteractWith: URL, in: characterRange) == true)
+    } else {
+      return true
+    }
+    
+  }
   
-  
-  
-  
+  public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+    
+    if delegate?.responds(to: #selector(UITextViewDelegate.textView(_:shouldInteractWith:in:))) != nil {
+      return (delegate?.textView!(textView, shouldInteractWith: textAttachment, in: characterRange) == true)
+
+    } else {
+      return true
+    }
+  }
 }

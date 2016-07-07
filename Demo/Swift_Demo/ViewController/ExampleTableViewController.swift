@@ -10,45 +10,45 @@ import UIKit
 
 class ExampleTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if ((indexPath.row % 2) == 0) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (((indexPath as NSIndexPath).row % 2) == 0) {
             return 40
         } else {
             return 160
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let identifier = "\(indexPath.section) \(indexPath.row)"
+        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
         
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
-            cell?.backgroundColor = UIColor.clearColor()
-            cell?.selectionStyle = UITableViewCellSelectionStyle.None
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell?.backgroundColor = UIColor.clear()
+            cell?.selectionStyle = UITableViewCellSelectionStyle.none
 
             let contentView : UIView! = cell?.contentView
 
-            if ((indexPath.row % 2) == 0) {
+            if (((indexPath as NSIndexPath).row % 2) == 0) {
                 
-                let textField = UITextField(frame: CGRectMake(5,5,contentView.frame.size.width-10,30))
-                textField.autoresizingMask = [UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleWidth]
+                let textField = UITextField(frame: CGRect(x: 5,y: 5,width: contentView.frame.size.width-10,height: 30))
+                textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
                 textField.placeholder = identifier
-                textField.backgroundColor = UIColor.clearColor()
-                textField.borderStyle = UITextBorderStyle.RoundedRect
+                textField.backgroundColor = UIColor.clear()
+                textField.borderStyle = UITextBorderStyle.roundedRect
                 cell?.contentView.addSubview(textField)
 
             } else {
 
-                let textView = UITextView(frame: CGRectInset(contentView.bounds, 5, 5))
-                textView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+                let textView = UITextView(frame: contentView.bounds.insetBy(dx: 5, dy: 5))
+                textView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
                 textView.text = "Sample Text"
                 cell?.contentView.addSubview(textView)
             }
@@ -57,7 +57,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         return cell!
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let identifier = segue.identifier {
             
@@ -65,21 +65,21 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
                 
                 let controller = segue.destinationViewController
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
