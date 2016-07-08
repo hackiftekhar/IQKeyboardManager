@@ -538,7 +538,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if gesture.state == UIGestureRecognizerState.ended {
 
             //Resigning currently responder textField.
-            resignFirstResponder()
+           let _ = resignFirstResponder()
           
         }
     }

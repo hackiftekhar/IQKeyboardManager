@@ -343,7 +343,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   public func textFieldDidBeginEditing(_ textField: UITextField) {
     updateReturnKeyTypeOnTextField(textField)
     
-    delegate?.textFieldShouldBeginEditing?(textField)
+    let _ = delegate?.textFieldShouldBeginEditing?(textField)
   }
   
   public func textFieldDidEndEditing(_ textField: UITextField) {
