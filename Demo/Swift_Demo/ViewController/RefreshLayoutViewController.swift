@@ -11,12 +11,12 @@ class RefreshLayoutViewController: UIViewController {
 
     @IBOutlet var textViewHeightConstraint : NSLayoutConstraint!
     
-    @IBAction func stepperChanged (sender : UIStepper) {
+    @IBAction func stepperChanged (_ sender : UIStepper) {
 
         let animationCurve = UIViewAnimationOptions.init(rawValue: 7)
-        let animationDuration : NSTimeInterval = 0.3;
+        let animationDuration : TimeInterval = 0.3;
 
-        UIView.animateWithDuration(animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(animationCurve), animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(animationCurve), animations: { () -> Void in
 
             self.textViewHeightConstraint.constant = CGFloat(sender.value);
 
@@ -25,7 +25,7 @@ class RefreshLayoutViewController: UIViewController {
         }) { (animated:Bool) -> Void in}
     }
 
-    @IBAction func reloadLayoutAction (sender : UIButton) {
+    @IBAction func reloadLayoutAction (_ sender : UIButton) {
         IQKeyboardManager.sharedManager().reloadLayoutIfNeeded()
     }
 }

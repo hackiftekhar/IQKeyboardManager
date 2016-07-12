@@ -37,11 +37,11 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
         self.definesPresentationContext = true
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
 
-    func searchForText(searchText:String?, scope:Int) {
+    func searchForText(_ searchText:String?, scope:Int) {
         
         if let text = searchText {
             
@@ -51,7 +51,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
                 {
                     self.filteredList = self.dataList.filter({ (obj : [String : String]) -> Bool in
                         
-                        if obj["name"]?.containsString(text) == true || obj["email"]?.containsString(text) == true {
+                        if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
                             return true
                         } else {
                             return false
@@ -62,7 +62,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
                 {
                     self.filteredList = self.dataList.filter({ (obj : [String : String]) -> Bool in
                         
-                        if obj["name"]?.containsString(text) == true || obj["email"]?.containsString(text) == true {
+                        if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
                             return true
                         } else {
                             return false
@@ -73,7 +73,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
                 {
                     self.filteredList = self.dataList.filter({ (obj : [String : String]) -> Bool in
                         
-                        if obj["email"]?.containsString(text) == true {
+                        if obj["email"]?.contains(text) == true {
                             return true
                         } else {
                             return false
@@ -88,39 +88,39 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
         }
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         self.searchForText(searchController.searchBar.text, scope: searchController.searchBar.selectedScopeButtonIndex)
         self.tableView.reloadData()
     }
 
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        self.updateSearchResultsForSearchController(self.searchController)
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        self.updateSearchResults(for: self.searchController)
     }
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if searchController.active == false {
+        if searchController.isActive == false {
             return dataList.count
         } else {
             return filteredList.count
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("UITableViewCell")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")
 
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "UITableViewCell")
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "UITableViewCell")
         }
 
-        if searchController.active == false {
-            cell?.textLabel?.text         = dataList[indexPath.row]["name"];
-            cell?.detailTextLabel?.text   = dataList[indexPath.row]["email"];
+        if searchController.isActive == false {
+            cell?.textLabel?.text         = dataList[(indexPath as NSIndexPath).row]["name"];
+            cell?.detailTextLabel?.text   = dataList[(indexPath as NSIndexPath).row]["email"];
         } else {
-            cell?.textLabel?.text         = filteredList[indexPath.row]["name"];
-            cell?.detailTextLabel?.text   = filteredList[indexPath.row]["email"];
+            cell?.textLabel?.text         = filteredList[(indexPath as NSIndexPath).row]["name"];
+            cell?.detailTextLabel?.text   = filteredList[(indexPath as NSIndexPath).row]["email"];
         }
 
         return cell!

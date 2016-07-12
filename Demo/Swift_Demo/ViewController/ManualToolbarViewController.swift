@@ -36,7 +36,7 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     }
 
     
-    func previousAction(sender : UITextField!) {
+    func previousAction(_ sender : UITextField!) {
         
         if (textField2.isFirstResponder())
         {
@@ -48,7 +48,7 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         }
     }
     
-    func nextAction(sender : UITextField!) {
+    func nextAction(_ sender : UITextField!) {
         
         if (textField1.isFirstResponder())
         {
@@ -60,28 +60,28 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         }
     }
     
-    func doneAction(sender : UITextField!) {
+    func doneAction(_ sender : UITextField!) {
         self.view.endEditing(true)
     }
 
-    func titleAction(sender : UIButton) {
+    func titleAction(_ sender : UIButton) {
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        alertController.addAction(UIAlertAction(title: "test@example.com", style: .Default, handler: { (action : UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "test@example.com", style: .default, handler: { (action : UIAlertAction) in
             self.textField4.text = "test";
         }))
         
-        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .Default, handler: { (action : UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .default, handler: { (action : UIAlertAction) in
             self.textField4.text = "demo";
         }))
         
         alertController.popoverPresentationController?.sourceView = sender
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let identifier = segue.identifier {
             
@@ -89,21 +89,21 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
                 
                 let controller = segue.destinationViewController
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     

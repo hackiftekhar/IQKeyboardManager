@@ -22,22 +22,22 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
         textField3.placeholderText = "This is the customised placeholder title for displaying as toolbar title"
 
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.Done
+        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
     }
 
-    @IBAction func textFieldClicked(sender : UITextField!) {
+    @IBAction func textFieldClicked(_ sender : UITextField!) {
         
     }
     
-    @IBAction func enableScrollAction(sender : UISwitch!) {
-        scrollView.scrollEnabled = sender.on;
+    @IBAction func enableScrollAction(_ sender : UISwitch!) {
+        scrollView.isScrollEnabled = sender.isOn;
     }
     
-    @IBAction func shouldHideTitle(sender : UISwitch!) {
+    @IBAction func shouldHideTitle(_ sender : UISwitch!) {
         textField2.shouldHidePlaceholderText = !textField2.shouldHidePlaceholderText;
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let identifier = segue.identifier {
             
@@ -45,21 +45,21 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
                 
                 let controller = segue.destinationViewController
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     

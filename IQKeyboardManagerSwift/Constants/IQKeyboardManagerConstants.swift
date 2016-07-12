@@ -39,9 +39,9 @@ Creates Toolbar according to tag property of TextField's.
 Creates Toolbar according to the y,x position of textField in it's superview coordinate.
 */
 public enum IQAutoToolbarManageBehaviour : Int {
-    case BySubviews
-    case ByTag
-    case ByPosition
+    case bySubviews
+    case byTag
+    case byPosition
 }
 
 /*
