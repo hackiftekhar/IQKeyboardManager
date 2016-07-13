@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 
-import Foundation
 import UIKit
 
 private var kIQShouldHidePlaceholderText    = "kIQShouldHidePlaceholderText"
@@ -98,21 +97,20 @@ public extension UIView {
      `drawingPlaceholderText` will be actual text used to draw on toolbar. This would either `placeholder` or `placeholderText`.
      */
     public var drawingPlaceholderText: String? {
-        get {
-            if (self.shouldHidePlaceholderText)
-            {
-                return nil
-            }
-            else if (self.placeholderText?.isEmpty == false) {
-                return self.placeholderText
-            }
-            else if self.respondsToSelector(Selector("placeholder")) {
-                let textField = self as AnyObject
-                return textField.placeholder
-            }
-            else {
-                return nil
-            }
+
+        if (self.shouldHidePlaceholderText)
+        {
+            return nil
+        }
+        else if (self.placeholderText?.isEmpty == false) {
+            return self.placeholderText
+        }
+        else if self.respondsToSelector(Selector("placeholder")) {
+            let textField = self as AnyObject
+            return textField.placeholder
+        }
+        else {
+            return nil
         }
     }
 

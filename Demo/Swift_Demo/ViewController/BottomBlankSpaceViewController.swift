@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class BottomBlankSpaceViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     

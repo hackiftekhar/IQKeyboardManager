@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Iftekhar. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class WebViewController: UIViewController , UIWebViewDelegate {

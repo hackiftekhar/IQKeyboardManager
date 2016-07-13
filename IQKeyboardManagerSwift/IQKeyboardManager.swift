@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 
-import Foundation
 import CoreGraphics
 import UIKit
 
@@ -250,9 +249,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
     private var         isTextViewContentInsetChanged = false
-    
-    /*******************************************/
-    
+        
 
     ///---------------------------------------
     /// MARK: UIKeyboard appearance overriding
@@ -350,47 +347,41 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     Returns YES if can navigate to previous responder textField/textView, otherwise NO.
     */
     public var canGoPrevious: Bool {
-        
-        get {
-            //Getting all responder view's.
-            if let textFields = responderViews() {
-                if let  textFieldRetain = _textFieldView {
+        //Getting all responder view's.
+        if let textFields = responderViews() {
+            if let  textFieldRetain = _textFieldView {
+                
+                //Getting index of current textField.
+                if let index = textFields.indexOf(textFieldRetain) {
                     
-                    //Getting index of current textField.
-                    if let index = textFields.indexOf(textFieldRetain) {
-                        
-                        //If it is not first textField. then it's previous object canBecomeFirstResponder.
-                        if index > 0 {
-                            return true
-                        }
+                    //If it is not first textField. then it's previous object canBecomeFirstResponder.
+                    if index > 0 {
+                        return true
                     }
                 }
             }
-            return false
         }
+        return false
     }
     
     /**
     Returns YES if can navigate to next responder textField/textView, otherwise NO.
     */
     public var canGoNext: Bool {
-        
-        get {
-            //Getting all responder view's.
-            if let textFields = responderViews() {
-                if let  textFieldRetain = _textFieldView {
-                    //Getting index of current textField.
-                    if let index = textFields.indexOf(textFieldRetain) {
-                        
-                        //If it is not first textField. then it's previous object canBecomeFirstResponder.
-                        if index < textFields.count-1 {
-                            return true
-                        }
+        //Getting all responder view's.
+        if let textFields = responderViews() {
+            if let  textFieldRetain = _textFieldView {
+                //Getting index of current textField.
+                if let index = textFields.indexOf(textFieldRetain) {
+                    
+                    //If it is not first textField. then it's previous object canBecomeFirstResponder.
+                    if index < textFields.count-1 {
+                        return true
                     }
                 }
             }
-            return false
         }
+        return false
     }
     
     /**

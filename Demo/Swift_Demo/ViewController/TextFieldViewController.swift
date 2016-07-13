@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Iftekhar. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     

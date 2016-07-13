@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 
-import Foundation
 import UIKit
 
 private var kIQIsAskingCanBecomeFirstResponder = "kIQIsAskingCanBecomeFirstResponder"
@@ -40,16 +39,11 @@ public extension UIView {
     Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
     */
     public var isAskingCanBecomeFirstResponder: Bool {
-        get {
-            
-            if let aValue = objc_getAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
+        if let aValue = objc_getAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder) as? Bool {
+            return aValue
+        } else {
+            return false
         }
     }
 
@@ -212,7 +206,7 @@ public extension UIView {
     
     private func _IQcanBecomeFirstResponder() -> Bool {
         
-        isAskingCanBecomeFirstResponder = true
+        objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, true, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && userInteractionEnabled == true && hidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
 
@@ -225,7 +219,7 @@ public extension UIView {
             }
         }
 
-        isAskingCanBecomeFirstResponder = false
+        objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, false, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
         return _IQcanBecomeFirstResponder
     }

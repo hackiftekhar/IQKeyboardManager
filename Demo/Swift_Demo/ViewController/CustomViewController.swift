@@ -6,6 +6,9 @@
 //  Copyright © 2015 Iftekhar. All rights reserved.
 //
 
+import UIKit
+import IQKeyboardManagerSwift
+
 class CustomViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
     private var returnHandler : IQKeyboardReturnKeyHandler!
@@ -60,7 +63,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         switchEnableTouchResign.on = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains({ element in
             return element == CustomViewController.self
         })
-        
+                
         switchAllowPreviousNext.on = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains({ element in
             return element == IQPreviousNextView.self
         });

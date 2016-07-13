@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 
-import Foundation
 import UIKit
 
 /** @abstract UIWindow hierarchy category.  */

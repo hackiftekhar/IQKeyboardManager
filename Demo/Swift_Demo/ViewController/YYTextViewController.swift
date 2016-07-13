@@ -6,6 +6,7 @@
 //  Copyright © 2016 Iftekhar. All rights reserved.
 //
 
+import IQKeyboardManagerSwift
 
 class YYTextViewController: UIViewController, YYTextViewDelegate {
 

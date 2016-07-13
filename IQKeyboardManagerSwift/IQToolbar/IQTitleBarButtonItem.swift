@@ -85,12 +85,12 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
             return (target: target, action: action)
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQBarTitleInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &IQTitleBarButtonItem.kIQBarTitleInvocationTarget, newValue.target, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let unwrappedSelector = newValue.action {
-                objc_setAssociatedObject(self, &kIQBarTitleInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &IQTitleBarButtonItem.kIQBarTitleInvocationSelector, NSStringFromSelector(unwrappedSelector), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             } else {
-                objc_setAssociatedObject(self, &kIQBarTitleInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &IQTitleBarButtonItem.kIQBarTitleInvocationSelector, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
             
             if (newValue.target == nil || newValue.action == nil)

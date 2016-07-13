@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-               BuildableName = "IQKeyboardManager.app"
+               BuildableName = "IQKeyboardManagerDemo.app"
                BlueprintName = "DemoObjC"
                ReferencedContainer = "container:Demo.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
+            BuildableName = "IQKeyboardManagerDemo.app"
             BlueprintName = "DemoObjC"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
+            BuildableName = "IQKeyboardManagerDemo.app"
             BlueprintName = "DemoObjC"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0B63B9A1781FAB1008D3B64"
-            BuildableName = "IQKeyboardManager.app"
+            BuildableName = "IQKeyboardManagerDemo.app"
             BlueprintName = "DemoObjC"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>

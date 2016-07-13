@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Iftekhar. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
