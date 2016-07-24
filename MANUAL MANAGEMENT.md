@@ -168,20 +168,20 @@ If you would like to use your own SpecialView (subclass of UIView) instead of de
 ```
 
 ##Hide UIToolbar for specific UITextField/UITextView
-
-If you don't want to add automatic toolbar over keyboard for specific textField then you should add a new UIView as it's toolbar like this
 ([#89](https://github.com/hackiftekhar/IQKeyboardManager/issues/89),
 [#533](https://github.com/hackiftekhar/IQKeyboardManager/issues/533))
+
+If you don't want to add automatic toolbar over keyboard for specific textField then you should add a new UIView as it's toolbar like this
 
 ```objc
 textField.inputAccessoryView = [[UIView alloc] init];
 ```
 
 ##Change UIToolbar Done button text or replace it with some other icon
-
-If you would like to change toolbar **Done** button text then you can use `toolbarDoneBarButtonItemText` property to do the same
 ([#538](https://github.com/hackiftekhar/IQKeyboardManager/issues/538),
 [#557](https://github.com/hackiftekhar/IQKeyboardManager/issues/557))
+
+If you would like to change toolbar **Done** button text then you can use `toolbarDoneBarButtonItemText` property to do the same
 
 ```objc
     [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemText = @"Save";
