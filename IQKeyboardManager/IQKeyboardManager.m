@@ -1266,6 +1266,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         return;
     }
     
+//    if ([_textFieldView isKindOfClass:[UITextField class]])
+//    {
+//        [(UITextField*)_textFieldView addTarget:self action:@selector(editingDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
+//    }
+
     //Adding Geture recognizer to window    (Enhancement ID: #14)
     [_textFieldView.window addGestureRecognizer:_tapGesture];
     
@@ -1309,6 +1314,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Removing gesture recognizer   (Enhancement ID: #14)
     [_textFieldView.window removeGestureRecognizer:_tapGesture];
     
+//    if ([_textFieldView isKindOfClass:[UITextField class]])
+//    {
+//        [(UITextField*)_textFieldView removeTarget:self action:@selector(editingDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
+//    }
+
     // We check if there's a change in original frame or not.
     if(_isTextViewContentInsetChanged == YES &&
        [_textFieldView isKindOfClass:[UITextView class]])
@@ -1337,6 +1347,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
 }
+
+//-(void)editingDidEndOnExit:(UITextField*)textField
+//{
+//    [self showLog:[NSString stringWithFormat:@"ReturnKey %@",NSStringFromSelector(_cmd)]];
+//}
 
 #pragma mark - UIStatusBar Notification methods
 /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/

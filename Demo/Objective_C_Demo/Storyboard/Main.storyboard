@@ -2430,7 +2430,7 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                                 <rect key="frame" x="20" y="557" width="280" height="30"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LOI-el-lXZ">
                                 <rect key="frame" x="251" y="257" width="51" height="31"/>
@@ -2811,19 +2811,27 @@ A UITableView as a child of UIViewController embedded in the storyboard using a 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enb-ZG-DIS">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="150" width="320" height="418"/>
                                 <color key="backgroundColor" red="0.36078431372549019" green="0.38823529411764707" blue="0.40392156862745099" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="JDM-Xg-93g" id="7kX-b0-eCJ"/>
                                 </connections>
                             </webView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bu-NR-xhG">
+                                <rect key="frame" x="20" y="84" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8bu-NR-xhG" firstAttribute="top" secondItem="7Vl-S4-Maz" secondAttribute="bottom" constant="20" id="6b2-Ex-ZF2"/>
                             <constraint firstAttribute="bottom" secondItem="enb-ZG-DIS" secondAttribute="bottom" id="85j-ru-GwA"/>
                             <constraint firstAttribute="trailing" secondItem="enb-ZG-DIS" secondAttribute="trailing" id="8b5-IU-QXQ"/>
+                            <constraint firstItem="8bu-NR-xhG" firstAttribute="leading" secondItem="XOS-eg-1xO" secondAttribute="leading" constant="20" id="Gby-0b-hBY"/>
                             <constraint firstItem="enb-ZG-DIS" firstAttribute="leading" secondItem="XOS-eg-1xO" secondAttribute="leading" id="gKC-Qt-fme"/>
-                            <constraint firstItem="enb-ZG-DIS" firstAttribute="top" secondItem="XOS-eg-1xO" secondAttribute="top" constant="64" id="xuE-Eu-9Zr"/>
+                            <constraint firstAttribute="trailing" secondItem="8bu-NR-xhG" secondAttribute="trailing" constant="20" id="mBK-6Z-PhV"/>
+                            <constraint firstItem="enb-ZG-DIS" firstAttribute="top" secondItem="XOS-eg-1xO" secondAttribute="top" constant="150" id="xuE-Eu-9Zr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UIWebView Example" id="3s1-JL-XZo"/>
@@ -3994,6 +4002,6 @@ Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed 
     <inferredMetricsTieBreakers>
         <segue reference="jwk-m7-IpJ"/>
         <segue reference="aWb-8P-5BY"/>
-        <segue reference="l34-ps-MjR"/>
+        <segue reference="NDq-rq-knb"/>
     </inferredMetricsTieBreakers>
 </document>

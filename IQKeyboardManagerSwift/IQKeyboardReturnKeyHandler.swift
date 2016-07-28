@@ -266,7 +266,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    private func goToNextResponderOrResign(view : UIView) {
+    private func goToNextResponderOrResign(view : UIView) -> Bool {
         
         var superConsideredView : UIView?
         
@@ -309,11 +309,17 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
                     
                     let nextTextField = unwrappedTextFields[index+1]
                     nextTextField.becomeFirstResponder()
+                    return false;
                 } else {
                     
                     view.resignFirstResponder()
+                    return true;
                 }
+            } else {
+                return true;
             }
+        } else {
+            return true;
         }
     }
     
@@ -375,14 +381,17 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         var shouldReturn = true
         
         if delegate?.respondsToSelector(#selector(UITextFieldDelegate.textFieldShouldReturn(_:))) != nil {
-            shouldReturn = (delegate?.textFieldShouldReturn?(textField) == true)
+            let shouldReturn = (delegate?.textFieldShouldReturn?(textField) == true)
+            
+            if shouldReturn == true {
+                goToNextResponderOrResign(textField)
+            }
+
+            return shouldReturn
+
+        } else {
+            return goToNextResponderOrResign(textField)
         }
-        
-        if shouldReturn == true {
-            goToNextResponderOrResign(textField)
-        }
-        
-        return shouldReturn
     }
     
     
@@ -424,7 +433,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
         
         if shouldReturn == true && text == "\n" {
-            goToNextResponderOrResign(textView)
+            shouldReturn = goToNextResponderOrResign(textView)
         }
         
         

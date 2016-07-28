@@ -168,7 +168,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 #pragma mark - Goto next or Resign.
 
--(void)goToNextResponderOrResign:(UIView*)textField
+-(BOOL)goToNextResponderOrResign:(UIView*)textField
 {
     UIView *superConsideredView;
     
@@ -215,7 +215,16 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     NSUInteger index = [textFields indexOfObject:textField];
     
     //If it is not last textField. then it's next object becomeFirstResponder.
-    (index != NSNotFound && index < textFields.count-1) ?   [textFields[index+1] becomeFirstResponder]  :   [textField resignFirstResponder];
+    if (index != NSNotFound && index < textFields.count-1)
+    {
+        [textFields[index+1] becomeFirstResponder];
+        return NO;
+    }
+    else
+    {
+        [textField resignFirstResponder];
+        return YES;
+    }
 }
 
 #pragma mark - TextField delegate
@@ -267,17 +276,22 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    BOOL shouldReturn = YES;
-
     if ([self.delegate respondsToSelector:@selector(textFieldShouldReturn:)])
-        shouldReturn = [self.delegate textFieldShouldReturn:textField];
-
-    if (shouldReturn)
     {
-        [self goToNextResponderOrResign:textField];
+        BOOL shouldReturn = [self.delegate textFieldShouldReturn:textField];
+
+        if (shouldReturn)
+        {
+            shouldReturn = [self goToNextResponderOrResign:textField];
+        }
+        
+        return shouldReturn;
     }
-    
-    return shouldReturn;
+    else
+    {
+        return [self goToNextResponderOrResign:textField];
+    }
+
 }
 
 
@@ -321,7 +335,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (shouldReturn && [text isEqualToString:@"\n"])
     {
-        [self goToNextResponderOrResign:textView];
+        shouldReturn = [self goToNextResponderOrResign:textView];
     }
     
     return shouldReturn;
