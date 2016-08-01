@@ -686,9 +686,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To save Status Bar size. */
     private var         _statusBarFrame = CGRect.zero
     
-    /** To save Status Bar size. */
-    private var         _statusBarFrame = CGRectZero
-    
     /** To save keyboard animation duration. */
     private var         _animationDuration = 0.25
     
