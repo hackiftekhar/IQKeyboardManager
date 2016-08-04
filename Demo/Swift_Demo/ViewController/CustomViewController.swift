@@ -27,7 +27,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        settingsView.layer.shadowColor = UIColor.black().cgColor
+        settingsView.layer.shadowColor = UIColor.black.cgColor
         settingsView.layer.shadowOffset = CGSize.zero
         settingsView.layer.shadowRadius = 5.0
         settingsView.layer.shadowOpacity = 0.5
@@ -39,29 +39,29 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        switchDisableViewController.isOn = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains({ element in
+        switchDisableViewController.isOn = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchEnableViewController.isOn = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.contains({ element in
+        switchEnableViewController.isOn = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchDisableToolbar.isOn = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains({ element in
+        switchDisableToolbar.isOn = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
-        switchEnableToolbar.isOn = IQKeyboardManager.sharedManager().enabledToolbarClasses.contains({ element in
-            return element == CustomViewController.self
-        })
-        
-        switchDisableTouchResign.isOn = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.contains({ element in
-            return element == CustomViewController.self
-        })
-        switchEnableTouchResign.isOn = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains({ element in
+        switchEnableToolbar.isOn = IQKeyboardManager.sharedManager().enabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchAllowPreviousNext.isOn = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains({ element in
+        switchDisableTouchResign.isOn = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.contains(where: { element in
+            return element == CustomViewController.self
+        })
+        switchEnableTouchResign.isOn = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains(where: { element in
+            return element == CustomViewController.self
+        })
+        
+        switchAllowPreviousNext.isOn = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains(where: { element in
             return element == IQPreviousNextView.self
         });
     }
@@ -195,12 +195,12 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -215,7 +215,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

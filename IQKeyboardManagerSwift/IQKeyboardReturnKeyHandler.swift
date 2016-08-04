@@ -37,7 +37,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   /**
    Delegate of textField/textView.
    */
-  public var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
+  public var delegate: (UITextFieldDelegate & UITextViewDelegate)?
   
   /**
    Set the last textfield return key type. Default is UIReturnKeyDefault.

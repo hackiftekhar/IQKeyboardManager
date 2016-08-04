@@ -769,14 +769,14 @@ public extension UIView {
             let toolbar = IQToolbar()
             
             var items : [UIBarButtonItem] = []
-            
+			
             let prev : IQBarButtonItem
             let next : IQBarButtonItem
             
             // Get the top level "bundle" which may actually be the framework
             var bundle = Bundle(for: IQKeyboardManager.self)
             
-            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+            if let resourcePath = bundle.path(forResource: "IQKeyboardManager", ofType: "bundle") {
                 if let resourcesBundle = Bundle(path: resourcePath) {
                     bundle = resourcesBundle
                 }
@@ -901,7 +901,7 @@ public extension UIView {
             // Get the top level "bundle" which may actually be the framework
             var bundle = Bundle(for: IQKeyboardManager.self)
             
-            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+            if let resourcePath = bundle.path(forResource: "IQKeyboardManager", ofType: "bundle") {
                 if let resourcesBundle = Bundle(path: resourcePath) {
                     bundle = resourcesBundle
                 }
@@ -1037,7 +1037,7 @@ public extension UIView {
             // Get the top level "bundle" which may actually be the framework
             var bundle = Bundle(for: IQKeyboardManager.self)
             
-            if let resourcePath = bundle.pathForResource("IQKeyboardManager", ofType: "bundle") {
+            if let resourcePath = bundle.path(forResource: "IQKeyboardManager", ofType: "bundle") {
                 if let resourcesBundle = Bundle(path: resourcePath) {
                     bundle = resourcesBundle
                 }

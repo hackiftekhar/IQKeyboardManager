@@ -243,10 +243,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     ///--------------------------
     
     /** used to adjust contentInset of UITextView. */
-    private var         startingTextViewContentInsets = UIEdgeInsetsZero
+    private var         startingTextViewContentInsets = UIEdgeInsets.zero
     
     /** used to adjust scrollIndicatorInsets of UITextView. */
-    private var         startingTextViewScrollIndicatorInsets = UIEdgeInsetsZero
+    private var         startingTextViewScrollIndicatorInsets = UIEdgeInsets.zero
     
     /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
     private var         isTextViewContentInsetChanged = false
@@ -468,7 +468,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
-            UIDevice.current().playInputClick()
+            UIDevice.current.playInputClick()
         }
         
         if canGoPrevious == true {
@@ -480,7 +480,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     textFieldRetain.previousInvocation.target != nil &&
                     textFieldRetain.previousInvocation.action != nil {
                     
-                    UIApplication.shared().sendAction(textFieldRetain.previousInvocation.action!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(textFieldRetain.previousInvocation.action!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -492,7 +492,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
-            UIDevice.current().playInputClick()
+            UIDevice.current.playInputClick()
         }
         
         if canGoNext == true {
@@ -504,7 +504,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     textFieldRetain.nextInvocation.target != nil &&
                     textFieldRetain.nextInvocation.action != nil {
                     
-                    UIApplication.shared().sendAction(textFieldRetain.nextInvocation.action!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(textFieldRetain.nextInvocation.action!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -516,7 +516,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
             //Play Input Click Sound.
-            UIDevice.current().playInputClick()
+            UIDevice.current.playInputClick()
         }
         
         if let textFieldRetain = _textFieldView {
@@ -527,7 +527,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 textFieldRetain.doneInvocation.target != nil &&
                 textFieldRetain.doneInvocation.action != nil{
                 
-                UIApplication.shared().sendAction(textFieldRetain.doneInvocation.action!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, for: UIEvent())
+                UIApplication.shared.sendAction(textFieldRetain.doneInvocation.action!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, for: UIEvent())
             }
         }
     }
@@ -670,10 +670,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     private var         _startingContentOffset = CGPoint.zero
     
     /** LastScrollView's initial scrollIndicatorInsets. */
-    private var         _startingScrollIndicatorInsets = UIEdgeInsetsZero
+    private var         _startingScrollIndicatorInsets = UIEdgeInsets.zero
     
     /** LastScrollView's initial contentInsets. */
-    private var         _startingContentInsets = UIEdgeInsetsZero
+    private var         _startingContentInsets = UIEdgeInsets.zero
     
     /*******************************************/
 
@@ -735,10 +735,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         registerTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: NSNotification.Name.UITextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: NSNotification.Name.UITextViewTextDidEndEditing.rawValue)
         
         //  Registering for orientation changes notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)),          name: NSNotification.Name.UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared())
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)),          name: NSNotification.Name.UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
 
         //  Registering for status bar frame change notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didChangeStatusBarFrame(_:)),          name: NSNotification.Name.UIApplicationDidChangeStatusBarFrame, object: UIApplication.shared())
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didChangeStatusBarFrame(_:)),          name: NSNotification.Name.UIApplicationDidChangeStatusBarFrame, object: UIApplication.shared)
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
@@ -788,7 +788,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
 
             /*  (Bug ID: #23, #25, #73)   */
-            let originalKeyWindow = UIApplication.shared().keyWindow
+            let originalKeyWindow = UIApplication.shared.keyWindow
             
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
             if originalKeyWindow != nil &&
@@ -894,7 +894,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var kbSize = _kbSize
         kbSize.height += newKeyboardDistanceFromTextField
 
-        let statusBarFrame = UIApplication.shared().statusBarFrame
+        let statusBarFrame = UIApplication.shared.statusBarFrame
         
         //  (Bug ID: #250)
         var layoutGuidePosition = IQLayoutGuidePosition.none
@@ -974,8 +974,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                 }
                 
-                _startingContentInsets = UIEdgeInsetsZero
-                _startingScrollIndicatorInsets = UIEdgeInsetsZero
+                _startingContentInsets = UIEdgeInsets.zero
+                _startingScrollIndicatorInsets = UIEdgeInsets.zero
                 _startingContentOffset = CGPoint.zero
                 _lastScrollView = nil
             } else if superScrollView != lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
@@ -1343,7 +1343,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  Getting UIKeyboardSize.
             if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]?.cgRectValue {
                 
-                let screenSize = UIScreen.main().bounds
+                let screenSize = UIScreen.main.bounds
                 
                 //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
                 let intersectRect = kbFrame.intersection(screenSize)
@@ -1537,8 +1537,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Reset all values
         _lastScrollView = nil
         _kbSize = CGSize.zero
-        _startingContentInsets = UIEdgeInsetsZero
-        _startingScrollIndicatorInsets = UIEdgeInsetsZero
+        _startingContentInsets = UIEdgeInsets.zero
+        _startingScrollIndicatorInsets = UIEdgeInsets.zero
         _startingContentOffset = CGPoint.zero
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
@@ -1730,7 +1730,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         let oldStatusBarFrame = _statusBarFrame;
         //  Getting keyboard animation duration
-        if let newFrame =  (notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey]?.cgRectValue() {
+        if let newFrame =  (notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey]?.cgRectValue {
         
             _statusBarFrame = newFrame
         }
@@ -1886,7 +1886,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -1896,7 +1896,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         } else if let _textView = textField as? UITextView {
@@ -1906,7 +1906,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -1915,7 +1915,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         }
@@ -1994,7 +1994,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -2004,7 +2004,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         } else if let _textView = textField as? UITextView {
@@ -2014,7 +2014,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -2023,7 +2023,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         }
@@ -2109,7 +2109,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
 
@@ -2118,7 +2118,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         } else if let _textView = textField as? UITextView {
@@ -2128,7 +2128,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white()
+                                toolbar.tintColor = UIColor.white
                             default:
                                 toolbar.barStyle = UIBarStyle.default
 
@@ -2137,7 +2137,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black()
+                                    toolbar.tintColor = UIColor.black
                                 }
                             }
                         }

@@ -34,7 +34,7 @@ public class IQBarButtonItem: UIBarButtonItem {
         self.appearance().tintColor = nil
 
         //Title
-        self.appearance().setTitlePositionAdjustment(UIOffsetZero, for: UIBarMetrics.default)
+        self.appearance().setTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
         self.appearance().setTitleTextAttributes(nil, for: UIControlState())
         self.appearance().setTitleTextAttributes(nil, for: UIControlState.highlighted)
         self.appearance().setTitleTextAttributes(nil, for: UIControlState.disabled)
@@ -73,7 +73,7 @@ public class IQBarButtonItem: UIBarButtonItem {
         self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.application, barMetrics: UIBarMetrics.default)
         self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.reserved,    barMetrics: UIBarMetrics.default)
 
-        self.appearance().setBackButtonTitlePositionAdjustment(UIOffsetZero, for: UIBarMetrics.default)
+        self.appearance().setBackButtonTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
         self.appearance().setBackButtonBackgroundVerticalPositionAdjustment(0, for: UIBarMetrics.default)
     }
 }

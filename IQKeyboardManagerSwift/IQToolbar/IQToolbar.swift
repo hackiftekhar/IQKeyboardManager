@@ -136,7 +136,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.flexibleWidth
-        tintColor = UIColor .black()
+        tintColor = UIColor .black
         self.isTranslucent = true
     }
     
@@ -145,7 +145,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         sizeToFit()
         autoresizingMask = UIViewAutoresizing.flexibleWidth
-        tintColor = UIColor .black()
+        tintColor = UIColor .black
         self.isTranslucent = true
     }
 
@@ -177,7 +177,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                         if barStyle == .default {
                             newItem.selectableTextColor = UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1)
                         } else {
-                            newItem.selectableTextColor = UIColor.yellow()
+                            newItem.selectableTextColor = UIColor.yellow
                         }
                         
                         break
@@ -202,7 +202,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         var rightRect = CGRect.null
         var isTitleBarButtonFound = false
         
-        let sortedSubviews = self.subviews.sorted(isOrderedBefore: { (view1 : UIView, view2 : UIView) -> Bool in
+        let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
             
             let x1 = view1.frame.minX
             let y1 = view1.frame.minY

@@ -38,8 +38,8 @@ internal extension Array {
     */
     internal func sortedArrayByTag() -> [Element] {
         
-        return sorted(isOrderedBefore: { (obj1 : Element, obj2 : Element) -> Bool in
-            
+        return sorted(by: { (obj1 : Element, obj2 : Element) -> Bool in
+			
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
             
@@ -52,7 +52,7 @@ internal extension Array {
     */
     internal func sortedArrayByPosition() -> [Element] {
         
-        return sorted(isOrderedBefore: { (obj1 : Element, obj2 : Element) -> Bool in
+        return sorted(by: { (obj1 : Element, obj2 : Element) -> Bool in
             
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
