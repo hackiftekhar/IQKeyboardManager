@@ -65,7 +65,7 @@ public extension UIView {
         var nextResponder: UIResponder? = self
         
         repeat {
-            nextResponder = nextResponder?.next()
+            nextResponder = nextResponder?.next
             
             if let viewController = nextResponder as? UIViewController {
                 return viewController
@@ -98,7 +98,7 @@ public extension UIView {
             while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
                 repeat {
-                    matchController = matchController?.next()
+                    matchController = matchController?.next
 
                 } while matchController != nil && matchController is UIViewController == false
             }
@@ -174,7 +174,7 @@ public extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = subviews.sorted(isOrderedBefore: { (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
+        let subViews = subviews.sorted(by: { (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
             
             let view1 = obj1 as! UIView
             let view2 = obj2 as! UIView
@@ -214,7 +214,7 @@ public extension UIView {
         
         isAskingCanBecomeFirstResponder = true
         
-        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder() == true && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
+        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder == true && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
 
         if _IQcanBecomeFirstResponder == true {
             //  Setting toolbar to keyboard.
@@ -282,7 +282,7 @@ public extension UIView {
         var myTransform = CGAffineTransform.identity
         
         if let superView = superview {
-            myTransform = transform.concat(superView.convertTransformToView(nil))
+            myTransform = transform.concatenating(superView.convertTransformToView(nil))
         } else {
             myTransform = transform
         }
@@ -293,7 +293,7 @@ public extension UIView {
         if let unwrappedToView = newView {
             
             if let unwrappedSuperView = unwrappedToView.superview {
-                viewTransform = unwrappedToView.transform.concat(unwrappedSuperView.convertTransformToView(nil))
+                viewTransform = unwrappedToView.transform.concatenating(unwrappedSuperView.convertTransformToView(nil))
             }
             else {
                 viewTransform = unwrappedToView.transform
@@ -301,7 +301,7 @@ public extension UIView {
         }
         
         //Concating MyTransform and ViewTransform
-        return myTransform.concat(viewTransform.invert())
+        return myTransform.concatenating(viewTransform.inverted())
     }
     
     ///-----------------

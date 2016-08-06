@@ -42,7 +42,7 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
             
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             cell?.selectionStyle = UITableViewCellSelectionStyle.none
-            cell?.backgroundColor = UIColor.clear()
+            cell?.backgroundColor = UIColor.clear
             
             let textField = UITextField(frame: cell!.contentView.bounds.insetBy(dx: 5, dy: 5))
             textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
@@ -60,12 +60,12 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -80,7 +80,7 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

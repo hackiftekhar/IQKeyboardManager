@@ -31,11 +31,11 @@ class WebViewController: UIViewController , UIWebViewDelegate {
         activity.stopAnimating()
     }
 
-    func webView(_ webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         activity.stopAnimating()
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 

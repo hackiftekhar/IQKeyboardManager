@@ -31,7 +31,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         if cell == nil {
             
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-            cell?.backgroundColor = UIColor.clear()
+            cell?.backgroundColor = UIColor.clear
             cell?.selectionStyle = UITableViewCellSelectionStyle.none
 
             let contentView : UIView! = cell?.contentView
@@ -41,7 +41,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
                 let textField = UITextField(frame: CGRect(x: 5,y: 5,width: contentView.frame.size.width-10,height: 30))
                 textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
                 textField.placeholder = identifier
-                textField.backgroundColor = UIColor.clear()
+                textField.backgroundColor = UIColor.clear
                 textField.borderStyle = UITextBorderStyle.roundedRect
                 cell?.contentView.addSubview(textField)
 
@@ -63,12 +63,12 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -83,7 +83,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

@@ -38,11 +38,11 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     
     func previousAction(_ sender : UITextField!) {
         
-        if (textField2.isFirstResponder())
+        if (textField2.isFirstResponder)
         {
             textView3.becomeFirstResponder()
         }
-        else if (textView3.isFirstResponder())
+        else if (textView3.isFirstResponder)
         {
             textField1.becomeFirstResponder()
         }
@@ -50,11 +50,11 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     
     func nextAction(_ sender : UITextField!) {
         
-        if (textField1.isFirstResponder())
+        if (textField1.isFirstResponder)
         {
             textView3.becomeFirstResponder()
         }
-        else if (textView3.isFirstResponder())
+        else if (textView3.isFirstResponder)
         {
             textField2.becomeFirstResponder()
         }
@@ -87,12 +87,12 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -107,7 +107,7 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

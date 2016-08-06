@@ -34,11 +34,11 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
             
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             cell?.selectionStyle = UITableViewCellSelectionStyle.none
-            cell?.backgroundColor = UIColor.clear()
+            cell?.backgroundColor = UIColor.clear
             
             let textView = UITextView(frame: CGRect(x: 5,y: 7,width: 135,height: 30))
             textView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
-            textView.backgroundColor = UIColor.clear()
+            textView.backgroundColor = UIColor.clear
             textView.text = _data[(indexPath as NSIndexPath).row]
             textView.dataDetectorTypes = UIDataDetectorTypes.all
             textView.isScrollEnabled = false
@@ -55,12 +55,12 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -75,7 +75,7 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

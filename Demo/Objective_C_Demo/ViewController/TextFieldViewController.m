@@ -113,12 +113,12 @@
 {
     if ([segue.identifier isEqualToString:@"SettingsNavigationController"])
     {
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationPopover;
-        segue.destinationViewController.popoverPresentationController.barButtonItem = sender;
+        segue.destination.modalPresentationStyle = UIModalPresentationPopover;
+        segue.destination.popoverPresentationController.barButtonItem = sender;
         
         CGFloat heightWidth = MAX(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
-        segue.destinationViewController.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
-        segue.destinationViewController.popoverPresentationController.delegate = self;
+        segue.destination.preferredContentSize = CGSizeMake(heightWidth, heightWidth);
+        segue.destination.popoverPresentationController.delegate = self;
     }
 }
 

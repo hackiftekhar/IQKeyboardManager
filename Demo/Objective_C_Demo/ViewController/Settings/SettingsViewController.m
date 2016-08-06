@@ -485,7 +485,7 @@
 {
     if ([segue.identifier isEqualToString:NSStringFromClass([OptionsViewController class])])
     {
-        OptionsViewController *controller = segue.destinationViewController;
+        OptionsViewController *controller = segue.destination;
         
         controller.delegate = self;
 

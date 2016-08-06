@@ -464,7 +464,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         if textField.tag == 15 {
             let color = colorAttributes["color"] as! UIColor
             
-            if color.isEqual(UIColor.clear() == true) {
+            if color.isEqual(UIColor.clear == true) {
                 IQKeyboardManager.sharedManager().toolbarTintColor = nil
             } else {
                 IQKeyboardManager.sharedManager().toolbarTintColor = color
@@ -486,7 +486,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
             
             if identifier == "OptionsViewController" {
                 
-                let controller = segue.destinationViewController as! OptionsViewController
+                let controller = segue.destination as! OptionsViewController
                 controller.delegate = self
                 
                 let cell = sender as! UITableViewCell

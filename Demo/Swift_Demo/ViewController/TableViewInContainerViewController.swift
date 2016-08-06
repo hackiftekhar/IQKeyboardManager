@@ -24,14 +24,14 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
         if cell == nil {
             
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-            cell?.backgroundColor = UIColor.clear()
+            cell?.backgroundColor = UIColor.clear
             
             let contentView : UIView! = cell?.contentView
             
             let textField = UITextField(frame: CGRect(x: 10,y: 0,width: contentView.frame.size.width-20,height: 33))
             textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
             textField.center = contentView.center
-            textField.backgroundColor = UIColor.clear()
+            textField.backgroundColor = UIColor.clear
             textField.borderStyle = UITextBorderStyle.roundedRect
             textField.tag = 123
             cell?.contentView.addSubview(textField)
@@ -49,12 +49,12 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(UIScreen.main().bounds.width, UIScreen.main().bounds.height);
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
@@ -69,7 +69,7 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate: Bool {
         return true
     }
 }

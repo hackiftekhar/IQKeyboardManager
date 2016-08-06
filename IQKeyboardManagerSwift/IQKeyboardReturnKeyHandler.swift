@@ -37,7 +37,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   /**
    Delegate of textField/textView.
    */
-  public var delegate: protocol<UITextFieldDelegate, UITextViewDelegate>?
+  public var delegate: (UITextFieldDelegate & UITextViewDelegate)?
   
   /**
    Set the last textfield return key type. Default is UIReturnKeyDefault.
@@ -442,42 +442,40 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
   }
   
   @available(iOS 10.0, *)
-  public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+  public func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
     
     
-    if delegate?.responds(to: #selector(textView(_:shouldInteractWith:in:interaction:))) != nil {
-      return delegate?.textView!(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
+    if delegate?.responds(to: #selector(textView as (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)) != nil {
+      return delegate?.textView!(aTextView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
     } else {
       return true
     }
   }
   
   @available(iOS 10.0, *)
-  public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+  public func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
     
-    if delegate?.responds(to: #selector(textView(_:shouldInteractWith:in:interaction:))) != nil {
-      return delegate?.textView!(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
+    if delegate?.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange, UITextItemInteraction) -> Bool)) != nil {
+      return delegate?.textView!(aTextView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
     } else {
         return true
     }
-    
   }
   
-  public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+  public func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
     
-    if delegate?.responds(to: #selector(UITextViewDelegate.textView(_:shouldInteractWith:in:))) != nil {
-      return (delegate?.textView!(textView, shouldInteractWith: URL, in: characterRange) == true)
+    if delegate?.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) != nil {
+      return (delegate?.textView!(aTextView, shouldInteractWith: URL, in: characterRange) == true)
     } else {
       return true
     }
     
   }
   
-  public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+  public func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
     
-    if delegate?.responds(to: #selector(UITextViewDelegate.textView(_:shouldInteractWith:in:))) != nil {
-      return (delegate?.textView!(textView, shouldInteractWith: textAttachment, in: characterRange) == true)
-
+    if delegate?.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) != nil {
+      return (delegate?.textView!(aTextView, shouldInteractWith: textAttachment, in: characterRange) == true)
     } else {
       return true
     }

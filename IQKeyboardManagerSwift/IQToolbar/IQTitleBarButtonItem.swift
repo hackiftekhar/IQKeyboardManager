@@ -120,15 +120,15 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
         self.init(title: nil, style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         
         _titleView = UIView()
-        _titleView?.backgroundColor = UIColor.clear()
+        _titleView?.backgroundColor = UIColor.clear
         _titleView?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
         _titleButton = UIButton(type: .system)
         _titleButton?.isEnabled = false
         _titleButton?.titleLabel?.numberOfLines = 3
-        _titleButton?.setTitleColor(UIColor.lightGray(), for:.disabled)
+        _titleButton?.setTitleColor(UIColor.lightGray, for:.disabled)
         _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:UIControlState())
-        _titleButton?.backgroundColor = UIColor.clear()
+        _titleButton?.backgroundColor = UIColor.clear
         _titleButton?.titleLabel?.textAlignment = .center
         _titleButton?.setTitle(title, for: UIControlState())
         _titleButton?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
