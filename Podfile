@@ -1,4 +1,4 @@
-#project 'Demo.xcodeproj'
+project 'Demo.xcodeproj'
 
 platform :ios, '8.0'
 

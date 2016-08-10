@@ -38,29 +38,6 @@
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
-//Special textFields,textViews,scrollViews
-Class UIAlertSheetTextFieldClass;       //UIAlertView
-Class UIAlertSheetTextFieldClass_iOS8;  //UIAlertView
-
-Class UITableViewCellScrollViewClass;   //UITableViewCell
-Class UITableViewWrapperViewClass;      //UITableViewCell
-Class UIQueuingScrollViewClass;         //UIPageViewController
-
-Class UISearchBarTextFieldClass;        //UISearchBar
-
-+(void)initialize
-{
-    [super initialize];
-    
-    UIAlertSheetTextFieldClass          = NSClassFromString(@"UIAlertSheetTextField");
-    UIAlertSheetTextFieldClass_iOS8     = NSClassFromString(@"_UIAlertControllerTextField");
-    
-    UITableViewCellScrollViewClass      = NSClassFromString(@"UITableViewCellScrollView");
-    UITableViewWrapperViewClass         = NSClassFromString(@"UITableViewWrapperView");
-    UIQueuingScrollViewClass            = NSClassFromString(@"_UIQueuingScrollView");
-
-    UISearchBarTextFieldClass           = NSClassFromString(@"UISearchBarTextField");
-}
 
 -(void)_setIsAskingCanBecomeFirstResponder:(BOOL)isAskingCanBecomeFirstResponder
 {
@@ -126,6 +103,16 @@ Class UISearchBarTextFieldClass;        //UISearchBar
     
     while (superview)
     {
+        static Class UITableViewCellScrollViewClass;   //UITableViewCell
+        static Class UITableViewWrapperViewClass;      //UITableViewCell
+        static Class UIQueuingScrollViewClass;         //UIPageViewController
+
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            UITableViewCellScrollViewClass      = NSClassFromString(@"UITableViewCellScrollView");
+            UITableViewWrapperViewClass         = NSClassFromString(@"UITableViewWrapperView");
+            UIQueuingScrollViewClass            = NSClassFromString(@"_UIQueuingScrollView");
+        });
         if ([superview isKindOfClass:classType] &&
             ([superview isKindOfClass:UITableViewCellScrollViewClass] == NO) &&
             ([superview isKindOfClass:UITableViewWrapperViewClass] == NO) &&
@@ -305,11 +292,27 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 
 -(BOOL)isSearchBarTextField
 {
+    static Class UISearchBarTextFieldClass;        //UISearchBar
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        UISearchBarTextFieldClass           = NSClassFromString(@"UISearchBarTextField");
+    });
     return ([self isKindOfClass:UISearchBarTextFieldClass] || [self isKindOfClass:[UISearchBar class]]);
 }
 
 -(BOOL)isAlertViewTextField
 {
+    //Special textFields,textViews,scrollViews
+    static Class UIAlertSheetTextFieldClass;       //UIAlertView
+    static Class UIAlertSheetTextFieldClass_iOS8;  //UIAlertView
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        UIAlertSheetTextFieldClass          = NSClassFromString(@"UIAlertSheetTextField");
+        UIAlertSheetTextFieldClass_iOS8     = NSClassFromString(@"_UIAlertControllerTextField");
+    });
+    
     return ([self isKindOfClass:UIAlertSheetTextFieldClass] || [self isKindOfClass:UIAlertSheetTextFieldClass_iOS8]);
 }
 
