@@ -1,9 +1,7 @@
-Manual Management:-
----
+##Keep UINavigationBar at the top (Don't scroll with keyboard)
+([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
-#### UINavigationBar:-
-
-  If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard  or xib. Make sure that scrollView is able to get it's contentSize from constraints.([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
+  If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard  or xib. If you are using Autoresizing then you must set correct contentSize of scrollView or if you are using Autolayout then make sure scrollView is able to get it's contentSize from constraints.
 
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/UINavigationBarExample.jpg)
 
@@ -19,7 +17,7 @@ Manual Management:-
     }
 ```
 
-#### Working with TopLayoutGuide and BottomLayoutGuide:-
+##Working with TopLayoutGuide and BottomLayoutGuide
 
  Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your UITextfield/UITextView with TopLayoutGuide/BottomLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top.
 
@@ -31,7 +29,7 @@ Manual Management:-
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
 
 
-#### Working with Full Screen UITextView:-
+##Working with Full Screen UITextView
 
  Often we have a situation where a **full screen UITextView** need to show in full screen mode with keyboard handling. To deal with this kind of situation, here is an easy workaround.
 
@@ -49,7 +47,7 @@ Manual Management:-
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/FullScreenTextViewStoryboard.jpeg)
 
 
-#### Working with Chat Screen UITableView:-
+##Working with Chat Screen UITableView
 
  Often we have another situation where we have to implement our own **Chat Style Screen** with keyboard handling. To deal with this kind of situation, here is an easy workaround.
 
@@ -83,82 +81,128 @@ That's all. You have a working keyboard handling with **ChatViewController**.
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ChatScreenTableView.jpg)
 
 
-#### Disable for a ViewController:-
+##Enable/Disable distance handling between different ViewController's
+([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117), [#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139),
+[#516](https://github.com/hackiftekhar/IQKeyboardManager/issues/516),
+[#541](https://github.com/hackiftekhar/IQKeyboardManager/issues/541),
+[#572](https://github.com/hackiftekhar/IQKeyboardManager/issues/572))
 
- If you would like to disable `IQKeyboardManager` for a particular ViewController then register ViewController with `-(void)disableDistanceHandlingInViewControllerClass:(Class)disabledClass` method in AppDelegate.([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117),[#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139))
+ If you would like to ignore `IQKeyboardManager.enabled` property for some ViewController and would like to enable/disable `IQKeyboardManager` between different ViewController's then add ViewController class to `disabledDistanceHandlingClasses` or `enabledDistanceHandlingClasses` NSMutableSet property.
 
+**Objective-C**
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[ViewController class]];
+    [[IQKeyboardManager sharedManager].enabledDistanceHandlingClasses addObject:[EnabledViewController class]];
+    [[IQKeyboardManager sharedManager].disabledDistanceHandlingClasses addObject:[DisabledViewController class]];
     return YES;
 }
 ```
+**Swift**
+```swift
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.append(EnabledViewController.self)
+        IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.append(DisabledViewController.self)
+        return true
+    }
+```
 
-#### Disable toolbar for a ViewController:-
+##Enable/Disable UIToolbar between different ViewController's
+([#391](https://github.com/hackiftekhar/IQKeyboardManager/issues/391),
+[#530](https://github.com/hackiftekhar/IQKeyboardManager/issues/530))
 
-If you would like to disable `Auto Toolbar` for a particular ViewController then register ViewController with `-(void)disableToolbarInViewControllerClass:(Class)disabledClass` method in AppDelegate.
+If you would like to ignore `IQKeyboardManger.enableAutoToolbar` property for some ViewController and would like to enable/disable `Auto Toolbar` between different ViewController's then add ViewController class to `disabledToolbarClasses` or `enabledToolbarClasses` NSMutableSet property.
 
+**Objective-C**
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[ViewController class]];
+    [[IQKeyboardManager sharedManager].enabledToolbarClasses addObject:[ToolbarEnabledViewController class]];
+    [[IQKeyboardManager sharedManager].disabledToolbarClasses addObject:[ToolbarDisabledViewController class]];
     return YES;
 }
 ```
+**Swift**
+```swift
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enabledToolbarClasses.append(ToolbarEnabledViewController.self)
+        IQKeyboardManager.sharedManager().disabledToolbarClasses.append(ToolbarDisabledViewController.self)
+        return true
+    }
+```
 
-#### Considering Previous/Next buttons for textField inside customViews:-
+##Show Previous/Next arrow buttons for textField which are not direct disblings
+([#154](https://github.com/hackiftekhar/IQKeyboardManager/issues/154), [#179](https://github.com/hackiftekhar/IQKeyboardManager/issues/179),
+[#380](https://github.com/hackiftekhar/IQKeyboardManager/issues/380),
+[#406](https://github.com/hackiftekhar/IQKeyboardManager/issues/406),
+[#503](https://github.com/hackiftekhar/IQKeyboardManager/issues/503),
+[#517](https://github.com/hackiftekhar/IQKeyboardManager/issues/517),
+[#524](https://github.com/hackiftekhar/IQKeyboardManager/issues/524),
+[#537](https://github.com/hackiftekhar/IQKeyboardManager/issues/537),
+[#540](https://github.com/hackiftekhar/IQKeyboardManager/issues/540),
+[#549](https://github.com/hackiftekhar/IQKeyboardManager/issues/549))
 
-If your textFields are on different customView and do not show previous/next to navigate between textField. Then you should create a SpecialView subclass of UIView, then put all customView inside SpecialView, then register SpecialView class using `-(void)considerToolbarPreviousNextInViewClass:(Class)toolbarPreviousNextConsideredClass` method in AppDelegate.([#154](https://github.com/hackiftekhar/IQKeyboardManager/issues/154), [#179](https://github.com/hackiftekhar/IQKeyboardManager/issues/179))
+If your textFields are on different View and Previous/Next arrow are not visible to navigate between textField. Then you should put those all Views inside `IQPreviousNextView` like this:-
 
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/IQPreviousNextView.jpg)
+
+If you would like to use your own SpecialView (subclass of UIView) instead of default `IQPreviousNextView` then you can add your own `SpecialView` class to `toolbarPreviousNextAllowedClasses` NSMutableSet property.
+
+**Objective-C**
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[IQKeyboardManager sharedManager] considerToolbarPreviousNextInViewClass:[SpecialView class]];
+    [[IQKeyboardManager sharedManager].toolbarPreviousNextAllowedClasses addObject:[SpecialView class]];
     return YES;
 }
 ```
-
-#### Keyboard Return Key Handling:-
-  If you would like to implement keyboard **Return Key** as **Next/Done** button, then you can use **IQKeyboardReturnKeyHandler**.([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))
-
-  1) Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this:-
-
-```objc
-@implementation ViewController
-{
-    IQKeyboardReturnKeyHandler *returnKeyHandler;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
-}
+**Swift**
+```swift
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.append(SpecialView.self)
+        return true
+    }
 ```
 
-   It assign all the responderView delegates to self, and change keybord Return Key to Next key.
+##Hide UIToolbar for specific UITextField/UITextView
+([#89](https://github.com/hackiftekhar/IQKeyboardManager/issues/89),
+[#533](https://github.com/hackiftekhar/IQKeyboardManager/issues/533))
 
-2) set instance variable to nil in `dealloc` method.
-
-```objc
--(void)dealloc
-{
-    returnKeyHandler = nil;
-}
-```
-
-
-#### UIToolbar(IQToolbar):-
-
-1) If you don't want to add automatic toolbar over keyboard for a specific textField then you should add a UIView as it's toolbar like this:-([#89](https://github.com/hackiftekhar/IQKeyboardManager/issues/89))
+If you don't want to add automatic toolbar over keyboard for specific textField then you should add a new UIView as it's toolbar like this
 
 ```objc
 textField.inputAccessoryView = [[UIView alloc] init];
 ```
 
-2) If you need your own control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQUIView+IQKeyboardToolbar.h` file. You can use them like this:-([#40](https://github.com/hackiftekhar/IQKeyboardManager/issues/40))
+##Change UIToolbar Done button text or replace it with some other icon
+([#538](https://github.com/hackiftekhar/IQKeyboardManager/issues/538),
+[#557](https://github.com/hackiftekhar/IQKeyboardManager/issues/557))
+
+If you would like to change toolbar **Done** button text then you can use `toolbarDoneBarButtonItemText` property to do the same
+
+```objc
+    [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemText = @"Save";
+```
+or if you would like to replace this with an image then you should could do like this:-
+```objc
+    [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemImage = [UIImage imageNamed:@"save"];
+```
+
+##Full customise control over previous/next/done button for specific UITextField/UITextView
+([#40](https://github.com/hackiftekhar/IQKeyboardManager/issues/40))
+
+If you need full control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQUIView+IQKeyboardToolbar.h` file.
+
+You may need to import `IQUIView+Hierarchy` category
+
+```objc
+#import "IQUIView+Hierarchy.h"
+```
+
+Then add custom toolbar like this.
 
 ```objc
 -(void)viewDidLoad
@@ -176,13 +220,13 @@ textField.inputAccessoryView = [[UIView alloc] init];
 }
 
 /*!	previousAction. */
--(void)previousAction:(id)button
+-(void)previousAction:(UIBarButtonItem*)button
 {
     //previousAction
 }
 
 /*!	nextAction. */
--(void)nextAction:(id)button
+-(void)nextAction:(UIBarButtonItem*)button
 {
     //nextAction
 }
@@ -201,9 +245,124 @@ textField.inputAccessoryView = [[UIView alloc] init];
 
 ```
 
-#### Doing custom work on textField with returning NO in `textFieldShouldBeginEditing:` delegate:-
+##Use keyboard toolbar placeholder as action button
+If you would like to use keyboard toolbar placeholder text as action buttons to do something special.
 
-Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside ***textFieldShouldBeginEditing:*** and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using ***canBecomeFirstResponder*** in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use ***isAskingCanBecomeFirstResponder*** BOOL property to check that the delegate is called by IQKeyboardManager or not. ([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88))
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ToolbarButtonAction.jpg)
+![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ToolbarButton.jpg)
+
+This is now very easy with just 2 lines of code like this:-
+
+```objc
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [textField4 setTitleTarget:self action:@selector(savedUsersAction:)];  //This will convert toolbar placeholder to button
+    textField4.placeholderText = @"Saved Users";  //This is optional (If you would like to override default placeholder text)
+}
+
+-(void)savedUsersAction:(UIButton*)sender
+{
+    //Do your custom work here
+    ...
+}
+
+```
+
+##Get notified when tapping on previous/next/done button for specific UITextField/UITextView
+([#426](https://github.com/hackiftekhar/IQKeyboardManager/issues/426),
+[#475](https://github.com/hackiftekhar/IQKeyboardManager/issues/475),
+[#492](https://github.com/hackiftekhar/IQKeyboardManager/issues/492))
+
+If you only would like to get notified when user taps on previous/next/done button then register customised target. Note that this will not override default behaviour of prevous/next/done button but this will notify you when user taps on those buttons.
+
+You may need to import `IQUIView+Hierarchy` category
+
+```objc
+#import "IQUIView+Hierarchy.h"
+```
+
+Then register custom selector.
+
+```objc
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [textField setCustomPreviousTarget:self action:@selector(previousAction:)];
+    [textField setCustomNextTarget:self action:@selector(nextAction:)];
+    [textField setCustomDoneTarget:self action:@selector(doneAction:)];
+}
+
+/*!	previousAction. */
+-(void)previousAction:(UIBarButtonItem*)button
+{
+    //previousAction
+}
+
+/*!	nextAction. */
+-(void)nextAction:(UIBarButtonItem*)button
+{
+    //nextAction
+}
+
+/*!	doneAction. */
+-(void)doneAction:(UIBarButtonItem*)barButton
+{
+    //doneAction
+}
+```
+
+##Hide Previous/Next arrow of UIToolbar
+([#546](https://github.com/hackiftekhar/IQKeyboardManager/issues/546),
+[#548](https://github.com/hackiftekhar/IQKeyboardManager/issues/548),
+[#579](https://github.com/hackiftekhar/IQKeyboardManager/issues/579))
+
+If you don't want to show Previous/Next arrow with toolbar and only want to show **Done* button only, then set `shouldHidePreviousNext` to NO.
+
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [IQKeyboardManager sharedManager].shouldHidePreviousNext = YES;
+    return YES;
+}
+```
+
+##Keyboard Return Key Handling
+([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))
+
+If you would like to use keyboard **Return Key** as **Next/Done** button, then you can use **IQKeyboardReturnKeyHandler**.
+
+ Create an instance variable of `IQKeyboardReturnKeyHandler` and instantiate it in `viewDidLoad` with ViewController object like this
+
+```objc
+@implementation ViewController
+{
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+}
+
+-(void)dealloc
+{
+    returnKeyHandler = nil;
+}
+```
+It assign all the responderView delegates to self, and change keybord Return Key to Next key. If you would like to get callback of textField delegate methods then you should make `returnKeyHandler.delegate = self`.
+
+
+##Doing custom work on textField with returning NO in `textFieldShouldBeginEditing:` delegate
+([#88](https://github.com/hackiftekhar/IQKeyboardManager/issues/88),
+[#158](https://github.com/hackiftekhar/IQKeyboardManager/issues/158),
+[#474](https://github.com/hackiftekhar/IQKeyboardManager/issues/474))
+
+Generally if developer need to perform some custom task on a particular textField click, then usually developer write their custom code inside ***textFieldShouldBeginEditing:*** and returning NO for that textField. But if you are using IQKeyboardManager, then IQKeyboardManager also asks textField to recognize it can become first responder or not using ***canBecomeFirstResponder*** in `IQUIView+Hierarchy` category, and textField asks it's delegate to respond from `textFieldShouldBeginEditing:`, so this method is called for each textField everytime when a textField becomeFirstResponder. Unintentionally custom code runs multiple times even when we do not touch the textField to become it as first responder. To overcome this situation please use ***isAskingCanBecomeFirstResponder*** BOOL property to check that the delegate is called by IQKeyboardManager or not.
 
 1) You may need to import `IQUIView+Hierarchy` category
 
