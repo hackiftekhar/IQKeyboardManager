@@ -430,11 +430,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         [self addToolbarIfRequired];
     }
-    //Else removing toolbar.
-    else
-    {
-        [self removeToolbarIfRequired];
-    }
 }
 
 -(BOOL)privateIsEnableAutoToolbar
@@ -1905,6 +1900,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** Remove any toolbar if it is IQToolbar. */
 -(void)removeToolbarIfRequired  //  (Bug ID: #18)
 {
+    
+    if ([self privateIsEnableAutoToolbar] == NO)
+    {
+        // return early if auto toolbar is disabled in order to avoid side effects when calling `inputAccessoryView` on the textField
+        return;
+    }
+    
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
