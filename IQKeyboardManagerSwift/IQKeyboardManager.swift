@@ -123,6 +123,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return _privateKeyboardDistanceFromTextField
         }
     }
+    
+    /**
+     Boolean to know if keyboard is showing.
+     */
+    public var keyboardShowing: Bool {
+        
+        get {
+            return _privateIsKeyboardShowing
+        }
+    }
 
     /**
     Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
@@ -689,13 +699,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /*******************************************/
     
-    private struct flags {
-        /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
-        var isKeyboardShowing = false
-    }
-    
-    /** Private flags to use within the project */
-    private var         _keyboardManagerFlags = flags(isKeyboardShowing: false)
+    /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
+    private var         _privateIsKeyboardShowing = false
 
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
@@ -1250,7 +1255,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         if _textFieldView != nil &&
-        _keyboardManagerFlags.isKeyboardShowing == true &&
+        _privateIsKeyboardShowing == true &&
         CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
         _textFieldView?.isAlertViewTextField() == false {
             adjustFrame()
@@ -1267,7 +1272,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _kbShowNotification = notification
 
         //  Boolean to know keyboard is showing/hiding
-        _keyboardManagerFlags.isKeyboardShowing = true
+        _privateIsKeyboardShowing = true
         
         if privateIsEnabled() == false {
             return
@@ -1360,7 +1365,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
             
-            if _keyboardManagerFlags.isKeyboardShowing == true &&
+            if _privateIsKeyboardShowing == true &&
                 _textFieldView != nil &&
                 _textFieldView?.isAlertViewTextField() == false {
                 
@@ -1419,7 +1424,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //    if (_textFieldView == nil)   return
 
         //  Boolean to know keyboard is showing/hiding
-        _keyboardManagerFlags.isKeyboardShowing = false
+        _privateIsKeyboardShowing = false
         
         let info : [NSObject : AnyObject]? = notification?.userInfo
         
@@ -1639,7 +1644,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        if _keyboardManagerFlags.isKeyboardShowing == true &&
+        if _privateIsKeyboardShowing == true &&
             _textFieldView != nil &&
             _textFieldView?.isAlertViewTextField() == false {
 
@@ -1756,7 +1761,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         
-        if _keyboardManagerFlags.isKeyboardShowing == true &&
+        if _privateIsKeyboardShowing == true &&
             _textFieldView != nil &&
             CGSizeEqualToSize(_statusBarFrame.size, oldStatusBarFrame.size) == false &&
             _textFieldView?.isAlertViewTextField() == false {

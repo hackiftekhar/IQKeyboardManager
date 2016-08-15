@@ -104,9 +104,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To mimic the keyboard animation */
 @property(nonatomic, assign) NSInteger  animationCurve;
 
-/** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
-@property(nonatomic, assign) BOOL  isKeyboardShowing;
-
 /*******************************************/
 
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *registeredClasses;

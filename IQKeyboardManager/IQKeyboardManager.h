@@ -83,6 +83,12 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 - (void)reloadLayoutIfNeeded;
 
+/** 
+ Boolean to know if keyboard is showing.
+ */
+@property(nonatomic, assign, readonly, getter = isKeyboardShowing) BOOL  keyboardShowing;
+
+
 ///-------------------------
 /// @name IQToolbar handling
 ///-------------------------
