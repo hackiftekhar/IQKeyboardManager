@@ -22,10 +22,10 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
         activityItems.append(youtubeUrl)
 
         let excludedActivities = [UIActivityType]()	// Tulleb: I think there is an error here, maybe you wanted to append the activities below to excludedActivities instead of activityItems?
-        activityItems.append(UIActivityType.print)
-        activityItems.append(UIActivityType.copyToPasteboard)
-        activityItems.append(UIActivityType.assignToContact)
-        activityItems.append(UIActivityType.saveToCameraRoll)
+        excludedActivities.append(UIActivityType.print)
+        excludedActivities.append(UIActivityType.copyToPasteboard)
+        excludedActivities.append(UIActivityType.assignToContact)
+        excludedActivities.append(UIActivityType.saveToCameraRoll)
         
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         controller.excludedActivityTypes = excludedActivities
