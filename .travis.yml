@@ -4,16 +4,8 @@ branches:
 
 language: objective-c
 
-cache:
-    - cocoapods
-
 xcode_workspace: Demo.xcworkspace
 xcode_project: Demo.xcodeproj
 xcode_scheme: DemoObjC
-
-before_install:
-- sudo gem install cocoapods
-- brew update
-- if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 
 script: xctool -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
