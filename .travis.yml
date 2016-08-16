@@ -8,4 +8,8 @@ xcode_workspace: Demo.xcworkspace
 xcode_project: Demo.xcodeproj
 xcode_scheme: DemoObjC
 
+before_install:
+    - rvm use system
+    - sudo gem install cocoapods -v '1.0.1'
+
 script: xctool -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
