@@ -136,7 +136,7 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         switchInteraction3.isEnabled = true
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             

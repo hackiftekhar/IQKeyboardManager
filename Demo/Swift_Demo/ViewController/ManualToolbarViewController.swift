@@ -80,8 +80,8 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         alertController.popoverPresentationController?.sourceView = sender
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+	
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             

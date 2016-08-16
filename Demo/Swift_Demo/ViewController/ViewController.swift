@@ -16,16 +16,16 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
         let shareImage : UIImage = UIImage(named: "IQKeyboardManagerScreenshot")!
         let youtubeUrl : URL = URL(string: "http://youtu.be/6nhLw6hju2A")!
         
-        var activityItems = [NSObject]()
+        var activityItems = [Any]()
         activityItems.append(shareString)
         activityItems.append(shareImage)
         activityItems.append(youtubeUrl)
 
-        let excludedActivities = [String]()
-        activityItems.append(UIActivityTypePrint)
-        activityItems.append(UIActivityTypeCopyToPasteboard)
-        activityItems.append(UIActivityTypeAssignToContact)
-        activityItems.append(UIActivityTypeSaveToCameraRoll)
+        let excludedActivities = [UIActivityType]()	// Tulleb: I think there is an error here, maybe you wanted to append the activities below to excludedActivities instead of activityItems?
+        activityItems.append(UIActivityType.print)
+        activityItems.append(UIActivityType.copyToPasteboard)
+        activityItems.append(UIActivityType.assignToContact)
+        activityItems.append(UIActivityType.saveToCameraRoll)
         
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         controller.excludedActivityTypes = excludedActivities
@@ -40,7 +40,7 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
