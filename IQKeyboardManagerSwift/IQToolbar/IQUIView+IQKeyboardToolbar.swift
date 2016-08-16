@@ -53,7 +53,7 @@ public extension UIView {
     */
     public var shouldHidePlaceholderText: Bool {
         get {
-            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText)
+            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText) as AnyObject?
             
             if let unwrapedValue = aValue as? Bool {
                 return unwrapedValue
@@ -131,7 +131,7 @@ public extension UIView {
      */
     public var titleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQTitleInvocationSelector) as? String {
@@ -190,7 +190,7 @@ public extension UIView {
     */
     public var previousInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget) as AnyObject?
             var action : Selector?
 
             if let selectorString = objc_getAssociatedObject(self, &kIQPreviousInvocationSelector) as? String {
@@ -215,7 +215,7 @@ public extension UIView {
     */
     public var nextInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQNextInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQNextInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQNextInvocationSelector) as? String {
@@ -240,7 +240,7 @@ public extension UIView {
     */
     public var doneInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQDoneInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQDoneInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQDoneInvocationSelector) as? String {
@@ -1150,7 +1150,7 @@ public extension UIView {
         //  Getting inputAccessoryView.
         if let inputAccessoryView = self.inputAccessoryView as? IQToolbar {
             //  If it is IQToolbar and it's items are greater than zero.
-            if inputAccessoryView.items?.count > 3 {
+            if (inputAccessoryView.items?.count)! > 3 {
                 if let items = inputAccessoryView.items {
                     if let prevButton = items[0] as? IQBarButtonItem {
                         if let nextButton = items[2] as? IQBarButtonItem {

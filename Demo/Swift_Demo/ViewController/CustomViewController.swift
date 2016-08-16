@@ -189,7 +189,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             

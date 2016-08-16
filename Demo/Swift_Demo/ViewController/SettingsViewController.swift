@@ -459,12 +459,12 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func colorPickerTextField(_ textField: ColorPickerTextField, selectedColorAttributes colorAttributes: [String : AnyObject]) {
+    func colorPickerTextField(_ textField: ColorPickerTextField, selectedColorAttributes colorAttributes: [String : Any]) {
 
         if textField.tag == 15 {
             let color = colorAttributes["color"] as! UIColor
             
-            if color.isEqual(UIColor.clear == true) {
+            if color.isEqual(UIColor.clear) {
                 IQKeyboardManager.sharedManager().toolbarTintColor = nil
             } else {
                 IQKeyboardManager.sharedManager().toolbarTintColor = color
@@ -480,7 +480,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     }
     
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let identifier = segue.identifier {
             

@@ -101,7 +101,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
      */
     public var toolbarTitleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationSelector) as? String {
@@ -223,7 +223,7 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 rightRect = barButtonItemView.frame
                 break
             }
-            else if (barButtonItemView.dynamicType === UIView.self)
+            else if (type(of: barButtonItemView) === UIView.self)
             {
                 isTitleBarButtonFound = true
             }

@@ -75,7 +75,7 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
      */
     public var titleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: AnyObject? = objc_getAssociatedObject(self, &kIQBarTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQBarTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQBarTitleInvocationSelector) as? String {

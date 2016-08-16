@@ -1323,14 +1323,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if let info = (notification as NSNotification?)?.userInfo {
             
             //  Getting keyboard animation.
-            if let curve = info[UIKeyboardAnimationCurveUserInfoKey]?.uintValue {
+            if let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as AnyObject).uintValue {
                 _animationCurve = UIViewAnimationOptions(rawValue: curve)
             } else {
                 _animationCurve = UIViewAnimationOptions.curveEaseOut
             }
             
             //  Getting keyboard animation duration
-            if let duration = info[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
+            if let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
                 
                 //Saving animation duration
                 if duration != 0.0 {
@@ -1341,7 +1341,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             
             //  Getting UIKeyboardSize.
-            if let kbFrame = info[UIKeyboardFrameEndUserInfoKey]?.cgRectValue {
+            if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
                 
                 let screenSize = UIScreen.main.bounds
                 
@@ -1431,10 +1431,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Boolean to know keyboard is showing/hiding
         _keyboardManagerFlags.isKeyboardShowing = false
         
-        let info : [NSObject : AnyObject]? = (notification as NSNotification?)?.userInfo
+        let info : [AnyHashable : Any]? = (notification as NSNotification?)?.userInfo
         
         //  Getting keyboard animation duration
-        if let duration =  info?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
+        if let duration =  (info?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
             if duration != 0 {
                 //  Setitng keyboard animation duration
                 _animationDuration = duration
@@ -1730,7 +1730,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         let oldStatusBarFrame = _statusBarFrame;
         //  Getting keyboard animation duration
-        if let newFrame =  (notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey]?.cgRectValue {
+        if let newFrame =  ((notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey] as AnyObject).cgRectValue {
         
             _statusBarFrame = newFrame
         }

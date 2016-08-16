@@ -345,7 +345,7 @@ public extension UIView {
 extension NSObject {
     
     public func _IQDescription() -> String {
-        return "<\(self) \(unsafeAddress(of: self))>"
+		return "<\(self) \(Unmanaged.passUnretained(self).toOpaque())>"
     }
 }
 
