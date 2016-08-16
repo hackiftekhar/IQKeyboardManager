@@ -53,7 +53,7 @@ public extension UIView {
     */
     public var shouldHidePlaceholderText: Bool {
         get {
-            let aValue: Any = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText)
+            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText) as AnyObject?
             
             if let unwrapedValue = aValue as? Bool {
                 return unwrapedValue
@@ -122,16 +122,16 @@ public extension UIView {
      @param target Target object.
      @param action Target Selector.
      */
-    public func setTitleTarget(_ target: Any, action: Selector?) {
+    public func setTitleTarget(_ target: AnyObject?, action: Selector?) {
         titleInvocation = (target, action)
     }
     
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    public var titleInvocation : (target: Any, action: Selector?) {
+    public var titleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQTitleInvocationSelector) as? String {
@@ -161,7 +161,7 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomPreviousTarget(_ target: Any, action: Selector?) {
+    public func setCustomPreviousTarget(_ target: AnyObject?, action: Selector?) {
         previousInvocation = (target, action)
     }
     
@@ -171,7 +171,7 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomNextTarget(_ target: Any, action: Selector?) {
+    public func setCustomNextTarget(_ target: AnyObject?, action: Selector?) {
         nextInvocation = (target, action)
     }
     
@@ -181,16 +181,16 @@ public extension UIView {
     @param target Target object.
     @param action Target Selector.
     */
-    public func setCustomDoneTarget(_ target: Any, action: Selector?) {
+    public func setCustomDoneTarget(_ target: AnyObject?, action: Selector?) {
         doneInvocation = (target, action)
     }
     
     /**
     Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget:action: method.
     */
-    public var previousInvocation : (target: Any, action: Selector?) {
+    public var previousInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQPreviousInvocationTarget) as AnyObject?
             var action : Selector?
 
             if let selectorString = objc_getAssociatedObject(self, &kIQPreviousInvocationSelector) as? String {
@@ -213,9 +213,9 @@ public extension UIView {
     /**
     Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget:action: method.
     */
-    public var nextInvocation : (target: Any, action: Selector?) {
+    public var nextInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQNextInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQNextInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQNextInvocationSelector) as? String {
@@ -238,9 +238,9 @@ public extension UIView {
     /**
     Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget:action: method.
     */
-    public var doneInvocation : (target: Any, action: Selector?) {
+    public var doneInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQDoneInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQDoneInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQDoneInvocationSelector) as? String {

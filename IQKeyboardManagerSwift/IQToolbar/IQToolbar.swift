@@ -92,16 +92,16 @@ public class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
      @param target Target object.
      @param action Target Selector.
      */
-    public func setCustomToolbarTitleTarget(_ target: Any, action: Selector?) {
+    public func setCustomToolbarTitleTarget(_ target: AnyObject?, action: Selector?) {
         toolbarTitleInvocation = (target, action)
     }
     
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    public var toolbarTitleInvocation : (target: Any, action: Selector?) {
+    public var toolbarTitleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQToolbarTitleInvocationSelector) as? String {

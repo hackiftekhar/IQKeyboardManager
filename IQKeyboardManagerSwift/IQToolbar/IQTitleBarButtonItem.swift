@@ -66,16 +66,16 @@ public class IQTitleBarButtonItem: IQBarButtonItem {
      @param target Target object.
      @param action Target Selector.
      */
-    public func setTitleTarget(_ target: Any, action: Selector?) {
+    public func setTitleTarget(_ target: AnyObject?, action: Selector?) {
         titleInvocation = (target, action)
     }
     
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    public var titleInvocation : (target: Any, action: Selector?) {
+    public var titleInvocation : (target: AnyObject?, action: Selector?) {
         get {
-            let target: Any = objc_getAssociatedObject(self, &kIQBarTitleInvocationTarget)
+            let target: AnyObject? = objc_getAssociatedObject(self, &kIQBarTitleInvocationTarget) as AnyObject?
             var action : Selector?
             
             if let selectorString = objc_getAssociatedObject(self, &kIQBarTitleInvocationSelector) as? String {
