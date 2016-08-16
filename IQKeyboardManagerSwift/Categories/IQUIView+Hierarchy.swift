@@ -168,10 +168,7 @@ public extension UIView {
         
         //subviews are returning in opposite order. So I sorted it according the frames 'y'.
         
-        let subViews = subviews.sort({ (obj1 : AnyObject, obj2 : AnyObject) -> Bool in
-            
-            let view1 = obj1 as! UIView
-            let view2 = obj2 as! UIView
+        let subViews = subviews.sort({ (view1 : UIView, view2 : UIView) -> Bool in
             
             let x1 = CGRectGetMinX(view1.frame)
             let y1 = CGRectGetMinY(view1.frame)

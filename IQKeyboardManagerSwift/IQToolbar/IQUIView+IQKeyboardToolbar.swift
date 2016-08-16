@@ -65,8 +65,7 @@ public extension UIView {
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.respondsToSelector(Selector("placeholder")) {
-                    let textField = self as AnyObject
-                    toolbar.title = textField.drawingPlaceholderText
+                    toolbar.title = self.drawingPlaceholderText
                 }
             }
         }
@@ -86,8 +85,7 @@ public extension UIView {
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.respondsToSelector(Selector("placeholder")) {
-                    let textField = self as AnyObject
-                    toolbar.title = textField.drawingPlaceholderText
+                    toolbar.title = self.drawingPlaceholderText
                 }
             }
         }
@@ -106,8 +104,14 @@ public extension UIView {
             return self.placeholderText
         }
         else if self.respondsToSelector(Selector("placeholder")) {
-            let textField = self as AnyObject
-            return textField.placeholder
+            
+            if let textField = self as? UITextField {
+                return textField.placeholder
+            } else if let textView = self as? IQTextView {
+                return textView.placeholder
+            } else {
+                return nil
+            }
         }
         else {
             return nil
