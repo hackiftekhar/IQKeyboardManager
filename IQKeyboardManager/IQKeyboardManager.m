@@ -964,7 +964,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if ([self privateIsEnabled] == NO)	return;
     
     if (_textFieldView != nil &&
-        _isKeyboardShowing == YES &&
+        _keyboardShowing == YES &&
         CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
         [_textFieldView isAlertViewTextField] == NO)
     {
@@ -979,7 +979,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _kbShowNotification = aNotification;
 	
     //  Boolean to know keyboard is showing/hiding
-    _isKeyboardShowing = YES;
+    _keyboardShowing = YES;
     
 	if ([self privateIsEnabled] == NO)	return;
 	
@@ -1039,7 +1039,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        if (_isKeyboardShowing == YES &&
+        if (_keyboardShowing == YES &&
             _textFieldView != nil  &&
             [_textFieldView isAlertViewTextField] == NO)
         {
@@ -1062,7 +1062,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (controller == nil)  controller = [[self keyWindow] topMostController];
 
     //If _textFieldView viewController is presented as formSheet, then adjustFrame again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
-    if (_isKeyboardShowing == YES &&
+    if (_keyboardShowing == YES &&
         _textFieldView != nil &&
         controller.modalPresentationStyle == UIModalPresentationFormSheet &&
         [_textFieldView isAlertViewTextField] == NO)
@@ -1089,7 +1089,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    if (_textFieldView == nil)   return;
 
     //  Boolean to know keyboard is showing/hiding
-    _isKeyboardShowing = NO;
+    _keyboardShowing = NO;
     
     //  Getting keyboard animation duration
     CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -1292,7 +1292,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
     //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-    if (_isKeyboardShowing == YES &&
+    if (_keyboardShowing == YES &&
         _textFieldView != nil  &&
         [_textFieldView isAlertViewTextField] == NO)
     {
@@ -1410,7 +1410,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
     //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-    if (_isKeyboardShowing == YES &&
+    if (_keyboardShowing == YES &&
         _textFieldView != nil  &&
         CGSizeEqualToSize(_statusBarFrame.size, oldStatusBarFrame.size) == NO &&
         [_textFieldView isAlertViewTextField] == NO)
