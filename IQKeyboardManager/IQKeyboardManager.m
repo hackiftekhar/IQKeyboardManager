@@ -541,6 +541,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
     if (_textFieldView == nil)   return;
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //  Getting KeyWindow object.
@@ -953,7 +954,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
     }
     
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 #pragma mark - Public Methods
@@ -983,6 +985,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
 	if ([self privateIsEnabled] == NO)	return;
 	
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     if (_textFieldView != nil && CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
@@ -1047,7 +1050,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
     }
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /*  UIKeyboardDidShowNotification. */
@@ -1055,6 +1059,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     if ([self privateIsEnabled] == NO)	return;
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
     
     //  Getting topMost ViewController.
@@ -1070,7 +1075,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         [self adjustFrame];
     }
     
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1082,6 +1088,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If not enabled then do nothing.
     if ([self privateIsEnabled] == NO)	return;
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
@@ -1190,23 +1197,27 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _startingContentOffset = CGPointZero;
 //    topViewBeginRect = CGRectZero;    //Commented due to #82
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /*  UIKeyboardDidHideNotification. So topViewBeginRect can be set to CGRectZero. */
 - (void)keyboardDidHide:(NSNotification*)aNotification
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     _topViewBeginRect = CGRectZero;
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 #pragma mark - UITextFieldView Delegate methods
 /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //  Getting object
@@ -1228,8 +1239,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if ([self privateIsEnableAutoToolbar])
     {
-        [self showLog:@"adding UIToolbars if required"];
-
         //UITextView special case. Keyboard Notification is firing before textView notification so we need to reload it's inputViews.
         if ([_textFieldView isKindOfClass:[UITextView class]] &&
             _textFieldView.inputAccessoryView == nil)
@@ -1259,7 +1268,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
 	if ([self privateIsEnabled] == NO)
     {
-        [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+        CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+        [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
         return;
     }
     
@@ -1300,12 +1310,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         [self adjustFrame];
     }
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //Removing gesture recognizer   (Enhancement ID: #14)
@@ -1342,7 +1354,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Setting object to nil
     _textFieldView = nil;
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 //-(void)editingDidEndOnExit:(UITextField*)textField
@@ -1354,6 +1367,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
 - (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //If textViewContentInsetChanged is changed then restore it.
@@ -1379,7 +1393,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         } completion:NULL];
     }
 
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /**  UIApplicationDidChangeStatusBarFrameNotification. Need to refresh view position and update _topViewBeginRect. (Bug ID: #446)*/
@@ -1392,6 +1407,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     if ([self privateIsEnabled] == NO)	return;
     
+    CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     if (_rootViewController &&
@@ -1418,7 +1434,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         [self adjustFrame];
     }
     
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 #pragma mark AutoResign methods
@@ -1644,9 +1661,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** Add toolbar if it is required to add on textFields and it's siblings. */
 -(void)addToolbarIfRequired
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
+    [self showLog:[NSString stringWithFormat:@"Found %d responder sibling(s)",siblings.count]];
+
     //	If only one object is found, then adding only Done button.
     if (siblings.count==1 ||
         self.shouldHidePreviousNext)
@@ -1912,14 +1934,22 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
         }
     }
+
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /** Remove any toolbar if it is IQToolbar. */
 -(void)removeToolbarIfRequired  //  (Bug ID: #18)
 {
+    CFTimeInterval startTime = CACurrentMediaTime();
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
+    [self showLog:[NSString stringWithFormat:@"Found %d responder sibling(s)",siblings.count]];
+
     for (UITextField *textField in siblings)
     {
         UIView *toolbar = [textField inputAccessoryView];
@@ -1932,6 +1962,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             textField.inputAccessoryView = nil;
         }
     }
+
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
 /**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
