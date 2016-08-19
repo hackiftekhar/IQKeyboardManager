@@ -2237,6 +2237,35 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
     }
     
+    /**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    public func reloadInputViews() {
+        
+        //	Getting all the sibling textFields.
+        if let siblings = responderViews() {
+            
+            showLog("Found \(siblings.count) responder sibling(s)")
+            
+            for textField in siblings {
+                
+                //	If firstTextField, then previous should not be enabled.
+                if siblings[0] == textField {
+                    
+                    if siblings.count == 1 {
+                        textField.setEnablePrevious(false, isNextEnabled: false)
+                    } else {
+                        textField.setEnablePrevious(false, isNextEnabled: true)
+                    }
+                    
+                    //	If lastTextField then next should not be enaled.
+                } else if siblings.last == textField {
+                    textField.setEnablePrevious(true, isNextEnabled: false)
+                } else {
+                    textField.setEnablePrevious(true, isNextEnabled: true)
+                }
+            }
+        }
+    }
+    
     public var enableDebugging = false
 
     private func showLog(logString: String) {
