@@ -1000,7 +1000,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _topViewBeginRect = _rootViewController.view.frame;
         
         if (_shouldFixInteractivePopGestureRecognizer &&
-            [_rootViewController isKindOfClass:[UINavigationController class]])
+            [_rootViewController isKindOfClass:[UINavigationController class]] &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
         {
             _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
         }
@@ -1069,7 +1071,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If _textFieldView viewController is presented as formSheet, then adjustFrame again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
     if (_keyboardShowing == YES &&
         _textFieldView != nil &&
-        controller.modalPresentationStyle == UIModalPresentationFormSheet &&
+        (controller.modalPresentationStyle == UIModalPresentationFormSheet || controller.modalPresentationStyle == UIModalPresentationPageSheet) &&
         [_textFieldView isAlertViewTextField] == NO)
     {
         [self adjustFrame];
@@ -1292,7 +1294,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _topViewBeginRect = _rootViewController.view.frame;
 
         if (_shouldFixInteractivePopGestureRecognizer &&
-            [_rootViewController isKindOfClass:[UINavigationController class]])
+            [_rootViewController isKindOfClass:[UINavigationController class]] &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
         {
             _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
         }
@@ -1416,7 +1420,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _topViewBeginRect = _rootViewController.view.frame;
         
         if (_shouldFixInteractivePopGestureRecognizer &&
-            [_rootViewController isKindOfClass:[UINavigationController class]])
+            [_rootViewController isKindOfClass:[UINavigationController class]] &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
         {
             _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
         }

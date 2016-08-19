@@ -1301,8 +1301,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
                 if shouldFixInteractivePopGestureRecognizer == true &&
-                    unwrappedRootController is UINavigationController {
-                    
+                    unwrappedRootController is UINavigationController &&
+                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.FormSheet &&
+                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.PageSheet {
+
                     if let window = keyWindow() {
                         _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-unwrappedRootController.view.frame.size.height)
                     } else {
@@ -1399,7 +1401,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         if _textFieldView != nil &&
-            topMostController?.modalPresentationStyle == UIModalPresentationStyle.FormSheet &&
+            (topMostController?.modalPresentationStyle == UIModalPresentationStyle.FormSheet || topMostController?.modalPresentationStyle == UIModalPresentationStyle.PageSheet) &&
             _textFieldView?.isAlertViewTextField() == false {
             
             //  keyboard is already showing. adjust frame.
@@ -1640,7 +1642,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _topViewBeginRect = rootViewController.view.frame
                 
                 if shouldFixInteractivePopGestureRecognizer == true &&
-                    rootViewController is UINavigationController {
+                    rootViewController is UINavigationController &&
+                    rootViewController.modalPresentationStyle != UIModalPresentationStyle.FormSheet &&
+                    rootViewController.modalPresentationStyle != UIModalPresentationStyle.PageSheet {
                     if let window = keyWindow() {
                         _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-rootViewController.view.frame.size.height)
                     } else {
@@ -1760,7 +1764,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
                 if shouldFixInteractivePopGestureRecognizer == true &&
-                    unwrappedRootController is UINavigationController {
+                    unwrappedRootController is UINavigationController &&
+                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.FormSheet &&
+                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.PageSheet {
                     
                     if let window = keyWindow() {
                         _topViewBeginRect.origin = CGPointMake(0,window.frame.size.height-unwrappedRootController.view.frame.size.height)
