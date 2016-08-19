@@ -99,7 +99,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (dict)
     {
-        textField.keyboardType = [dict[kIQTextFieldReturnKeyType] integerValue];
+        textField.returnKeyType = [dict[kIQTextFieldReturnKeyType] integerValue];
         textField.delegate = dict[kIQTextFieldDelegate];
         [textFieldInfoCache removeObject:dict];
     }
@@ -374,7 +374,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     for (NSDictionary *dict in textFieldInfoCache)
     {
         UITextField *textField  = dict[kIQTextField];
-        textField.keyboardType  = [dict[kIQTextFieldReturnKeyType] integerValue];
+        textField.returnKeyType  = [dict[kIQTextFieldReturnKeyType] integerValue];
         textField.delegate      = dict[kIQTextFieldDelegate];
     }
 
