@@ -897,6 +897,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewRect
                 [self setRootViewFrame:rootViewRect];
+                _movedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y);
             }
             //  -Negative
             else
@@ -914,6 +915,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [self showLog:@"Moving Downward"];
                     //  Setting adjusted rootViewRect
                     [self setRootViewFrame:rootViewRect];
+                    _movedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y);
                 }
             }
         }
@@ -934,6 +936,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewRect
                 [self setRootViewFrame:rootViewRect];
+                _movedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y);
             }
             //  -Negative
             else
@@ -949,6 +952,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [self showLog:@"Moving Downward"];
                     //  Setting adjusted rootViewRect
                     [self setRootViewFrame:rootViewRect];
+                    _movedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y);
                 }
             }
         }
@@ -1177,7 +1181,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:[NSString stringWithFormat:@"Restoring %@ frame to : %@",[strongSelf.rootViewController _IQDescription],NSStringFromCGRect(strongSelf.topViewBeginRect)]];
                 //  Setting it's new frame
                 [strongSelf.rootViewController.view setFrame:strongSelf.topViewBeginRect];
-                
+                _movedDistance = 0;
+
                 //Animating content if needed (Bug ID: #204)
                 if (strongSelf.layoutIfNeededOnUpdate)
                 {

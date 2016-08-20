@@ -88,6 +88,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign, readonly, getter = isKeyboardShowing) BOOL  keyboardShowing;
 
+/**
+ moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
+ */
+@property(nonatomic, assign, readonly) CGFloat movedDistance;
+
 
 ///-------------------------
 /// @name IQToolbar handling

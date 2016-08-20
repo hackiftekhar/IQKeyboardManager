@@ -133,6 +133,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return _privateIsKeyboardShowing
         }
     }
+    
+    /**
+     moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
+     */
+    public var movedDistance: CGFloat {
+        
+        get {
+            return _privateMovedDistance
+        }
+    }
 
     /**
     Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
@@ -702,6 +712,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
     private var         _privateIsKeyboardShowing = false
 
+    private var         _privateMovedDistance : CGFloat = 0.0
+    
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
     
@@ -1193,6 +1205,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     showLog("Moving Upward")
                     //  Setting adjusted rootViewRect
                     setRootViewFrame(rootViewRect)
+                    _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
                 } else {  //  -Negative
                     //  Calculating disturbed distance. Pull Request #3
                     let disturbDistance = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect)
@@ -1206,6 +1219,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         showLog("Moving Downward")
                         //  Setting adjusted rootViewRect
                         setRootViewFrame(rootViewRect)
+                        _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
                     }
                 }
             } else {  //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
@@ -1223,6 +1237,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     showLog("Moving Upward")
                     //  Setting adjusted rootViewRect
                     setRootViewFrame(rootViewRect)
+                    _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
                 } else {  //  -Negative
                     let disturbDistance : CGFloat = CGRectGetMinY(rootViewRect)-CGRectGetMinY(_topViewBeginRect)
                     
@@ -1236,6 +1251,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //  Setting adjusted rootViewRect
                         //  Setting adjusted rootViewRect
                         setRootViewFrame(rootViewRect)
+                        _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
                     }
                 }
             }
@@ -1524,6 +1540,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         //  Setting it's new frame
                         rootViewController.view.frame = self._topViewBeginRect
+                        _privateMovedDistance = 0
                         
                         //Animating content if needed (Bug ID: #204)
                         if self.layoutIfNeededOnUpdate == true {
