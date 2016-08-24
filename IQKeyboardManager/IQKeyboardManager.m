@@ -1234,12 +1234,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         UITextField *textField = (UITextField*)_textFieldView;
         
-        //If keyboard appearance is not like the provided appearance
-        if (textField.keyboardAppearance != _keyboardAppearance)
+        if ([textField respondsToSelector:@selector(keyboardAppearance)])
         {
-            //Setting textField keyboard appearance and reloading inputViews.
-            textField.keyboardAppearance = _keyboardAppearance;
-            [textField reloadInputViews];
+            //If keyboard appearance is not like the provided appearance
+            if (textField.keyboardAppearance != _keyboardAppearance)
+            {
+                //Setting textField keyboard appearance and reloading inputViews.
+                textField.keyboardAppearance = _keyboardAppearance;
+                [textField reloadInputViews];
+            }
         }
     }
     
