@@ -156,7 +156,7 @@
     //Array of (UITextField/UITextView's).
     NSMutableArray *tempTextFields = [[NSMutableArray alloc] init];
     
-    for (UITextField *textField in siblings)
+    for (UIView *textField in siblings)
         if ([textField _IQcanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
@@ -167,10 +167,7 @@
 {
     NSMutableArray *textFields = [[NSMutableArray alloc] init];
     
-    //subviews are returning in opposite order. So I sorted it according the frames 'y'.
-    NSArray *subViews = [self.subviews sortedArrayByPosition];
-
-    for (UITextField *textField in subViews)
+    for (UIView *textField in self.subviews)
     {
         if ([textField _IQcanBecomeFirstResponder])
         {
@@ -182,6 +179,29 @@
             [textFields addObjectsFromArray:[textField deepResponderViews]];
         }
     }
+
+    //subviews are returning in incorrect order. Sorting according the frames 'y'.
+    return [textFields sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
+        
+        CGRect frame1 = [view1 convertRect:view1.bounds toView:self];
+        CGRect frame2 = [view2 convertRect:view2.bounds toView:self];
+        
+        CGFloat x1 = CGRectGetMinX(frame1);
+        CGFloat y1 = CGRectGetMinY(frame1);
+        CGFloat x2 = CGRectGetMinX(frame2);
+        CGFloat y2 = CGRectGetMinY(frame2);
+        
+        if (y1 < y2)  return NSOrderedAscending;
+        
+        else if (y1 > y2) return NSOrderedDescending;
+        
+        //Else both y are same so checking for x positions
+        else if (x1 < x2)  return NSOrderedAscending;
+        
+        else if (x1 > x2) return NSOrderedDescending;
+        
+        else    return NSOrderedSame;
+    }];
 
     return textFields;
 }

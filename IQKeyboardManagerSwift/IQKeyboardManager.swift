@@ -1540,7 +1540,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         //  Setting it's new frame
                         rootViewController.view.frame = self._topViewBeginRect
-                        _privateMovedDistance = 0
+                        self._privateMovedDistance = 0
                         
                         //Animating content if needed (Bug ID: #204)
                         if self.layoutIfNeededOnUpdate == true {

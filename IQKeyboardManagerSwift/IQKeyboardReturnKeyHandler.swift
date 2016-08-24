@@ -378,8 +378,6 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        var shouldReturn = true
-        
         if delegate?.respondsToSelector(#selector(UITextFieldDelegate.textFieldShouldReturn(_:))) != nil {
             let shouldReturn = (delegate?.textFieldShouldReturn?(textField) == true)
             

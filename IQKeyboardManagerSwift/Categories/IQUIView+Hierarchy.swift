@@ -166,26 +166,10 @@ public extension UIView {
     */
     public func deepResponderViews()->[UIView] {
         
-        //subviews are returning in opposite order. So I sorted it according the frames 'y'.
-        
-        let subViews = subviews.sort({ (view1 : UIView, view2 : UIView) -> Bool in
-            
-            let x1 = CGRectGetMinX(view1.frame)
-            let y1 = CGRectGetMinY(view1.frame)
-            let x2 = CGRectGetMinX(view2.frame)
-            let y2 = CGRectGetMinY(view2.frame)
-            
-            if y1 != y2 {
-                return y1 < y2
-            } else {
-                return x1 < x2
-            }
-        })
-
         //Array of (UITextField/UITextView's).
         var textfields = [UIView]()
         
-        for textField in subViews {
+        for textField in subviews {
             
             if textField._IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
@@ -198,7 +182,23 @@ public extension UIView {
             }
         }
         
-        return textfields
+        //subviews are returning in opposite order. Sorting according the frames 'y'.
+        return textfields.sort({ (view1 : UIView, view2 : UIView) -> Bool in
+            
+            let frame1 = view1.convertRect(view1.bounds, toView: self)
+            let frame2 = view2.convertRect(view2.bounds, toView: self)
+
+            let x1 = CGRectGetMinX(frame1)
+            let y1 = CGRectGetMinY(frame1)
+            let x2 = CGRectGetMinX(frame2)
+            let y2 = CGRectGetMinY(frame2)
+            
+            if y1 != y2 {
+                return y1 < y2
+            } else {
+                return x1 < x2
+            }
+        })
     }
     
     private func _IQcanBecomeFirstResponder() -> Bool {
