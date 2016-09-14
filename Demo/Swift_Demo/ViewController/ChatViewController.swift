@@ -21,60 +21,60 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
         inputTextField.inputAccessoryView = UIView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.textFieldDidChange(_:)),    name: UITextFieldTextDidChangeNotification, object: inputTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChange(_:)),    name: NSNotification.Name.UITextFieldTextDidChange, object: inputTextField)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: inputTextField)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: inputTextField)
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return texts.count
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChatTableViewCell", forIndexPath: indexPath) as! ChatTableViewCell
-        cell.chatLabel.text = texts[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as! ChatTableViewCell
+        cell.chatLabel.text = texts[(indexPath as NSIndexPath).row]
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    @IBAction func sendAction(sender : UIButton) {
+    @IBAction func sendAction(_ sender : UIButton) {
         if inputTextField.text?.characters.count != 0 {
 
-            let indexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0), inSection: 0)
+            let indexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
             
             texts.append(inputTextField.text!)
             inputTextField.text = ""
-            buttonSend.enabled = false
+            buttonSend.isEnabled = false
             
-            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation:UITableViewRowAnimation.Automatic)
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition:UITableViewScrollPosition.None, animated:true)
+            tableView.insertRows(at: [indexPath], with:UITableViewRowAnimation.automatic)
+            tableView.scrollToRow(at: indexPath, at:UITableViewScrollPosition.none, animated:true)
 
         }
     }
     
-    func textFieldDidChange(notification: NSNotification) {
-        buttonSend.enabled = inputTextField.text?.characters.count != 0
+    func textFieldDidChange(_ notification: Notification) {
+        buttonSend.isEnabled = inputTextField.text?.characters.count != 0
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
 
     }
 }

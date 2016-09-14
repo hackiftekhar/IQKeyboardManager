@@ -24,9 +24,9 @@
 
 import UIKit
 
-public class IQBarButtonItem: UIBarButtonItem {
+open class IQBarButtonItem: UIBarButtonItem {
    
-    override public class func initialize() {
+    override open class func initialize() {
 
         superclass()?.initialize()
         
@@ -34,46 +34,46 @@ public class IQBarButtonItem: UIBarButtonItem {
         self.appearance().tintColor = nil
 
         //Title
-        self.appearance().setTitlePositionAdjustment(UIOffsetZero, forBarMetrics: UIBarMetrics.Default)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Normal)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Highlighted)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Disabled)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Selected)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Application)
-        self.appearance().setTitleTextAttributes(nil, forState: UIControlState.Reserved)
+        self.appearance().setTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState())
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState.highlighted)
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState.disabled)
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState.selected)
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState.application)
+        self.appearance().setTitleTextAttributes(nil, for: UIControlState.reserved)
 
         //Background Image
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Normal,      barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Highlighted, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Disabled,    barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Selected,    barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Application, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Reserved,    barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState(),      barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.highlighted, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.disabled,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.selected,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.application, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.reserved,    barMetrics: UIBarMetrics.default)
         
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Normal,      style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Highlighted, style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Disabled,    style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Selected,    style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Application, style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Reserved,    style: UIBarButtonItemStyle.Done, barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState(),      style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.highlighted, style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.disabled,    style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.selected,    style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.application, style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.reserved,    style: UIBarButtonItemStyle.done, barMetrics: UIBarMetrics.default)
         
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Normal,      style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Highlighted, style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Disabled,    style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Selected,    style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Application, style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundImage(nil, forState: UIControlState.Reserved,    style: UIBarButtonItemStyle.Plain, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackgroundVerticalPositionAdjustment(0, forBarMetrics: UIBarMetrics.Default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState(),      style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.highlighted, style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.disabled,    style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.selected,    style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.application, style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControlState.reserved,    style: UIBarButtonItemStyle.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundVerticalPositionAdjustment(0, for: UIBarMetrics.default)
 
         //Back Button
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Normal,      barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Highlighted, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Disabled,    barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Selected,    barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Application, barMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundImage(nil, forState: UIControlState.Reserved,    barMetrics: UIBarMetrics.Default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState(),      barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.highlighted, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.disabled,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.selected,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.application, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControlState.reserved,    barMetrics: UIBarMetrics.default)
 
-        self.appearance().setBackButtonTitlePositionAdjustment(UIOffsetZero, forBarMetrics: UIBarMetrics.Default)
-        self.appearance().setBackButtonBackgroundVerticalPositionAdjustment(0, forBarMetrics: UIBarMetrics.Default)
+        self.appearance().setBackButtonTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundVerticalPositionAdjustment(0, for: UIBarMetrics.default)
     }
 }

@@ -9,9 +9,9 @@
 
 class ChatLabel: UILabel {
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
 
-        var sizeThatFits = super.intrinsicContentSize()
+        var sizeThatFits = super.intrinsicContentSize
         sizeThatFits.width += 10
         sizeThatFits.height += 10
 

@@ -10,31 +10,31 @@ import UIKit
 
 class WebViewController: UIViewController , UIWebViewDelegate {
     
-    let activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     @IBOutlet var _webView : UIWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request : NSURLRequest = NSURLRequest(URL: NSURL(string: "http://www.gmail.com")!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
+        let request : URLRequest = URLRequest(url: URL(string: "http://www.gmail.com")!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 60)
         _webView.loadRequest(request)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activity)
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
         activity.startAnimating()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         activity.stopAnimating()
     }
 
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         activity.stopAnimating()
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 

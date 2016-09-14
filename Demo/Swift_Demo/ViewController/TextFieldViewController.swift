@@ -11,23 +11,23 @@ import IQKeyboardManagerSwift
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet private var textField3 : UITextField!
+    @IBOutlet fileprivate var textField3 : UITextField!
     @IBOutlet var textView1: IQTextView!
 
-    @IBOutlet private var dropDownTextField : IQDropDownTextField!
+    @IBOutlet fileprivate var dropDownTextField : IQDropDownTextField!
 
-    @IBOutlet private var buttonPush : UIButton!
-    @IBOutlet private var buttonPresent : UIButton!
+    @IBOutlet fileprivate var buttonPush : UIButton!
+    @IBOutlet fileprivate var buttonPresent : UIButton!
 
-    func previousAction(sender : UITextField) {
+    func previousAction(_ sender : UITextField) {
         print("PreviousAction")
     }
     
-    func nextAction(sender : UITextField) {
+    func nextAction(_ sender : UITextField) {
         print("nextAction")
     }
     
-    func doneAction(sender : UITextField) {
+    func doneAction(_ sender : UITextField) {
         print("doneAction")
     }
 
@@ -63,21 +63,21 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         dropDownTextField.itemList = itemLists
     }
     
-    override func viewWillAppear(animated : Bool) {
+    override func viewWillAppear(_ animated : Bool) {
         super.viewWillAppear(animated)
         
         if (self.presentingViewController != nil)
         {
-            buttonPush.hidden = true
-            buttonPresent.setTitle("Dismiss", forState:UIControlState.Normal)
+            buttonPush.isHidden = true
+            buttonPresent.setTitle("Dismiss", for:UIControlState())
         }
     }
     
-    @IBAction func presentClicked (sender: AnyObject!) {
+    @IBAction func presentClicked (_ sender: AnyObject!) {
         
         if self.presentingViewController == nil {
             
-            let controller: UIViewController = (storyboard?.instantiateViewControllerWithIdentifier("TextFieldViewController"))!
+            let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: "TextFieldViewController"))!
             let navController : UINavigationController = UINavigationController(rootViewController: controller)
             navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
             navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
@@ -91,44 +91,44 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 //                navController.modalPresentationStyle = UIModalPresentationStyle.PageSheet
 //            }
 
-            presentViewController(navController, animated: true, completion: nil)
+            present(navController, animated: true, completion: nil)
         } else {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
  
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
 
         print("textViewDidBeginEditing");
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

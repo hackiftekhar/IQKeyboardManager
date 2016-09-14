@@ -11,45 +11,45 @@ import IQKeyboardManagerSwift
 
 class BottomBlankSpaceViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet private var switchPreventShowingBottomBlankSpace : UISwitch!
+    @IBOutlet fileprivate var switchPreventShowingBottomBlankSpace : UISwitch!
 
-    override func viewWillAppear(animated : Bool) {
+    override func viewWillAppear(_ animated : Bool) {
         super.viewWillAppear(animated)
         
-        switchPreventShowingBottomBlankSpace.on = IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace
+        switchPreventShowingBottomBlankSpace.isOn = IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace
     }
     
-    @IBAction func preventSwitchAction (sender: UISwitch!) {
-        IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = sender.on
+    @IBAction func preventSwitchAction (_ sender: UISwitch!) {
+        IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = sender.isOn
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

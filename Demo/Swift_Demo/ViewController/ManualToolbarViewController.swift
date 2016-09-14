@@ -11,11 +11,11 @@ import IQKeyboardManagerSwift
 
 class ManualToolbarViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet private var textField1 : UITextField!
-    @IBOutlet private var textField2 : UITextField!
-    @IBOutlet private var textView3 : UITextView!
-    @IBOutlet private var textField4 : UITextField!
-    @IBOutlet private var textField5 : UITextField!
+    @IBOutlet fileprivate var textField1 : UITextField!
+    @IBOutlet fileprivate var textField2 : UITextField!
+    @IBOutlet fileprivate var textView3 : UITextView!
+    @IBOutlet fileprivate var textField4 : UITextField!
+    @IBOutlet fileprivate var textField5 : UITextField!
 
 
     override func viewDidLoad() {
@@ -37,78 +37,78 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     }
 
     
-    func previousAction(sender : UITextField!) {
+    func previousAction(_ sender : UITextField!) {
         
-        if (textField2.isFirstResponder())
+        if (textField2.isFirstResponder)
         {
             textView3.becomeFirstResponder()
         }
-        else if (textView3.isFirstResponder())
+        else if (textView3.isFirstResponder)
         {
             textField1.becomeFirstResponder()
         }
     }
     
-    func nextAction(sender : UITextField!) {
+    func nextAction(_ sender : UITextField!) {
         
-        if (textField1.isFirstResponder())
+        if (textField1.isFirstResponder)
         {
             textView3.becomeFirstResponder()
         }
-        else if (textView3.isFirstResponder())
+        else if (textView3.isFirstResponder)
         {
             textField2.becomeFirstResponder()
         }
     }
     
-    func doneAction(sender : UITextField!) {
+    func doneAction(_ sender : UITextField!) {
         self.view.endEditing(true)
     }
 
-    func titleAction(sender : UIButton) {
+    func titleAction(_ sender : UIButton) {
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        alertController.addAction(UIAlertAction(title: "test@example.com", style: .Default, handler: { (action : UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "test@example.com", style: .default, handler: { (action : UIAlertAction) in
             self.textField4.text = "test";
         }))
         
-        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .Default, handler: { (action : UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .default, handler: { (action : UIAlertAction) in
             self.textField4.text = "demo";
         }))
         
         alertController.popoverPresentationController?.sourceView = sender
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

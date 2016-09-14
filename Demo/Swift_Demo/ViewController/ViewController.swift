@@ -11,63 +11,63 @@ import IQKeyboardManagerSwift
 
 class ViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
-    @IBAction func shareClicked (sender : UIBarButtonItem) {
+    @IBAction func shareClicked (_ sender : UIBarButtonItem) {
         
         let shareString : String = "IQKeyboardManager is really great control for iOS developer to manage keyboard-textField."
         let shareImage : UIImage = UIImage(named: "IQKeyboardManagerScreenshot")!
-        let youtubeUrl : NSURL = NSURL(string: "http://youtu.be/6nhLw6hju2A")!
+        let youtubeUrl : URL = URL(string: "http://youtu.be/6nhLw6hju2A")!
         
         var activityItems = [NSObject]()
-        activityItems.append(shareString)
+        activityItems.append(shareString as NSObject)
         activityItems.append(shareImage)
-        activityItems.append(youtubeUrl)
+        activityItems.append(youtubeUrl as NSObject)
 
-        let excludedActivities = [String]()
-        activityItems.append(UIActivityTypePrint)
-        activityItems.append(UIActivityTypeCopyToPasteboard)
-        activityItems.append(UIActivityTypeAssignToContact)
-        activityItems.append(UIActivityTypeSaveToCameraRoll)
+        let excludedActivities = [UIActivityType]()
+        activityItems.append(UIActivityType.print as NSObject)
+        activityItems.append(UIActivityType.copyToPasteboard as NSObject)
+        activityItems.append(UIActivityType.assignToContact as NSObject)
+        activityItems.append(UIActivityType.saveToCameraRoll as NSObject)
         
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         controller.excludedActivityTypes = excludedActivities
-        presentViewController(controller, animated: true) { () -> Void in
+        present(controller, animated: true) { () -> Void in
 
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        IQKeyboardManager.sharedManager().toolbarManageBehaviour = IQAutoToolbarManageBehaviour.ByPosition
+        IQKeyboardManager.sharedManager().toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

@@ -11,71 +11,71 @@ import IQKeyboardManagerSwift
 
 class CustomViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
-    private var returnHandler : IQKeyboardReturnKeyHandler!
-    @IBOutlet private var settingsView : UIView!
+    fileprivate var returnHandler : IQKeyboardReturnKeyHandler!
+    @IBOutlet fileprivate var settingsView : UIView!
 
-    @IBOutlet private var switchDisableViewController : UISwitch!
-    @IBOutlet private var switchEnableViewController : UISwitch!
+    @IBOutlet fileprivate var switchDisableViewController : UISwitch!
+    @IBOutlet fileprivate var switchEnableViewController : UISwitch!
 
-    @IBOutlet private var switchDisableToolbar : UISwitch!
-    @IBOutlet private var switchEnableToolbar : UISwitch!
+    @IBOutlet fileprivate var switchDisableToolbar : UISwitch!
+    @IBOutlet fileprivate var switchEnableToolbar : UISwitch!
     
-    @IBOutlet private var switchDisableTouchResign : UISwitch!
-    @IBOutlet private var switchEnableTouchResign : UISwitch!
+    @IBOutlet fileprivate var switchDisableTouchResign : UISwitch!
+    @IBOutlet fileprivate var switchEnableTouchResign : UISwitch!
 
-    @IBOutlet private var switchAllowPreviousNext : UISwitch!
+    @IBOutlet fileprivate var switchAllowPreviousNext : UISwitch!
 
-    @IBOutlet private var settingsTopConstraint : NSLayoutConstraint!
+    @IBOutlet fileprivate var settingsTopConstraint : NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        settingsView.layer.shadowColor = UIColor.blackColor().CGColor
-        settingsView.layer.shadowOffset = CGSizeZero
+        settingsView.layer.shadowColor = UIColor.black.cgColor
+        settingsView.layer.shadowOffset = CGSize.zero
         settingsView.layer.shadowRadius = 5.0
         settingsView.layer.shadowOpacity = 0.5
 
         returnHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnHandler.lastTextFieldReturnKeyType = .Done
+        returnHandler.lastTextFieldReturnKeyType = .done
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        switchDisableViewController.on = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains({ element in
+        switchDisableViewController.isOn = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchEnableViewController.on = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.contains({ element in
+        switchEnableViewController.isOn = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchDisableToolbar.on = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains({ element in
+        switchDisableToolbar.isOn = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
-        switchEnableToolbar.on = IQKeyboardManager.sharedManager().enabledToolbarClasses.contains({ element in
+        switchEnableToolbar.isOn = IQKeyboardManager.sharedManager().enabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchDisableTouchResign.on = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.contains({ element in
+        switchDisableTouchResign.isOn = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.contains(where: { element in
             return element == CustomViewController.self
         })
-        switchEnableTouchResign.on = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains({ element in
+        switchEnableTouchResign.isOn = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains(where: { element in
             return element == CustomViewController.self
         })
                 
-        switchAllowPreviousNext.on = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains({ element in
+        switchAllowPreviousNext.isOn = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains(where: { element in
             return element == IQPreviousNextView.self
         });
     }
     
-    @IBAction func tapAction(sender: UITapGestureRecognizer) {
-        if sender.state == .Ended {
+    @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
 
             let animationCurve = UIViewAnimationOptions.init(rawValue: 7)
-            let animationDuration : NSTimeInterval = 0.3;
+            let animationDuration : TimeInterval = 0.3;
             
-            UIView.animateWithDuration(animationDuration, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState.union(animationCurve), animations: { () -> Void in
+            UIView.animate(withDuration: animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(animationCurve), animations: { () -> Void in
 
                 if self.settingsTopConstraint.constant != 0 {
                     self.settingsTopConstraint.constant = 0;
@@ -89,136 +89,136 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
     }
 
-    @IBAction func disableInViewControllerAction(sender: UISwitch) {
+    @IBAction func disableInViewControllerAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func enableInViewControllerAction(sender: UISwitch) {
+    @IBAction func enableInViewControllerAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func disableToolbarAction(sender: UISwitch) {
+    @IBAction func disableToolbarAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().disabledToolbarClasses.append(CustomViewController.self)
         }
         else {
 
-            if let index = IQKeyboardManager.sharedManager().disabledToolbarClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().disabledToolbarClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledToolbarClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().disabledToolbarClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func enableToolbarAction(sender: UISwitch) {
+    @IBAction func enableToolbarAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().enabledToolbarClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.sharedManager().enabledToolbarClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().enabledToolbarClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledToolbarClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().enabledToolbarClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func disableTouchOutsideAction(sender: UISwitch) {
+    @IBAction func disableTouchOutsideAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().disabledTouchResignedClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledTouchResignedClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().disabledTouchResignedClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func enableTouchOutsideAction(sender: UISwitch) {
+    @IBAction func enableTouchOutsideAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().enabledTouchResignedClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledTouchResignedClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().enabledTouchResignedClasses.remove(at: index)
             }
         }
     }
     
-    @IBAction func allowedPreviousNextAction(sender: UISwitch) {
+    @IBAction func allowedPreviousNextAction(_ sender: UISwitch) {
         self.view.endEditing(true)
-        if sender.on {
+        if sender.isOn {
             IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.indexOf({ element in
+            if let index = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.index(where: { element in
                 return element == IQPreviousNextView.self
             }) {
-                IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.removeAtIndex(index)
+                IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.remove(at: index)
             }
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

@@ -16,66 +16,66 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
 "Hello", "This is a demo code", "Issue #56", "With mutiple cells", "And some useless text.",
 "Hello", "This is a demo code", "Issue #56", "With mutiple cells", "And some useless text."]
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt heightForRowAtIndexPath: IndexPath) -> CGFloat {
         return tableView.rowHeight
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _data.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let identifier = "\(indexPath.section) \(indexPath.row)"
+        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
         
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
-            cell?.selectionStyle = UITableViewCellSelectionStyle.None
-            cell?.backgroundColor = UIColor.clearColor()
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell?.backgroundColor = UIColor.clear
             
-            let textView = UITextView(frame: CGRectMake(5,7,135,30))
-            textView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-            textView.backgroundColor = UIColor.clearColor()
-            textView.text = _data[indexPath.row]
-            textView.dataDetectorTypes = UIDataDetectorTypes.All
-            textView.scrollEnabled = false
-            textView.editable = false
+            let textView = UITextView(frame: CGRect(x: 5,y: 7,width: 135,height: 30))
+            textView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+            textView.backgroundColor = UIColor.clear
+            textView.text = _data[(indexPath as NSIndexPath).row]
+            textView.dataDetectorTypes = UIDataDetectorTypes.all
+            textView.isScrollEnabled = false
+            textView.isEditable = false
             cell?.contentView.addSubview(textView)
         }
         
         return cell!
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

@@ -10,76 +10,76 @@ import UIKit
 
 class ScrollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet private var scrollViewDemo : UIScrollView!
-    @IBOutlet private var simpleTableView : UITableView!
-    @IBOutlet private var scrollViewOfTableViews : UIScrollView!
-    @IBOutlet private var tableViewInsideScrollView : UITableView!
-    @IBOutlet private var scrollViewInsideScrollView : UIScrollView!
+    @IBOutlet fileprivate var scrollViewDemo : UIScrollView!
+    @IBOutlet fileprivate var simpleTableView : UITableView!
+    @IBOutlet fileprivate var scrollViewOfTableViews : UIScrollView!
+    @IBOutlet fileprivate var tableViewInsideScrollView : UITableView!
+    @IBOutlet fileprivate var scrollViewInsideScrollView : UIScrollView!
     
-    @IBOutlet private var topTextField : UITextField!
-    @IBOutlet private var bottomTextField : UITextField!
+    @IBOutlet fileprivate var topTextField : UITextField!
+    @IBOutlet fileprivate var bottomTextField : UITextField!
     
-    @IBOutlet private var topTextView : UITextView!
-    @IBOutlet private var bottomTextView : UITextView!
+    @IBOutlet fileprivate var topTextView : UITextView!
+    @IBOutlet fileprivate var bottomTextView : UITextView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let identifier = "\(indexPath.section) \(indexPath.row)"
+        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
 
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identifier)
-            cell?.selectionStyle = UITableViewCellSelectionStyle.None
-            cell?.backgroundColor = UIColor.clearColor()
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell?.backgroundColor = UIColor.clear
             
-            let textField = UITextField(frame: CGRectInset(cell!.contentView.bounds, 5, 5))
-            textField.autoresizingMask = [UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleWidth]
+            let textField = UITextField(frame: cell!.contentView.bounds.insetBy(dx: 5, dy: 5))
+            textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
             textField.placeholder = identifier
-            textField.borderStyle = UITextBorderStyle.RoundedRect
+            textField.borderStyle = UITextBorderStyle.roundedRect
             cell?.contentView.addSubview(textField)
         }
 
         return cell!
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier {
             
             if identifier == "SettingsNavigationController" {
                 
-                let controller = segue.destinationViewController
+                let controller = segue.destination
                 
-                controller.modalPresentationStyle = .Popover
+                controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                 
-                let heightWidth = max(CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds));
-                controller.preferredContentSize = CGSizeMake(heightWidth, heightWidth)
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

@@ -8,7 +8,7 @@
 
 protocol OptionsViewControllerDelegate: class {
     
-    func optionsViewController(controller : OptionsViewController, index:NSInteger)
+    func optionsViewController(_ controller : OptionsViewController, index:NSInteger)
 }
 
 class OptionsViewController: UITableViewController {
@@ -20,34 +20,34 @@ class OptionsViewController: UITableViewController {
     var selectedIndex : Int = 0
     
         
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.options.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell") as! OptionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell") as! OptionTableViewCell
         
-        cell.labelOption.text = options[indexPath.row]
+        cell.labelOption.text = options[(indexPath as NSIndexPath).row]
         
-        if indexPath.row == self.selectedIndex  {
+        if (indexPath as NSIndexPath).row == self.selectedIndex  {
             
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryType = UITableViewCellAccessoryType.none
         }
 
         return cell
     }
 
         
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        selectedIndex = indexPath.row
+        selectedIndex = (indexPath as NSIndexPath).row
         
-        delegate?.optionsViewController(self, index: indexPath.row)
+        delegate?.optionsViewController(self, index: (indexPath as NSIndexPath).row)
         
-        tableView.reloadRowsAtIndexPaths(tableView.indexPathsForVisibleRows!, withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: UITableViewRowAnimation.automatic)
     }
 }
