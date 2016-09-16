@@ -804,9 +804,17 @@ public extension UIView {
                 }
             }
             
-            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
-            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            var imageLeftArrow : UIImage!
+            var imageRightArrow : UIImage!
             
+            if #available(iOS 10.0, *) {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
+            } else {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            }
+
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
             if #available(iOS 9.0, *) {
                 imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
@@ -824,7 +832,11 @@ public extension UIView {
 
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-            fixed.width = 23
+            if #available(iOS 10.0, *) {
+                fixed.width = 6
+            } else {
+                fixed.width = 20
+            }
             items.append(fixed)
 
             //Next button
@@ -927,8 +939,16 @@ public extension UIView {
                 }
             }
             
-            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
-            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            var imageLeftArrow : UIImage!
+            var imageRightArrow : UIImage!
+            
+            if #available(iOS 10.0, *) {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
+            } else {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            }
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
             if #available(iOS 9.0, *) {
@@ -947,7 +967,11 @@ public extension UIView {
             
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-            fixed.width = 23
+            if #available(iOS 10.0, *) {
+                fixed.width = 6
+            } else {
+                fixed.width = 20
+            }
             items.append(fixed)
             
             //Next button
@@ -1063,8 +1087,16 @@ public extension UIView {
                 }
             }
             
-            var imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
-            var imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            var imageLeftArrow : UIImage!
+            var imageRightArrow : UIImage!
+            
+            if #available(iOS 10.0, *) {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
+            } else {
+                imageLeftArrow = UIImage(named: "IQButtonBarArrowLeft", in: bundle, compatibleWith: nil)
+                imageRightArrow = UIImage(named: "IQButtonBarArrowRight", in: bundle, compatibleWith: nil)
+            }
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
             if #available(iOS 9.0, *) {
@@ -1083,7 +1115,11 @@ public extension UIView {
 
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-            fixed.width = 23
+            if #available(iOS 10.0, *) {
+                fixed.width = 6
+            } else {
+                fixed.width = 20
+            }
             items.append(fixed)
 
             //Next button

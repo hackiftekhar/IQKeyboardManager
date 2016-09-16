@@ -549,7 +549,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if gesture.state == UIGestureRecognizerState.ended {
 
             //Resigning currently responder textField.
-            resignFirstResponder()
+            _ = resignFirstResponder()
         }
     }
     
@@ -753,10 +753,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.delegate = self
         _tapGesture.isEnabled = shouldResignOnTouchOutside
         
-        disabledDistanceHandlingClasses.append(UITableViewController)
-        toolbarPreviousNextAllowedClasses.append(UITableView)
-        toolbarPreviousNextAllowedClasses.append(UICollectionView)
-        toolbarPreviousNextAllowedClasses.append(IQPreviousNextView)
+        disabledDistanceHandlingClasses.append(UITableViewController.self)
+        toolbarPreviousNextAllowedClasses.append(UITableView.self)
+        toolbarPreviousNextAllowedClasses.append(UICollectionView.self)
+        toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
         //Workaround to load all appearance proxies at startup
         let barButtonItem2 = IQTitleBarButtonItem()
         barButtonItem2.title = ""
@@ -950,7 +950,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("Need to move: \(move)")
 
         var superScrollView : UIScrollView? = nil
-        var superView = textFieldView.superviewOfClassType(UIScrollView) as? UIScrollView
+        var superView = textFieldView.superviewOfClassType(UIScrollView.self) as? UIScrollView
         
         //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
         while let view = superView {
@@ -961,7 +961,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             else {
                 //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-                superView = view.superviewOfClassType(UIScrollView) as? UIScrollView
+                superView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
             }
         }
         
@@ -1043,7 +1043,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                         if textFieldView is UITextView == true &&
-                            scrollView.superviewOfClassType(UIScrollView) == nil &&
+                            scrollView.superviewOfClassType(UIScrollView.self) == nil &&
                             shouldOffsetY >= 0 {
                             var maintainTopLayout : CGFloat = 0
                             
@@ -1089,7 +1089,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     //  Getting next lastView & superScrollView.
                     lastView = scrollView
-                    superScrollView = lastView.superviewOfClassType(UIScrollView) as? UIScrollView
+                    superScrollView = lastView.superviewOfClassType(UIScrollView.self) as? UIScrollView
                 } else {
                     break
                 }
@@ -1339,14 +1339,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if let info = (notification as NSNotification?)?.userInfo {
             
             //  Getting keyboard animation.
-            if let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as AnyObject).uintValue {
+            if let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {
                 _animationCurve = UIViewAnimationOptions(rawValue: curve)
             } else {
                 _animationCurve = UIViewAnimationOptions.curveEaseOut
             }
             
             //  Getting keyboard animation duration
-            if let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
+            if let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
                 
                 //Saving animation duration
                 if duration != 0.0 {
@@ -1357,7 +1357,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
             
             //  Getting UIKeyboardSize.
-            if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue {
+            if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 
                 let screenSize = UIScreen.main.bounds
                 
@@ -1454,7 +1454,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let info : [AnyHashable: Any]? = (notification as NSNotification?)?.userInfo
         
         //  Getting keyboard animation duration
-        if let duration =  (info?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
+        if let duration =  (info?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             if duration != 0 {
                 //  Setitng keyboard animation duration
                 _animationDuration = duration
@@ -1491,7 +1491,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self.showLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
                     
-                    superScrollView = scrollView.superviewOfClassType(UIScrollView) as? UIScrollView
+                    superScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
                 }
                 }) { (finished) -> Void in }
         }
@@ -1762,7 +1762,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let oldStatusBarFrame = _statusBarFrame;
         
         //  Getting keyboard animation duration
-        if let newFrame =  ((notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey] as AnyObject).cgRectValue {
+        if let newFrame =  ((notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey] as? NSNumber)?.cgRectValue {
             
             _statusBarFrame = newFrame
         }

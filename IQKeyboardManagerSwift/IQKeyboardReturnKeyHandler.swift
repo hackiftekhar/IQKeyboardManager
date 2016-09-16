@@ -349,7 +349,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     open func textFieldDidBeginEditing(_ textField: UITextField) {
         updateReturnKeyTypeOnTextField(textField)
         
-        delegate?.textFieldShouldBeginEditing?(textField)
+        delegate?.textFieldDidBeginEditing?(textField)
     }
     
     open func textFieldDidEndEditing(_ textField: UITextField) {
@@ -382,7 +382,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             let shouldReturn = (delegate?.textFieldShouldReturn?(textField) == true)
             
             if shouldReturn == true {
-                goToNextResponderOrResign(textField)
+                _ = goToNextResponderOrResign(textField)
             }
 
             return shouldReturn

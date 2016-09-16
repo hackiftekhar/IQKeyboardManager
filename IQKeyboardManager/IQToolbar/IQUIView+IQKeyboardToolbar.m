@@ -528,9 +528,20 @@
         resourcesBundle = mainBundle;
     }
     
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    UIImage *imageLeftArrow = nil;
+    UIImage *imageRightArrow = nil;
     
+    if (IQ_IS_IOS10_OR_GREATER)
+    {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    }
+    else
+    {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    }
+
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
     if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
     {
@@ -545,7 +556,11 @@
 
     //Fixed space
     IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:20];
+    if (IQ_IS_IOS10_OR_GREATER) {
+        [fixed setWidth:6];
+    } else {
+        [fixed setWidth:20];
+    }
     [items addObject:fixed];
     
     //Next button
@@ -623,8 +638,16 @@
         resourcesBundle = mainBundle;
     }
     
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    UIImage *imageLeftArrow = nil;
+    UIImage *imageRightArrow = nil;
+    
+    if (IQ_IS_IOS10_OR_GREATER) {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    } else {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    }
     
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
     if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
@@ -640,7 +663,11 @@
     
     //Fixed space
     IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:20];
+    if (IQ_IS_IOS10_OR_GREATER) {
+        [fixed setWidth:6];
+    } else {
+        [fixed setWidth:20];
+    }
     [items addObject:fixed];
     
     //Next button
@@ -714,8 +741,16 @@
         resourcesBundle = mainBundle;
     }
     
-    UIImage *imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
-    UIImage *imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    UIImage *imageLeftArrow = nil;
+    UIImage *imageRightArrow = nil;
+    
+    if (IQ_IS_IOS10_OR_GREATER) {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    } else {
+        imageLeftArrow = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        imageRightArrow = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+    }
     
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
     if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
@@ -731,7 +766,11 @@
     
     //Fixed space
     IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:20];
+    if (IQ_IS_IOS10_OR_GREATER) {
+        [fixed setWidth:6];
+    } else {
+        [fixed setWidth:20];
+    }
     [items addObject:fixed];
     
     //Next button

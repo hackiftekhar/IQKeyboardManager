@@ -1681,7 +1681,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
-    [self showLog:[NSString stringWithFormat:@"Found %d responder sibling(s)",siblings.count]];
+    [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
     //	If only one object is found, then adding only Done button.
     if (siblings.count==1 ||
@@ -1962,7 +1962,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
-    [self showLog:[NSString stringWithFormat:@"Found %d responder sibling(s)",siblings.count]];
+    [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
     for (UITextField *textField in siblings)
     {
