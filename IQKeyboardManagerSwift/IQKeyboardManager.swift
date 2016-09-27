@@ -342,7 +342,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Resigns currently first responder field.
     */
-    open func resignFirstResponder()-> Bool {
+    @discardableResult open func resignFirstResponder()-> Bool {
         
         if let textFieldRetain = _textFieldView {
             
@@ -407,7 +407,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Navigate to previous responder textField/textView.
     */
-    open func goPrevious()-> Bool {
+    @discardableResult open func goPrevious()-> Bool {
         
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
@@ -442,7 +442,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Navigate to next responder textField/textView.
     */
-    open func goNext()-> Bool {
+    @discardableResult open func goNext()-> Bool {
 
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
