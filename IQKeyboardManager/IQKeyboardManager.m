@@ -76,6 +76,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To save topBottomLayoutConstraint original constant */
 @property(nonatomic, assign) CGFloat    layoutGuideConstraintInitialConstant;
 
+/** To save topBottomLayoutConstraint original constraint reference */
+@property(nonatomic, weak) NSLayoutConstraint   *layoutGuideConstraint;
+
 
 /*******************************************/
 
@@ -575,17 +578,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  (Bug ID: #250)
     IQLayoutGuidePosition layoutGuidePosition = IQLayoutGuidePositionNone;
     
-    NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-    
     //If topLayoutGuide constraint
-    if (constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] ||
-        constraint.secondItem == [[_textFieldView viewController] topLayoutGuide])
+    if (_layoutGuideConstraint && (_layoutGuideConstraint.firstItem == [[_textFieldView viewController] topLayoutGuide] ||
+        _layoutGuideConstraint.secondItem == [[_textFieldView viewController] topLayoutGuide]))
     {
         layoutGuidePosition = IQLayoutGuidePositionTop;
     }
     //If bottomLayoutGuice constraint
-    else if (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] ||
-             constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide])
+    else if (_layoutGuideConstraint && (_layoutGuideConstraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] ||
+             _layoutGuideConstraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide]))
     {
         layoutGuidePosition = IQLayoutGuidePositionBottom;
     }
@@ -804,15 +805,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     if (layoutGuidePosition == IQLayoutGuidePositionTop)
     {
-        CGFloat constant = MIN(_layoutGuideConstraintInitialConstant, constraint.constant-move);
+        CGFloat constant = MIN(_layoutGuideConstraintInitialConstant, _layoutGuideConstraint.constant-move);
         
         __weak typeof(self) weakSelf = self;
 
-        [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
             __strong typeof(self) strongSelf = weakSelf;
 
-            constraint.constant = constant;
+            weakSelf.layoutGuideConstraint.constant = constant;
             [strongSelf.rootViewController.view setNeedsLayout];
             [strongSelf.rootViewController.view layoutIfNeeded];
         } completion:NULL];
@@ -820,15 +821,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If bottomLayoutGuice constraint
     else if (layoutGuidePosition == IQLayoutGuidePositionBottom)
     {
-        CGFloat constant = MAX(_layoutGuideConstraintInitialConstant, constraint.constant+move);
+        CGFloat constant = MAX(_layoutGuideConstraintInitialConstant, _layoutGuideConstraint.constant+move);
         
         __weak typeof(self) weakSelf = self;
 
-        [UIView animateWithDuration:_animationDuration delay:0 options:(7<<16|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
             __strong typeof(self) strongSelf = weakSelf;
 
-            constraint.constant = constant;
+            weakSelf.layoutGuideConstraint.constant = constant;
             [strongSelf.rootViewController.view setNeedsLayout];
             [strongSelf.rootViewController.view layoutIfNeeded];
         } completion:NULL];
@@ -995,7 +996,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (_textFieldView != nil && CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
-        _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
+        _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+        _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
 
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         _rootViewController = [_textFieldView topMostController];
@@ -1015,8 +1017,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     //  Getting keyboard animation.
-    _animationCurve = [[aNotification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    _animationCurve = _animationCurve<<16;
+    NSInteger curve = [[aNotification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    _animationCurve = curve<<16;
 
     //  Getting keyboard animation duration
     CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -1164,15 +1166,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
             __strong typeof(self) strongSelf = weakSelf;
 
-            NSLayoutConstraint *constraint = [[strongSelf.textFieldView viewController] IQLayoutGuideConstraint];
-            
             //If done LayoutGuide tweak
-            if (constraint.firstItem == [[strongSelf.textFieldView viewController] topLayoutGuide] ||
-                constraint.firstItem == [[strongSelf.textFieldView viewController] bottomLayoutGuide] ||
-                constraint.secondItem == [[strongSelf.textFieldView viewController] topLayoutGuide] ||
-                constraint.secondItem == [[strongSelf.textFieldView viewController] bottomLayoutGuide])
+            if (weakSelf.layoutGuideConstraint)
             {
-                constraint.constant = strongSelf.layoutGuideConstraintInitialConstant;
+                weakSelf.layoutGuideConstraint.constant = strongSelf.layoutGuideConstraintInitialConstant;
                 [strongSelf.rootViewController.view setNeedsLayout];
                 [strongSelf.rootViewController.view layoutIfNeeded];
             }
@@ -1195,8 +1192,24 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         } completion:NULL];
         _rootViewController = nil;
     }
+    //If done LayoutGuide tweak
+    else if (_layoutGuideConstraint)
+    {
+        __weak typeof(self) weakSelf = self;
+        
+        //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            __strong typeof(self) strongSelf = weakSelf;
+
+            weakSelf.layoutGuideConstraint.constant = strongSelf.layoutGuideConstraintInitialConstant;
+            [strongSelf.rootViewController.view setNeedsLayout];
+            [strongSelf.rootViewController.view layoutIfNeeded];
+        } completion:NULL];
+    }
 
     //Reset all values
+    _layoutGuideConstraint = nil;
+    _layoutGuideConstraintInitialConstant = 0;
     _lastScrollView = nil;
     _kbSize = CGSizeZero;
     _startingContentInsets = UIEdgeInsetsZero;
@@ -1294,7 +1307,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
-        _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
+        _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+        _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
         
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
