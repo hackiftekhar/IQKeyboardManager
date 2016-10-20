@@ -177,8 +177,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
 +(void)load
 {
-    //Enabling IQKeyboardManager.
-    [[IQKeyboardManager sharedManager] setEnable:YES];
+    //Enabling IQKeyboardManager. Loading asynchronous on main thread
+    [self performSelectorOnMainThread:@selector(sharedManager) withObject:nil waitUntilDone:NO];
 }
 
 /*  Singleton Object Initialization. */
@@ -226,6 +226,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //Setting it's initial values
             strongSelf.animationDuration = 0.25;
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
+            [self setEnable:YES];
 			[self setKeyboardDistanceFromTextField:10.0];
             [self setShouldPlayInputClicks:YES];
             [self setShouldResignOnTouchOutside:NO];
@@ -237,6 +238,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             [self setLayoutIfNeededOnUpdate:NO];
             [self setShouldFixInteractivePopGestureRecognizer:YES];
+            
+            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard apperance delay (Bug ID: #550)
+            {
+                UITextField *view = [[UITextField alloc] init];
+                [view addDoneOnKeyboardWithTarget:nil action:nil];
+                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
+            }
             
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];

@@ -32,14 +32,9 @@
 @synthesize titleFont = _titleFont;
 @synthesize title = _title;
 
-Class IQUIToolbarTextButtonClass;
-Class IQUIToolbarButtonClass;
-
-
-+(void)load
++(void)initialize
 {
-    IQUIToolbarTextButtonClass = NSClassFromString(@"UIToolbarTextButton");
-    IQUIToolbarButtonClass = NSClassFromString(@"UIToolbarButton");
+    [super initialize];
 
     //Tint Color
     [[self appearance] setTintColor:nil];
@@ -214,6 +209,15 @@ Class IQUIToolbarButtonClass;
         
         else    return NSOrderedSame;
     }];
+    
+    static Class IQUIToolbarTextButtonClass = Nil;
+    static Class IQUIToolbarButtonClass = Nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        IQUIToolbarTextButtonClass = NSClassFromString(@"UIToolbarTextButton");
+        IQUIToolbarButtonClass = NSClassFromString(@"UIToolbarButton");
+    });
     
     for (UIView *barButtonItemView in subviews)
     {
