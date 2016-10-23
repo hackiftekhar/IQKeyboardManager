@@ -125,21 +125,9 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switchEnabled1.isEnabled = false
-        switchEnabled2.isEnabled = false
-        switchEnabled3.isEnabled = false
-        switchInteraction1.isEnabled = false
-        switchInteraction2.isEnabled = false
-        switchInteraction3.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switchEnabled1.isEnabled = true
-        switchEnabled2.isEnabled = true
-        switchEnabled3.isEnabled = true
-        switchInteraction1.isEnabled = true
-        switchInteraction2.isEnabled = true
-        switchInteraction3.isEnabled = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
