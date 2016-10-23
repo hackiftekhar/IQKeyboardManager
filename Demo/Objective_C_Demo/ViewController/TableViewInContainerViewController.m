@@ -24,6 +24,38 @@
     return 30;
 }
 
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 40;
+//}
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    return 40;
+//}
+//
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+//    view.backgroundColor = [UIColor colorWithRed:0.9 green:1 blue:1 alpha:1];
+//   
+//    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 5, 280, 30)];
+//    textField.placeholder = [NSString stringWithFormat:@"Header %ld",(long)section];
+//    [view addSubview:textField];
+//    return view;
+//}
+//
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+//    view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:0.9 alpha:1];
+//    
+//    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 5, 280, 30)];
+//    textField.placeholder = [NSString stringWithFormat:@"Footer %ld",(long)section];
+//    [view addSubview:textField];
+//    return view;
+//}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"TestCell";

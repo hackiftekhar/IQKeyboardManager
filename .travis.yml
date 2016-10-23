@@ -15,4 +15,4 @@ before_install:
     - rvm use 2.3.1
     - sudo gem install cocoapods -v '1.0.1'
 
-script: xctool -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
+script: xcodebuild -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
