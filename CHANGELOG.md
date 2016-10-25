@@ -1,6 +1,42 @@
-## 3.1.0 (29-08-2014)
+## 3.2.0 (28-09-2014)
+
+#### Bugfixes:
+
+- Fixed some issues with UiAlertSheetTextField in iOS8.
+- Fixed an issue with inputAccessoryView cache.
+- Fixed an issue where keyWindow doesn't get updated if application keyWindow change.
+- Fixed an isssue where keyboard get dismissed with resetting textView frame.
 
 #### Performance:
+
+- Migrated syntax to Modern ObjC.
+
+
+#### Features:
+
+- Added UIView hierarchy debugging methods.
+- Added Swift version support.
+
+
+## 3.1.1 (16-09-2014)
+
+#### Bugfixes:
+
+- Optimized for iOS8.
+- Fixed UIToolbar resizing issue finally.
+
+#### Features:
+
+- Added delegate support in **IQKeyboardReturnKeyHandler**.
+
+#### Documentation:
+
+- Updated documentation regarding **IQKeyboardReturnKeyHandler**.
+
+
+## 3.1.0 (29-08-2014)
+
+#### Features:
 
 - Added **IQKeyboardReturnKeyHandler**.
 
