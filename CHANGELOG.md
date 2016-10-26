@@ -1,3 +1,55 @@
+## 3.2.0.3 (05-12-2014)
+
+#### Bugfixes:
+
+- Fixed an issue with UIAlertView's internal UIViewController.
+
+#### Enhancement:
+
+- Added isAskingCanBecomeFirstResponder for a workaround with textFieldShouldBeginEditing.
+
+
+## 3.2.0.2 (29-10-2014)
+
+#### Bugfixes:
+
+- Fixed an overflow crash with **textFieldViewDidChange**.
+- Fixed an issue where some textField refuse to resign specially textFields are on UITableView and tableView reload on **textFieldShouldEndEditing**.
+- Fixed an scrolling issue with UIScrollView and it's subclasses.
+
+#### Enhancement:
+
+- Instance variable name changes.
+- Restructured project.
+- Dropped compatibility for versions lower than iOS7, now library support iOS7 as minimum deployment target.
+- Added support for **UICollectionView**.
+
+#### Features:
+
+- Added **preventShowingBottomBlankSpace** property.
+- Added **IQAutoToolbarByPosition**.
+- Fully updated Swift version to match Objective-C version.
+
+#### Documentation:
+
+- Improved README and added some more documentation on how to use library.
+
+
+## 3.2.0.1 (14-10-2014)
+
+#### Bugfixes:
+
+- Fixed some bugs with UIScrollView handling.
+- Fixed an issue whre previous/next enable/disable was not working properly.
+- Fixed some issues where UIViewController's view wasn't restoring to initial position.
+- Fixed an issue where return key wasn't updated by IQKeyboardReturnKeyHandler.
+- Fixed some issues with canAdjustTextView for iOS8 due to orientation API changes.
+
+#### Enhancement:
+
+- Improve distance calculation logic with status bar frame.
+
+
 ## 3.2.0 (28-09-2014)
 
 #### Bugfixes:
