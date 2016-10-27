@@ -1,3 +1,21 @@
+## 3.2.1.0 (11-01-2015)
+
+#### Bugfixes:
+
+- Fixed an issue where textField was hiding behind keyboard when textField was in UIScrollView and it's contentSize is less than it's height.
+- Fixed an issue where shouldResignOnTouchOutside preventing tap to UIControl subclasses.
+- Fixed some next/previous issues related to UITableView.
+- Fixed an issue for UIPageViewController internal scrollView.
+
+#### Debugging:
+
+- Enhanced logging by printing all internal calculation in console.
+
+#### Improvements:
+
+- Improved swift version with recommended style guide.
+
+
 ## 3.2.0.3 (05-12-2014)
 
 #### Bugfixes:
