@@ -1,3 +1,27 @@
+## 3.2.1.2 (22-03-2015)
+
+#### Features:
+
+- Added **disableInViewControllerClass, disableToolbarInViewControllerClass, considerToolbarPreviousNextInViewClass** methods.
+
+
+## 3.2.1.1 (12-02-2015)
+
+#### Bugfixes:
+
+- Adopted KeyboardAppearance style for keyboard toolbar.
+- Fixed some toolbar caching and next/previous enable/disable related issues.
+
+#### Features:
+
+- Added **shouldFixTextViewClip** property.
+- Added custom previous/next/done call methods registration.
+
+#### Deprecations and Removed:
+
+- Removed support for Framework, now developer needs to compile for framework if they need.
+
+
 ## 3.2.1.0 (11-01-2015)
 
 #### Bugfixes:
