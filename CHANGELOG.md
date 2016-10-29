@@ -17,33 +17,28 @@
 
 - Deprecated **shouldHidePreviousNext** in favor of **previousNextDisplayMode** and this will be removed in future releases.
 
-
 #### Documentation:
 
-- Added CHANGELOG.md.
+- Added **CHANGELOG.md**.
 
 
 ## 4.0.7 (19-10-2016)
 
 #### Bugfixes:
 
-- Fixed an issue where keyboard was dismissing by touching on UIWebView but layout doesn't change and user see blank area at bottom.
+- Fixed an issue where keyboard was dismissing by touching on **UIWebView** but layout doesn't change and user see blank area at bottom.
 
 #### Improvements:
 
-- Added .swift-version file for CocoaPods to know swift version of library.
+- Added **.swift-version** file for CocoaPods to know swift version of library.
 
 
 ## 4.0.6 (16-09-2016)
 
 #### Improvements:
 
-- Updated swift library to swift 3.0.
-
-#### Features:
-
-- Added new next/previous icons for iOS10.
-
+- Updated swift library to **swift 3.0**.
+- Added new next/previous icons for **iOS10**.
 
 ## 4.0.5 (24-08-2016)
 
@@ -54,8 +49,8 @@
 
 #### Improvements:
 
-- Moved library files to development pods.
-- Added method execution time with debugging logs.
+- Moved library files to **development pods**.
+- Added **method execution time** print with debugging logs.
 
 #### Features:
 
@@ -64,7 +59,7 @@
 
 #### Documentation:
 
-- Updated MANUAL MANAGEMENT.md with more examples.
+- Updated **MANUAL MANAGEMENT.md** with more examples.
 
 
 ## 4.0.4 (25-06-2016)
@@ -73,30 +68,30 @@
 
 - Fixed an issue with custom done button/image dynamic updation.
 - Fixed an issue with Form Sheet where Form Sheet was resetting view frame internally.
-- Fixed an issue where navigation controller sometimes return wrong frame when applied pop gesture recognizer.
+- Fixed an issue where navigation controller sometimes return wrong frame when applied **pop gesture recognizer**.
 - Fixed an issue where customized keyboardDistanceFromTextField property wasn't working UISearchBar.
-- Fixed an issue where view was misplaced when In Call Status Bar show/hide.
+- Fixed an issue where view was misplaced when **In Call Status Bar** show/hide.
 
 #### Features:
 
-- Added **setTitleTarget:action: to use toolbar title as button to enhanced textField features.
+- Added **setTitleTarget:action:** to use toolbar title as button to enhanced textField features.
 - Added **enableDebugging** property to print logs.
-- Added **shouldFixInteractivePopGestureRecognizer** property to fix a bug with navigation controller pop gesture recognizer.
+- Added **shouldFixInteractivePopGestureRecognizer** property to fix a bug with navigation controller **pop gesture recognizer**.
 - Added **shouldHidePreviousNext** property.
 - Replaced **shouldHideTitle** with **shouldHidePlaceholderText**.
-- Added **Carthage** support for Objective-C version.
+- Added **Carthage** support for **Objective-C** version.
 
 #### Deprecations and Removed:
 
-- Removed **canAdjustTextView** property since this now internally handled by adjusting contentInset of UITextView.
+- Removed **canAdjustTextView** property since this now internally handled by adjusting **contentInset of UITextView**.
 - Removed **shouldAdoptDefaultKeyboardAnimation** property.
 - Removed **disableDistanceHandlingInViewControllerClass, removeDisableDistanceHandlingInViewControllerClass, disableToolbarInViewControllerClass, removeDisableToolbarInViewControllerClass, considerToolbarPreviousNextInViewClass, removeConsiderToolbarPreviousNextInViewClass** methods.
 - Removed **IQKEYBOARDMANAGER_DEBUG** preprocessor macro.
 
 #### Documentation:
 
-- Enhanced settings controller to add all Settings.
-- Moved README documentation to MANUAL MANAGEMENT.md, PROPERTIES & FUNCTIONS.md, KNOWN ISSUES.md.
+- Enhanced **Settings Controller**.
+- Moved **README.md** documentation to **MANUAL MANAGEMENT.md, PROPERTIES & FUNCTIONS.md, KNOWN ISSUES.md**.
 - Updated **iOS NSNotification Mechanism** documentation mechanism.
 
 
@@ -109,7 +104,7 @@
 #### Features:
 
 - Added **reloadLayoutIfNeeded** to adjust position on the fly.
-- UIAccessibility support for next/previous/done buttons.
+- **UIAccessibility** support for next/previous/done buttons.
 - Removed manual contentSize adjustment and this should now be calculated by user with their own logic or with Autolayout.
 - Added **registerTextFieldViewClass, didBeginEditingNotificationName, didEndEditingNotificationName** method.
 
@@ -133,14 +128,14 @@
 
 #### Improvements:
 
-- Updated swift library to swift 2.2.
-- Optimized movement calculation when hardware keyboard is attached.
+- Updated swift library to **swift 2.2**.
+- Optimized movement calculation when **hardware keyboard is attached**.
 
 #### Features:
 
 - Added **reloadInputViews** method.
-- Added RTL language direction support for next/previous images.
-- Added support for third party customized textView/textField by adding **addTextFieldViewDidBeginEditingNotificationName:didEndEditingNotificationName** method.
+- Added **RTL language direction support** for next/previous images.
+- Added support for **third party customized textView/textField** by adding **addTextFieldViewDidBeginEditingNotificationName:didEndEditingNotificationName** method.
 - Added **disabledDistanceHandlingClasses, enabledDistanceHandlingClasses, disabledToolbarClasses, enabledToolbarClasses, toolbarPreviousNextAllowedClasses, toolbarPreviousNextDeniedClasses, disabledTouchResignedClasses, enabledTouchResignedClasses** properties.
 - Added **IQPreviousNextView** class to Improve Next Previous experience for all inner deep responder subviews.
 
@@ -157,11 +152,11 @@
 
 #### Improvements:
 
-- Updated swift library to swift 2.1.1.
+- Updated swift library to **swift 2.1.1**.
 
 #### Deprecations and Removed:
 
-- Dropped iOS7 support.
+- **Dropped iOS7 support**.
 
 #### Documentation:
 
@@ -188,14 +183,14 @@
 
 #### Features:
 
-- Added **disableDistanceHandlingInViewControllerClass, removeDisableDistanceHandlingInViewControllerClass.
+- Added **disableDistanceHandlingInViewControllerClass, removeDisableDistanceHandlingInViewControllerClass** method.
 - Added **toolbarDoneBarButtonItemText, toolbarTintColor** property.
 - Added **shouldRestoreScrollViewContentOffset** to UIScrollView category.
 
 #### Deprecations and Removed:
 
-- Deprecated **disableInViewControllerClass, removeDisableInViewControllerClass** and replaced with new one for better name understanding, will be remove in future release.
-- Deprecated **shouldRestoreScrollViewContentOffset** of IQKeyboardManager class, will be remove in future release.
+- Deprecated **disableInViewControllerClass, removeDisableInViewControllerClass** and replaced with new one for better name understanding, this will be remove in future release.
+- Deprecated **shouldRestoreScrollViewContentOffset** of IQKeyboardManager class, this will be remove in future release.
 
 
 ## 3.3.5 (31-12-2015)
@@ -211,14 +206,14 @@
 
 #### Deprecations and Removed:
 
-- Dropped iOS6 support.
+- **Dropped iOS6 support**.
 
 
 ## 3.3.4 (28-10-2015)
 
 #### Improvements:
 
-- Updated swift library to swift 2.1.
+- Updated swift library to **swift 2.1**.
 
 #### Deprecations and Removed:
 
@@ -241,30 +236,30 @@
 
 #### Improvements:
 
-- Added Travis CI for build status.
+- Added **Travis CI** for build status.
 
 #### Deprecations and Removed:
 
-- Dropped iOS5 support.
+- **Dropped iOS5 support**.
 
 
 ## 3.3.2 (19-09-2015)
 
 #### Improvements:
 
-- Updated swift library to swift 2.0.
+- Updated swift library to **swift 2.0**.
 
 
 ## 3.3.1 (10-09-2015)
 
 #### Bugfixes:
 
-- Added different movement logic for bottomLayoutGuide and topLayoutGuide.
-- Fixed an issue with iOS8 where toolbar arrows are missing with CocoaPods when used with user_framework! option.
+- Added different movement logic for **bottomLayoutGuide** and **topLayoutGuide**.
+- Fixed an issue with iOS8 where **toolbar arrows were missing** with CocoaPods when used with **user_framework!** option.
 
 #### Unit Tests:
 
-- Added UI Test cases.
+- Added **UI Test cases**.
 
 
 ## 3.3.0 (30-08-2015)
@@ -276,7 +271,7 @@
 
 #### Features:
 
-- Added Carthage Support.
+- Added **Carthage Support**.
 
 
 ## 3.2.4 (04-06-2015)
@@ -294,7 +289,7 @@
 
 #### Documentation:
 
-- Enhanced README with more examples.
+- Enhanced **README.md** with more examples.
 
 
 ## 3.2.3 (21-04-2015)
@@ -307,7 +302,7 @@
 
 #### Improvements:
 
-- Updated swift library to swift 1.2.
+- Updated swift library to **swift 1.2**.
 
 #### Features:
 
@@ -318,11 +313,11 @@
 
 #### Bugfixes:
 
-- Fixed an issue with iOS8 where toolbar arrows are missing with CocoaPods installation.
+- Fixed an issue with iOS8 where **toolbar arrows were missing with CocoaPods** installation.
 
 #### Features:
 
-- Added shouldRestoreScrollViewContentOffset.
+- Added **shouldRestoreScrollViewContentOffset**.
 
 
 ## 3.2.1.2 (22-03-2015)
@@ -342,11 +337,11 @@
 #### Features:
 
 - Added **shouldFixTextViewClip** property.
-- Added custom previous/next/done call methods registration.
+- Added **custom previous/next/done call methods registration**.
 
 #### Deprecations and Removed:
 
-- Removed support for Framework, now developer needs to compile for framework if they need.
+- **Removed support for Framework**, now developer needs to compile for framework if they need.
 
 
 ## 3.2.1.0 (11-01-2015)
@@ -356,11 +351,11 @@
 - Fixed an issue where textField was hiding behind keyboard when textField was in UIScrollView and it's contentSize is less than it's height.
 - Fixed an issue where shouldResignOnTouchOutside preventing tap to UIControl subclasses.
 - Fixed some next/previous issues related to UITableView.
-- Fixed an issue for UIPageViewController internal scrollView.
+- Fixed an issue for **UIPageViewController internal scrollView**.
 
 #### Debugging:
 
-- Enhanced logging by printing all internal calculation in console.
+- **Enhanced logging** by printing all internal calculation in console.
 
 #### Improvements:
 
@@ -371,11 +366,11 @@
 
 #### Bugfixes:
 
-- Fixed an issue with UIAlertView's internal UIViewController.
+- Fixed an issue with **UIAlertView's internal UIViewController**.
 
 #### Enhancement:
 
-- Added isAskingCanBecomeFirstResponder for a workaround with textFieldShouldBeginEditing.
+- Added **isAskingCanBecomeFirstResponder** for a workaround with **textFieldShouldBeginEditing** delegate method.
 
 
 ## 3.2.0.2 (29-10-2014)
@@ -383,14 +378,13 @@
 #### Bugfixes:
 
 - Fixed an overflow crash with **textFieldViewDidChange**.
-- Fixed an issue where some textField refuse to resign specially textFields are on UITableView and tableView reload on **textFieldShouldEndEditing**.
+- Fixed an issue where some textField refuse to resign specially when textFields were on UITableView and tableView reload on **textFieldShouldEndEditing**.
 - Fixed an scrolling issue with UIScrollView and it's subclasses.
 
 #### Enhancement:
 
 - Instance variable name changes.
 - Restructured project.
-- Dropped compatibility for versions lower than iOS7, now library support iOS7 as minimum deployment target.
 - Added support for **UICollectionView**.
 
 #### Features:
@@ -409,10 +403,10 @@
 #### Bugfixes:
 
 - Fixed some bugs with UIScrollView handling.
-- Fixed an issue whre previous/next enable/disable was not working properly.
+- Fixed an issue where previous/next enable/disable was not working properly.
 - Fixed some issues where UIViewController's view wasn't restoring to initial position.
 - Fixed an issue where return key wasn't updated by IQKeyboardReturnKeyHandler.
-- Fixed some issues with canAdjustTextView for iOS8 due to orientation API changes.
+- Fixed some issues with **canAdjustTextView** for iOS8 due to **orientation API changes**.
 
 #### Enhancement:
 
@@ -432,10 +426,12 @@
 
 - Migrated syntax to **Modern ObjC**.
 
+#### Improvements:
+
+- Added **UIView hierarchy debugging methods**.
 
 #### Features:
 
-- Added UIView hierarchy debugging methods.
 - Added **Swift** version support.
 
 
@@ -444,7 +440,7 @@
 #### Bugfixes:
 
 - Optimized for iOS8.
-- Fixed UIToolbar resizing issue finally.
+- Fixed **UIToolbar resizing issue** finally.
 
 #### Features:
 
@@ -481,7 +477,7 @@
 
 #### Bugfixes:
 
-- Fixed an issue with iOS7 UITableViewCell internal UIScrollView.
+- Fixed an issue with iOS7 **UITableViewCell internal UIScrollView**.
 - Fixed an issue with UIToolbar resizing bug. (Later this fix introduce another bug)
 
 #### Documentation:
@@ -520,10 +516,6 @@
 
 - Fixed a bug with resetting textView frame when orientation.
 
-#### Features:
-
-- Added Spanish localization.
-
 
 ## 3.0.2 (13-03-2014)
 
@@ -542,7 +534,7 @@
 
 - Disabled toolbar for **UISearchBar** and **UIAlertView** inner textField'.
 - Fixed toolbar resizing issue on orientation change.
-- Fixed buggy animations when keyboard show/hide.
+- Fixed **buggy animations** when keyboard show/hide.
 - Replaced **UIBarButtonItem** with **IQBarButtonItem** to overcome with appearance proxy related bugs.
 
 #### Features:
@@ -554,7 +546,7 @@
 
 #### Documentation:
 
-- Updated read me with video link.
+- Updated **README.md** with video link.
 
 
 ## 3.0.0 (25-02-2014)
@@ -580,7 +572,7 @@
 
 #### Bugfixes:
 
-- Fixed an issue where textView height is too big.
+- Fixed an issue with a case where textView height is too big.
 
 #### Features:
 
@@ -605,7 +597,7 @@
 #### Features:
 
 - Added UIView category methods to easily add **Next Previous** button toolbars.
-- Added iOS7 style previous next button images.
+- Added **iOS7 style previous/next button images**.
 - Added **enableAutoToolbar** support by **Subviews** and **Tag**.
 - **sharedInstance** support.
 
@@ -615,7 +607,7 @@
 #### Bugfixes:
 
 - Fixes framing bug with **ModalViewController** when presentation style is FormSheet/PageSheet in iPad.
-- fixed some issues with LandscapeLeft offset calculations
+- fixed some issues with **LandscapeLeft offset calculations**.
 - Optimized for iOS7.
 
 #### Features:
@@ -628,5 +620,5 @@
 
 #### Documentation:
 
-- Added Read Me.
-- Added iOS NSNotification Mechanism chart.
+- Added **README.md**.
+- Added **iOS NSNotification Mechanism** chart.
