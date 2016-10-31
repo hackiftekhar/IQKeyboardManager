@@ -1,6 +1,6 @@
 PODS:
-  - IQKeyboardManager (4.0.4)
-  - IQKeyboardManagerSwift (4.0.4)
+  - IQKeyboardManager (4.0.7)
+  - IQKeyboardManagerSwift (4.0.7)
 
 DEPENDENCIES:
   - IQKeyboardManager (from `.`)
@@ -8,14 +8,14 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   IQKeyboardManager:
-    :path: .
+    :path: "."
   IQKeyboardManagerSwift:
-    :path: .
+    :path: "."
 
 SPEC CHECKSUMS:
-  IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
-  IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
+  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
 
 PODFILE CHECKSUM: 2fbc048969bb6fcb2e7e11b19e38027eeef497be
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1
