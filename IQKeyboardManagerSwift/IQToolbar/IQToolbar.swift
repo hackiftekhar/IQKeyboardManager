@@ -193,8 +193,8 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         struct InternalClass {
             
-            static var IQUIToolbarTextButtonClass: AnyClass?   =   NSClassFromString("UIToolbarTextButton")
-            static var IQUIToolbarButtonClass: AnyClass?      =   NSClassFromString("UIToolbarButton")
+            static var IQUIToolbarTextButtonClass: UIControl.Type?  =   NSClassFromString("UIToolbarTextButton") as? UIControl.Type
+            static var IQUIToolbarButtonClass: UIControl.Type?      =   NSClassFromString("UIToolbarButton") as? UIControl.Type
         }
 
 

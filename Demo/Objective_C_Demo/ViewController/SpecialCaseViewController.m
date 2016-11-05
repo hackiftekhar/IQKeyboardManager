@@ -48,8 +48,6 @@
 
 - (IBAction)showAlertClicked:(UIButton *)sender
 {
-    [self.view endEditing:YES];
-
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];

@@ -248,18 +248,33 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
             }
             
+            //Special Controllers
+            static Class UIAlertControllerTextFieldViewController = Nil;  //UIAlertView
+            
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                UIAlertControllerTextFieldViewController     = NSClassFromString(@"_UIAlertControllerTextFieldViewController");
+            });
+            
             //Initializing disabled classes Set.
-            strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
+            strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
             
-            strongSelf.disabledToolbarClasses = [[NSMutableSet alloc] init];
+            strongSelf.disabledToolbarClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledToolbarClasses = [[NSMutableSet alloc] init];
             
             strongSelf.toolbarPreviousNextAllowedClasses = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class],[IQPreviousNextView class], nil];
             
-            strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] init];
+            strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
 
+            if (UIAlertControllerTextFieldViewController)
+            {
+                [strongSelf.disabledDistanceHandlingClasses addObject:UIAlertControllerTextFieldViewController];
+                [strongSelf.disabledToolbarClasses addObject:UIAlertControllerTextFieldViewController];
+                [strongSelf.disabledTouchResignedClasses addObject:UIAlertControllerTextFieldViewController];
+            }
+            
             [self setShouldToolbarUsesTextFieldTintColor:NO];
         });
     }

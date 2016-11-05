@@ -782,9 +782,24 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
         
         disabledDistanceHandlingClasses.append(UITableViewController.self)
+        disabledDistanceHandlingClasses.append(UIAlertController.self)
+        disabledToolbarClasses.append(UIAlertController.self)
+        disabledTouchResignedClasses.append(UIAlertController.self)
         toolbarPreviousNextAllowedClasses.append(UITableView.self)
         toolbarPreviousNextAllowedClasses.append(UICollectionView.self)
         toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
+        
+        //Special Controllers
+        struct InternalClass {
+            
+            static var UIAlertControllerTextFieldViewController: UIViewController.Type?  =   NSClassFromString("_UIAlertControllerTextFieldViewController") as? UIViewController.Type //UIAlertView
+        }
+        
+        if let aClass = InternalClass.UIAlertControllerTextFieldViewController {
+            disabledDistanceHandlingClasses.append(aClass.self)
+            disabledToolbarClasses.append(aClass.self)
+            disabledTouchResignedClasses.append(aClass.self)
+        }
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
