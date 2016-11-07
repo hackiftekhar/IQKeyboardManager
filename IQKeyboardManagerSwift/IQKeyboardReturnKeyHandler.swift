@@ -111,7 +111,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     ///------------------------
     /// MARK: Private Functions
     ///------------------------
-    fileprivate func textFieldCachedInfo(_ textField : UIView) -> [String : AnyObject]? {
+    fileprivate func textFieldViewCachedInfo(_ textField : UIView) -> [String : AnyObject]? {
         
         for infoDict in textFieldInfoCache {
             
@@ -216,7 +216,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     */
     open func removeTextFieldView(_ view : UIView) {
         
-        if let dict : [String : AnyObject] = textFieldCachedInfo(view) {
+        if let dict : [String : AnyObject] = textFieldViewCachedInfo(view) {
             
             if let textField = view as? UITextField {
                 
@@ -334,7 +334,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -352,7 +352,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -371,7 +371,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -385,7 +385,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -400,7 +400,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -414,7 +414,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -432,7 +432,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -451,7 +451,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textField) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textField) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextFieldDelegate
             }
         }
@@ -477,7 +477,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -495,7 +495,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -514,7 +514,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -528,7 +528,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -542,7 +542,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -567,7 +567,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -581,7 +581,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(textView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(textView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -596,7 +596,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(aTextView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(aTextView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -615,7 +615,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(aTextView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(aTextView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -633,7 +633,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(aTextView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(aTextView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }
@@ -652,7 +652,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         if aDelegate == nil {
             
-            if let dict : [String : AnyObject] = textFieldCachedInfo(aTextView) {
+            if let dict : [String : AnyObject] = textFieldViewCachedInfo(aTextView) {
                 aDelegate = dict[kIQTextFieldDelegate] as? UITextViewDelegate
             }
         }

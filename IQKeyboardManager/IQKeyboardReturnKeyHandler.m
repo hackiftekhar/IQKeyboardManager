@@ -74,7 +74,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     return self;
 }
 
--(NSDictionary*)textFieldCachedInfo:(UITextField*)textField
+-(NSDictionary*)textFieldViewCachedInfo:(UIView*)textField
 {
     for (NSDictionary *infoDict in textFieldInfoCache)
         if (infoDict[kIQTextField] == textField)  return infoDict;
@@ -87,40 +87,47 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     NSArray *textFields = [view deepResponderViews];
     
-    for (UITextField *textField in textFields)  [self addTextFieldView:textField];
+    for (UIView *textField in textFields)  [self addTextFieldView:textField];
 }
 
 -(void)removeResponderFromView:(UIView*)view
 {
     NSArray *textFields = [view deepResponderViews];
     
-    for (UITextField *textField in textFields)  [self removeTextFieldView:textField];
+    for (UIView *textField in textFields)  [self removeTextFieldView:textField];
 }
 
--(void)removeTextFieldView:(UITextField*)textField
+-(void)removeTextFieldView:(UIView*)view
 {
-    NSDictionary *dict = [self textFieldCachedInfo:textField];
+    NSDictionary *dict = [self textFieldViewCachedInfo:view];
     
     if (dict)
     {
-        textField.returnKeyType = [dict[kIQTextFieldReturnKeyType] integerValue];
-        textField.delegate = dict[kIQTextFieldDelegate];
+        if ([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
+        {
+            UITextField *textField = (UITextField*)view;
+            textField.returnKeyType = [dict[kIQTextFieldReturnKeyType] integerValue];
+            textField.delegate = dict[kIQTextFieldDelegate];
+        }
         [textFieldInfoCache removeObject:dict];
     }
 }
 
--(void)addTextFieldView:(UITextField*)textField
+-(void)addTextFieldView:(UIView*)view
 {
-    NSMutableDictionary *dictInfo = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
-    dictInfo[kIQTextField] = textField;
-    dictInfo[kIQTextFieldReturnKeyType] = @(textField.returnKeyType);
+    dict[kIQTextField] = view;
     
-    if (textField.delegate) dictInfo[kIQTextFieldDelegate] = textField.delegate;
+    if ([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
+    {
+        UITextField *textField = (UITextField*)view;
+        dict[kIQTextFieldReturnKeyType] = @(textField.returnKeyType);
+        if (textField.delegate) dict[kIQTextFieldDelegate] = textField.delegate;
+        [textField setDelegate:self];
+    }
 
-    [textField setDelegate:self];
-
-    [textFieldInfoCache addObject:dictInfo];
+    [textFieldInfoCache addObject:dict];
 }
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
@@ -238,7 +245,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -256,7 +263,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -270,7 +277,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
 
@@ -286,7 +293,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -303,7 +310,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -320,7 +327,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -336,7 +343,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -352,7 +359,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textField];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textField];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -381,7 +388,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -397,7 +404,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -415,7 +422,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -429,7 +436,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -443,7 +450,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -466,7 +473,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -480,7 +487,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -497,7 +504,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -513,7 +520,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -531,7 +538,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -547,7 +554,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     
     if (delegate == nil)
     {
-        NSDictionary *dict = [self textFieldCachedInfo:textView];
+        NSDictionary *dict = [self textFieldViewCachedInfo:textView];
         delegate = dict[kIQTextFieldDelegate];
     }
     
@@ -561,9 +568,14 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
 {
     for (NSDictionary *dict in textFieldInfoCache)
     {
-        UITextField *textField  = dict[kIQTextField];
-        textField.returnKeyType  = [dict[kIQTextFieldReturnKeyType] integerValue];
-        textField.delegate      = dict[kIQTextFieldDelegate];
+        UIView *view  = dict[kIQTextField];
+        
+        if ([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
+        {
+            UITextField *textField = (UITextField*)view;
+            textField.returnKeyType  = [dict[kIQTextFieldReturnKeyType] integerValue];
+            textField.delegate      = dict[kIQTextFieldDelegate];
+        }
     }
 
     [textFieldInfoCache removeAllObjects];
