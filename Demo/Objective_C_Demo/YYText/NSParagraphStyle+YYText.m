@@ -26,7 +26,7 @@
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     
     CGFloat lineSpacing;
-    if (CTParagraphStyleGetValueForSpecifier(CTStyle, kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &lineSpacing)) {
+    if (CTParagraphStyleGetValueForSpecifier(CTStyle, kCTParagraphStyleSpecifierMinimumLineSpacing, sizeof(CGFloat), &lineSpacing)) {
         style.lineSpacing = lineSpacing;
     }
     
@@ -118,7 +118,7 @@
     int count = 0;
     
     CGFloat lineSpacing = self.lineSpacing;
-    set[count].spec = kCTParagraphStyleSpecifierLineSpacing;
+    set[count].spec = kCTParagraphStyleSpecifierMinimumLineSpacing;
     set[count].valueSize = sizeof(CGFloat);
     set[count].value = &lineSpacing;
     count++;

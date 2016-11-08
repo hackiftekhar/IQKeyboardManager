@@ -15,7 +15,7 @@ class YYTextViewController: UIViewController, YYTextViewDelegate {
     override internal class func initialize() {
         super.initialize()
         
-        IQKeyboardManager.sharedManager().registerTextFieldViewClass(YYTextView.self, didBeginEditingNotificationName: NSNotification.Name.YYTextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: NSNotification.Name.YYTextViewTextDidEndEditing.rawValue)
+        IQKeyboardManager.sharedManager().registerTextFieldViewClass(YYTextView.self, didBeginEditingNotificationName: Notification.Name.YYTextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: Notification.Name.YYTextViewTextDidEndEditing.rawValue)
     }
 
     override func viewDidLoad() {

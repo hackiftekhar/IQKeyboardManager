@@ -461,7 +461,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    private func colorPickerTextField(_ textField: ColorPickerTextField, selectedColorAttributes colorAttributes: [String : AnyObject]) {
+    fileprivate func colorPickerTextField(_ textField: ColorPickerTextField, selectedColorAttributes colorAttributes: [String : AnyObject]) {
 
         if textField.tag == 15 {
             let color = colorAttributes["color"] as! UIColor
