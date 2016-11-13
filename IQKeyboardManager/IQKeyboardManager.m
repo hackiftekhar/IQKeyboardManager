@@ -1320,46 +1320,43 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 	if ([self privateIsEnabled] == YES)
     {
-        CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-        [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
+        if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
+        {
+            //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
+            _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+            _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
+            
+            _rootViewController = [_textFieldView topMostController];
+            if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+            
+            _topViewBeginRect = _rootViewController.view.frame;
+            
+            if (_shouldFixInteractivePopGestureRecognizer &&
+                [_rootViewController isKindOfClass:[UINavigationController class]] &&
+                [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+                [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
+            {
+                _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+            }
+            
+            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]];
+        }
+        
+        //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
+        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        if (_keyboardShowing == YES &&
+            _textFieldView != nil  &&
+            [_textFieldView isAlertViewTextField] == NO)
+        {
+            //  keyboard is already showing. adjust frame.
+            [self adjustFrame];
+        }
     }
     
 //    if ([_textFieldView isKindOfClass:[UITextField class]])
 //    {
 //        [(UITextField*)_textFieldView addTarget:self action:@selector(editingDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
 //    }
-
-    if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
-    {
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
-        _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-        _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
-        
-        _rootViewController = [_textFieldView topMostController];
-        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
-        
-        _topViewBeginRect = _rootViewController.view.frame;
-
-        if (_shouldFixInteractivePopGestureRecognizer &&
-            [_rootViewController isKindOfClass:[UINavigationController class]] &&
-            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
-            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
-        {
-            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
-        }
-
-        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]];
-    }
-    
-    //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
-    //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-    if (_keyboardShowing == YES &&
-        _textFieldView != nil  &&
-        [_textFieldView isAlertViewTextField] == NO)
-    {
-        //  keyboard is already showing. adjust frame.
-        [self adjustFrame];
-    }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];

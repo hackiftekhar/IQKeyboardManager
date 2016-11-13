@@ -1669,52 +1669,48 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.isEnabled = privateShouldResignOnTouchOutside()
         _textFieldView?.window?.addGestureRecognizer(_tapGesture)    //   (Enhancement ID: #14)
 
-        if privateIsEnabled() == false {
-            let elapsedTime = CACurrentMediaTime() - startTime
-            showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
-            return
-        }
-
-        if _topViewBeginRect.equalTo(CGRect.zero) == true {    //  (Bug ID: #5)
-
-            //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            if let constraint = _textFieldView?.viewController()?.IQLayoutGuideConstraint {
-                _layoutGuideConstraint = constraint
-                _layoutGuideConstraintInitialConstant = constraint.constant
-            }
-
-            _rootViewController = _textFieldView?.topMostController()
-            if _rootViewController == nil {
-                _rootViewController = keyWindow()?.topMostController()
-            }
-
-            if let rootViewController = _rootViewController {
+        if privateIsEnabled() == true {
+            if _topViewBeginRect.equalTo(CGRect.zero) == true {    //  (Bug ID: #5)
                 
-                _topViewBeginRect = rootViewController.view.frame
-                
-                if shouldFixInteractivePopGestureRecognizer == true &&
-                    rootViewController is UINavigationController &&
-                    rootViewController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
-                    rootViewController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
-                    if let window = keyWindow() {
-                        _topViewBeginRect.origin = CGPoint(x: 0,y: window.frame.size.height-rootViewController.view.frame.size.height)
-                    } else {
-                        _topViewBeginRect.origin = CGPoint.zero
-                    }
+                //  keyboard is not showing(At the beginning only). We should save rootViewRect.
+                if let constraint = _textFieldView?.viewController()?.IQLayoutGuideConstraint {
+                    _layoutGuideConstraint = constraint
+                    _layoutGuideConstraintInitialConstant = constraint.constant
                 }
-
-                showLog("Saving \(rootViewController._IQDescription()) beginning frame : \(_topViewBeginRect)")
+                
+                _rootViewController = _textFieldView?.topMostController()
+                if _rootViewController == nil {
+                    _rootViewController = keyWindow()?.topMostController()
+                }
+                
+                if let rootViewController = _rootViewController {
+                    
+                    _topViewBeginRect = rootViewController.view.frame
+                    
+                    if shouldFixInteractivePopGestureRecognizer == true &&
+                        rootViewController is UINavigationController &&
+                        rootViewController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
+                        rootViewController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
+                        if let window = keyWindow() {
+                            _topViewBeginRect.origin = CGPoint(x: 0,y: window.frame.size.height-rootViewController.view.frame.size.height)
+                        } else {
+                            _topViewBeginRect.origin = CGPoint.zero
+                        }
+                    }
+                    
+                    showLog("Saving \(rootViewController._IQDescription()) beginning frame : \(_topViewBeginRect)")
+                }
             }
-        }
-        
-        //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
-        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        if _privateIsKeyboardShowing == true &&
-            _textFieldView != nil &&
-            _textFieldView?.isAlertViewTextField() == false {
-
-            //  keyboard is already showing. adjust frame.
-            adjustFrame()
+            
+            //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
+            //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+            if _privateIsKeyboardShowing == true &&
+                _textFieldView != nil &&
+                _textFieldView?.isAlertViewTextField() == false {
+                
+                //  keyboard is already showing. adjust frame.
+                adjustFrame()
+            }
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
