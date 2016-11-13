@@ -993,14 +993,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
 - (void)reloadLayoutIfNeeded
 {
-    if ([self privateIsEnabled] == NO)	return;
-    
-    if (_textFieldView != nil &&
-        _keyboardShowing == YES &&
-        CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
-        [_textFieldView isAlertViewTextField] == NO)
+    if ([self privateIsEnabled] == YES)
     {
-        [self adjustFrame];
+        if (_textFieldView != nil &&
+            _keyboardShowing == YES &&
+            CGRectEqualToRect(_topViewBeginRect, CGRectZero) == false &&
+            [_textFieldView isAlertViewTextField] == NO)
+        {
+            [self adjustFrame];
+        }
     }
 }
 
