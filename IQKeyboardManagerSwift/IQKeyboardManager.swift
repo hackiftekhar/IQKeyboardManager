@@ -994,7 +994,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         while let view = superView {
             
             if (view.isScrollEnabled) {
-                superScrollView = superView
+                superScrollView = view
                 break
             }
             else {
@@ -1067,6 +1067,18 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
                 if move > 0 ? (move > (-scrollView.contentOffset.y - scrollView.contentInset.top)) : scrollView.contentOffset.y>0 {
                     
+                    var tempScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                    var nextScrollView : UIScrollView? = nil
+                    while let view = tempScrollView {
+                        
+                        if (view.isScrollEnabled) {
+                            nextScrollView = view
+                            break
+                        } else {
+                            tempScrollView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                        }
+                    }
+                    
                     //Getting lastViewRect.
                     if let lastViewRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
                         
@@ -1077,11 +1089,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y /*-5*/)   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
 
                         //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+                        //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                         //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                         if textFieldView is UITextView == true &&
-                            scrollView.superviewOfClassType(UIScrollView.self) == nil &&
+                            nextScrollView == nil &&
                             shouldOffsetY >= 0 {
                             var maintainTopLayout : CGFloat = 0
                             
@@ -1127,7 +1139,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     //  Getting next lastView & superScrollView.
                     lastView = scrollView
-                    superScrollView = lastView.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                    superScrollView = nextScrollView
                 } else {
                     break
                 }
@@ -1136,7 +1148,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Updating contentInset
             if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
                 
-                let bottom : CGFloat = kbSize.height-keyboardDistanceFromTextField-(window.frame.height-lastScrollViewRect.maxY)
+                let bottom : CGFloat = kbSize.height-newKeyboardDistanceFromTextField-(window.frame.height-lastScrollViewRect.maxY)
                 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 var movedInsets = lastScrollView.contentInset

@@ -735,6 +735,24 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             while (superScrollView &&
                    (move>0?(move > (-superScrollView.contentOffset.y-superScrollView.contentInset.top)):superScrollView.contentOffset.y>0) )
             {
+                UIScrollView *nextScrollView = nil;
+                UIScrollView *tempScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]];
+                
+                //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
+                while (tempScrollView)
+                {
+                    if (tempScrollView.isScrollEnabled)
+                    {
+                        nextScrollView = tempScrollView;
+                        break;
+                    }
+                    else
+                    {
+                        //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
+                        tempScrollView = (UIScrollView*)[tempScrollView superviewOfClassType:[UIScrollView class]];
+                    }
+                }
+
                 //Getting lastViewRect.
                 CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
                 
@@ -748,7 +766,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                 //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                 if ([_textFieldView isKindOfClass:[UITextView class]] &&
-                    [superScrollView superviewOfClassType:[UIScrollView class]] == nil &&
+                    nextScrollView == nil &&
                     (shouldOffsetY >= 0))
                 {
                     CGFloat maintainTopLayout = 0;
@@ -792,7 +810,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
-                superScrollView = (UIScrollView*)[lastView superviewOfClassType:[UIScrollView class]];
+                superScrollView = nextScrollView;
             }
             
             //Updating contentInset
