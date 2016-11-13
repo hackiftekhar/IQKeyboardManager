@@ -1666,13 +1666,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             removeToolbarIfRequired()
         }
 
+        _tapGesture.isEnabled = privateShouldResignOnTouchOutside()
+        _textFieldView?.window?.addGestureRecognizer(_tapGesture)    //   (Enhancement ID: #14)
+
         if privateIsEnabled() == false {
             let elapsedTime = CACurrentMediaTime() - startTime
             showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
             return
         }
-        
-        _textFieldView?.window?.addGestureRecognizer(_tapGesture)    //   (Enhancement ID: #14)
 
         if _topViewBeginRect.equalTo(CGRect.zero) == true {    //  (Bug ID: #5)
 

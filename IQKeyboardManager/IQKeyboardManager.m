@@ -1314,11 +1314,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         [self removeToolbarIfRequired];
     }
     
-	if ([self privateIsEnabled] == NO)
+    //Adding Geture recognizer to window    (Enhancement ID: #14)
+    [_tapGesture setEnabled:[self privateShouldResignOnTouchOutside]];
+    [_textFieldView.window addGestureRecognizer:_tapGesture];
+
+	if ([self privateIsEnabled] == YES)
     {
         CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
         [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
-        return;
     }
     
 //    if ([_textFieldView isKindOfClass:[UITextField class]])
@@ -1326,9 +1329,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //        [(UITextField*)_textFieldView addTarget:self action:@selector(editingDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
 //    }
 
-    //Adding Geture recognizer to window    (Enhancement ID: #14)
-    [_textFieldView.window addGestureRecognizer:_tapGesture];
-    
     if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
