@@ -28,10 +28,6 @@
 	<string>Launch</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainSwift</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UIStatusBarStyle</key>
