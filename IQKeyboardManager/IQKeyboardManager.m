@@ -1147,9 +1147,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
 //    if (_textFieldView == nil)   return;
 
-    //  Boolean to know keyboard is showing/hiding
-    _keyboardShowing = NO;
-    
     //  Getting keyboard animation duration
     CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     if (aDuration!= 0.0f)
@@ -1275,6 +1272,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
+
+    //  Boolean to know keyboard is showing/hiding
+    _keyboardShowing = NO;
 }
 
 #pragma mark - UITextFieldView Delegate methods
