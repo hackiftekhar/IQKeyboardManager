@@ -266,7 +266,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         }
     }
     
-    fileprivate func goToNextResponderOrResign(_ view : UIView) -> Bool {
+    @discardableResult fileprivate func goToNextResponderOrResign(_ view : UIView) -> Bool {
         
         var superConsideredView : UIView?
         
@@ -339,11 +339,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextFieldDelegate.textFieldShouldBeginEditing(_:))) != nil {
-            return (aDelegate?.textFieldShouldBeginEditing?(textField) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldBeginEditing(_:))) {
+                return unwrapDelegate.textFieldShouldBeginEditing?(textField) == true
+            }
         }
+
+        return true
     }
     
     open func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -357,11 +359,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:))) != nil {
-            return (aDelegate?.textFieldShouldEndEditing?(textField) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:))) {
+                return unwrapDelegate.textFieldShouldEndEditing?(textField) == true
+            }
         }
+        
+        return true
     }
     
     open func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -419,11 +423,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:replacementString:))) != nil {
-            return (aDelegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:replacementString:))) {
+                return unwrapDelegate.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == true
+            }
         }
+        
+        return true
     }
     
     open func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -437,11 +443,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextFieldDelegate.textFieldShouldClear(_:))) != nil {
-            return (aDelegate?.textFieldShouldClear?(textField) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldClear(_:))) {
+                return unwrapDelegate.textFieldShouldClear?(textField) == true
+            }
         }
+        
+        return true
     }
     
     
@@ -456,15 +464,17 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextFieldDelegate.textFieldShouldReturn(_:))) != nil {
-            let shouldReturn = (aDelegate?.textFieldShouldReturn?(textField) == true)
-            
-            if shouldReturn == true {
-                _ = goToNextResponderOrResign(textField)
+        var shouldReturn = true;
+        
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldReturn(_:))) {
+                shouldReturn = unwrapDelegate.textFieldShouldReturn?(textField) == true
             }
-
-            return shouldReturn
-
+        }
+        
+        if shouldReturn == true {
+            goToNextResponderOrResign(textField)
+            return true;
         } else {
             return goToNextResponderOrResign(textField)
         }
@@ -482,11 +492,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextViewDelegate.textViewShouldBeginEditing(_:))) != nil {
-            return (aDelegate?.textViewShouldBeginEditing?(textView) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldBeginEditing(_:))) {
+                return unwrapDelegate.textViewShouldBeginEditing?(textView) == true
+            }
         }
+        
+        return true
     }
     
     open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -500,11 +512,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(UITextViewDelegate.textViewShouldEndEditing(_:))) != nil {
-            return (aDelegate?.textViewShouldEndEditing?(textView) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldEndEditing(_:))) {
+                return unwrapDelegate.textViewShouldEndEditing?(textView) == true
+            }
         }
+        
+        return true
     }
     
     open func textViewDidBeginEditing(_ textView: UITextView) {
@@ -549,14 +563,15 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         
         var shouldReturn = true
         
-        if aDelegate?.responds(to: #selector(UITextViewDelegate.textView(_:shouldChangeTextIn:replacementText:))) != nil {
-            shouldReturn = ((aDelegate?.textView?(textView, shouldChangeTextIn: range, replacementText: text)) == true)
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textView(_:shouldChangeTextIn:replacementText:))) {
+                shouldReturn = (unwrapDelegate.textView?(textView, shouldChangeTextIn: range, replacementText: text)) == true
+            }
         }
         
         if shouldReturn == true && text == "\n" {
             shouldReturn = goToNextResponderOrResign(textView)
         }
-        
         
         return shouldReturn
     }
@@ -601,11 +616,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(textView as (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)) != nil {
-            return aDelegate?.textView?(aTextView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)) {
+                return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
+            }
         }
+        
+        return true
     }
     
     @available(iOS 10.0, *)
@@ -620,11 +637,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange, UITextItemInteraction) -> Bool)) != nil {
-            return aDelegate?.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange, UITextItemInteraction) -> Bool)) {
+                return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
+            }
         }
+        
+        return true
     }
     
     open func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
@@ -638,12 +657,13 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) != nil {
-            return (aDelegate?.textView?(aTextView, shouldInteractWith: URL, in: characterRange) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) {
+                return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange) == true
+            }
         }
         
+        return true
     }
     
     open func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
@@ -657,10 +677,12 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        if aDelegate?.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) != nil {
-            return (aDelegate?.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange) == true)
-        } else {
-            return true
+        if let unwrapDelegate = aDelegate {
+            if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) {
+                return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange) == true
+            }
         }
+        
+        return true
     }
 }
