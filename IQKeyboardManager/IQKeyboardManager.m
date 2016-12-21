@@ -1124,7 +1124,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         (controller.modalPresentationStyle == UIModalPresentationFormSheet || controller.modalPresentationStyle == UIModalPresentationPageSheet) &&
         [_textFieldView isAlertViewTextField] == NO)
     {
-        [self adjustFrame];
+        //In case of form sheet or page sheet, we'll add adjustFrame call in main queue to perform it when UI thread will do all framing updation so adjustFrame will be executed after all internal operations.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self adjustFrame];
+        }];
     }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
