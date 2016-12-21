@@ -1487,6 +1487,9 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             _kbShowNotification = nil
         }
         
+        //  Boolean to know keyboard is showing/hiding
+        _privateIsKeyboardShowing = false
+        
         //If not enabled then do nothing.
         if privateIsEnabled() == false {
             return
@@ -1499,9 +1502,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
         //    if (_textFieldView == nil)   return
 
-        //  Boolean to know keyboard is showing/hiding
-        _privateIsKeyboardShowing = false
-        
         let info : [AnyHashable: Any]? = (notification as NSNotification?)?.userInfo
         
         //  Getting keyboard animation duration
