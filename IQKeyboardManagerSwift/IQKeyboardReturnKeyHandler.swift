@@ -37,7 +37,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Delegate of textField/textView.
     */
-    open var delegate: UITextFieldDelegate & UITextViewDelegate?
+    open weak var delegate: UITextFieldDelegate & UITextViewDelegate?
     
     /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.
@@ -646,6 +646,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
+    @available(iOS, deprecated: 10.0)
     open func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         
         var aDelegate : UITextViewDelegate? = delegate;
@@ -666,6 +667,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
+    @available(iOS, deprecated: 10.0)
     open func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         
         var aDelegate : UITextViewDelegate? = delegate;
