@@ -30,10 +30,9 @@ private var kIQToolbarTitleInvocationSelector   = "kIQToolbarTitleInvocationSele
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
-    override open class func initialize() {
-        
-        superclass()?.initialize()
-                
+    private static var _appearance: Void = setUpAppearance()
+
+    private class func setUpAppearance() {
         self.appearance().barTintColor = nil
         
         //Background image
@@ -132,6 +131,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     }
     
     override init(frame: CGRect) {
+        _ = IQToolbar._appearance
         super.init(frame: frame)
         
         sizeToFit()
@@ -141,6 +141,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     }
     
     required public init?(coder aDecoder: NSCoder) {
+        _ = IQToolbar._appearance
         super.init(coder: aDecoder)
 
         sizeToFit()
