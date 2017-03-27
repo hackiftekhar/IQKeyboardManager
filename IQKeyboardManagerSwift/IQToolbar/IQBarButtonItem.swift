@@ -25,11 +25,20 @@
 import UIKit
 
 open class IQBarButtonItem: UIBarButtonItem {
-   
-    override open class func initialize() {
 
-        superclass()?.initialize()
-        
+    private static var _appearance: Void = setUpAppearance()
+
+    public override init() {
+        _ = IQBarButtonItem._appearance
+        super.init()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        _ = IQBarButtonItem._appearance
+        super.init(coder: aDecoder)
+    }
+
+    private class func setUpAppearance() {
         //Tint color
         self.appearance().tintColor = nil
 
