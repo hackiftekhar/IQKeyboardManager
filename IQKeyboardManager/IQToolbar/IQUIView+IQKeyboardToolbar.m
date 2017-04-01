@@ -259,11 +259,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-- (void)addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addRightButtonOnKeyboardWithImage:image target:target action:action titleText:title];
@@ -308,11 +308,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-- (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addRightButtonOnKeyboardWithText:text target:target action:action titleText:title];
@@ -362,11 +362,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
--(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)showPlaceholder
+-(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addDoneOnKeyboardWithTarget:target action:action titleText:title];
@@ -423,11 +423,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-- (void)addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:title];
@@ -482,11 +482,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
--(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+-(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:title];
@@ -590,11 +590,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
--(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)showPlaceholder
+-(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:title];
@@ -698,11 +698,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:title];
@@ -800,11 +800,11 @@
     [(UITextField*)self setInputAccessoryView:toolbar];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction shouldShowPlaceholder:(BOOL)showPlaceholder
+- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
     NSString *title = nil;
     
-    if (showPlaceholder)
+    if (shouldShowPlaceholder)
         title = [self drawingPlaceholderText];
     
     [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:title];
