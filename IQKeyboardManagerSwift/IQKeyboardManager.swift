@@ -581,8 +581,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To not detect touch events in a subclass of UIControl, these may have added their own selector for specific work */
     open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
-        return !(touch.view is UIControl ||
-            touch.view is UINavigationBar)
+        
+        for ignoreClass in touchResignedGestureIgnoreClasses {
+            
+            if touch.view?.isKind(of: ignoreClass) == true {
+                return false
+            }
+        }
+
+        return true
     }
     
     ///-----------------------
@@ -652,6 +659,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
      Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
     open var enabledTouchResignedClasses  = [UIViewController.Type]()
+    
+    /**
+     if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
+     */
+    open var touchResignedGestureIgnoreClasses  = [UIView.Type]()    
 
     ///-------------------------------------------
     /// MARK: Third Party Library support
@@ -788,7 +800,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         toolbarPreviousNextAllowedClasses.append(UITableView.self)
         toolbarPreviousNextAllowedClasses.append(UICollectionView.self)
         toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
-        
+        touchResignedGestureIgnoreClasses.append(UIControl.self)
+        touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
         //Special Controllers
         struct InternalClass {
             

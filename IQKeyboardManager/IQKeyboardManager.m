@@ -123,6 +123,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledTouchResignedClasses;
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledTouchResignedClasses;
+@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *touchResignedGestureIgnoreClasses;
 
 /*******************************************/
 
@@ -267,6 +268,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
+            strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
 
             if (UIAlertControllerTextFieldViewController)
             {
@@ -1532,8 +1534,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
-    return !([[touch view] isKindOfClass:[UIControl class]] ||
-            [[touch view] isKindOfClass:[UINavigationBar class]]);
+    for (Class aClass in self.touchResignedGestureIgnoreClasses)
+    {
+        if ([[touch view] isKindOfClass:aClass])
+        {
+            return NO;
+        }
+    }
+
+    return YES;
 }
 
 /** Resigning textField. */
