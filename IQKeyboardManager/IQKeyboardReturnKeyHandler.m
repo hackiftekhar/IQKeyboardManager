@@ -542,8 +542,11 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         delegate = dict[kIQTextFieldDelegate];
     }
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
         return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange];
+#pragma clang diagnostic pop
     else
         return YES;
 }
@@ -558,8 +561,11 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         delegate = dict[kIQTextFieldDelegate];
     }
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)])
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange];
+#pragma clang diagnostic pop
     else
         return YES;
 }
