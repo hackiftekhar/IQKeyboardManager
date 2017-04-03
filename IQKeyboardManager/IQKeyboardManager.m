@@ -1280,6 +1280,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
+
+    //  Boolean to know keyboard is showing/hiding
+    _keyboardShowing = NO;
 }
 
 #pragma mark - UITextFieldView Delegate methods
