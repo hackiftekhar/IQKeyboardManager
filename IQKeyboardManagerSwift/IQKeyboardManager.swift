@@ -1355,6 +1355,46 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = true
         
+        let oldKBSize = _kbSize
+
+        if let info = (notification as NSNotification?)?.userInfo {
+            
+            //  Getting keyboard animation.
+            if let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {
+                _animationCurve = UIViewAnimationOptions(rawValue: curve)
+            } else {
+                _animationCurve = UIViewAnimationOptions.curveEaseOut
+            }
+            
+            //  Getting keyboard animation duration
+            if let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+                
+                //Saving animation duration
+                if duration != 0.0 {
+                    _animationDuration = duration
+                }
+            } else {
+                _animationDuration = 0.25
+            }
+            
+            //  Getting UIKeyboardSize.
+            if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                
+                let screenSize = UIScreen.main.bounds
+                
+                //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
+                let intersectRect = kbFrame.intersection(screenSize)
+                
+                if intersectRect.isNull {
+                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
+                } else {
+                    _kbSize = intersectRect.size
+                }
+
+                showLog("UIKeyboard Size : \(_kbSize)")
+            }
+        }
+
         if privateIsEnabled() == false {
             return
         }
@@ -1398,46 +1438,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        let oldKBSize = _kbSize
-
-        if let info = (notification as NSNotification?)?.userInfo {
-            
-            //  Getting keyboard animation.
-            if let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {
-                _animationCurve = UIViewAnimationOptions(rawValue: curve)
-            } else {
-                _animationCurve = UIViewAnimationOptions.curveEaseOut
-            }
-            
-            //  Getting keyboard animation duration
-            if let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
-                
-                //Saving animation duration
-                if duration != 0.0 {
-                    _animationDuration = duration
-                }
-            } else {
-                _animationDuration = 0.25
-            }
-            
-            //  Getting UIKeyboardSize.
-            if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                
-                let screenSize = UIScreen.main.bounds
-                
-                //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
-                let intersectRect = kbFrame.intersection(screenSize)
-                
-                if intersectRect.isNull {
-                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
-                } else {
-                    _kbSize = intersectRect.size
-                }
-
-                showLog("UIKeyboard Size : \(_kbSize)")
-            }
-        }
-        
         //  Getting topMost ViewController.
         var topMostController = _textFieldView?.topMostController()
         
@@ -1505,6 +1505,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = false
         
+        let info : [AnyHashable: Any]? = (notification as NSNotification?)?.userInfo
+        
+        //  Getting keyboard animation duration
+        if let duration =  (info?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+            if duration != 0 {
+                //  Setitng keyboard animation duration
+                _animationDuration = duration
+            }
+        }
+        
         //If not enabled then do nothing.
         if privateIsEnabled() == false {
             return
@@ -1517,16 +1527,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
         //    if (_textFieldView == nil)   return
 
-        let info : [AnyHashable: Any]? = (notification as NSNotification?)?.userInfo
-        
-        //  Getting keyboard animation duration
-        if let duration =  (info?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
-            if duration != 0 {
-                //  Setitng keyboard animation duration
-                _animationDuration = duration
-            }
-        }
-        
         //Restoring the contentOffset of the lastScrollView
         if let lastScrollView = _lastScrollView {
             

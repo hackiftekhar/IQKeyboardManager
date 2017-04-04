@@ -1034,34 +1034,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Boolean to know keyboard is showing/hiding
     _keyboardShowing = YES;
     
-	if ([self privateIsEnabled] == NO)	return;
-	
-    CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
-
-    if (_textFieldView != nil && CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
-    {
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
-        _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-        _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
-
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        _rootViewController = [_textFieldView topMostController];
-        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
-
-        _topViewBeginRect = _rootViewController.view.frame;
-        
-        if (_shouldFixInteractivePopGestureRecognizer &&
-            [_rootViewController isKindOfClass:[UINavigationController class]] &&
-            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
-            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
-        {
-            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
-        }
-
-        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
-    }
-
     //  Getting keyboard animation.
     NSInteger curve = [[aNotification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue];
     _animationCurve = curve<<16;
@@ -1090,7 +1062,35 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         _kbSize = intersectRect.size;
     }
- 
+    
+	if ([self privateIsEnabled] == NO)	return;
+	
+    CFTimeInterval startTime = CACurrentMediaTime();
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+
+    if (_textFieldView != nil && CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
+    {
+        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
+        _layoutGuideConstraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
+        _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
+
+        //  keyboard is not showing(At the beginning only). We should save rootViewRect.
+        _rootViewController = [_textFieldView topMostController];
+        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+
+        _topViewBeginRect = _rootViewController.view.frame;
+        
+        if (_shouldFixInteractivePopGestureRecognizer &&
+            [_rootViewController isKindOfClass:[UINavigationController class]] &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
+        {
+            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+        }
+
+        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
+    }
+
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
@@ -1145,6 +1145,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Boolean to know keyboard is showing/hiding
     _keyboardShowing = NO;
     
+    //  Getting keyboard animation duration
+    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (aDuration!= 0.0f)
+    {
+        _animationDuration = aDuration;
+    }
+    
     //If not enabled then do nothing.
     if ([self privateIsEnabled] == NO)	return;
     
@@ -1155,13 +1162,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
 //    if (_textFieldView == nil)   return;
 
-    //  Getting keyboard animation duration
-    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    if (aDuration!= 0.0f)
-    {
-        _animationDuration = aDuration;
-    }
-    
     //Restoring the contentOffset of the lastScrollView
     if (_lastScrollView)
     {
