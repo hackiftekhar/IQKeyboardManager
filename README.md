@@ -63,7 +63,7 @@ Minimum iOS Target: iOS 8.0
 Minimum Xcode Version: Xcode 6.0.1
 
 #### IQKeyboardManagerSwift:-
-[![Swift 3.0 compatible](https://img.shields.io/badge/Language-Swift3-blue.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 3.1 compatible](https://img.shields.io/badge/Language-Swift3-blue.svg?style=flat)](https://developer.apple.com/swift)
 
 Minimum iOS Target: iOS 8.0
 
@@ -71,7 +71,7 @@ Minimum Xcode Version: Xcode 8.0
 
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 8.0
+Minimum Xcode Version: Xcode 8.3
 
 
 Installation
@@ -83,25 +83,28 @@ Installation
 
 **Note:-** 
 - 3.3.7 is the last iOS 7 supported version.
-- 4.0.5 is the last Swift2.2 supported version.
 
 ***IQKeyboardManager (Objective-C):-*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
-`pod 'IQKeyboardManager'`
+*iOS8 and later* `pod 'IQKeyboardManager'`
+
+*iOS7* `pod 'IQKeyboardManagerSwift', '3.3.7'`
 
 ***IQKeyboardManager (Swift):-*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 3.0 (Xcode 8.0)*
+*Swift 3.1 (Xcode 8.0)*
 
 `pod 'IQKeyboardManagerSwift'`
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '4.0.6'`
+`pod 'IQKeyboardManagerSwift', '4.0.9'`
 
-*Swift 2.2 (Xcode 7.3)* `pod 'IQKeyboardManagerSwift', '4.0.5'`
+*Swift 3.0(3.0.2) (Xcode 8.2)* `pod 'IQKeyboardManagerSwift', '4.0.8'`
+
+*Swift 2.2 or 2.3 (Xcode 7.3)* `pod 'IQKeyboardManagerSwift', '4.0.5'`
 
 *Swift 2.1.1 (Xcode 7.2)* `pod 'IQKeyboardManagerSwift', '4.0.0'`
 
