@@ -2185,26 +2185,3 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 @end
-
-
-@implementation IQKeyboardManager(IQKeyboardManagerDeprecated)
-
--(void)setShouldHidePreviousNext:(BOOL)shouldHidePreviousNext
-{
-    objc_setAssociatedObject(self, @selector(shouldHidePreviousNext), @(shouldHidePreviousNext), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
-    if (shouldHidePreviousNext) {
-        self.previousNextDisplayMode = IQPreviousNextDisplayModeAlwaysHide;
-    } else {
-        self.previousNextDisplayMode = IQPreviousNextDisplayModeDefault;
-    }
-}
-
--(BOOL)shouldHidePreviousNext
-{
-    NSNumber *shouldHidePreviousNext = objc_getAssociatedObject(self, @selector(shouldHidePreviousNext));
-    
-    return [shouldHidePreviousNext boolValue];
-}
-
-@end

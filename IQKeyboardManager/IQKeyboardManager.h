@@ -308,14 +308,3 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 + (nonnull instancetype)new NS_UNAVAILABLE;
 
 @end
-
-
-@interface IQKeyboardManager(IQKeyboardManagerDeprecated)
-
-/**
- If YES, then hide previous/next button. Default is NO.
- */
-@property(nonatomic, assign) BOOL shouldHidePreviousNext __attribute__((deprecated("Please use `previousNextDisplayMode` for better handling of previous/next button display. This property will be removed in future releases in favor of `previousNextDisplayMode`.")));
-
-@end
-

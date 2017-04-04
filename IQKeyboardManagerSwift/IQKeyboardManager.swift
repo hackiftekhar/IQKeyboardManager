@@ -239,17 +239,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     open var toolbarTintColor : UIColor?
 
     /**
-     If YES, then hide previous/next button. Default is NO.
-     */
-    @available(*,deprecated, message: "Please use `previousNextDisplayMode` for better handling of previous/next button display. This property will be removed in future releases in favor of `previousNextDisplayMode`.")
-    open var shouldHidePreviousNext = false {
-        
-        didSet {
-            previousNextDisplayMode = shouldHidePreviousNext ? .alwaysHide : .Default
-        }
-    }
-
-    /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.

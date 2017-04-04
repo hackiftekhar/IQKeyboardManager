@@ -24,8 +24,6 @@
 
 import UIKit
 
-private var kIQIsAskingCanBecomeFirstResponder = "kIQIsAskingCanBecomeFirstResponder"
-
 /**
 UIView hierarchy category.
 */
@@ -38,13 +36,10 @@ public extension UIView {
     /**
     Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
     */
+    @available(*,deprecated, message: "isAskingCanBecomeFirstResponder property was come to existence as a workaround to handle `textFieldShouldBeginEditing:` multiple call issue, but we removed `canBecomeFirstResponder` method call from library, now this property make no sense and will be removed in future releases. From now this property will always return false because of not calling `canBecomeFirstResponder` method. Please update your code/logic in `textFieldShouldBeginEditing:` method.")
     public var isAskingCanBecomeFirstResponder: Bool {
         
-        if let aValue = objc_getAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder) as? Bool {
-            return aValue
-        } else {
-            return false
-        }
+        return false
     }
 
     ///----------------------
@@ -205,20 +200,18 @@ public extension UIView {
     
     fileprivate func _IQcanBecomeFirstResponder() -> Bool {
         
-        objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, true, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        var _IQcanBecomeFirstResponder = false
         
-        var _IQcanBecomeFirstResponder = (canBecomeFirstResponder == true && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
-
-        if _IQcanBecomeFirstResponder == true {
-            //  Setting toolbar to keyboard.
-            if let textField = self as? UITextField {
-                _IQcanBecomeFirstResponder = textField.isEnabled
-            } else if let textView = self as? UITextView {
-                _IQcanBecomeFirstResponder = textView.isEditable
-            }
+        //  Setting toolbar to keyboard.
+        if let textField = self as? UITextField {
+            _IQcanBecomeFirstResponder = textField.isEnabled
+        } else if let textView = self as? UITextView {
+            _IQcanBecomeFirstResponder = textView.isEditable
         }
-
-        objc_setAssociatedObject(self, &kIQIsAskingCanBecomeFirstResponder, false, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
+        if _IQcanBecomeFirstResponder == true {
+            _IQcanBecomeFirstResponder = (isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false) as Bool
+        }
 
         return _IQcanBecomeFirstResponder
     }
