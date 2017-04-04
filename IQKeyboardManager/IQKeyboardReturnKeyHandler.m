@@ -106,7 +106,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         if ([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
         {
             UITextField *textField = (UITextField*)view;
-            textField.returnKeyType = [dict[kIQTextFieldReturnKeyType] integerValue];
+            textField.returnKeyType = (UIReturnKeyType)[dict[kIQTextFieldReturnKeyType] integerValue];
             textField.delegate = dict[kIQTextFieldDelegate];
         }
         [textFieldInfoCache removeObject:dict];
@@ -579,7 +579,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         if ([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
         {
             UITextField *textField = (UITextField*)view;
-            textField.returnKeyType  = [dict[kIQTextFieldReturnKeyType] integerValue];
+            textField.returnKeyType  = (UIReturnKeyType)[dict[kIQTextFieldReturnKeyType] integerValue];
             textField.delegate      = dict[kIQTextFieldDelegate];
         }
     }
