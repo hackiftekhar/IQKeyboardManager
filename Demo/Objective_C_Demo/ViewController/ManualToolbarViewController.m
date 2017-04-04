@@ -16,7 +16,7 @@
 -(void)nextAction:(id)sender;
 -(void)doneAction:(id)sender;
 
-
+@property(nonatomic, strong) IBOutlet UITextField *textField4;
 
 @end
 
@@ -25,7 +25,6 @@
     IBOutlet UITextField *textField1;
     IBOutlet UITextField *textField2;
     IBOutlet UITextView *textView3;
-    IBOutlet UITextField *textField4;
     
     IBOutlet UITextField *textField5;
 }
@@ -42,10 +41,10 @@
 
     [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
 
-    [textField4 setTitleTarget:self action:@selector(titleAction:)];
-    textField4.placeholderText = @"Saved Users";
+    [self.textField4 setTitleTarget:self action:@selector(titleAction:)];
+    self.textField4.placeholderText = @"Saved Users";
     
-    [textField4 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];
+    [self.textField4 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];
     
     textField5.inputAccessoryView = [[UIView alloc] init];
 }
@@ -85,12 +84,14 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     
+    __weak typeof(self) weakSelf = self;
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"test@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        textField4.text = @"test@example.com";
+        weakSelf.textField4.text = @"test@example.com";
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"demo@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        textField4.text = @"demo@example.com";
+        weakSelf.textField4.text = @"demo@example.com";
     }]];
     
     alertController.popoverPresentationController.sourceView = sender;
