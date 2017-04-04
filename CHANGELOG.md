@@ -4,7 +4,7 @@
 - Deprecated **isAskingCanBecomeFirstResponder** because this no longer useful now.
 - Removed **shouldHidePreviousNext** in favor of **previousNextDisplayMode**.
 
-## 4.0.9 (04-4-2017)
+## 4.0.9 (04-04-2017)
 
 #### Bugfixes:
 
