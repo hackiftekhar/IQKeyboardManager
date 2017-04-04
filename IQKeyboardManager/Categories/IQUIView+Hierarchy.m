@@ -38,16 +38,9 @@
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
-
--(void)_setIsAskingCanBecomeFirstResponder:(BOOL)isAskingCanBecomeFirstResponder
-{
-    objc_setAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder), @(isAskingCanBecomeFirstResponder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 -(BOOL)isAskingCanBecomeFirstResponder
 {
-    NSNumber *isAskingCanBecomeFirstResponder = objc_getAssociatedObject(self, @selector(isAskingCanBecomeFirstResponder));
-    return [isAskingCanBecomeFirstResponder boolValue];
+    return NO;
 }
 
 -(UIViewController*)viewController
@@ -128,22 +121,21 @@
 
 -(BOOL)_IQcanBecomeFirstResponder
 {
-    [self _setIsAskingCanBecomeFirstResponder:YES];
-    BOOL _IQcanBecomeFirstResponder = ([self canBecomeFirstResponder] && [self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
+    BOOL _IQcanBecomeFirstResponder = NO;
     
+    if ([self isKindOfClass:[UITextField class]])
+    {
+        _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+    }
+    else if ([self isKindOfClass:[UITextView class]])
+    {
+        _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+    }
+
     if (_IQcanBecomeFirstResponder == YES)
     {
-        if ([self isKindOfClass:[UITextField class]])
-        {
-            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
-        }
-        else if ([self isKindOfClass:[UITextView class]])
-        {
-            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
-        }
+        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
     }
-    
-    [self _setIsAskingCanBecomeFirstResponder:NO];
     
     return _IQcanBecomeFirstResponder;
 }
