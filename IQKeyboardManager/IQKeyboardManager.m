@@ -819,7 +819,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
 
-                CGFloat bottom = kbSize.height-keyboardDistanceFromTextField-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottom = kbSize.height - keyboardDistanceFromTextField - (CGRectGetHeight(keyWindow.frame) - CGRectGetMaxY(lastScrollViewRect));
+                if (move < 0) {
+                    bottom = bottom - CGRectGetMinY(lastScrollViewRect);
+                }
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 UIEdgeInsets movedInsets = _lastScrollView.contentInset;
