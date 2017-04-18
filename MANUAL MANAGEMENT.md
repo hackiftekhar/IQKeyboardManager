@@ -1,4 +1,4 @@
-##Keep UINavigationBar at the top (Don't scroll with keyboard)
+## Keep UINavigationBar at the top (Don't scroll with keyboard)
 ([#21](https://github.com/hackiftekhar/IQKeyboardManager/issues/21), [#24](https://github.com/hackiftekhar/IQKeyboardManager/issues/24))
 
   If you don't want to hide the default UINavigationBar of UINavigationController when keyboardManager slides up the view, then just change the UIView class to UIScrollView from the storyboard  or xib. If you are using Autoresizing then you must set correct contentSize of scrollView or if you are using Autolayout then make sure scrollView is able to get it's contentSize from constraints.
@@ -17,7 +17,7 @@
     }
 ```
 
-##Working with TopLayoutGuide and BottomLayoutGuide
+## Working with TopLayoutGuide and BottomLayoutGuide
 
  Technically IQKeyboardManager moves upwards/downwards of currently presentedViewController's view. So if you're pinning your UITextfield/UITextView with TopLayoutGuide/BottomLayoutGuide then you're saying **Keep x distance from screen top(I don't care about where is self.view)**'. In this case your view is moved upwards but textField remains at same position and keeping x distance from screen top.
 
@@ -29,7 +29,7 @@
 ![image](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/BottomLayoutGuideIndirectMapping.jpg)
 
 
-##Working with Full Screen UITextView
+## Working with Full Screen UITextView
 
  Often we have a situation where a **full screen UITextView** need to show in full screen mode with keyboard handling. To deal with this kind of situation, here is an easy workaround.
 
@@ -47,7 +47,7 @@
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/FullScreenTextViewStoryboard.jpeg)
 
 
-##Working with Chat Screen UITableView
+## Working with Chat Screen UITableView
 
  Often we have another situation where we have to implement our own **Chat Style Screen** with keyboard handling. To deal with this kind of situation, here is an easy workaround.
 
@@ -81,7 +81,7 @@ That's all. You have a working keyboard handling with **ChatViewController**.
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ChatScreenTableView.jpg)
 
 
-##Enable/Disable distance handling between different ViewController's
+## Enable/Disable distance handling between different ViewController's
 ([#117](https://github.com/hackiftekhar/IQKeyboardManager/issues/117), [#139](https://github.com/hackiftekhar/IQKeyboardManager/issues/139),
 [#516](https://github.com/hackiftekhar/IQKeyboardManager/issues/516),
 [#541](https://github.com/hackiftekhar/IQKeyboardManager/issues/541),
@@ -108,7 +108,7 @@ That's all. You have a working keyboard handling with **ChatViewController**.
     }
 ```
 
-##Enable/Disable UIToolbar between different ViewController's
+## Enable/Disable UIToolbar between different ViewController's
 ([#391](https://github.com/hackiftekhar/IQKeyboardManager/issues/391),
 [#530](https://github.com/hackiftekhar/IQKeyboardManager/issues/530))
 
@@ -133,7 +133,7 @@ If you would like to ignore `IQKeyboardManger.enableAutoToolbar` property for so
     }
 ```
 
-##Show Previous/Next arrow buttons for textField which are not direct disblings
+## Show Previous/Next arrow buttons for textField which are not direct disblings
 ([#154](https://github.com/hackiftekhar/IQKeyboardManager/issues/154), [#179](https://github.com/hackiftekhar/IQKeyboardManager/issues/179),
 [#380](https://github.com/hackiftekhar/IQKeyboardManager/issues/380),
 [#406](https://github.com/hackiftekhar/IQKeyboardManager/issues/406),
@@ -167,7 +167,7 @@ If you would like to use your own SpecialView (subclass of UIView) instead of de
     }
 ```
 
-##Hide UIToolbar for specific UITextField/UITextView
+## Hide UIToolbar for specific UITextField/UITextView
 ([#89](https://github.com/hackiftekhar/IQKeyboardManager/issues/89),
 [#533](https://github.com/hackiftekhar/IQKeyboardManager/issues/533))
 
@@ -177,7 +177,7 @@ If you don't want to add automatic toolbar over keyboard for specific textField 
 textField.inputAccessoryView = [[UIView alloc] init];
 ```
 
-##Change UIToolbar Done button text or replace it with some other icon
+## Change UIToolbar Done button text or replace it with some other icon
 ([#538](https://github.com/hackiftekhar/IQKeyboardManager/issues/538),
 [#557](https://github.com/hackiftekhar/IQKeyboardManager/issues/557))
 
@@ -191,7 +191,7 @@ or if you would like to replace this with an image then you should could do like
     [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemImage = [UIImage imageNamed:@"save"];
 ```
 
-##Full customise control over previous/next/done button for specific UITextField/UITextView
+## Full customise control over previous/next/done button for specific UITextField/UITextView
 ([#40](https://github.com/hackiftekhar/IQKeyboardManager/issues/40))
 
 If you need full control over the previous/next/done button then you should use the UIView category methods to add toolbar over your textField. The UIView category methods are defined in `IQUIView+IQKeyboardToolbar.h` file.
@@ -245,7 +245,7 @@ Then add custom toolbar like this.
 
 ```
 
-##Use keyboard toolbar placeholder as action button
+## Use keyboard toolbar placeholder as action button
 If you would like to use keyboard toolbar placeholder text as action buttons to do something special.
 
 ![image](https://github.com/hackiftekhar/IQKeyboardManager/raw/master/Screenshot/ToolbarButtonAction.jpg)
@@ -270,7 +270,7 @@ This is now very easy with just 2 lines of code like this:-
 
 ```
 
-##Get notified when tapping on previous/next/done button for specific UITextField/UITextView
+## Get notified when tapping on previous/next/done button for specific UITextField/UITextView
 ([#426](https://github.com/hackiftekhar/IQKeyboardManager/issues/426),
 [#475](https://github.com/hackiftekhar/IQKeyboardManager/issues/475),
 [#492](https://github.com/hackiftekhar/IQKeyboardManager/issues/492))
@@ -314,7 +314,7 @@ Then register custom selector.
 }
 ```
 
-##Hide Previous/Next arrow of UIToolbar
+## Hide Previous/Next arrow of UIToolbar
 ([#546](https://github.com/hackiftekhar/IQKeyboardManager/issues/546),
 [#548](https://github.com/hackiftekhar/IQKeyboardManager/issues/548),
 [#579](https://github.com/hackiftekhar/IQKeyboardManager/issues/579))
@@ -329,7 +329,7 @@ If you don't want to show Previous/Next arrow with toolbar and only want to show
 }
 ```
 
-##Keyboard Return Key Handling
+## Keyboard Return Key Handling
 ([#38](https://github.com/hackiftekhar/IQKeyboardManager/issues/38), [#63](https://github.com/hackiftekhar/IQKeyboardManager/issues/63))
 
 If you would like to use keyboard **Return Key** as **Next/Done** button, then you can use **IQKeyboardReturnKeyHandler**.
