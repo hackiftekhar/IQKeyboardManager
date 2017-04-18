@@ -1,7 +1,7 @@
-##Properties and functions usage:-
+## Properties and functions usage:-
 
 
-####UIKeyboard handling
+#### UIKeyboard handling
 
 ***+(instancetype)sharedManager :***
 Returns the default singleton instance.
@@ -15,7 +15,7 @@ Set Distance between keyboard & textField. Can't be less than zero. Default is 1
 ***@property BOOL preventShowingBottomBlankSpace :***
 Prevent to show bottom blanck area when keyboard slide up the view. Default is YES. ([#93](https://github.com/hackiftekhar/IQKeyboardManager/issues/93)).
 
-####IQToolbar handling
+#### IQToolbar handling
 
 ***@property BOOL enableAutoToolbar :***
 Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
@@ -33,7 +33,7 @@ If YES, then it add the textField's placeholder text on IQToolbar. Default is YE
 placeholder Font. Default is nil. ([#27](https://github.com/hackiftekhar/IQKeyboardManager/issues/27))
 
 
-####UITextView handling
+#### UITextView handling
 
 ***@property BOOL canAdjustTextView :***
 Giving permission to modify TextView's frame. Adjust textView's frame when it is too big in height. Default is NO. ([#30](https://github.com/hackiftekhar/IQKeyboardManager/issues/30))
@@ -42,7 +42,7 @@ Giving permission to modify TextView's frame. Adjust textView's frame when it is
 Adjust textView's contentInset to fix fix for iOS 7.0.x -([#Stackoverflow](http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string)). Default is YES.
 
 
-####UIKeyboard Appearance overriding
+#### UIKeyboard Appearance overriding
 
 ***@property BOOL overrideKeyboardAppearance :***
 Override the keyboardAppearance for all textField/textView. Default is NO.
@@ -51,7 +51,7 @@ Override the keyboardAppearance for all textField/textView. Default is NO.
 If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
 
 
-####UITextField/UITextView Resign handling
+#### UITextField/UITextView Resign handling
 
 ***@property BOOL shouldResignOnTouchOutside :***
 Resign textField if touched outside of UITextField/UITextView. ([#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14))
@@ -59,13 +59,13 @@ Resign textField if touched outside of UITextField/UITextView. ([#14](https://gi
 ***-(void)resignFirstResponder :***
 Resigns currently first responder field.
 
-####UISound handling
+#### UISound handling
 
 ***@property BOOL shouldPlayInputClicks :***
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
 
-####UIAnimation handling
+#### UIAnimation handling
 
 ***@property BOOL shouldAdoptDefaultKeyboardAnimation :***
 If YES, then uses keyboard default animation curve style to move view, otherwise uses UIViewAnimationOptionCurveEaseOut animation style. Default is YES.
