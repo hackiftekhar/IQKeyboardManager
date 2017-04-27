@@ -76,7 +76,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
+    open var canBecomeActive = true
+    
     fileprivate func privateIsEnabled()-> Bool {
+        
+        if !canBecomeActive {
+            return false
+        }
         
         var isEnabled = enable
         
