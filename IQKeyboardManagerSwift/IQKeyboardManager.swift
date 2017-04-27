@@ -76,14 +76,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    open var canBecomeActive = true
-    
     fileprivate func privateIsEnabled()-> Bool {
-        
-        if !canBecomeActive {
-            return false
-        }
-        
+
         var isEnabled = enable
         
         if let textFieldViewController = _textFieldView?.viewController() {
@@ -155,18 +149,27 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     open var preventShowingBottomBlankSpace = true
     
+    
+    open class func destroy() {
+        IQKeyboardManager.IQKeyboardManagerStatic.kbManager = nil
+    }
+    
+    fileprivate struct IQKeyboardManagerStatic {
+        //Singleton instance. Initializing keyboard manger.
+        static var kbManager:IQKeyboardManager?
+    }
+    
     /**
     Returns the default singleton instance.
     */
     open class func sharedManager() -> IQKeyboardManager {
         
-        struct Static {
-            //Singleton instance. Initializing keyboard manger.
-            static let kbManager = IQKeyboardManager()
+        if IQKeyboardManagerStatic.kbManager == nil {
+            IQKeyboardManagerStatic.kbManager = IQKeyboardManager()
         }
         
         /** @return Returns the default singleton instance. */
-        return Static.kbManager
+        return IQKeyboardManagerStatic.kbManager!
     }
     
     ///-------------------------
