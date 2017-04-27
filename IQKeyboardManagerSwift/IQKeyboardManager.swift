@@ -149,13 +149,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     open var preventShowingBottomBlankSpace = true
     
-    
+    /**
+     Destroy the singleton instance. This will disable IQKeyboardManager and remove notification observers.
+     */
     open class func destroy() {
         IQKeyboardManager.IQKeyboardManagerStatic.kbManager = nil
     }
     
     fileprivate struct IQKeyboardManagerStatic {
-        //Singleton instance. Initializing keyboard manger.
+        //Singleton instance.
         static var kbManager:IQKeyboardManager?
     }
     
@@ -164,6 +166,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     open class func sharedManager() -> IQKeyboardManager {
         
+        // Initializing keyboard manger singleton, if needed.
         if IQKeyboardManagerStatic.kbManager == nil {
             IQKeyboardManagerStatic.kbManager = IQKeyboardManager()
         }
@@ -813,20 +816,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    /** It doesn't work from Swift 1.2 */
-//    override public class func load() {
-//        super.load()
-//        
-//        //Enabling IQKeyboardManager.
-//        IQKeyboardManager.sharedManager().enable = true
-//    }
-    
     deinit {
-        //  Disable the keyboard manager.
+        // Disable the keyboard manager.
         enable = false
 
-        //Removing notification observers on dealloc.
+        // Removing notification observers on dealloc.
         NotificationCenter.default.removeObserver(self)
     }
     
