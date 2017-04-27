@@ -166,7 +166,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     open class func sharedManager() -> IQKeyboardManager {
         
-        // Initializing keyboard manger singleton, if needed.
+        // Initialize keyboard manager singleton, if needed.
         if IQKeyboardManagerStatic.kbManager == nil {
             IQKeyboardManagerStatic.kbManager = IQKeyboardManager()
         }
