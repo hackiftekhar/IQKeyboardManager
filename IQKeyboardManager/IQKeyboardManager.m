@@ -43,6 +43,8 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UITouch.h>
 
+#import <QuartzCore/CABase.h>
+
 #import <UIKit/UICollectionView.h>
 #import <UIKit/NSLayoutConstraint.h>
 

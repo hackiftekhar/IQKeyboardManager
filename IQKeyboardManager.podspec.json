@@ -20,7 +20,8 @@
   "frameworks": [
     "UIKit",
     "Foundation",
-    "CoreGraphics"
+    "CoreGraphics",
+    "QuartzCore"
   ],
   "requires_arc": true
 }

@@ -24,6 +24,7 @@
 
 import CoreGraphics
 import UIKit
+import QuartzCore
 
 ///---------------------
 /// MARK: IQToolbar tags
