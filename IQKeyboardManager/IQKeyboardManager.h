@@ -279,19 +279,28 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 ///-------------------------------------------
 
 /**
- Add customised Notification for third party customised TextField/TextView. Please be aware that the NSNotification object must be idential to UITextField/UITextView NSNotification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
+ Add/Remove customised Notification for third party customised TextField/TextView. Please be aware that the NSNotification object must be idential to UITextField/UITextView NSNotification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
  @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
  @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
  */
 -(void)registerTextFieldViewClass:(nonnull Class)aClass
   didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
     didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName;
+-(void)unregisterTextFieldViewClass:(nonnull Class)aClass
+    didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+      didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName;
 
 ///----------------------------------------
-/// @name Debugging.
+/// @name Debugging & Developer options
 ///----------------------------------------
 
 @property(nonatomic, assign) BOOL enableDebugging;
+
+/**
+ @warning Use below methods to completely enable/disable notifications registered by library internally. Please keep in mind that library is totally dependent on NSNotification of UITextField, UITextField, Keyboard etc. If you do unregisterAllNotifications then library will not work at all. You should only use below methods if you want to completedly disable all library functions. You should use below methods at your own risk.
+ */
+-(void)registerAllNotifications;
+-(void)unregisterAllNotifications;
 
 ///----------------------------------------
 /// @name Must not be used for subclassing.

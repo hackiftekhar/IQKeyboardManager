@@ -128,7 +128,6 @@
 		C0CB62001B884FA100C33368 /* StepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61981B884D4100C33368 /* StepperTableViewCell.m */; };
 		C0CB62011B884FA100C33368 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB619A1B884D4100C33368 /* SwitchTableViewCell.m */; };
 		C0CB62021B884FA100C33368 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A01B884D4100C33368 /* main.m */; };
-		C0CB62031B884FA100C33368 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A61B884D4100C33368 /* IQDropDownTextField.m */; };
 		C0CB62041B884FA100C33368 /* BottomBlankSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */; };
 		C0CB62051B884FA100C33368 /* CollectionViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61AB1B884D4100C33368 /* CollectionViewDemoController.m */; };
 		C0CB62071B884FA100C33368 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61AF1B884D4100C33368 /* CustomViewController.m */; };
@@ -145,7 +144,6 @@
 		C0CB62121B884FA100C33368 /* TextViewSpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61C61B884D4100C33368 /* TextViewSpecialCaseViewController.m */; };
 		C0CB62131B884FA100C33368 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61C81B884D4100C33368 /* ViewController.m */; };
 		C0CB62141B884FA100C33368 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61CA1B884D4100C33368 /* WebViewController.m */; };
-		C0CB62151B884FA700C33368 /* IQDropDownTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A61B884D4100C33368 /* IQDropDownTextField.m */; };
 		C0CB62161B884FB000C33368 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61A21B884D4100C33368 /* Main.storyboard */; };
 		C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
@@ -280,8 +278,6 @@
 		C0CB619F1B884D4100C33368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CB61A01B884D4100C33368 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0CB61A21B884D4100C33368 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C0CB61A51B884D4100C33368 /* IQDropDownTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IQDropDownTextField.h; sourceTree = "<group>"; };
-		C0CB61A61B884D4100C33368 /* IQDropDownTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IQDropDownTextField.m; sourceTree = "<group>"; };
 		C0CB61A81B884D4100C33368 /* BottomBlankSpaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomBlankSpaceViewController.h; sourceTree = "<group>"; };
 		C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomBlankSpaceViewController.m; sourceTree = "<group>"; };
 		C0CB61AA1B884D4100C33368 /* CollectionViewDemoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewDemoController.h; sourceTree = "<group>"; };
@@ -576,19 +572,9 @@
 			isa = PBXGroup;
 			children = (
 				4CE74F4E1CF185F70093AC0C /* Color Picker TextField */,
-				C0CB61A41B884D4100C33368 /* IQDropDownTextField */,
 				4CE74F691CF206E40093AC0C /* YYText */,
 			);
 			path = "Third Party";
-			sourceTree = "<group>";
-		};
-		C0CB61A41B884D4100C33368 /* IQDropDownTextField */ = {
-			isa = PBXGroup;
-			children = (
-				C0CB61A51B884D4100C33368 /* IQDropDownTextField.h */,
-				C0CB61A61B884D4100C33368 /* IQDropDownTextField.m */,
-			);
-			path = IQDropDownTextField;
 			sourceTree = "<group>";
 		};
 		C0CB61A71B884D4100C33368 /* ViewController */ = {
@@ -1048,7 +1034,6 @@
 				4CE74F5B1CF185F70093AC0C /* HFColorButton.m in Sources */,
 				C0CB61F71B884F2700C33368 /* TextViewSpecialCaseViewController.swift in Sources */,
 				4CE74FBA1CF206E40093AC0C /* YYTextMagnifier.m in Sources */,
-				C0CB62151B884FA700C33368 /* IQDropDownTextField.m in Sources */,
 				4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */,
 				4CE74FC21CF206E40093AC0C /* YYTextSelectionView.m in Sources */,
 				4CE74FC01CF206E40093AC0C /* YYTextRunDelegate.m in Sources */,
@@ -1091,7 +1076,6 @@
 				C0CB620F1B884FA100C33368 /* TableViewInContainerViewController.m in Sources */,
 				4CE74F4D1CF080C10093AC0C /* TextViewController.m in Sources */,
 				C0CB620E1B884FA100C33368 /* SpecialCaseViewController.m in Sources */,
-				C0CB62031B884FA100C33368 /* IQDropDownTextField.m in Sources */,
 				4CE74F581CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
 				4CE74F681CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m in Sources */,
 				C0CB62091B884FA100C33368 /* ManualToolbarViewController.m in Sources */,
@@ -1193,7 +1177,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7C7D2D527E621CDFB9FC681 /* Pods-DemoSwift.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1225,7 +1209,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FC4E5EE6D1D6932EE354185 /* Pods-DemoSwift.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1255,6 +1239,7 @@
 		C0B63BB71781FAB1008D3B64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1300,6 +1285,7 @@
 		C0B63BB81781FAB1008D3B64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

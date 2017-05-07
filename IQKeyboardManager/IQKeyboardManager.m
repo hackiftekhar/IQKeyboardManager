@@ -198,30 +198,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             __strong typeof(self) strongSelf = weakSelf;
 
-            //  Registering for keyboard notification.
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-
             strongSelf.registeredClasses = [[NSMutableSet alloc] init];
 
-			//  Registering for UITextField notification.
-            [self registerTextFieldViewClass:[UITextField class]
-             didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
-               didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+            [strongSelf registerAllNotifications];
 
-            //  Registering for UITextView notification.
-            [self registerTextFieldViewClass:[UITextView class]
-             didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
-               didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
-
-            //  Registering for orientation changes notification
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
-
-            //  Registering for status bar frame change notification
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
-            
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             strongSelf.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             strongSelf.tapGesture.cancelsTouchesInView = NO;
@@ -2176,6 +2156,69 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:didBeginEditingNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:didEndEditingNotificationName object:nil];
+}
+
+/**
+ Remove customised Notification for third party customised TextField/TextView.
+ */
+-(void)unregisterTextFieldViewClass:(nonnull Class)aClass
+    didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
+      didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
+{
+    [_registeredClasses removeObject:aClass];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:didBeginEditingNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:didEndEditingNotificationName object:nil];
+}
+
+-(void)registerAllNotifications
+{
+    //  Registering for keyboard notification.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    
+    //  Registering for UITextField notification.
+    [self registerTextFieldViewClass:[UITextField class]
+     didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+    
+    //  Registering for UITextView notification.
+    [self registerTextFieldViewClass:[UITextView class]
+     didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+    
+    //  Registering for orientation changes notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+    
+    //  Registering for status bar frame change notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
+}
+
+-(void)unregisterAllNotifications
+{
+    //  Unregistering for keyboard notification.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+
+    //  Unregistering for UITextField notification.
+    [self unregisterTextFieldViewClass:[UITextField class]
+     didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
+    
+    //  Unregistering for UITextView notification.
+    [self unregisterTextFieldViewClass:[UITextView class]
+     didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
+       didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
+    
+    //  Unregistering for orientation changes notification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+    
+    //  Unregistering for status bar frame change notification
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
 }
 
 -(void)showLog:(NSString*)logString

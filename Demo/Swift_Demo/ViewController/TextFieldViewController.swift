@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQDropDownTextField
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
@@ -41,7 +42,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         textField3.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
         dropDownTextField.keyboardDistanceFromTextField = 150;
         
-        var itemLists = [NSString]()
+        var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
         itemLists.append("No More UIScrollView")
         itemLists.append("No More Subclasses")
