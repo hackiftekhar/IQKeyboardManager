@@ -773,7 +773,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _tapGesture.delegate = self
         _tapGesture.isEnabled = shouldResignOnTouchOutside
         
-        //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard apperance delay (Bug ID: #550)
+        //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         let textField = UITextField()
         textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
         textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))

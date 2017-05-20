@@ -682,7 +682,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 }
 
 /// Show `_innerLayout` instead of `_highlightLayout`.
-/// It does not destory the `_highlightLayout`.
+/// It does not destroy the `_highlightLayout`.
 - (void)_hideHighlightAnimated:(BOOL)animated {
     NSTimeInterval fadeDuration = animated ? kHighlightFadeDuration : 0;
     if (_state.showingHighlight) {
@@ -691,7 +691,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     }
 }
 
-/// Show `_innerLayout` and destory the `_highlight` and `_highlightLayout`.
+/// Show `_innerLayout` and destroy the `_highlight` and `_highlightLayout`.
 - (void)_removeHighlightAnimated:(BOOL)animated {
     [self _hideHighlightAnimated:animated];
     _highlight = nil;
@@ -1129,7 +1129,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     return touchRange;
 }
 
-/// Try to get the highlight property. If exist, the range will be returnd by the range pointer.
+/// Try to get the highlight property. If exist, the range will be returned by the range pointer.
 /// If the delegate ignore the highlight, returns nil.
 - (YYTextHighlight *)_getHighlightAtPoint:(CGPoint)point range:(NSRangePointer)range {
     if (!_highlightable || !_innerLayout.containsHighlight) return nil;

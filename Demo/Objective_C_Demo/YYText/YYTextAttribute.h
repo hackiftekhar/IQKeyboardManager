@@ -91,7 +91,7 @@ typedef NS_ENUM (NSUInteger, YYTextTruncationType) {
 UIKIT_EXTERN NSString *const YYTextBackedStringAttributeName;
 
 /// The value of this attribute is a `YYTextBinding` object.
-/// Use this attribute to bind a range of text together, as if it was a single charactor.
+/// Use this attribute to bind a range of text together, as if it was a single character.
 UIKIT_EXTERN NSString *const YYTextBindingAttributeName;
 
 /// The value of this attribute is a `YYTextShadow` object.
