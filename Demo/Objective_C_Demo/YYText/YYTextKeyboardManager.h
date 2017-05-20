@@ -24,7 +24,7 @@ typedef struct {
     CGRect toFrame;   ///< Keyboard frame after transition.
     NSTimeInterval animationDuration;       ///< Keyboard transition animation duration.
     UIViewAnimationCurve animationCurve;    ///< Keyboard transition animation curve.
-    UIViewAnimationOptions animationOption; ///< Keybaord transition animation option.
+    UIViewAnimationOptions animationOption; ///< Keyboard transition animation option.
 } YYTextKeyboardTransition;
 
 

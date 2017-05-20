@@ -224,7 +224,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self setLayoutIfNeededOnUpdate:NO];
             [self setShouldFixInteractivePopGestureRecognizer:YES];
             
-            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard apperance delay (Bug ID: #550)
+            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
                 UITextField *view = [[UITextField alloc] init];
                 [view addDoneOnKeyboardWithTarget:nil action:nil];
