@@ -99,7 +99,7 @@
     [super layoutSubviews];
 
     [placeHolderLabel sizeToFit];
-    placeHolderLabel.frame = CGRectMake(8, 8, CGRectGetWidth(self.frame)-16, CGRectGetHeight(placeHolderLabel.frame));
+    placeHolderLabel.frame = CGRectMake(4, 8, CGRectGetWidth(self.frame)-16, CGRectGetHeight(placeHolderLabel.frame));
 }
 
 -(void)setPlaceholder:(NSString *)placeholder
