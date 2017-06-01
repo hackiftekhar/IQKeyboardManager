@@ -102,7 +102,7 @@ static double _YYDeviceSystemVersion() {
      In iOS7 and later, UIFont is toll-free bridged to CTFontRef,
      although Apple does not mention it in documentation.
      
-     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can alse use UIfont,
+     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can also use UIfont,
      but UILabel/UITextView cannot use CTFontRef.
      
      We use UIFont for both CoreText and UIKit.
@@ -787,7 +787,7 @@ return style. _attr_;
      In iOS7 and later, UIFont is toll-free bridged to CTFontRef,
      although Apple does not mention it in documentation.
      
-     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can alse use UIfont,
+     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can also use UIfont,
      but UILabel/UITextView cannot use CTFontRef.
      
      We use UIFont for both CoreText and UIKit.
@@ -974,7 +974,7 @@ return style. _attr_;
      In iOS7 and later, UIFont is toll-free bridged to CTFontRef,
      although Apple does not mention it in documentation.
      
-     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can alse use UIfont,
+     In iOS6, UIFont is a wrapper for CTFontRef, so CoreText can also use UIfont,
      but UILabel/UITextView cannot use CTFontRef.
      
      We use UIFont for both CoreText and UIKit.

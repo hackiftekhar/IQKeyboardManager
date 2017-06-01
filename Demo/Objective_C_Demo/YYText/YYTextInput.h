@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, YYTextAffinity) {
  it is an index into the backing string in a text-displaying view.
  
  YYTextPosition has the same API as Apple's implementation in UITextView/UITextField,
- so you can alse use it to interact with UITextView/UITextField.
+ so you can also use it to interact with UITextView/UITextField.
  */
 @interface YYTextPosition : UITextPosition <NSCopying>
 
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, YYTextAffinity) {
  it identifies a starting index and an ending index in string backing a text-displaying view.
  
  YYTextRange has the same API as Apple's implementation in UITextView/UITextField,
- so you can alse use it to interact with UITextView/UITextField.
+ so you can also use it to interact with UITextView/UITextField.
  */
 @interface YYTextRange : UITextRange <NSCopying>
 
@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger, YYTextAffinity) {
  text in a text-displaying view.
  
  YYTextSelectionRect has the same API as Apple's implementation in UITextView/UITextField,
- so you can alse use it to interact with UITextView/UITextField.
+ so you can also use it to interact with UITextView/UITextField.
  */
 @interface YYTextSelectionRect : UITextSelectionRect <NSCopying>
 

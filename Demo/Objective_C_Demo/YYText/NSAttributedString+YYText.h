@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///=============================================================================
 
 /**
- Returns the attributes at first charactor.
+ Returns the attributes at first character.
  */
 @property (nullable, nonatomic, copy, readonly) NSDictionary<NSString *, id> *yy_attributes;
 
@@ -287,7 +287,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Specifies a bidirectional override or embedding. (read-only)
  
- @discussion See alse NSWritingDirection and NSWritingDirectionAttributeName.
+ @discussion See also NSWritingDirection and NSWritingDirectionAttributeName.
  @discussion Get this property returns the first character's attribute.
  @since CoreText:6.0  UIKit:7.0  YYText:6.0
  */
@@ -966,7 +966,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Specifies a bidirectional override or embedding.
  
- @discussion See alse NSWritingDirection and NSWritingDirectionAttributeName.
+ @discussion See also NSWritingDirection and NSWritingDirectionAttributeName.
  @discussion Set this property applies to the entire text string.
              Get this property returns the first character's attribute.
  @since CoreText:6.0  UIKit:7.0  YYText:6.0
