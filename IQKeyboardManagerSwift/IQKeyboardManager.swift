@@ -105,6 +105,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         break
                     }
                 }
+                
+                //Special Controllers
+                if isEnabled == true {
+                    
+                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                    
+                    //_UIAlertControllerTextFieldViewController
+                    if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
+                        isEnabled = false
+                    }
+                }
             }
         }
         
@@ -209,6 +220,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if textFieldViewController.isKind(of: disabledClass) {
                         enableToolbar = false
                         break
+                    }
+                }
+                
+                //Special Controllers
+                if enableToolbar == true {
+                    
+                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                    
+                    //_UIAlertControllerTextFieldViewController
+                    if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
+                        enableToolbar = false
                     }
                 }
             }
@@ -341,6 +363,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     if textFieldViewController.isKind(of: disabledClass) {
                         shouldResign = false
                         break
+                    }
+                }
+                
+                //Special Controllers
+                if shouldResign == true {
+                    
+                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                    
+                    //_UIAlertControllerTextFieldViewController
+                    if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
+                        shouldResign = false
                     }
                 }
             }
@@ -787,17 +820,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
-        //Special Controllers
-        struct InternalClass {
-            
-            static var UIAlertControllerTextFieldViewController: UIViewController.Type?  =   NSClassFromString("_UIAlertControllerTextFieldViewController") as? UIViewController.Type //UIAlertView
-        }
-        
-        if let aClass = InternalClass.UIAlertControllerTextFieldViewController {
-            disabledDistanceHandlingClasses.append(aClass.self)
-            disabledToolbarClasses.append(aClass.self)
-            disabledTouchResignedClasses.append(aClass.self)
-        }
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
