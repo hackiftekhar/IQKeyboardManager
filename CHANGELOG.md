@@ -1,5 +1,14 @@
 ## master (xx-xx-xxxx)
 
+## 4.0.10 (01-06-2017)
+
+#### Bugfixes:
+
+- Fixed an issue where **Apple rejected apps** using libray due to referencing some **non-public API's** (We previously added those non-public API's for workarounds #865).
+
+#### Improvements:
+- Added **registerAllNotifications & unregisterAllNotifications** methods to completely disable library at developer risk
+
 #### Deprecations and Removed:
 - Deprecated **isAskingCanBecomeFirstResponder** because this no longer useful now.
 - Removed **shouldHidePreviousNext** in favor of **previousNextDisplayMode**.
