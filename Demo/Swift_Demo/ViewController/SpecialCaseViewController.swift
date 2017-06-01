@@ -111,12 +111,10 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if (textField == customWorkTextField) {
-            if(textField.isAskingCanBecomeFirstResponder == false) {
-                let alertController = UIAlertController(title: "IQKeyboardManager", message: "Do your custom work here", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                
-                self.present(alertController, animated: true, completion: nil)
-            }
+            let alertController = UIAlertController(title: "IQKeyboardManager", message: "Do your custom work here", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
             
             return false
         } else {
