@@ -67,6 +67,7 @@ open class IQTextView : UITextView {
                     unwrappedPlaceholderLabel.lineBreakMode = .byWordWrapping
                     unwrappedPlaceholderLabel.numberOfLines = 0
                     unwrappedPlaceholderLabel.font = self.font
+                    unwrappedPlaceholderLabel.textAlignment = self.textAlignment
                     unwrappedPlaceholderLabel.backgroundColor = UIColor.clear
                     unwrappedPlaceholderLabel.textColor = UIColor(white: 0.7, alpha: 1.0)
                     unwrappedPlaceholderLabel.alpha = 0
@@ -115,6 +116,13 @@ open class IQTextView : UITextView {
             } else {
                 placeholderLabel?.font = UIFont.systemFont(ofSize: 12)
             }
+        }
+    }
+    
+    override open var textAlignment: NSTextAlignment
+    {
+        didSet {
+            placeholderLabel?.textAlignment = textAlignment
         }
     }
     

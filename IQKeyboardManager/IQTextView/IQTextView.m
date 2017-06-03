@@ -94,6 +94,15 @@
     [self layoutIfNeeded];
 }
 
+-(void)setTextAlignment:(NSTextAlignment)textAlignment
+{
+    [super setTextAlignment:textAlignment];
+    placeHolderLabel.textAlignment = textAlignment;
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -113,6 +122,7 @@
         placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
         placeHolderLabel.numberOfLines = 0;
         placeHolderLabel.font = self.font;
+        placeHolderLabel.textAlignment = self.textAlignment;
         placeHolderLabel.backgroundColor = [UIColor clearColor];
         placeHolderLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
         placeHolderLabel.alpha = 0;
