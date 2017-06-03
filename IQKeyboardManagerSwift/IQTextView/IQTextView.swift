@@ -119,6 +119,13 @@ open class IQTextView : UITextView {
         }
     }
     
+    override open var textAlignment: NSTextAlignment
+    {
+        didSet {
+            placeholderLabel?.textAlignment = textAlignment
+        }
+    }
+    
     override open var delegate : UITextViewDelegate? {
         
         get {

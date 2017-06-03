@@ -94,6 +94,15 @@
     [self layoutIfNeeded];
 }
 
+-(void)setTextAlignment:(NSTextAlignment)textAlignment
+{
+    [super setTextAlignment:textAlignment];
+    placeHolderLabel.textAlignment = textAlignment;
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
