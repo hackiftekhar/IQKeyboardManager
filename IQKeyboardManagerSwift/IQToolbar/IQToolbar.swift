@@ -193,13 +193,6 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         super.layoutSubviews()
         
-        struct InternalClass {
-            
-            static var IQUIToolbarTextButtonClass: UIControl.Type?  =   NSClassFromString("UIToolbarTextButton") as? UIControl.Type
-            static var IQUIToolbarButtonClass: UIControl.Type?      =   NSClassFromString("UIToolbarButton") as? UIControl.Type
-        }
-
-
         var leftRect = CGRect.null
         var rightRect = CGRect.null
         var isTitleBarButtonFound = false
@@ -229,9 +222,14 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
             {
                 isTitleBarButtonFound = true
             }
-            else if ((InternalClass.IQUIToolbarTextButtonClass != nil && barButtonItemView.isKind(of: InternalClass.IQUIToolbarTextButtonClass!) == true) || (InternalClass.IQUIToolbarButtonClass != nil && barButtonItemView.isKind(of: InternalClass.IQUIToolbarButtonClass!) == true))
+            else
             {
-                leftRect = barButtonItemView.frame
+                let classNameString = NSStringFromClass(type(of:barButtonItemView.self))
+                
+                //If it's UIToolbarButton or UIToolbarTextButton
+                if (classNameString.hasPrefix("UIToolbar") && classNameString.hasSuffix("Button")) {
+                    leftRect = barButtonItemView.frame
+                }
             }
         }
         

@@ -210,15 +210,6 @@
         else    return NSOrderedSame;
     }];
     
-    static Class IQUIToolbarTextButtonClass = Nil;
-    static Class IQUIToolbarButtonClass = Nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        IQUIToolbarTextButtonClass = NSClassFromString(@"UIToolbarTextButton");
-        IQUIToolbarButtonClass = NSClassFromString(@"UIToolbarButton");
-    });
-    
     for (UIView *barButtonItemView in subviews)
     {
         if (isTitleBarButtonFound == YES)
@@ -230,10 +221,15 @@
         {
             isTitleBarButtonFound = YES;
         }
-        else if ([barButtonItemView isKindOfClass:IQUIToolbarTextButtonClass] ||
-            [barButtonItemView isKindOfClass:IQUIToolbarButtonClass])
+        else
         {
-            leftRect = barButtonItemView.frame;
+            NSString *classNameString = NSStringFromClass([barButtonItemView class]);
+            
+            //If it's UIToolbarButton or UIToolbarTextButton
+            if (([classNameString hasPrefix:@"UIToolbar"] && [classNameString hasSuffix:@"Button"]))
+            {
+                leftRect = barButtonItemView.frame;
+            }
         }
     }
     

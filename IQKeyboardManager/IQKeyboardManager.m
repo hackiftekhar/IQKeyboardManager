@@ -231,14 +231,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
             }
             
-            //Special Controllers
-            static Class UIAlertControllerTextFieldViewController = Nil;  //UIAlertView
-            
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                UIAlertControllerTextFieldViewController     = NSClassFromString(@"_UIAlertControllerTextFieldViewController");
-            });
-            
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
@@ -251,13 +243,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
-
-            if (UIAlertControllerTextFieldViewController)
-            {
-                [strongSelf.disabledDistanceHandlingClasses addObject:UIAlertControllerTextFieldViewController];
-                [strongSelf.disabledToolbarClasses addObject:UIAlertControllerTextFieldViewController];
-                [strongSelf.disabledTouchResignedClasses addObject:UIAlertControllerTextFieldViewController];
-            }
             
             [self setShouldToolbarUsesTextFieldTintColor:NO];
         });
@@ -363,6 +348,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     break;
                 }
             }
+            
+            //Special Controllers
+            if (enable == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    enable = NO;
+                }
+            }
         }
     }
     
@@ -421,6 +418,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     break;
                 }
             }
+
+            //Special Controllers
+            if (shouldResignOnTouchOutside == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    shouldResignOnTouchOutside = NO;
+                }
+            }
         }
     }
     
@@ -476,6 +485,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 {
                     enableAutoToolbar = NO;
                     break;
+                }
+            }
+            
+            
+            //Special Controllers
+            if (enableAutoToolbar == YES)
+            {
+                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                
+                //_UIAlertControllerTextFieldViewController
+                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                {
+                    enableAutoToolbar = NO;
                 }
             }
         }
