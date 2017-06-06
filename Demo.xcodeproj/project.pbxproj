@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0EFE1D1CF2F8A800C908D3 /* MainSwift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */; };
 		4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */; };
 		4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */; };
 		4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */; };
@@ -18,10 +17,21 @@
 		4C0EFE2D1CF332D200C908D3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */; };
 		4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */; };
 		4C1286321DD1C5B900F0C1E5 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1286311DD1C5B900F0C1E5 /* Launch.storyboard */; };
-		4C1286331DD1C5B900F0C1E5 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1286311DD1C5B900F0C1E5 /* Launch.storyboard */; };
 		4C134C811D10758F00C016CA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C134C801D10758F00C016CA /* SearchViewController.m */; };
 		4C2F12E21D9E8CDF004AF58C /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2F12E11D9E8CDF004AF58C /* PopoverViewController.swift */; };
 		4C34D9EF1D1319A60013E61D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C34D9EE1D1319A60013E61D /* SearchViewController.swift */; };
+		4C3CF15E1EE2BB05006B7D6D /* ScrollView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3CF15D1EE2BB05006B7D6D /* ScrollView.storyboard */; };
+		4C73E7D81EE486590081A550 /* FullScreenControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7CC1EE486500081A550 /* FullScreenControllers.storyboard */; };
+		4C73E7D91EE486600081A550 /* General.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7CD1EE486500081A550 /* General.storyboard */; };
+		4C73E7DA1EE486660081A550 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7CE1EE486500081A550 /* Main.storyboard */; };
+		4C73E7DB1EE486750081A550 /* ScrollView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7CF1EE486500081A550 /* ScrollView.storyboard */; };
+		4C73E7DC1EE4867E0081A550 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7D01EE486500081A550 /* Settings.storyboard */; };
+		4C73E7DD1EE486850081A550 /* SpecialCase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7D11EE486500081A550 /* SpecialCase.storyboard */; };
+		4C73E7DE1EE4868B0081A550 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7B71EE484650081A550 /* Launch.storyboard */; };
+		4C73E7DF1EE487160081A550 /* General.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7B31EE2DD710081A550 /* General.storyboard */; };
+		4C73E7E01EE4871D0081A550 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3CF15F1EE2C197006B7D6D /* Settings.storyboard */; };
+		4C73E7E11EE487210081A550 /* SpecialCase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7AD1EE2DCE20081A550 /* SpecialCase.storyboard */; };
+		4C73E7E21EE487250081A550 /* FullScreenControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C73E7AF1EE2DD3F0081A550 /* FullScreenControllers.storyboard */; };
 		4CE49FCF1D9E7FD40094FB36 /* PopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE49FCE1D9E7FD40094FB36 /* PopoverViewController.m */; };
 		4CE611A01B98B7250020591A /* DemoObjCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE6119F1B98B7250020591A /* DemoObjCUITests.m */; };
 		4CE74F411CF0465C0093AC0C /* YYTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F401CF0465C0093AC0C /* YYTextViewController.m */; };
@@ -150,7 +160,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainSwift.storyboard; sourceTree = "<group>"; };
 		4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
 		4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -165,6 +174,18 @@
 		4C134C801D10758F00C016CA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		4C2F12E11D9E8CDF004AF58C /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		4C34D9EE1D1319A60013E61D /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4C3CF15D1EE2BB05006B7D6D /* ScrollView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ScrollView.storyboard; sourceTree = "<group>"; };
+		4C3CF15F1EE2C197006B7D6D /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		4C73E7AD1EE2DCE20081A550 /* SpecialCase.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SpecialCase.storyboard; sourceTree = "<group>"; };
+		4C73E7AF1EE2DD3F0081A550 /* FullScreenControllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FullScreenControllers.storyboard; sourceTree = "<group>"; };
+		4C73E7B31EE2DD710081A550 /* General.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = General.storyboard; sourceTree = "<group>"; };
+		4C73E7B71EE484650081A550 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		4C73E7CC1EE486500081A550 /* FullScreenControllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FullScreenControllers.storyboard; sourceTree = "<group>"; };
+		4C73E7CD1EE486500081A550 /* General.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = General.storyboard; sourceTree = "<group>"; };
+		4C73E7CE1EE486500081A550 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4C73E7CF1EE486500081A550 /* ScrollView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ScrollView.storyboard; sourceTree = "<group>"; };
+		4C73E7D01EE486500081A550 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		4C73E7D11EE486500081A550 /* SpecialCase.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SpecialCase.storyboard; sourceTree = "<group>"; };
 		4CE49FCD1D9E7FD40094FB36 /* PopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverViewController.h; sourceTree = "<group>"; };
 		4CE49FCE1D9E7FD40094FB36 /* PopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverViewController.m; sourceTree = "<group>"; };
 		4CE6119D1B98B7250020591A /* DemoObjCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoObjCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -563,6 +584,11 @@
 			isa = PBXGroup;
 			children = (
 				C0CB61A21B884D4100C33368 /* Main.storyboard */,
+				4C73E7B31EE2DD710081A550 /* General.storyboard */,
+				4C3CF15D1EE2BB05006B7D6D /* ScrollView.storyboard */,
+				4C3CF15F1EE2C197006B7D6D /* Settings.storyboard */,
+				4C73E7AD1EE2DCE20081A550 /* SpecialCase.storyboard */,
+				4C73E7AF1EE2DD3F0081A550 /* FullScreenControllers.storyboard */,
 				4C1286311DD1C5B900F0C1E5 /* Launch.storyboard */,
 			);
 			path = Storyboard;
@@ -699,7 +725,13 @@
 		C0CB61D71B884D4100C33368 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				4C0EFE1C1CF2F8A800C908D3 /* MainSwift.storyboard */,
+				4C73E7CE1EE486500081A550 /* Main.storyboard */,
+				4C73E7CD1EE486500081A550 /* General.storyboard */,
+				4C73E7CF1EE486500081A550 /* ScrollView.storyboard */,
+				4C73E7D01EE486500081A550 /* Settings.storyboard */,
+				4C73E7D11EE486500081A550 /* SpecialCase.storyboard */,
+				4C73E7CC1EE486500081A550 /* FullScreenControllers.storyboard */,
+				4C73E7B71EE484650081A550 /* Launch.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -865,10 +897,15 @@
 			files = (
 				C0CB61EC1B884F1E00C33368 /* Images.xcassets in Resources */,
 				C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
+				4C73E7D81EE486590081A550 /* FullScreenControllers.storyboard in Resources */,
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
-				4C0EFE1D1CF2F8A800C908D3 /* MainSwift.storyboard in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
-				4C1286331DD1C5B900F0C1E5 /* Launch.storyboard in Resources */,
+				4C73E7DB1EE486750081A550 /* ScrollView.storyboard in Resources */,
+				4C73E7DA1EE486660081A550 /* Main.storyboard in Resources */,
+				4C73E7DE1EE4868B0081A550 /* Launch.storyboard in Resources */,
+				4C73E7DC1EE4867E0081A550 /* Settings.storyboard in Resources */,
+				4C73E7D91EE486600081A550 /* General.storyboard in Resources */,
+				4C73E7DD1EE486850081A550 /* SpecialCase.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +919,11 @@
 				C0CB61E91B884F1600C33368 /* iTunesArtwork in Resources */,
 				C0CB62161B884FB000C33368 /* Main.storyboard in Resources */,
 				4C1286321DD1C5B900F0C1E5 /* Launch.storyboard in Resources */,
+				4C73E7E11EE487210081A550 /* SpecialCase.storyboard in Resources */,
+				4C73E7E01EE4871D0081A550 /* Settings.storyboard in Resources */,
+				4C73E7E21EE487250081A550 /* FullScreenControllers.storyboard in Resources */,
+				4C3CF15E1EE2BB05006B7D6D /* ScrollView.storyboard in Resources */,
+				4C73E7DF1EE487160081A550 /* General.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

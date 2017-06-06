@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--IQKeyboardManager-->
+        <!--IQKeyboardManagerSwift-->
         <scene sceneID="q9Q-KK-LGH">
             <objects>
-                <tableViewController id="hc7-47-3EI" customClass="ViewController" sceneMemberID="viewController">
+                <tableViewController id="hc7-47-3EI" customClass="ViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hWg-0w-ugq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -647,10 +647,10 @@
                             <outlet property="delegate" destination="hc7-47-3EI" id="R9r-gn-wDZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="IQKeyboardManager" id="tP6-QK-Jl8">
+                    <navigationItem key="navigationItem" title="IQKeyboardManagerSwift" id="tP6-QK-Jl8">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="2aL-6Q-w1Q">
                             <connections>
-                                <action selector="shareClicked:" destination="hc7-47-3EI" id="YxL-La-wpy"/>
+                                <action selector="shareClicked:" destination="hc7-47-3EI" id="TrM-O2-jce"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
