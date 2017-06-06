@@ -71,7 +71,7 @@ Minimum Xcode Version: Xcode 8.0
 
 #### Demo Project:-
 
-Minimum Xcode Version: Xcode 8.3
+Minimum Xcode Version: Xcode 8.3.2
 
 
 Installation
@@ -100,7 +100,9 @@ it simply add the following line to your Podfile: ([#236](https://github.com/hac
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '4.0.9'`
+`pod 'IQKeyboardManagerSwift', '4.0.10'`
+
+*Swift 3.1 (Xcode 8.3)* `pod 'IQKeyboardManagerSwift', '4.0.10'`
 
 *Swift 3.0(3.0.2) (Xcode 8.2)* `pod 'IQKeyboardManagerSwift', '4.0.8'`
 
