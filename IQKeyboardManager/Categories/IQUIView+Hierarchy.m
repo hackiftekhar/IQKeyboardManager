@@ -59,35 +59,54 @@
     return nil;
 }
 
--(UIViewController *)topMostController
+- (UIViewController *)topMostController
 {
-    NSMutableArray *controllersHierarchy = [[NSMutableArray alloc] init];
-    
-    UIViewController *topController = self.window.rootViewController;
-    
-    if (topController)
+    UIViewController *result = nil;
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
     {
-        [controllersHierarchy addObject:topController];
-    }
-    
-    while ([topController presentedViewController]) {
-        
-        topController = [topController presentedViewController];
-        [controllersHierarchy addObject:topController];
-    }
-    
-    UIResponder *matchController = [self viewController];
-    
-    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
-    {
-        do
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow *tmpWin in windows)
         {
-            matchController = [matchController nextResponder];
-            
-        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
     }
     
-    return (UIViewController*)matchController;
+    id  nextResponder = nil;
+    UIViewController *appRootVC = window.rootViewController;
+    if (appRootVC.presentedViewController) {
+        nextResponder = appRootVC.presentedViewController;
+    } else {
+        UIView *frontView = [[window subviews] objectAtIndex:0];
+        nextResponder = [frontView nextResponder];
+    }
+    
+    if ([nextResponder isKindOfClass:[UINavigationController class]]){
+        UINavigationController *nav = (UINavigationController *)nextResponder;
+        result = nav.visibleViewController;
+    } else if ([nextResponder isKindOfClass:[UITabBarController class]]){
+        UITabBarController *tabbar = (UITabBarController *)nextResponder;
+        UIViewController *selectedVC = tabbar.selectedViewController;
+        if ([selectedVC  isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *nav = (UINavigationController *)selectedVC;
+            result = nav.visibleViewController;
+        } else {
+            result = selectedVC;
+            while (result.presentedViewController) {
+                result = result.presentedViewController;
+            }
+        }
+    } else {
+        result = nextResponder;
+        while (result.presentedViewController) {
+            result = result.presentedViewController;
+        }
+    }
+    return result;
 }
 
 -(UIView*)superviewOfClassType:(Class)classType
