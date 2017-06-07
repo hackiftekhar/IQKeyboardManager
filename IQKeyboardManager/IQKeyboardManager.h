@@ -21,6 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "IQUIView+Hierarchy.h"
+#import "IQUIView+IQKeyboardToolbar.h"
+#import "IQUIWindow+Hierarchy.h"
+#import "IQToolbar.h"
+#import "IQBarButtonItem.h"
+#import "IQUIScrollView+Additions.h"
+#import "IQUITextFieldView+Additions.h"
+#import "IQUIViewController+Additions.h"
+#import "IQPreviousNextView.h"
+#import "IQKeyboardReturnKeyHandler.h"
+#import "IQTextView.h"
+
 #import "IQKeyboardManagerConstants.h"
 
 #import <CoreGraphics/CGBase.h>
