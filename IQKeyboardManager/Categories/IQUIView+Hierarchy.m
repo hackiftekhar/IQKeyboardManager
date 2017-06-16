@@ -102,9 +102,13 @@
             if ([superview isKindOfClass:[UIScrollView class]])
             {
                 NSString *classNameString = NSStringFromClass([superview class]);
-                
-                //UITableViewCellScrollView, UITableViewWrapperView, _UIQueuingScrollView
-                if ((([classNameString hasPrefix:@"UITableView"] && ([classNameString hasSuffix:@"CellScrollView"] || [classNameString hasSuffix:@"WrapperView"])) || [classNameString hasPrefix:@"_"]) == NO)
+
+                //  If it's not UITableViewWrapperView class, this is internal class which is actually manage in UITableview. The speciality of this class is that it's superview is UITableView.
+                //  If it's not UITableViewCellScrollView class, this is internal class which is actually manage in UITableviewCell. The speciality of this class is that it's superview is UITableViewCell.
+                //If it's not _UIQueuingScrollView class, actually we validate for _ prefix which usually used by Apple internal classes
+                if ([superview.superview isKindOfClass:[UITableView class]] == NO &&
+                    [superview.superview isKindOfClass:[UITableViewCell class]] == NO &&
+                    [classNameString hasPrefix:@"_"] == NO)
                 {
                     return superview;
                 }

@@ -213,23 +213,14 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         for barButtonItemView in sortedSubviews {
 
-            if (isTitleBarButtonFound == true)
-            {
+            if isTitleBarButtonFound == true {
                 rightRect = barButtonItemView.frame
                 break
-            }
-            else if (type(of: barButtonItemView) === UIView.self)
-            {
+            } else if type(of: barButtonItemView) === UIView.self {
                 isTitleBarButtonFound = true
-            }
-            else
-            {
-                let classNameString = NSStringFromClass(type(of:barButtonItemView.self))
-                
-                //If it's UIToolbarButton or UIToolbarTextButton
-                if (classNameString.hasPrefix("UIToolbar") && classNameString.hasSuffix("Button")) {
-                    leftRect = barButtonItemView.frame
-                }
+                //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
+            } else if barButtonItemView.isKind(of: UIControl.self) == true {
+                leftRect = barButtonItemView.frame
             }
         }
         
