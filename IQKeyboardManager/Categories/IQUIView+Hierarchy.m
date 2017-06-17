@@ -38,11 +38,6 @@
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
--(BOOL)isAskingCanBecomeFirstResponder
-{
-    return NO;
-}
-
 -(UIViewController*)viewController
 {
     UIResponder *nextResponder =  self;

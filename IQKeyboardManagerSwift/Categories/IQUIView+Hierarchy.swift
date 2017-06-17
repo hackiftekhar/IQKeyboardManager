@@ -29,19 +29,6 @@ UIView hierarchy category.
 */
 public extension UIView {
     
-    ///------------------------------
-    /// MARK: canBecomeFirstResponder
-    ///------------------------------
-    
-    /**
-    Returns YES if IQKeyboardManager asking for `canBecomeFirstResponder. Useful when doing custom work in `textFieldShouldBeginEditing:` delegate.
-    */
-    @available(*,deprecated, message: "isAskingCanBecomeFirstResponder property was come to existence as a workaround to handle `textFieldShouldBeginEditing:` multiple call issue, but we removed `canBecomeFirstResponder` method call from library, now this property make no sense and will be removed in future releases. From now this property will always return false because of not calling `canBecomeFirstResponder` method. Please update your code/logic in `textFieldShouldBeginEditing:` method.")
-    public var isAskingCanBecomeFirstResponder: Bool {
-        
-        return false
-    }
-
     ///----------------------
     /// MARK: viewControllers
     ///----------------------
