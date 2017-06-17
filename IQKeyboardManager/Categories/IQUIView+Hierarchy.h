@@ -1,5 +1,5 @@
 //
-//  UIView+Hierarchy.h
+// IQUIView+Hierarchy.h
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-16 Iftekhar Qurashi.
 //

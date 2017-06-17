@@ -2101,7 +2101,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 #pragma mark previous/next/done functionality
 /**	previousAction. */
--(void)previousAction:(id)segmentedControl
+-(void)previousAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound. Then Play Input Click Sound.
     if (_shouldPlayInputClicks)
@@ -2124,7 +2124,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 /**	nextAction. */
--(void)nextAction:(id)segmentedControl
+-(void)nextAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound. Then Play Input Click Sound.
     if (_shouldPlayInputClicks)
