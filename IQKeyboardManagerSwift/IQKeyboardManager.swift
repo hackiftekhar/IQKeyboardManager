@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 
+import Foundation
 import CoreGraphics
 import UIKit
 import QuartzCore
