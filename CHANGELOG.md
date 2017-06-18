@@ -1,6 +1,18 @@
 ## master (xx-xx-xxxx)
 
-## 4.0.10 (01-06-2017)
+#### Bugfixes:
+
+- Removed some more references of **private API's**(We previously added those non-public API's for workarounds #865).
+- Fixed a text alignment issue with IQTextView (Thanks to @yurihan)
+- Fixed an issue where \_kbSize variable wasn't clearing when library is disabled.
+
+#### Improvements:
+- Splitted storyboard into multiple storyboard to improve demo performance.
+
+#### Deprecations and Removed:
+- Removed **isAskingCanBecomeFirstResponder** because this no longer useful now.
+
+## 4.0.10 (01-06-2017 | 1 month 28 days)
 
 #### Bugfixes:
 
@@ -13,7 +25,7 @@
 - Deprecated **isAskingCanBecomeFirstResponder** because this no longer useful now.
 - Removed **shouldHidePreviousNext** in favor of **previousNextDisplayMode**.
 
-## 4.0.9 (04-04-2017)
+## 4.0.9 (04-04-2017 | 3 months 13 days)
 
 #### Bugfixes:
 
@@ -33,7 +45,7 @@
 - Updated README.md documentation.
 
 
-## 4.0.8 (22-12-2016)
+## 4.0.8 (22-12-2016 | 2 months 3 days)
 
 #### Bugfixes:
 
@@ -62,7 +74,7 @@
 - Added **Carthage Documentation** in README.md file.
 
 
-## 4.0.7 (19-10-2016)
+## 4.0.7 (19-10-2016 | 1 month 3 days)
 
 #### Bugfixes:
 
@@ -73,14 +85,14 @@
 - Added **.swift-version** file for CocoaPods to know swift version of library.
 
 
-## 4.0.6 (16-09-2016)
+## 4.0.6 (16-09-2016 | 23 days)
 
 #### Improvements:
 
 - Updated swift library to **swift 3.0**.
 - Added new next/previous icons for **iOS10**.
 
-## 4.0.5 (24-08-2016)
+## 4.0.5 (24-08-2016 | 2 months)
 
 #### Bugfixes:
 
@@ -102,7 +114,7 @@
 - Updated **MANUAL MANAGEMENT.md** with more examples.
 
 
-## 4.0.4 (25-06-2016)
+## 4.0.4 (25-06-2016 | 1 month 8 days)
 
 #### Bugfixes:
 
@@ -135,7 +147,7 @@
 - Updated **iOS NSNotification Mechanism** documentation mechanism.
 
 
-## 4.0.3 (17-05-2016)
+## 4.0.3 (17-05-2016 | 25 days)
 
 #### Bugfixes:
 
@@ -153,7 +165,7 @@
 - Removed **addTextFieldViewDidBeginEditingNotificationName:didEndEditingNotificationName** method.
 
 
-## 4.0.2 (22-04-2016)
+## 4.0.2 (22-04-2016 | 18 days)
 
 #### Bugfixes:
 
@@ -164,7 +176,7 @@
 - Removed **shouldFixTextViewClip** because this no longer needs since we dropped support for iOS7.
 
 
-## 4.0.1 (04-04-2016)
+## 4.0.1 (04-04-2016 | 2 months 1 day)
 
 #### Improvements:
 
@@ -188,7 +200,7 @@
 - Updated README.
 
 
-## 4.0.0 (13-02-2016)
+## 4.0.0 (13-02-2016 | 8 days)
 
 #### Improvements:
 
@@ -204,7 +216,7 @@
 - Removed deprecated **shouldRestoreScrollViewContentOffset** property.
 
 
-## 3.3.7 (05-02-2016)
+## 3.3.7 (05-02-2016 | 16 days)
 
 #### Bugfixes:
 
@@ -215,7 +227,7 @@
 - Added **toolbarDoneBarButtonItemImage** property.
 
 
-## 3.3.6 (20-01-2016)
+## 3.3.6 (20-01-2016 | 20 days)
 
 #### Bugfixes:
 
@@ -233,7 +245,7 @@
 - Deprecated **shouldRestoreScrollViewContentOffset** of IQKeyboardManager class, this will be remove in future release.
 
 
-## 3.3.5 (31-12-2015)
+## 3.3.5 (31-12-2015 | 2 months 3 days)
 
 #### Bugfixes:
 
@@ -249,7 +261,7 @@
 - **Dropped iOS6 support**.
 
 
-## 3.3.4 (28-10-2015)
+## 3.3.4 (28-10-2015 | 4 days)
 
 #### Improvements:
 
@@ -260,7 +272,7 @@
 - Removed **toolbarManageBehaviour** from **IQKeyboardReturnKeyHandler**, now this will read from **IQKeyboardManager** property.
 
 
-## 3.3.3.1 (24-10-2015)
+## 3.3.3.1 (24-10-2015 | 2 days)
 
 #### Bugfixes:
 
@@ -268,7 +280,7 @@
 - Fixed some more critical crashes happened due to latest updates.
 
 
-## 3.3.3 (22-10-2015)
+## 3.3.3 (22-10-2015 | 1 month 3 days)
 
 #### Bugfixes:
 
@@ -283,14 +295,14 @@
 - **Dropped iOS5 support**.
 
 
-## 3.3.2 (19-09-2015)
+## 3.3.2 (19-09-2015 | 9 days)
 
 #### Improvements:
 
 - Updated swift library to **swift 2.0**.
 
 
-## 3.3.1 (10-09-2015)
+## 3.3.1 (10-09-2015 | 11 days)
 
 #### Bugfixes:
 
@@ -302,7 +314,7 @@
 - Added **UI Test cases**.
 
 
-## 3.3.0 (30-08-2015)
+## 3.3.0 (30-08-2015 | 2 months 26 days)
 
 #### Bugfixes:
 
@@ -314,7 +326,7 @@
 - Added **Carthage Support**.
 
 
-## 3.2.4 (04-06-2015)
+## 3.2.4 (04-06-2015 | 1 month 14 days)
 
 #### Bugfixes:
 
@@ -332,7 +344,7 @@
 - Enhanced **README.md** with more examples.
 
 
-## 3.2.3 (21-04-2015)
+## 3.2.3 (21-04-2015 | 25 days)
 
 #### Bugfixes:
 
@@ -349,7 +361,7 @@
 - Added to go next/previous programmatically, added **canGoPrevious, canGoNext** properties and **goPrevious, goNext** methods.
 
 
-## 3.2.2 (27-03-2015)
+## 3.2.2 (27-03-2015 | 5 days)
 
 #### Bugfixes:
 
@@ -360,14 +372,14 @@
 - Added **shouldRestoreScrollViewContentOffset**.
 
 
-## 3.2.1.2 (22-03-2015)
+## 3.2.1.2 (22-03-2015 | 1 month 10 days)
 
 #### Features:
 
 - Added **disableInViewControllerClass, disableToolbarInViewControllerClass, considerToolbarPreviousNextInViewClass** methods.
 
 
-## 3.2.1.1 (12-02-2015)
+## 3.2.1.1 (12-02-2015 | 1 month 1 day)
 
 #### Bugfixes:
 
@@ -384,7 +396,7 @@
 - **Removed support for Framework**, now developer needs to compile for framework if they need.
 
 
-## 3.2.1.0 (11-01-2015)
+## 3.2.1.0 (11-01-2015 | 1 month 6 days)
 
 #### Bugfixes:
 
@@ -402,7 +414,7 @@
 - Improved swift version with recommended style guide.
 
 
-## 3.2.0.3 (05-12-2014)
+## 3.2.0.3 (05-12-2014 | 1 month 6 days)
 
 #### Bugfixes:
 
@@ -413,7 +425,7 @@
 - Added **isAskingCanBecomeFirstResponder** for a workaround with **textFieldShouldBeginEditing** delegate method.
 
 
-## 3.2.0.2 (29-10-2014)
+## 3.2.0.2 (29-10-2014 | 15 days)
 
 #### Bugfixes:
 
@@ -438,7 +450,7 @@
 - Improved README and added some more documentation on how to use library.
 
 
-## 3.2.0.1 (14-10-2014)
+## 3.2.0.1 (14-10-2014 | 16 days)
 
 #### Bugfixes:
 
@@ -453,7 +465,7 @@
 - Improve distance calculation logic with status bar frame.
 
 
-## 3.2.0 (28-09-2014)
+## 3.2.0 (28-09-2014 | 12 days)
 
 #### Bugfixes:
 
@@ -475,7 +487,7 @@
 - Added **Swift** version support.
 
 
-## 3.1.1 (16-09-2014)
+## 3.1.1 (16-09-2014 | 18 days)
 
 #### Bugfixes:
 
@@ -491,14 +503,14 @@
 - Updated documentation regarding **IQKeyboardReturnKeyHandler**.
 
 
-## 3.1.0 (29-08-2014)
+## 3.1.0 (29-08-2014 | 2 days)
 
 #### Features:
 
 - Added **IQKeyboardReturnKeyHandler**.
 
 
-## 3.0.8 (27-08-2014)
+## 3.0.8 (27-08-2014 | 1 months 28 days)
 
 #### Bugfixes:
 
@@ -506,14 +518,14 @@
 - Reverted UIToolbar resizing related fixes done with 3.0.6.
 
 
-## 3.0.7 (30-06-2014)
+## 3.0.7 (30-06-2014 | 1 day)
 
 #### Bugfixes:
 
 - Fixed an issue with detecting UISearchBar textField.
 
 
-## 3.0.6 (29-06-2014)
+## 3.0.6 (29-06-2014 | 1 month 24 days)
 
 #### Bugfixes:
 
@@ -525,7 +537,7 @@
 - Enhanced demo app.
 
 
-## 3.0.5 (05-05-2014)
+## 3.0.5 (05-05-2014 | 1 month 4 days)
 
 #### Features:
 
@@ -533,7 +545,7 @@
 - Added **shouldHideTitle** property in IQUIView+IQKeyboardToolbar.
 
 
-## 3.0.4 (01-04-2014)
+## 3.0.4 (01-04-2014 | 11 days)
 
 #### Bugfixes:
 
@@ -550,14 +562,14 @@
 - Improved documentation for **Manual Management**.
 
 
-## 3.0.3 (21-03-2014)
+## 3.0.3 (21-03-2014 | 8 days)
 
 #### Bugfixes:
 
 - Fixed a bug with resetting textView frame when orientation.
 
 
-## 3.0.2 (13-03-2014)
+## 3.0.2 (13-03-2014 | 7 days)
 
 #### Bugfixes:
 
@@ -568,7 +580,7 @@
 - Added **shouldAdoptDefaultKeyboardAnimation** property.
 
 
-## 3.0.1 (06-03-2014)
+## 3.0.1 (06-03-2014 | 9 days)
 
 #### Bugfixes:
 
@@ -589,14 +601,14 @@
 - Updated **README.md** with video link.
 
 
-## 3.0.0 (25-02-2014)
+## 3.0.0 (25-02-2014 | 10 days)
 
 #### Features:
 
 - Added **shouldShowTextFieldPlaceholder** property.
 
 
-## 2.6 (15-02-2014)
+## 2.6 (15-02-2014 | 1 month 14 days)
 
 #### Bugfixes:
 
@@ -608,7 +620,7 @@
 - Added **UITableView** support.
 
 
-## 2.2 (01-01-2014)
+## 2.2 (01-01-2014 | 19 days)
 
 #### Bugfixes:
 
@@ -625,14 +637,14 @@
 - Added how to use example.
 
 
-## 2.1 (13-12-2013)
+## 2.1 (13-12-2013 | 2 days)
 
 #### Features:
 
 - Added **UIScrollView** support.
 
 
-## 2.0 (11-12-2013)
+## 2.0 (11-12-2013 | 4 months 6 days)
 
 #### Features:
 
@@ -642,7 +654,7 @@
 - **sharedInstance** support.
 
 
-## 1.0 (25-12-2013)
+## 1.0 (25-08-2013 | Initial Release)
 
 #### Bugfixes:
 
