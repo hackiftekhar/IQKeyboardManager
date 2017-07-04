@@ -84,8 +84,8 @@ open class IQTextView : UITextView {
         super.layoutSubviews()
         
         if let unwrappedPlaceholderLabel = placeholderLabel {
-            unwrappedPlaceholderLabel.sizeToFit()
             unwrappedPlaceholderLabel.frame = CGRect(x: 4, y: 8, width: self.frame.width-16, height: unwrappedPlaceholderLabel.frame.height)
+            unwrappedPlaceholderLabel.sizeToFit()
         }
     }
 
