@@ -20,7 +20,7 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 [![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/pr?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
 [![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/issue?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
 
-1) `**CODELESS**, Zero Line Of Code`
+1) `**CODELESS**, Zero Lines Of Code`
 
 2) `Works Automatically`
 
