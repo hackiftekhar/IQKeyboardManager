@@ -72,15 +72,15 @@
     }
     
     UIResponder *matchController = [self viewController];
-    
-    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
-    {
-        do
-        {
-            matchController = [matchController nextResponder];
-            
-        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
-    }
+    //by ZY 解决sb开发的UI在键盘弹出时导致navigationbar上移的问题
+//    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
+//    {
+//        do
+//        {
+//            matchController = [matchController nextResponder];
+//            
+//        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
+//    }
     
     return (UIViewController*)matchController;
 }
