@@ -1,5 +1,7 @@
 ## master (xx-xx-xxxx)
 
+## 4.0.11 (27-07-2017 | 1 month 27 days)
+
 #### Bugfixes:
 
 - Removed some more references of **private API's**(We previously added those non-public API's for workarounds #865).
@@ -8,6 +10,7 @@
 
 #### Improvements:
 - Splitted storyboard into multiple storyboard to improve demo performance.
+- Added brief flow diagram for quick understanding.
 
 #### Deprecations and Removed:
 - Removed **isAskingCanBecomeFirstResponder** because this no longer useful now.
