@@ -282,8 +282,18 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
-    open var shouldShowTextFieldPlaceholder = true
-    
+    @available(*,deprecated, message: "This is renamed to `shouldShowToolbarPlaceholder` for more clear naming.")
+    open var shouldShowTextFieldPlaceholder: Bool {
+        
+        set {
+            shouldShowToolbarPlaceholder =  newValue
+        }
+        get {
+            return shouldShowToolbarPlaceholder
+        }
+    }
+    open var shouldShowToolbarPlaceholder = true
+
     /**
     Placeholder Font. Default is nil.
     */
@@ -1951,14 +1961,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             }
 
                             if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                                textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             }
                                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                             else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             } else {
                                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             }
                             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
                         }
@@ -1969,20 +1979,20 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                     
                                     if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
                                         if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
-                                            textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                            textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                             needReload = true
                                         }
                                     }
                                         //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                                     else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
                                         if toolbar.doneTitle != doneBarButtonItemText {
-                                            textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                            textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                             needReload = true
                                         }
                                     } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
                                         (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
                                         //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                        textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                        textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                         needReload = true
                                     }
                                     textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
@@ -2039,13 +2049,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true &&
-                            textField.shouldHidePlaceholderText == false {
+                        if shouldShowToolbarPlaceholder == true &&
+                            textField.shouldHideToolbarPlaceholder == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.title == nil ||
-                                toolbar.title != textField.drawingPlaceholderText {
-                                toolbar.title = textField.drawingPlaceholderText
+                                toolbar.title != textField.drawingToolbarPlaceholder {
+                                toolbar.title = textField.drawingToolbarPlaceholder
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)
@@ -2083,14 +2093,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                             //Supporting Custom Done button image (Enhancement ID: #366)
                             if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: doneBarButtonItemImage, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: doneBarButtonItemImage, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             }
                                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                             else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: doneBarButtonItemText, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: doneBarButtonItemText, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             } else {
                                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             }
                         }
                         else if let toolbar = textField.inputAccessoryView as? IQToolbar {
@@ -2098,20 +2108,20 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
                                 if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
                                     if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
-                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: toolbarDoneBarButtonItemImage!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: toolbarDoneBarButtonItemImage!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                         needReload = true
                                     }
                                 }
                                     //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                                 else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
                                     if toolbar.doneTitle != doneBarButtonItemText {
-                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: toolbarDoneBarButtonItemText!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: toolbarDoneBarButtonItemText!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                         needReload = true
                                     }
                                 } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
                                     (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
                                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                    textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                                    textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                                     needReload = true
                                 }
                             }
@@ -2167,13 +2177,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         }
                         
                         //Setting toolbar title font.   //  (Enhancement ID: #30)
-                        if shouldShowTextFieldPlaceholder == true &&
-                            textField.shouldHidePlaceholderText == false {
+                        if shouldShowToolbarPlaceholder == true &&
+                            textField.shouldHideToolbarPlaceholder == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
                             if toolbar.title == nil ||
-                                toolbar.title != textField.drawingPlaceholderText {
-                                toolbar.title = textField.drawingPlaceholderText
+                                toolbar.title != textField.drawingToolbarPlaceholder {
+                                toolbar.title = textField.drawingToolbarPlaceholder
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)

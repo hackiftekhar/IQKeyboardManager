@@ -19,7 +19,7 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField3.placeholderText = "This is the customised placeholder title for displaying as toolbar title"
+        textField3.toolbarPlaceholder = "This is the customised placeholder title for displaying as toolbar title"
 
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
@@ -34,7 +34,7 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
     }
     
     @IBAction func shouldHideTitle(_ sender : UISwitch!) {
-        textField2.shouldHidePlaceholderText = !textField2.shouldHidePlaceholderText;
+        textField2.shouldHideToolbarPlaceholder = !textField2.shouldHideToolbarPlaceholder;
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

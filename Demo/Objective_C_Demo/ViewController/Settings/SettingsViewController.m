@@ -102,7 +102,7 @@
 
 - (void)shouldShowTextFieldPlaceholder:(UISwitch *)sender
 {
-    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:sender.on];
+    [[IQKeyboardManager sharedManager] setShouldShowToolbarPlaceholder:sender.on];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
@@ -185,7 +185,7 @@
             {
                 return 1;
             }
-            else if ([[IQKeyboardManager sharedManager] shouldShowTextFieldPlaceholder] == NO)
+            else if ([[IQKeyboardManager sharedManager] shouldShowToolbarPlaceholder] == NO)
             {
                 return 4;
             }
@@ -308,7 +308,7 @@
                     cell.switchEnable.enabled = YES;
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
-                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldShowTextFieldPlaceholder];
+                    cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldShowToolbarPlaceholder];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                     [cell.switchEnable addTarget:self action:@selector(shouldShowTextFieldPlaceholder:) forControlEvents:UIControlEventValueChanged];
                     return cell;

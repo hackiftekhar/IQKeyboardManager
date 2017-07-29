@@ -43,10 +43,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
-private var kIQShouldHidePlaceholderText    = "kIQShouldHidePlaceholderText"
-private var kIQPlaceholderText              = "kIQPlaceholderText"
-
+private var kIQShouldHideToolbarPlaceholder = "kIQShouldHideToolbarPlaceholder"
+private var kIQToolbarPlaceholder           = "kIQToolbarPlaceholder"
 
 private var kIQTitleInvocationTarget        = "kIQTitleInvocationTarget"
 private var kIQTitleInvocationSelector      = "kIQTitleInvocationSelector"
@@ -64,15 +62,15 @@ UIView category methods to add IQToolbar on UIKeyboard.
 public extension UIView {
     
     ///-------------------------
-    /// MARK: Title and Distance
+    /// MARK: Title
     ///-------------------------
     
     /**
-    If `shouldHidePlaceholderText` is YES, then title will not be added to the toolbar. Default to NO.
+    If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
     */
-    public var shouldHidePlaceholderText: Bool {
+    public var shouldHideToolbarPlaceholder: Bool {
         get {
-            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHidePlaceholderText) as AnyObject?
+            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHideToolbarPlaceholder) as AnyObject?
             
             if let unwrapedValue = aValue as? Bool {
                 return unwrapedValue
@@ -81,47 +79,67 @@ public extension UIView {
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldHidePlaceholderText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kIQShouldHideToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.responds(to: #selector(getter: UITextField.placeholder)) {
-                    toolbar.title = self.drawingPlaceholderText
+                    toolbar.title = self.drawingToolbarPlaceholder
                 }
             }
         }
     }
 
-    /**
-     `placeholderText` to override default `placeholder` text when drawing text on toolbar.
-     */
-    public var placeholderText: String? {
+    @available(*,deprecated, message: "This is renamed to `shouldHideToolbarPlaceholder` for more clear naming.")
+    public var shouldHidePlaceholderText: Bool {
         get {
-            let aValue = objc_getAssociatedObject(self, &kIQPlaceholderText) as? String
+            return shouldHideToolbarPlaceholder;
+        }
+        set(newValue) {
+            shouldHideToolbarPlaceholder = newValue;
+        }
+    }
+    
+    /**
+     `toolbarPlaceholder` to override default `placeholder` text when drawing text on toolbar.
+     */
+    public var toolbarPlaceholder: String? {
+        get {
+            let aValue = objc_getAssociatedObject(self, &kIQToolbarPlaceholder) as? String
             
             return aValue
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQPlaceholderText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kIQToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if let toolbar = self.inputAccessoryView as? IQToolbar {
                 if self.responds(to: #selector(getter: UITextField.placeholder)) {
-                    toolbar.title = self.drawingPlaceholderText
+                    toolbar.title = self.drawingToolbarPlaceholder
                 }
             }
         }
     }
 
+    @available(*,deprecated, message: "This is renamed to `toolbarPlaceholder` for more clear naming.")
+    public var placeholderText: String? {
+        get {
+            return toolbarPlaceholder
+        }
+        set(newValue) {
+            toolbarPlaceholder = newValue
+        }
+    }
+    
     /**
-     `drawingPlaceholderText` will be actual text used to draw on toolbar. This would either `placeholder` or `placeholderText`.
+     `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. This would either `placeholder` or `toolbarPlaceholder`.
      */
-    public var drawingPlaceholderText: String? {
+    public var drawingToolbarPlaceholder: String? {
 
-        if (self.shouldHidePlaceholderText)
+        if (self.shouldHideToolbarPlaceholder)
         {
             return nil
         }
-        else if (self.placeholderText?.isEmpty == false) {
-            return self.placeholderText
+        else if (self.toolbarPlaceholder?.isEmpty == false) {
+            return self.toolbarPlaceholder
         }
         else if self.responds(to: #selector(getter: UITextField.placeholder)) {
             
@@ -138,6 +156,12 @@ public extension UIView {
         }
     }
 
+    @available(*,deprecated, message: "This is renamed to `drawingToolbarPlaceholder` for more clear naming.")
+    public var drawingPlaceholderText: String? {
+        
+        return drawingToolbarPlaceholder
+    }
+    
     /**
      Optional target & action to behave toolbar title button as clickable button
      
@@ -328,7 +352,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -377,7 +401,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addDoneOnKeyboardWithTarget(target, action: action, titleText: title)
@@ -408,7 +432,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -459,7 +483,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addRightButtonOnKeyboardWithImage(image, target: target, action: action, titleText: title)
@@ -497,7 +521,7 @@ public extension UIView {
             var items : [UIBarButtonItem] = []
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -547,7 +571,7 @@ public extension UIView {
         var title : String?
 
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: title)
@@ -595,7 +619,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -645,7 +669,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addCancelDoneOnKeyboardWithTarget(target, cancelAction: cancelAction, doneAction: doneAction, titleText: title)
@@ -698,7 +722,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -750,7 +774,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addRightLeftOnKeyboardWithTarget(target, leftButtonTitle: leftButtonTitle, rightButtonTitle: rightButtonTitle, rightButtonAction: rightButtonAction, leftButtonAction: leftButtonAction, titleText: title)
@@ -846,7 +870,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -897,7 +921,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addPreviousNextDoneOnKeyboardWithTarget(target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, titleText: title)
@@ -981,7 +1005,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -1034,7 +1058,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addPreviousNextRightOnKeyboardWithTarget(target, rightButtonImage: rightButtonImage, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)
@@ -1129,7 +1153,7 @@ public extension UIView {
             items.append(UIView.flexibleBarButtonItem())
             
             //Title button
-            let title = IQTitleBarButtonItem(title: shouldHidePlaceholderText == true ? nil : titleText)
+            let title = IQTitleBarButtonItem(title: shouldHideToolbarPlaceholder == true ? nil : titleText)
             items.append(title)
             
             //Flexible space
@@ -1181,7 +1205,7 @@ public extension UIView {
         var title : String?
         
         if shouldShowPlaceholder == true {
-            title = self.drawingPlaceholderText
+            title = self.drawingToolbarPlaceholder
         }
         
         addPreviousNextRightOnKeyboardWithTarget(target, rightButtonTitle: rightButtonTitle, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: title)

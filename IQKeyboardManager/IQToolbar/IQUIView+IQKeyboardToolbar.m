@@ -36,51 +36,71 @@
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
--(void)setShouldHidePlaceholderText:(BOOL)shouldHidePlaceholderText
+-(void)setShouldHideToolbarPlaceholder:(BOOL)shouldHideToolbarPlaceholder
 {
-    objc_setAssociatedObject(self, @selector(shouldHidePlaceholderText), @(shouldHidePlaceholderText), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(shouldHideToolbarPlaceholder), @(shouldHideToolbarPlaceholder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     if ([self respondsToSelector:@selector(placeholder)] && [self.inputAccessoryView respondsToSelector:@selector(setTitle:)])
     {
         UITextField *textField = (UITextField*)self;
         IQToolbar *toolbar = (IQToolbar*)[self inputAccessoryView];
-        toolbar.title = textField.drawingPlaceholderText;
+        toolbar.title = textField.drawingToolbarPlaceholder;
     }
+}
+
+-(BOOL)shouldHideToolbarPlaceholder
+{
+    NSNumber *shouldHideToolbarPlaceholder = objc_getAssociatedObject(self, @selector(shouldHideToolbarPlaceholder));
+    return [shouldHideToolbarPlaceholder boolValue];
+}
+
+-(void)setShouldHidePlaceholderText:(BOOL)shouldHidePlaceholderText
+{
+    [self setShouldHideToolbarPlaceholder:shouldHidePlaceholderText];
 }
 
 -(BOOL)shouldHidePlaceholderText
 {
-    NSNumber *shouldHidePlaceholderText = objc_getAssociatedObject(self, @selector(shouldHidePlaceholderText));
-    return [shouldHidePlaceholderText boolValue];
+    return [self shouldHideToolbarPlaceholder];
 }
 
--(void)setPlaceholderText:(NSString*)placeholderText
+-(void)setToolbarPlaceholder:(NSString *)toolbarPlaceholder
 {
-    objc_setAssociatedObject(self, @selector(placeholderText), placeholderText, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+    objc_setAssociatedObject(self, @selector(toolbarPlaceholder), toolbarPlaceholder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
     if ([self respondsToSelector:@selector(placeholder)] && [self.inputAccessoryView respondsToSelector:@selector(setTitle:)])
     {
         UITextField *textField = (UITextField*)self;
         IQToolbar *toolbar = (IQToolbar*)[self inputAccessoryView];
-        toolbar.title = textField.drawingPlaceholderText;
+        toolbar.title = textField.drawingToolbarPlaceholder;
     }
+}
+
+-(NSString *)toolbarPlaceholder
+{
+    NSString *toolbarPlaceholder = objc_getAssociatedObject(self, @selector(toolbarPlaceholder));
+    return toolbarPlaceholder;
+}
+
+-(void)setPlaceholderText:(NSString*)placeholderText
+{
+    [self setToolbarPlaceholder:placeholderText];
 }
 
 -(NSString*)placeholderText
 {
-    NSString *placeholderText = objc_getAssociatedObject(self, @selector(placeholderText));
-    return placeholderText;
+    return [self toolbarPlaceholder];
 }
 
--(NSString*)drawingPlaceholderText
+-(NSString *)drawingToolbarPlaceholder
 {
-    if (self.shouldHidePlaceholderText)
+    if (self.shouldHideToolbarPlaceholder)
     {
         return nil;
     }
-    else if (self.placeholderText.length != 0)
+    else if (self.toolbarPlaceholder.length != 0)
     {
-        return self.placeholderText;
+        return self.toolbarPlaceholder;
     }
     else if ([self respondsToSelector:@selector(placeholder)])
     {
@@ -90,6 +110,11 @@
     {
         return nil;
     }
+}
+
+-(NSString*)drawingPlaceholderText
+{
+    return [self drawingToolbarPlaceholder];
 }
 
 -(void)setTitleTarget:(nullable id)target action:(nullable SEL)action
@@ -240,7 +265,7 @@
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -264,7 +289,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addRightButtonOnKeyboardWithImage:image target:target action:action titleText:title];
 }
@@ -290,7 +315,7 @@
 	NSMutableArray *items = [[NSMutableArray alloc] init];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -313,7 +338,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addRightButtonOnKeyboardWithText:text target:target action:action titleText:title];
 }
@@ -344,7 +369,7 @@
 	NSMutableArray *items = [[NSMutableArray alloc] init];
 
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -367,7 +392,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addDoneOnKeyboardWithTarget:target action:action titleText:title];
 }
@@ -405,7 +430,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -428,7 +453,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:title];
 }
@@ -464,7 +489,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -487,7 +512,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:title];
 }
@@ -572,7 +597,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -595,7 +620,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:title];
 }
@@ -679,7 +704,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -703,7 +728,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:title];
 }
@@ -782,7 +807,7 @@
     [items addObject:[[self class] flexibleBarButtonItem]];
     
     //Title button
-    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHidePlaceholderText?nil:titleText];
+    IQTitleBarButtonItem *title = [[IQTitleBarButtonItem alloc] initWithTitle:self.shouldHideToolbarPlaceholder?nil:titleText];
     [items addObject:title];
     
     //Flexible space
@@ -805,7 +830,7 @@
     NSString *title = nil;
     
     if (shouldShowPlaceholder)
-        title = [self drawingPlaceholderText];
+        title = [self drawingToolbarPlaceholder];
     
     [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:title];
 }

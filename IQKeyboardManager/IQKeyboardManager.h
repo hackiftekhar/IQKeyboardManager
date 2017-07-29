@@ -142,7 +142,8 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
-@property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder;
+@property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder __attribute__((deprecated("This is renamed to `shouldShowToolbarPlaceholder` for more clear naming.")));
+@property(nonatomic, assign) BOOL shouldShowToolbarPlaceholder;
 
 /**
  Placeholder Font. Default is nil.

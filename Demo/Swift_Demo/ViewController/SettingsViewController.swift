@@ -76,7 +76,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     
     func shouldShowTextFieldPlaceholder (_ sender: UISwitch) {
         
-        IQKeyboardManager.sharedManager().shouldShowTextFieldPlaceholder = sender.isOn
+        IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = sender.isOn
         
         self.tableView.reloadSections(IndexSet(integer: 1), with: UITableViewRowAnimation.fade)
     }
@@ -147,7 +147,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         case 1:
             if IQKeyboardManager.sharedManager().enableAutoToolbar == false {
                 return 1
-            } else if IQKeyboardManager.sharedManager().shouldShowTextFieldPlaceholder == false {
+            } else if IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder == false {
                 return 4
             } else {
                 let properties = keyboardManagerProperties[section]
@@ -289,7 +289,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.labelTitle.text = keyboardManagerProperties[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
                 
-                cell.switchEnable.isOn = IQKeyboardManager.sharedManager().shouldShowTextFieldPlaceholder
+                cell.switchEnable.isOn = IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder
                 
                 cell.switchEnable.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldShowTextFieldPlaceholder(_:)), for: UIControlEvents.valueChanged)
