@@ -177,8 +177,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 ```
-
-
+## Customizing the Keyboard and Toolbar:-
+This module also provides the ability to customize the look of the keyboard. For example if you want to remove the autosuggest toolbar ( IOS 9+ feature) then you just need to add the following to your initialization code in your Appdelegate
+```
+IQKeyboardManager.sharedManager().enableAutoToolbar = false
+```
 ## Known Issues:-
 
 You can find known issues list [here](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/KNOWN%20ISSUES.md).
