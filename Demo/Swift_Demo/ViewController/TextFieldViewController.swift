@@ -35,11 +35,11 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         textView1.delegate = self
-        textField3.setCustomPreviousTarget(self, action: #selector(self.previousAction(_:)))
-        textField3.setCustomNextTarget(self, action: #selector(self.nextAction(_:)))
-        textField3.setCustomDoneTarget(self, action: #selector(self.doneAction(_:)))
+        
+        textField3.keyboardToolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
+        textField3.keyboardToolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
+        textField3.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
         dropDownTextField.keyboardDistanceFromTextField = 150;
         
         var itemLists = [String]()

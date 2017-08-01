@@ -39,9 +39,9 @@
 {
     [super viewDidLoad];
     
-    [textField3 setCustomPreviousTarget:self action:@selector(previousAction:)];
-    [textField3 setCustomNextTarget:self action:@selector(nextAction:)];
-    [textField3 setCustomDoneTarget:self action:@selector(doneAction:)];
+    [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
+    [textField3.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
+    [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
     
     dropDownTextField.keyboardDistanceFromTextField = 150;
     

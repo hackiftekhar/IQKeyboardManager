@@ -528,7 +528,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	previousAction. */
-    internal func previousAction (_ barButton : UIBarButtonItem?) {
+    internal func previousAction (_ barButton : IQBarButtonItem) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -542,17 +542,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let isAcceptAsFirstResponder = goPrevious()
                 
                 if isAcceptAsFirstResponder &&
-                    textFieldRetain.previousInvocation.target != nil &&
-                    textFieldRetain.previousInvocation.action != nil {
+                    barButton.invocation.target != nil &&
+                    barButton.invocation.action != nil {
                     
-                    UIApplication.shared.sendAction(textFieldRetain.previousInvocation.action!, to: textFieldRetain.previousInvocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
     }
     
     /**	nextAction. */
-    internal func nextAction (_ barButton : UIBarButtonItem?) {
+    internal func nextAction (_ barButton : IQBarButtonItem) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -566,17 +566,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let isAcceptAsFirstResponder = goNext()
                 
                 if isAcceptAsFirstResponder &&
-                    textFieldRetain.nextInvocation.target != nil &&
-                    textFieldRetain.nextInvocation.action != nil {
+                    barButton.invocation.target != nil &&
+                    barButton.invocation.action != nil {
                     
-                    UIApplication.shared.sendAction(textFieldRetain.nextInvocation.action!, to: textFieldRetain.nextInvocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
     }
     
     /**	doneAction. Resigning current textField. */
-    internal func doneAction (_ barButton : IQBarButtonItem?) {
+    internal func doneAction (_ barButton : IQBarButtonItem) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -589,10 +589,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let isResignedFirstResponder = resignFirstResponder()
             
             if isResignedFirstResponder &&
-                textFieldRetain.doneInvocation.target != nil &&
-                textFieldRetain.doneInvocation.action != nil{
+                barButton.invocation.target != nil &&
+                barButton.invocation.action != nil{
                 
-                UIApplication.shared.sendAction(textFieldRetain.doneInvocation.action!, to: textFieldRetain.doneInvocation.target, from: textFieldRetain, for: UIEvent())
+                UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
             }
         }
     }
@@ -1833,7 +1833,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**  UIApplicationDidChangeStatusBarFrameNotification. Need to refresh view position and update _topViewBeginRect. (Bug ID: #446)*/
     internal func didChangeStatusBarFrame(_ notification : Notification?) -> Void {
         
-        let oldStatusBarFrame = _statusBarFrame;
+        let oldStatusBarFrame = _statusBarFrame
         
         //  Getting keyboard animation duration
         if let newFrame =  ((notification as NSNotification?)?.userInfo?[UIApplicationStatusBarFrameUserInfoKey] as? NSNumber)?.cgRectValue {
@@ -1946,19 +1946,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 if let textField = _textFieldView {
                     
-                    var needReload = false;
-
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
                     //setInputAccessoryView: check   (Bug ID: #307)
                     if textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
                         
                         if textField.inputAccessoryView == nil ||
-                            textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
-                            //Supporting Custom Done button image (Enhancement ID: #366)
-                            
-                            if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
-                                needReload = true
-                            }
+                            textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
+                            textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
 
                             if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
                                 textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
@@ -1972,39 +1966,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             }
                             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
                         }
-                        else if let toolbar = textField.inputAccessoryView as? IQToolbar {
-                            
-                            if toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                                if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                                    
-                                    if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                                        if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
-                                            textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                            needReload = true
-                                        }
-                                    }
-                                        //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                                    else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                        if toolbar.doneTitle != doneBarButtonItemText {
-                                            textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                            needReload = true
-                                        }
-                                    } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
-                                        (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
-                                        //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                        textField.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                        needReload = true
-                                    }
-                                    textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
-                                }
-                            }
-                        }
                     }
                     
-                    if textField.inputAccessoryView is IQToolbar &&
+                    if textField.inputAccessoryView == textField.keyboardToolbar &&
                         textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        let toolbar = textField.keyboardToolbar
                         
                         //  Setting toolbar to keyboard.
                         if let _textField = textField as? UITextField {
@@ -2053,44 +2020,33 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             textField.shouldHideToolbarPlaceholder == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
-                            if toolbar.title == nil ||
-                                toolbar.title != textField.drawingToolbarPlaceholder {
-                                toolbar.title = textField.drawingToolbarPlaceholder
+                            if toolbar.titleBarButton.title == nil ||
+                                toolbar.titleBarButton.title != textField.drawingToolbarPlaceholder {
+                                toolbar.titleBarButton.title = textField.drawingToolbarPlaceholder
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)
                             if placeholderFont != nil {
-                                toolbar.titleFont = placeholderFont
+                                toolbar.titleBarButton.titleFont = placeholderFont
                             }
                         } else {
                             
-                            toolbar.title = nil
+                            toolbar.titleBarButton.title = nil
                         }
-                    }
-                    
-                    if needReload {
-                        textField.reloadInputViews()
                     }
                 }
             } else if (siblings.count > 1 && previousNextDisplayMode == .Default) || previousNextDisplayMode == .alwaysShow {
                 
                 //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-                for textField in siblings {
+                if let textField = _textFieldView {
                     
-                    var needReload = false;
-
                     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
                     //setInputAccessoryView: check   (Bug ID: #307)
-                    if textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) &&
-                        (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) {
+                    if textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
                         
                         if textField.inputAccessoryView == nil ||
+                            textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
                             textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                            
-                            if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
-                                needReload = true
-                            }
-
                             //Supporting Custom Done button image (Enhancement ID: #366)
                             if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
                                 textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: doneBarButtonItemImage, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
@@ -2103,37 +2059,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             }
                         }
-                        else if let toolbar = textField.inputAccessoryView as? IQToolbar {
-                            
-                            if textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
-                                if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-                                    if toolbar.doneImage?.isEqual(doneBarButtonItemImage) == false {
-                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: toolbarDoneBarButtonItemImage!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                        needReload = true
-                                    }
-                                }
-                                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                                else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                    if toolbar.doneTitle != doneBarButtonItemText {
-                                        textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: toolbarDoneBarButtonItemText!, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                        needReload = true
-                                    }
-                                } else if (toolbarDoneBarButtonItemText == nil && toolbar.doneTitle != nil) ||
-                                    (toolbarDoneBarButtonItemImage == nil && toolbar.doneImage != nil) {
-                                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                                    textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
-                                    needReload = true
-                                }
-                            }
-                        }
 
                         textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
                    }
                     
-                    if textField.inputAccessoryView is IQToolbar &&
+                    if textField.inputAccessoryView == textField.keyboardToolbar &&
                         textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
                         
-                        let toolbar = textField.inputAccessoryView as! IQToolbar
+                        let toolbar = textField.keyboardToolbar
                         
                         //  Setting toolbar to keyboard.
                         if let _textField = textField as? UITextField {
@@ -2181,19 +2114,19 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             textField.shouldHideToolbarPlaceholder == false {
                             
                             //Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
-                            if toolbar.title == nil ||
-                                toolbar.title != textField.drawingToolbarPlaceholder {
-                                toolbar.title = textField.drawingToolbarPlaceholder
+                            if toolbar.titleBarButton.title == nil ||
+                                toolbar.titleBarButton.title != textField.drawingToolbarPlaceholder {
+                                toolbar.titleBarButton.title = textField.drawingToolbarPlaceholder
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)
                             if placeholderFont != nil {
-                                toolbar.titleFont = placeholderFont
+                                toolbar.titleBarButton.titleFont = placeholderFont
                             }
                         }
                         else {
                             
-                            toolbar.title = nil
+                            toolbar.titleBarButton.title = nil
                         }
 
                         //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
@@ -2209,10 +2142,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         } else {
                             textField.setEnablePrevious(true, isNextEnabled: true)
                         }
-                    }
-
-                    if needReload {
-                        textField.reloadInputViews()
                     }
                 }
             }

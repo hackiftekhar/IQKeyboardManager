@@ -8,7 +8,8 @@
 
 #import "ManualToolbarViewController.h"
 #import "IQUIView+IQKeyboardToolbar.h"
-
+#import "IQToolbar.h"
+#import "IQTitleBarButtonItem.h"
 
 @interface ManualToolbarViewController ()<UIPopoverPresentationControllerDelegate>
 
@@ -41,7 +42,7 @@
 
     [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
 
-    [self.textField4 setTitleTarget:self action:@selector(titleAction:)];
+    [self.textField4.keyboardToolbar.titleBarButton setTarget:self action:@selector(titleAction:)];
     self.textField4.toolbarPlaceholder = @"Saved Users";
     
     [self.textField4 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];

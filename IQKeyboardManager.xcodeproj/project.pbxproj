@@ -31,7 +31,7 @@
 		4CD2C4EB1C5A63A300975A7A /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4CB1C5A63A300975A7A /* IQTextView.m */; };
 		4CD2C4EC1C5A63A300975A7A /* IQBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4CD1C5A63A300975A7A /* IQBarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD2C4ED1C5A63A300975A7A /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4CE1C5A63A300975A7A /* IQBarButtonItem.m */; };
-		4CD2C4EE1C5A63A300975A7A /* IQTitleBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4CF1C5A63A300975A7A /* IQTitleBarButtonItem.h */; };
+		4CD2C4EE1C5A63A300975A7A /* IQTitleBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4CF1C5A63A300975A7A /* IQTitleBarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD2C4EF1C5A63A300975A7A /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4D01C5A63A300975A7A /* IQTitleBarButtonItem.m */; };
 		4CD2C4F01C5A63A300975A7A /* IQToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4D11C5A63A300975A7A /* IQToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD2C4F11C5A63A300975A7A /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4D21C5A63A300975A7A /* IQToolbar.m */; };

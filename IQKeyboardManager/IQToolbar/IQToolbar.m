@@ -23,14 +23,15 @@
 
 #import "IQToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
-#import "IQTitleBarButtonItem.h"
 #import "IQUIView+Hierarchy.h"
 
 #import <UIKit/UIViewController.h>
 
 @implementation IQToolbar
-@synthesize titleFont = _titleFont;
-@synthesize title = _title;
+@synthesize previousBarButton = _previousBarButton;
+@synthesize nextBarButton = _nextBarButton;
+@synthesize titleBarButton = _titleBarButton;
+@synthesize doneBarButton = _doneBarButton;
 
 +(void)initialize
 {
@@ -85,6 +86,51 @@
     return self;
 }
 
+-(IQBarButtonItem *)previousBarButton
+{
+    if (_previousBarButton == nil)
+    {
+        _previousBarButton = [[IQBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:nil action:nil];
+        _previousBarButton.accessibilityLabel = @"Toolbar Previous Button";
+    }
+    
+    return _previousBarButton;
+}
+
+-(IQBarButtonItem *)nextBarButton
+{
+    if (_nextBarButton == nil)
+    {
+        _nextBarButton = [[IQBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:nil action:nil];
+        _nextBarButton.accessibilityLabel = @"Toolbar Next Button";
+    }
+    
+    return _nextBarButton;
+}
+
+-(IQTitleBarButtonItem *)titleBarButton
+{
+    if (_titleBarButton == nil)
+    {
+        _titleBarButton = [[IQTitleBarButtonItem alloc] initWithTitle:nil];
+        _titleBarButton.accessibilityLabel = @"Toolbar Title Button";
+    }
+    
+    return _titleBarButton;
+}
+
+-(IQBarButtonItem *)doneBarButton
+{
+    if (_doneBarButton == nil)
+    {
+        _doneBarButton = [[IQBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleDone target:nil action:nil];
+        _doneBarButton.accessibilityLabel = @"Toolbar Done Button";
+    }
+    
+    return _doneBarButton;
+}
+
+
 -(CGSize)sizeThatFits:(CGSize)size
 {
     CGSize sizeThatFit = [super sizeThatFits:size];
@@ -98,21 +144,13 @@
 {
     [super setBarStyle:barStyle];
     
-    for (UIBarButtonItem *item in self.items)
+    if (barStyle == UIBarStyleDefault)
     {
-        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
-        {
-            if (barStyle == UIBarStyleDefault)
-            {
-                [(IQTitleBarButtonItem*)item setSelectableTextColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0]];
-            }
-            else
-            {
-                [(IQTitleBarButtonItem*)item setSelectableTextColor:[UIColor yellowColor]];
-            }
-            
-            break;
-        }
+        [self.titleBarButton setSelectableTextColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0]];
+    }
+    else
+    {
+        [self.titleBarButton setSelectableTextColor:[UIColor yellowColor]];
     }
 }
 
@@ -123,62 +161,6 @@
     for (UIBarButtonItem *item in self.items)
     {
         [item setTintColor:tintColor];
-    }
-}
-
--(void)setTitleFont:(UIFont *)titleFont
-{
-    _titleFont = titleFont;
-    
-    for (UIBarButtonItem *item in self.items)
-    {
-        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
-        {
-            [(IQTitleBarButtonItem*)item setFont:titleFont];
-            break;
-        }
-    }
-}
-
--(void)setTitle:(NSString *)title
-{
-    _title = title;
-    
-    for (UIBarButtonItem *item in self.items)
-    {
-        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
-        {
-            [(IQTitleBarButtonItem*)item setTitle:title];
-            break;
-        }
-    }
-}
-
--(void)setTitleTarget:(nullable id)target action:(nullable SEL)action
-{
-    NSInvocation *invocation = nil;
-    
-    if (target && action)
-    {
-        invocation = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:action]];
-        invocation.target = target;
-        invocation.selector = action;
-    }
-    
-    self.titleInvocation = invocation;
-}
-
--(void)setTitleInvocation:(NSInvocation*)invocation
-{
-    _titleInvocation = invocation;
-
-    for (UIBarButtonItem *item in self.items)
-    {
-        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
-        {
-            [(IQTitleBarButtonItem*)item setTitleInvocation:_titleInvocation];
-            break;
-        }
     }
 }
 

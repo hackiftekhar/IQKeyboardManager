@@ -113,11 +113,11 @@ public extension UIView {
                     if unwrappedSuperView.superview?.isKind(of: UITableView.self) == false &&
                         unwrappedSuperView.superview?.isKind(of: UITableViewCell.self) == false &&
                         classNameString.hasPrefix("_") == false {
-                        return superView;
+                        return superView
                     }
                 }
                 else {
-                    return superView;
+                    return superView
                 }
             }
             

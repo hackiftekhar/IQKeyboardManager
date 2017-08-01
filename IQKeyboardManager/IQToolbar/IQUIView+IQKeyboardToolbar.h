@@ -23,8 +23,7 @@
 
 
 #import <UIKit/UIView.h>
-
-@class UIBarButtonItem;
+#import "IQToolbar.h"
 
 /**
  UIView category methods to add IQToolbar on UIKeyboard.
@@ -34,6 +33,11 @@
 ///-------------------------
 /// @name Toolbar Title
 ///-------------------------
+
+/**
+ IQToolbar references for better customization control.
+ */
+@property (readonly, nonatomic, nonnull) IQToolbar *keyboardToolbar;
 
 /**
  If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
@@ -52,63 +56,6 @@
  */
 @property (nullable, strong, nonatomic, readonly) NSString* drawingToolbarPlaceholder;
 @property (nullable, strong, nonatomic, readonly) NSString* drawingPlaceholderText __attribute__((deprecated("This is renamed to `drawingToolbarPlaceholder` for more clear naming.")));
-
-/**
- Optional target & action to behave toolbar title button as clickable button
- 
- @param target Target object.
- @param action Target Selector.
- */
--(void)setTitleTarget:(nullable id)target action:(nullable SEL)action;
-
-/**
- Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
- */
-@property (nullable, strong, nonatomic) NSInvocation *titleInvocation;
-
-
-///-----------------------------------------
-/// @name Customised Invocation Registration
-///-----------------------------------------
-
-/**
- Additional target & action to do get callback action. Note that setting custom `previous` selector doesn't affect native `previous` functionality, this is just used to notifiy user to do additional work according to need.
- 
- @param target Target object.
- @param action Target Selector.
- */
--(void)setCustomPreviousTarget:(nullable id)target action:(nullable SEL)action;
-
-/**
- Additional target & action to do get callback action. Note that setting custom `next` selector doesn't affect native `next` functionality, this is just used to notifiy user to do additional work according to need.
- 
- @param target Target object.
- @param action Target Selector.
- */
--(void)setCustomNextTarget:(nullable id)target action:(nullable SEL)action;
-
-/**
- Additional target & action to do get callback action. Note that setting custom `done` selector doesn't affect native `done` functionality, this is just used to notifiy user to do additional work according to need.
- 
- @param target Target object.
- @param action Target Selector.
- */
--(void)setCustomDoneTarget:(nullable id)target action:(nullable SEL)action;
-
-/**
- Customized Invocation to be called on previous arrow action. previousInvocation is internally created using setCustomPreviousTarget:action: method.
- */
-@property (nullable, strong, nonatomic) NSInvocation *previousInvocation;
-
-/**
- Customized Invocation to be called on next arrow action. nextInvocation is internally created using setCustomNextTarget:action: method.
- */
-@property (nullable, strong, nonatomic) NSInvocation *nextInvocation;
-
-/**
- Customized Invocation to be called on done action. doneInvocation is internally created using setCustomDoneTarget:action: method.
- */
-@property (nullable, strong, nonatomic) NSInvocation *doneInvocation;
 
 ///------------
 /// @name Done
