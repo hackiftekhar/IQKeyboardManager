@@ -107,8 +107,13 @@
 {
     [super layoutSubviews];
 
-    [placeHolderLabel sizeToFit];
-    placeHolderLabel.frame = CGRectMake(4, 8, CGRectGetWidth(self.frame)-16, CGRectGetHeight(placeHolderLabel.frame));
+    CGFloat offsetLeft = self.textContainerInset.left + textContainer.lineFragmentPadding;
+    CGFloat offsetRight = self.textContainerInset.right + textContainer.lineFragmentPadding;
+    CGFloat offsetTop = self.textContainerInset.top;
+    CGFloat offsetBottom = self.textContainerInset.bottom;
+
+    CGSize expectedSize = [placeHolderLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame)-offsetLeft-offsetRight, CGRectGetHeight(self.frame)-offsetTop-offsetBottom)];
+    placeHolderLabel.frame = CGRectMake(offsetLeft, offsetTop, expectedSize.width, expectedSize.height);
 }
 
 -(void)setPlaceholder:(NSString *)placeholder
