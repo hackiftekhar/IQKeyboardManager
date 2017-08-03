@@ -1926,6 +1926,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag)))
         {
             textField.inputAccessoryView = nil;
+            [textField reloadInputViews];
         }
     }
 

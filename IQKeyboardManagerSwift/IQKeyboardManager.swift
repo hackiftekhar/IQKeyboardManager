@@ -2106,8 +2106,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         if let textField = view as? UITextField {
                             textField.inputAccessoryView = nil
+                            textField.reloadInputViews();
                         } else if let textView = view as? UITextView {
                             textView.inputAccessoryView = nil
+                            textView.reloadInputViews();
                         }
                     }
                 }
