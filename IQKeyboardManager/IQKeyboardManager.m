@@ -1764,88 +1764,63 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
-    //	If only one object is found, then adding only Done button.
-    if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
+    //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+    //setInputAccessoryView: check   (Bug ID: #307)
+    if ([_textFieldView respondsToSelector:@selector(setInputAccessoryView:)])
     {
-        UITextField *textField = (UITextField*)_textFieldView;
-        
-        //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-        //setInputAccessoryView: check   (Bug ID: #307)
-        if ([textField respondsToSelector:@selector(setInputAccessoryView:)])
+        if ([_textFieldView inputAccessoryView] == nil ||
+            [[_textFieldView inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag ||
+            [[_textFieldView inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
         {
-            BOOL needReload = NO;
+            UITextField *textField = (UITextField*)_textFieldView;
 
-            if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag)
+            //	If only one object is found, then adding only Done button.
+            if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarDoneBarButtonItemImage)
                 {
                     [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                    needReload = YES;
                 }
                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                 else if (_toolbarDoneBarButtonItemText)
                 {
                     [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                    needReload = YES;
                 }
                 else
                 {
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                     [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                    needReload = YES;
                 }
                 textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
-            else if (textField.inputAccessoryView == textField.keyboardToolbar &&
-                     ([[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag))
+            //If there is multiple siblings of textField
+            else if ((siblings.count && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
             {
-                IQToolbar *toolbar = textField.keyboardToolbar;
-                
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarDoneBarButtonItemImage)
                 {
-                    if ([toolbar.doneBarButton.image isEqual:_toolbarDoneBarButtonItemImage] == NO)
-                    {
-                        [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
+                    [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
                 }
                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                else if (_toolbarDoneBarButtonItemText &&
-                         [toolbar.doneBarButton.title isEqualToString:_toolbarDoneBarButtonItemText] == NO)
+                else if (_toolbarDoneBarButtonItemText)
                 {
-                    if ([toolbar.doneBarButton.title isEqualToString:_toolbarDoneBarButtonItemText] == NO)
-                    {
-                        [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
+                    [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
                 }
-                else if ((_toolbarDoneBarButtonItemText == nil && toolbar.doneBarButton.title) ||
-                         (_toolbarDoneBarButtonItemImage == nil && toolbar.doneBarButton.image))
+                else
                 {
                     //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                    [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                    needReload = YES;
+                    [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
                 }
-                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+                textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
             }
             
-            if (needReload)
-            {
-                [textField reloadInputViews];
-            }
-        }
-        
-        if (textField.inputAccessoryView == textField.keyboardToolbar &&
-            textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
-        {
             IQToolbar *toolbar = textField.keyboardToolbar;
             
             //Bar style according to keyboard appearance
             if ([textField respondsToSelector:@selector(keyboardAppearance)])
             {
-                switch ([(UITextField*)textField keyboardAppearance])
+                switch ([textField keyboardAppearance])
                 {
                     case UIKeyboardAppearanceAlert:
                     {
@@ -1873,144 +1848,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     }
                         break;
                 }
-            }
-            
-            //If need to show placeholder
-            if (_shouldShowToolbarPlaceholder &&
-                textField.shouldHideToolbarPlaceholder == NO)
-            {
-                //Updating placeholder     //(Bug ID: #148, #272)
-                if (toolbar.titleBarButton.title == nil ||
-                    [toolbar.titleBarButton.title isEqualToString:textField.drawingToolbarPlaceholder] == NO)
-                {
-                    [toolbar.titleBarButton setTitle:textField.drawingToolbarPlaceholder];
-                }
-                
-                //Setting toolbar title font.   //  (Enhancement ID: #30)
-                if (_placeholderFont &&
-                    [_placeholderFont isKindOfClass:[UIFont class]])
-                {
-                    [toolbar.titleBarButton setTitleFont:_placeholderFont];
-                }
-            }
-            else
-            {
-                //Updating placeholder     //(Bug ID: #272)
-                toolbar.titleBarButton.title = nil;
-            }
-        }
-    }
-    else if ((siblings.count && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
-    {
-        UIView *textField = _textFieldView;
-        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
-//        for (UITextField *textField in siblings)
-        {
-            //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
-            //setInputAccessoryView: check   (Bug ID: #307)
-            if ([textField respondsToSelector:@selector(setInputAccessoryView:)])
-            {
-                BOOL needReload = NO;
-
-                if ((![textField inputAccessoryView] ||
-                     [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag))
-                {
-                    //Supporting Custom Done button image (Enhancement ID: #366)
-                    if (_toolbarDoneBarButtonItemImage)
-                    {
-                        [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
-                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                    else if (_toolbarDoneBarButtonItemText)
-                    {
-                        [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
-                    else
-                    {
-                        //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                        [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
-                    textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-                }
-                else if (textField.inputAccessoryView == textField.keyboardToolbar &&
-                         ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
-                {
-                    IQToolbar *toolbar = textField.keyboardToolbar;
-                
-                    //Supporting Custom Done button image (Enhancement ID: #366)
-                    if (_toolbarDoneBarButtonItemImage)
-                    {
-                        if ([toolbar.doneBarButton.image isEqual:_toolbarDoneBarButtonItemImage] == NO)
-                        {
-                            [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                            needReload = YES;
-                        }
-                    }
-                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                    else if (_toolbarDoneBarButtonItemText)
-                    {
-                        if ([toolbar.doneBarButton.title isEqualToString:_toolbarDoneBarButtonItemText] == NO)
-                        {
-                            [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                            needReload = YES;
-                        }
-                    }
-                    else if ((_toolbarDoneBarButtonItemText == nil && toolbar.doneBarButton.title) ||
-                             (_toolbarDoneBarButtonItemImage == nil && toolbar.doneBarButton.image))
-                    {
-                        //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                        [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                        needReload = YES;
-                    }
-                    textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-                }
-
-                if (needReload)
-                {
-                    [textField reloadInputViews];
-                }
-            }
-            
-            if (textField.inputAccessoryView == textField.keyboardToolbar &&
-                textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
-            {
-                IQToolbar *toolbar = textField.keyboardToolbar;
-                
-                //Bar style according to keyboard appearance
-                if ([textField respondsToSelector:@selector(keyboardAppearance)])
-                {
-                    switch ([(UITextField*)textField keyboardAppearance])
-                    {
-                        case UIKeyboardAppearanceAlert:
-                        {
-                            toolbar.barStyle = UIBarStyleBlack;
-                            [toolbar setTintColor:[UIColor whiteColor]];
-                        }
-                            break;
-                        default:
-                        {
-                            toolbar.barStyle = UIBarStyleDefault;
-                            
-                            //Setting toolbar tintColor //  (Enhancement ID: #30)
-                            if (_shouldToolbarUsesTextFieldTintColor)
-                            {
-                                toolbar.tintColor = [textField tintColor];
-                            }
-                            else if (_toolbarTintColor)
-                            {
-                                toolbar.tintColor = _toolbarTintColor;
-                            }
-                            else
-                            {
-                                toolbar.tintColor = [UIColor blackColor];
-                            }
-                        }
-                            break;
-                    }
-                }
                 
                 //If need to show placeholder
                 if (_shouldShowToolbarPlaceholder &&
@@ -2035,29 +1872,29 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     //Updating placeholder     //(Bug ID: #272)
                     toolbar.titleBarButton.title = nil;
                 }
+            }
 
-                //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
-                //	If firstTextField, then previous should not be enabled.
-                if (siblings[0] == textField)
+            //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
+            //	If firstTextField, then previous should not be enabled.
+            if (siblings[0] == textField)
+            {
+                if (siblings.count == 1)
                 {
-                    if (siblings.count == 1)
-                    {
-                        [textField setEnablePrevious:NO next:NO];
-                    }
-                    else
-                    {
-                        [textField setEnablePrevious:NO next:YES];
-                    }
-                }
-                //	If lastTextField then next should not be enaled.
-                else if ([siblings lastObject] == textField)
-                {
-                    [textField setEnablePrevious:YES next:NO];
+                    [textField setEnablePrevious:NO next:NO];
                 }
                 else
                 {
-                    [textField setEnablePrevious:YES next:YES];
+                    [textField setEnablePrevious:NO next:YES];
                 }
+            }
+            //	If lastTextField then next should not be enaled.
+            else if ([siblings lastObject] == textField)
+            {
+                [textField setEnablePrevious:YES next:NO];
+            }
+            else
+            {
+                [textField setEnablePrevious:YES next:YES];
             }
         }
     }

@@ -290,7 +290,7 @@ static inline CGFloat YYTextCGAffineTransformGetTranslateY(CGAffineTransform tra
  
  @see http://stackoverflow.com/questions/13291796/calculate-values-for-a-cgaffinetransform-from-three-points-in-each-of-two-uiview
  */
-CGAffineTransform YYTextCGAffineTransformGetFromPoints(CGPoint before[3], CGPoint after[3]);
+CGAffineTransform YYTextCGAffineTransformGetFromPoints(CGPoint before[_Nonnull 3], CGPoint after[_Nonnull 3]);
 
 /// Get the transform which can converts a point from the coordinate system of a given view to another.
 CGAffineTransform YYTextCGAffineTransformGetFromViews(UIView *from, UIView *to);
