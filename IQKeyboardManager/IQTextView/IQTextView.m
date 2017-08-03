@@ -107,8 +107,8 @@
 {
     [super layoutSubviews];
 
-    CGFloat offsetLeft = self.textContainerInset.left + textContainer.lineFragmentPadding;
-    CGFloat offsetRight = self.textContainerInset.right + textContainer.lineFragmentPadding;
+    CGFloat offsetLeft = self.textContainerInset.left + self.textContainer.lineFragmentPadding;
+    CGFloat offsetRight = self.textContainerInset.right + self.textContainer.lineFragmentPadding;
     CGFloat offsetTop = self.textContainerInset.top;
     CGFloat offsetBottom = self.textContainerInset.bottom;
 
