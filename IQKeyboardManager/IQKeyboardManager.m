@@ -81,12 +81,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To save topBottomLayoutConstraint original constraint reference */
 @property(nonatomic, weak) NSLayoutConstraint   *layoutGuideConstraint;
 
-
-/*******************************************/
-
-/** TapGesture to resign keyboard on view's touch. */
-@property(nonatomic, strong) UITapGestureRecognizer  *tapGesture;
-
 /*******************************************/
 
 /** Variable to save lastScrollView that was scrolled. */
@@ -169,6 +163,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 //Resign handling
 @synthesize shouldResignOnTouchOutside          =   _shouldResignOnTouchOutside;
+@synthesize resignFirstResponderGesture         =   _resignFirstResponderGesture;
 
 //Sound handling
 @synthesize shouldPlayInputClicks               =   _shouldPlayInputClicks;
@@ -202,10 +197,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [strongSelf registerAllNotifications];
 
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-            strongSelf.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
-            strongSelf.tapGesture.cancelsTouchesInView = NO;
-            [strongSelf.tapGesture setDelegate:self];
-            strongSelf.tapGesture.enabled = strongSelf.shouldResignOnTouchOutside;
+            strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
+            [strongSelf.resignFirstResponderGesture setDelegate:self];
+            strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
 
             //Setting it's initial values
             strongSelf.animationDuration = 0.25;
@@ -392,7 +387,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _shouldResignOnTouchOutside = shouldResignOnTouchOutside;
     
     //Enable/Disable gesture recognizer   (Enhancement ID: #14)
-    [_tapGesture setEnabled:[self privateShouldResignOnTouchOutside]];
+    [_resignFirstResponderGesture setEnabled:[self privateShouldResignOnTouchOutside]];
 }
 
 -(BOOL)privateShouldResignOnTouchOutside
@@ -1353,8 +1348,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     //Adding Geture recognizer to window    (Enhancement ID: #14)
-    [_tapGesture setEnabled:[self privateShouldResignOnTouchOutside]];
-    [_textFieldView.window addGestureRecognizer:_tapGesture];
+    [_resignFirstResponderGesture setEnabled:[self privateShouldResignOnTouchOutside]];
+    [_textFieldView.window addGestureRecognizer:_resignFirstResponderGesture];
 
 	if ([self privateIsEnabled] == YES)
     {
@@ -1407,7 +1402,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //Removing gesture recognizer   (Enhancement ID: #14)
-    [_textFieldView.window removeGestureRecognizer:_tapGesture];
+    [_textFieldView.window removeGestureRecognizer:_resignFirstResponderGesture];
     
 //    if ([_textFieldView isKindOfClass:[UITextField class]])
 //    {

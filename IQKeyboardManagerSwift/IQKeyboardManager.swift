@@ -353,6 +353,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
+    /** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
+    fileprivate var _tapGesture: UITapGestureRecognizer!
+    open var resignFirstResponderGesture: UITapGestureRecognizer {
+        get {
+            return _tapGesture
+        }
+    }
+    
+    /*******************************************/
+    
     fileprivate func privateShouldResignOnTouchOutside() -> Bool {
         
         var shouldResign = shouldResignOnTouchOutside
@@ -790,11 +800,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /*******************************************/
 
-    /** TapGesture to resign keyboard on view's touch. */
-    fileprivate var         _tapGesture: UITapGestureRecognizer!
-    
-    /*******************************************/
-    
     /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
     fileprivate var         _privateIsKeyboardShowing = false
 
@@ -1715,8 +1720,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             removeToolbarIfRequired()
         }
 
-        _tapGesture.isEnabled = privateShouldResignOnTouchOutside()
-        _textFieldView?.window?.addGestureRecognizer(_tapGesture)    //   (Enhancement ID: #14)
+        resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
+        _textFieldView?.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
 
         if privateIsEnabled() == true {
             if _topViewBeginRect.equalTo(CGRect.zero) == true {    //  (Bug ID: #5)
@@ -1773,7 +1778,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) started ******")
 
         //Removing gesture recognizer   (Enhancement ID: #14)
-        _textFieldView?.window?.removeGestureRecognizer(_tapGesture)
+        _textFieldView?.window?.removeGestureRecognizer(resignFirstResponderGesture)
         
         // We check if there's a change in original frame or not.
         
