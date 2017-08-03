@@ -263,6 +263,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     open var toolbarTintColor : UIColor?
 
     /**
+     This is used for toolbar.barTintColor. Default is nil and uses white color.
+     */
+    open var toolbarBarTintColor : UIColor?
+
+    /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
@@ -1992,8 +1997,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
+                                toolbar.barTintColor = nil;
                             default:
                                 toolbar.barStyle = UIBarStyle.default
+                                
+                                if let barTintColor = toolbarBarTintColor {
+                                    toolbar.barTintColor = barTintColor
+                                } else {
+                                    toolbar.barTintColor = nil
+                                }
                                 
                                 //Setting toolbar tintColor //  (Enhancement ID: #30)
                                 if shouldToolbarUsesTextFieldTintColor {
@@ -2012,9 +2024,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
+                                toolbar.barTintColor = nil;
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
+                                if let barTintColor = toolbarBarTintColor {
+                                    toolbar.barTintColor = barTintColor
+                                } else {
+                                    toolbar.barTintColor = nil
+                                }
+
                                 if shouldToolbarUsesTextFieldTintColor {
                                     toolbar.tintColor = _textView.tintColor
                                 } else if let tintColor = toolbarTintColor {
