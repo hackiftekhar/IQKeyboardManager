@@ -197,7 +197,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [strongSelf registerAllNotifications];
 
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-            strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            _resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
             [strongSelf.resignFirstResponderGesture setDelegate:self];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
