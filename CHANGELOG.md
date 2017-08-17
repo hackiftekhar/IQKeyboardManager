@@ -1,4 +1,27 @@
-## master (xx-xx-xxxx)
+## master (xx-xx-xxxx) (Some breaking changes)
+
+#### Bugfixes:
+- Fixed some text alignment issue with IQTextView
+
+#### Features:
+
+- Added **keyboardToolbar** property to access textField/textView's toolbar.
+- Exposed **previousBarButton, nextBarButton, titleBarButton, doneBarButton** property to access toolbar **previous/next/title/done** bar buttons.
+- Added **setTarget:action:** method in **IQBarButtonItem** for better handling of custom target and actions.
+- Added **toolbarBarTintColor**.
+- Exposed **resignFirstResponderGesture** for adding/removing app custom gesture dependencies.
+
+#### Improvements:
+- Refactored toolbar handling code structure for better handling and more public access properties.
+
+#### Deprecations and Removed:
+- **placeholderText** is renamed to **toolbarPlaceholder**.
+- **shouldHidePlaceholderText** is renamed to **shouldHideToolbarPlaceholder**.
+- **shouldShowTextFieldPlaceholder** is renamed to **shouldShowToolbarPlaceholder**.
+- **drawingPlaceholderText** is renamed to **drawingToolbarPlaceholder**.
+- **font** of **IQTitleBarButtonItem** is renamed to **titleFont**.
+- Removed **setTitleTarget:action:, setCustomPreviousTarget:action:, setCustomNextTarget:action:, setCustomDoneTarget:action:** with respect to new **setTarget:action:** method in **IQBarButtonItem**. You can access it using like `[textField.keyboardToolbar.previousBarButton setTarget:target action:action]`
+
 
 ## 4.0.11 (27-07-2017 | 1 month 27 days)
 
