@@ -161,7 +161,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         didSet {
             
             if barStyle == .default {
-                titleBarButton.selectableTextColor = UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1)
+                titleBarButton.selectableTextColor = UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1)
             } else {
                 titleBarButton.selectableTextColor = UIColor.yellow
             }
@@ -172,55 +172,59 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         super.layoutSubviews()
         
-        var leftRect = CGRect.null
-        var rightRect = CGRect.null
-        var isTitleBarButtonFound = false
-        
-        let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
+        if #available(iOS 11, *) {
+            return;
+        } else {
+            var leftRect = CGRect.null
+            var rightRect = CGRect.null
+            var isTitleBarButtonFound = false
             
-            let x1 = view1.frame.minX
-            let y1 = view1.frame.minY
-            let x2 = view2.frame.minX
-            let y2 = view2.frame.minY
-            
-            if x1 != x2 {
-                return x1 < x2
-            } else {
-                return y1 < y2
-            }
-        })
-        
-        for barButtonItemView in sortedSubviews {
-
-            if isTitleBarButtonFound == true {
-                rightRect = barButtonItemView.frame
-                break
-            } else if type(of: barButtonItemView) === UIView.self {
-                isTitleBarButtonFound = true
-                //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-            } else if barButtonItemView.isKind(of: UIControl.self) == true {
-                leftRect = barButtonItemView.frame
-            }
-        }
-        
-        var x : CGFloat = 16
-        
-        if (leftRect.isNull == false)
-        {
-            x = leftRect.maxX + 16
-        }
-        
-        let width : CGFloat = self.frame.width - 32 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-        
-        
-        if let unwrappedItems = items {
-            for item in unwrappedItems {
+            let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
                 
-                if let newItem = item as? IQTitleBarButtonItem {
-
-                    let titleRect = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
-                    newItem.customView?.frame = titleRect
+                let x1 = view1.frame.minX
+                let y1 = view1.frame.minY
+                let x2 = view2.frame.minX
+                let y2 = view2.frame.minY
+                
+                if x1 != x2 {
+                    return x1 < x2
+                } else {
+                    return y1 < y2
+                }
+            })
+            
+            for barButtonItemView in sortedSubviews {
+                
+                if isTitleBarButtonFound == true {
+                    rightRect = barButtonItemView.frame
                     break
+                } else if type(of: barButtonItemView) === UIView.self {
+                    isTitleBarButtonFound = true
+                    //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
+                } else if barButtonItemView.isKind(of: UIControl.self) == true {
+                    leftRect = barButtonItemView.frame
+                }
+            }
+            
+            var x : CGFloat = 16
+            
+            if (leftRect.isNull == false)
+            {
+                x = leftRect.maxX + 16
+            }
+            
+            let width : CGFloat = self.frame.width - 32 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+            
+            
+            if let unwrappedItems = items {
+                for item in unwrappedItems {
+                    
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        
+                        let titleRect = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
+                        newItem.customView?.frame = titleRect
+                        break
+                    }
                 }
             }
         }

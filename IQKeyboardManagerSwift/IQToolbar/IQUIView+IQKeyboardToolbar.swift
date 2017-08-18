@@ -221,7 +221,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -308,7 +314,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -409,7 +421,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -529,7 +547,13 @@ public extension UIView {
             
             //Title
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -653,7 +677,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -772,7 +802,7 @@ public extension UIView {
             var imageLeftArrow : UIImage!
             var imageRightArrow : UIImage!
             
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
                 imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
             } else {
@@ -781,7 +811,7 @@ public extension UIView {
             }
 
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9.0, *) {
+            if #available(iOS 9, *) {
                 imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
                 imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
             }
@@ -823,7 +853,7 @@ public extension UIView {
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
             fixed.isSystemItem = true
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 fixed.width = 6
             } else {
                 fixed.width = 20
@@ -838,7 +868,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -937,7 +973,7 @@ public extension UIView {
             var imageLeftArrow : UIImage!
             var imageRightArrow : UIImage!
             
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
                 imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
             } else {
@@ -946,7 +982,7 @@ public extension UIView {
             }
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9.0, *) {
+            if #available(iOS 9, *) {
                 imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
                 imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
             }
@@ -989,7 +1025,7 @@ public extension UIView {
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
             fixed.isSystemItem = true
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 fixed.width = 6
             } else {
                 fixed.width = 20
@@ -1004,7 +1040,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space
@@ -1121,7 +1163,7 @@ public extension UIView {
             var imageLeftArrow : UIImage!
             var imageRightArrow : UIImage!
             
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 imageLeftArrow = UIImage(named: "IQButtonBarArrowUp", in: bundle, compatibleWith: nil)
                 imageRightArrow = UIImage(named: "IQButtonBarArrowDown", in: bundle, compatibleWith: nil)
             } else {
@@ -1130,7 +1172,7 @@ public extension UIView {
             }
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9.0, *) {
+            if #available(iOS 9, *) {
                 imageLeftArrow = imageLeftArrow?.imageFlippedForRightToLeftLayoutDirection()
                 imageRightArrow = imageRightArrow?.imageFlippedForRightToLeftLayoutDirection()
             }
@@ -1172,7 +1214,7 @@ public extension UIView {
             //Fixed space
             let fixed = IQBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
             fixed.isSystemItem = true
-            if #available(iOS 10.0, *) {
+            if #available(iOS 10, *) {
                 fixed.width = 6
             } else {
                 fixed.width = 20
@@ -1187,7 +1229,13 @@ public extension UIView {
             
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
-            toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            
+            if #available(iOS 11, *) {
+                
+            } else {
+                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+            }
+            
             items.append(toolbar.titleBarButton)
             
             //Flexible space

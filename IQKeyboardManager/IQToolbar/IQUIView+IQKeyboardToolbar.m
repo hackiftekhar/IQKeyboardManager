@@ -163,7 +163,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -226,7 +229,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -295,7 +301,10 @@
 
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -378,7 +387,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -460,7 +472,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -601,7 +616,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -740,7 +758,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space
@@ -879,7 +900,10 @@
     
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
-    toolbar.titleBarButton.customView.frame = CGRectZero;
+    if (IQ_IS_IOS11_OR_GREATER == NO)
+    {
+        toolbar.titleBarButton.customView.frame = CGRectZero;
+    }
     [items addObject:toolbar.titleBarButton];
     
     //Flexible space

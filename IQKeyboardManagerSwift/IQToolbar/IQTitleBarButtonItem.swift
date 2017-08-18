@@ -53,7 +53,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
             if let color = selectableTextColor {
                 _titleButton?.setTitleColor(color, for:UIControlState())
             } else {
-                _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:UIControlState())
+                _titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:UIControlState())
             }
         }
     }
@@ -93,20 +93,43 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         
         _titleView = UIView()
         _titleView?.backgroundColor = UIColor.clear
-        _titleView?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
         _titleButton = UIButton(type: .system)
         _titleButton?.isEnabled = false
         _titleButton?.titleLabel?.numberOfLines = 3
         _titleButton?.setTitleColor(UIColor.lightGray, for:.disabled)
-        _titleButton?.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:UIControlState())
+        _titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:UIControlState())
         _titleButton?.backgroundColor = UIColor.clear
         _titleButton?.titleLabel?.textAlignment = .center
         _titleButton?.setTitle(title, for: UIControlState())
-        _titleButton?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         titleFont = UIFont.systemFont(ofSize: 13.0)
         _titleButton?.titleLabel?.font = self.titleFont
         _titleView?.addSubview(_titleButton!)
+        
+        if #available(iOS 11, *) {
+            _titleView?.translatesAutoresizingMaskIntoConstraints = false;
+            _titleView?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .vertical)
+            _titleView?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .horizontal)
+            _titleView?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .vertical)
+            _titleView?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .horizontal)
+            
+            _titleButton?.translatesAutoresizingMaskIntoConstraints = false;
+            _titleButton?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .vertical)
+            _titleButton?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .horizontal)
+            _titleButton?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .vertical)
+            _titleButton?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .horizontal)
+
+            let top = NSLayoutConstraint.init(item: _titleButton!, attribute: .top, relatedBy: .equal, toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
+            let bottom = NSLayoutConstraint.init(item: _titleButton!, attribute: .bottom, relatedBy: .equal, toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
+            let leading = NSLayoutConstraint.init(item: _titleButton!, attribute: .leading, relatedBy: .equal, toItem: _titleView, attribute: .leading, multiplier: 1, constant: 0)
+            let trailing = NSLayoutConstraint.init(item: _titleButton!, attribute: .trailing, relatedBy: .equal, toItem: _titleView, attribute: .trailing, multiplier: 1, constant: 0)
+            
+            _titleView?.addConstraints([top,bottom,leading,trailing])
+        } else {
+            _titleView?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+            _titleButton?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        }
+
         customView = _titleView
     }
 
