@@ -23,6 +23,7 @@
 
 #import "IQTextView.h"
 
+#import <UIKit/NSTextContainer.h>
 #import <UIKit/UILabel.h>
 #import <UIKit/UINibLoading.h>
 
