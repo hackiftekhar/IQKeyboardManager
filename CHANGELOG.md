@@ -1,7 +1,11 @@
-## master (xx-xx-xxxx) (Some breaking changes)
+## master (dd-mm-yyyy)
+
+
+## 4.0.12 (19-08-2017 | 23 days) (Breaking changes)
 
 #### Bugfixes:
 - Fixed some text alignment issue with IQTextView
+- Fixed an issue where **keyboard toolbar** wasn't displaying properly with **iOS11**.
 
 #### Features:
 
