@@ -30,15 +30,14 @@ open class IQBarButtonItem: UIBarButtonItem {
     
     public override init() {
         _ = IQBarButtonItem._classInitialize
-          super.init()
-      }
-
+        super.init()
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         _ = IQBarButtonItem._classInitialize
-           super.init(coder: aDecoder)
-       }
+        super.init(coder: aDecoder)
+    }
 
-   
     private class func classInitialize() {
 
         //Tint color
@@ -91,7 +90,7 @@ open class IQBarButtonItem: UIBarButtonItem {
     /**
      Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
      */
-    var isSystemItem = false
+    @objc var isSystemItem = false
     
 //    public override init(barButtonSystemItem systemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
 //        return super.init(barButtonSystemItem: systemItem, target: target, action: action)

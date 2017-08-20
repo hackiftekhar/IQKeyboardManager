@@ -70,7 +70,7 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
         }
     }
     
-    func textFieldDidChange(_ notification: Notification) {
+    @objc func textFieldDidChange(_ notification: Notification) {
         buttonSend.isEnabled = inputTextField.text?.characters.count != 0
     }
     

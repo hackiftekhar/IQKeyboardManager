@@ -28,7 +28,7 @@ import UIKit
 public extension UIWindow {
 
     /** @return Returns the current Top Most ViewController in hierarchy.   */
-    override public func topMostController()->UIViewController? {
+    @objc override public func topMostController()->UIViewController? {
         
         var topController = rootViewController
         
