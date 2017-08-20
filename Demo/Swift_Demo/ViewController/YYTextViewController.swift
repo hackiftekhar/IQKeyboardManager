@@ -12,14 +12,11 @@ class YYTextViewController: UIViewController, YYTextViewDelegate {
 
     @IBOutlet var textView : YYTextView!
 
-    override internal class func initialize() {
-        super.initialize()
-        
-        IQKeyboardManager.sharedManager().registerTextFieldViewClass(YYTextView.self, didBeginEditingNotificationName: Notification.Name.YYTextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: Notification.Name.YYTextViewTextDidEndEditing.rawValue)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        IQKeyboardManager.sharedManager().registerTextFieldViewClass(YYTextView.self, didBeginEditingNotificationName: Notification.Name.YYTextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName: Notification.Name.YYTextViewTextDidEndEditing.rawValue)
+
         textView.placeholderText = "This is placeholder text of YYTextView"
     }
     

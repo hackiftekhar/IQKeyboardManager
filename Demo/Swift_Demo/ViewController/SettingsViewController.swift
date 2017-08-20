@@ -40,21 +40,21 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     }
 
     /**  UIKeyboard Handling    */
-    func enableAction (_ sender: UISwitch) {
+    @objc func enableAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().enable = sender.isOn
         
         self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.fade)
     }
     
-    func keyboardDistanceFromTextFieldAction (_ sender: UIStepper) {
+    @objc func keyboardDistanceFromTextFieldAction (_ sender: UIStepper) {
         
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = CGFloat(sender.value)
         
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: UITableViewRowAnimation.none)
     }
     
-    func preventShowingBottomBlankSpaceAction (_ sender: UISwitch) {
+    @objc func preventShowingBottomBlankSpaceAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = sender.isOn
         
@@ -62,26 +62,26 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     }
     
     /**  IQToolbar handling     */
-    func enableAutoToolbarAction (_ sender: UISwitch) {
+    @objc func enableAutoToolbarAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().enableAutoToolbar = sender.isOn
         
         self.tableView.reloadSections(IndexSet(integer: 1), with: UITableViewRowAnimation.fade)
     }
     
-    func shouldToolbarUsesTextFieldTintColorAction (_ sender: UISwitch) {
+    @objc func shouldToolbarUsesTextFieldTintColorAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = sender.isOn
     }
     
-    func shouldShowTextFieldPlaceholder (_ sender: UISwitch) {
+    @objc func shouldShowTextFieldPlaceholder (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = sender.isOn
         
         self.tableView.reloadSections(IndexSet(integer: 1), with: UITableViewRowAnimation.fade)
     }
     
-    func toolbarDoneBarButtonItemImage (_ sender: UISwitch) {
+    @objc func toolbarDoneBarButtonItemImage (_ sender: UISwitch) {
         
         if sender.isOn {
             IQKeyboardManager.sharedManager().toolbarDoneBarButtonItemImage = UIImage(named:"IQButtonBarArrowDown")
@@ -93,7 +93,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     }
 
     /**  "Keyboard appearance overriding    */
-    func overrideKeyboardAppearanceAction (_ sender: UISwitch) {
+    @objc func overrideKeyboardAppearanceAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().overrideKeyboardAppearance = sender.isOn
         
@@ -101,19 +101,19 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     }
     
     /**  Resign first responder handling    */
-    func shouldResignOnTouchOutsideAction (_ sender: UISwitch) {
+    @objc func shouldResignOnTouchOutsideAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = sender.isOn
     }
     
     /**  Sound handling         */
-    func shouldPlayInputClicksAction (_ sender: UISwitch) {
+    @objc func shouldPlayInputClicksAction (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().shouldPlayInputClicks = sender.isOn
     }
     
     /**  Debugging         */
-    func enableDebugging (_ sender: UISwitch) {
+    @objc func enableDebugging (_ sender: UISwitch) {
         
         IQKeyboardManager.sharedManager().enableDebugging = sender.isOn
     }

@@ -96,7 +96,7 @@ open class IQTextView : UITextView {
         }
     }
 
-    open func refreshPlaceholder() {
+    @objc open func refreshPlaceholder() {
         
         if text.characters.count != 0 {
             placeholderLabel?.alpha = 0
