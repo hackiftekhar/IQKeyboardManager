@@ -159,8 +159,11 @@
         }
     }
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
+    NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
+
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
     if (IQ_IS_IOS11_OR_GREATER == NO)
@@ -225,8 +228,11 @@
         }
     }
     
-	NSMutableArray *items = [[NSMutableArray alloc] init];
+	NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
+
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
     if (IQ_IS_IOS11_OR_GREATER == NO)
@@ -297,7 +303,10 @@
         }
     }
  	
-	NSMutableArray *items = [[NSMutableArray alloc] init];
+	NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
+
+    //Flexible space
+    [items addObject:[[self class] flexibleBarButtonItem]];
 
     //Title button
     toolbar.titleBarButton.title = self.shouldHideToolbarPlaceholder?nil:titleText;
@@ -361,7 +370,7 @@
         }
     }
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
+    NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
     //Left button
     IQBarButtonItem *cancelButton = toolbar.previousBarButton;
@@ -453,7 +462,7 @@
         }
     }
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
+    NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
     //Cancel button
     IQBarButtonItem *cancelButton = toolbar.previousBarButton;
@@ -531,7 +540,7 @@
         }
     }
  
-	NSMutableArray *items = [[NSMutableArray alloc] init];
+	NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
 	
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
@@ -676,7 +685,7 @@
         }
     }
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
+    NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
@@ -820,7 +829,7 @@
         }
     }
     
-    NSMutableArray *items = [[NSMutableArray alloc] init];
+    NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
     // Get the top level "bundle" which may actually be the framework
     NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];

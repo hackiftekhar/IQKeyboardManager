@@ -219,6 +219,9 @@ public extension UIView {
             
             var items : [IQBarButtonItem] = []
             
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
             
@@ -312,6 +315,9 @@ public extension UIView {
             
             var items : [IQBarButtonItem] = []
             
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
 
@@ -419,6 +425,9 @@ public extension UIView {
             
             var items : [IQBarButtonItem] = []
             
+            //Flexible space
+            items.append(UIView.flexibleBarButtonItem())
+
             //Title button
             toolbar.titleBarButton.title = shouldHideToolbarPlaceholder == true ? nil : titleText
             
