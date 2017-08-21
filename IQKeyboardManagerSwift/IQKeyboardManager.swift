@@ -898,7 +898,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var controller = _textFieldView?.topMostController()
         
         if controller == nil {
-            controller = keyWindow()?.topMostController()
+            controller = keyWindow()?.topMostWindowController()
         }
         
         if let unwrappedController = controller {
@@ -947,7 +947,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //  Getting RootViewController.  (Bug ID: #1, #4)
         var optionalRootController = _textFieldView?.topMostController()
         if optionalRootController == nil {
-            optionalRootController = keyWindow()?.topMostController()
+            optionalRootController = keyWindow()?.topMostWindowController()
         }
         
         //  Converting Rectangle according to window bounds.
@@ -1442,7 +1442,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
             _rootViewController = _textFieldView?.topMostController()
             if _rootViewController == nil {
-                _rootViewController = keyWindow()?.topMostController()
+                _rootViewController = keyWindow()?.topMostWindowController()
             }
             
             if let unwrappedRootController = _rootViewController {
@@ -1470,7 +1470,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var topMostController = _textFieldView?.topMostController()
         
         if topMostController == nil {
-            topMostController = keyWindow()?.topMostController()
+            topMostController = keyWindow()?.topMostWindowController()
         }
 
         //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
@@ -1505,7 +1505,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         var topMostController = _textFieldView?.topMostController()
         
         if topMostController == nil {
-            topMostController = keyWindow()?.topMostController()
+            topMostController = keyWindow()?.topMostWindowController()
         }
         
         if _textFieldView != nil &&
@@ -1734,7 +1734,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 _rootViewController = _textFieldView?.topMostController()
                 if _rootViewController == nil {
-                    _rootViewController = keyWindow()?.topMostController()
+                    _rootViewController = keyWindow()?.topMostWindowController()
                 }
                 
                 if let rootViewController = _rootViewController {

@@ -542,7 +542,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     //  Getting topMost ViewController.
     UIViewController *controller = [_textFieldView topMostController];
-    if (controller == nil)  controller = [[self keyWindow] topMostController];
+    if (controller == nil)  controller = [[self keyWindow] topMostWindowController];
     
     //frame size needs to be adjusted on iOS8 due to orientation API changes.
     frame.size = controller.view.frame.size;
@@ -587,7 +587,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //  Getting RootViewController.  (Bug ID: #1, #4)
     UIViewController *rootController = [_textFieldView topMostController];
-    if (rootController == nil)  rootController = [keyWindow topMostController];
+    if (rootController == nil)  rootController = [keyWindow topMostWindowController];
     
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
@@ -1084,7 +1084,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         _rootViewController = [_textFieldView topMostController];
-        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+        if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostWindowController];
 
         _topViewBeginRect = _rootViewController.view.frame;
         
@@ -1126,7 +1126,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //  Getting topMost ViewController.
     UIViewController *controller = [_textFieldView topMostController];
-    if (controller == nil)  controller = [[self keyWindow] topMostController];
+    if (controller == nil)  controller = [[self keyWindow] topMostWindowController];
 
     //If _textFieldView viewController is presented as formSheet, then adjustFrame again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
     if (_keyboardShowing == YES &&
@@ -1360,7 +1360,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             _layoutGuideConstraintInitialConstant = [_layoutGuideConstraint constant];
             
             _rootViewController = [_textFieldView topMostController];
-            if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
+            if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostWindowController];
             
             _topViewBeginRect = _rootViewController.view.frame;
             

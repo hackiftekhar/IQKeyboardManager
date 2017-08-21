@@ -26,7 +26,7 @@
 
 @implementation UIWindow (IQ_UIWindow_Hierarchy)
 
-- (UIViewController*)topMostController
+- (UIViewController*)topMostWindowController
 {
     UIViewController *topController = [self rootViewController];
     
@@ -39,7 +39,7 @@
 
 - (UIViewController*)currentViewController;
 {
-    UIViewController *currentViewController = [self topMostController];
+    UIViewController *currentViewController = [self topMostWindowController];
     
     while ([currentViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)currentViewController topViewController])
         currentViewController = [(UINavigationController*)currentViewController topViewController];
