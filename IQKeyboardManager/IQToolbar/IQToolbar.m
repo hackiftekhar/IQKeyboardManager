@@ -25,6 +25,7 @@
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 
+#import <UIKit/UIAccessibility.h>
 #import <UIKit/UIViewController.h>
 
 @implementation IQToolbar

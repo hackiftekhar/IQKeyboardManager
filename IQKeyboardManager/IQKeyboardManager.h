@@ -28,6 +28,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSObjCRuntime.h>
 
+#import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextInputTraits.h>
 #import <UIKit/UIView.h>
 
