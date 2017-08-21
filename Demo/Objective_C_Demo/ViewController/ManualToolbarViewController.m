@@ -35,10 +35,13 @@
     [super viewDidLoad];
     
     [textField1 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
-    [textField1 setEnablePrevious:NO next:YES];
+    textField1.keyboardToolbar.previousBarButton.enabled = NO;
+    textField1.keyboardToolbar.nextBarButton.enabled = YES;
+
     
     [textField2 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
-    [textField2 setEnablePrevious:YES next:NO];
+    textField2.keyboardToolbar.previousBarButton.enabled = YES;
+    textField2.keyboardToolbar.nextBarButton.enabled = NO;
 
     [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
 

@@ -311,19 +311,6 @@
  */
 - (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder;
 
-
-///-----------------------------------
-/// @name Enable/Disable Previous/Next
-///-----------------------------------
-
-/**
- Helper function to enable and disable previous next buttons.
- 
- @param isPreviousEnabled BOOL to enable/disable previous button on keyboard.
- @param isNextEnabled  BOOL to enable/disable next button on keyboard..
- */
-- (void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled;
-
 @end
 
 

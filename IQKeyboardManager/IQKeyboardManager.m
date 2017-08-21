@@ -1873,25 +1873,29 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
             //	If firstTextField, then previous should not be enabled.
-            if (siblings[0] == textField)
+            if (siblings.firstObject == textField)
             {
                 if (siblings.count == 1)
                 {
-                    [textField setEnablePrevious:NO next:NO];
+                    textField.keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.keyboardToolbar.nextBarButton.enabled = NO;
                 }
                 else
                 {
-                    [textField setEnablePrevious:NO next:YES];
+                    textField.keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.keyboardToolbar.nextBarButton.enabled = YES;
                 }
             }
             //	If lastTextField then next should not be enaled.
             else if ([siblings lastObject] == textField)
             {
-                [textField setEnablePrevious:YES next:NO];
+                textField.keyboardToolbar.previousBarButton.enabled = YES;
+                textField.keyboardToolbar.nextBarButton.enabled = NO;
             }
             else
             {
-                [textField setEnablePrevious:YES next:YES];
+                textField.keyboardToolbar.previousBarButton.enabled = YES;
+                textField.keyboardToolbar.nextBarButton.enabled = YES;
             }
         }
     }

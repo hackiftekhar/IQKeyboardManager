@@ -71,13 +71,13 @@
         [controllersHierarchy addObject:topController];
     }
     
-    UIResponder *matchController = [self viewController];
+    UIViewController *matchController = [self viewController];
     
     while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
     {
         do
         {
-            matchController = [matchController nextResponder];
+            matchController = (UIViewController*)[matchController nextResponder];
             
         } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
     }

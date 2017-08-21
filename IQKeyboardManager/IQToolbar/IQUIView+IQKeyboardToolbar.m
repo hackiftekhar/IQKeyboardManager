@@ -959,26 +959,4 @@
     [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:nil];
 }
 
--(void)setEnablePrevious:(BOOL)isPreviousEnabled next:(BOOL)isNextEnabled
-{
-    //  Getting inputAccessoryView.
-    IQToolbar *inputAccessoryView = self.keyboardToolbar;
-    
-    if ([[inputAccessoryView items] count]>3)
-    {
-        //  Getting first item from inputAccessoryView.
-        IQBarButtonItem *prevButton = (IQBarButtonItem*)[inputAccessoryView items][0];
-        IQBarButtonItem *nextButton = (IQBarButtonItem*)[inputAccessoryView items][2];
-        
-        //  If it is UIBarButtonItem and it's customView is not nil.
-        if ([prevButton isKindOfClass:[IQBarButtonItem class]] && [nextButton isKindOfClass:[IQBarButtonItem class]])
-        {
-            if (prevButton.enabled != isPreviousEnabled)
-                [prevButton setEnabled:isPreviousEnabled];
-            if (nextButton.enabled != isNextEnabled)
-                [nextButton setEnabled:isNextEnabled];
-        }
-    }
-}
-
 @end
