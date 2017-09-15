@@ -7,6 +7,7 @@
 //
 
 import IQKeyboardManagerSwift
+import YYText
 
 class YYTextViewController: UIViewController, YYTextViewDelegate {
 

@@ -282,7 +282,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 		//If keyboard is currently showing. Sending a fake notification for keyboardWillShow to adjust view according to keyboard.
 		if (_kbShowNotification)	[self keyboardWillShow:_kbShowNotification];
 
-        [self showLog:IQLocalizedString(@"enabled", nil)];
+        [self showLog:@"Enabled"];
     }
 	//If not disable, desable it.
     else if (enable == NO &&
@@ -294,19 +294,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 		//Setting NO to _enable.
 		_enable = enable;
 		
-        [self showLog:IQLocalizedString(@"disabled", nil)];
+        [self showLog:@"Disabled"];
     }
 	//If already disabled.
 	else if (enable == NO &&
              _enable == NO)
 	{
-        [self showLog:IQLocalizedString(@"already disabled", nil)];
+        [self showLog:@"Already Disabled"];
 	}
 	//If already enabled.
 	else if (enable == YES &&
              _enable == YES)
 	{
-        [self showLog:IQLocalizedString(@"already enabled", nil)];
+        [self showLog:@"Already Enabled"];
 	}
 }
 
@@ -549,7 +549,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //  If can't get rootViewController then printing warning to user.
     if (controller == nil)
-        [self showLog:(IQLocalizedString(@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager", nil))];
+        [self showLog:@"You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager"];
     
     __weak typeof(self) weakSelf = self;
     

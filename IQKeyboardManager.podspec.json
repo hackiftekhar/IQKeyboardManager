@@ -16,6 +16,22 @@
     "ios": "8.0"
   },
   "source_files": "IQKeyboardManager/**/*.{h,m}",
+  "public_header_files": [
+      "IQKeyboardManager/IQKeyboardManager.h",
+      "IQKeyboardManager/IQKeyboardReturnKeyHandler.h",
+      "IQKeyboardManager/Categories/IQUIScrollView+Additions.h",
+      "IQKeyboardManager/Categories/IQUITextFieldView+Additions.h",
+      "IQKeyboardManager/Categories/IQUIView+Hierarchy.h",
+      "IQKeyboardManager/Categories/IQUIViewController+Additions.h",
+      "IQKeyboardManager/Categories/IQUIWindow+Hierarchy.h",
+      "IQKeyboardManager/Constants/IQKeyboardManagerConstants.h",
+      "IQKeyboardManager/IQTextView/IQTextView.h",
+      "IQKeyboardManager/IQToolbar/IQBarButtonItem.h",
+      "IQKeyboardManager/IQToolbar/IQPreviousNextView.h",
+      "IQKeyboardManager/IQToolbar/IQTitleBarButtonItem.h",
+      "IQKeyboardManager/IQToolbar/IQToolbar.h",
+      "IQKeyboardManager/IQToolbar/IQUIView+IQKeyboardToolbar.h"
+  ],
   "resources": "IQKeyboardManager/Resources/IQKeyboardManager.bundle",
   "frameworks": [
     "UIKit",

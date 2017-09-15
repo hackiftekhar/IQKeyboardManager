@@ -69,11 +69,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 if _kbShowNotification != nil {
                     keyboardWillShow(_kbShowNotification)
                 }
-                showLog("enabled")
+                showLog("Enabled")
             } else if enable == false &&
                 oldValue == true {   //If not disable, desable it.
                 keyboardWillHide(nil)
-                showLog("disabled")
+                showLog("Disabled")
             }
         }
     }

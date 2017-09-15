@@ -10,6 +10,6 @@
 #define IQKeyboardManager_IQKeyboardManger_Swift_Bridging_Header_h_h
 
 #import "ColorPickerTextField.h"
-#import "YYTextView.h"
+#import <YYText/YYTextView.h>
 
 #endif
