@@ -1947,7 +1947,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) started ******")
 
         //	Getting all the sibling textFields.
-        if let siblings = responderViews() {
+        if let siblings = responderViews(), !siblings.isEmpty {
             
             showLog("Found \(siblings.count) responder sibling(s)")
             
