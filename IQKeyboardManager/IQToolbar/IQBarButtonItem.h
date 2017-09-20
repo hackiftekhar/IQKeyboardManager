@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 
-#import <UIKit/UIBarButtonItem.h>
+#import <UIKit/UIKit.h>
 
 /**
  IQBarButtonItem used for IQToolbar.
