@@ -26,9 +26,9 @@
 #import "IQUIView+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 
-#import <UIKit/UITextField.h>
-#import <UIKit/UITextView.h>
-#import <UIKit/UIViewController.h>
+@import UIKit.UITextField;
+@import UIKit.UITextView;
+@import UIKit.UIViewController;
 
 NSString *const kIQTextField                =   @"kIQTextField";
 NSString *const kIQTextFieldDelegate        =   @"kIQTextFieldDelegate";

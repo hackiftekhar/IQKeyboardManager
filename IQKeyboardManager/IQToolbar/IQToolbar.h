@@ -21,8 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIToolbar.h>
 #import "IQTitleBarButtonItem.h"
+
+@import UIKit.UIToolbar;
+@import UIKit.UIDevice;
 
 /**
  IQToolbar for IQKeyboardManager.

@@ -25,10 +25,12 @@
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQKeyboardManager.h"
-#import <UIKit/UIImage.h>
-#import <UIKit/UILabel.h>
-#import <UIKit/UIAccessibility.h>
+
 #import <objc/runtime.h>
+
+@import UIKit.UIImage;
+@import UIKit.UILabel;
+@import UIKit.UIAccessibility;
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)

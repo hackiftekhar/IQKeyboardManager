@@ -24,8 +24,9 @@
 #import "IQTitleBarButtonItem.h"
 #import "IQKeyboardManagerConstants.h"
 #import "IQKeyboardManagerConstantsInternal.h"
-#import <UIKit/UILabel.h>
-#import <UIKit/UIButton.h>
+
+@import UIKit.UILabel;
+@import UIKit.UIButton;
 
 @implementation IQTitleBarButtonItem
 {

@@ -25,8 +25,8 @@
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 
-#import <UIKit/UIAccessibility.h>
-#import <UIKit/UIViewController.h>
+@import UIKit.UIAccessibility;
+@import UIKit.UIViewController;
 
 @implementation IQToolbar
 @synthesize previousBarButton = _previousBarButton;

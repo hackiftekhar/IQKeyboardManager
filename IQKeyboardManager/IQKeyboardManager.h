@@ -23,16 +23,17 @@
 
 #import "IQKeyboardManagerConstants.h"
 
-#import <CoreGraphics/CGBase.h>
+@import CoreGraphics.CGBase;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSObjCRuntime.h>
+@import Foundation.NSObject;
+@import Foundation.NSObjCRuntime;
+@import Foundation.NSSet;
 
-#import <UIKit/UITapGestureRecognizer.h>
-#import <UIKit/UITextInputTraits.h>
-#import <UIKit/UIView.h>
+@import UIKit.UITextInputTraits;
 
-@class UIFont;
+@class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
+
+@class NSString;
 
 ///---------------------
 /// @name IQToolbar tags

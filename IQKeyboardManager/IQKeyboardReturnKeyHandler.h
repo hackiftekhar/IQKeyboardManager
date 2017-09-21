@@ -23,13 +23,13 @@
 
 #import "IQKeyboardManagerConstants.h"
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSObjCRuntime.h>
+@import Foundation.NSObject;
+@import Foundation.NSObjCRuntime;
 
-#import <UIKit/UITextField.h>
-#import <UIKit/UITextView.h>
+@import UIKit.UITextInputTraits;
 
-@class UITextField,UIView, UIViewController;
+@class UITextField, UIView, UIViewController;
+@protocol UITextFieldDelegate, UITextViewDelegate;
 
 /**
  Manages the return key to work like next/done in a view hierarchy.

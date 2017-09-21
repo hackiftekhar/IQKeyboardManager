@@ -32,21 +32,20 @@
 #import "IQUIViewController+Additions.h"
 #import "IQPreviousNextView.h"
 
-#import <UIKit/UINavigationBar.h>
-#import <UIKit/UITapGestureRecognizer.h>
-#import <UIKit/UITextField.h>
-#import <UIKit/UITextView.h>
-#import <UIKit/UITableViewController.h>
-#import <UIKit/UINavigationController.h>
-#import <UIKit/UITableView.h>
-#import <UIKit/UITouch.h>
-
 #import <QuartzCore/CABase.h>
 
-#import <UIKit/UICollectionView.h>
-#import <UIKit/NSLayoutConstraint.h>
-
 #import <objc/runtime.h>
+
+@import UIKit.UINavigationBar;
+@import UIKit.UITapGestureRecognizer;
+@import UIKit.UITextField;
+@import UIKit.UITextView;
+@import UIKit.UITableViewController;
+@import UIKit.UICollectionViewController;
+@import UIKit.UINavigationController;
+@import UIKit.UITouch;
+@import UIKit.NSLayoutConstraint;
+
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
