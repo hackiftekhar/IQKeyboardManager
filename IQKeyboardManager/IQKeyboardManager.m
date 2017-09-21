@@ -652,7 +652,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
     while (superView)
     {
-        if (superView.isScrollEnabled)
+        if (superView.isScrollEnabled && superView.shouldIgnoreScrollingAdjustment == NO)
         {
             superScrollView = superView;
             break;
@@ -751,7 +751,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
                 while (tempScrollView)
                 {
-                    if (tempScrollView.isScrollEnabled)
+                    if (tempScrollView.isScrollEnabled && tempScrollView.shouldIgnoreScrollingAdjustment == NO)
                     {
                         nextScrollView = tempScrollView;
                         break;

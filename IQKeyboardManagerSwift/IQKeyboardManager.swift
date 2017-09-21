@@ -1034,7 +1034,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
         while let view = superView {
             
-            if (view.isScrollEnabled) {
+            if (view.isScrollEnabled && view.shouldIgnoreScrollingAdjustment == false) {
                 superScrollView = view
                 break
             }
@@ -1112,7 +1112,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     var nextScrollView : UIScrollView? = nil
                     while let view = tempScrollView {
                         
-                        if (view.isScrollEnabled) {
+                        if (view.isScrollEnabled  && view.shouldIgnoreScrollingAdjustment == false) {
                             nextScrollView = view
                             break
                         } else {
