@@ -39,7 +39,7 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     }
 
     
-    func previousAction(_ sender : UITextField!) {
+    @objc func previousAction(_ sender : UITextField!) {
         
         if (textField2.isFirstResponder)
         {
@@ -51,7 +51,7 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         }
     }
     
-    func nextAction(_ sender : UITextField!) {
+    @objc func nextAction(_ sender : UITextField!) {
         
         if (textField1.isFirstResponder)
         {
@@ -63,11 +63,11 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
         }
     }
     
-    func doneAction(_ sender : UITextField!) {
+    @objc func doneAction(_ sender : UITextField!) {
         self.view.endEditing(true)
     }
 
-    func titleAction(_ sender : UIButton) {
+    @objc func titleAction(_ sender : UIButton) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

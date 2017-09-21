@@ -24,9 +24,9 @@
 
 @implementation SettingsViewController
 {
-    NSArray *sectionTitles;
-    NSArray *keyboardManagerProperties;
-    NSArray *keyboardManagerPropertyDetails;
+    NSArray<NSString*> *sectionTitles;
+    NSArray<NSArray*> *keyboardManagerProperties;
+    NSArray<NSArray*> *keyboardManagerPropertyDetails;
     
     NSIndexPath *selectedIndexPathForOptions;
 }

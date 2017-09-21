@@ -20,15 +20,15 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     @IBOutlet fileprivate var buttonPush : UIButton!
     @IBOutlet fileprivate var buttonPresent : UIButton!
 
-    func previousAction(_ sender : UITextField) {
+    @objc func previousAction(_ sender : UITextField) {
         print("PreviousAction")
     }
     
-    func nextAction(_ sender : UITextField) {
+    @objc func nextAction(_ sender : UITextField) {
         print("nextAction")
     }
     
-    func doneAction(_ sender : UITextField) {
+    @objc func doneAction(_ sender : UITextField) {
         print("doneAction")
     }
 

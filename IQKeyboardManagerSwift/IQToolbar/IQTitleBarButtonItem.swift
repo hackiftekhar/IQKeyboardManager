@@ -108,16 +108,20 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         
         if #available(iOS 11, *) {
             _titleView?.translatesAutoresizingMaskIntoConstraints = false;
-            _titleView?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .vertical)
-            _titleView?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .horizontal)
-            _titleView?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .vertical)
-            _titleView?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .horizontal)
+            
+            let layoutPriorityValue = UILayoutPriority.defaultLow.rawValue-1
+            let layoutPriority = UILayoutPriority(rawValue: layoutPriorityValue)
+            
+            _titleView?.setContentHuggingPriority(layoutPriority, for: .vertical)
+            _titleView?.setContentHuggingPriority(layoutPriority, for: .horizontal)
+            _titleView?.setContentCompressionResistancePriority(layoutPriority, for: .vertical)
+            _titleView?.setContentCompressionResistancePriority(layoutPriority, for: .horizontal)
             
             _titleButton?.translatesAutoresizingMaskIntoConstraints = false;
-            _titleButton?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .vertical)
-            _titleButton?.setContentHuggingPriority(UILayoutPriorityDefaultLow-1, for: .horizontal)
-            _titleButton?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .vertical)
-            _titleButton?.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh-1, for: .horizontal)
+            _titleButton?.setContentHuggingPriority(layoutPriority, for: .vertical)
+            _titleButton?.setContentHuggingPriority(layoutPriority, for: .horizontal)
+            _titleButton?.setContentCompressionResistancePriority(layoutPriority, for: .vertical)
+            _titleButton?.setContentCompressionResistancePriority(layoutPriority, for: .horizontal)
 
             let top = NSLayoutConstraint.init(item: _titleButton!, attribute: .top, relatedBy: .equal, toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
             let bottom = NSLayoutConstraint.init(item: _titleButton!, attribute: .bottom, relatedBy: .equal, toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
