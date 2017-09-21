@@ -55,7 +55,7 @@ public extension UIView {
     /**
     Returns the topMost UIViewController object in hierarchy.
     */
-    public func topMostController()->UIViewController? {
+    @objc public func topMostController()->UIViewController? {
         
         var controllersHierarchy = [UIViewController]()
 
