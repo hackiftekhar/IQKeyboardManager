@@ -100,7 +100,7 @@ it simply add the following line to your Podfile: ([#236](https://github.com/hac
 
 *Or*
 
-`pod 'IQKeyboardManagerSwift', '5.0.0'`
+`pod 'IQKeyboardManagerSwift', '5.0.0'` #`It's backward compatible till Swift3`
 
 *Swift 4.0 (Xcode 9.0)* `pod 'IQKeyboardManagerSwift', '5.0.0'`
 
