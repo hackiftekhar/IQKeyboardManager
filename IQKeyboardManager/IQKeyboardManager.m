@@ -1959,10 +1959,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     if ([self canGoPrevious])
     {
+        UIView *currentTextFieldView = _textFieldView;
         BOOL isAcceptAsFirstResponder = [self goPrevious];
         
         if (isAcceptAsFirstResponder == YES && barButton.invocation)
         {
+            if (barButton.invocation.methodSignature.numberOfArguments > 2)
+            {
+                [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+            }
+
             [barButton.invocation invoke];
         }
     }
@@ -1979,10 +1985,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     if ([self canGoNext])
     {
+        UIView *currentTextFieldView = _textFieldView;
         BOOL isAcceptAsFirstResponder = [self goNext];
         
         if (isAcceptAsFirstResponder == YES && barButton.invocation)
         {
+            if (barButton.invocation.methodSignature.numberOfArguments > 2)
+            {
+                [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+            }
+
             [barButton.invocation invoke];
         }
     }
@@ -1997,10 +2009,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         [[UIDevice currentDevice] playInputClick];
     }
 
+    UIView *currentTextFieldView = _textFieldView;
     BOOL isResignedFirstResponder = [self resignFirstResponder];
     
     if (isResignedFirstResponder == YES && barButton.invocation)
     {
+        if (barButton.invocation.methodSignature.numberOfArguments > 2)
+        {
+            [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+        }
+
         [barButton.invocation invoke];
     }
 }
