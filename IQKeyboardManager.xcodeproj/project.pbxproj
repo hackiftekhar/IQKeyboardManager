@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1D987E1F752A6400F5C2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987D1F752A6400F5C2EA /* UIKit.framework */; };
+		4C1D98801F752A6A00F5C2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987F1F752A6A00F5C2EA /* Foundation.framework */; };
+		4C1D98821F752A7600F5C2EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */; };
+		4C1D98841F752A7E00F5C2EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */; };
+		4C1D98851F752AC300F5C2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987D1F752A6400F5C2EA /* UIKit.framework */; };
+		4C1D98861F752AC700F5C2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987F1F752A6A00F5C2EA /* Foundation.framework */; };
+		4C1D98871F752ACC00F5C2EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */; };
+		4C1D98881F752AD200F5C2EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */; };
 		4C68CB1E1CB5779300F7286E /* IQPreviousNextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C68CB1F1CB5779300F7286E /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */; };
 		4CD2C4D81C5A63A300975A7A /* IQNSArray+Sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4B51C5A63A300975A7A /* IQNSArray+Sort.h */; };
@@ -59,6 +67,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C1D987D1F752A6400F5C2EA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C1D987F1F752A6A00F5C2EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
 		4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
 		4CD2C4A61C5A615600975A7A /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +131,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C1D98841F752A7E00F5C2EA /* QuartzCore.framework in Frameworks */,
+				4C1D98821F752A7600F5C2EA /* CoreGraphics.framework in Frameworks */,
+				4C1D98801F752A6A00F5C2EA /* Foundation.framework in Frameworks */,
+				4C1D987E1F752A6400F5C2EA /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,12 +142,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C1D98881F752AD200F5C2EA /* QuartzCore.framework in Frameworks */,
+				4C1D98871F752ACC00F5C2EA /* CoreGraphics.framework in Frameworks */,
+				4C1D98861F752AC700F5C2EA /* Foundation.framework in Frameworks */,
+				4C1D98851F752AC300F5C2EA /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C1D987C1F752A6400F5C2EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */,
+				4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */,
+				4C1D987F1F752A6A00F5C2EA /* Foundation.framework */,
+				4C1D987D1F752A6400F5C2EA /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4CD2C49C1C5A615600975A7A = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +170,7 @@
 				4CD597141D1C5EDD00AB28D3 /* IQKeyboardManagerSwift */,
 				4CD2C4F61C5A63DF00975A7A /* Supporting Files */,
 				4CD2C4A71C5A615600975A7A /* Products */,
+				4C1D987C1F752A6400F5C2EA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -626,6 +658,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -639,7 +672,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -647,6 +680,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_MODULES_AUTOLINK = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -659,7 +693,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Iftekhar.IQKeyboardManagerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
