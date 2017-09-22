@@ -100,7 +100,7 @@ public extension UIView {
         set(newValue) {
             objc_setAssociatedObject(self, &kIQShouldHideToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder;
+            self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder
         }
     }
 
@@ -126,7 +126,7 @@ public extension UIView {
         set(newValue) {
             objc_setAssociatedObject(self, &kIQToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder;
+            self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder
         }
     }
 
@@ -228,7 +228,7 @@ public extension UIView {
             if #available(iOS 11, *) {
 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -324,7 +324,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -434,7 +434,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -560,7 +560,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -690,7 +690,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -881,7 +881,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -1053,7 +1053,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)
@@ -1242,7 +1242,7 @@ public extension UIView {
             if #available(iOS 11, *) {
                 
             } else {
-                toolbar.titleBarButton.customView?.frame = CGRect.zero;
+                toolbar.titleBarButton.customView?.frame = CGRect.zero
             }
             
             items.append(toolbar.titleBarButton)

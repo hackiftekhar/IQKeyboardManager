@@ -2002,7 +2002,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
-                                toolbar.barTintColor = nil;
+                                toolbar.barTintColor = nil
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -2029,7 +2029,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             case UIKeyboardAppearance.dark:
                                 toolbar.barStyle = UIBarStyle.black
                                 toolbar.tintColor = UIColor.white
-                                toolbar.barTintColor = nil;
+                                toolbar.barTintColor = nil
                             default:
                                 toolbar.barStyle = UIBarStyle.default
                                 
@@ -2072,18 +2072,18 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //	If firstTextField, then previous should not be enabled.
                         if siblings.first == textField {
                             if (siblings.count == 1) {
-                                textField.keyboardToolbar.previousBarButton.isEnabled = false;
-                                textField.keyboardToolbar.nextBarButton.isEnabled = false;
+                                textField.keyboardToolbar.previousBarButton.isEnabled = false
+                                textField.keyboardToolbar.nextBarButton.isEnabled = false
                             } else {
-                                textField.keyboardToolbar.previousBarButton.isEnabled = false;
-                                textField.keyboardToolbar.nextBarButton.isEnabled = true;
+                                textField.keyboardToolbar.previousBarButton.isEnabled = false
+                                textField.keyboardToolbar.nextBarButton.isEnabled = true
                             }
                         } else if siblings.last  == textField {   //	If lastTextField then next should not be enaled.
-                            textField.keyboardToolbar.previousBarButton.isEnabled = true;
-                            textField.keyboardToolbar.nextBarButton.isEnabled = false;
+                            textField.keyboardToolbar.previousBarButton.isEnabled = true
+                            textField.keyboardToolbar.nextBarButton.isEnabled = false
                         } else {
-                            textField.keyboardToolbar.previousBarButton.isEnabled = true;
-                            textField.keyboardToolbar.nextBarButton.isEnabled = true;
+                            textField.keyboardToolbar.previousBarButton.isEnabled = true
+                            textField.keyboardToolbar.nextBarButton.isEnabled = true
                         }
                     }
                 }
@@ -2115,10 +2115,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         if let textField = view as? UITextField {
                             textField.inputAccessoryView = nil
-                            textField.reloadInputViews();
+                            textField.reloadInputViews()
                         } else if let textView = view as? UITextView {
                             textView.inputAccessoryView = nil
-                            textView.reloadInputViews();
+                            textView.reloadInputViews()
                         }
                     }
                 }

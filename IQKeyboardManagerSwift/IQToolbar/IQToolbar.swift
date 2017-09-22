@@ -173,7 +173,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         super.layoutSubviews()
         
         if #available(iOS 11, *) {
-            return;
+            return
         } else {
             var leftRect = CGRect.null
             var rightRect = CGRect.null

@@ -121,13 +121,13 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
                 layoutDefaultHighPriority = UILayoutPriorityDefaultHigh-1
             #endif
             
-            _titleView?.translatesAutoresizingMaskIntoConstraints = false;
+            _titleView?.translatesAutoresizingMaskIntoConstraints = false
             _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
             _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
             _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
             _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
             
-            _titleButton?.translatesAutoresizingMaskIntoConstraints = false;
+            _titleButton?.translatesAutoresizingMaskIntoConstraints = false
             _titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
             _titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
             _titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
