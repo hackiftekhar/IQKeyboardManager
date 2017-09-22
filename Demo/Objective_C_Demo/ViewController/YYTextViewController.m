@@ -7,10 +7,9 @@
 //
 
 #import "YYTextViewController.h"
-#import "IQKeyboardManager.h"
 
-#import "YYTextView.h"
-
+@import IQKeyboardManager;
+@import YYText;
 
 @interface YYTextViewController ()<YYTextViewDelegate>
 

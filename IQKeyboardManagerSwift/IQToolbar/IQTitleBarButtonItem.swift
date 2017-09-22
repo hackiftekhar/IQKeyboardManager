@@ -108,11 +108,19 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         
         if #available(iOS 11, *) {
             
-            let layoutPriorityLowValue = UILayoutPriority.defaultLow.rawValue-1
-            let layoutPriorityHighValue = UILayoutPriority.defaultHigh.rawValue-1
-            let layoutDefaultLowPriority = UILayoutPriority(rawValue: layoutPriorityLowValue)
-            let layoutDefaultHighPriority = UILayoutPriority(rawValue: layoutPriorityHighValue)
+            var layoutDefaultLowPriority : UILayoutPriority
+            var layoutDefaultHighPriority : UILayoutPriority
 
+            #if swift(>=4.0)
+                let layoutPriorityLowValue = UILayoutPriority.defaultLow.rawValue-1
+                let layoutPriorityHighValue = UILayoutPriority.defaultHigh.rawValue-1
+                layoutDefaultLowPriority = UILayoutPriority(rawValue: layoutPriorityLowValue)
+                layoutDefaultHighPriority = UILayoutPriority(rawValue: layoutPriorityHighValue)
+            #else
+                layoutDefaultLowPriority = UILayoutPriorityDefaultLow-1
+                layoutDefaultHighPriority = UILayoutPriorityDefaultHigh-1
+            #endif
+            
             _titleView?.translatesAutoresizingMaskIntoConstraints = false;
             _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
             _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
