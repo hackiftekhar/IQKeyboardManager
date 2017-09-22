@@ -9,11 +9,11 @@
 - Added **shouldIgnoreScrollingAdjustment** property in UIScrollView category to prevent scrollView to scroll to adjust textField position. This will be useful if there are nested UIScrollView are having and we should like to scroll an specific one to autoscroll to correct position.
 
 #### Improvements:
-- Converted project to support swift4, with backward compatibility of swift3.2 and swift 3.0.
-- Migrated from #import statements to @import.
+- Converted project to support **swift4**, with **backward compatibility** of **swift3.2** and **swift 3.0**.
+- Migrated from **#import** statements to **@import**.
 
 #### Deprecations and Removed:
-- Removed localizable.strings files from Bundle since it's no longer useful.
+- **Removed localizable.strings** files from Bundle since it's no longer useful.
 
 ## 4.0.13 (22-08-2017 | 3 days)
 
