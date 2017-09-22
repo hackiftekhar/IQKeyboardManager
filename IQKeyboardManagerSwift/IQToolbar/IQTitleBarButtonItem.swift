@@ -107,21 +107,23 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         _titleView?.addSubview(_titleButton!)
         
         if #available(iOS 11, *) {
+            
+            let layoutPriorityLowValue = UILayoutPriority.defaultLow.rawValue-1
+            let layoutPriorityHighValue = UILayoutPriority.defaultHigh.rawValue-1
+            let layoutDefaultLowPriority = UILayoutPriority(rawValue: layoutPriorityLowValue)
+            let layoutDefaultHighPriority = UILayoutPriority(rawValue: layoutPriorityHighValue)
+
             _titleView?.translatesAutoresizingMaskIntoConstraints = false;
-            
-            let layoutPriorityValue = UILayoutPriority.defaultLow.rawValue-1
-            let layoutPriority = UILayoutPriority(rawValue: layoutPriorityValue)
-            
-            _titleView?.setContentHuggingPriority(layoutPriority, for: .vertical)
-            _titleView?.setContentHuggingPriority(layoutPriority, for: .horizontal)
-            _titleView?.setContentCompressionResistancePriority(layoutPriority, for: .vertical)
-            _titleView?.setContentCompressionResistancePriority(layoutPriority, for: .horizontal)
+            _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
+            _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
+            _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
+            _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
             
             _titleButton?.translatesAutoresizingMaskIntoConstraints = false;
-            _titleButton?.setContentHuggingPriority(layoutPriority, for: .vertical)
-            _titleButton?.setContentHuggingPriority(layoutPriority, for: .horizontal)
-            _titleButton?.setContentCompressionResistancePriority(layoutPriority, for: .vertical)
-            _titleButton?.setContentCompressionResistancePriority(layoutPriority, for: .horizontal)
+            _titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
+            _titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
+            _titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
+            _titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
 
             let top = NSLayoutConstraint.init(item: _titleButton!, attribute: .top, relatedBy: .equal, toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
             let bottom = NSLayoutConstraint.init(item: _titleButton!, attribute: .bottom, relatedBy: .equal, toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
