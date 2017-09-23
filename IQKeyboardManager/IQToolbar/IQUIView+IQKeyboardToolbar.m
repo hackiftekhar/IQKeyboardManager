@@ -28,9 +28,9 @@
 
 #import <objc/runtime.h>
 
-@import UIKit.UIImage;
-@import UIKit.UILabel;
-@import UIKit.UIAccessibility;
+#import <UIKit/UIImage.h>
+#import <UIKit/UILabel.h>
+#import <UIKit/UIAccessibility.h>
 
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)

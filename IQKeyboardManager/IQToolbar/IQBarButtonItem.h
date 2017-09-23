@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 
-@import UIKit.UIBarButtonItem;
+#import <UIKit/UIBarButtonItem.h>
 
 @class NSInvocation;
 

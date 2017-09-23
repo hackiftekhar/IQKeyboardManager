@@ -23,7 +23,7 @@
 
 #import "IQToolbar.h"
 
-@import UIKit.UIView;
+#import <UIKit/UIView.h>
 
 /**
  UIView category methods to add IQToolbar on UIKeyboard.

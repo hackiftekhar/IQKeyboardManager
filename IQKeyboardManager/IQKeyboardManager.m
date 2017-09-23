@@ -36,15 +36,15 @@
 
 #import <objc/runtime.h>
 
-@import UIKit.UINavigationBar;
-@import UIKit.UITapGestureRecognizer;
-@import UIKit.UITextField;
-@import UIKit.UITextView;
-@import UIKit.UITableViewController;
-@import UIKit.UICollectionViewController;
-@import UIKit.UINavigationController;
-@import UIKit.UITouch;
-@import UIKit.NSLayoutConstraint;
+#import <UIKit/UINavigationBar.h>
+#import <UIKit/UITapGestureRecognizer.h>
+#import <UIKit/UITextField.h>
+#import <UIKit/UITextView.h>
+#import <UIKit/UITableViewController.h>
+#import <UIKit/UICollectionViewController.h>
+#import <UIKit/UINavigationController.h>
+#import <UIKit/UITouch.h>
+#import <UIKit/NSLayoutConstraint.h>
 
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;

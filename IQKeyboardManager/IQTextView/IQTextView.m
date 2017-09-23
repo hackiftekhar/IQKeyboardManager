@@ -23,9 +23,9 @@
 
 #import "IQTextView.h"
 
-@import UIKit.NSTextContainer;
-@import UIKit.UILabel;
-@import UIKit.UINibLoading;
+#import <UIKit/NSTextContainer.h>
+#import <UIKit/UILabel.h>
+#import <UIKit/UINibLoading.h>
 
 @interface IQTextView ()
 

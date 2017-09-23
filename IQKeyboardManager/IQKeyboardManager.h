@@ -23,13 +23,13 @@
 
 #import "IQKeyboardManagerConstants.h"
 
-@import CoreGraphics.CGBase;
+#import <CoreGraphics/CGBase.h>
 
-@import Foundation.NSObject;
-@import Foundation.NSObjCRuntime;
-@import Foundation.NSSet;
+#import <Foundation/NSObject.h>
+#import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSSet.h>
 
-@import UIKit.UITextInputTraits;
+#import <UIKit/UITextInputTraits.h>
 
 @class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
 

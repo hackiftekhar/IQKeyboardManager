@@ -23,8 +23,8 @@
 
 #import "IQTitleBarButtonItem.h"
 
-@import UIKit.UIToolbar;
-@import UIKit.UIDevice;
+#import <UIKit/UIToolbar.h>
+#import <UIKit/UIDevice.h>
 
 /**
  IQToolbar for IQKeyboardManager.

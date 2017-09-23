@@ -24,7 +24,7 @@
 #import "IQKeyboardManagerConstants.h"
 #import "IQBarButtonItem.h"
 
-@import Foundation.NSObjCRuntime;
+#import <Foundation/NSObjCRuntime.h>
 
 /**
  BarButtonItem with title text.

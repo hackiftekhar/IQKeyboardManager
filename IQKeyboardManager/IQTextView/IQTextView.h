@@ -23,7 +23,7 @@
 
 #import "IQKeyboardManagerConstants.h"
 
-@import UIKit.UITextView;
+#import <UIKit/UITextView.h>
 
 /**
  UITextView with placeholder support
