@@ -30,22 +30,22 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     private static var _classInitialize: Void = classInitialize()
     
     private class func classInitialize() {
-                
-        self.appearance().barTintColor = nil
         
-        //Background image
-        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.any,            barMetrics: UIBarMetrics.default)
-        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.bottom,         barMetrics: UIBarMetrics.default)
-        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.top,            barMetrics: UIBarMetrics.default)
-        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.topAttached,    barMetrics: UIBarMetrics.default)
+        let  appearanceProxy = self.appearance()
 
-        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.any)
-        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.bottom)
-        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.top)
-        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.topAttached)
+        appearanceProxy.tintColor = nil
+        appearanceProxy.barTintColor = nil
         
+        let positions : [UIBarPosition] = [.any,.bottom,.top,.topAttached];
+
+        for position in positions {
+
+            appearanceProxy.setBackgroundImage(nil, forToolbarPosition: position, barMetrics: .default)
+            appearanceProxy.setShadowImage(nil, forToolbarPosition: .any)
+        }
+
         //Background color
-        self.appearance().backgroundColor = nil
+        position.backgroundColor = nil
     }
     
     /**

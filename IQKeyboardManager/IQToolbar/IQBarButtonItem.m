@@ -50,7 +50,7 @@
     {
         UIControlState controlState = [state unsignedIntegerValue];
 
-        [appearanceProxy setTitleTextAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15.0], NSForegroundColorAttributeName: [UIColor redColor] } forState:controlState];
+        [appearanceProxy setTitleTextAttributes:nil forState:controlState];
         [appearanceProxy setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
         [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
         [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
