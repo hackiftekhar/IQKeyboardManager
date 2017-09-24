@@ -45,7 +45,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
 
         //Background color
-        position.backgroundColor = nil
+        appearanceProxy.backgroundColor = nil
     }
     
     /**
