@@ -165,7 +165,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Returns the default singleton instance.
     */
-    open class func sharedManager() -> IQKeyboardManager {
+    @objc open class func sharedManager() -> IQKeyboardManager {
         
         struct Static {
             //Singleton instance. Initializing keyboard manger.
@@ -435,7 +435,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Returns YES if can navigate to previous responder textField/textView, otherwise NO.
     */
-    open var canGoPrevious: Bool {
+    @objc open var canGoPrevious: Bool {
         //Getting all responder view's.
         if let textFields = responderViews() {
             if let  textFieldRetain = _textFieldView {
@@ -456,7 +456,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Returns YES if can navigate to next responder textField/textView, otherwise NO.
     */
-    open var canGoNext: Bool {
+    @objc open var canGoNext: Bool {
         //Getting all responder view's.
         if let textFields = responderViews() {
             if let  textFieldRetain = _textFieldView {
@@ -476,7 +476,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Navigate to previous responder textField/textView.
     */
-    @discardableResult open func goPrevious()-> Bool {
+    @objc @discardableResult open func goPrevious()-> Bool {
         
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
@@ -511,7 +511,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Navigate to next responder textField/textView.
     */
-    @discardableResult open func goNext()-> Bool {
+    @objc @discardableResult open func goNext()-> Bool {
 
         //Getting all responder view's.
         if let  textFieldRetain = _textFieldView {
