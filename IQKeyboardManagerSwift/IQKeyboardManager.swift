@@ -1508,8 +1508,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             topMostController = keyWindow()?.topMostWindowController()
         }
         
-        OperationQueue.main.addOperation {
-            self.adjustFrame()
+        
+        if _textFieldView != nil &&
+            _textFieldView?.isAlertViewTextField() == false {
+            OperationQueue.main.addOperation {
+                self.adjustFrame()
+            }
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime

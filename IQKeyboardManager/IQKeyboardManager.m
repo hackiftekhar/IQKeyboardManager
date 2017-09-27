@@ -1127,9 +1127,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     UIViewController *controller = [_textFieldView topMostController];
     if (controller == nil)  controller = [[self keyWindow] topMostWindowController];
 
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self adjustFrame];
-    }];
+    //If _textFieldView viewController is presented as formSheet, then adjustFrame again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
+    if (_keyboardShowing == YES &&
+        _textFieldView != nil &&
+        [_textFieldView isAlertViewTextField] == NO)
+    {
+        //In case of form sheet or page sheet, we'll add adjustFrame call in main queue to perform it when UI thread will do all framing updation so adjustFrame will be executed after all internal operations.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self adjustFrame];
+        }];
+    }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
