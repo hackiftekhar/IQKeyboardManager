@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,10 +15,6 @@
         <scene sceneID="kAr-5b-4Sn">
             <objects>
                 <viewController storyboardIdentifier="TextFieldViewController" id="csO-qF-Ohn" customClass="TextFieldViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8LL-IX-XKh"/>
-                        <viewControllerLayoutGuide type="bottom" id="Hvg-GD-iUW"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="i84-jm-CzI" customClass="IQPreviousNextView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -262,7 +259,7 @@
                             <constraint firstItem="mYe-Gd-Tgq" firstAttribute="leading" secondItem="07C-Jx-O92" secondAttribute="leading" id="U78-vR-Rha"/>
                             <constraint firstItem="63Q-wt-23t" firstAttribute="trailing" secondItem="07C-Jx-O92" secondAttribute="trailing" id="WSG-tC-CoY"/>
                             <constraint firstItem="63Q-wt-23t" firstAttribute="height" secondItem="07C-Jx-O92" secondAttribute="height" id="Z33-KT-FYf"/>
-                            <constraint firstAttribute="trailing" secondItem="07C-Jx-O92" secondAttribute="trailing" id="ccN-qD-Mnn"/>
+                            <constraint firstItem="Ptp-zt-Sh7" firstAttribute="trailing" secondItem="07C-Jx-O92" secondAttribute="trailing" id="ccN-qD-Mnn"/>
                             <constraint firstItem="gKE-F4-xNG" firstAttribute="leading" secondItem="07C-Jx-O92" secondAttribute="leading" id="d1Q-fZ-jHN"/>
                             <constraint firstItem="0lP-yw-jhD" firstAttribute="leading" secondItem="07C-Jx-O92" secondAttribute="leading" id="dXf-vS-oZH"/>
                             <constraint firstItem="IVr-ue-nU2" firstAttribute="height" secondItem="07C-Jx-O92" secondAttribute="height" id="iDS-Ml-QGf"/>
@@ -275,8 +272,9 @@
                             <constraint firstItem="IVr-ue-nU2" firstAttribute="top" secondItem="0lP-yw-jhD" secondAttribute="bottom" id="rVE-gO-9xX"/>
                             <constraint firstItem="TZX-d4-nhG" firstAttribute="trailing" secondItem="07C-Jx-O92" secondAttribute="trailing" id="uue-y8-WME"/>
                             <constraint firstItem="0lP-yw-jhD" firstAttribute="height" secondItem="07C-Jx-O92" secondAttribute="height" id="xRS-DP-aWL"/>
-                            <constraint firstItem="07C-Jx-O92" firstAttribute="leading" secondItem="i84-jm-CzI" secondAttribute="leading" id="zTi-hu-eO8"/>
+                            <constraint firstItem="07C-Jx-O92" firstAttribute="leading" secondItem="Ptp-zt-Sh7" secondAttribute="leading" id="zTi-hu-eO8"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ptp-zt-Sh7"/>
                     </view>
                     <navigationItem key="navigationItem" title="TextField Demo" id="s8z-5e-RBK">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="qRy-Jd-18s">
@@ -308,10 +306,6 @@
         <scene sceneID="EHW-3w-JeB">
             <objects>
                 <viewController storyboardIdentifier="ManualToolbarViewController" id="BmV-Mf-VMv" customClass="ManualToolbarViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="h8J-UR-aMH"/>
-                        <viewControllerLayoutGuide type="bottom" id="5b8-da-c9z"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HJo-1K-fJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -395,13 +389,13 @@
                             <constraint firstItem="Pgv-Nr-BWR" firstAttribute="leading" secondItem="dET-Cl-VUb" secondAttribute="leading" id="3le-BI-CJa"/>
                             <constraint firstAttribute="bottom" secondItem="9al-mX-KU2" secondAttribute="bottom" constant="5" id="4HV-1n-B4X"/>
                             <constraint firstItem="dET-Cl-VUb" firstAttribute="top" secondItem="HJo-1K-fJY" secondAttribute="top" constant="69" id="6H5-cx-nVG"/>
-                            <constraint firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" constant="10" id="BXC-53-WaL"/>
+                            <constraint firstItem="moM-Jc-ICu" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" constant="10" id="BXC-53-WaL"/>
                             <constraint firstItem="oB6-a2-0nS" firstAttribute="top" secondItem="1qv-RL-5nG" secondAttribute="bottom" constant="10" id="BwN-QK-0hQ"/>
                             <constraint firstItem="Pgv-Nr-BWR" firstAttribute="top" secondItem="dET-Cl-VUb" secondAttribute="bottom" constant="5" id="JMG-i3-v34"/>
                             <constraint firstItem="Zjk-gc-QEr" firstAttribute="leading" secondItem="dET-Cl-VUb" secondAttribute="leading" id="Jgh-Kb-isa"/>
                             <constraint firstItem="1qv-RL-5nG" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="Mbb-rm-sRE"/>
                             <constraint firstItem="Pgv-Nr-BWR" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="Mk2-JS-Zsp"/>
-                            <constraint firstItem="dET-Cl-VUb" firstAttribute="leading" secondItem="HJo-1K-fJY" secondAttribute="leading" constant="10" id="Nhv-We-MSD"/>
+                            <constraint firstItem="dET-Cl-VUb" firstAttribute="leading" secondItem="moM-Jc-ICu" secondAttribute="leading" constant="10" id="Nhv-We-MSD"/>
                             <constraint firstItem="oB6-a2-0nS" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="etb-1Z-4lg"/>
                             <constraint firstItem="oB6-a2-0nS" firstAttribute="leading" secondItem="dET-Cl-VUb" secondAttribute="leading" id="jc7-ud-YEv"/>
                             <constraint firstItem="9al-mX-KU2" firstAttribute="top" secondItem="oB6-a2-0nS" secondAttribute="bottom" constant="5" id="kVs-y0-B8I"/>
@@ -412,6 +406,7 @@
                             <constraint firstItem="9al-mX-KU2" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="xDs-zv-VIN"/>
                             <constraint firstItem="Zjk-gc-QEr" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="zIO-cM-iyj"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="moM-Jc-ICu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manual UIToolbar" id="Bsk-WG-eqv">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="EP2-V0-ARn"/>
@@ -432,10 +427,6 @@
         <scene sceneID="3sv-pN-G2Q">
             <objects>
                 <viewController storyboardIdentifier="TextViewSpecialCaseViewController" automaticallyAdjustsScrollViewInsets="NO" id="S5Z-0B-U3b" customClass="TextViewSpecialCaseViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lmw-zS-enf"/>
-                        <viewControllerLayoutGuide type="bottom" id="fUz-7q-Asf"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WXo-oP-G5s">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -518,7 +509,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="L8v-ua-y0A" firstAttribute="leading" secondItem="WXo-oP-G5s" secondAttribute="leading" constant="5" id="1Z6-kz-nkX"/>
+                            <constraint firstItem="L8v-ua-y0A" firstAttribute="leading" secondItem="tof-Nw-9td" secondAttribute="leading" constant="5" id="1Z6-kz-nkX"/>
                             <constraint firstItem="m72-tJ-oyd" firstAttribute="bottom" secondItem="L8v-ua-y0A" secondAttribute="bottom" id="7jW-xw-uDa"/>
                             <constraint firstItem="uNE-Wh-GsT" firstAttribute="leading" secondItem="OBL-N5-MlD" secondAttribute="trailing" id="8TF-Ev-GiJ"/>
                             <constraint firstItem="rUI-UY-dtz" firstAttribute="top" secondItem="L8v-ua-y0A" secondAttribute="top" id="9jH-nR-8Ko"/>
@@ -535,19 +526,20 @@
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="leading" secondItem="m72-tJ-oyd" secondAttribute="trailing" constant="5" id="Uul-rf-JOo"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="height" secondItem="2d0-tG-Pzx" secondAttribute="height" multiplier="2:1" id="Y2v-8q-AZo"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="bottom" secondItem="L8v-ua-y0A" secondAttribute="bottom" id="YlB-va-Idl"/>
-                            <constraint firstItem="OBL-N5-MlD" firstAttribute="leading" secondItem="WXo-oP-G5s" secondAttribute="leading" id="cSy-Y6-tzR"/>
+                            <constraint firstItem="OBL-N5-MlD" firstAttribute="leading" secondItem="tof-Nw-9td" secondAttribute="leading" id="cSy-Y6-tzR"/>
                             <constraint firstAttribute="bottom" secondItem="L8v-ua-y0A" secondAttribute="bottom" constant="10" id="dbY-GW-xN8"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="trailing" secondItem="2d0-tG-Pzx" secondAttribute="trailing" id="euN-2B-39x"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="width" secondItem="L8v-ua-y0A" secondAttribute="width" id="fzt-8G-ESW"/>
                             <constraint firstItem="uNE-Wh-GsT" firstAttribute="bottom" secondItem="OBL-N5-MlD" secondAttribute="bottom" id="iat-zj-2Iw"/>
                             <constraint firstItem="m72-tJ-oyd" firstAttribute="trailing" secondItem="rUI-UY-dtz" secondAttribute="trailing" id="jud-Tn-Z0v"/>
                             <constraint firstItem="OBL-N5-MlD" firstAttribute="top" secondItem="WXo-oP-G5s" secondAttribute="top" constant="64" id="lF6-60-5on"/>
-                            <constraint firstAttribute="trailing" secondItem="2d0-tG-Pzx" secondAttribute="trailing" constant="5" id="nCU-Uf-YaN"/>
+                            <constraint firstItem="tof-Nw-9td" firstAttribute="trailing" secondItem="2d0-tG-Pzx" secondAttribute="trailing" constant="5" id="nCU-Uf-YaN"/>
                             <constraint firstItem="m72-tJ-oyd" firstAttribute="height" secondItem="rUI-UY-dtz" secondAttribute="height" id="oSn-aq-5n8"/>
                             <constraint firstItem="2d0-tG-Pzx" firstAttribute="width" secondItem="L8v-ua-y0A" secondAttribute="width" id="rfn-CF-5FM"/>
-                            <constraint firstAttribute="trailing" secondItem="uNE-Wh-GsT" secondAttribute="trailing" id="tg3-wx-JQw"/>
+                            <constraint firstItem="tof-Nw-9td" firstAttribute="trailing" secondItem="uNE-Wh-GsT" secondAttribute="trailing" id="tg3-wx-JQw"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="leading" secondItem="2d0-tG-Pzx" secondAttribute="leading" id="yOI-0E-V1k"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="tof-Nw-9td"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITextView" id="Qen-Wv-SxX">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="3yn-Xo-guq"/>

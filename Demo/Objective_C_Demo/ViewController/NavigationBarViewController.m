@@ -3,8 +3,9 @@
 //  IQKeyboard
 
 #import "NavigationBarViewController.h"
-#import "IQKeyboardReturnKeyHandler.h"
-#import "IQUIView+IQKeyboardToolbar.h"
+#import <IQKeyboardManager/IQKeyboardReturnKeyHandler.h>
+#import <IQKeyboardManager/IQUIView+IQKeyboardToolbar.h>
+#import <IQKeyboardManager/IQUITextFieldView+Additions.h>
 
 @interface NavigationBarViewController ()<UITextFieldDelegate,UIPopoverPresentationControllerDelegate>
 

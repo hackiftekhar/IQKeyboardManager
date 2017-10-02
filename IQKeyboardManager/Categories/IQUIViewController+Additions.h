@@ -27,7 +27,9 @@
 
 /**
  Top/Bottom Layout constraint which help library to manage keyboardTextField distance
- */
-@property(nullable, nonatomic, strong) IBOutlet NSLayoutConstraint *IQLayoutGuideConstraint;
+
+ @deprecated    Library is internally handling Safe Area (If you are using Safe Area from Xcode9 and iOS11) and there is no need to do any tweak if you already migrated to use Safe Area
+*/
+@property(nullable, nonatomic, strong) IBOutlet NSLayoutConstraint *IQLayoutGuideConstraint  NS_DEPRECATED_IOS(8_0, 11_0);
 
 @end

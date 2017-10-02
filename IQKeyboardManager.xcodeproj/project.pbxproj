@@ -11,12 +11,12 @@
 		4C1D98801F752A6A00F5C2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987F1F752A6A00F5C2EA /* Foundation.framework */; };
 		4C1D98821F752A7600F5C2EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */; };
 		4C1D98841F752A7E00F5C2EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */; };
-		4C1D98851F752AC300F5C2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987D1F752A6400F5C2EA /* UIKit.framework */; };
-		4C1D98861F752AC700F5C2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987F1F752A6A00F5C2EA /* Foundation.framework */; };
 		4C1D98871F752ACC00F5C2EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98811F752A7600F5C2EA /* CoreGraphics.framework */; };
 		4C1D98881F752AD200F5C2EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D98831F752A7E00F5C2EA /* QuartzCore.framework */; };
 		4C68CB1E1CB5779300F7286E /* IQPreviousNextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C68CB1C1CB5779300F7286E /* IQPreviousNextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C68CB1F1CB5779300F7286E /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C68CB1D1CB5779300F7286E /* IQPreviousNextView.m */; };
+		4CC1D5951F7E84A5007595D9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987D1F752A6400F5C2EA /* UIKit.framework */; };
+		4CC1D5961F7E84AB007595D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D987F1F752A6A00F5C2EA /* Foundation.framework */; };
 		4CD2C4D81C5A63A300975A7A /* IQNSArray+Sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4B51C5A63A300975A7A /* IQNSArray+Sort.h */; };
 		4CD2C4D91C5A63A300975A7A /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2C4B61C5A63A300975A7A /* IQNSArray+Sort.m */; };
 		4CD2C4DA1C5A63A300975A7A /* IQUIScrollView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD2C4B71C5A63A300975A7A /* IQUIScrollView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -142,10 +142,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC1D5961F7E84AB007595D9 /* Foundation.framework in Frameworks */,
+				4CC1D5951F7E84A5007595D9 /* UIKit.framework in Frameworks */,
 				4C1D98881F752AD200F5C2EA /* QuartzCore.framework in Frameworks */,
 				4C1D98871F752ACC00F5C2EA /* CoreGraphics.framework in Frameworks */,
-				4C1D98861F752AC700F5C2EA /* Foundation.framework in Frameworks */,
-				4C1D98851F752AC300F5C2EA /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

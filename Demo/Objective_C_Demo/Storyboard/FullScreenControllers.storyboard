@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="00a-mk-AdB">
             <objects>
                 <viewController storyboardIdentifier="ChatViewController" automaticallyAdjustsScrollViewInsets="NO" id="ROq-V5-UM7" customClass="ChatViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dOl-HW-DWO"/>
-                        <viewControllerLayoutGuide type="bottom" id="mlK-f8-RJL"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9zO-pv-IOm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,13 +88,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kN9-LL-atS" firstAttribute="top" secondItem="jVn-C2-nTA" secondAttribute="bottom" id="AJh-PZ-vyP"/>
-                            <constraint firstItem="kN9-LL-atS" firstAttribute="leading" secondItem="9zO-pv-IOm" secondAttribute="leading" id="NmS-ih-JId"/>
-                            <constraint firstItem="jVn-C2-nTA" firstAttribute="leading" secondItem="9zO-pv-IOm" secondAttribute="leading" id="OT9-Xe-WYR"/>
-                            <constraint firstItem="jVn-C2-nTA" firstAttribute="top" secondItem="dOl-HW-DWO" secondAttribute="bottom" id="bO3-mD-yqS"/>
-                            <constraint firstAttribute="trailing" secondItem="kN9-LL-atS" secondAttribute="trailing" id="oqY-7V-owt"/>
-                            <constraint firstItem="mlK-f8-RJL" firstAttribute="top" secondItem="kN9-LL-atS" secondAttribute="bottom" id="tGf-K6-jbE"/>
-                            <constraint firstAttribute="trailing" secondItem="jVn-C2-nTA" secondAttribute="trailing" id="vnl-X7-ow5"/>
+                            <constraint firstItem="kN9-LL-atS" firstAttribute="leading" secondItem="op0-TT-IYk" secondAttribute="leading" id="NmS-ih-JId"/>
+                            <constraint firstItem="jVn-C2-nTA" firstAttribute="leading" secondItem="op0-TT-IYk" secondAttribute="leading" id="OT9-Xe-WYR"/>
+                            <constraint firstItem="jVn-C2-nTA" firstAttribute="top" secondItem="op0-TT-IYk" secondAttribute="top" id="bO3-mD-yqS"/>
+                            <constraint firstItem="op0-TT-IYk" firstAttribute="trailing" secondItem="kN9-LL-atS" secondAttribute="trailing" id="oqY-7V-owt"/>
+                            <constraint firstItem="op0-TT-IYk" firstAttribute="bottom" secondItem="kN9-LL-atS" secondAttribute="bottom" id="tGf-K6-jbE"/>
+                            <constraint firstItem="op0-TT-IYk" firstAttribute="trailing" secondItem="jVn-C2-nTA" secondAttribute="trailing" id="vnl-X7-ow5"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="op0-TT-IYk"/>
                     </view>
                     <navigationItem key="navigationItem" title="ChatViewController" id="lj2-D1-6n0"/>
                     <connections>
@@ -115,10 +113,6 @@
         <scene sceneID="MpH-Uf-nZC">
             <objects>
                 <viewController storyboardIdentifier="TextViewController" automaticallyAdjustsScrollViewInsets="NO" id="P7P-UN-ggT" customClass="TextViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GkE-p4-pKx"/>
-                        <viewControllerLayoutGuide type="bottom" id="EOa-wF-kil"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BLa-72-1s6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,11 +127,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="50p-P4-9dL" firstAttribute="leading" secondItem="BLa-72-1s6" secondAttribute="leading" id="6LD-6S-lZE"/>
-                            <constraint firstItem="EOa-wF-kil" firstAttribute="top" secondItem="50p-P4-9dL" secondAttribute="bottom" id="Lqc-NC-Mvm"/>
-                            <constraint firstItem="50p-P4-9dL" firstAttribute="top" secondItem="GkE-p4-pKx" secondAttribute="bottom" id="fZP-US-l4g"/>
-                            <constraint firstAttribute="trailing" secondItem="50p-P4-9dL" secondAttribute="trailing" id="xLZ-cs-lb0"/>
+                            <constraint firstItem="50p-P4-9dL" firstAttribute="leading" secondItem="S1B-Yd-HIT" secondAttribute="leading" id="6LD-6S-lZE"/>
+                            <constraint firstItem="S1B-Yd-HIT" firstAttribute="bottom" secondItem="50p-P4-9dL" secondAttribute="bottom" id="Lqc-NC-Mvm"/>
+                            <constraint firstItem="50p-P4-9dL" firstAttribute="top" secondItem="S1B-Yd-HIT" secondAttribute="top" id="fZP-US-l4g"/>
+                            <constraint firstItem="S1B-Yd-HIT" firstAttribute="trailing" secondItem="50p-P4-9dL" secondAttribute="trailing" id="xLZ-cs-lb0"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="S1B-Yd-HIT"/>
                     </view>
                     <navigationItem key="navigationItem" title="TextViewController" id="WU4-It-O6g"/>
                     <connections>

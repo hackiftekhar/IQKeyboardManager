@@ -74,6 +74,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To save rootViewController */
 @property(nonatomic, weak) UIViewController *rootViewController;
 
+/** To save additionalSafeAreaInsets of rootViewController to tweak iOS11 Safe Area */
+@property(nonatomic, assign) UIEdgeInsets   initialAdditionalSafeAreaInsets;
+
 /** To save topBottomLayoutConstraint original constant */
 @property(nonatomic, assign) CGFloat    layoutGuideConstraintInitialConstant;
 
@@ -552,10 +555,39 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     __weak typeof(self) weakSelf = self;
     
+#ifdef __IPHONE_11_0
+    UIEdgeInsets safeAreaNewInset = UIEdgeInsetsZero;
+    
+    if (@available(iOS 11.0, *)) {
+        safeAreaNewInset = self.initialAdditionalSafeAreaInsets;
+        CGFloat viewMovement = CGRectGetMaxY(_topViewBeginRect)-CGRectGetMaxY(frame);
+        
+        //Maintain keyboardDistanceFromTextField
+        CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
+        
+        if (_textFieldView.isSearchBarTextField)
+        {
+            UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
+            specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+        }
+        
+        CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
+        
+        CGFloat textFieldDistance = _textFieldView.frame.size.height + keyboardDistanceFromTextField;
+        safeAreaNewInset.bottom += MIN(viewMovement, textFieldDistance);
+    }
+#endif
+
     //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
     [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
 
         __strong typeof(self) strongSelf = weakSelf;
+
+#ifdef __IPHONE_11_0
+        if (@available(iOS 11.0, *)) {
+            controller.additionalSafeAreaInsets = safeAreaNewInset;
+        }
+#endif
 
         //  Setting it's new frame
         [controller.view setFrame:frame];
@@ -960,7 +992,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 //  disturbDistance Negative = frame disturbed.
                 //  disturbDistance positive = frame not disturbed.
-                if(disturbDistance<0)
+                if(disturbDistance<=0)
                 {
                     // We should only manipulate y.
                     rootViewRect.origin.y -= MAX(move, disturbDistance);
@@ -998,7 +1030,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 //  disturbDistance Negative = frame disturbed. Pull Request #3
                 //  disturbDistance positive = frame not disturbed.
-                if(disturbDistance<0)
+                if(disturbDistance<=0)
                 {
                     rootViewRect.origin.y -= MAX(move, disturbDistance);
                     
@@ -1086,6 +1118,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostWindowController];
 
         _topViewBeginRect = _rootViewController.view.frame;
+        
+#ifdef __IPHONE_11_0
+        if (@available(iOS 11.0, *)) {
+            self.initialAdditionalSafeAreaInsets = _rootViewController.additionalSafeAreaInsets;
+        }
+#endif
         
         if (_shouldFixInteractivePopGestureRecognizer &&
             [_rootViewController isKindOfClass:[UINavigationController class]] &&
@@ -1234,6 +1272,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:[NSString stringWithFormat:@"Restoring %@ frame to : %@",[strongSelf.rootViewController _IQDescription],NSStringFromCGRect(strongSelf.topViewBeginRect)]];
                 //  Setting it's new frame
                 [strongSelf.rootViewController.view setFrame:strongSelf.topViewBeginRect];
+
+#ifdef __IPHONE_11_0
+                if (@available(iOS 11.0, *)) {
+                    strongSelf.rootViewController.additionalSafeAreaInsets = strongSelf.initialAdditionalSafeAreaInsets;
+                }
+#endif
+
                 _movedDistance = 0;
 
                 //Animating content if needed (Bug ID: #204)
@@ -1284,6 +1329,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     _topViewBeginRect = CGRectZero;
+
+#ifdef __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {
+        self.initialAdditionalSafeAreaInsets = UIEdgeInsetsZero;
+    }
+#endif
+    
     _kbSize = CGSizeZero;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
@@ -1363,6 +1415,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             _topViewBeginRect = _rootViewController.view.frame;
             
+#ifdef __IPHONE_11_0
+            if (@available(iOS 11.0, *)) {
+                self.initialAdditionalSafeAreaInsets = _rootViewController.additionalSafeAreaInsets;
+            }
+#endif
+
             if (_shouldFixInteractivePopGestureRecognizer &&
                 [_rootViewController isKindOfClass:[UINavigationController class]] &&
                 [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
@@ -1473,6 +1531,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         } completion:NULL];
     }
 
+    if ([self privateIsEnabled] == NO)    return;
+
+    if (_rootViewController)
+    {
+#ifdef __IPHONE_11_0
+        if (@available(iOS 11.0, *)) {
+            if (UIEdgeInsetsEqualToEdgeInsets(self.initialAdditionalSafeAreaInsets, _rootViewController.additionalSafeAreaInsets) == NO)
+            {
+                _rootViewController.additionalSafeAreaInsets = self.initialAdditionalSafeAreaInsets;
+            }
+        }
+#endif
+    }
+    
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
@@ -1494,7 +1566,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         !CGRectEqualToRect(_topViewBeginRect, _rootViewController.view.frame))
     {
         _topViewBeginRect = _rootViewController.view.frame;
-        
+#ifdef __IPHONE_11_0
+        if (@available(iOS 11.0, *)) {
+            self.initialAdditionalSafeAreaInsets = _rootViewController.additionalSafeAreaInsets;
+        }
+#endif
+
         if (_shouldFixInteractivePopGestureRecognizer &&
             [_rootViewController isKindOfClass:[UINavigationController class]] &&
             [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
