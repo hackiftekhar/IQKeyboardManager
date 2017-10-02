@@ -77,7 +77,7 @@ Minimum Xcode Version: Xcode 9.0
 Installation
 ==========================
 
-#### Installation with Cocoapod:-
+#### Installation with CocoaPods
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
 
