@@ -569,10 +569,12 @@
     }
 
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-    {
-        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
-        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    if (@available(iOS 9.0, *)) {
+        if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+        {
+            imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+            imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+        }
     }
     
     //Previous button
@@ -711,10 +713,12 @@
     }
     
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-    {
-        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
-        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    if (@available(iOS 9.0, *)) {
+        if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+        {
+            imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+            imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+        }
     }
 
     //Previous button
@@ -855,10 +859,12 @@
     }
     
     //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-    if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-    {
-        imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
-        imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+    if (@available(iOS 9.0, *)) {
+        if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
+        {
+            imageLeftArrow = [imageLeftArrow imageFlippedForRightToLeftLayoutDirection];
+            imageRightArrow = [imageRightArrow imageFlippedForRightToLeftLayoutDirection];
+        }
     }
     
     //Previous button
