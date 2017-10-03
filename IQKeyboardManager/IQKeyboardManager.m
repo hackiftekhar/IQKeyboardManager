@@ -1832,7 +1832,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //	Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
-    
+    if (siblings.count<=0) {
+        return;
+    }
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
     //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
