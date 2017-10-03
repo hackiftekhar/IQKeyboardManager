@@ -33,4 +33,3 @@ matrix:
           - sudo gem install cocoapods
       script:
         - xcodebuild -workspace Demo.xcworkspace -scheme DemoSwift -sdk iphonesimulator
-----
