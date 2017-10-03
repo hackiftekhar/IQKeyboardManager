@@ -3,7 +3,7 @@ branches:
         - master
 
 language: objective-c
-osx_image: xcode8
+osx_image: xcode9
 
 xcode_workspace: Demo.xcworkspace
 xcode_project: Demo.xcodeproj
@@ -13,6 +13,6 @@ before_install:
     - sudo gem install activesupport -v 4.2.6
     - rvm install 2.3.1
     - rvm use 2.3.1
-    - sudo gem install cocoapods -v '1.0.1'
+    - sudo gem install cocoapods
 
 script: xcodebuild -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
