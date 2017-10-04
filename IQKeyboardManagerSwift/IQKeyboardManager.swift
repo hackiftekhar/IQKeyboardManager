@@ -761,8 +761,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To save rootViewController */
     fileprivate weak var    _rootViewController: UIViewController?
     
+#if swift(>=3.2)
     /** To save additionalSafeAreaInsets of rootViewController to tweak iOS11 Safe Area */
     fileprivate var         _initialAdditionalSafeAreaInsets = UIEdgeInsets.zero
+#endif
 
     /** To save topBottomLayoutConstraint original constant */
     fileprivate var         _layoutGuideConstraintInitialConstant: CGFloat  = 0
@@ -912,6 +914,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             var safeAreaNewInset = UIEdgeInsets.zero;
             
+#if swift(>=3.2)
             if #available(iOS 11, *) {
                 
                 if let textFieldView = _textFieldView {
@@ -934,13 +937,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     safeAreaNewInset.bottom += min(viewMovement, textFieldDistance);
                 }
             }
+#endif
 
             //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
             UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 
+#if swift(>=3.2)
                 if #available(iOS 11, *) {
                     unwrappedController.additionalSafeAreaInsets = safeAreaNewInset;
                 }
+#endif
 
                 //  Setting it's new frame
                 unwrappedController.view.frame = newFrame
@@ -1480,10 +1486,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let unwrappedRootController = _rootViewController {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
+#if swift(>=3.2)
                 if #available(iOS 11, *) {
                     _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
                 }
-
+#endif
                 if shouldFixInteractivePopGestureRecognizer == true &&
                     unwrappedRootController is UINavigationController &&
                     unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
@@ -1649,9 +1656,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         //  Setting it's new frame
                         rootViewController.view.frame = self._topViewBeginRect
                         
+#if swift(>=3.2)
                         if #available(iOS 11, *) {
                             rootViewController.additionalSafeAreaInsets = self._initialAdditionalSafeAreaInsets;
                         }
+#endif
 
                         self._privateMovedDistance = 0
                         
@@ -1700,9 +1709,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         _topViewBeginRect = CGRect.zero
         
+#if swift(>=3.2)
         if #available(iOS 11, *) {
             _initialAdditionalSafeAreaInsets = .zero;
         }
+#endif
         
         _kbSize = CGSize.zero
 
@@ -1787,9 +1798,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
                     _topViewBeginRect = rootViewController.view.frame
                     
+#if swift(>=3.2)
                     if #available(iOS 11, *) {
                         _initialAdditionalSafeAreaInsets = rootViewController.additionalSafeAreaInsets;
                     }
+#endif
 
                     if shouldFixInteractivePopGestureRecognizer == true &&
                         rootViewController is UINavigationController &&
@@ -1891,11 +1904,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         if let rootViewController = _rootViewController {
+#if swift(>=3.2)
             if #available(iOS 11, *) {
                 if UIEdgeInsetsEqualToEdgeInsets(_initialAdditionalSafeAreaInsets, rootViewController.additionalSafeAreaInsets) {
                     rootViewController.additionalSafeAreaInsets = _initialAdditionalSafeAreaInsets;
                 }
             }
+#endif
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
@@ -1926,9 +1941,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let unwrappedRootController = _rootViewController {
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
+#if swift(>=3.2)
                 if #available(iOS 11, *) {
                     _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
                 }
+#endif
                 
                 if shouldFixInteractivePopGestureRecognizer == true &&
                     unwrappedRootController is UINavigationController &&

@@ -74,8 +74,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To save rootViewController */
 @property(nonatomic, weak) UIViewController *rootViewController;
 
+#ifdef __IPHONE_11_0
 /** To save additionalSafeAreaInsets of rootViewController to tweak iOS11 Safe Area */
 @property(nonatomic, assign) UIEdgeInsets   initialAdditionalSafeAreaInsets;
+#endif
 
 /** To save topBottomLayoutConstraint original constant */
 @property(nonatomic, assign) CGFloat    layoutGuideConstraintInitialConstant;
@@ -1776,7 +1778,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 #pragma mark AutoToolbar methods
 
-/**	Get all UITextField/UITextView siblings of textFieldView. */
+/**    Get all UITextField/UITextView siblings of textFieldView. */
 -(NSArray*)responderViews
 {
     UIView *superConsideredView;
@@ -1830,7 +1832,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
     
-    //	Getting all the sibling textFields.
+    //    Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
@@ -1845,7 +1847,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             UITextField *textField = (UITextField*)_textFieldView;
 
-            //	If only one object is found, then adding only Done button.
+            //    If only one object is found, then adding only Done button.
             if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
                 //Supporting Custom Done button image (Enhancement ID: #366)
@@ -1948,7 +1950,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
 
             //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
-            //	If firstTextField, then previous should not be enabled.
+            //    If firstTextField, then previous should not be enabled.
             if (siblings.firstObject == textField)
             {
                 if (siblings.count == 1)
@@ -1962,7 +1964,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     textField.keyboardToolbar.nextBarButton.enabled = YES;
                 }
             }
-            //	If lastTextField then next should not be enaled.
+            //    If lastTextField then next should not be enaled.
             else if ([siblings lastObject] == textField)
             {
                 textField.keyboardToolbar.previousBarButton.enabled = YES;
@@ -1986,7 +1988,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    //	Getting all the sibling textFields.
+    //    Getting all the sibling textFields.
     NSArray *siblings = [self responderViews];
     
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
@@ -2009,7 +2011,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];
 }
 
-/**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+/**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
 - (void)reloadInputViews
 {
     //If enabled then adding toolbar.
@@ -2025,7 +2027,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 #pragma mark previous/next/done functionality
-/**	previousAction. */
+/**    previousAction. */
 -(void)previousAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound. Then Play Input Click Sound.
@@ -2051,7 +2053,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 }
 
-/**	nextAction. */
+/**    nextAction. */
 -(void)nextAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound. Then Play Input Click Sound.
@@ -2077,7 +2079,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 }
 
-/**	doneAction. Resigning current textField. */
+/**    doneAction. Resigning current textField. */
 -(void)doneAction:(IQBarButtonItem*)barButton
 {
     //If user wants to play input Click sound. Then Play Input Click Sound.

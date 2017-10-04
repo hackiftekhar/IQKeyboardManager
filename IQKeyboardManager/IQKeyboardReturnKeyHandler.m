@@ -299,9 +299,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         [delegate textFieldDidEndEditing:textField];
 }
 
-//Xcode8, compile validation
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-
 - (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason
 {
     id<UITextFieldDelegate> delegate = self.delegate;
@@ -312,12 +309,15 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         delegate = dict[kIQTextFieldDelegate];
     }
     
-    if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:reason:)])
-        [delegate textFieldDidEndEditing:textField reason:reason];
-}
-
+#ifdef __IPHONE_11_0
+    if (@available(iOS 10.0, *)) {
 #endif
-
+        if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:reason:)])
+            [delegate textFieldDidEndEditing:textField reason:reason];
+#ifdef __IPHONE_11_0
+    }
+#endif
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -493,9 +493,6 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         [delegate textViewDidChangeSelection:textView];
 }
 
-//Xcode8, compile validation
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction
 {
     id<UITextViewDelegate> delegate = self.delegate;
@@ -506,10 +503,16 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         delegate = dict[kIQTextFieldDelegate];
     }
     
-    if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
-        return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
-    else
-        return YES;
+#ifdef __IPHONE_11_0
+    if (@available(iOS 10.0, *)) {
+#endif
+        if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
+            return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange
+#ifdef __IPHONE_11_0
+    }
+#endif
+
+    return YES;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction
@@ -522,13 +525,17 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
         delegate = dict[kIQTextFieldDelegate];
     }
     
+#ifdef __IPHONE_11_0
+    if (@available(iOS 10.0, *)) {
+#endif
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:interaction:)])
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange interaction:interaction];
-    else
-        return YES;
-}
-
+#ifdef __IPHONE_11_0
+    }
 #endif
+
+    return YES;
+}
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
