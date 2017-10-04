@@ -40,9 +40,6 @@
 
     IQToolbar *appearanceProxy = [self appearance];
 
-    //Tint Color
-    [appearanceProxy setTintColor:nil];
-
     [appearanceProxy setBarTintColor:nil];
     
     NSArray <NSNumber*> *positions = @[@(UIBarPositionAny),@(UIBarPositionBottom),@(UIBarPositionTop),@(UIBarPositionTopAttached)];
@@ -168,8 +165,12 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    if (IQ_IS_IOS11_OR_GREATER == NO)
+
+    //If running on Xcode9 (iOS11) only then we'll validate for iOS version, otherwise for older versions of Xcode (iOS10 and below) we'll just execute the tweak
+#ifdef __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {}
+    else
+#endif
     {
         CGRect leftRect = CGRectNull;
         CGRect rightRect = CGRectNull;

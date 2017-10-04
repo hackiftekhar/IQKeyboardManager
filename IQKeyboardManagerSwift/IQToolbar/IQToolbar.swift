@@ -33,7 +33,6 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         let  appearanceProxy = self.appearance()
 
-        appearanceProxy.tintColor = nil
         appearanceProxy.barTintColor = nil
         
         let positions : [UIBarPosition] = [.any,.bottom,.top,.topAttached];
