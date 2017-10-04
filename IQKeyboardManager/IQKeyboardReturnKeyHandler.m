@@ -507,7 +507,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     if (@available(iOS 10.0, *)) {
 #endif
         if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
-            return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange
+            return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
 #ifdef __IPHONE_11_0
     }
 #endif
