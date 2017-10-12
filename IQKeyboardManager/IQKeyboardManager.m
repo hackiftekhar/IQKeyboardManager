@@ -560,23 +560,26 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 #ifdef __IPHONE_11_0
     UIEdgeInsets safeAreaNewInset = UIEdgeInsetsZero;
     
-    if (@available(iOS 11.0, *)) {
-        safeAreaNewInset = self.initialAdditionalSafeAreaInsets;
-        CGFloat viewMovement = CGRectGetMaxY(_topViewBeginRect)-CGRectGetMaxY(frame);
-        
-        //Maintain keyboardDistanceFromTextField
-        CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
-        
-        if (_textFieldView.isSearchBarTextField)
-        {
-            UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
-            specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+    if (self.canAdjustAdditionalSafeAreaInsets == YES)
+    {
+        if (@available(iOS 11.0, *)) {
+            safeAreaNewInset = self.initialAdditionalSafeAreaInsets;
+            CGFloat viewMovement = CGRectGetMaxY(_topViewBeginRect)-CGRectGetMaxY(frame);
+            
+            //Maintain keyboardDistanceFromTextField
+            CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
+            
+            if (_textFieldView.isSearchBarTextField)
+            {
+                UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
+                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+            }
+            
+            CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
+            
+            CGFloat textFieldDistance = _textFieldView.frame.size.height + keyboardDistanceFromTextField;
+            safeAreaNewInset.bottom += MIN(viewMovement, textFieldDistance);
         }
-        
-        CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
-        
-        CGFloat textFieldDistance = _textFieldView.frame.size.height + keyboardDistanceFromTextField;
-        safeAreaNewInset.bottom += MIN(viewMovement, textFieldDistance);
     }
 #endif
 
@@ -586,8 +589,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         __strong typeof(self) strongSelf = weakSelf;
 
 #ifdef __IPHONE_11_0
-        if (@available(iOS 11.0, *)) {
-            controller.additionalSafeAreaInsets = safeAreaNewInset;
+        if (self.canAdjustAdditionalSafeAreaInsets == YES)
+        {
+            if (@available(iOS 11.0, *)) {
+                controller.additionalSafeAreaInsets = safeAreaNewInset;
+            }
         }
 #endif
 

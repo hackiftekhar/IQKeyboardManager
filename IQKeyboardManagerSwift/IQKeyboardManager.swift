@@ -669,7 +669,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
      */
     open var shouldFixInteractivePopGestureRecognizer = true
     
-    
+#if swift(>=3.2)
+    ///------------------------------------
+    /// MARK: Safe Area
+    ///------------------------------------
+
+    /**
+     If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
+     */
+    open var canAdjustAdditionalSafeAreaInsets = false
+#endif
+
     ///------------------------------------
     /// MARK: Class Level disabling methods
     ///------------------------------------
@@ -915,26 +925,29 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             var safeAreaNewInset = UIEdgeInsets.zero;
             
 #if swift(>=3.2)
-            if #available(iOS 11, *) {
-                
-                if let textFieldView = _textFieldView {
-                    safeAreaNewInset = _initialAdditionalSafeAreaInsets;
-                    let viewMovement : CGFloat = _topViewBeginRect.maxY - newFrame.maxY;
+            if canAdjustAdditionalSafeAreaInsets {
+        
+                if #available(iOS 11, *) {
                     
-                    //Maintain keyboardDistanceFromTextField
-                    var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
-                    
-                    if textFieldView.isSearchBarTextField() {
+                    if let textFieldView = _textFieldView {
+                        safeAreaNewInset = _initialAdditionalSafeAreaInsets;
+                        let viewMovement : CGFloat = _topViewBeginRect.maxY - newFrame.maxY;
                         
-                        if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
-                            specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
+                        //Maintain keyboardDistanceFromTextField
+                        var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
+                        
+                        if textFieldView.isSearchBarTextField() {
+                            
+                            if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
+                                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
+                            }
                         }
+                        
+                        let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
+                        
+                        let textFieldDistance = textFieldView.frame.size.height + newKeyboardDistanceFromTextField;
+                        safeAreaNewInset.bottom += min(viewMovement, textFieldDistance);
                     }
-                    
-                    let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
-                    
-                    let textFieldDistance = textFieldView.frame.size.height + newKeyboardDistanceFromTextField;
-                    safeAreaNewInset.bottom += min(viewMovement, textFieldDistance);
                 }
             }
 #endif
@@ -943,8 +956,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                 
 #if swift(>=3.2)
-                if #available(iOS 11, *) {
-                    unwrappedController.additionalSafeAreaInsets = safeAreaNewInset;
+                if self.canAdjustAdditionalSafeAreaInsets {
+                    if #available(iOS 11, *) {
+                        unwrappedController.additionalSafeAreaInsets = safeAreaNewInset;
+                    }
                 }
 #endif
 
@@ -1813,7 +1828,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         if let window = keyWindow() {
                             _topViewBeginRect.origin.y = window.frame.size.height-rootViewController.view.frame.size.height
                         } else {
-                            _topViewBeginRect.origin.y =0
+                            _topViewBeginRect.origin.y = 0
                         }
                     }
                     

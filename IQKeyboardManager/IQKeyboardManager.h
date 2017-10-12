@@ -240,6 +240,17 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign) BOOL shouldFixInteractivePopGestureRecognizer;
 
+#ifdef __IPHONE_11_0
+///---------------------------
+/// @name Safe Area
+///---------------------------
+
+/**
+ If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
+ */
+@property(nonatomic, assign) BOOL canAdjustAdditionalSafeAreaInsets;
+#endif
+
 ///---------------------------------------------
 /// @name Class Level enabling/disabling methods
 ///---------------------------------------------
