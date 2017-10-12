@@ -1491,15 +1491,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
                 }
 #endif
-                if shouldFixInteractivePopGestureRecognizer == true &&
+                if _topViewBeginRect.origin.y != 0 &&
+                    shouldFixInteractivePopGestureRecognizer == true &&
                     unwrappedRootController is UINavigationController &&
                     unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
                     unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
 
                     if let window = keyWindow() {
-                        _topViewBeginRect.origin = CGPoint(x: 0,y: window.frame.size.height-unwrappedRootController.view.frame.size.height)
+                        _topViewBeginRect.origin.y = window.frame.size.height-unwrappedRootController.view.frame.size.height
                     } else {
-                        _topViewBeginRect.origin = CGPoint.zero
+                        _topViewBeginRect.origin.y = 0
                     }
                 }
 
@@ -1804,14 +1805,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
 #endif
 
-                    if shouldFixInteractivePopGestureRecognizer == true &&
+                    if _topViewBeginRect.origin.y != 0 &&
+                        shouldFixInteractivePopGestureRecognizer == true &&
                         rootViewController is UINavigationController &&
                         rootViewController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
                         rootViewController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
                         if let window = keyWindow() {
-                            _topViewBeginRect.origin = CGPoint(x: 0,y: window.frame.size.height-rootViewController.view.frame.size.height)
+                            _topViewBeginRect.origin.y = window.frame.size.height-rootViewController.view.frame.size.height
                         } else {
-                            _topViewBeginRect.origin = CGPoint.zero
+                            _topViewBeginRect.origin.y =0
                         }
                     }
                     
@@ -1947,15 +1949,16 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 }
 #endif
                 
-                if shouldFixInteractivePopGestureRecognizer == true &&
+                if _topViewBeginRect.origin.y != 0 &&
+                    shouldFixInteractivePopGestureRecognizer == true &&
                     unwrappedRootController is UINavigationController &&
                     unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
                     unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
                     
                     if let window = keyWindow() {
-                        _topViewBeginRect.origin = CGPoint(x: 0,y: window.frame.size.height-unwrappedRootController.view.frame.size.height)
+                        _topViewBeginRect.origin.y = window.frame.size.height-unwrappedRootController.view.frame.size.height
                     } else {
-                        _topViewBeginRect.origin = CGPoint.zero
+                        _topViewBeginRect.origin.y = 0
                     }
                 }
                 

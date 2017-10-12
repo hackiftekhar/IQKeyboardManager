@@ -1127,12 +1127,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
 #endif
         
-        if (_shouldFixInteractivePopGestureRecognizer &&
+        if (_topViewBeginRect.origin.y != 0 &&
+            _shouldFixInteractivePopGestureRecognizer &&
             [_rootViewController isKindOfClass:[UINavigationController class]] &&
             [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
             [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
         {
-            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+            UIWindow *window = [self keyWindow];
+            if (window)
+            {
+                _topViewBeginRect.origin.y = window.frame.size.height-_rootViewController.view.frame.size.height;
+            }
+            else
+            {
+                _topViewBeginRect.origin.y = 0;
+            }
         }
 
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
@@ -1423,12 +1432,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
 #endif
 
-            if (_shouldFixInteractivePopGestureRecognizer &&
+            if (_topViewBeginRect.origin.y != 0 &&
+                _shouldFixInteractivePopGestureRecognizer &&
                 [_rootViewController isKindOfClass:[UINavigationController class]] &&
                 [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
                 [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
             {
-                _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+                UIWindow *window = [self keyWindow];
+                if (window)
+                {
+                    _topViewBeginRect.origin.y = window.frame.size.height-_rootViewController.view.frame.size.height;
+                }
+                else
+                {
+                    _topViewBeginRect.origin.y = 0;
+                }
             }
             
             [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGRect(_topViewBeginRect)]];
@@ -1574,12 +1592,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
 #endif
 
-        if (_shouldFixInteractivePopGestureRecognizer &&
+        if (_topViewBeginRect.origin.y != 0 &&
+            _shouldFixInteractivePopGestureRecognizer &&
             [_rootViewController isKindOfClass:[UINavigationController class]] &&
             [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
             [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
         {
-            _topViewBeginRect.origin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+            UIWindow *window = [self keyWindow];
+            if (window)
+            {
+                _topViewBeginRect.origin.y = window.frame.size.height-_rootViewController.view.frame.size.height;
+            }
+            else
+            {
+                _topViewBeginRect.origin.y = 0;
+            }
         }
         
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGRect(_topViewBeginRect)]];
