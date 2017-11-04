@@ -922,9 +922,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //frame size needs to be adjusted on iOS8 due to orientation structure changes.
             newFrame.size = unwrappedController.view.frame.size
             
-            var safeAreaNewInset = UIEdgeInsets.zero;
-            
 #if swift(>=3.2)
+    
+            var safeAreaNewInset = UIEdgeInsets.zero;
+
             if canAdjustAdditionalSafeAreaInsets {
         
                 if #available(iOS 11, *) {
@@ -1920,15 +1921,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return
         }
         
+        #if swift(>=3.2)
         if let rootViewController = _rootViewController {
-#if swift(>=3.2)
             if #available(iOS 11, *) {
                 if UIEdgeInsetsEqualToEdgeInsets(_initialAdditionalSafeAreaInsets, rootViewController.additionalSafeAreaInsets) {
                     rootViewController.additionalSafeAreaInsets = _initialAdditionalSafeAreaInsets;
                 }
             }
-#endif
         }
+        #endif
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
@@ -2106,12 +2107,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.barTintColor = nil
                             default:
                                 toolbar.barStyle = UIBarStyle.default
-                                
-                                if let barTintColor = toolbarBarTintColor {
-                                    toolbar.barTintColor = barTintColor
-                                } else {
-                                    toolbar.barTintColor = nil
-                                }
+                                toolbar.barTintColor = toolbarBarTintColor
                                 
                                 //Setting toolbar tintColor //  (Enhancement ID: #30)
                                 if shouldToolbarUsesTextFieldTintColor {
@@ -2133,12 +2129,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.barTintColor = nil
                             default:
                                 toolbar.barStyle = UIBarStyle.default
-                                
-                                if let barTintColor = toolbarBarTintColor {
-                                    toolbar.barTintColor = barTintColor
-                                } else {
-                                    toolbar.barTintColor = nil
-                                }
+                                toolbar.barTintColor = toolbarBarTintColor
 
                                 if shouldToolbarUsesTextFieldTintColor {
                                     toolbar.tintColor = _textView.tintColor

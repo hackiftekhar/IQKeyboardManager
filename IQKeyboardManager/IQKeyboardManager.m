@@ -1938,7 +1938,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     default:
                     {
                         toolbar.barStyle = UIBarStyleDefault;
-                        toolbar.barTintColor = _toolbarBarTintColor?:nil;
+                        toolbar.barTintColor = _toolbarBarTintColor;
 
                         //Setting toolbar tintColor //  (Enhancement ID: #30)
                         if (_shouldToolbarUsesTextFieldTintColor)

@@ -23,6 +23,7 @@
 
 
 import UIKit
+import Foundation
 
 open class IQBarButtonItem: UIBarButtonItem {
 
@@ -45,12 +46,8 @@ open class IQBarButtonItem: UIBarButtonItem {
 
         let states : [UIControlState] = [.normal,.highlighted,.disabled,.selected,.application,.reserved];
 
-        //Tint color
-        appearanceProxy.tintColor = nil
-
         for state in states {
 
-            appearanceProxy.setTitleTextAttributes(nil, for: state)
             appearanceProxy.setBackgroundImage(nil, for: state, barMetrics: .default)
             appearanceProxy.setBackgroundImage(nil, for: state, style: .done, barMetrics: .default)
             appearanceProxy.setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
@@ -61,6 +58,40 @@ open class IQBarButtonItem: UIBarButtonItem {
         appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
         appearanceProxy.setBackButtonTitlePositionAdjustment(UIOffset.zero, for: .default)
         appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
+    }
+    
+    open override var tintColor: UIColor? {
+        didSet {
+
+            #if swift(>=4)
+                var textAttributes = [NSAttributedStringKey : Any]()
+                
+                if let attributes = titleTextAttributes(for: .normal) {
+                
+                    for (key, value) in attributes {
+                
+                        textAttributes[NSAttributedStringKey.init(key)] = value
+                    }
+                }
+                
+                textAttributes[NSAttributedStringKey.foregroundColor] = tintColor
+                
+                setTitleTextAttributes(textAttributes, for: .normal)
+
+            #else
+
+                var textAttributes = [String:Any]()
+                
+                if let attributes = titleTextAttributes(for: .normal) {
+                    textAttributes = attributes
+                }
+                
+                textAttributes[NSForegroundColorAttributeName] = tintColor
+                
+                setTitleTextAttributes(textAttributes, for: .normal)
+
+            #endif
+        }
     }
 
     /**

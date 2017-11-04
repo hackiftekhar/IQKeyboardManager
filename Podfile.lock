@@ -1,5 +1,5 @@
 PODS:
-  - IQDropDownTextField (1.1.0)
+  - IQDropDownTextField (1.1.1)
   - IQKeyboardManager (5.0.4)
   - IQKeyboardManagerSwift (5.0.4)
   - YYText (1.0.7)
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
     :path: .
 
 SPEC CHECKSUMS:
-  IQDropDownTextField: 614f79ca905529c992045eaa112d0fc9ebb875d1
+  IQDropDownTextField: 3d2e5728a2b83ff5dbb14cb9b497a80005124cbe
   IQKeyboardManager: 1df9c0f147af1681cfb2d9977bc30309d45a7e76
   IQKeyboardManagerSwift: 714c9bf851689d4fb7b1bff44b95ac02760fe68d
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849

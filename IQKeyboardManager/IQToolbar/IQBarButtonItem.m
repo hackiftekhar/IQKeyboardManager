@@ -32,25 +32,12 @@
 
     IQBarButtonItem *appearanceProxy = [self appearance];
 
-//    if ([self respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)])
-//    {
-//        appearanceProxy = [self appearanceWhenContainedInInstancesOfClasses:@[[IQToolbar class]]];
-//    }
-//    else
-//    {
-//        appearanceProxy = [self appearanceWhenContainedIn:[IQToolbar class], nil];
-//    }
-    
     NSArray <NSNumber*> *states = @[@(UIControlStateNormal),@(UIControlStateHighlighted),@(UIControlStateDisabled),@(UIControlStateSelected),@(UIControlStateApplication),@(UIControlStateReserved)];
     
-    //Tint color
-    [appearanceProxy setTintColor:nil];
-
     for (NSNumber *state in states)
     {
         UIControlState controlState = [state unsignedIntegerValue];
 
-        [appearanceProxy setTitleTextAttributes:nil forState:controlState];
         [appearanceProxy setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
         [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
         [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
@@ -61,6 +48,18 @@
     [appearanceProxy setBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
     [appearanceProxy setBackButtonTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
     [appearanceProxy setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+}
+
+-(void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+    
+    //titleTextAttributes tweak is to overcome an issue comes with iOS11 where appearanceProxy set for NSForegroundColorAttributeName and bar button texts start appearing in appearance proxy color
+    NSMutableDictionary *textAttributes = [[self titleTextAttributesForState:UIControlStateNormal] mutableCopy]?:[NSMutableDictionary new];
+    
+    textAttributes[NSForegroundColorAttributeName] = tintColor;
+    
+    [self setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
 }
 
 - (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(nullable id)target action:(nullable SEL)action
