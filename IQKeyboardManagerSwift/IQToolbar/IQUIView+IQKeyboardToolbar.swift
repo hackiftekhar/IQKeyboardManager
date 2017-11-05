@@ -89,7 +89,7 @@ public extension UIView {
     */
     public var shouldHideToolbarPlaceholder: Bool {
         get {
-            let aValue: AnyObject? = objc_getAssociatedObject(self, &kIQShouldHideToolbarPlaceholder) as AnyObject?
+            let aValue = objc_getAssociatedObject(self, &kIQShouldHideToolbarPlaceholder) as Any?
             
             if let unwrapedValue = aValue as? Bool {
                 return unwrapedValue

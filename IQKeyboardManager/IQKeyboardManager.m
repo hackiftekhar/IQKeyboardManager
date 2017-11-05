@@ -525,7 +525,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     else
     {
-        static UIWindow *_keyWindow = nil;
+        static __weak UIWindow *_keyWindow = nil;
         
         /*  (Bug ID: #23, #25, #73)   */
         UIWindow *originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
