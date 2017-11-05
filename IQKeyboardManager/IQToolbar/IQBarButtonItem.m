@@ -23,6 +23,7 @@
 
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
+#import <UIKit/NSAttributedString.h>
 
 @implementation IQBarButtonItem
 

@@ -36,6 +36,9 @@
 
 #import <objc/runtime.h>
 
+#import <UIKit/UIAlertController.h>
+#import <UIKit/UISearchBar.h>
+#import <UIKit/UIScreen.h>
 #import <UIKit/UINavigationBar.h>
 #import <UIKit/UITapGestureRecognizer.h>
 #import <UIKit/UITextField.h>
