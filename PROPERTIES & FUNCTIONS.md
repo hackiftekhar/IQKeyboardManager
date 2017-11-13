@@ -1,7 +1,4 @@
-## Properties and functions usage:-
-
-
-#### UIKeyboard handling
+## UIKeyboard handling
 
 ***+(instancetype)sharedManager***
 - Returns the default singleton instance. You are not allowed to create your own instances of this class.
@@ -25,7 +22,7 @@
 - keyboardShowing Boolean is to know if keyboard is showing. The moved distance of the view to maintain distance between keyboard and textField. Most of the time this will be a positive value. These information might be necessary in some rare cases.
 
 
-#### IQToolbar handling
+## IQToolbar handling
 
 ***@property BOOL enableAutoToolbar***
 - Enable autoToolbar behaviour. If It is set to NO. You have to manually create UIToolbar for keyboard. Default is YES.
@@ -63,8 +60,7 @@
 ***- (void)reloadInputViews***
 - This is used to reload toolbar buttons on the fly.
 
-
-#### UIKeyboard Appearance overriding
+## UIKeyboard Appearance overriding
 
 ***@property BOOL overrideKeyboardAppearance***
 
@@ -72,8 +68,7 @@
 - Override the keyboardAppearance for all textField/textView. Default is NO.
 - If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
 
-
-#### UITextField/UITextView Resign handling
+## UITextField/UITextView Resign handling
 
 ***@property BOOL shouldResignOnTouchOutside***
 - Resign textField if touched outside of UITextField/UITextView. ([#14](https://github.com/hackiftekhar/IQKeyboardManager/issues/14))
@@ -94,29 +89,27 @@
 - canGoPrevious and canGoNext return a BOOL to tell if we are able to navigate to next textField/textView.
 - goPrevious and goNext is used to programmatically move to previous/next textField/textView
 
-#### UISound handling
+## UISound handling
 
 ***@property BOOL shouldPlayInputClicks***
 If YES, then it plays inputClick sound on next/previous/done click. Default is NO.
 
-
-#### UIAnimation handling
+## UIAnimation handling
 
 ***@property BOOL layoutIfNeededOnUpdate***
 - If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view. This might be required when you are animating content on keyboard appear/disappear event.
 
-#### InteractivePopGestureRecognizer handling
+## InteractivePopGestureRecognizer handling
 
 ***@property BOOL shouldFixInteractivePopGestureRecognizer***
 - If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
 
-
-#### Safe Area
+## Safe Area
 
 ***@property BOOL canAdjustAdditionalSafeAreaInsets***
 - If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide in iOS11. Default is NO because enabling it have sometimes break user UI logics.
 
-#### Class Level enabling/disabling methods
+## Class Level enabling/disabling methods
 
 ***@property(readonly) NSMutableSet\<Class> disabledDistanceHandlingClasses***
 
@@ -149,8 +142,7 @@ If YES, then it plays inputClick sound on next/previous/done click. Default is N
 - If shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses.
 Class should be kind of UIView. Default is [UIControl, UINavigationBar]
 
-
-#### Debugging & Developer options
+## Debugging & Developer options
 
 ***@property(nonatomic, assign) BOOL enableDebugging***
 - Enabling this feature will start printing all debugging logs to the console. This is useful when something is happening wrong and you don't know what might be the problem. This will provide you a brief idea about what library is doing behind the scene.
@@ -158,5 +150,5 @@ Class should be kind of UIView. Default is [UIControl, UINavigationBar]
 ***-(void)registerAllNotifications***
 
 ***-(void)unregisterAllNotifications***
-- Use below methods to completely enable/disable notifications registered by library internally.
+- Use these methods to completely enable/disable notifications registered by library internally.
 - @warning Please keep in mind that library is totally dependent on NSNotification of UITextField, UITextField, Keyboard etc. If you do unregisterAllNotifications then library will not work at all. You should only use below methods if you want to completedly disable all library functions. You should use below methods at your own risk.
