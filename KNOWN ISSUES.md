@@ -50,3 +50,13 @@ For a workaround, you can resign currently active textField in `viewWillDisappea
     [self.view endEditing:YES];
   }
 ```
+## 6) UI Picker view not showing correctly ios 11 xcode 9 #1020
+
+![image](https://user-images.githubusercontent.com/25176835/30952143-1302278c-a440-11e7-858b-a817166d929d.png)
+
+This issue happens in Xcode 9 iOS 11 most probably while using UIPickerView. 
+
+For a workaround, you can do the following in you view didload
+```swift
+    self.pickerView.translatesAutoresizingMaskIntoConstraints = false
+```
