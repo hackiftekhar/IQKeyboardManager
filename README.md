@@ -90,9 +90,9 @@ Installation
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
 ```ruby
-`pod 'IQKeyboardManager'` #iOS8 and later
+pod 'IQKeyboardManager' #iOS8 and later
 
-`pod 'IQKeyboardManager', '3.3.7'` #iOS7
+pod 'IQKeyboardManager', '3.3.7' #iOS7
 ```
 
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
