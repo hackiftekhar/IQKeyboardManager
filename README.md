@@ -50,6 +50,7 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 ## Tutorial video by @rebeloper ([#1135](https://github.com/hackiftekhar/IQKeyboardManager/issues/1135))
 
 @rebeloper demonstrated two videos on how to implement this library at it's core:
+
 https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 ## Warning
