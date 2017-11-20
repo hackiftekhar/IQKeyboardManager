@@ -47,6 +47,15 @@ Often while developing an app, We ran into an issues where the iPhone keyboard s
 <a href="http://youtu.be/WAYc2Qj-OQg" target="_blank"><img src="http://img.youtube.com/vi/WAYc2Qj-OQg/0.jpg"
 alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
+## Tutorial video by @rebeloper ([#1135](https://github.com/hackiftekhar/IQKeyboardManager/issues/1135))
+
+@rebeloper demonstrated two videos on how to implement this library at it's core:
+
+<a href="https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v" target="_blank"><img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/ThirdPartyYoutubeTutorial.jpg"
+alt="Youtube Tutorial Playlist"/></a>
+
+https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
+
 ## Warning
 
 - **If you're planning to build SDK/library/framework and wants to handle UITextField/UITextView with IQKeyboardManager then you're totally going on wrong way.** I would never suggest to add IQKeyboardManager as dependency/adding/shipping with any third-party library, instead of adding IQKeyboardManager you should implement your custom solution to achieve same result. IQKeyboardManager is totally designed for projects to help developers for their convenience, it's not designed for adding/dependency/shipping with any third-party library, because **doing this could block adoption by other developers for their projects as well(who are not using IQKeyboardManager and implemented their custom solution to handle UITextField/UITextView thought the project).**
@@ -90,9 +99,9 @@ Installation
 it simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
 ```ruby
-`pod 'IQKeyboardManager'` #iOS8 and later
+pod 'IQKeyboardManager' #iOS8 and later
 
-`pod 'IQKeyboardManager', '3.3.7'` #iOS7
+pod 'IQKeyboardManager', '3.3.7' #iOS7
 ```
 
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
