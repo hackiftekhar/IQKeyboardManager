@@ -477,7 +477,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     func textFieldDidEndEditing(_ textField: UITextField) {
 
         if textField.tag == 17 {
-            IQKeyboardManager.sharedManager().toolbarDoneBarButtonItemText = textField.text?.characters.count != 0 ? textField.text : nil
+            IQKeyboardManager.sharedManager().toolbarDoneBarButtonItemText = textField.text?.isEmpty == false ? textField.text : nil
         }
     }
     
