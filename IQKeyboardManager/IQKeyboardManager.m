@@ -1336,7 +1336,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _startingContentInsets = UIEdgeInsetsZero;
     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
-//    topViewBeginRect = CGRectZero;    //Commented due to #82
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime]];

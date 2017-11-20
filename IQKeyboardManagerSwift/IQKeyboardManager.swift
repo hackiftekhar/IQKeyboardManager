@@ -1956,17 +1956,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
         
-        if _rootViewController != nil &&
-            !_topViewBeginRect.equalTo(_rootViewController!.view.frame) == true {
+        if let unwrappedRootController = _rootViewController {
 
-            if let unwrappedRootController = _rootViewController {
+            if !_topViewBeginRect.equalTo(unwrappedRootController.view.frame) == true {
+
                 _topViewBeginRect = unwrappedRootController.view.frame
                 
-#if swift(>=3.2)
-                if #available(iOS 11, *) {
-                    _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
-                }
-#endif
+                #if swift(>=3.2)
+                    if #available(iOS 11, *) {
+                        _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
+                    }
+                #endif
                 
                 if _topViewBeginRect.origin.y != 0 &&
                     shouldFixInteractivePopGestureRecognizer == true &&
@@ -1982,11 +1982,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 }
                 
                 showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
-            } else {
-                _topViewBeginRect = CGRect.zero
             }
+            
+        } else {
+            _topViewBeginRect = CGRect.zero
         }
-        
+
         //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
         
         if _privateIsKeyboardShowing == true &&
