@@ -1,4 +1,42 @@
-## master (dd-mm-yyyy)
+## 5.0.6 (05-11-2017 | 1 day)
+
+#### Bugfixes:
+- Fixed a compilation issue due to **NSAttributedString**.
+
+#### Improvements:
+- Replaced some **Objective-C** style API's with **Swift** style API's.
+
+## 5.0.5 (04-11-2017 | 22 days)
+
+#### Improvements:
+- Patched a tweak for **appearance proxy** where appearance proxy on **UIBarButtonItem** was also overriding IQBarButtonItem appearance, which shouldn't be intended.
+
+## 5.0.4 (13-10-2017 | 10 days)
+
+#### Bugfixes:
+- Fixed a **crash** issue due to setting **tintColor proxy** on IQToolbar.
+
+#### Improvements:
+- Added **canAdjustAdditionalSafeAreaInsets** to control whether library is allow to change **additionalSafeAreaInsets** or not. Default is NO.
+
+## 5.0.3 (03-10-2017 | 9 days)
+
+#### Features:
+- Added **ignoreSwitchingByNextPrevious** for textField/textView to ignore it while finding next/previous textField.
+
+#### Improvements:
+- Upgraded demo project with **Safe Area layout guide**.
+- Improved keyboard/textfield handling with **additionalSafeAreaInsets** tweak.
+
+## 5.0.2 (24-09-2017 | 0 days)
+
+#### Bugfixes:
+- Fixed some compilation issue cause due to @import.
+
+## 5.0.1 (24-09-2017 | 5 days)
+
+#### Improvements:
+- Changed **#import <Framework/ClassName.h>** with **@import**.
 
 ## 5.0.0 (19-09-2017 | 28 days)
 
