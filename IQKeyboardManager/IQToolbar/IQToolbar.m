@@ -197,7 +197,7 @@
                 rightRect = barButtonItemView.frame;
                 break;
             }
-            else if ([barButtonItemView isMemberOfClass:[UIView class]])
+            else if (barButtonItemView == self.titleBarButton.customView)
             {
                 isTitleBarButtonFound = YES;
             }
@@ -208,24 +208,44 @@
             }
         }
         
-        CGFloat x = 16;
-        
-        if (CGRectIsNull(leftRect) == false)
+        CGFloat titleMargin = 16;
+
+        CGFloat maxWidth = CGRectGetWidth(self.frame) - titleMargin*2 - (CGRectIsNull(leftRect)?0:CGRectGetMaxX(leftRect)) - (CGRectIsNull(rightRect)?0:CGRectGetWidth(self.frame)-CGRectGetMinX(rightRect));
+        CGFloat maxHeight = self.frame.size.height;
+
+        CGSize sizeThatFits = [self.titleBarButton.customView sizeThatFits:CGSizeMake(maxWidth, maxHeight)];
+
+        CGRect titleRect = CGRectZero;
+
+        CGFloat x = titleMargin;
+
+        if (sizeThatFits.width > 0 && sizeThatFits.height > 0)
         {
-            x = CGRectGetMaxX(leftRect) + 16;
-        }
-        
-        CGFloat width = CGRectGetWidth(self.frame) - 32 - (CGRectIsNull(leftRect)?0:CGRectGetMaxX(leftRect)) - (CGRectIsNull(rightRect)?0:CGRectGetWidth(self.frame)-CGRectGetMinX(rightRect));
-        
-        for (UIBarButtonItem *item in self.items)
-        {
-            if ([item isKindOfClass:[IQTitleBarButtonItem class]])
+            CGFloat width = MIN(sizeThatFits.width, maxWidth);
+            CGFloat height = MIN(sizeThatFits.height, maxHeight);
+            
+            if (CGRectIsNull(leftRect) == false)
             {
-                CGRect titleRect = CGRectMake(x, 0, width, self.frame.size.height);
-                item.customView.frame = titleRect;
-                break;
+                x = titleMargin + CGRectGetMaxX(leftRect) + ((maxWidth - width)/2);
             }
+            
+            CGFloat y = (maxHeight - height)/2;
+            
+            titleRect = CGRectMake(x, y, width, height);
         }
+        else
+        {
+            if (CGRectIsNull(leftRect) == false)
+            {
+                x = titleMargin + CGRectGetMaxX(leftRect);
+            }
+            
+            CGFloat width = CGRectGetWidth(self.frame) - titleMargin*2 - (CGRectIsNull(leftRect)?0:CGRectGetMaxX(leftRect)) - (CGRectIsNull(rightRect)?0:CGRectGetWidth(self.frame)-CGRectGetMinX(rightRect));
+            
+            titleRect = CGRectMake(x, 0, width, maxHeight);
+        }
+        
+        self.titleBarButton.customView.frame = titleRect;
     }
 }
 

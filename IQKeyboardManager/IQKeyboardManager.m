@@ -112,6 +112,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 /*******************************************/
 
+/** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
+@property(nonnull, nonatomic, strong, readwrite) UITapGestureRecognizer  *resignFirstResponderGesture;
+
+/**
+ moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
+ */
+@property(nonatomic, assign, readwrite) CGFloat movedDistance;
+
+/*******************************************/
+
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *registeredClasses;
 
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledDistanceHandlingClasses;
@@ -204,7 +214,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [strongSelf registerAllNotifications];
 
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-            _resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
             [strongSelf.resignFirstResponderGesture setDelegate:self];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
@@ -655,6 +665,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  (Bug ID: #250)
     IQLayoutGuidePosition layoutGuidePosition = IQLayoutGuidePositionNone;
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     //If topLayoutGuide constraint
     if (_layoutGuideConstraint && (_layoutGuideConstraint.firstItem == [[_textFieldView viewController] topLayoutGuide] ||
         _layoutGuideConstraint.secondItem == [[_textFieldView viewController] topLayoutGuide]))
@@ -667,7 +679,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         layoutGuidePosition = IQLayoutGuidePositionBottom;
     }
-    
+#pragma clang diagnostic pop
+
     CGFloat topLayoutGuide = CGRectGetHeight(statusBarFrame);
 
     CGFloat move = 0;
@@ -952,14 +965,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [self showLog:[NSString stringWithFormat:@"%@ Old UITextView.contentInset : %@",[strongSelf.textFieldView _IQDescription], NSStringFromUIEdgeInsets(textView.contentInset)]];
                     
                     //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
-                    if (_isTextViewContentInsetChanged == NO)
+                    if (strongSelf.isTextViewContentInsetChanged == NO)
                     {
-                        _startingTextViewContentInsets = textView.contentInset;
-                        _startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
+                        strongSelf.startingTextViewContentInsets = textView.contentInset;
+                        strongSelf.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
                     }
                     
                     UIEdgeInsets newContentInset = textView.contentInset;
-                    newContentInset.bottom = _textFieldView.frame.size.height-textViewHeight;
+                    newContentInset.bottom = strongSelf.textFieldView.frame.size.height-textViewHeight;
                     textView.contentInset = newContentInset;
                     textView.scrollIndicatorInsets = newContentInset;
                     strongSelf.isTextViewContentInsetChanged = YES;
@@ -1299,7 +1312,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 }
 #endif
 
-                _movedDistance = 0;
+                strongSelf.movedDistance = 0;
 
                 //Animating content if needed (Bug ID: #204)
                 if (strongSelf.layoutIfNeededOnUpdate)

@@ -174,7 +174,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         if #available(iOS 11, *) {
             return
-        } else {
+        } else if let customTitleView = titleBarButton.customView {
             var leftRect = CGRect.null
             var rightRect = CGRect.null
             var isTitleBarButtonFound = false
@@ -198,7 +198,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 if isTitleBarButtonFound == true {
                     rightRect = barButtonItemView.frame
                     break
-                } else if type(of: barButtonItemView) === UIView.self {
+                } else if barButtonItemView === customTitleView {
                     isTitleBarButtonFound = true
                     //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
                 } else if barButtonItemView.isKind(of: UIControl.self) == true {
@@ -206,80 +206,120 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 }
             }
             
-            var x : CGFloat = 16
+            let titleMargin : CGFloat = 16
+
+            let maxWidth : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+            let maxHeight = self.frame.height
             
-            if (leftRect.isNull == false) {
-                x = leftRect.maxX + 16
-            }
+            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
             
-            let width : CGFloat = self.frame.width - 32 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+            var titleRect : CGRect
             
-            
-            if let unwrappedItems = items {
-                for item in unwrappedItems {
-                    
-                    if let newItem = item as? IQTitleBarButtonItem {
-                        
-                        let titleRect = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
-                        newItem.customView?.frame = titleRect
-                        break
-                    }
+            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
+                let width = min(sizeThatFits.width, maxWidth)
+                let height = min(sizeThatFits.height, maxHeight)
+                
+                var x : CGFloat
+
+                if (leftRect.isNull == false) {
+                    x = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
+                } else {
+                    x = titleMargin
                 }
+                
+                let y = (maxHeight - height)/2
+                
+                titleRect = CGRect(x: x, y: y, width: width, height: height)
+            } else {
+                
+                var x : CGFloat
+                
+                if (leftRect.isNull == false) {
+                    x = titleMargin + leftRect.maxX
+                } else {
+                    x = titleMargin
+                }
+
+                let width : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+                
+                titleRect = CGRect(x: x, y: 0, width: width, height: maxHeight)
             }
+            
+            customTitleView.frame = titleRect
         }
     
 #else
-
-        var leftRect = CGRect.null
-        var rightRect = CGRect.null
-        var isTitleBarButtonFound = false
-    
-        let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
-        
-            let x1 = view1.frame.minX
-            let y1 = view1.frame.minY
-            let x2 = view2.frame.minX
-            let y2 = view2.frame.minY
-        
-            if x1 != x2 {
-                return x1 < x2
-            } else {
-                return y1 < y2
-            }
-        })
-    
-        for barButtonItemView in sortedSubviews {
-        
-            if isTitleBarButtonFound == true {
-                rightRect = barButtonItemView.frame
-                break
-            } else if type(of: barButtonItemView) === UIView.self {
-                isTitleBarButtonFound = true
-            //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-            } else if barButtonItemView.isKind(of: UIControl.self) == true {
-                leftRect = barButtonItemView.frame
-            }
-        }
-    
-        var x : CGFloat = 16
-    
-        if (leftRect.isNull == false) {
-            x = leftRect.maxX + 16
-        }
-    
-        let width : CGFloat = self.frame.width - 32 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-    
-    
-        if let unwrappedItems = items {
-            for item in unwrappedItems {
+        if let customTitleView = titleBarButton.customView {
+            var leftRect = CGRect.null
+            var rightRect = CGRect.null
+            var isTitleBarButtonFound = false
             
-                if let newItem = item as? IQTitleBarButtonItem {
+            let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
                 
-                    let titleRect = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
-                    newItem.customView?.frame = titleRect
+                let x1 = view1.frame.minX
+                let y1 = view1.frame.minY
+                let x2 = view2.frame.minX
+                let y2 = view2.frame.minY
+                
+                if x1 != x2 {
+                    return x1 < x2
+                } else {
+                    return y1 < y2
+                }
+            })
+            
+            for barButtonItemView in sortedSubviews {
+                
+                if isTitleBarButtonFound == true {
+                    rightRect = barButtonItemView.frame
                     break
+                } else if barButtonItemView === titleBarButton.customView {
+                    isTitleBarButtonFound = true
+                    //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
+                } else if barButtonItemView.isKind(of: UIControl.self) == true {
+                    leftRect = barButtonItemView.frame
                 }
             }
+            
+            let titleMargin : CGFloat = 16
+            let maxWidth : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+            let maxHeight = self.frame.height
+            
+            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
+            
+            var titleRect : CGRect
+
+            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
+                let width = min(sizeThatFits.width, maxWidth)
+                let height = min(sizeThatFits.height, maxHeight)
+                
+                var x : CGFloat
+                
+                if (leftRect.isNull == false) {
+                    x = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
+                } else {
+                    x = titleMargin
+                }
+
+                let y = (maxHeight - height)/2
+                
+                titleRect = CGRect(x: x, y: y, width: width, height: height)
+            } else {
+                
+                var x : CGFloat
+                
+                if (leftRect.isNull == false) {
+                    x = titleMargin + leftRect.maxX
+                } else {
+                    x = titleMargin
+                }
+
+                let width : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+                
+                titleRect = CGRect(x: x, y: 0, width: width, height: maxHeight)
+            }
+            
+            customTitleView.frame = titleRect
         }
 #endif
     }
