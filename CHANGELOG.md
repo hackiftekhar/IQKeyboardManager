@@ -1,3 +1,15 @@
+## 5.0.7 (17-12-2017 | 1 month, 12 days)
+
+#### Bugfixes:
+
+#### Improvements:
+- Fixed a deprecated warning about **characters**.
+- Improved IQToobar button frame calculations below iOS11.
+
+#### Documentation:
+
+- Updated **Update PROPERTIES & FUNCTIONS.md**.
+
 ## 5.0.6 (05-11-2017 | 1 day)
 
 #### Bugfixes:
