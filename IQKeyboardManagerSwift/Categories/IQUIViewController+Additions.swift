@@ -25,6 +25,7 @@ import UIKit
 
 
 private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
+private var kShouldMoveWithNegativePosition = "kShouldMoveWithNegativePosition" 
 
 
 public extension UIViewController {
