@@ -174,11 +174,6 @@
     [self.view endEditing:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 - (BOOL)shouldAutorotate
 {
     return YES;
