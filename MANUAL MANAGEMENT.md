@@ -258,7 +258,7 @@ This is now very easy with just 2 lines of code like this:-
 {
     [super viewDidLoad];
     
-    [textField4 setTitleTarget:self action:@selector(savedUsersAction:)];  //This will convert toolbar placeholder to button
+    [textField4.keyboardToolbar.titleBarButton setTarget:self action:@selector(savedUsersAction:)];  //This will convert toolbar placeholder to button
     textField4.placeholderText = @"Saved Users";  //This is optional (If you would like to override default placeholder text)
 }
 
@@ -290,9 +290,9 @@ Then register custom selector.
 {
     [super viewDidLoad];
     
-    [textField setCustomPreviousTarget:self action:@selector(previousAction:)];
-    [textField setCustomNextTarget:self action:@selector(nextAction:)];
-    [textField setCustomDoneTarget:self action:@selector(doneAction:)];
+    [textField.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
+    [textField.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
+    [textField.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
 }
 
 /*!	previousAction. */
@@ -319,12 +319,12 @@ Then register custom selector.
 [#548](https://github.com/hackiftekhar/IQKeyboardManager/issues/548),
 [#579](https://github.com/hackiftekhar/IQKeyboardManager/issues/579))
 
-If you don't want to show Previous/Next arrow with toolbar and only want to show **Done* button only, then set `shouldHidePreviousNext` to NO.
+If you don't want to show Previous/Next arrow with toolbar and only want to show **Done** button only, then set `previousNextDisplayMode` to IQPreviousNextDisplayModeAlwaysHide.
 
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [IQKeyboardManager sharedManager].shouldHidePreviousNext = YES;
+    [IQKeyboardManager sharedManager].previousNextDisplayMode = IQPreviousNextDisplayModeAlwaysHide;
     return YES;
 }
 ```
