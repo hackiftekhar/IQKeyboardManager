@@ -1080,8 +1080,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             move = min(textFieldViewRect.minY-(topLayoutGuide+5), textFieldViewRect.maxY-(window.frame.height-kbSize.height))
         }
         
-        // Don't adjust the frame if textField is already placed above the keyboard and shouldMoveWithNegativePosition is true
-        if (move < 0 && (_textFieldView?.viewController()?.shouldMoveWithNegativePosition)!) {
+        // Don't adjust the frame if textField is already placed above the keyboard and shouldntMoveWithNegativePosition is true
+        if (move < 0 && (_textFieldView?.viewController()?.shouldntMoveWithNegativePosition)!) {
             return
         }
         
