@@ -794,7 +794,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             //Saving
             UIView *lastView = _textFieldView;
-            UIScrollView *superScrollView = _lastScrollView;
+            superScrollView = _lastScrollView;
 
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
             while (superScrollView &&
