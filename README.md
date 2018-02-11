@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-      IQKeyboardManager.sharedManager().enable = true
+      IQKeyboardManager.shared().isEnabled = true
 
       return true
     }
