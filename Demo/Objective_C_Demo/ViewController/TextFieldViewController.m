@@ -20,6 +20,12 @@
 
 #pragma mark - View lifecycle
 
+-(void)dealloc
+{
+    textField3 = nil;
+    dropDownTextField = nil;
+}
+
 -(void)previousAction:(UITextField*)textField
 {
     NSLog(@"%@",NSStringFromSelector(_cmd));

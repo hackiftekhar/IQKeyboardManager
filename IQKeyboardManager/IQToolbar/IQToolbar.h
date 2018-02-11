@@ -51,5 +51,10 @@
  */
 @property(nonnull, nonatomic, strong) IQBarButtonItem *doneBarButton;
 
+/**
+ Fixed space bar button of toolbar.
+ */
+@property(nonnull, nonatomic, strong) IQBarButtonItem *fixedSpaceBarButton;
+
 @end
 

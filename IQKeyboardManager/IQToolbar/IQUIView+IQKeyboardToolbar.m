@@ -339,6 +339,11 @@
         doneButton.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
         toolbar.doneBarButton = doneButton;
     }
+    else
+    {
+        doneButton.target = target;
+        doneButton.action = action;
+    }
     
     [items addObject:doneButton];
     
@@ -487,6 +492,11 @@
         cancelButton.accessibilityLabel = toolbar.previousBarButton.accessibilityLabel;
         toolbar.previousBarButton = cancelButton;
     }
+    else
+    {
+        cancelButton.target = target;
+        cancelButton.action = cancelAction;
+    }
 
     [items addObject:cancelButton];
     
@@ -515,6 +525,11 @@
         doneButton.invocation = toolbar.doneBarButton.invocation;
         doneButton.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
         toolbar.doneBarButton = doneButton;
+    }
+    else
+    {
+        doneButton.target = target;
+        doneButton.action = doneAction;
     }
 
     [items addObject:doneButton];
@@ -620,7 +635,7 @@
     [items addObject:prev];
 
     //Fixed space
-    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    IQBarButtonItem *fixed = toolbar.fixedSpaceBarButton;
     
 #ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *))
@@ -680,6 +695,11 @@
         doneButton.invocation = toolbar.doneBarButton.invocation;
         doneButton.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
         toolbar.doneBarButton = doneButton;
+    }
+    else
+    {
+        doneButton.target = target;
+        doneButton.action = doneAction;
     }
 
     [items addObject:doneButton];
@@ -786,7 +806,7 @@
     [items addObject:prev];
     
     //Fixed space
-    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    IQBarButtonItem *fixed = toolbar.fixedSpaceBarButton;
     
 #ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *))
@@ -953,7 +973,7 @@
     [items addObject:prev];
     
     //Fixed space
-    IQBarButtonItem *fixed =[[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    IQBarButtonItem *fixed = toolbar.fixedSpaceBarButton;
             
 #ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *))

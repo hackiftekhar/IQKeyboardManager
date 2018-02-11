@@ -33,6 +33,7 @@
 @synthesize nextBarButton = _nextBarButton;
 @synthesize titleBarButton = _titleBarButton;
 @synthesize doneBarButton = _doneBarButton;
+@synthesize fixedSpaceBarButton = _fixedSpaceBarButton;
 
 +(void)initialize
 {
@@ -78,6 +79,16 @@
     return self;
 }
 
+-(void)dealloc
+{
+    self.items = nil;
+    _previousBarButton = nil;
+    _nextBarButton = nil;
+    _titleBarButton = nil;
+    _doneBarButton = nil;
+    _fixedSpaceBarButton = nil;
+}
+
 -(IQBarButtonItem *)previousBarButton
 {
     if (_previousBarButton == nil)
@@ -115,13 +126,22 @@
 {
     if (_doneBarButton == nil)
     {
-        _doneBarButton = [[IQBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleDone target:nil action:nil];
+        _doneBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
         _doneBarButton.accessibilityLabel = @"Toolbar Done Button";
     }
     
     return _doneBarButton;
 }
 
+-(IQBarButtonItem *)fixedSpaceBarButton
+{
+    if (_fixedSpaceBarButton == nil)
+    {
+        _fixedSpaceBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    }
+    
+    return _fixedSpaceBarButton;
+}
 
 -(CGSize)sizeThatFits:(CGSize)size
 {

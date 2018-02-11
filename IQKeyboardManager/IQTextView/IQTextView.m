@@ -47,6 +47,8 @@
 
 -(void)dealloc
 {
+    [placeHolderLabel removeFromSuperview];
+    placeHolderLabel = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

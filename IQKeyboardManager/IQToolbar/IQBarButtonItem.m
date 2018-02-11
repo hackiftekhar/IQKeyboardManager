@@ -89,4 +89,11 @@
     self.invocation = invocation;
 }
 
+-(void)dealloc
+{
+    self.target = nil;
+    self.invocation.target = nil;
+    self.invocation = nil;
+}
+
 @end
