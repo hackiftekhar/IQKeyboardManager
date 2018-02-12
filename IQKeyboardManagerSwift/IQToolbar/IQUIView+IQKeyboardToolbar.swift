@@ -410,7 +410,7 @@ public extension UIView {
     */
     public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector) {
         
-        addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: nil)
+        addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: nil, titleAttributes: nil)
     }
     
     /**
@@ -421,7 +421,7 @@ public extension UIView {
     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, titleText: String?) {
+    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, titleText: String?, titleAttributes: [NSAttributedStringKey: Any]?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -455,6 +455,7 @@ public extension UIView {
             var doneButton = toolbar.doneBarButton
             if doneButton.isSystemItem == false {
                 doneButton.title = text
+                doneButton.setTitleTextAttributes(titleAttributes, for: [])
                 doneButton.image = nil
                 doneButton.target = target
                 doneButton.action = action
@@ -462,6 +463,7 @@ public extension UIView {
             else
             {
                 doneButton = IQBarButtonItem(title: text, style: UIBarButtonItemStyle.done, target: target, action: action)
+                doneButton.setTitleTextAttributes(titleAttributes, for: [])
                 doneButton.invocation = toolbar.doneBarButton.invocation
                 doneButton.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel
                 toolbar.doneBarButton = doneButton
@@ -503,7 +505,7 @@ public extension UIView {
     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
+    public func addRightButtonOnKeyboardWithText (_ text : String, textAttributes: [NSAttributedStringKey: Any]?, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
 
@@ -511,7 +513,7 @@ public extension UIView {
             title = self.drawingToolbarPlaceholder
         }
         
-        addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: title)
+        addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: title, titleAttributes: textAttributes)
     }
     
 

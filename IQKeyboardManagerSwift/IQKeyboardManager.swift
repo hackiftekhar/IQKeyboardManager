@@ -285,6 +285,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     open var toolbarDoneBarButtonItemText : String?
 
     /**
+     Toolbar done button text attributes, if provided, you can customize the done button's text attribues. will only be used if 'toolbarDoneBarButtonItemText' had been set.
+     */
+    open var toolbarDoneBarButtonItemTextAttributes: [NSAttributedStringKey: Any]?
+
+    /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
     @available(*,deprecated, message: "This is renamed to `shouldShowToolbarPlaceholder` for more clear naming.")
@@ -2089,7 +2094,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             }
                                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
                             else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: doneBarButtonItemText, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
+                                textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: doneBarButtonItemText, textAttributes: self.toolbarDoneBarButtonItemTextAttributes, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), rightButtonAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
                             } else {
                                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
                                 textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: shouldShowToolbarPlaceholder)
