@@ -25,6 +25,7 @@ import UIKit
 
 
 private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
+private var kShouldMoveWithNegativePosition = "kShouldMoveWithNegativePosition" 
 
 
 public extension UIViewController {
@@ -43,6 +44,19 @@ public extension UIViewController {
 
         set(newValue) {
             objc_setAssociatedObject(self, &kIQLayoutGuideConstraint, newValue,objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    /**
+     If you don't want to adjust the frame in the case that the textField already positioned above the keyboard, set shouldRestoreScrollViewContentOffset to true inside the viewController
+     */
+    public var shouldMoveWithNegativePosition: Bool? {
+        get {
+            return objc_getAssociatedObject(self, &kShouldMoveWithNegativePosition) as? Bool ?? false
+        }
+        
+        set(newValue) {
+            objc_setAssociatedObject(self, &kShouldMoveWithNegativePosition, newValue,objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
