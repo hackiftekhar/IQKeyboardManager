@@ -138,10 +138,20 @@ public extension UIView {
         //	Getting all siblings
         if let siblings = superview?.subviews {
             
-            for textField in siblings {
+            for subview in siblings {
                 
-                if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField._IQcanBecomeFirstResponder() == true {
-                    tempTextFields.append(textField)
+                if #available(iOS 9.0, *) {
+                    if subview is UIStackView{
+                        for textField in subview.subviews{
+                            if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField._IQcanBecomeFirstResponder() == true {
+                                tempTextFields.append(textField)
+                            }
+                        }
+                    }
+                }
+                
+                if (subview == self || subview.ignoreSwitchingByNextPrevious == false) && subview._IQcanBecomeFirstResponder() == true {
+                    tempTextFields.append(subview)
                 }
             }
         }
