@@ -82,43 +82,52 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         var isEnabled = enable
         
-        if let textFieldViewController = _textFieldView?.viewController() {
-            
-            if isEnabled == false {
+//        let enableMode = _textFieldView?.enableMode
+//
+//        if enableMode == .enabled {
+//            isEnabled = true
+//        } else if enableMode == .disabled {
+//            isEnabled = false
+//        } else {
+        
+            if let textFieldViewController = _textFieldView?.viewController() {
                 
-                //If viewController is kind of enable viewController class, then assuming it's enabled.
-                for enabledClass in enabledDistanceHandlingClasses {
+                if isEnabled == false {
                     
-                    if textFieldViewController.isKind(of: enabledClass) {
-                        isEnabled = true
-                        break
-                    }
-                }
-            }
-            
-            if isEnabled == true {
-                
-                //If viewController is kind of disabled viewController class, then assuming it's disabled.
-                for disabledClass in disabledDistanceHandlingClasses {
-                    
-                    if textFieldViewController.isKind(of: disabledClass) {
-                        isEnabled = false
-                        break
+                    //If viewController is kind of enable viewController class, then assuming it's enabled.
+                    for enabledClass in enabledDistanceHandlingClasses {
+                        
+                        if textFieldViewController.isKind(of: enabledClass) {
+                            isEnabled = true
+                            break
+                        }
                     }
                 }
                 
-                //Special Controllers
                 if isEnabled == true {
                     
-                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                    //If viewController is kind of disabled viewController class, then assuming it's disabled.
+                    for disabledClass in disabledDistanceHandlingClasses {
+                        
+                        if textFieldViewController.isKind(of: disabledClass) {
+                            isEnabled = false
+                            break
+                        }
+                    }
                     
-                    //_UIAlertControllerTextFieldViewController
-                    if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
-                        isEnabled = false
+                    //Special Controllers
+                    if isEnabled == true {
+                        
+                        let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                        
+                        //_UIAlertControllerTextFieldViewController
+                        if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
+                            isEnabled = false
+                        }
                     }
                 }
             }
-        }
+//        }
         
         return isEnabled
     }
@@ -367,39 +376,47 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         var shouldResign = shouldResignOnTouchOutside
         
-        if let textFieldViewController = _textFieldView?.viewController() {
-            
-            if shouldResign == false {
+        let enableMode = _textFieldView?.shouldResignOnTouchOutsideMode
+        
+        if enableMode == .enabled {
+            shouldResign = true
+        } else if enableMode == .disabled {
+            shouldResign = false
+        } else {
+            if let textFieldViewController = _textFieldView?.viewController() {
                 
-                //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
-                for enabledClass in enabledTouchResignedClasses {
+                if shouldResign == false {
                     
-                    if textFieldViewController.isKind(of: enabledClass) {
-                        shouldResign = true
-                        break
-                    }
-                }
-            }
-            
-            if shouldResign == true {
-                
-                //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
-                for disabledClass in disabledTouchResignedClasses {
-                    
-                    if textFieldViewController.isKind(of: disabledClass) {
-                        shouldResign = false
-                        break
+                    //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
+                    for enabledClass in enabledTouchResignedClasses {
+                        
+                        if textFieldViewController.isKind(of: enabledClass) {
+                            shouldResign = true
+                            break
+                        }
                     }
                 }
                 
-                //Special Controllers
                 if shouldResign == true {
                     
-                    let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                    //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
+                    for disabledClass in disabledTouchResignedClasses {
+                        
+                        if textFieldViewController.isKind(of: disabledClass) {
+                            shouldResign = false
+                            break
+                        }
+                    }
                     
-                    //_UIAlertControllerTextFieldViewController
-                    if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
-                        shouldResign = false
+                    //Special Controllers
+                    if shouldResign == true {
+                        
+                        let classNameString = NSStringFromClass(type(of:textFieldViewController.self))
+                        
+                        //_UIAlertControllerTextFieldViewController
+                        if (classNameString.contains("UIAlertController") && classNameString.hasSuffix("TextFieldViewController")) {
+                            shouldResign = false
+                        }
                     }
                 }
             }

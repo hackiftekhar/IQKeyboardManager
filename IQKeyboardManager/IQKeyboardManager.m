@@ -331,44 +331,57 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     BOOL enable = _enable;
     
-    UIViewController *textFieldViewController = [_textFieldView viewController];
-    
-    if (textFieldViewController)
+//    IQEnableMode enableMode = _textFieldView.enableMode;
+//
+//    if (enableMode == IQEnableModeEnabled)
+//    {
+//        enable = YES;
+//    }
+//    else if (enableMode == IQEnableModeDisabled)
+//    {
+//        enable = NO;
+//    }
+//    else
     {
-        if (enable == NO)
-        {
-            //If viewController is kind of enable viewController class, then assuming it's enabled.
-            for (Class enabledClass in _enabledDistanceHandlingClasses)
-            {
-                if ([textFieldViewController isKindOfClass:enabledClass])
-                {
-                    enable = YES;
-                    break;
-                }
-            }
-        }
+        UIViewController *textFieldViewController = [_textFieldView viewController];
         
-        if (enable)
+        if (textFieldViewController)
         {
-            //If viewController is kind of disable viewController class, then assuming it's disable.
-            for (Class disabledClass in _disabledDistanceHandlingClasses)
+            if (enable == NO)
             {
-                if ([textFieldViewController isKindOfClass:disabledClass])
+                //If viewController is kind of enable viewController class, then assuming it's enabled.
+                for (Class enabledClass in _enabledDistanceHandlingClasses)
                 {
-                    enable = NO;
-                    break;
+                    if ([textFieldViewController isKindOfClass:enabledClass])
+                    {
+                        enable = YES;
+                        break;
+                    }
                 }
             }
             
-            //Special Controllers
-            if (enable == YES)
+            if (enable)
             {
-                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
-
-                //_UIAlertControllerTextFieldViewController
-                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                //If viewController is kind of disable viewController class, then assuming it's disable.
+                for (Class disabledClass in _disabledDistanceHandlingClasses)
                 {
-                    enable = NO;
+                    if ([textFieldViewController isKindOfClass:disabledClass])
+                    {
+                        enable = NO;
+                        break;
+                    }
+                }
+                
+                //Special Controllers
+                if (enable == YES)
+                {
+                    NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                    
+                    //_UIAlertControllerTextFieldViewController
+                    if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                    {
+                        enable = NO;
+                    }
                 }
             }
         }
@@ -411,44 +424,57 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     BOOL shouldResignOnTouchOutside = _shouldResignOnTouchOutside;
     
-    UIViewController *textFieldViewController = [_textFieldView viewController];
+    IQEnableMode enableMode = _textFieldView.shouldResignOnTouchOutsideMode;
     
-    if (textFieldViewController)
+    if (enableMode == IQEnableModeEnabled)
     {
-        if (shouldResignOnTouchOutside == NO)
-        {
-            //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
-            for (Class enabledClass in _enabledTouchResignedClasses)
-            {
-                if ([textFieldViewController isKindOfClass:enabledClass])
-                {
-                    shouldResignOnTouchOutside = YES;
-                    break;
-                }
-            }
-        }
+        shouldResignOnTouchOutside = YES;
+    }
+    else if (enableMode == IQEnableModeDisabled)
+    {
+        shouldResignOnTouchOutside = NO;
+    }
+    else
+    {
+        UIViewController *textFieldViewController = [_textFieldView viewController];
         
-        if (shouldResignOnTouchOutside)
+        if (textFieldViewController)
         {
-            //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
-            for (Class disabledClass in _disabledTouchResignedClasses)
+            if (shouldResignOnTouchOutside == NO)
             {
-                if ([textFieldViewController isKindOfClass:disabledClass])
+                //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
+                for (Class enabledClass in _enabledTouchResignedClasses)
                 {
-                    shouldResignOnTouchOutside = NO;
-                    break;
+                    if ([textFieldViewController isKindOfClass:enabledClass])
+                    {
+                        shouldResignOnTouchOutside = YES;
+                        break;
+                    }
                 }
             }
-
-            //Special Controllers
-            if (shouldResignOnTouchOutside == YES)
+            
+            if (shouldResignOnTouchOutside)
             {
-                NSString *classNameString = NSStringFromClass([textFieldViewController class]);
-                
-                //_UIAlertControllerTextFieldViewController
-                if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                //If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
+                for (Class disabledClass in _disabledTouchResignedClasses)
                 {
-                    shouldResignOnTouchOutside = NO;
+                    if ([textFieldViewController isKindOfClass:disabledClass])
+                    {
+                        shouldResignOnTouchOutside = NO;
+                        break;
+                    }
+                }
+                
+                //Special Controllers
+                if (shouldResignOnTouchOutside == YES)
+                {
+                    NSString *classNameString = NSStringFromClass([textFieldViewController class]);
+                    
+                    //_UIAlertControllerTextFieldViewController
+                    if ([classNameString containsString:@"UIAlertController"] && [classNameString hasSuffix:@"TextFieldViewController"])
+                    {
+                        shouldResignOnTouchOutside = NO;
+                    }
                 }
             }
         }

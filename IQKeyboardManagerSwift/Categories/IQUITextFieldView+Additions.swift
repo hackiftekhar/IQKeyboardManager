@@ -30,6 +30,8 @@ Uses default keyboard distance for textField.
 public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
+//private var kIQKeyboardEnableMode = "kIQKeyboardEnableMode"
+private var kIQKeyboardShouldResignOnTouchOutsideMode = "kIQKeyboardShouldResignOnTouchOutsideMode"
 private var kIQIgnoreSwitchingByNextPrevious = "kIQIgnoreSwitchingByNextPrevious"
 
 /**
@@ -68,6 +70,40 @@ public extension UIView {
         }
         set(newValue) {
             objc_setAssociatedObject(self, &kIQIgnoreSwitchingByNextPrevious, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+//    /**
+//     Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
+//     */
+//    public var enableMode: IQEnableMode {
+//        get {
+//            
+//            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? Int, let savedMode = IQEnableMode(rawValue: aValue) {
+//                return savedMode
+//            } else {
+//                return .Default
+//            }
+//        }
+//        set(newValue) {
+//            objc_setAssociatedObject(self, &kIQKeyboardEnableMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        }
+//    }
+    
+    /**
+     Override resigns Keyboard on touching outside of UITextField/View behaviour for this particular textField.
+     */
+    public var shouldResignOnTouchOutsideMode: IQEnableMode {
+        get {
+            
+            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode) as? Int, let savedMode = IQEnableMode(rawValue: aValue) {
+                return savedMode
+            } else {
+                return .Default
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

@@ -62,6 +62,22 @@ typedef NS_ENUM(NSUInteger, IQPreviousNextDisplayMode) {
     IQPreviousNextDisplayModeAlwaysShow,
 };
 
+/**
+ `IQEnableModeDefault`
+ Pick default settings.
+ 
+ `IQEnableModeEnabled`
+ setting is enabled.
+ 
+ `IQEnableModeDisabled`
+ setting is disabled.
+ */
+typedef NS_ENUM(NSUInteger, IQEnableMode) {
+    IQEnableModeDefault,
+    IQEnableModeEnabled,
+    IQEnableModeDisabled,
+};
+
 #endif
 
 /*
