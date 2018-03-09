@@ -5,12 +5,34 @@
 #import "ScrollViewController.h"
 
 @interface ScrollViewController ()<UIPopoverPresentationControllerDelegate>
+{
+    IBOutlet UIScrollView *scrollViewDemo;
+    IBOutlet UITableView *simpleTableView;
+    IBOutlet UIScrollView *scrollViewOfTableViews;
+    IBOutlet UITableView *tableViewInsideScrollView;
+    IBOutlet UIScrollView *scrollViewInsideScrollView;
+    
+    
+    IBOutlet UITextField *topTextField;
+    IBOutlet UITextField *bottomTextField;
+    
+    IBOutlet UITextView *topTextView;
+    IBOutlet UITextView *bottomTextView;
+}
 
 @end
 
 @implementation ScrollViewController
 
 #pragma mark - View lifecycle
+
+-(void)dealloc
+{
+    topTextField = nil;
+    bottomTextField = nil;
+    topTextView = nil;
+    bottomTextView = nil;
+}
 
 - (void)viewDidLoad
 {

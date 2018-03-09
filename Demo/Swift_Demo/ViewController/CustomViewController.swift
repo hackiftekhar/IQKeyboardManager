@@ -27,6 +27,10 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
 
     @IBOutlet fileprivate var settingsTopConstraint : NSLayoutConstraint!
 
+    deinit {
+        returnHandler = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

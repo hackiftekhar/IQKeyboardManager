@@ -574,10 +574,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let isAcceptAsFirstResponder = goPrevious()
                 
                 if isAcceptAsFirstResponder &&
-                    barButton.invocation.target != nil &&
-                    barButton.invocation.action != nil {
+                    barButton.invocation?.target != nil &&
+                    barButton.invocation?.action != nil {
                     
-                    UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -598,10 +598,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 let isAcceptAsFirstResponder = goNext()
                 
                 if isAcceptAsFirstResponder &&
-                    barButton.invocation.target != nil &&
-                    barButton.invocation.action != nil {
+                    barButton.invocation?.target != nil &&
+                    barButton.invocation?.action != nil {
                     
-                    UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -621,10 +621,10 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let isResignedFirstResponder = resignFirstResponder()
             
             if isResignedFirstResponder &&
-                barButton.invocation.target != nil &&
-                barButton.invocation.action != nil{
+                barButton.invocation?.target != nil &&
+                barButton.invocation?.action != nil{
                 
-                UIApplication.shared.sendAction(barButton.invocation.action!, to: barButton.invocation.target, from: textFieldRetain, for: UIEvent())
+                UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
             }
         }
     }
@@ -941,15 +941,15 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
 #if swift(>=3.2)
     
-            var safeAreaNewInset = UIEdgeInsets.zero;
+            var safeAreaNewInset = UIEdgeInsets.zero
 
             if canAdjustAdditionalSafeAreaInsets {
         
                 if #available(iOS 11, *) {
                     
                     if let textFieldView = _textFieldView {
-                        safeAreaNewInset = _initialAdditionalSafeAreaInsets;
-                        let viewMovement : CGFloat = _topViewBeginRect.maxY - newFrame.maxY;
+                        safeAreaNewInset = _initialAdditionalSafeAreaInsets
+                        let viewMovement : CGFloat = _topViewBeginRect.maxY - newFrame.maxY
                         
                         //Maintain keyboardDistanceFromTextField
                         var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
@@ -963,8 +963,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
                         let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
                         
-                        let textFieldDistance = textFieldView.frame.size.height + newKeyboardDistanceFromTextField;
-                        safeAreaNewInset.bottom += min(viewMovement, textFieldDistance);
+                        let textFieldDistance = textFieldView.frame.size.height + newKeyboardDistanceFromTextField
+                        safeAreaNewInset.bottom += min(viewMovement, textFieldDistance)
                     }
                 }
             }
@@ -976,7 +976,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 #if swift(>=3.2)
                 if self.canAdjustAdditionalSafeAreaInsets {
                     if #available(iOS 11, *) {
-                        unwrappedController.additionalSafeAreaInsets = safeAreaNewInset;
+                        unwrappedController.additionalSafeAreaInsets = safeAreaNewInset
                     }
                 }
 #endif
@@ -1521,7 +1521,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
 #if swift(>=3.2)
                 if #available(iOS 11, *) {
-                    _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
+                    _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets
                 }
 #endif
                 if _topViewBeginRect.origin.y != 0 &&
@@ -1693,7 +1693,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         
 #if swift(>=3.2)
                         if #available(iOS 11, *) {
-                            rootViewController.additionalSafeAreaInsets = self._initialAdditionalSafeAreaInsets;
+                            rootViewController.additionalSafeAreaInsets = self._initialAdditionalSafeAreaInsets
                         }
 #endif
 
@@ -1746,7 +1746,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
 #if swift(>=3.2)
         if #available(iOS 11, *) {
-            _initialAdditionalSafeAreaInsets = .zero;
+            _initialAdditionalSafeAreaInsets = .zero
         }
 #endif
         
@@ -1835,7 +1835,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     
 #if swift(>=3.2)
                     if #available(iOS 11, *) {
-                        _initialAdditionalSafeAreaInsets = rootViewController.additionalSafeAreaInsets;
+                        _initialAdditionalSafeAreaInsets = rootViewController.additionalSafeAreaInsets
                     }
 #endif
 
@@ -1943,7 +1943,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if let rootViewController = _rootViewController {
             if #available(iOS 11, *) {
                 if UIEdgeInsetsEqualToEdgeInsets(_initialAdditionalSafeAreaInsets, rootViewController.additionalSafeAreaInsets) {
-                    rootViewController.additionalSafeAreaInsets = _initialAdditionalSafeAreaInsets;
+                    rootViewController.additionalSafeAreaInsets = _initialAdditionalSafeAreaInsets
                 }
             }
         }
@@ -1981,7 +1981,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 #if swift(>=3.2)
                     if #available(iOS 11, *) {
-                        _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets;
+                        _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets
                     }
                 #endif
                 

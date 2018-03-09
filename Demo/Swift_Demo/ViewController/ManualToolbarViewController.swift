@@ -17,6 +17,13 @@ class ManualToolbarViewController : UIViewController, UIPopoverPresentationContr
     @IBOutlet fileprivate var textField4 : UITextField!
     @IBOutlet fileprivate var textField5 : UITextField!
 
+    deinit {
+        textField1 = nil
+        textField2 = nil
+        textView3 = nil
+        textField4 = nil
+        textField5 = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

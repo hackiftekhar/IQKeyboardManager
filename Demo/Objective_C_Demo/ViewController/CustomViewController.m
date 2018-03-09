@@ -34,6 +34,11 @@
 
 @implementation CustomViewController
 
+-(void)dealloc
+{
+    returnHandler = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

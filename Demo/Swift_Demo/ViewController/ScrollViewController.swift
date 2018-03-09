@@ -22,7 +22,13 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet fileprivate var topTextView : UITextView!
     @IBOutlet fileprivate var bottomTextView : UITextView!
     
-    
+    deinit {
+        topTextField = nil
+        bottomTextField = nil
+        topTextView = nil
+        bottomTextView = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }

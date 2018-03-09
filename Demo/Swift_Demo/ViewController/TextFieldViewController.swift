@@ -32,6 +32,12 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         print("doneAction")
     }
 
+    deinit {
+        textField3 = nil
+        textView1 = nil
+        dropDownTextField = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

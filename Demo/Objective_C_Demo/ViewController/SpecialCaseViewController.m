@@ -29,6 +29,14 @@
     IBOutlet UISwitch *switchEnabled3;
 }
 
+-(void)dealloc
+{
+    customWorkTextField = nil;
+    textField6 = nil;
+    textField7 = nil;
+    textField8 = nil;
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];

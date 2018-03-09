@@ -20,6 +20,11 @@
     IBOutlet YYTextView *textView;
 }
 
+-(void)dealloc
+{
+    textView = nil;
+}
+
 +(void)initialize
 {
     [super initialize];

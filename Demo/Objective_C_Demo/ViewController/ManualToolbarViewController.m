@@ -30,6 +30,14 @@
     IBOutlet UITextField *textField5;
 }
 
+-(void)dealloc
+{
+    textField1 = nil;
+    textField2 = nil;
+    textView3 = nil;
+    textField5 = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

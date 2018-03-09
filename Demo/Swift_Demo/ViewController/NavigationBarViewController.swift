@@ -16,6 +16,12 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
     @IBOutlet fileprivate var textField3 : UITextField!
     @IBOutlet fileprivate var scrollView : UIScrollView!
 
+    deinit {
+        returnKeyHandler = nil
+        textField2 = nil
+        textField3 = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

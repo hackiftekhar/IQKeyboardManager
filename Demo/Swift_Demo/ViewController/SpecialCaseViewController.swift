@@ -24,6 +24,13 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     @IBOutlet fileprivate var switchEnabled2 : UISwitch!
     @IBOutlet fileprivate var switchEnabled3 : UISwitch!
     
+    deinit {
+        customWorkTextField = nil
+        textField6 = nil
+        textField7 = nil
+        textField8 = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

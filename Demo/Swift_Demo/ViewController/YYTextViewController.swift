@@ -13,6 +13,10 @@ class YYTextViewController: UIViewController, YYTextViewDelegate {
 
     @IBOutlet var textView : YYTextView!
 
+    deinit {
+        textView = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -43,6 +43,8 @@ open class IQTextView : UITextView {
     }
     
     deinit {
+        placeholderLabel?.removeFromSuperview()
+        placeholderLabel = nil
         NotificationCenter.default.removeObserver(self)
     }
     

@@ -61,11 +61,11 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    override open var invocation : (target: AnyObject?, action: Selector?) {
+    override open var invocation : (target: AnyObject?, action: Selector?)? {
 
         didSet {
             
-            if (invocation.target == nil || invocation.action == nil)
+            if (invocation?.target == nil || invocation?.action == nil)
             {
                 self.isEnabled = false
                 _titleButton?.isEnabled = false
@@ -75,7 +75,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
             {
                 self.isEnabled = true
                 _titleButton?.isEnabled = true
-                _titleButton?.addTarget(invocation.target, action: invocation.action!, for: .touchUpInside)
+                _titleButton?.addTarget(invocation!.target, action: invocation!.action!, for: .touchUpInside)
             }
         }
     }
@@ -154,5 +154,12 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    deinit {
+        customView = nil
+        _titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
+        _titleView = nil
+        _titleButton = nil
     }
 }

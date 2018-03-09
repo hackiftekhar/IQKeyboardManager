@@ -22,6 +22,8 @@
 -(void)dealloc
 {
     returnKeyHandler = nil;
+    textField1 = nil;
+    textField3 = nil;
 }
 
 - (void)viewDidLoad

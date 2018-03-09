@@ -35,7 +35,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
 
         appearanceProxy.barTintColor = nil
         
-        let positions : [UIBarPosition] = [.any,.bottom,.top,.topAttached];
+        let positions : [UIBarPosition] = [.any,.bottom,.top,.topAttached]
 
         for position in positions {
 
@@ -116,6 +116,24 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         
         set (newValue) {
             privateDoneBarButton = newValue
+        }
+    }
+
+    /**
+     Fixed space bar button of toolbar.
+     */
+    private var privateFixedSpaceBarButton: IQBarButtonItem?
+    open var fixedSpaceBarButton : IQBarButtonItem {
+        get {
+            if privateFixedSpaceBarButton == nil {
+                privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            }
+            privateFixedSpaceBarButton!.isSystemItem = true
+            return privateFixedSpaceBarButton!
+        }
+        
+        set (newValue) {
+            privateFixedSpaceBarButton = newValue
         }
     }
 
@@ -326,5 +344,15 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     
     open var enableInputClicksWhenVisible: Bool {
         return true
+    }
+    
+    deinit {
+
+        items = nil
+        privatePreviousBarButton = nil
+        privateNextBarButton = nil
+        privateTitleBarButton = nil
+        privateDoneBarButton = nil
+        privateFixedSpaceBarButton = nil
     }
 }

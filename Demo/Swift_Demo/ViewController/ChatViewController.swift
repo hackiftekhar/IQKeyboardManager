@@ -14,6 +14,10 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
     @IBOutlet var buttonSend : UIButton!
     @IBOutlet var inputTextField : UITextField!
 
+    deinit {
+        inputTextField = nil
+    }
+
     var texts = ["This is demo text chat. Enter your message and hit `Send` to add more chat."]
     
     override func viewDidLoad() {
