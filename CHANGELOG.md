@@ -1,3 +1,11 @@
+## 5.0.8 (09-3-2018 | 2 month, 23 days)
+
+#### Bugfixes:
+- Fixed couple of memory leak issues.
+
+#### Features:
+- Added **shouldResignOnTouchOutsideMode** in UITextFieldView category to override resign on touch outside behaviour for particular textField.
+
 ## 5.0.7 (17-12-2017 | 1 month, 12 days)
 
 #### Bugfixes:
