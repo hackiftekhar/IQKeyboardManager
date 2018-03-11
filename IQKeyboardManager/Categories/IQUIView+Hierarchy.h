@@ -45,6 +45,11 @@
  */
 @property (nullable, nonatomic, readonly, strong) UIViewController *topMostController;
 
+/**
+ Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
+ */
+@property (nullable, nonatomic, readonly, strong) UIViewController *parentContainerViewController;
+
 ///-----------------------------------
 /// @name Superviews/Subviews/Siglings
 ///-----------------------------------
