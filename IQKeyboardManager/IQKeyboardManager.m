@@ -587,18 +587,22 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /* Adjusting RootViewController's frame according to interface orientation. */
 -(void)adjustPosition
 {
+    //  Getting RootViewController.  (Bug ID: #1, #4)
+    UIViewController *rootController = [_textFieldView parentContainerViewController];
+    
+    //  Getting KeyWindow object.
+    UIWindow *keyWindow = [self keyWindow];
+    
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
-    if (_hasPendingAdjustRequest == YES && _textFieldView == nil)   return;
+    if (_hasPendingAdjustRequest == NO ||
+        _textFieldView == nil ||
+        rootController == nil ||
+        keyWindow == nil)
+        return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    //  Getting KeyWindow object.
-    UIWindow *keyWindow = [self keyWindow];
-    
-    //  Getting RootViewController.  (Bug ID: #1, #4)
-    UIViewController *rootController = [_textFieldView parentContainerViewController];
-    
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
     //  Getting RootView origin.

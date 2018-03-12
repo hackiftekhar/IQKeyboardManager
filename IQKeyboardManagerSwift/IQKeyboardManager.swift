@@ -46,7 +46,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     Default tag for toolbar with Previous/Next buttons -1005.
     */
     fileprivate static let  kIQPreviousNextButtonToolbarTag =   -1005
-    
+
+    /**
+     Invalid point value.
+     */
+    fileprivate static let  kIQCGPointInvalid = CGPoint.init(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
+
     ///---------------------------
     ///  MARK: UIKeyboard handling
     ///---------------------------
@@ -65,9 +70,9 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //If not enable, enable it.
             if enable == true &&
                 oldValue == false {
-                //If keyboard is currently showing. Sending a fake notification for keyboardWillShow to adjust view according to keyboard.
-                if _kbShowNotification != nil {
-                    keyboardWillShow(_kbShowNotification)
+                //If keyboard is currently showing. Sending a fake notification for keyboardWillHide to retain view's original position.
+                if let notification = _kbShowNotification {
+                    keyboardWillShow(notification)
                 }
                 showLog("Enabled")
             } else if enable == false &&
@@ -169,6 +174,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
     */
+    @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this tweak is no longer needed and things will just work out of the box for most of the cases.")
     open var preventShowingBottomBlankSpace = true
     
     /**
@@ -196,7 +202,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         didSet {
 
-            privateIsEnableAutoToolbar() ?addToolbarIfRequired():removeToolbarIfRequired()
+            privateIsEnableAutoToolbar() ? addToolbarIfRequired() : removeToolbarIfRequired()
 
             let enableToolbar = enableAutoToolbar ? "Yes" : "NO"
 
@@ -440,7 +446,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //If it refuses to resign then becoming it first responder again for getting notifications callback.
                 textFieldRetain.becomeFirstResponder()
                 
-                showLog("Refuses to resign first responder: \(String(describing: _textFieldView?._IQDescription()))")
+                showLog("Refuses to resign first responder: \(String(describing: textFieldRetain._IQDescription()))")
             }
             
             return isResignFirstResponder
@@ -573,11 +579,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goPrevious()
                 
-                if isAcceptAsFirstResponder &&
-                    barButton.invocation?.target != nil &&
-                    barButton.invocation?.action != nil {
+                if isAcceptAsFirstResponder,
+                    let target = barButton.invocation?.target,
+                    let action = barButton.invocation?.action {
                     
-                    UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -597,11 +603,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goNext()
                 
-                if isAcceptAsFirstResponder &&
-                    barButton.invocation?.target != nil &&
-                    barButton.invocation?.action != nil {
+                if isAcceptAsFirstResponder,
+                    let target = barButton.invocation?.target,
+                    let action = barButton.invocation?.action {
                     
-                    UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
+                    UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
                 }
             }
         }
@@ -620,11 +626,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Resign textFieldView.
             let isResignedFirstResponder = resignFirstResponder()
             
-            if isResignedFirstResponder &&
-                barButton.invocation?.target != nil &&
-                barButton.invocation?.action != nil{
+            if isResignedFirstResponder,
+                let target = barButton.invocation?.target,
+                let action = barButton.invocation?.action {
                 
-                UIApplication.shared.sendAction(barButton.invocation!.action!, to: barButton.invocation!.target, from: textFieldRetain, for: UIEvent())
+                UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
             }
         }
     }
@@ -684,6 +690,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
      If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
      */
+    @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this tweak is no longer needed and things will just work out of the box for most of the cases. This property will be removed in future release.")
     open var shouldFixInteractivePopGestureRecognizer = true
     
 #if swift(>=3.2)
@@ -694,6 +701,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
      If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
      */
+    @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this safe area tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview. This property will be removed in future release.")
     open var canAdjustAdditionalSafeAreaInsets = false
 #endif
 
@@ -782,23 +790,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To save UITextField/UITextView object voa textField/textView notifications. */
     fileprivate weak var    _textFieldView: UIView?
     
-    /** To save rootViewController.view.frame. */
-    fileprivate var         _topViewBeginRect = CGRect.zero
+    /** To save rootViewController.view.frame.origin. */
+    fileprivate var         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
     
     /** To save rootViewController */
     fileprivate weak var    _rootViewController: UIViewController?
     
-#if swift(>=3.2)
-    /** To save additionalSafeAreaInsets of rootViewController to tweak iOS11 Safe Area */
-    fileprivate var         _initialAdditionalSafeAreaInsets = UIEdgeInsets.zero
-#endif
-
-    /** To save topBottomLayoutConstraint original constant */
-    fileprivate var         _layoutGuideConstraintInitialConstant: CGFloat  = 0
-
-    /** To save topBottomLayoutConstraint original constraint reference */
-    fileprivate weak var    _layoutGuideConstraint: NSLayoutConstraint?
-
     /*******************************************/
 
     /** Variable to save lastScrollView that was scrolled. */
@@ -821,9 +818,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To save keyboard size. */
     fileprivate var         _kbSize = CGSize.zero
     
-    /** To save Status Bar size. */
-    fileprivate var         _statusBarFrame = CGRect.zero
-    
     /** To save keyboard animation duration. */
     fileprivate var         _animationDuration : TimeInterval = 0.25
     
@@ -840,6 +834,9 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /** To use with keyboardDistanceFromTextField. */
     fileprivate var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
     
+    /** To know if we have any pending request to adjust view position. */
+    fileprivate var         _privateHasPendingAdjustRequest = false
+
     /**************************************************************************************/
     
     ///--------------------------------------
@@ -905,11 +902,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 static weak var keyWindow : UIWindow?
             }
 
-            /*  (Bug ID: #23, #25, #73)   */
-            let originalKeyWindow = UIApplication.shared.keyWindow
-            
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if originalKeyWindow != nil &&
+            if let originalKeyWindow = UIApplication.shared.keyWindow,
                 (Static.keyWindow == nil || Static.keyWindow != originalKeyWindow) {
                 Static.keyWindow = originalKeyWindow
             }
@@ -923,398 +917,246 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /// MARK: Helper Functions
     ///-----------------------
     
-    /*  Helper function to manipulate RootViewController's frame with animation. */
-    fileprivate func setRootViewFrame(_ frame: CGRect) {
-        
-        //  Getting topMost ViewController.
-        var controller = _textFieldView?.topMostController()
-        
-        if controller == nil {
-            controller = keyWindow()?.topMostWindowController()
-        }
-        
-        if let unwrappedController = controller {
-            
-            var newFrame = frame
-            //frame size needs to be adjusted on iOS8 due to orientation structure changes.
-            newFrame.size = unwrappedController.view.frame.size
-            
-#if swift(>=3.2)
-    
-            var safeAreaNewInset = UIEdgeInsets.zero
-
-            if canAdjustAdditionalSafeAreaInsets {
-        
-                if #available(iOS 11, *) {
-                    
-                    if let textFieldView = _textFieldView {
-                        safeAreaNewInset = _initialAdditionalSafeAreaInsets
-                        let viewMovement : CGFloat = _topViewBeginRect.maxY - newFrame.maxY
-                        
-                        //Maintain keyboardDistanceFromTextField
-                        var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
-                        
-                        if textFieldView.isSearchBarTextField() {
-                            
-                            if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
-                                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
-                            }
-                        }
-                        
-                        let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
-                        
-                        let textFieldDistance = textFieldView.frame.size.height + newKeyboardDistanceFromTextField
-                        safeAreaNewInset.bottom += min(viewMovement, textFieldDistance)
-                    }
-                }
+    fileprivate func optimizedAdjustPosition() {
+        if _privateHasPendingAdjustRequest == false {
+            _privateHasPendingAdjustRequest = true
+            OperationQueue.main.addOperation {
+                self.adjustPosition()
+                self._privateHasPendingAdjustRequest = false
             }
-#endif
-
-            //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-            UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                
-#if swift(>=3.2)
-                if self.canAdjustAdditionalSafeAreaInsets {
-                    if #available(iOS 11, *) {
-                        unwrappedController.additionalSafeAreaInsets = safeAreaNewInset
-                    }
-                }
-#endif
-
-                //  Setting it's new frame
-                unwrappedController.view.frame = newFrame
-                self.showLog("Set \(String(describing: controller?._IQDescription())) frame to : \(newFrame)")
-                
-                //Animating content if needed (Bug ID: #204)
-                if self.layoutIfNeededOnUpdate == true {
-                    //Animating content (Bug ID: #160)
-                    unwrappedController.view.setNeedsLayout()
-                    unwrappedController.view.layoutIfNeeded()
-                }
- 
-                
-                }) { (animated:Bool) -> Void in}
-        } else {  //  If can't get rootViewController then printing warning to user.
-            showLog("You must set UIWindow.rootViewController in your AppDelegate to work with IQKeyboardManager")
         }
     }
 
     /* Adjusting RootViewController's frame according to interface orientation. */
-    fileprivate func adjustFrame() {
+    fileprivate func adjustPosition() {
         
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
-        if _textFieldView == nil {
-            return
-        }
-        
-        let textFieldView = _textFieldView!
-
-        let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
-
-        //  Getting KeyWindow object.
-        let optionalWindow = keyWindow()
-        
-        //  Getting RootViewController.  (Bug ID: #1, #4)
-        var optionalRootController = _textFieldView?.topMostController()
-        if optionalRootController == nil {
-            optionalRootController = keyWindow()?.topMostWindowController()
-        }
-        
-        //  Converting Rectangle according to window bounds.
-        let optionalTextFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: optionalWindow)
-
-        if optionalRootController == nil ||
-            optionalWindow == nil ||
-            optionalTextFieldViewRect == nil {
-            return
-        }
-        
-        let rootController = optionalRootController!
-        let window = optionalWindow!
-        let textFieldViewRect = optionalTextFieldViewRect!
-        
-        //  Getting RootViewRect.
-        var rootViewRect = rootController.view.frame
-        //Getting statusBarFrame
-
-        //Maintain keyboardDistanceFromTextField
-        var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
-        
-        if textFieldView.isSearchBarTextField() {
+        if _privateHasPendingAdjustRequest == true,
+            let textFieldView = _textFieldView,
+            let rootController = textFieldView.parentContainerViewController(),
+            let window = keyWindow(),
+            let textFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window)
+        {
+            let startTime = CACurrentMediaTime()
+            showLog("****** \(#function) started ******")
             
-            if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
-                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
-            }
-        }
-        
-        let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
-        var kbSize = _kbSize
-        kbSize.height += newKeyboardDistanceFromTextField
-
-        let statusBarFrame = UIApplication.shared.statusBarFrame
-        
-        //  (Bug ID: #250)
-        var layoutGuidePosition = IQLayoutGuidePosition.none
-        
-        if let viewController = textFieldView.viewController() {
+            //  Getting RootViewOrigin.
+            var rootViewOrigin = rootController.view.frame.origin
+            //Getting statusBarFrame
             
-            if let constraint = _layoutGuideConstraint {
+            //Maintain keyboardDistanceFromTextField
+            var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
+            
+            if textFieldView.isSearchBarTextField() {
                 
-                var layoutGuide : UILayoutSupport?
-                if let itemLayoutGuide = constraint.firstItem as? UILayoutSupport {
-                    layoutGuide = itemLayoutGuide
-                } else if let itemLayoutGuide = constraint.secondItem as? UILayoutSupport {
-                    layoutGuide = itemLayoutGuide
-                }
-                
-                if let itemLayoutGuide : UILayoutSupport = layoutGuide {
-                    
-                    if (itemLayoutGuide === viewController.topLayoutGuide)    //If topLayoutGuide constraint
-                    {
-                        layoutGuidePosition = .top
-                    }
-                    else if (itemLayoutGuide === viewController.bottomLayoutGuide)    //If bottomLayoutGuice constraint
-                    {
-                        layoutGuidePosition = .bottom
-                    }
+                if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
+                    specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
                 }
             }
-        }
-        
-        let topLayoutGuide : CGFloat = statusBarFrame.height
-
-        var move : CGFloat = 0.0
-        //  Move positive = textField is hidden.
-        //  Move negative = textField is showing.
-        
-        //  Checking if there is bottomLayoutGuide attached (Bug ID: #250)
-        if layoutGuidePosition == .bottom {
+            
+            let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
+            var kbSize = _kbSize
+            kbSize.height += newKeyboardDistanceFromTextField
+            
+            let statusBarFrame = UIApplication.shared.statusBarFrame
+            
+            let topLayoutGuide : CGFloat = statusBarFrame.height
+            
+            var move : CGFloat = 0.0
+            //  Move positive = textField is hidden.
+            //  Move negative = textField is showing.
+            
             //  Calculating move position.
-            move = textFieldViewRect.maxY-(window.frame.height-kbSize.height)
-        } else {
-            //  Calculating move position. Common for both normal and special cases.
             move = min(textFieldViewRect.minY-(topLayoutGuide+5), textFieldViewRect.maxY-(window.frame.height-kbSize.height))
-        }
-        
-        showLog("Need to move: \(move)")
-
-        var superScrollView : UIScrollView? = nil
-        var superView = textFieldView.superviewOfClassType(UIScrollView.self) as? UIScrollView
-        
-        //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
-        while let view = superView {
             
-            if (view.isScrollEnabled && view.shouldIgnoreScrollingAdjustment == false) {
-                superScrollView = view
-                break
-            }
-            else {
-                //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-                superView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
-            }
-        }
-        
-        //If there was a lastScrollView.    //  (Bug ID: #34)
-        if let lastScrollView = _lastScrollView {
-            //If we can't find current superScrollView, then setting lastScrollView to it's original form.
-            if superScrollView == nil {
-                
-                showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
-
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    
-                    lastScrollView.contentInset = self._startingContentInsets
-                    lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
-                
-                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                    lastScrollView.setContentOffset(_startingContentOffset, animated: true)
-                }
-                
-                _startingContentInsets = UIEdgeInsets.zero
-                _startingScrollIndicatorInsets = UIEdgeInsets.zero
-                _startingContentOffset = CGPoint.zero
-                _lastScrollView = nil
-            } else if superScrollView != lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-                
-                showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    
-                    lastScrollView.contentInset = self._startingContentInsets
-                    lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
-                
-                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                    lastScrollView.setContentOffset(_startingContentOffset, animated: true)
-                }
-
-                _lastScrollView = superScrollView
-                _startingContentInsets = superScrollView!.contentInset
-                _startingScrollIndicatorInsets = superScrollView!.scrollIndicatorInsets
-                _startingContentOffset = superScrollView!.contentOffset
-                
-                showLog("Saving New \(lastScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
-            }
-            //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
-        } else if let unwrappedSuperScrollView = superScrollView {    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
-            _lastScrollView = unwrappedSuperScrollView
-            _startingContentInsets = unwrappedSuperScrollView.contentInset
-            _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
-            _startingContentOffset = unwrappedSuperScrollView.contentOffset
-
-            showLog("Saving \(unwrappedSuperScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
-        }
-        
-        //  Special case for ScrollView.
-        //  If we found lastScrollView then setting it's contentOffset to show textField.
-        if let lastScrollView = _lastScrollView {
-            //Saving
-            var lastView = textFieldView
-            var superScrollView = _lastScrollView
+            showLog("Need to move: \(move)")
             
-            while let scrollView = superScrollView {
+            var superScrollView : UIScrollView? = nil
+            var superView = textFieldView.superviewOfClassType(UIScrollView.self) as? UIScrollView
+            
+            //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
+            while let view = superView {
                 
-                //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-                if move > 0 ? (move > (-scrollView.contentOffset.y - scrollView.contentInset.top)) : scrollView.contentOffset.y>0 {
+                if (view.isScrollEnabled && view.shouldIgnoreScrollingAdjustment == false) {
+                    superScrollView = view
+                    break
+                }
+                else {
+                    //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
+                    superView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                }
+            }
+            
+            //If there was a lastScrollView.    //  (Bug ID: #34)
+            if let lastScrollView = _lastScrollView {
+                //If we can't find current superScrollView, then setting lastScrollView to it's original form.
+                if superScrollView == nil {
                     
-                    var tempScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
-                    var nextScrollView : UIScrollView? = nil
-                    while let view = tempScrollView {
+                    showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
+                    
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                         
-                        if (view.isScrollEnabled  && view.shouldIgnoreScrollingAdjustment == false) {
-                            nextScrollView = view
-                            break
-                        } else {
-                            tempScrollView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
-                        }
+                        lastScrollView.contentInset = self._startingContentInsets
+                        lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
+                    }) { (animated:Bool) -> Void in }
+                    
+                    if lastScrollView.shouldRestoreScrollViewContentOffset == true {
+                        lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                     }
                     
-                    //Getting lastViewRect.
-                    if let lastViewRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
+                    _startingContentInsets = UIEdgeInsets.zero
+                    _startingScrollIndicatorInsets = UIEdgeInsets.zero
+                    _startingContentOffset = CGPoint.zero
+                    _lastScrollView = nil
+                } else if superScrollView != lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
+                    
+                    showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
+                    
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                         
-                        //Calculating the expected Y offset from move and scrollView's contentOffset.
-                        var shouldOffsetY = scrollView.contentOffset.y - min(scrollView.contentOffset.y,-move)
+                        lastScrollView.contentInset = self._startingContentInsets
+                        lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
+                    }) { (animated:Bool) -> Void in }
+                    
+                    if lastScrollView.shouldRestoreScrollViewContentOffset == true {
+                        lastScrollView.setContentOffset(_startingContentOffset, animated: true)
+                    }
+                    
+                    _lastScrollView = superScrollView
+                    if let scrollView = superScrollView {
+                        _startingContentInsets = scrollView.contentInset
+                        _startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
+                        _startingContentOffset = scrollView.contentOffset
+                    }
+                    
+                    showLog("Saving New \(lastScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
+                }
+                //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
+            } else if let unwrappedSuperScrollView = superScrollView {    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
+                _lastScrollView = unwrappedSuperScrollView
+                _startingContentInsets = unwrappedSuperScrollView.contentInset
+                _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
+                _startingContentOffset = unwrappedSuperScrollView.contentOffset
+                
+                showLog("Saving \(unwrappedSuperScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
+            }
+            
+            //  Special case for ScrollView.
+            //  If we found lastScrollView then setting it's contentOffset to show textField.
+            if let lastScrollView = _lastScrollView {
+                //Saving
+                var lastView = textFieldView
+                var superScrollView = _lastScrollView
+                
+                while let scrollView = superScrollView {
+                    
+                    //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
+                    if move > 0 ? (move > (-scrollView.contentOffset.y - scrollView.contentInset.top)) : scrollView.contentOffset.y>0 {
                         
-                        //Rearranging the expected Y offset according to the view.
-                        shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y /*-5*/)   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
-
-                        //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
-                        //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
-                        if textFieldView is UITextView == true &&
-                            nextScrollView == nil &&
-                            shouldOffsetY >= 0 {
-                            var maintainTopLayout : CGFloat = 0
+                        var tempScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                        var nextScrollView : UIScrollView? = nil
+                        while let view = tempScrollView {
                             
-                            if let navigationBarFrame = textFieldView.viewController()?.navigationController?.navigationBar.frame {
-                                maintainTopLayout = navigationBarFrame.maxY
+                            if (view.isScrollEnabled  && view.shouldIgnoreScrollingAdjustment == false) {
+                                nextScrollView = view
+                                break
+                            } else {
+                                tempScrollView = view.superviewOfClassType(UIScrollView.self) as? UIScrollView
                             }
+                        }
+                        
+                        //Getting lastViewRect.
+                        if let lastViewRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
                             
-                            maintainTopLayout += 10.0 //For good UI
+                            //Calculating the expected Y offset from move and scrollView's contentOffset.
+                            var shouldOffsetY = scrollView.contentOffset.y - min(scrollView.contentOffset.y,-move)
                             
-                            //  Converting Rectangle according to window bounds.
-                            if let currentTextFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
-
-                                //Calculating expected fix distance which needs to be managed from navigation bar
-                                let expectedFixDistance = currentTextFieldViewRect.minY - maintainTopLayout
+                            //Rearranging the expected Y offset according to the view.
+                            shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y /*-5*/)   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
+                            
+                            //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+                            //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+                            //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
+                            //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+                            if textFieldView is UITextView == true &&
+                                nextScrollView == nil &&
+                                shouldOffsetY >= 0 {
+                                var maintainTopLayout : CGFloat = 0
                                 
-                                //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
-                                shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
-
-                                //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
-                                move = 0
+                                if let navigationBarFrame = textFieldView.viewController()?.navigationController?.navigationBar.frame {
+                                    maintainTopLayout = navigationBarFrame.maxY
+                                }
+                                
+                                maintainTopLayout += 10.0 //For good UI
+                                
+                                //  Converting Rectangle according to window bounds.
+                                if let currentTextFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
+                                    
+                                    //Calculating expected fix distance which needs to be managed from navigation bar
+                                    let expectedFixDistance = currentTextFieldViewRect.minY - maintainTopLayout
+                                    
+                                    //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
+                                    shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
+                                    
+                                    //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
+                                    move = 0
+                                }
+                                else {
+                                    //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
+                                    move -= (shouldOffsetY-scrollView.contentOffset.y)
+                                }
                             }
-                            else {
+                            else
+                            {
                                 //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
                                 move -= (shouldOffsetY-scrollView.contentOffset.y)
                             }
-                        }
-                        else
-                        {
-                            //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
-                            move -= (shouldOffsetY-scrollView.contentOffset.y)
-                        }
-                        
-                        //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                        UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                        
-                            self.showLog("Adjusting \(scrollView.contentOffset.y-shouldOffsetY) to \(scrollView._IQDescription()) ContentOffset")
                             
-                            self.showLog("Remaining Move: \(move)")
-                            
-                            scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
+                            //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+                            UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
+                                
+                                self.showLog("Adjusting \(scrollView.contentOffset.y-shouldOffsetY) to \(scrollView._IQDescription()) ContentOffset")
+                                
+                                self.showLog("Remaining Move: \(move)")
+                                
+                                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
                             }) { (animated:Bool) -> Void in }
+                        }
+                        
+                        //  Getting next lastView & superScrollView.
+                        lastView = scrollView
+                        superScrollView = nextScrollView
+                    } else {
+                        break
                     }
+                }
+                
+                //Updating contentInset
+                if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
                     
-                    //  Getting next lastView & superScrollView.
-                    lastView = scrollView
-                    superScrollView = nextScrollView
-                } else {
-                    break
+                    let bottom : CGFloat = kbSize.height-newKeyboardDistanceFromTextField-(window.frame.height-lastScrollViewRect.maxY)
+                    
+                    // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                    var movedInsets = lastScrollView.contentInset
+                    
+                    movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
+                    
+                    showLog("\(lastScrollView._IQDescription()) old ContentInset : \(lastScrollView.contentInset)")
+                    
+                    //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
+                        lastScrollView.contentInset = movedInsets
+                        
+                        var newInset = lastScrollView.scrollIndicatorInsets
+                        newInset.bottom = movedInsets.bottom
+                        lastScrollView.scrollIndicatorInsets = newInset
+                        
+                    }) { (animated:Bool) -> Void in }
+                    
+                    showLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
                 }
             }
-            
-            //Updating contentInset
-            if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
-                
-                let bottom : CGFloat = kbSize.height-newKeyboardDistanceFromTextField-(window.frame.height-lastScrollViewRect.maxY)
-                
-                // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
-                var movedInsets = lastScrollView.contentInset
-                
-                movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
-                
-                showLog("\(lastScrollView._IQDescription()) old ContentInset : \(lastScrollView.contentInset)")
-                
-                //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    lastScrollView.contentInset = movedInsets
-
-                    var newInset = lastScrollView.scrollIndicatorInsets
-                    newInset.bottom = movedInsets.bottom
-                    lastScrollView.scrollIndicatorInsets = newInset
-
-                    }) { (animated:Bool) -> Void in }
-
-                showLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
-            }
-        }
-        //Going ahead. No else if.
-        
-        if layoutGuidePosition == .top {
-            
-            if let constraint = _layoutGuideConstraint {
-                
-                let constant = min(_layoutGuideConstraintInitialConstant, constraint.constant-move)
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.beginFromCurrentState)), animations: { () -> Void in
-                    
-                    constraint.constant = constant
-                    self._rootViewController?.view.setNeedsLayout()
-                    self._rootViewController?.view.layoutIfNeeded()
-                    
-                    }, completion: { (finished) -> Void in })
-            }
-            
-        } else if layoutGuidePosition == .bottom {
-            
-            if let constraint = _layoutGuideConstraint {
-                
-                let constant = max(_layoutGuideConstraintInitialConstant, constraint.constant+move)
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: (_animationCurve.union(UIViewAnimationOptions.beginFromCurrentState)), animations: { () -> Void in
-                    
-                    constraint.constant = constant
-                    self._rootViewController?.view.setNeedsLayout()
-                    self._rootViewController?.view.layoutIfNeeded()
-                    
-                    }, completion: { (finished) -> Void in })
-            }
-            
-        } else {
+            //Going ahead. No else if.
             
             //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
@@ -1344,85 +1186,107 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self.showLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
                         
                         
-                        }, completion: { (finished) -> Void in })
+                    }, completion: { (finished) -> Void in })
                 }
             }
-
-            //  Special case for iPad modalPresentationStyle.
-            if rootController.modalPresentationStyle == UIModalPresentationStyle.formSheet ||
-                rootController.modalPresentationStyle == UIModalPresentationStyle.pageSheet {
                 
-                showLog("Found Special case for Model Presentation Style: \(rootController.modalPresentationStyle)")
+            //  +Positive or zero.
+            if move >= 0 {
                 
-                //  +Positive or zero.
-                if move >= 0 {
-                    // We should only manipulate y.
-                    rootViewRect.origin.y -= move
+                rootViewOrigin.y -= move
+                
+                showLog("Moving Upward")
+                //  Setting adjusted rootViewRect
+                
+                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
-                    //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-                    if preventShowingBottomBlankSpace == true {
-                        let minimumY: CGFloat = (window.frame.height-rootViewRect.size.height-topLayoutGuide)/2-(kbSize.height-newKeyboardDistanceFromTextField)
-                        
-                        rootViewRect.origin.y = max(rootViewRect.minY, minimumY)
+                    var rect = rootController.view.frame
+                    rect.origin = rootViewOrigin
+                    rootController.view.frame = rect
+                    
+                    //Animating content if needed (Bug ID: #204)
+                    if self.layoutIfNeededOnUpdate == true {
+                        //Animating content (Bug ID: #160)
+                        rootController.view.setNeedsLayout()
+                        rootController.view.layoutIfNeeded()
                     }
                     
-                    showLog("Moving Upward")
+                    self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
+                    
+                }) { (finished) -> Void in }
+                
+                _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
+            } else {  //  -Negative
+                let disturbDistance : CGFloat = rootViewOrigin.y-_topViewBeginOrigin.y
+                
+                //  disturbDistance Negative = frame disturbed.
+                //  disturbDistance positive = frame not disturbed.
+                if disturbDistance <= 0 {
+                    
+                    rootViewOrigin.y -= max(move, disturbDistance)
+                    
+                    showLog("Moving Downward")
                     //  Setting adjusted rootViewRect
-                    setRootViewFrame(rootViewRect)
-                    _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
-                } else {  //  -Negative
-                    //  Calculating disturbed distance. Pull Request #3
-                    let disturbDistance = rootViewRect.minY-_topViewBeginRect.minY
+                    //  Setting adjusted rootViewRect
                     
-                    //  disturbDistance Negative = frame disturbed.
-                    //  disturbDistance positive = frame not disturbed.
-                    if disturbDistance <= 0 {
-                        // We should only manipulate y.
-                        rootViewRect.origin.y -= max(move, disturbDistance)
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                         
-                        showLog("Moving Downward")
-                        //  Setting adjusted rootViewRect
-                        setRootViewFrame(rootViewRect)
-                        _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
-                    }
-                }
-            } else {  //If presentation style is neither UIModalPresentationFormSheet nor UIModalPresentationPageSheet then going ahead.(General case)
-                //  +Positive or zero.
-                if move >= 0 {
+                        var rect = rootController.view.frame
+                        rect.origin = rootViewOrigin
+                        rootController.view.frame = rect
+                        
+                        //Animating content if needed (Bug ID: #204)
+                        if self.layoutIfNeededOnUpdate == true {
+                            //Animating content (Bug ID: #160)
+                            rootController.view.setNeedsLayout()
+                            rootController.view.layoutIfNeeded()
+                        }
+                        
+                        self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
+                        
+                    }) { (finished) -> Void in }
                     
-                    rootViewRect.origin.y -= move
+                    _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
+                }
+            }
+        
+            let elapsedTime = CACurrentMediaTime() - startTime
+            showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        }
+    }
 
-                    //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-                    if preventShowingBottomBlankSpace == true {
-                        
-                        rootViewRect.origin.y = max(rootViewRect.origin.y, min(0, -kbSize.height+newKeyboardDistanceFromTextField))
-                    }
+    fileprivate func restorePosition() {
+        
+        _privateHasPendingAdjustRequest = false
+        
+        //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
+        if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false {
+            
+            if let rootViewController = _rootViewController {
+                
+                //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
                     
-                    showLog("Moving Upward")
-                    //  Setting adjusted rootViewRect
-                    setRootViewFrame(rootViewRect)
-                    _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
-                } else {  //  -Negative
-                    let disturbDistance : CGFloat = rootViewRect.minY-_topViewBeginRect.minY
+                    self.showLog("Restoring \(rootViewController._IQDescription()) frame to : \(self._topViewBeginOrigin)")
                     
-                    //  disturbDistance Negative = frame disturbed.
-                    //  disturbDistance positive = frame not disturbed.
-                    if disturbDistance <= 0 {
-                        
-                        rootViewRect.origin.y -= max(move, disturbDistance)
-                        
-                        showLog("Moving Downward")
-                        //  Setting adjusted rootViewRect
-                        //  Setting adjusted rootViewRect
-                        setRootViewFrame(rootViewRect)
-                        _privateMovedDistance = (_topViewBeginRect.origin.y-rootViewRect.origin.y)
+                    //  Setting it's new frame
+                    var rect = rootViewController.view.frame
+                    rect.origin = self._topViewBeginOrigin
+                    rootViewController.view.frame = rect
+                    
+                    self._privateMovedDistance = 0
+                    
+                    //Animating content if needed (Bug ID: #204)
+                    if self.layoutIfNeededOnUpdate == true {
+                        //Animating content (Bug ID: #160)
+                        rootViewController.view.setNeedsLayout()
+                        rootViewController.view.layoutIfNeeded()
                     }
-                }
+                }) { (finished) -> Void in }
+                
+                _rootViewController = nil
             }
         }
-
-        let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
     }
 
     ///---------------------
@@ -1433,11 +1297,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     open func reloadLayoutIfNeeded() -> Void {
 
         if privateIsEnabled() == true {
-            if _textFieldView != nil &&
-                _privateIsKeyboardShowing == true &&
-                _topViewBeginRect.equalTo(CGRect.zero) == false &&
-                _textFieldView?.isAlertViewTextField() == false {
-                adjustFrame()
+            if _privateIsKeyboardShowing == true,
+                _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false,
+                let textFieldView = _textFieldView,
+                textFieldView.isAlertViewTextField() == false {
+                optimizedAdjustPosition()
             }
         }
     }
@@ -1502,52 +1366,13 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         showLog("****** \(#function) started ******")
 
         //  (Bug ID: #5)
-        if _textFieldView != nil && _topViewBeginRect.equalTo(CGRect.zero) == true {
+        if let textFieldView = _textFieldView, _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {
             
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            if let constraint = _textFieldView?.viewController()?.IQLayoutGuideConstraint {
-                _layoutGuideConstraint = constraint
-                _layoutGuideConstraintInitialConstant = constraint.constant
+            _rootViewController = textFieldView.parentContainerViewController()
+            if let controller = _rootViewController {
+                _topViewBeginOrigin = controller.view.frame.origin
             }
-            
-            //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            _rootViewController = _textFieldView?.topMostController()
-            if _rootViewController == nil {
-                _rootViewController = keyWindow()?.topMostWindowController()
-            }
-            
-            if let unwrappedRootController = _rootViewController {
-                _topViewBeginRect = unwrappedRootController.view.frame
-                
-#if swift(>=3.2)
-                if #available(iOS 11, *) {
-                    _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets
-                }
-#endif
-                if _topViewBeginRect.origin.y != 0 &&
-                    shouldFixInteractivePopGestureRecognizer == true &&
-                    unwrappedRootController is UINavigationController &&
-                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
-                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
-
-                    if let window = keyWindow() {
-                        _topViewBeginRect.origin.y = window.frame.size.height-unwrappedRootController.view.frame.size.height
-                    } else {
-                        _topViewBeginRect.origin.y = 0
-                    }
-                }
-
-                showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
-            } else {
-                _topViewBeginRect = CGRect.zero
-            }
-        }
-
-        //  Getting topMost ViewController.
-        var topMostController = _textFieldView?.topMostController()
-        
-        if topMostController == nil {
-            topMostController = keyWindow()?.topMostWindowController()
         }
 
         //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
@@ -1555,12 +1380,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
             
-            if _privateIsKeyboardShowing == true &&
-                _textFieldView != nil &&
-                _textFieldView?.isAlertViewTextField() == false {
+            if _privateIsKeyboardShowing == true,
+                let textFieldView = _textFieldView,
+                textFieldView.isAlertViewTextField() == false {
                 
-                //  keyboard is already showing. adjust frame.
-                adjustFrame()
+                //  keyboard is already showing. adjust position.
+                optimizedAdjustPosition()
             }
         }
         
@@ -1578,21 +1403,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
         
-        //  Getting topMost ViewController.
-        var topMostController = _textFieldView?.topMostController()
-        
-        if topMostController == nil {
-            topMostController = keyWindow()?.topMostWindowController()
-        }
-        
-        if _textFieldView != nil &&
-            (topMostController?.modalPresentationStyle == UIModalPresentationStyle.formSheet || topMostController?.modalPresentationStyle == UIModalPresentationStyle.pageSheet) &&
-            _textFieldView?.isAlertViewTextField() == false {
+        if let textFieldView = _textFieldView,
+            let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
+            textFieldView.isAlertViewTextField() == false {
             
-            //In case of form sheet or page sheet, we'll add adjustFrame call in main queue to perform it when UI thread will do all framing updation so adjustFrame will be executed after all internal operations.
-            OperationQueue.main.addOperation {
-                self.adjustFrame()
-            }
+            self.optimizedAdjustPosition()
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime
@@ -1668,66 +1483,11 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 }) { (finished) -> Void in }
         }
         
-        //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
-        if _topViewBeginRect.equalTo(CGRect.zero) == false {
-            
-            if let rootViewController = _rootViewController {
-                
-                //frame size needs to be adjusted on iOS8 due to orientation API changes.
-                _topViewBeginRect.size = rootViewController.view.frame.size
-                
-                //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    
-                    if let constraint = self._layoutGuideConstraint {
-                        
-                        constraint.constant = self._layoutGuideConstraintInitialConstant
-                        rootViewController.view.setNeedsLayout()
-                        rootViewController.view.layoutIfNeeded()
-                    }
-                    else {
-                        self.showLog("Restoring \(rootViewController._IQDescription()) frame to : \(self._topViewBeginRect)")
-                        
-                        //  Setting it's new frame
-                        rootViewController.view.frame = self._topViewBeginRect
-                        
-#if swift(>=3.2)
-                        if #available(iOS 11, *) {
-                            rootViewController.additionalSafeAreaInsets = self._initialAdditionalSafeAreaInsets
-                        }
-#endif
-
-                        self._privateMovedDistance = 0
-                        
-                        //Animating content if needed (Bug ID: #204)
-                        if self.layoutIfNeededOnUpdate == true {
-                            //Animating content (Bug ID: #160)
-                            rootViewController.view.setNeedsLayout()
-                            rootViewController.view.layoutIfNeeded()
-                        }
-                    }
-                    }) { (finished) -> Void in }
-                
-                _rootViewController = nil
-            }
-        } else if let constraint = self._layoutGuideConstraint {
-            
-            if let rootViewController = _rootViewController {
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
-                    
-                    constraint.constant = self._layoutGuideConstraintInitialConstant
-                    rootViewController.view.setNeedsLayout()
-                    rootViewController.view.layoutIfNeeded()
-                }) { (finished) -> Void in }
-            }
-        }
+        restorePosition()
         
         //Reset all values
         _lastScrollView = nil
         _kbSize = CGSize.zero
-        _layoutGuideConstraint = nil
-        _layoutGuideConstraintInitialConstant = 0
         _startingContentInsets = UIEdgeInsets.zero
         _startingScrollIndicatorInsets = UIEdgeInsets.zero
         _startingContentOffset = CGPoint.zero
@@ -1742,13 +1502,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******")
         
-        _topViewBeginRect = CGRect.zero
-        
-#if swift(>=3.2)
-        if #available(iOS 11, *) {
-            _initialAdditionalSafeAreaInsets = .zero
-        }
-#endif
+        _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         
         _kbSize = CGSize.zero
 
@@ -1792,8 +1546,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         if privateIsEnableAutoToolbar() == true {
 
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
-            if _textFieldView is UITextView == true &&
-                _textFieldView?.inputAccessoryView == nil {
+            if let textView = _textFieldView as? UITextView,
+                textView.inputAccessoryView == nil {
                 
                 UIView.animate(withDuration: 0.00001, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(_animationCurve), animations: { () -> Void in
 
@@ -1802,7 +1556,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }, completion: { (finished) -> Void in
 
                         //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
-                        self._textFieldView?.reloadInputViews()
+                        textView.reloadInputViews()
                 })
             } else {
                 //Adding toolbar
@@ -1816,53 +1570,23 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _textFieldView?.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
 
         if privateIsEnabled() == true {
-            if _topViewBeginRect.equalTo(CGRect.zero) == true {    //  (Bug ID: #5)
+            if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {    //  (Bug ID: #5)
                 
-                //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-                if let constraint = _textFieldView?.viewController()?.IQLayoutGuideConstraint {
-                    _layoutGuideConstraint = constraint
-                    _layoutGuideConstraintInitialConstant = constraint.constant
-                }
-                
-                _rootViewController = _textFieldView?.topMostController()
-                if _rootViewController == nil {
-                    _rootViewController = keyWindow()?.topMostWindowController()
-                }
-                
-                if let rootViewController = _rootViewController {
-                    
-                    _topViewBeginRect = rootViewController.view.frame
-                    
-#if swift(>=3.2)
-                    if #available(iOS 11, *) {
-                        _initialAdditionalSafeAreaInsets = rootViewController.additionalSafeAreaInsets
-                    }
-#endif
+                _rootViewController = _textFieldView?.parentContainerViewController()
 
-                    if _topViewBeginRect.origin.y != 0 &&
-                        shouldFixInteractivePopGestureRecognizer == true &&
-                        rootViewController is UINavigationController &&
-                        rootViewController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
-                        rootViewController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
-                        if let window = keyWindow() {
-                            _topViewBeginRect.origin.y = window.frame.size.height-rootViewController.view.frame.size.height
-                        } else {
-                            _topViewBeginRect.origin.y = 0
-                        }
-                    }
-                    
-                    showLog("Saving \(rootViewController._IQDescription()) beginning frame : \(_topViewBeginRect)")
+                if let controller = _rootViewController {
+                    _topViewBeginOrigin = controller.view.frame.origin
                 }
             }
             
             //If _textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
             //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-            if _privateIsKeyboardShowing == true &&
-                _textFieldView != nil &&
-                _textFieldView?.isAlertViewTextField() == false {
+            if _privateIsKeyboardShowing == true,
+                let textFieldView = _textFieldView,
+                textFieldView.isAlertViewTextField() == false {
                 
-                //  keyboard is already showing. adjust frame.
-                adjustFrame()
+                //  keyboard is already showing. adjust position.
+                optimizedAdjustPosition()
             }
         }
 
@@ -1935,91 +1659,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        if privateIsEnabled() == false {
-            return
-        }
-        
-        #if swift(>=3.2)
-        if let rootViewController = _rootViewController {
-            if #available(iOS 11, *) {
-                if UIEdgeInsetsEqualToEdgeInsets(_initialAdditionalSafeAreaInsets, rootViewController.additionalSafeAreaInsets) {
-                    rootViewController.additionalSafeAreaInsets = _initialAdditionalSafeAreaInsets
-                }
-            }
-        }
-        #endif
+        restorePosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
     }
     
-    /**  UIApplicationDidChangeStatusBarFrameNotification. Need to refresh view position and update _topViewBeginRect. (Bug ID: #446)*/
-    @objc internal func didChangeStatusBarFrame(_ notification : Notification) -> Void {
-        
-        let oldStatusBarFrame = _statusBarFrame
-        
-        //  Getting keyboard animation duration
-        if let info = notification.userInfo {
-            if let newFrame = info[UIApplicationStatusBarFrameUserInfoKey] as? CGRect {
-                
-                _statusBarFrame = newFrame
-            }
-        }
-
-        if privateIsEnabled() == false {
-            return
-        }
-        
-        let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
-        
-        if let unwrappedRootController = _rootViewController {
-
-            if !_topViewBeginRect.equalTo(unwrappedRootController.view.frame) == true {
-
-                _topViewBeginRect = unwrappedRootController.view.frame
-                
-                #if swift(>=3.2)
-                    if #available(iOS 11, *) {
-                        _initialAdditionalSafeAreaInsets = unwrappedRootController.additionalSafeAreaInsets
-                    }
-                #endif
-                
-                if _topViewBeginRect.origin.y != 0 &&
-                    shouldFixInteractivePopGestureRecognizer == true &&
-                    unwrappedRootController is UINavigationController &&
-                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.formSheet &&
-                    unwrappedRootController.modalPresentationStyle != UIModalPresentationStyle.pageSheet {
-                    
-                    if let window = keyWindow() {
-                        _topViewBeginRect.origin.y = window.frame.size.height-unwrappedRootController.view.frame.size.height
-                    } else {
-                        _topViewBeginRect.origin.y = 0
-                    }
-                }
-                
-                showLog("Saving \(unwrappedRootController._IQDescription()) beginning Frame: \(_topViewBeginRect)")
-            }
-            
-        } else {
-            _topViewBeginRect = CGRect.zero
-        }
-
-        //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-        
-        if _privateIsKeyboardShowing == true &&
-            _textFieldView != nil &&
-            _statusBarFrame.size.equalTo(oldStatusBarFrame.size) == false &&
-            _textFieldView?.isAlertViewTextField() == false {
-            
-            //  keyboard is already showing. adjust frame.
-            adjustFrame()
-        }
-        
-        let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
-    }
-
     ///------------------
     /// MARK: AutoToolbar
     ///------------------
@@ -2040,8 +1685,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
     
     //If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
-        if superConsideredView != nil {
-            return superConsideredView?.deepResponderViews()
+        if let view = superConsideredView {
+            return view.deepResponderViews()
         } else {  //Otherwise fetching all the siblings
             
             if let textFields = _textFieldView?.responderSiblings() {
@@ -2173,8 +1818,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             }
                             
                             //Setting toolbar title font.   //  (Enhancement ID: #30)
-                            if placeholderFont != nil {
-                                toolbar.titleBarButton.titleFont = placeholderFont
+                            if let font = placeholderFont {
+                                toolbar.titleBarButton.titleFont = font
                             }
                         } else {
                             
@@ -2278,9 +1923,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //  Registering for orientation changes notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)), name: Notification.Name.UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
-        
-        //  Registering for status bar frame change notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didChangeStatusBarFrame(_:)), name: Notification.Name.UIApplicationDidChangeStatusBarFrame, object: UIApplication.shared)
     }
 
     open func unregisterAllNotifications() {
@@ -2299,9 +1941,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         //  Unregistering for orientation changes notification
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
-        
-        //  Unregistering for status bar frame change notification
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidChangeStatusBarFrame, object: UIApplication.shared)
     }
 
     fileprivate func showLog(_ logString: String) {
