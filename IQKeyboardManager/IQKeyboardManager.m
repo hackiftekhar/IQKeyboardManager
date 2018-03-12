@@ -53,7 +53,7 @@
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
-#define kIQCGAffineTransformInvalid CGAffineTransformMake(-1, -1, -1, -1, -1, -1)
+#define kIQCGPointInvalid CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)
 
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
@@ -73,8 +73,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /** To save UITextField/UITextView object voa textField/textView notifications. */
 @property(nonatomic, weak) UIView       *textFieldView;
 
-/** To save rootViewController.view.transform. */
-@property(nonatomic, assign) CGAffineTransform     topViewBeginTransform;
+/** To save rootViewController.view.frame.origin. */
+@property(nonatomic, assign) CGPoint    topViewBeginOrigin;
 
 /** To save rootViewController */
 @property(nonatomic, weak) UIViewController *rootViewController;
@@ -211,7 +211,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
             [strongSelf.resignFirstResponderGesture setDelegate:self];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
-            strongSelf.topViewBeginTransform = kIQCGAffineTransformInvalid;
+            strongSelf.topViewBeginOrigin = kIQCGPointInvalid;
             
             //Setting it's initial values
             strongSelf.animationDuration = 0.25;
@@ -601,8 +601,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
-    //  Getting RootViewTransform.
-    CGAffineTransform rootViewTransform = [[rootController view] transform];
+    //  Getting RootView origin.
+    CGPoint rootViewOrigin = rootController.view.frame.origin;
     //Getting statusBarFrame
 
     //Maintain keyboardDistanceFromTextField
@@ -886,10 +886,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //  +Positive or zero.
             if (move>=0)
             {
-                rootViewTransform.ty -= move;
+                rootViewOrigin.y -= move;
                 
                 [self showLog:@"Moving Upward"];
-                //  Setting adjusted rootViewTransform.ty
+                //  Setting adjusted rootViewOrigin.ty
                 
                 //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -897,7 +897,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     __strong typeof(self) strongSelf = weakSelf;
                     
                     //  Setting it's new frame
-                    rootController.view.transform = rootViewTransform;
+                    CGRect rect = rootController.view.frame;
+                    rect.origin = rootViewOrigin;
+                    rootController.view.frame = rect;
                     
                     //Animating content if needed (Bug ID: #204)
                     if (strongSelf.layoutIfNeededOnUpdate)
@@ -907,21 +909,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [rootController.view layoutIfNeeded];
                     }
                     
-                    [self showLog:[NSString stringWithFormat:@"Set %@ transform to : %@",[rootController _IQDescription],NSStringFromCGAffineTransform(rootViewTransform)]];
+                    [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",[rootController _IQDescription],NSStringFromCGPoint(rootViewOrigin)]];
                 } completion:NULL];
 
-                _movedDistance = (_topViewBeginTransform.ty-rootViewTransform.ty);
+                _movedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y);
             }
             //  -Negative
             else
             {
-                CGFloat disturbDistance = rootController.view.transform.ty-_topViewBeginTransform.ty;
+                CGFloat disturbDistance = rootController.view.frame.origin.y-_topViewBeginOrigin.y;
                 
                 //  disturbDistance Negative = frame disturbed. Pull Request #3
                 //  disturbDistance positive = frame not disturbed.
                 if(disturbDistance<=0)
                 {
-                    rootViewTransform.ty -= MAX(move, disturbDistance);
+                    rootViewOrigin.y -= MAX(move, disturbDistance);
                     
                     [self showLog:@"Moving Downward"];
                     //  Setting adjusted rootViewRect
@@ -932,7 +934,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         __strong typeof(self) strongSelf = weakSelf;
                         
                         //  Setting it's new frame
-                        rootController.view.transform = rootViewTransform;
+                        CGRect rect = rootController.view.frame;
+                        rect.origin = rootViewOrigin;
+                        rootController.view.frame = rect;
                         
                         //Animating content if needed (Bug ID: #204)
                         if (strongSelf.layoutIfNeededOnUpdate)
@@ -942,10 +946,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                             [rootController.view layoutIfNeeded];
                         }
                         
-                        [self showLog:[NSString stringWithFormat:@"Set %@ transform to : %@",[rootController _IQDescription],NSStringFromCGAffineTransform(rootViewTransform)]];
+                        [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",[rootController _IQDescription],NSStringFromCGPoint(rootViewOrigin)]];
                     } completion:NULL];
 
-                    _movedDistance = (_topViewBeginTransform.ty-rootController.view.transform.ty);
+                    _movedDistance = (_topViewBeginOrigin.y-rootController.view.frame.origin.y);
                 }
             }
         }
@@ -960,7 +964,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _hasPendingAdjustRequest = NO;
 
     //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
-    if (_rootViewController && CGAffineTransformEqualToTransform(_topViewBeginTransform, kIQCGAffineTransformInvalid) == false)
+    if (_rootViewController && CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid) == false)
     {
         __weak typeof(self) weakSelf = self;
         
@@ -970,10 +974,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             __strong typeof(self) strongSelf = weakSelf;
             
             {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ transform to : %@",[strongSelf.rootViewController _IQDescription],NSStringFromCGAffineTransform(strongSelf.topViewBeginTransform)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",[strongSelf.rootViewController _IQDescription],NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
                 
                 //Restoring
-                strongSelf.rootViewController.view.transform = strongSelf.topViewBeginTransform;
+                CGRect rect = strongSelf.rootViewController.view.frame;
+                rect.origin = strongSelf.topViewBeginOrigin;
+                strongSelf.rootViewController.view.frame = rect;
+
                 strongSelf.movedDistance = 0;
                 
                 //Animating content if needed (Bug ID: #204)
@@ -999,7 +1006,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         if (_textFieldView != nil &&
             _keyboardShowing == YES &&
-            CGAffineTransformEqualToTransform(_topViewBeginTransform, kIQCGAffineTransformInvalid) == false &&
+            CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid) == false &&
             [_textFieldView isAlertViewTextField] == NO)
         {
             [self optimizedAdjustPosition];
@@ -1050,13 +1057,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    if (_textFieldView != nil && CGAffineTransformEqualToTransform(_topViewBeginTransform, kIQCGAffineTransformInvalid))    //  (Bug ID: #5)
+    if (_textFieldView != nil && CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         _rootViewController = [_textFieldView parentContainerViewController];
-        _topViewBeginTransform = _rootViewController.view.transform;
+        _topViewBeginOrigin = _rootViewController.view.frame.origin;
 
-        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription] ,NSStringFromCGAffineTransform(_topViewBeginTransform)]];
+        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[_rootViewController _IQDescription] ,NSStringFromCGPoint(_topViewBeginOrigin)]];
     }
 
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
@@ -1184,7 +1191,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    _topViewBeginTransform = kIQCGAffineTransformInvalid;
+    _topViewBeginOrigin = kIQCGPointInvalid;
 
     _kbSize = CGSizeZero;
 
@@ -1254,13 +1261,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 	if ([self privateIsEnabled] == YES)
     {
-        if (CGAffineTransformEqualToTransform(_topViewBeginTransform, kIQCGAffineTransformInvalid))    //  (Bug ID: #5)
+        if (CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid))    //  (Bug ID: #5)
         {
             //  keyboard is not showing(At the beginning only).
             _rootViewController = [_textFieldView parentContainerViewController];
-            _topViewBeginTransform = _rootViewController.view.transform;
+            _topViewBeginOrigin = _rootViewController.view.frame.origin;
             
-            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning Frame: %@",[_rootViewController _IQDescription], NSStringFromCGAffineTransform(_topViewBeginTransform)]];
+            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[_rootViewController _IQDescription], NSStringFromCGPoint(_topViewBeginOrigin)]];
         }
         
         //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
