@@ -143,9 +143,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     /** To save keyboard size. */
     CGSize                   _kbSize;
     
-    /** To save Status Bar size. */
-    CGRect                   _statusBarFrame;
-
     /** To know if we have any pending request to adjust view position. */
     BOOL                     _hasPendingAdjustRequest;
 
@@ -607,7 +604,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
     //  Getting RootView origin.
     CGPoint rootViewOrigin = rootController.view.frame.origin;
-    //Getting statusBarFrame
 
     //Maintain keyboardDistanceFromTextField
     CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
@@ -621,17 +617,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
     CGSize kbSize = _kbSize;
     kbSize.height += keyboardDistanceFromTextField;
-
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
-    CGFloat topLayoutGuide = CGRectGetHeight(statusBarFrame);
+    CGFloat topLayoutGuide = rootController.view.layoutMargins.top+5;
 
     CGFloat move = 0;
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
 	
     //  Calculating move position. Common for both normal and special cases.
-    move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
+    move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
 
     [self showLog:[NSString stringWithFormat:@"Need to move: %.2f",move]];
 
@@ -759,30 +753,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 CGFloat shouldOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-move);
                 
                 //Rearranging the expected Y offset according to the view.
-                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y/*-5*/);   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
+                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y);
                 
                 //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+                //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierarchy.)
                 //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                 if ([_textFieldView isKindOfClass:[UITextView class]] &&
                     nextScrollView == nil &&
                     (shouldOffsetY >= 0))
                 {
-                    CGFloat maintainTopLayout = 0;
-                    
-                    //When uncommenting this, each calculation goes to well, but don't know why scrollView doesn't adjusting it's contentOffset at bottom
-//                    if ([_textFieldView.viewController respondsToSelector:@selector(topLayoutGuide)])
-//                        maintainTopLayout = [_textFieldView.viewController.topLayoutGuide length];
-//                    else
-                        maintainTopLayout = CGRectGetMaxY(_textFieldView.viewController.navigationController.navigationBar.frame);
-
-                    maintainTopLayout+= 10; //For good UI
-                    
                     //  Converting Rectangle according to window bounds.
                     CGRect currentTextFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
                     
                     //Calculating expected fix distance which needs to be managed from navigation bar
-                    CGFloat expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - maintainTopLayout;
+                    CGFloat expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - topLayoutGuide;
                     
                     //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
                     shouldOffsetY = MIN(shouldOffsetY, superScrollView.contentOffset.y + expectedFixDistance);
@@ -816,7 +800,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
 
-                CGFloat bottom = kbSize.height-keyboardDistanceFromTextField-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottom = (kbSize.height-keyboardDistanceFromTextField)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 UIEdgeInsets movedInsets = _lastScrollView.contentInset;
@@ -853,7 +837,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             UITextView *textView = (UITextView*)_textFieldView;
 
-            CGFloat textViewHeight = MIN(CGRectGetHeight(_textFieldView.frame), (CGRectGetHeight(keyWindow.frame)-kbSize.height-(topLayoutGuide)));
+            CGFloat textViewHeight = MIN(CGRectGetHeight(_textFieldView.frame), (CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField)-topLayoutGuide));
             
             if (_textFieldView.frame.size.height-textView.contentInset.bottom>textViewHeight)
             {
@@ -893,7 +877,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 rootViewOrigin.y -= move;
                 
                 //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -kbSize.height+keyboardDistanceFromTextField));
+                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -(kbSize.height-keyboardDistanceFromTextField)));
 
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewOrigin.ty

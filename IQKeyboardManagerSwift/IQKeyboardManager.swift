@@ -942,7 +942,6 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             
             //  Getting RootViewOrigin.
             var rootViewOrigin = rootController.view.frame.origin
-            //Getting statusBarFrame
             
             //Maintain keyboardDistanceFromTextField
             var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
@@ -958,16 +957,14 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             var kbSize = _kbSize
             kbSize.height += newKeyboardDistanceFromTextField
             
-            let statusBarFrame = UIApplication.shared.statusBarFrame
-            
-            let topLayoutGuide : CGFloat = statusBarFrame.height
+            let topLayoutGuide : CGFloat = rootController.view.layoutMargins.top + 5
             
             var move : CGFloat = 0.0
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
             
             //  Calculating move position.
-            move = min(textFieldViewRect.minY-(topLayoutGuide+5), textFieldViewRect.maxY-(window.frame.height-kbSize.height))
+            move = min(textFieldViewRect.minY-(topLayoutGuide), textFieldViewRect.maxY-(window.frame.height-kbSize.height))
             
             showLog("Need to move: \(move)")
             
@@ -1072,7 +1069,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             var shouldOffsetY = scrollView.contentOffset.y - min(scrollView.contentOffset.y,-move)
                             
                             //Rearranging the expected Y offset according to the view.
-                            shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y /*-5*/)   //-5 is for good UI.//Commenting -5 (Bug ID: #69)
+                            shouldOffsetY = min(shouldOffsetY, lastViewRect.origin.y)
                             
                             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                             //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
@@ -1081,19 +1078,12 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             if textFieldView is UITextView == true &&
                                 nextScrollView == nil &&
                                 shouldOffsetY >= 0 {
-                                var maintainTopLayout : CGFloat = 0
-                                
-                                if let navigationBarFrame = textFieldView.viewController()?.navigationController?.navigationBar.frame {
-                                    maintainTopLayout = navigationBarFrame.maxY
-                                }
-                                
-                                maintainTopLayout += 10.0 //For good UI
                                 
                                 //  Converting Rectangle according to window bounds.
                                 if let currentTextFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
                                     
                                     //Calculating expected fix distance which needs to be managed from navigation bar
-                                    let expectedFixDistance = currentTextFieldViewRect.minY - maintainTopLayout
+                                    let expectedFixDistance = currentTextFieldViewRect.minY - topLayoutGuide
                                     
                                     //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
                                     shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
@@ -1134,7 +1124,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Updating contentInset
                 if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
                     
-                    let bottom : CGFloat = kbSize.height-newKeyboardDistanceFromTextField-(window.frame.height-lastScrollViewRect.maxY)
+                    let bottom : CGFloat = (kbSize.height-newKeyboardDistanceFromTextField)-(window.frame.height-lastScrollViewRect.maxY)
                     
                     // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                     var movedInsets = lastScrollView.contentInset
@@ -1162,7 +1152,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
             if let textView = textFieldView as? UITextView {
-                let textViewHeight = min(textView.frame.height, (window.frame.height-kbSize.height-(topLayoutGuide)))
+                let textViewHeight = min(textView.frame.height, (window.frame.height-(kbSize.height-newKeyboardDistanceFromTextField)-(topLayoutGuide)))
                 
                 if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight)
                 {
@@ -1195,7 +1185,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 rootViewOrigin.y -= move
                 
-                rootViewOrigin.y = max(rootViewOrigin.y, min(0, -kbSize.height+newKeyboardDistanceFromTextField))
+                rootViewOrigin.y = max(rootViewOrigin.y, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
 
                 showLog("Moving Upward")
                 //  Setting adjusted rootViewRect
