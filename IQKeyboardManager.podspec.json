@@ -23,7 +23,6 @@
       "IQKeyboardManager/Categories/IQUITextFieldView+Additions.h",
       "IQKeyboardManager/Categories/IQUIView+Hierarchy.h",
       "IQKeyboardManager/Categories/IQUIViewController+Additions.h",
-      "IQKeyboardManager/Categories/IQUIWindow+Hierarchy.h",
       "IQKeyboardManager/Constants/IQKeyboardManagerConstants.h",
       "IQKeyboardManager/IQTextView/IQTextView.h",
       "IQKeyboardManager/IQToolbar/IQBarButtonItem.h",

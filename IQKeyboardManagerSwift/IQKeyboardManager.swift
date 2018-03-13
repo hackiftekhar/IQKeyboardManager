@@ -1195,6 +1195,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 
                 rootViewOrigin.y -= move
                 
+                rootViewOrigin.y = max(rootViewOrigin.y, min(0, -kbSize.height+newKeyboardDistanceFromTextField))
+
                 showLog("Moving Upward")
                 //  Setting adjusted rootViewRect
                 

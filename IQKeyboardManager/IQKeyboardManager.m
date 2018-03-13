@@ -892,6 +892,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 rootViewOrigin.y -= move;
                 
+                //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
+                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -kbSize.height+keyboardDistanceFromTextField));
+
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewOrigin.ty
                 
