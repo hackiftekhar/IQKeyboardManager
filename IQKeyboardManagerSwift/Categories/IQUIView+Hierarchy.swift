@@ -93,15 +93,46 @@ public extension UIView {
         
         var matchController = viewController()
         
-        while let controller = matchController, let parentController = controller.parent,
-            (parentController.isKind(of: UINavigationController.self) == false &&
-                parentController.isKind(of: UITabBarController.self) == false &&
-                parentController.isKind(of: UISplitViewController.self) == false) {
-                    
-                    matchController = parentController
+        if var navController = matchController?.navigationController {
+            
+            while let parentNav = navController.navigationController {
+                navController = parentNav
+            }
+            
+            var parentController : UIViewController = navController
+
+            while let parent = parentController.parent,
+                (parent.isKind(of: UINavigationController.self) == false &&
+                    parent.isKind(of: UITabBarController.self) == false &&
+                    parent.isKind(of: UISplitViewController.self) == false) {
+                        
+                        parentController = parent
+            }
+
+            if navController == parentController {
+                return navController.topViewController
+            } else {
+                return parentController
+            }
         }
-        
-        return matchController
+        else if let tabController = matchController?.tabBarController {
+            
+            if let navController = tabController.selectedViewController as? UINavigationController {
+                return navController.topViewController
+            } else {
+                return tabController.selectedViewController
+            }
+        } else {
+            while let parentController = matchController?.parent,
+                (parentController.isKind(of: UINavigationController.self) == false &&
+                    parentController.isKind(of: UITabBarController.self) == false &&
+                    parentController.isKind(of: UISplitViewController.self) == false) {
+                        
+                        matchController = parentController
+            }
+
+            return matchController;
+        }
     }
 
     ///-----------------------------------
