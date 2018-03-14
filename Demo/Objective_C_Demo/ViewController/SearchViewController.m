@@ -41,10 +41,10 @@
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
     
-    if ([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion >= 11) {
-        self.navigationItem.searchController = searchController
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.searchController = self.searchController;
     } else {
-        self.tableView.tableHeaderView = self.searchController.searchBar
+        self.tableView.tableHeaderView = self.searchController.searchBar;
     }
 }
 

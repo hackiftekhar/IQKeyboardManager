@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -326,82 +326,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o51-Fr-4am" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2110" y="217"/>
-        </scene>
-        <!--Bottom Blank Space-->
-        <scene sceneID="aFm-eY-zW9">
-            <objects>
-                <viewController storyboardIdentifier="BottomBlankSpaceViewController" automaticallyAdjustsScrollViewInsets="NO" id="d7w-1F-KeR" customClass="BottomBlankSpaceViewController" customModule="DemoSwift" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="svb-YB-j25"/>
-                        <viewControllerLayoutGuide type="bottom" id="VJB-Uz-3oI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bmd-lQ-cDH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="preventShowingBottomBlankSpace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3lw-Rx-GF3">
-                                <rect key="frame" x="10" y="79.5" width="301" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fn3-DC-Psg">
-                                <rect key="frame" x="321" y="74" width="51" height="31"/>
-                                <connections>
-                                    <action selector="preventSwitchAction:" destination="d7w-1F-KeR" eventType="valueChanged" id="QgW-L0-WzK"/>
-                                </connections>
-                            </switch>
-                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W77-o3-SvL">
-                                <rect key="frame" x="10" y="602.5" width="355" height="30"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Here is a textField below this text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="YEI-pJ-bG7">
-                                <rect key="frame" x="10" y="642.5" width="355" height="14.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XL0-UQ-urL">
-                                <rect key="frame" x="10" y="677" width="355" height="30"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YEI-pJ-bG7" secondAttribute="trailing" constant="10" id="AT6-st-s6F"/>
-                            <constraint firstItem="Fn3-DC-Psg" firstAttribute="top" secondItem="bmd-lQ-cDH" secondAttribute="top" constant="74" id="Cw1-7Y-pam"/>
-                            <constraint firstItem="YEI-pJ-bG7" firstAttribute="leading" secondItem="bmd-lQ-cDH" secondAttribute="leading" constant="10" id="D9S-XA-fKb"/>
-                            <constraint firstAttribute="trailing" secondItem="W77-o3-SvL" secondAttribute="trailing" constant="10" id="OCv-fc-ufQ"/>
-                            <constraint firstAttribute="bottom" secondItem="YEI-pJ-bG7" secondAttribute="bottom" constant="10" id="VKS-HN-JaE"/>
-                            <constraint firstAttribute="trailing" secondItem="Fn3-DC-Psg" secondAttribute="trailing" constant="5" id="chu-IN-9NV"/>
-                            <constraint firstItem="YEI-pJ-bG7" firstAttribute="top" secondItem="W77-o3-SvL" secondAttribute="bottom" constant="10" id="d0I-B2-j7D"/>
-                            <constraint firstItem="Fn3-DC-Psg" firstAttribute="centerY" secondItem="3lw-Rx-GF3" secondAttribute="centerY" id="d60-V3-ibY"/>
-                            <constraint firstItem="XL0-UQ-urL" firstAttribute="leading" secondItem="bmd-lQ-cDH" secondAttribute="leading" constant="10" id="gOF-3C-fVO"/>
-                            <constraint firstItem="Fn3-DC-Psg" firstAttribute="leading" secondItem="3lw-Rx-GF3" secondAttribute="trailing" constant="10" id="gyj-NV-YqL"/>
-                            <constraint firstAttribute="trailing" secondItem="XL0-UQ-urL" secondAttribute="trailing" constant="10" id="r71-hy-8wJ"/>
-                            <constraint firstItem="3lw-Rx-GF3" firstAttribute="leading" secondItem="bmd-lQ-cDH" secondAttribute="leading" constant="10" id="uaR-kd-bO8"/>
-                            <constraint firstItem="W77-o3-SvL" firstAttribute="leading" secondItem="bmd-lQ-cDH" secondAttribute="leading" constant="10" id="wIG-8A-BWX"/>
-                            <constraint firstItem="XL0-UQ-urL" firstAttribute="top" secondItem="YEI-pJ-bG7" secondAttribute="bottom" constant="20" id="xrd-mf-HOe"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Bottom Blank Space" id="mfb-Pl-Awn">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="J2Z-YR-TIG">
-                            <connections>
-                                <segue destination="Jb2-GG-qSl" kind="presentation" identifier="SettingsNavigationController" id="KEd-at-RZy"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="switchPreventShowingBottomBlankSpace" destination="Fn3-DC-Psg" id="qQE-CY-yuT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yRy-ga-2vx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="599" y="218"/>
         </scene>
         <!--YYTextView-->
         <scene sceneID="rjl-es-hqC">
@@ -883,51 +807,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrD-fL-0A0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-276" y="215"/>
-        </scene>
-        <!--IQLayoutGuideConstraint-->
-        <scene sceneID="lab-2r-weU">
-            <objects>
-                <viewController storyboardIdentifier="LayoutGuideViewController" id="5qs-0D-CHc" customClass="LayoutGuideViewController" customModule="DemoSwift" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sc1-cA-1bP"/>
-                        <viewControllerLayoutGuide type="bottom" id="OJS-mY-8pv"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jbA-8K-jRE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Layout Guide Example" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qzU-MG-znF">
-                                <rect key="frame" x="20" y="537" width="335" height="30"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckA-e3-dae">
-                                <rect key="frame" x="20" y="474" width="335" height="43"/>
-                                <string key="text">UITextField is pinned with the `Bottom Layout Guide` constraint. To make it working `Bottom Layout Guide` constraint is mapped with `IQLayoutGuideConstraint`.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="qzU-MG-znF" secondAttribute="trailing" constant="20" id="XfJ-Fq-Bsg"/>
-                            <constraint firstItem="qzU-MG-znF" firstAttribute="leading" secondItem="jbA-8K-jRE" secondAttribute="leading" constant="20" id="YaM-Di-sWa"/>
-                            <constraint firstAttribute="trailing" secondItem="ckA-e3-dae" secondAttribute="trailing" constant="20" id="Zm9-L1-lXN"/>
-                            <constraint firstItem="OJS-mY-8pv" firstAttribute="top" secondItem="qzU-MG-znF" secondAttribute="bottom" constant="100" id="gU1-jj-FF6"/>
-                            <constraint firstItem="ckA-e3-dae" firstAttribute="leading" secondItem="jbA-8K-jRE" secondAttribute="leading" constant="20" id="spO-Fn-XKQ"/>
-                            <constraint firstItem="qzU-MG-znF" firstAttribute="top" secondItem="ckA-e3-dae" secondAttribute="bottom" constant="20" id="sze-TX-jeS"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="IQLayoutGuideConstraint" id="Zco-Zg-9yg"/>
-                    <connections>
-                        <outlet property="IQLayoutGuideConstraint" destination="gU1-jj-FF6" id="BAH-Np-bRi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="34y-ZG-DA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2950" y="217"/>
         </scene>
         <!--UITextView Selection (#56)-->
         <scene sceneID="6Me-FU-xxD">

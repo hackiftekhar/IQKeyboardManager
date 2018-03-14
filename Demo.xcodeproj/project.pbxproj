@@ -10,11 +10,8 @@
 		4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */; };
 		4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */; };
 		4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */; };
-		4C0EFE251CF2FA8000C908D3 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */; };
 		4C0EFE271CF332B300C908D3 /* YYTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */; };
 		4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */; };
-		4C0EFE2B1CF332C900C908D3 /* LayoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */; };
-		4C0EFE2D1CF332D200C908D3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */; };
 		4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */; };
 		4C1286321DD1C5B900F0C1E5 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1286311DD1C5B900F0C1E5 /* Launch.storyboard */; };
 		4C134C811D10758F00C016CA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C134C801D10758F00C016CA /* SearchViewController.m */; };
@@ -36,8 +33,6 @@
 		4CE611A01B98B7250020591A /* DemoObjCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE6119F1B98B7250020591A /* DemoObjCUITests.m */; };
 		4CE74F411CF0465C0093AC0C /* YYTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F401CF0465C0093AC0C /* YYTextViewController.m */; };
 		4CE74F441CF047610093AC0C /* RefreshLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F431CF047610093AC0C /* RefreshLayoutViewController.m */; };
-		4CE74F471CF0809C0093AC0C /* LayoutGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F461CF0809C0093AC0C /* LayoutGuideViewController.m */; };
-		4CE74F4A1CF080B60093AC0C /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F491CF080B60093AC0C /* ChatViewController.m */; };
 		4CE74F4D1CF080C10093AC0C /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F4C1CF080C10093AC0C /* TextViewController.m */; };
 		4CE74F581CF185F70093AC0C /* ColorPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */; };
 		4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */; };
@@ -50,7 +45,6 @@
 		4CE74F621CF1864E0093AC0C /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F611CF1864E0093AC0C /* ColorTableViewCell.m */; };
 		4CE74F651CF186720093AC0C /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F641CF186720093AC0C /* TextFieldTableViewCell.m */; };
 		4CE74F681CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */; };
-		4CE74FCD1CF2174E0093AC0C /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74FCC1CF2174E0093AC0C /* ChatTableViewCell.m */; };
 		4CF58EAD1D36BD910081FB08 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; };
 		5E01D9D1D5DAED537E5F3846 /* Pods_DemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCAA37FCDF6347632377497 /* Pods_DemoSwift.framework */; };
 		74EEE75B8742B346576A7E78 /* Pods_DemoObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF83944ADEC65E0AF10B2E /* Pods_DemoObjC.framework */; };
@@ -70,7 +64,6 @@
 		C0CB61EA1B884F1600C33368 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61CF1B884D4100C33368 /* iTunesArtwork@2x */; };
 		C0CB61EB1B884F1D00C33368 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61CC1B884D4100C33368 /* Images.xcassets */; };
 		C0CB61EC1B884F1E00C33368 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CB61CC1B884D4100C33368 /* Images.xcassets */; };
-		C0CB61ED1B884F2700C33368 /* BottomBlankSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61DA1B884D4100C33368 /* BottomBlankSpaceViewController.swift */; };
 		C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */; };
 		C0CB61EF1B884F2700C33368 /* ExampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */; };
 		C0CB61F01B884F2700C33368 /* ManualToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61DD1B884D4100C33368 /* ManualToolbarViewController.swift */; };
@@ -90,7 +83,6 @@
 		C0CB62001B884FA100C33368 /* StepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61981B884D4100C33368 /* StepperTableViewCell.m */; };
 		C0CB62011B884FA100C33368 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB619A1B884D4100C33368 /* SwitchTableViewCell.m */; };
 		C0CB62021B884FA100C33368 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A01B884D4100C33368 /* main.m */; };
-		C0CB62041B884FA100C33368 /* BottomBlankSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */; };
 		C0CB62051B884FA100C33368 /* CollectionViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61AB1B884D4100C33368 /* CollectionViewDemoController.m */; };
 		C0CB62071B884FA100C33368 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61AF1B884D4100C33368 /* CustomViewController.m */; };
 		C0CB62081B884FA100C33368 /* ExampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61B11B884D4100C33368 /* ExampleTableViewController.m */; };
@@ -115,11 +107,8 @@
 		4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTableViewCell.swift; sourceTree = "<group>"; };
 		4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSwitchTableViewCell.swift; sourceTree = "<group>"; };
-		4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYTextViewController.swift; sourceTree = "<group>"; };
 		4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshLayoutViewController.swift; sourceTree = "<group>"; };
-		4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutGuideViewController.swift; sourceTree = "<group>"; };
-		4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		4C1286311DD1C5B900F0C1E5 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		4C134C7F1D10758F00C016CA /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -147,10 +136,6 @@
 		4CE74F401CF0465C0093AC0C /* YYTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextViewController.m; sourceTree = "<group>"; };
 		4CE74F421CF047610093AC0C /* RefreshLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshLayoutViewController.h; sourceTree = "<group>"; };
 		4CE74F431CF047610093AC0C /* RefreshLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshLayoutViewController.m; sourceTree = "<group>"; };
-		4CE74F451CF0809C0093AC0C /* LayoutGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutGuideViewController.h; sourceTree = "<group>"; };
-		4CE74F461CF0809C0093AC0C /* LayoutGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutGuideViewController.m; sourceTree = "<group>"; };
-		4CE74F481CF080B60093AC0C /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		4CE74F491CF080B60093AC0C /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		4CE74F4B1CF080C10093AC0C /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4CE74F4C1CF080C10093AC0C /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 		4CE74F4F1CF185F70093AC0C /* ColorPickerTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerTextField.h; sourceTree = "<group>"; };
@@ -167,8 +152,6 @@
 		4CE74F641CF186720093AC0C /* TextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldTableViewCell.m; sourceTree = "<group>"; };
 		4CE74F661CF1BBCC0093AC0C /* ImageSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSwitchTableViewCell.h; sourceTree = "<group>"; };
 		4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSwitchTableViewCell.m; sourceTree = "<group>"; };
-		4CE74FCB1CF2174E0093AC0C /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
-		4CE74FCC1CF2174E0093AC0C /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		55CF83944ADEC65E0AF10B2E /* Pods_DemoObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FC4E5EE6D1D6932EE354185 /* Pods-DemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoSwift/Pods-DemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		9D0BB82F18BB1AE100667349 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -202,8 +185,6 @@
 		C0CB619F1B884D4100C33368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CB61A01B884D4100C33368 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0CB61A21B884D4100C33368 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C0CB61A81B884D4100C33368 /* BottomBlankSpaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomBlankSpaceViewController.h; sourceTree = "<group>"; };
-		C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomBlankSpaceViewController.m; sourceTree = "<group>"; };
 		C0CB61AA1B884D4100C33368 /* CollectionViewDemoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewDemoController.h; sourceTree = "<group>"; };
 		C0CB61AB1B884D4100C33368 /* CollectionViewDemoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDemoController.m; sourceTree = "<group>"; };
 		C0CB61AE1B884D4100C33368 /* CustomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
@@ -240,7 +221,6 @@
 		C0CB61D11B884D4100C33368 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0CB61D41B884D4100C33368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CB61D51B884D4100C33368 /* IQKeyboardManger-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManger-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
-		C0CB61DA1B884D4100C33368 /* BottomBlankSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBlankSpaceViewController.swift; sourceTree = "<group>"; };
 		C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDemoController.swift; sourceTree = "<group>"; };
 		C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTableViewController.swift; sourceTree = "<group>"; };
 		C0CB61DD1B884D4100C33368 /* ManualToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualToolbarViewController.swift; sourceTree = "<group>"; };
@@ -411,8 +391,6 @@
 				4CE74F641CF186720093AC0C /* TextFieldTableViewCell.m */,
 				4CE74F661CF1BBCC0093AC0C /* ImageSwitchTableViewCell.h */,
 				4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */,
-				4CE74FCB1CF2174E0093AC0C /* ChatTableViewCell.h */,
-				4CE74FCC1CF2174E0093AC0C /* ChatTableViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -452,8 +430,6 @@
 			isa = PBXGroup;
 			children = (
 				C0CB61B81B884D4100C33368 /* Settings */,
-				C0CB61A81B884D4100C33368 /* BottomBlankSpaceViewController.h */,
-				C0CB61A91B884D4100C33368 /* BottomBlankSpaceViewController.m */,
 				C0CB61AA1B884D4100C33368 /* CollectionViewDemoController.h */,
 				C0CB61AB1B884D4100C33368 /* CollectionViewDemoController.m */,
 				C0CB61AE1B884D4100C33368 /* CustomViewController.h */,
@@ -484,10 +460,6 @@
 				4CE74F401CF0465C0093AC0C /* YYTextViewController.m */,
 				4CE74F421CF047610093AC0C /* RefreshLayoutViewController.h */,
 				4CE74F431CF047610093AC0C /* RefreshLayoutViewController.m */,
-				4CE74F451CF0809C0093AC0C /* LayoutGuideViewController.h */,
-				4CE74F461CF0809C0093AC0C /* LayoutGuideViewController.m */,
-				4CE74F481CF080B60093AC0C /* ChatViewController.h */,
-				4CE74F491CF080B60093AC0C /* ChatViewController.m */,
 				4CE74F4B1CF080C10093AC0C /* TextViewController.h */,
 				4CE74F4C1CF080C10093AC0C /* TextViewController.m */,
 				4C134C7F1D10758F00C016CA /* SearchViewController.h */,
@@ -553,7 +525,6 @@
 				4C0EFE1E1CF2F9F500C908D3 /* ColorTableViewCell.swift */,
 				4C0EFE201CF2FA0600C908D3 /* TextFieldTableViewCell.swift */,
 				4C0EFE221CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift */,
-				4C0EFE241CF2FA8000C908D3 /* ChatTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -585,7 +556,6 @@
 			isa = PBXGroup;
 			children = (
 				C03C87F31B8DCBC900295DFA /* Settings */,
-				C0CB61DA1B884D4100C33368 /* BottomBlankSpaceViewController.swift */,
 				C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */,
 				C0017B781BAD943400BD1D70 /* CustomViewController.swift */,
 				C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */,
@@ -601,8 +571,6 @@
 				C0CB61E61B884D4100C33368 /* WebViewController.swift */,
 				4C0EFE261CF332B300C908D3 /* YYTextViewController.swift */,
 				4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */,
-				4C0EFE2A1CF332C900C908D3 /* LayoutGuideViewController.swift */,
-				4C0EFE2C1CF332D200C908D3 /* ChatViewController.swift */,
 				4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */,
 				4C34D9EE1D1319A60013E61D /* SearchViewController.swift */,
 				4C2F12E11D9E8CDF004AF58C /* PopoverViewController.swift */,
@@ -914,7 +882,6 @@
 				4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */,
 				4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */,
-				C0CB61ED1B884F2700C33368 /* BottomBlankSpaceViewController.swift in Sources */,
 				C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */,
 				C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */,
 				4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
@@ -935,9 +902,6 @@
 				C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */,
 				C0CB61F51B884F2700C33368 /* TextFieldViewController.swift in Sources */,
 				4C2F12E21D9E8CDF004AF58C /* PopoverViewController.swift in Sources */,
-				4C0EFE251CF2FA8000C908D3 /* ChatTableViewCell.swift in Sources */,
-				4C0EFE2D1CF332D200C908D3 /* ChatViewController.swift in Sources */,
-				4C0EFE2B1CF332C900C908D3 /* LayoutGuideViewController.swift in Sources */,
 				C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -960,7 +924,6 @@
 				4CE74F411CF0465C0093AC0C /* YYTextViewController.m in Sources */,
 				C0CB62071B884FA100C33368 /* CustomViewController.m in Sources */,
 				4CE49FCF1D9E7FD40094FB36 /* PopoverViewController.m in Sources */,
-				4CE74F4A1CF080B60093AC0C /* ChatViewController.m in Sources */,
 				C0CB62051B884FA100C33368 /* CollectionViewDemoController.m in Sources */,
 				C0CB61FF1B884FA100C33368 /* OptionTableViewCell.m in Sources */,
 				C0CB620D1B884FA100C33368 /* SettingsViewController.m in Sources */,
@@ -968,13 +931,10 @@
 				4C134C811D10758F00C016CA /* SearchViewController.m in Sources */,
 				C0CB62081B884FA100C33368 /* ExampleTableViewController.m in Sources */,
 				C0CB61FD1B884FA100C33368 /* AppDelegate.m in Sources */,
-				4CE74F471CF0809C0093AC0C /* LayoutGuideViewController.m in Sources */,
 				4CE74F5C1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FE1B884FA100C33368 /* NavigationTableViewCell.m in Sources */,
-				4CE74FCD1CF2174E0093AC0C /* ChatTableViewCell.m in Sources */,
 				C0CB62021B884FA100C33368 /* main.m in Sources */,
 				C0CB620C1B884FA100C33368 /* OptionsViewController.m in Sources */,
-				C0CB62041B884FA100C33368 /* BottomBlankSpaceViewController.m in Sources */,
 				C0CB62141B884FA100C33368 /* WebViewController.m in Sources */,
 				C0CB62001B884FA100C33368 /* StepperTableViewCell.m in Sources */,
 				C0CB62131B884FA100C33368 /* ViewController.m in Sources */,
