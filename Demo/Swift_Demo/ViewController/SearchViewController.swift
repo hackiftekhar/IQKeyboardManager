@@ -23,18 +23,22 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
     
     var filteredList = [[String:String]]()
     
-    let searchController = UISearchController()
-    
+    var searchController : UISearchController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.scopeButtonTitles = ["All", "Name", "Email"]
         self.searchController.searchBar.delegate = self
         self.searchController.searchBar.sizeToFit()
-        self.tableView.tableHeaderView = self.searchController.searchBar
-        self.definesPresentationContext = true
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            self.tableView.tableHeaderView = self.searchController.searchBar
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
