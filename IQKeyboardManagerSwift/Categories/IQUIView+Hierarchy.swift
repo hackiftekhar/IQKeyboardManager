@@ -62,11 +62,11 @@ public extension UIView {
         if var topController = window?.rootViewController {
             controllersHierarchy.append(topController)
 
-            while topController.presentedViewController != nil {
+            while let presented = topController.presentedViewController {
                 
-                topController = topController.presentedViewController!
+                topController = presented
 
-                controllersHierarchy.append(topController)
+                controllersHierarchy.append(presented)
             }
             
             var matchController :UIResponder? = viewController()
@@ -86,7 +86,55 @@ public extension UIView {
         }
     }
     
-    
+    /**
+     Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
+     */
+    public func parentContainerViewController()->UIViewController? {
+        
+        var matchController = viewController()
+        
+        if var navController = matchController?.navigationController {
+            
+            while let parentNav = navController.navigationController {
+                navController = parentNav
+            }
+            
+            var parentController : UIViewController = navController
+
+            while let parent = parentController.parent,
+                (parent.isKind(of: UINavigationController.self) == false &&
+                    parent.isKind(of: UITabBarController.self) == false &&
+                    parent.isKind(of: UISplitViewController.self) == false) {
+                        
+                        parentController = parent
+            }
+
+            if navController == parentController {
+                return navController.topViewController
+            } else {
+                return parentController
+            }
+        }
+        else if let tabController = matchController?.tabBarController {
+            
+            if let navController = tabController.selectedViewController as? UINavigationController {
+                return navController.topViewController
+            } else {
+                return tabController.selectedViewController
+            }
+        } else {
+            while let parentController = matchController?.parent,
+                (parentController.isKind(of: UINavigationController.self) == false &&
+                    parentController.isKind(of: UITabBarController.self) == false &&
+                    parentController.isKind(of: UISplitViewController.self) == false) {
+                        
+                        matchController = parentController
+            }
+
+            return matchController;
+        }
+    }
+
     ///-----------------------------------
     /// MARK: Superviews/Subviews/Siglings
     ///-----------------------------------
@@ -222,16 +270,16 @@ public extension UIView {
         
         var isSearchBarTextField = false
         
-        while searchBar != nil && isSearchBarTextField == false {
+        while let bar = searchBar, isSearchBarTextField == false {
             
-            if searchBar!.isKind(of: UISearchBar.self) {
+            if bar.isKind(of: UISearchBar.self) {
                 isSearchBarTextField = true
                 break
-            } else if searchBar is UIViewController {
+            } else if bar is UIViewController {
                 break
             }
             
-            searchBar = searchBar?.next
+            searchBar = bar.next
         }
         
         return isSearchBarTextField
@@ -246,14 +294,14 @@ public extension UIView {
         
         var isAlertViewTextField = false
         
-        while alertViewController != nil && isAlertViewTextField == false {
+        while let controller = alertViewController, isAlertViewTextField == false {
             
-            if alertViewController!.isKind(of: UIAlertController.self) {
+            if controller.isKind(of: UIAlertController.self) {
                 isAlertViewTextField = true
                 break
             }
             
-            alertViewController = alertViewController?.next
+            alertViewController = controller.next
         }
         
         return isAlertViewTextField

@@ -65,17 +65,14 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
 
         didSet {
             
-            if (invocation?.target == nil || invocation?.action == nil)
-            {
+            if let target = invocation?.target, let action = invocation?.action {
+                self.isEnabled = true
+                _titleButton?.isEnabled = true
+                _titleButton?.addTarget(target, action: action, for: .touchUpInside)
+            } else {
                 self.isEnabled = false
                 _titleButton?.isEnabled = false
                 _titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
-            }
-            else
-            {
-                self.isEnabled = true
-                _titleButton?.isEnabled = true
-                _titleButton?.addTarget(invocation!.target, action: invocation!.action!, for: .touchUpInside)
             }
         }
     }

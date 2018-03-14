@@ -79,37 +79,37 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
         textField8.placeholder = (textField8.isEnabled ? "enabled" : "" ) + "," + (textField8.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
     }
     
-    func switch1UserInteractionAction(_ sender: UISwitch) {
+    @IBAction func switch1UserInteractionAction(_ sender: UISwitch) {
         textField6.isUserInteractionEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()
     }
     
-    func switch2UserInteractionAction(_ sender: UISwitch) {
+    @IBAction func switch2UserInteractionAction(_ sender: UISwitch) {
         textField7.isUserInteractionEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()
     }
     
-    func switch3UserInteractionAction(_ sender: UISwitch) {
+    @IBAction func switch3UserInteractionAction(_ sender: UISwitch) {
         textField8.isUserInteractionEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()
     }
     
-    func switch1Action(_ sender: UISwitch) {
+    @IBAction func switch1Action(_ sender: UISwitch) {
         textField6.isEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()
     }
     
-    func switch2Action(_ sender: UISwitch) {
+    @IBAction func switch2Action(_ sender: UISwitch) {
         textField7.isEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()
     }
     
-    func switch3Action(_ sender: UISwitch) {
+    @IBAction func switch3Action(_ sender: UISwitch) {
         textField8.isEnabled = sender.isOn
         IQKeyboardManager.sharedManager().reloadInputViews()
         updateUI()

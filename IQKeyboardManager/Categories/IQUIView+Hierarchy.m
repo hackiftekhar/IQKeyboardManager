@@ -30,7 +30,9 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITextField.h>
 #import <UIKit/UISearchBar.h>
-#import <UIKit/UIViewController.h>
+#import <UIKit/UINavigationController.h>
+#import <UIKit/UITabBarController.h>
+#import <UIKit/UISplitViewController.h>
 #import <UIKit/UIWindow.h>
 
 #import <objc/runtime.h>
@@ -83,7 +85,61 @@
         } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
     
-    return (UIViewController*)matchController;
+    return matchController;
+}
+
+-(UIViewController *)parentContainerViewController
+{
+    UIViewController *matchController = [self viewController];
+    
+    if (matchController.navigationController)
+    {
+        UINavigationController *navController = matchController.navigationController;
+        
+        while (navController.navigationController) {
+            navController = navController.navigationController;
+        }
+        
+        UIViewController *parentController = navController;
+        
+        while (parentController != nil &&
+               parentController.parentViewController &&
+               ([parentController.parentViewController isKindOfClass:[UINavigationController class]] == NO && [parentController.parentViewController isKindOfClass:[UITabBarController class]] == NO && [parentController.parentViewController isKindOfClass:[UISplitViewController class]] == NO))
+        {
+            parentController = [parentController parentViewController];
+        }
+
+        if (navController == parentController)
+        {
+            return navController.topViewController;
+        }
+        else
+        {
+            return parentController;
+        }
+    }
+    else if (matchController.tabBarController)
+    {
+        if ([matchController.tabBarController.selectedViewController isKindOfClass:[UINavigationController class]])
+        {
+            return [(UINavigationController*)matchController.tabBarController.selectedViewController topViewController];
+        }
+        else
+        {
+            return matchController.tabBarController.selectedViewController;
+        }
+    }
+    else
+    {
+        while (matchController != nil &&
+               matchController.parentViewController &&
+               ([matchController.parentViewController isKindOfClass:[UINavigationController class]] == NO && [matchController.parentViewController isKindOfClass:[UITabBarController class]] == NO && [matchController.parentViewController isKindOfClass:[UISplitViewController class]] == NO))
+        {
+            matchController = [matchController parentViewController];
+        }
+        
+        return matchController;
+    }
 }
 
 -(UIView*)superviewOfClassType:(Class)classType

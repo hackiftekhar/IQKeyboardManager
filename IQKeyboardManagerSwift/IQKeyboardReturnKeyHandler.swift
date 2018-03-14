@@ -140,7 +140,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
 
-        var textFields : [UIView]?
+        var textFields = [UIView]()
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
@@ -152,14 +152,14 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             //Sorting textFields according to behaviour
             switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
-            case .byTag:        textFields = textFields?.sortedArrayByTag()
+            case .byTag:        textFields = textFields.sortedArrayByTag()
                 //If needs to sort it by Position
-            case .byPosition:   textFields = textFields?.sortedArrayByPosition()
+            case .byPosition:   textFields = textFields.sortedArrayByPosition()
             default:    break
             }
         }
         
-        if let lastView = textFields?.last {
+        if let lastView = textFields.last {
             
             if let textField = view as? UITextField {
                 
@@ -288,7 +288,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             }
         }
         
-        var textFields : [UIView]?
+        var textFields = [UIView]()
         
         //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
@@ -300,30 +300,25 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             //Sorting textFields according to behaviour
             switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
                 //If needs to sort it by tag
-            case .byTag:        textFields = textFields?.sortedArrayByTag()
+            case .byTag:        textFields = textFields.sortedArrayByTag()
                 //If needs to sort it by Position
-            case .byPosition:   textFields = textFields?.sortedArrayByPosition()
+            case .byPosition:   textFields = textFields.sortedArrayByPosition()
             default:
                 break
             }
         }
 
-        if let unwrappedTextFields = textFields {
-            
-            //Getting index of current textField.
-            if let index = unwrappedTextFields.index(of: view) {
-                //If it is not last textField. then it's next object becomeFirstResponder.
-                if index < (unwrappedTextFields.count - 1) {
-                    
-                    let nextTextField = unwrappedTextFields[index+1]
-                    nextTextField.becomeFirstResponder()
-                    return false
-                } else {
-                    
-                    view.resignFirstResponder()
-                    return true
-                }
+        //Getting index of current textField.
+        if let index = textFields.index(of: view) {
+            //If it is not last textField. then it's next object becomeFirstResponder.
+            if index < (textFields.count - 1) {
+                
+                let nextTextField = textFields[index+1]
+                nextTextField.becomeFirstResponder()
+                return false
             } else {
+                
+                view.resignFirstResponder()
                 return true
             }
         } else {

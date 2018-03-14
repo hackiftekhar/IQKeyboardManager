@@ -32,9 +32,9 @@ public extension UIViewController {
     /**
     To set customized distance from keyboard for textField/textView. Can't be less than zero
      
-     @deprecated    Library is internally handling Safe Area (If you are using Safe Area from Xcode9 and iOS11) and there is no need to do any tweak if you already migrated to use Safe Area
+     @deprecated    Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview
     */
-    @available(iOS, deprecated: 11.0)
+    @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.")
     @IBOutlet public var IQLayoutGuideConstraint: NSLayoutConstraint? {
         get {
             
