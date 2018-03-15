@@ -46,29 +46,29 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        switchDisableViewController.isOn = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.contains(where: { element in
+        switchDisableViewController.isOn = IQKeyboardManager.shared.disabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchEnableViewController.isOn = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.contains(where: { element in
+        switchEnableViewController.isOn = IQKeyboardManager.shared.enabledDistanceHandlingClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchDisableToolbar.isOn = IQKeyboardManager.sharedManager().disabledToolbarClasses.contains(where: { element in
+        switchDisableToolbar.isOn = IQKeyboardManager.shared.disabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
-        switchEnableToolbar.isOn = IQKeyboardManager.sharedManager().enabledToolbarClasses.contains(where: { element in
+        switchEnableToolbar.isOn = IQKeyboardManager.shared.enabledToolbarClasses.contains(where: { element in
             return element == CustomViewController.self
         })
         
-        switchDisableTouchResign.isOn = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.contains(where: { element in
+        switchDisableTouchResign.isOn = IQKeyboardManager.shared.disabledTouchResignedClasses.contains(where: { element in
             return element == CustomViewController.self
         })
-        switchEnableTouchResign.isOn = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.contains(where: { element in
+        switchEnableTouchResign.isOn = IQKeyboardManager.shared.enabledTouchResignedClasses.contains(where: { element in
             return element == CustomViewController.self
         })
                 
-        switchAllowPreviousNext.isOn = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.contains(where: { element in
+        switchAllowPreviousNext.isOn = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.contains(where: { element in
             return element == IQPreviousNextView.self
         });
     }
@@ -96,14 +96,14 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func disableInViewControllerAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.disabledDistanceHandlingClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledDistanceHandlingClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.remove(at: index)
+                IQKeyboardManager.shared.disabledDistanceHandlingClasses.remove(at: index)
             }
         }
     }
@@ -111,14 +111,14 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func enableInViewControllerAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.enabledDistanceHandlingClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledDistanceHandlingClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledDistanceHandlingClasses.remove(at: index)
+                IQKeyboardManager.shared.enabledDistanceHandlingClasses.remove(at: index)
             }
         }
     }
@@ -126,14 +126,14 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func disableToolbarAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().disabledToolbarClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.disabledToolbarClasses.append(CustomViewController.self)
         }
         else {
 
-            if let index = IQKeyboardManager.sharedManager().disabledToolbarClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledToolbarClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledToolbarClasses.remove(at: index)
+                IQKeyboardManager.shared.disabledToolbarClasses.remove(at: index)
             }
         }
     }
@@ -141,13 +141,13 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func enableToolbarAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().enabledToolbarClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.enabledToolbarClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.sharedManager().enabledToolbarClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledToolbarClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledToolbarClasses.remove(at: index)
+                IQKeyboardManager.shared.enabledToolbarClasses.remove(at: index)
             }
         }
     }
@@ -155,13 +155,13 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func disableTouchOutsideAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().disabledTouchResignedClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.disabledTouchResignedClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.sharedManager().disabledTouchResignedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledTouchResignedClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().disabledTouchResignedClasses.remove(at: index)
+                IQKeyboardManager.shared.disabledTouchResignedClasses.remove(at: index)
             }
         }
     }
@@ -169,14 +169,14 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func enableTouchOutsideAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().enabledTouchResignedClasses.append(CustomViewController.self)
+            IQKeyboardManager.shared.enabledTouchResignedClasses.append(CustomViewController.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().enabledTouchResignedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledTouchResignedClasses.index(where: { element in
                 return element == CustomViewController.self
             }) {
-                IQKeyboardManager.sharedManager().enabledTouchResignedClasses.remove(at: index)
+                IQKeyboardManager.shared.enabledTouchResignedClasses.remove(at: index)
             }
         }
     }
@@ -184,14 +184,14 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
     @IBAction func allowedPreviousNextAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
+            IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
         }
         else {
             
-            if let index = IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.index(where: { element in
                 return element == IQPreviousNextView.self
             }) {
-                IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses.remove(at: index)
+                IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.remove(at: index)
             }
         }
     }

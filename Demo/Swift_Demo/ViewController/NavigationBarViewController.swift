@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class NavigationBarViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate {
     
     fileprivate var returnKeyHandler : IQKeyboardReturnKeyHandler!
     @IBOutlet fileprivate var textField2 : UITextField!
@@ -59,6 +59,10 @@ class NavigationBarViewController: UIViewController, UIPopoverPresentationContro
                 controller.popoverPresentationController?.delegate = self
             }
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

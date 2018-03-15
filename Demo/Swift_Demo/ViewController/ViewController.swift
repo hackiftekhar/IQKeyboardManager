@@ -37,7 +37,7 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        IQKeyboardManager.sharedManager().toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
+        IQKeyboardManager.shared.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
         // Do any additional setup after loading the view, typically from a nib.
     }
 

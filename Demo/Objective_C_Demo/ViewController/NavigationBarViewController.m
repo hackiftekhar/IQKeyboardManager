@@ -73,6 +73,11 @@
     return YES;
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    return YES;
+}
+
 - (IBAction)textFieldClicked:(UITextField *)sender
 {
 //    [[[UIAlertView alloc] initWithTitle:@"Message" message:@"New Message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];

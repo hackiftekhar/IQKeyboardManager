@@ -112,12 +112,12 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     ///------------------------
     /// MARK: Private variables
     ///------------------------
-    fileprivate var textFieldInfoCache          =   [IQTextFieldViewInfoModal]()
+    private var textFieldInfoCache          =   [IQTextFieldViewInfoModal]()
     
     ///------------------------
     /// MARK: Private Functions
     ///------------------------
-    fileprivate func textFieldViewCachedInfo(_ textField : UIView) -> IQTextFieldViewInfoModal? {
+    private func textFieldViewCachedInfo(_ textField : UIView) -> IQTextFieldViewInfoModal? {
         
         for modal in textFieldInfoCache {
             
@@ -132,12 +132,12 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return nil
     }
 
-    fileprivate func updateReturnKeyTypeOnTextField(_ view : UIView)
+    private func updateReturnKeyTypeOnTextField(_ view : UIView)
     {
         var superConsideredView : UIView?
         
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for disabledClass in IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses {
+        for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
             
             superConsideredView = view.superviewOfClassType(disabledClass)
             
@@ -156,7 +156,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
+            switch IQKeyboardManager.shared.toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
                 //If needs to sort it by Position
@@ -265,12 +265,12 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         }
     }
     
-    @discardableResult fileprivate func goToNextResponderOrResign(_ view : UIView) -> Bool {
+    @discardableResult private func goToNextResponderOrResign(_ view : UIView) -> Bool {
         
         var superConsideredView : UIView?
         
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for disabledClass in IQKeyboardManager.sharedManager().toolbarPreviousNextAllowedClasses {
+        for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
             
             superConsideredView = view.superviewOfClassType(disabledClass)
             
@@ -289,7 +289,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
             textFields = view.responderSiblings()
             
             //Sorting textFields according to behaviour
-            switch IQKeyboardManager.sharedManager().toolbarManageBehaviour {
+            switch IQKeyboardManager.shared.toolbarManageBehaviour {
                 //If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
                 //If needs to sort it by Position

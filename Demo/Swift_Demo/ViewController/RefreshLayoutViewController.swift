@@ -28,6 +28,6 @@ class RefreshLayoutViewController: UIViewController {
     }
 
     @IBAction func reloadLayoutAction (_ sender : UIButton) {
-        IQKeyboardManager.sharedManager().reloadLayoutIfNeeded()
+        IQKeyboardManager.shared.reloadLayoutIfNeeded()
     }
 }

@@ -23,25 +23,6 @@
 
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 private var kIQShouldHideToolbarPlaceholder = "kIQShouldHideToolbarPlaceholder"
 private var kIQToolbarPlaceholder           = "kIQToolbarPlaceholder"
@@ -177,7 +158,7 @@ public extension UIView {
     /// MARK: Private helper
     ///---------------------
     
-    fileprivate static func flexibleBarButtonItem () -> IQBarButtonItem {
+    private static func flexibleBarButtonItem () -> IQBarButtonItem {
         
         struct Static {
             static let nilButton = IQBarButtonItem(barButtonSystemItem:UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)

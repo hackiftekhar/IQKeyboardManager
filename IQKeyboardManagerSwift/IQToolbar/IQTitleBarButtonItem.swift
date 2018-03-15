@@ -77,8 +77,8 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         }
     }
 
-    fileprivate var _titleButton : UIButton?
-    fileprivate var _titleView : UIView?
+    private var _titleButton : UIButton?
+    private var _titleView : UIView?
 
     override init() {
         super.init()

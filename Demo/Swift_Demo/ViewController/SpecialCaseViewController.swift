@@ -81,37 +81,37 @@ class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFi
     
     @IBAction func switch1UserInteractionAction(_ sender: UISwitch) {
         textField6.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
     @IBAction func switch2UserInteractionAction(_ sender: UISwitch) {
         textField7.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
     @IBAction func switch3UserInteractionAction(_ sender: UISwitch) {
         textField8.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
     @IBAction func switch1Action(_ sender: UISwitch) {
         textField6.isEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
     @IBAction func switch2Action(_ sender: UISwitch) {
         textField7.isEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
     @IBAction func switch3Action(_ sender: UISwitch) {
         textField8.isEnabled = sender.isOn
-        IQKeyboardManager.sharedManager().reloadInputViews()
+        IQKeyboardManager.shared.reloadInputViews()
         updateUI()
     }
     
