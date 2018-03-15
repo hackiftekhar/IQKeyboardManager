@@ -318,7 +318,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     */
     open var placeholderFont: UIFont?
     
+    /**
+     Placeholder Color. Default is nil. Which means lightGray
+     */
+    open var placeholderColor: UIColor?
     
+    /**
+     Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
+     */
+    open var placeholderButtonColor: UIColor?
+    
+
     ///--------------------------
     /// MARK: UITextView handling
     ///--------------------------
@@ -1828,6 +1838,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             if let font = placeholderFont {
                                 toolbar.titleBarButton.titleFont = font
                             }
+
+                            //Setting toolbar title color.   //  (Enhancement ID: #880)
+                            if let color = placeholderColor {
+                                toolbar.titleBarButton.titleColor = color
+                            }
+                            
+                            //Setting toolbar button title color.   //  (Enhancement ID: #880)
+                            if let color = placeholderButtonColor {
+                                toolbar.titleBarButton.selectableTitleColor = color
+                            }
+
                         } else {
                             
                             toolbar.titleBarButton.title = nil

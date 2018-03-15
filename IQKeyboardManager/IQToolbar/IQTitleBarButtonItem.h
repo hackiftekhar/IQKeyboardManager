@@ -37,9 +37,14 @@
 @property(nullable, nonatomic, strong) UIFont *titleFont;
 
 /**
- selectableTextColor to be used for displaying button text when button is enabled.
+ titleColor to be used for displaying button text when displaying title (disabled state).
  */
-@property(nullable, nonatomic, strong) UIColor *selectableTextColor;
+@property(nullable, nonatomic, strong) UIColor *titleColor;
+
+/**
+ selectableTitleColor to be used for displaying button text when button is enabled.
+ */
+@property(nullable, nonatomic, strong) UIColor *selectableTitleColor;
 
 /**
  Initialize with frame and title.

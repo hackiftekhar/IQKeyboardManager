@@ -167,6 +167,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 @dynamic shouldShowTextFieldPlaceholder;
 @synthesize shouldShowToolbarPlaceholder        =   _shouldShowToolbarPlaceholder;
 @synthesize placeholderFont                     =   _placeholderFont;
+@synthesize placeholderColor                    =   _placeholderColor;
+@synthesize placeholderButtonColor              =   _placeholderButtonColor;
 
 //Resign handling
 @synthesize shouldResignOnTouchOutside          =   _shouldResignOnTouchOutside;
@@ -1714,6 +1716,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [_placeholderFont isKindOfClass:[UIFont class]])
                     {
                         [toolbar.titleBarButton setTitleFont:_placeholderFont];
+                    }
+
+                    //Setting toolbar title color.   //  (Enhancement ID: #880)
+                    if (_placeholderColor &&
+                        [_placeholderColor isKindOfClass:[UIColor class]])
+                    {
+                        [toolbar.titleBarButton setTitleColor:_placeholderColor];
+                    }
+
+                    //Setting toolbar button title color.   //  (Enhancement ID: #880)
+                    if (_placeholderButtonColor &&
+                        [_placeholderButtonColor isKindOfClass:[UIColor class]])
+                    {
+                        [toolbar.titleBarButton setSelectableTitleColor:_placeholderButtonColor];
                     }
                 }
                 else

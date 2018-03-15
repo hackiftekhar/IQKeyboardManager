@@ -171,6 +171,16 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIFont *placeholderFont;
 
 /**
+ Placeholder Color. Default is nil. Which means lightGray
+ */
+@property(nullable, nonatomic, strong) UIColor *placeholderColor;
+
+/**
+ Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
+ */
+@property(nullable, nonatomic, strong) UIColor *placeholderButtonColor;
+
+/**
  Reload all toolbar buttons on the fly.
  */
 - (void)reloadInputViews;

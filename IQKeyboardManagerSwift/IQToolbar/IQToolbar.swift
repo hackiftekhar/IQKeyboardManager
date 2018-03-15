@@ -175,10 +175,12 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     override open var barStyle: UIBarStyle {
         didSet {
             
-            if barStyle == .default {
-                titleBarButton.selectableTextColor = UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1)
-            } else {
-                titleBarButton.selectableTextColor = UIColor.yellow
+            if titleBarButton.selectableTitleColor == nil {
+                if barStyle == .default {
+                    titleBarButton.titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
+                } else {
+                    titleBarButton.titleButton?.setTitleColor(UIColor.yellow, for: .normal)
+                }
             }
         }
     }

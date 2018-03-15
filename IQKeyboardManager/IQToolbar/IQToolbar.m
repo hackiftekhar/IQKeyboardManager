@@ -28,6 +28,12 @@
 #import <UIKit/UIAccessibility.h>
 #import <UIKit/UIViewController.h>
 
+@interface IQTitleBarButtonItem (PrivateAccessor)
+
+@property(nonatomic, strong) UIButton *titleButton;
+
+@end
+
 @implementation IQToolbar
 @synthesize previousBarButton = _previousBarButton;
 @synthesize nextBarButton = _nextBarButton;
@@ -156,13 +162,16 @@
 {
     [super setBarStyle:barStyle];
     
-    if (barStyle == UIBarStyleDefault)
+    if (self.titleBarButton.selectableTitleColor == nil)
     {
-        [self.titleBarButton setSelectableTextColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0]];
-    }
-    else
-    {
-        [self.titleBarButton setSelectableTextColor:[UIColor yellowColor]];
+        if (barStyle == UIBarStyleDefault)
+        {
+            [self.titleBarButton.titleButton setTitleColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.titleBarButton.titleButton setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
+        }
     }
 }
 
