@@ -601,7 +601,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //  Converting Rectangle according to window bounds.
-    CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
+    CGRect textFieldViewRectInWindow = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
+    CGRect textFieldViewRectInRootSuperview = [[_textFieldView superview] convertRect:_textFieldView.frame toView:rootController.view.superview];
     //  Getting RootView origin.
     CGPoint rootViewOrigin = rootController.view.frame.origin;
 
@@ -625,7 +626,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  -Move negative = textField is showing.
 	
     //  Calculating move position. Common for both normal and special cases.
-    move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
+    move = MIN(CGRectGetMinY(textFieldViewRectInRootSuperview)-topLayoutGuide, CGRectGetMaxY(textFieldViewRectInWindow)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
 
     [self showLog:[NSString stringWithFormat:@"Need to move: %.2f",move]];
 
@@ -837,7 +838,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             UITextView *textView = (UITextView*)_textFieldView;
 
-            CGFloat textViewHeight = MIN(CGRectGetHeight(_textFieldView.frame), (CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField)-topLayoutGuide));
+            CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField);
+
+            CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
+
+            CGFloat keyboardOverlapping = CGRectGetMaxY(rootSuperViewFrameInWindow) - keyboardYPosition;
+
+            CGFloat textViewHeight = MIN(CGRectGetHeight(_textFieldView.frame), (CGRectGetHeight(rootSuperViewFrameInWindow)-topLayoutGuide-keyboardOverlapping));
             
             if (_textFieldView.frame.size.height-textView.contentInset.bottom>textViewHeight)
             {

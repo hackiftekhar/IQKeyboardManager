@@ -935,7 +935,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let textFieldView = _textFieldView,
             let rootController = textFieldView.parentContainerViewController(),
             let window = keyWindow(),
-            let textFieldViewRect = textFieldView.superview?.convert(textFieldView.frame, to: window)
+            let textFieldViewRectInWindow = textFieldView.superview?.convert(textFieldView.frame, to: window),
+            let textFieldViewRectInRootSuperview = textFieldView.superview?.convert(textFieldView.frame, to: rootController.view?.superview)
         {
             let startTime = CACurrentMediaTime()
             showLog("****** \(#function) started ******")
@@ -964,7 +965,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  Move negative = textField is showing.
             
             //  Calculating move position.
-            move = min(textFieldViewRect.minY-(topLayoutGuide), textFieldViewRect.maxY-(window.frame.height-kbSize.height))
+            move = min(textFieldViewRectInRootSuperview.minY-(topLayoutGuide), textFieldViewRectInWindow.maxY-(window.frame.height-kbSize.height))
             
             showLog("Need to move: \(move)")
             
@@ -1152,7 +1153,22 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
             if let textView = textFieldView as? UITextView {
-                let textViewHeight = min(textView.frame.height, (window.frame.height-(kbSize.height-newKeyboardDistanceFromTextField)-(topLayoutGuide)))
+                
+//                CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
+//
+//                CGFloat keyboardOverlapping = CGRectGetMaxY(rootSuperViewFrameInWindow) - keyboardYPosition;
+//
+//                CGFloat textViewHeight = MIN(CGRectGetHeight(_textFieldView.frame), (CGRectGetHeight(rootSuperViewFrameInWindow)-topLayoutGuide-keyboardOverlapping));
+
+                let keyboardYPosition = window.frame.height - (kbSize.height-newKeyboardDistanceFromTextField)
+                var rootSuperViewFrameInWindow = window.frame
+                if let rootSuperview = rootController.view.superview {
+                    rootSuperViewFrameInWindow = rootSuperview.convert(rootSuperview.bounds, to: window)
+                }
+                
+                let keyboardOverlapping = rootSuperViewFrameInWindow.maxY - keyboardYPosition
+                
+                let textViewHeight = min(textView.frame.height, rootSuperViewFrameInWindow.height-topLayoutGuide-keyboardOverlapping)
                 
                 if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight)
                 {
