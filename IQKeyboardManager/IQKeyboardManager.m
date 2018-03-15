@@ -610,11 +610,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //Maintain keyboardDistanceFromTextField
     CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
-    
-    if (_textFieldView.isSearchBarTextField)
+
     {
-        UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
-        specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+        UISearchBar *searchBar = _textFieldView.searchBar;
+        
+        if (searchBar)
+        {
+            specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+        }
     }
     
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
@@ -1831,6 +1834,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         UIView *currentTextFieldView = _textFieldView;
         BOOL isAcceptAsFirstResponder = [self goPrevious];
         
+        NSInvocation *invocation = barButton.invocation;
+
+        //Handling search bar special case
+        {
+            UISearchBar *searchBar = _textFieldView.searchBar;
+            
+            if (searchBar)
+            {
+                invocation = searchBar.keyboardToolbar.previousBarButton.invocation;
+            }
+        }
+
         if (isAcceptAsFirstResponder == YES && barButton.invocation)
         {
             if (barButton.invocation.methodSignature.numberOfArguments > 2)
@@ -1857,6 +1872,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         UIView *currentTextFieldView = _textFieldView;
         BOOL isAcceptAsFirstResponder = [self goNext];
         
+        NSInvocation *invocation = barButton.invocation;
+
+        //Handling search bar special case
+        {
+            UISearchBar *searchBar = _textFieldView.searchBar;
+            
+            if (searchBar)
+            {
+                invocation = searchBar.keyboardToolbar.nextBarButton.invocation;
+            }
+        }
+
         if (isAcceptAsFirstResponder == YES && barButton.invocation)
         {
             if (barButton.invocation.methodSignature.numberOfArguments > 2)
@@ -1881,6 +1908,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     UIView *currentTextFieldView = _textFieldView;
     BOOL isResignedFirstResponder = [self resignFirstResponder];
     
+    NSInvocation *invocation = barButton.invocation;
+
+    //Handling search bar special case
+    {
+        UISearchBar *searchBar = _textFieldView.searchBar;
+        
+        if (searchBar)
+        {
+            invocation = searchBar.keyboardToolbar.doneBarButton.invocation;
+        }
+    }
+
     if (isResignedFirstResponder == YES && barButton.invocation)
     {
         if (barButton.invocation.methodSignature.numberOfArguments > 2)

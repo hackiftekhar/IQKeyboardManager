@@ -51,10 +51,10 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
 
         didSet {
             
-            if let color = privateSelectableTitleColor {
+            if let color = titleColor {
                 titleButton?.setTitleColor(color, for:.disabled)
             } else {
-                titleButton?.setTitleColor(UIColor.lightGray)
+                titleButton?.setTitleColor(UIColor.lightGray, for:.disabled)
             }
         }
     }
@@ -66,7 +66,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         
         didSet {
             
-            if let color = privateSelectableTitleColor {
+            if let color = selectableTitleColor {
                 titleButton?.setTitleColor(color, for:.normal)
             } else {
                 titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:.normal)

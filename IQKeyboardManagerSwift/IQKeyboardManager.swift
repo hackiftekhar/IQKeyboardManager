@@ -588,9 +588,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goPrevious()
                 
+                var invocation = barButton.invocation
+                //Handling search bar special case
+                do {
+                    if let searchBar = textFieldRetain.searchBar() {
+                        invocation = searchBar.keyboardToolbar.previousBarButton.invocation;
+                    }
+                }
+
                 if isAcceptAsFirstResponder,
-                    let target = barButton.invocation?.target,
-                    let action = barButton.invocation?.action {
+                    let target = invocation?.target,
+                    let action = invocation?.action {
                     
                     UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
                 }
@@ -612,9 +620,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             if let textFieldRetain = _textFieldView {
                 let isAcceptAsFirstResponder = goNext()
                 
+                var invocation = barButton.invocation
+                //Handling search bar special case
+                do {
+                    if let searchBar = textFieldRetain.searchBar() {
+                        invocation = searchBar.keyboardToolbar.nextBarButton.invocation;
+                    }
+                }
+
                 if isAcceptAsFirstResponder,
-                    let target = barButton.invocation?.target,
-                    let action = barButton.invocation?.action {
+                    let target = invocation?.target,
+                    let action = invocation?.action {
                     
                     UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
                 }
@@ -635,9 +651,17 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Resign textFieldView.
             let isResignedFirstResponder = resignFirstResponder()
             
+            var invocation = barButton.invocation
+            //Handling search bar special case
+            do {
+                if let searchBar = textFieldRetain.searchBar() {
+                    invocation = searchBar.keyboardToolbar.doneBarButton.invocation;
+                }
+            }
+
             if isResignedFirstResponder,
-                let target = barButton.invocation?.target,
-                let action = barButton.invocation?.action {
+                let target = invocation?.target,
+                let action = invocation?.action {
                 
                 UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
             }
@@ -956,11 +980,9 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Maintain keyboardDistanceFromTextField
             var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
             
-            if textFieldView.isSearchBarTextField() {
+            if let searchBar = textFieldView.searchBar() {
                 
-                if  let searchBar = textFieldView.superviewOfClassType(UISearchBar.self) {
-                    specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
-                }
+                specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
             }
             
             let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField

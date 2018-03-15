@@ -251,7 +251,7 @@ public extension UIView {
         }
         
         if _IQcanBecomeFirstResponder == true {
-            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && isSearchBarTextField() == false
+            _IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && searchBar() == nil
         }
 
         return _IQcanBecomeFirstResponder
@@ -262,27 +262,24 @@ public extension UIView {
     ///-------------------------
     
     /**
-    Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+     Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
     */
-    internal func isSearchBarTextField()-> Bool {
+    internal func searchBar()-> UISearchBar? {
         
-        var searchBar : UIResponder? = self.next
+        var responder : UIResponder? = self.next
         
-        var isSearchBarTextField = false
-        
-        while let bar = searchBar, isSearchBarTextField == false {
+        while let bar = responder {
             
-            if bar.isKind(of: UISearchBar.self) {
-                isSearchBarTextField = true
-                break
+            if let searchBar = bar as? UISearchBar {
+                return searchBar
             } else if bar is UIViewController {
                 break
             }
             
-            searchBar = bar.next
+            responder = bar.next
         }
         
-        return isSearchBarTextField
+        return nil
     }
     
     /**

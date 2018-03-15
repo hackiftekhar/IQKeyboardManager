@@ -74,9 +74,9 @@
 ///-------------------------
 
 /**
- Returns YES if the receiver object is UISearchBarTextField, otherwise return NO.
+ Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
  */
-@property (nonatomic, getter=isSearchBarTextField, readonly) BOOL searchBarTextField;
+@property (nullable, nonatomic, readonly) UISearchBar *searchBar;
 
 /**
  Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.

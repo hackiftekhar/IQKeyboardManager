@@ -192,7 +192,7 @@
 
     if (_IQcanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && ![self isSearchBarTextField]);
+        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.searchBar);
     }
     
     return _IQcanBecomeFirstResponder;
@@ -362,17 +362,15 @@
     return debugInfo;
 }
 
--(BOOL)isSearchBarTextField
+-(UISearchBar *)searchBar
 {
     UIResponder *searchBar = [self nextResponder];
     
-    BOOL isSearchBarTextField = NO;
-    while (searchBar && isSearchBarTextField == NO)
+    while (searchBar)
     {
         if ([searchBar isKindOfClass:[UISearchBar class]])
         {
-            isSearchBarTextField = YES;
-            break;
+            return (UISearchBar*)searchBar;
         }
         else if ([searchBar isKindOfClass:[UIViewController class]])    //If found viewcontroller but still not found UISearchBar then it's not the search bar textfield
         {
@@ -382,7 +380,7 @@
         searchBar = [searchBar nextResponder];
     }
     
-    return isSearchBarTextField;
+    return nil;
 }
 
 -(BOOL)isAlertViewTextField
