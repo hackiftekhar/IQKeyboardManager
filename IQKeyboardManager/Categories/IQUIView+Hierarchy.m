@@ -41,7 +41,7 @@
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
--(UIViewController*)viewController
+-(UIViewController*)viewContainingController
 {
     UIResponder *nextResponder =  self;
     
@@ -74,7 +74,7 @@
         [controllersHierarchy addObject:topController];
     }
     
-    UIViewController *matchController = [self viewController];
+    UIViewController *matchController = [self viewContainingController];
     
     while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
     {
@@ -90,7 +90,7 @@
 
 -(UIViewController *)parentContainerViewController
 {
-    UIViewController *matchController = [self viewController];
+    UIViewController *matchController = [self viewContainingController];
     
     if (matchController.navigationController)
     {
@@ -387,7 +387,7 @@
 
 -(BOOL)isAlertViewTextField
 {
-    UIResponder *alertViewController = [self viewController];
+    UIResponder *alertViewController = [self viewContainingController];
     
     BOOL isAlertViewTextField = NO;
     while (alertViewController && isAlertViewTextField == NO)

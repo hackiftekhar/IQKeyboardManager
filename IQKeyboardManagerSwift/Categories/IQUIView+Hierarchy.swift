@@ -36,7 +36,7 @@ public extension UIView {
     /**
     Returns the UIViewController object that manages the receiver.
     */
-    public func viewController()->UIViewController? {
+    public func viewContainingController()->UIViewController? {
         
         var nextResponder: UIResponder? = self
         
@@ -69,7 +69,7 @@ public extension UIView {
                 controllersHierarchy.append(presented)
             }
             
-            var matchController :UIResponder? = viewController()
+            var matchController :UIResponder? = viewContainingController()
 
             while matchController != nil && controllersHierarchy.contains(matchController as! UIViewController) == false {
                 
@@ -82,7 +82,7 @@ public extension UIView {
             return matchController as? UIViewController
             
         } else {
-            return viewController()
+            return viewContainingController()
         }
     }
     
@@ -91,7 +91,7 @@ public extension UIView {
      */
     public func parentContainerViewController()->UIViewController? {
         
-        var matchController = viewController()
+        var matchController = viewContainingController()
         
         if var navController = matchController?.navigationController {
             
@@ -290,7 +290,7 @@ public extension UIView {
     */
     internal func isAlertViewTextField()->Bool {
         
-        var alertViewController : UIResponder? = self.viewController()
+        var alertViewController : UIResponder? = viewContainingController()
         
         var isAlertViewTextField = false
         

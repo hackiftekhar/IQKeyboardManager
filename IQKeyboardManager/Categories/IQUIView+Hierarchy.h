@@ -38,7 +38,7 @@
 /**
  Returns the UIViewController object that manages the receiver.
  */
-@property (nullable, nonatomic, readonly, strong) UIViewController *viewController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *viewContainingController;
 
 /**
  Returns the topMost UIViewController object in hierarchy.

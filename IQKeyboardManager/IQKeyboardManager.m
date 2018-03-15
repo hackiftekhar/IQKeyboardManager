@@ -332,7 +332,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    }
 //    else
     {
-        UIViewController *textFieldViewController = [_textFieldView viewController];
+        UIViewController *textFieldViewController = [_textFieldView viewContainingController];
         
         if (textFieldViewController)
         {
@@ -425,7 +425,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     else
     {
-        UIViewController *textFieldViewController = [_textFieldView viewController];
+        UIViewController *textFieldViewController = [_textFieldView viewContainingController];
         
         if (textFieldViewController)
         {
@@ -495,7 +495,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     BOOL enableAutoToolbar = _enableAutoToolbar;
     
-    UIViewController *textFieldViewController = [_textFieldView viewController];
+    UIViewController *textFieldViewController = [_textFieldView viewContainingController];
     
     if (textFieldViewController)
     {

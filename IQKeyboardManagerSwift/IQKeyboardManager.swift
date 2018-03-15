@@ -95,7 +95,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 //            isEnabled = false
 //        } else {
         
-            if let textFieldViewController = _textFieldView?.viewController() {
+            if let textFieldViewController = _textFieldView?.viewContainingController() {
                 
                 if isEnabled == false {
                     
@@ -213,7 +213,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         var enableToolbar = enableAutoToolbar
         
-        if let textFieldViewController = _textFieldView?.viewController() {
+        if let textFieldViewController = _textFieldView?.viewContainingController() {
             
             if enableToolbar == false {
                 
@@ -388,7 +388,7 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         } else if enableMode == .disabled {
             shouldResign = false
         } else {
-            if let textFieldViewController = _textFieldView?.viewController() {
+            if let textFieldViewController = _textFieldView?.viewContainingController() {
                 
                 if shouldResign == false {
                     
