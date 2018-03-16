@@ -8,17 +8,12 @@
 
 
 [![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
-[![Coverage Status](http://img.shields.io/coveralls/hackiftekhar/IQKeyboardManager/master.svg)](https://coveralls.io/r/hackiftekhar/IQKeyboardManager?branch=master)
-[![Code Health](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master/landscape.svg?style=flat)](https://landscape.io/github/hackiftekhar/IQKeyboardManager/master)
 
 
 Often while developing an app, We ran into an issues where the iPhone keyboard slide up and cover the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and cover `UITextField/UITextView` without needing you to enter any code and no additional setup required. To use `IQKeyboardManager` you simply need to add source files to your project.
 
 
 #### Key Features
-
-[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/pr?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
-[![Issue Stats](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager/badge/issue?style=flat)](http://issuestats.com/github/hackiftekhar/iqkeyboardmanager)
 
 1) `**CODELESS**, Zero Lines Of Code`
 
@@ -49,7 +44,7 @@ alt="IQKeyboardManager Demo Video" width="480" height="360" border="10" /></a>
 
 ## Tutorial video by @rebeloper ([#1135](https://github.com/hackiftekhar/IQKeyboardManager/issues/1135))
 
-@rebeloper demonstrated two videos on how to implement this library at it's core:
+@rebeloper demonstrated two videos on how to implement **IQKeyboardManager** at it's core:
 
 <a href="https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v" target="_blank"><img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/ThirdPartyYoutubeTutorial.jpg"
 alt="Youtube Tutorial Playlist"/></a>
@@ -58,8 +53,8 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 ## Warning
 
-- **If you're planning to build SDK/library/framework and wants to handle UITextField/UITextView with IQKeyboardManager then you're totally going on wrong way.** I would never suggest to add IQKeyboardManager as dependency/adding/shipping with any third-party library, instead of adding IQKeyboardManager you should implement your custom solution to achieve same result. IQKeyboardManager is totally designed for projects to help developers for their convenience, it's not designed for adding/dependency/shipping with any third-party library, because **doing this could block adoption by other developers for their projects as well(who are not using IQKeyboardManager and implemented their custom solution to handle UITextField/UITextView thought the project).**
-- If IQKeyboardManager conflicts with other third-party library, then it's developer responsibility to enable/disable IQKeyboardManager when presenting/dismissing third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
+- **If you're planning to build SDK/library/framework and wants to handle UITextField/UITextView with IQKeyboardManager then you're totally going on wrong way.** I would never suggest to add **IQKeyboardManager** as **dependency/adding/shipping** with any third-party library, instead of adding **IQKeyboardManager** you should implement your own solution to achieve same kind of results. **IQKeyboardManager** is totally designed for projects to help developers for their convenience, it's not designed for **adding/dependency/shipping** with any **third-party library**, because **doing this could block adoption by other developers for their projects as well(who are not using IQKeyboardManager and implemented their custom solution to handle UITextField/UITextView thought the project).**
+- If **IQKeyboardManager** conflicts with other **third-party library**, then it's **developer responsibility** to **enable/disable IQKeyboardManager** when **presenting/dismissing** third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
 
 ## Requirements
 [![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)]()
@@ -77,7 +72,7 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 | Swift       | Xcode | IQKeyboardManagerSwift |
 |-------------|-------|------------------------|
-| 4.X         | 9.0   | >= 5.0.0               |
+| 4.X         | 9.0   | >= 6.0.0               |
 | 4.0         | 9.0   | 5.0.0                  |
 | 3.1         | 8.3   | 4.0.10                 |
 | 3.0 (3.0.2) | 8.2   | 4.0.8                  |
@@ -86,7 +81,7 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 | 2.0         | 7.0   | 3.3.3.1                |
 
 **Note**
-- `5.0.0` is backward compatible till Swift 3.
+- `6.0.0` is backward compatible till Swift 3.
 
 Installation
 ==========================
@@ -185,28 +180,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
+Migration Guide
+==========================
+- [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-6.0.0-Migration-Guide)
 
-## Known Issues
+Other Links
+==========================
 
-You can find wiki documentation for known issues list [here](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Known-Issues).
-
-Manual Management:
----
-
-You can find some wiki documentation for manual management tweaks & examples [here](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Manual-Management).
-
-
+- [Known Issues](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Known-Issues)
+- [Manual Management Tweaks](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Manual-Management)
+- [Properties and functions usage](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Properties-&-Functions)
 
 ## Flow Diagram
 [![IQKeyboardManager CFD](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerFlowDiagram.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerFlowDiagram.jpg)
 
-If you would like to see detailed Flow diagram then see [here](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg).
-
-
-
-## Properties and functions usage
-
-You can find some wiki documentation about properties, methods and their uses [here](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Properties-&-Functions).
+If you would like to see detailed Flow diagram then see [Detailed Flow Diagram](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg).
 
 
 LICENSE
