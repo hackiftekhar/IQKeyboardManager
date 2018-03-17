@@ -78,7 +78,10 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 | 3.0 (3.0.2) | 8.2   | 4.0.8                  |
 | 2.2 or 2.3  | 7.3   | 4.0.5                  |
 | 2.1.1       | 7.2   | 4.0.0                  |
+| 2.1         | 7.2   | 3.3.7                  |
 | 2.0         | 7.0   | 3.3.3.1                |
+| 1.2         | 6.3   | 3.3.1                  |
+| 1.0         | 6.0   | 3.3.2                  |
 
 **Note**
 - `6.0.0` is backward compatible till Swift 3.
