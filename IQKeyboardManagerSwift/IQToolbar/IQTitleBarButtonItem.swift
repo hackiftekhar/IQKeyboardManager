@@ -77,7 +77,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    override open var invocation : (target: AnyObject?, action: Selector?)? {
+    override open var invocation : IQInvocation? {
 
         didSet {
             
