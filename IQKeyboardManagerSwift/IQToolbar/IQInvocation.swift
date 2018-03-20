@@ -9,11 +9,17 @@
 import Foundation
 
 open class IQInvocation {
-    var target: AnyObject?
-    var action: Selector?
+    weak var target: AnyObject?
+    var action: Selector
     
-    init(_ target: AnyObject?, _ action: Selector?) {
+    init(_ target: AnyObject, _ action: Selector) {
         self.target = target
         self.action = action
+    }
+    
+    func invoke(from: Any) {
+        if let target = target {
+            UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
+        }
     }
 }
