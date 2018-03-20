@@ -109,8 +109,11 @@ open class IQBarButtonItem: UIBarButtonItem {
      @param action Target Selector.
      */
     open func setTarget(_ target: AnyObject?, action: Selector?) {
-        guard let target = target, let action = action else { return }
-        invocation = IQInvocation(target, action)
+        if let target = target, let action = action {
+            invocation = IQInvocation(target, action)
+        } else {
+            invocation = nil
+        }
     }
     
     /**
@@ -120,5 +123,7 @@ open class IQBarButtonItem: UIBarButtonItem {
     
     deinit {
         target = nil
+        invocation?.target = nil
+        invocation = nil
     }
 }
