@@ -109,16 +109,19 @@ open class IQBarButtonItem: UIBarButtonItem {
      @param action Target Selector.
      */
     open func setTarget(_ target: AnyObject?, action: Selector?) {
-        invocation = (target, action)
+        if let target = target, let action = action {
+            invocation = IQInvocation(target, action)
+        } else {
+            invocation = nil
+        }
     }
     
     /**
      Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
      */
-    open var invocation : (target: AnyObject?, action: Selector?)?
+    open var invocation : IQInvocation?
     
     deinit {
-
         target = nil
         invocation?.target = nil
         invocation = nil

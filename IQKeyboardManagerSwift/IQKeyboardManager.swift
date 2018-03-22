@@ -596,11 +596,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
                 }
 
-                if isAcceptAsFirstResponder,
-                    let target = invocation?.target,
-                    let action = invocation?.action {
-                    
-                    UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
+                if isAcceptAsFirstResponder {
+                    invocation?.invoke(from: textFieldRetain)
                 }
             }
         }
@@ -628,11 +625,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }
                 }
 
-                if isAcceptAsFirstResponder,
-                    let target = invocation?.target,
-                    let action = invocation?.action {
-                    
-                    UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
+                if isAcceptAsFirstResponder {
+                    invocation?.invoke(from: textFieldRetain)
                 }
             }
         }
@@ -659,11 +653,8 @@ open class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 }
             }
 
-            if isResignedFirstResponder,
-                let target = invocation?.target,
-                let action = invocation?.action {
-                
-                UIApplication.shared.sendAction(action, to: target, from: textFieldRetain, for: UIEvent())
+            if isResignedFirstResponder {
+                invocation?.invoke(from: textFieldRetain)
             }
         }
     }
