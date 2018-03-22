@@ -102,11 +102,15 @@
         
         UIViewController *parentController = navController;
         
+        UIViewController *parentParentController = parentController.parentViewController;
+        
         while (parentController != nil &&
-               parentController.parentViewController &&
-               ([parentController.parentViewController isKindOfClass:[UINavigationController class]] == NO && [parentController.parentViewController isKindOfClass:[UITabBarController class]] == NO && [parentController.parentViewController isKindOfClass:[UISplitViewController class]] == NO))
+               parentParentController &&
+               ([parentParentController isKindOfClass:[UINavigationController class]] == NO &&
+                [parentParentController isKindOfClass:[UITabBarController class]] == NO &&
+                [parentParentController isKindOfClass:[UISplitViewController class]] == NO))
         {
-            parentController = [parentController parentViewController];
+            parentController = parentParentController;
         }
 
         if (navController == parentController)
@@ -131,11 +135,15 @@
     }
     else
     {
+        UIViewController *matchParentController = matchController.parentViewController;
+
         while (matchController != nil &&
-               matchController.parentViewController &&
-               ([matchController.parentViewController isKindOfClass:[UINavigationController class]] == NO && [matchController.parentViewController isKindOfClass:[UITabBarController class]] == NO && [matchController.parentViewController isKindOfClass:[UISplitViewController class]] == NO))
+               matchParentController &&
+               ([matchParentController isKindOfClass:[UINavigationController class]] == NO &&
+                [matchParentController isKindOfClass:[UITabBarController class]] == NO &&
+                [matchParentController isKindOfClass:[UISplitViewController class]] == NO))
         {
-            matchController = [matchController parentViewController];
+            matchController = matchParentController;
         }
         
         return matchController;

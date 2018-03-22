@@ -615,16 +615,17 @@
 {
     for (IQTextFieldViewInfoModal *modal in textFieldInfoCache)
     {
-        if ([modal.textFieldView isKindOfClass:[UITextField class]])
+        UIView *textFieldView = modal.textFieldView;
+        if ([textFieldView isKindOfClass:[UITextField class]])
         {
-            UITextField *textField = (UITextField*)modal.textFieldView;
+            UITextField *textField = (UITextField*)textFieldView;
             textField.returnKeyType = modal.originalReturnKeyType;
             textField.delegate = modal.textFieldDelegate
             ;
         }
-        else if ([modal.textFieldView isKindOfClass:[UITextView class]])
+        else if ([textFieldView isKindOfClass:[UITextView class]])
         {
-            UITextView *textView = (UITextView*)modal.textFieldView;
+            UITextView *textView = (UITextView*)textFieldView;
             textView.returnKeyType = modal.originalReturnKeyType;
             textView.delegate = modal.textViewDelegate;
         }

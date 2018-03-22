@@ -24,7 +24,7 @@
 #import <UIKit/UIView.h>
 #import "IQKeyboardManagerConstants.h"
 
-@class UICollectionView, UIScrollView, UITableView, NSArray;
+@class UICollectionView, UIScrollView, UITableView, UISearchBar, NSArray;
 
 /**
  UIView hierarchy category.

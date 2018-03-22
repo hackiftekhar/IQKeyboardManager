@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager.swift
+//  IQInvocation.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-16 Iftekhar Qurashi.
 //
@@ -28,12 +28,12 @@ open class IQInvocation {
     weak var target: AnyObject?
     var action: Selector
     
-    init(_ target: AnyObject, _ action: Selector) {
+    public init(_ target: AnyObject, _ action: Selector) {
         self.target = target
         self.action = action
     }
     
-    func invoke(from: Any) {
+    open func invoke(from: Any) {
         if let target = target {
             UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
         }
