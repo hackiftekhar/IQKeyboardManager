@@ -29,12 +29,12 @@ open class IQBarButtonItem: UIBarButtonItem {
 
     private static var _classInitialize: Void = classInitialize()
     
-    public override init() {
+    @objc public override init() {
         _ = IQBarButtonItem._classInitialize
           super.init()
       }
 
-    public required init?(coder aDecoder: NSCoder) {
+    @objc public required init?(coder aDecoder: NSCoder) {
         _ = IQBarButtonItem._classInitialize
            super.init(coder: aDecoder)
        }
@@ -59,7 +59,7 @@ open class IQBarButtonItem: UIBarButtonItem {
         appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
     
-    open override var tintColor: UIColor? {
+    @objc open override var tintColor: UIColor? {
         didSet {
 
             #if swift(>=4)
@@ -108,7 +108,7 @@ open class IQBarButtonItem: UIBarButtonItem {
      @param target Target object.
      @param action Target Selector.
      */
-    open func setTarget(_ target: AnyObject?, action: Selector?) {
+    @objc open func setTarget(_ target: AnyObject?, action: Selector?) {
         if let target = target, let action = action {
             invocation = IQInvocation(target, action)
         } else {

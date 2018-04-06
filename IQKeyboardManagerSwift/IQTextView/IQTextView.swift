@@ -27,7 +27,7 @@ import UIKit
 /** @abstract UITextView with placeholder support   */
 open class IQTextView : UITextView {
 
-    required public init?(coder aDecoder: NSCoder) {
+    @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
@@ -107,7 +107,7 @@ open class IQTextView : UITextView {
         }
     }
     
-    override open var text: String! {
+    @objc override open var text: String! {
         
         didSet {
             
@@ -116,7 +116,7 @@ open class IQTextView : UITextView {
         }
     }
     
-    override open var font : UIFont? {
+    @objc override open var font : UIFont? {
        
         didSet {
             
@@ -128,14 +128,14 @@ open class IQTextView : UITextView {
         }
     }
     
-    override open var textAlignment: NSTextAlignment
+    @objc override open var textAlignment: NSTextAlignment
     {
         didSet {
             placeholderLabel?.textAlignment = textAlignment
         }
     }
     
-    override open var delegate : UITextViewDelegate? {
+    @objc override open var delegate : UITextViewDelegate? {
         
         get {
             refreshPlaceholder()

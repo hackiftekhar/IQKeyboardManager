@@ -27,7 +27,7 @@ import UIKit
 
 open class IQTitleBarButtonItem: IQBarButtonItem {
    
-    open var titleFont : UIFont? {
+    @objc open var titleFont : UIFont? {
     
         didSet {
             if let unwrappedFont = titleFont {
@@ -62,7 +62,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      selectableTitleColor to be used for displaying button text when button is enabled.
      */
-    open var selectableTitleColor : UIColor? {
+    @objc open var selectableTitleColor : UIColor? {
         
         didSet {
             
@@ -165,7 +165,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         customView = _titleView
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
