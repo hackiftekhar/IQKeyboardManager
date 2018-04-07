@@ -68,7 +68,7 @@ public extension UIView {
     /**
     If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
     */
-    public var shouldHideToolbarPlaceholder: Bool {
+    @objc public var shouldHideToolbarPlaceholder: Bool {
         get {
             let aValue = objc_getAssociatedObject(self, &kIQShouldHideToolbarPlaceholder) as Any?
             
@@ -86,7 +86,7 @@ public extension UIView {
     }
 
     @available(*,deprecated, message: "This is renamed to `shouldHideToolbarPlaceholder` for more clear naming.")
-    public var shouldHidePlaceholderText: Bool {
+    @objc public var shouldHidePlaceholderText: Bool {
         get {
             return shouldHideToolbarPlaceholder
         }
@@ -98,7 +98,7 @@ public extension UIView {
     /**
      `toolbarPlaceholder` to override default `placeholder` text when drawing text on toolbar.
      */
-    public var toolbarPlaceholder: String? {
+    @objc public var toolbarPlaceholder: String? {
         get {
             let aValue = objc_getAssociatedObject(self, &kIQToolbarPlaceholder) as? String
             
@@ -112,7 +112,7 @@ public extension UIView {
     }
 
     @available(*,deprecated, message: "This is renamed to `toolbarPlaceholder` for more clear naming.")
-    public var placeholderText: String? {
+    @objc public var placeholderText: String? {
         get {
             return toolbarPlaceholder
         }
@@ -124,7 +124,7 @@ public extension UIView {
     /**
      `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. This would either `placeholder` or `toolbarPlaceholder`.
      */
-    public var drawingToolbarPlaceholder: String? {
+    @objc public var drawingToolbarPlaceholder: String? {
 
         if (self.shouldHideToolbarPlaceholder)
         {
@@ -149,7 +149,7 @@ public extension UIView {
     }
 
     @available(*,deprecated, message: "This is renamed to `drawingToolbarPlaceholder` for more clear naming.")
-    public var drawingPlaceholderText: String? {
+    @objc public var drawingPlaceholderText: String? {
         
         return drawingToolbarPlaceholder
     }
@@ -178,7 +178,7 @@ public extension UIView {
     @param target Target object for selector.
     @param action Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addDoneOnKeyboardWithTarget(_ target : AnyObject?, action : Selector) {
+    @objc public func addDoneOnKeyboardWithTarget(_ target : AnyObject?, action : Selector) {
         
         addDoneOnKeyboardWithTarget(target, action: action, titleText: nil)
     }
@@ -190,7 +190,7 @@ public extension UIView {
     @param action Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addDoneOnKeyboardWithTarget (_ target : AnyObject?, action : Selector, titleText: String?) {
+    @objc public func addDoneOnKeyboardWithTarget (_ target : AnyObject?, action : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -268,7 +268,7 @@ public extension UIView {
     @param action Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addDoneOnKeyboardWithTarget (_ target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addDoneOnKeyboardWithTarget (_ target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
         
@@ -292,7 +292,7 @@ public extension UIView {
      @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
      @param titleText text to show as title in IQToolbar'.
      */
-    public func addRightButtonOnKeyboardWithImage (_ image : UIImage, target : AnyObject?, action : Selector, titleText: String?) {
+    @objc public func addRightButtonOnKeyboardWithImage (_ image : UIImage, target : AnyObject?, action : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -374,7 +374,7 @@ public extension UIView {
      @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
      @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
      */
-    public func addRightButtonOnKeyboardWithImage (_ image : UIImage, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addRightButtonOnKeyboardWithImage (_ image : UIImage, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
         
@@ -392,7 +392,7 @@ public extension UIView {
     @param target Target object for selector.
     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector) {
+    @objc public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector) {
         
         addRightButtonOnKeyboardWithText(text, target: target, action: action, titleText: nil)
     }
@@ -405,7 +405,7 @@ public extension UIView {
     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, titleText: String?) {
+    @objc public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -487,7 +487,7 @@ public extension UIView {
     @param action Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addRightButtonOnKeyboardWithText (_ text : String, target : AnyObject?, action : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
 
@@ -510,7 +510,7 @@ public extension UIView {
     @param cancelAction Cancel button action name. Usually 'cancelAction:(IQBarButtonItem*)item'.
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector) {
+    @objc public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector) {
         
         addCancelDoneOnKeyboardWithTarget(target, cancelAction: cancelAction, doneAction: doneAction, titleText: nil)
     }
@@ -523,7 +523,7 @@ public extension UIView {
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector, titleText: String?) {
+    @objc public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -616,7 +616,7 @@ public extension UIView {
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addCancelDoneOnKeyboardWithTarget (_ target : AnyObject?, cancelAction : Selector, doneAction : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
         
@@ -641,7 +641,7 @@ public extension UIView {
     @param leftButtonAction Left button action name. Usually 'cancelAction:(IQBarButtonItem*)item'.
     @param rightButtonAction Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector) {
+    @objc public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector) {
         
         addRightLeftOnKeyboardWithTarget(target, leftButtonTitle: leftButtonTitle, rightButtonTitle: rightButtonTitle, rightButtonAction: rightButtonAction, leftButtonAction: leftButtonAction, titleText: nil)
     }
@@ -656,7 +656,7 @@ public extension UIView {
     @param rightButtonAction Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, titleText: String?) {
+    @objc public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -757,7 +757,7 @@ public extension UIView {
     @param rightButtonAction Right button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addRightLeftOnKeyboardWithTarget( _ target : AnyObject?, leftButtonTitle : String, rightButtonTitle : String, rightButtonAction : Selector, leftButtonAction : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
         
@@ -781,7 +781,7 @@ public extension UIView {
     @param nextAction Next button action name. Usually 'nextAction:(id)item'.
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector) {
+    @objc public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector) {
         
         addPreviousNextDoneOnKeyboardWithTarget(target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, titleText: nil)
     }
@@ -795,7 +795,7 @@ public extension UIView {
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector,  titleText: String?) {
+    @objc public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector,  titleText: String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -946,7 +946,7 @@ public extension UIView {
     @param doneAction Done button action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     */
-    public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector, shouldShowPlaceholder: Bool) {
+    @objc public func addPreviousNextDoneOnKeyboardWithTarget ( _ target : AnyObject?, previousAction : Selector, nextAction : Selector, doneAction : Selector, shouldShowPlaceholder: Bool) {
         
         var title : String?
         
@@ -971,7 +971,7 @@ public extension UIView {
     @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
+    @objc public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -1127,7 +1127,7 @@ public extension UIView {
     //    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     //    @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
     //    */
-    public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
+    @objc public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonImage : UIImage, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
         
         var title : String?
         
@@ -1148,7 +1148,7 @@ public extension UIView {
     @param nextAction Next button action name. Usually 'nextAction:(id)item'.
     @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     */
-    public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector) {
+    @objc public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector) {
         
         addPreviousNextRightOnKeyboardWithTarget(target, rightButtonTitle: rightButtonTitle, previousAction: previousAction, nextAction: nextAction, rightButtonAction: rightButtonAction, titleText: nil)
     }
@@ -1163,7 +1163,7 @@ public extension UIView {
     @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
     @param titleText text to show as title in IQToolbar'.
     */
-    public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
+    @objc public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, titleText : String?) {
         
         //If can't set InputAccessoryView. Then return
         if self.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
@@ -1318,7 +1318,7 @@ public extension UIView {
 //    @param rightButtonAction RightBarButton action name. Usually 'doneAction:(IQBarButtonItem*)item'.
 //    @param shouldShowPlaceholder A boolean to indicate whether to show textField placeholder on IQToolbar'.
 //    */
-    public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
+    @objc public func addPreviousNextRightOnKeyboardWithTarget( _ target : AnyObject?, rightButtonTitle : String, previousAction : Selector, nextAction : Selector, rightButtonAction : Selector, shouldShowPlaceholder : Bool) {
         
         var title : String?
         
