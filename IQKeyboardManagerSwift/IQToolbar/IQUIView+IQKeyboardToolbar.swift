@@ -34,6 +34,10 @@ UIView category methods to add IQToolbar on UIKeyboard.
 */
 public extension UIView {
     
+    ///--------------
+    /// MARK: Toolbar
+    ///--------------
+    
     /**
      IQToolbar references for better customization control.
      */
@@ -61,9 +65,9 @@ public extension UIView {
         }
     }
     
-    ///-------------------------
-    /// MARK: Title
-    ///-------------------------
+    ///--------------------
+    /// MARK: Toolbar title
+    ///--------------------
     
     /**
     If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
@@ -168,9 +172,9 @@ public extension UIView {
         return Static.nilButton
     }
 
-    ///------------
+    ///-----------
     /// MARK: Done
-    ///------------
+    ///-----------
     
     /**
     Helper function to add Done button on keyboard.

@@ -38,7 +38,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         }
     }
 
-    override open var title: String? {
+    @objc override open var title: String? {
         didSet {
                 titleButton?.setTitle(title, for: .normal)
         }
@@ -47,7 +47,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      titleColor to be used for displaying button text when displaying title (disabled state).
      */
-    open var titleColor : UIColor? {
+    @objc open var titleColor : UIColor? {
 
         didSet {
             
@@ -77,7 +77,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    override open var invocation : IQInvocation? {
+    @objc override open var invocation : IQInvocation? {
 
         didSet {
             
@@ -100,7 +100,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         super.init()
     }
     
-    convenience init(title : String?) {
+    @objc public convenience init(title : String?) {
 
         self.init(title: nil, style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         

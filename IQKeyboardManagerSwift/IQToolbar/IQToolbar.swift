@@ -155,13 +155,13 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         self.isTranslucent = true
     }
 
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+    @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFit = super.sizeThatFits(size)
         sizeThatFit.height = 44
         return sizeThatFit
     }
 
-    override open var tintColor: UIColor! {
+    @objc override open var tintColor: UIColor! {
         
         didSet {
             if let unwrappedItems = items {
@@ -172,7 +172,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
-    override open var barStyle: UIBarStyle {
+    @objc override open var barStyle: UIBarStyle {
         didSet {
             
             if titleBarButton.selectableTitleColor == nil {
@@ -185,7 +185,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
-    override open func layoutSubviews() {
+    @objc override open func layoutSubviews() {
 
         super.layoutSubviews()
 

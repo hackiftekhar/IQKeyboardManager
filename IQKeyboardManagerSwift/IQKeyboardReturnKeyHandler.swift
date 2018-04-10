@@ -27,10 +27,10 @@ import UIKit
 
 fileprivate class IQTextFieldViewInfoModal : NSObject {
 
-    open weak var textFieldDelegate: UITextFieldDelegate?
-    open weak var textViewDelegate: UITextViewDelegate?
-    open weak var textFieldView: UIView?
-    open var originalReturnKeyType = UIReturnKeyType.default
+    fileprivate weak var textFieldDelegate: UITextFieldDelegate?
+    fileprivate weak var textViewDelegate: UITextViewDelegate?
+    fileprivate weak var textFieldView: UIView?
+    fileprivate var originalReturnKeyType = UIReturnKeyType.default
     
     init(textFieldView : UIView?, textFieldDelegate : UITextFieldDelegate?, textViewDelegate : UITextViewDelegate?, originalReturnKeyType : UIReturnKeyType = .default) {
         self.textFieldView = textFieldView
@@ -43,7 +43,7 @@ fileprivate class IQTextFieldViewInfoModal : NSObject {
 /**
 Manages the return key to work like next/done in a view hierarchy.
 */
-open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDelegate {
+public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDelegate {
     
     
     ///---------------
@@ -53,12 +53,12 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Delegate of textField/textView.
     */
-    @objc open weak var delegate: (UITextFieldDelegate & UITextViewDelegate)?
+    @objc public weak var delegate: (UITextFieldDelegate & UITextViewDelegate)?
     
     /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.
     */
-    @objc open var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.default {
+    @objc public var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.default {
         
         didSet {
             
@@ -187,9 +187,9 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType.
     
-    @param textFieldView UITextField/UITextView object to register.
+    @param view UITextField/UITextView object to register.
     */
-    @objc open func addTextFieldView(_ view : UIView) {
+    @objc public func addTextFieldView(_ view : UIView) {
         
         let modal = IQTextFieldViewInfoModal(textFieldView: view, textFieldDelegate: nil, textViewDelegate: nil)
         
@@ -212,9 +212,9 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType.
     
-    @param textFieldView UITextField/UITextView object to unregister.
+    @param view UITextField/UITextView object to unregister.
     */
-    @objc open func removeTextFieldView(_ view : UIView) {
+    @objc public func removeTextFieldView(_ view : UIView) {
         
         if let modal = textFieldViewCachedInfo(view) {
             
@@ -238,9 +238,9 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Add all the UITextField/UITextView responderView's.
     
-    @param UIView object to register all it's responder subviews.
+    @param view UIView object to register all it's responder subviews.
     */
-    @objc open func addResponderFromView(_ view : UIView) {
+    @objc public func addResponderFromView(_ view : UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -253,9 +253,9 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     /**
     Remove all the UITextField/UITextView responderView's.
     
-    @param UIView object to unregister all it's responder subviews.
+    @param view UIView object to unregister all it's responder subviews.
     */
-    @objc open func removeResponderFromView(_ view : UIView) {
+    @objc public func removeResponderFromView(_ view : UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -318,11 +318,11 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
 
-    ///----------------------------------------------
+    ///---------------------------------------
     /// MARK: UITextField/UITextView delegates
-    ///----------------------------------------------
+    ///---------------------------------------
     
-    @objc open func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    @objc public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if delegate == nil {
             
@@ -336,7 +336,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
-    @objc open func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    @objc public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
         if delegate == nil {
             
@@ -350,7 +350,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
-    @objc open func textFieldDidBeginEditing(_ textField: UITextField) {
+    @objc public func textFieldDidBeginEditing(_ textField: UITextField) {
         updateReturnKeyTypeOnTextField(textField)
         
         var aDelegate : UITextFieldDelegate? = delegate
@@ -365,7 +365,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         aDelegate?.textFieldDidBeginEditing?(textField)
     }
     
-    @objc open func textFieldDidEndEditing(_ textField: UITextField) {
+    @objc public func textFieldDidEndEditing(_ textField: UITextField) {
         
         var aDelegate : UITextFieldDelegate? = delegate
         
@@ -380,7 +380,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     @available(iOS 10.0, *)
-    @objc open func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
 
         var aDelegate : UITextFieldDelegate? = delegate
         
@@ -394,7 +394,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         aDelegate?.textFieldDidEndEditing?(textField, reason: reason)
     }
 
-    @objc open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    @objc public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if delegate == nil {
             
@@ -407,7 +407,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
-    @objc open func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    @objc public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         
         if delegate == nil {
             
@@ -422,7 +422,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     
-    @objc open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         var shouldReturn = true
 
@@ -444,7 +444,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     
-    @objc open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
         if delegate == nil {
             
@@ -458,7 +458,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
-    @objc open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    @objc public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
         if delegate == nil {
             
@@ -472,7 +472,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return true
     }
     
-    @objc open func textViewDidBeginEditing(_ textView: UITextView) {
+    @objc public func textViewDidBeginEditing(_ textView: UITextView) {
         updateReturnKeyTypeOnTextField(textView)
         
         var aDelegate : UITextViewDelegate? = delegate
@@ -487,7 +487,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         aDelegate?.textViewDidBeginEditing?(textView)
     }
     
-    @objc open func textViewDidEndEditing(_ textView: UITextView) {
+    @objc public func textViewDidEndEditing(_ textView: UITextView) {
         
         var aDelegate : UITextViewDelegate? = delegate
         
@@ -501,7 +501,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         aDelegate?.textViewDidEndEditing?(textView)
     }
     
-    @objc open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    @objc public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         var shouldReturn = true
         
@@ -521,7 +521,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         return shouldReturn
     }
     
-    @objc open func textViewDidChange(_ textView: UITextView) {
+    @objc public func textViewDidChange(_ textView: UITextView) {
         
         var aDelegate : UITextViewDelegate? = delegate
         
@@ -535,7 +535,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
         aDelegate?.textViewDidChange?(textView)
     }
     
-    @objc open func textViewDidChangeSelection(_ textView: UITextView) {
+    @objc public func textViewDidChangeSelection(_ textView: UITextView) {
         
         var aDelegate : UITextViewDelegate? = delegate
         
@@ -550,7 +550,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     @available(iOS 10.0, *)
-    @objc open func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    @objc public func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         if delegate == nil {
             
@@ -565,7 +565,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     @available(iOS 10.0, *)
-    @objc open func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    @objc public func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         if delegate == nil {
             
@@ -580,7 +580,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     @available(iOS, deprecated: 10.0)
-    @objc open func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    @objc public func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         
         if delegate == nil {
             
@@ -595,7 +595,7 @@ open class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextVie
     }
     
     @available(iOS, deprecated: 10.0)
-    @objc open func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+    @objc public func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         
         if delegate == nil {
             

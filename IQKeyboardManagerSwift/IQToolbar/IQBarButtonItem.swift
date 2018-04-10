@@ -59,7 +59,7 @@ open class IQBarButtonItem: UIBarButtonItem {
         appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
     
-    @objc open override var tintColor: UIColor? {
+    @objc override open var tintColor: UIColor? {
         didSet {
 
             #if swift(>=4)
@@ -98,10 +98,6 @@ open class IQBarButtonItem: UIBarButtonItem {
      */
     @objc internal var isSystemItem = false
     
-//    public override init(barButtonSystemItem systemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
-//        return super.init(barButtonSystemItem: systemItem, target: target, action: action)
-//    }
-
     /**
      Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
      
@@ -119,7 +115,7 @@ open class IQBarButtonItem: UIBarButtonItem {
     /**
      Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
      */
-    open var invocation : IQInvocation?
+    @objc open var invocation : IQInvocation?
     
     deinit {
         target = nil

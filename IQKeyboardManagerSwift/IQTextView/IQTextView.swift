@@ -32,12 +32,12 @@ open class IQTextView : UITextView {
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
 
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    @objc override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
     
-    override open func awakeFromNib() {
+    @objc override open func awakeFromNib() {
          super.awakeFromNib()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: Notification.Name.UITextViewTextDidChange, object: self)
     }
@@ -48,7 +48,7 @@ open class IQTextView : UITextView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private var placeholderLabel: UILabel?
+    internal var placeholderLabel: UILabel?
     
     /** @abstract To set textView's placeholder text. Default is ni.    */
     @IBInspectable open var placeholder : String? {
@@ -82,7 +82,7 @@ open class IQTextView : UITextView {
         }
     }
     
-    open override func layoutSubviews() {
+    @objc override open func layoutSubviews() {
         super.layoutSubviews()
         
         if let unwrappedPlaceholderLabel = placeholderLabel {
