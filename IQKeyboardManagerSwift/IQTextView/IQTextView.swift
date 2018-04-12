@@ -50,8 +50,8 @@ open class IQTextView : UITextView {
     
     internal var placeholderLabel: UILabel?
     
-    /** @abstract To set textView's placeholder text color. Default is UIColor(white: 0.7, alpha: 1.0) */
-    @IBInspectable open var placeholderTextColor : UIColor {
+    /** @abstract To set textView's placeholder text color. */
+    @IBInspectable open var placeholderTextColor : UIColor? {
         
         get {
             return placeholderLabel?.textColor
