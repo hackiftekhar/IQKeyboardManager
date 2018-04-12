@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 
-import Foundation
+import UIKit
 
 public class IQInvocation : NSObject {
     public weak var target: AnyObject?
