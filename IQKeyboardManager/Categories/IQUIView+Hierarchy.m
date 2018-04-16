@@ -52,7 +52,7 @@
         if ([nextResponder isKindOfClass:[UIViewController class]])
             return (UIViewController*)nextResponder;
 
-    } while (nextResponder != nil);
+    } while (nextResponder);
 
     return nil;
 }
@@ -76,13 +76,13 @@
     
     UIViewController *matchController = [self viewContainingController];
     
-    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
+    while (matchController && [controllersHierarchy containsObject:matchController] == NO)
     {
         do
         {
             matchController = (UIViewController*)[matchController nextResponder];
             
-        } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
+        } while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
     
     return matchController;
@@ -104,13 +104,13 @@
         
         UIViewController *parentParentController = parentController.parentViewController;
         
-        while (parentController != nil &&
-               parentParentController &&
+        while (parentParentController &&
                ([parentParentController isKindOfClass:[UINavigationController class]] == NO &&
                 [parentParentController isKindOfClass:[UITabBarController class]] == NO &&
                 [parentParentController isKindOfClass:[UISplitViewController class]] == NO))
         {
             parentController = parentParentController;
+            parentParentController = parentController.parentViewController;
         }
 
         if (navController == parentController)
@@ -137,7 +137,7 @@
     {
         UIViewController *matchParentController = matchController.parentViewController;
 
-        while (matchController != nil &&
+        while (matchController &&
                matchParentController &&
                ([matchParentController isKindOfClass:[UINavigationController class]] == NO &&
                 [matchParentController isKindOfClass:[UITabBarController class]] == NO &&

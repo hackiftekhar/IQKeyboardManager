@@ -173,7 +173,7 @@
     {
         superConsideredView = [textField superviewOfClassType:consideredClass];
         
-        if (superConsideredView != nil)
+        if (superConsideredView)
             break;
     }
 
@@ -222,7 +222,7 @@
     {
         superConsideredView = [textField superviewOfClassType:consideredClass];
         
-        if (superConsideredView != nil)
+        if (superConsideredView)
             break;
     }
     
