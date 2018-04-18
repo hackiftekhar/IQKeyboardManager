@@ -1,3 +1,8 @@
+## 6.0.1 (16-4-2018 | 4 days)
+
+#### Bug fixes
+- Fixed an issue where `parentContainerViewController` method stuck with infinite loop
+
 ## 6.0.0 (12-4-2018 | 1 month, 3 days)
 
 #### Bug fixes
