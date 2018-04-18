@@ -137,13 +137,13 @@
     {
         UIViewController *matchParentController = matchController.parentViewController;
 
-        while (matchController &&
-               matchParentController &&
+        while (matchParentController &&
                ([matchParentController isKindOfClass:[UINavigationController class]] == NO &&
                 [matchParentController isKindOfClass:[UITabBarController class]] == NO &&
                 [matchParentController isKindOfClass:[UISplitViewController class]] == NO))
         {
             matchController = matchParentController;
+            matchParentController = matchController.parentViewController;
         }
         
         return matchController;
