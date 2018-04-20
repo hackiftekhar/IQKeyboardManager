@@ -28,7 +28,7 @@
 
 #import <UIKit/UITextInputTraits.h>
 
-@class UITextField, UIView, UIViewController;
+@class UITextField, UIView, UIViewController, UITableViewCell;
 @protocol UITextFieldDelegate, UITextViewDelegate;
 
 /**
@@ -44,6 +44,11 @@
  Add all the textFields available in UIViewController's view.
  */
 -(nonnull instancetype)initWithViewController:(nullable UIViewController*)controller NS_DESIGNATED_INITIALIZER;
+
+/**
+ Add all the textFields available in UITableViewCells's content view.
+ */
+-(nonnull instancetype)initWithTableViewCell:(nullable UITableViewCell*)cell NS_DESIGNATED_INITIALIZER;
 
 /**
  Unavailable. Please use initWithViewController: or init method
