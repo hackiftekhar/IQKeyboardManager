@@ -87,6 +87,15 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         
         addResponderFromView(controller.view)
     }
+    
+    /**
+     Add all the textFields available in UITableViewCells's content view.
+     */
+    @objc public init(cell : UITableViewCell) {
+        super.init()
+        
+        addResponderFromView(cell.contentView)
+    }
 
     deinit {
         

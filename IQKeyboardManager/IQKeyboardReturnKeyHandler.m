@@ -29,6 +29,7 @@
 #import <UIKit/UITextField.h>
 #import <UIKit/UITextView.h>
 #import <UIKit/UIViewController.h>
+#import <UIKit/UITableViewCell.h>
 
 @interface IQTextFieldViewInfoModal : NSObject
 
@@ -95,6 +96,24 @@
     
     return self;
 }
+
+-(instancetype)initWithTableViewCell:(nullable UITableViewCell*)cell
+{
+    self = [super init];
+    
+    if (self)
+    {
+        textFieldInfoCache = [[NSMutableSet alloc] init];
+        
+        if (cell.contentView)
+        {
+            [self addResponderFromView:cell.contentView];
+        }
+    }
+    
+    return self;
+}
+
 
 -(IQTextFieldViewInfoModal*)textFieldViewCachedInfo:(UIView*)textField
 {
