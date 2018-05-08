@@ -683,7 +683,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             if (_lastScrollView.shouldRestoreScrollViewContentOffset)
             {
-                [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+                [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
 
             _startingContentInsets = UIEdgeInsetsZero;
@@ -709,7 +709,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
             if (_lastScrollView.shouldRestoreScrollViewContentOffset)
             {
-                [_lastScrollView setContentOffset:_startingContentOffset animated:YES];
+                [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
             
             _lastScrollView = superScrollView;

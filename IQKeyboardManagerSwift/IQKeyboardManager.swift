@@ -1022,7 +1022,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }) { (animated:Bool) -> Void in }
                     
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                        lastScrollView.setContentOffset(_startingContentOffset, animated: true)
+                        lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
                     }
                     
                     _startingContentInsets = UIEdgeInsets.zero
@@ -1040,7 +1040,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     }) { (animated:Bool) -> Void in }
                     
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                        lastScrollView.setContentOffset(_startingContentOffset, animated: true)
+                        lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
                     }
                     
                     _lastScrollView = superScrollView
