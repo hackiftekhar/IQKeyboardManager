@@ -38,4 +38,8 @@ public class IQInvocation : NSObject {
             UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
         }
     }
+
+    deinit {
+        target = nil
+    }
 }

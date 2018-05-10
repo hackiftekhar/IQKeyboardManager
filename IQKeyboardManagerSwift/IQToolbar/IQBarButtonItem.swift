@@ -119,7 +119,6 @@ open class IQBarButtonItem: UIBarButtonItem {
     
     deinit {
         target = nil
-        invocation?.target = nil
         invocation = nil
     }
 }
