@@ -44,7 +44,7 @@ open class IQBarButtonItem: UIBarButtonItem {
 
         let  appearanceProxy = self.appearance()
 
-        let states : [UIControlState] = [.normal,.highlighted,.disabled,.selected,.application,.reserved]
+        let states : [UIControl.State] = [.normal,.highlighted,.disabled,.selected,.application,.reserved]
 
         for state in states {
 
@@ -54,7 +54,7 @@ open class IQBarButtonItem: UIBarButtonItem {
             appearanceProxy.setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
         }
         
-        appearanceProxy.setTitlePositionAdjustment(UIOffset.zero, for: .default)
+        appearanceProxy.setTitlePositionAdjustment(UIOffset(), for: .default)
         appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
         appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
@@ -63,17 +63,17 @@ open class IQBarButtonItem: UIBarButtonItem {
         didSet {
 
             #if swift(>=4)
-                var textAttributes = [NSAttributedStringKey : Any]()
+            var textAttributes = [NSAttributedString.Key : Any]()
                 
                 if let attributes = titleTextAttributes(for: .normal) {
                 
                     for (key, value) in attributes {
                 
-                        textAttributes[NSAttributedStringKey.init(key)] = value
+                        textAttributes[key] = value
                     }
                 }
                 
-                textAttributes[NSAttributedStringKey.foregroundColor] = tintColor
+            textAttributes[NSAttributedString.Key.foregroundColor] = tintColor
                 
                 setTitleTextAttributes(textAttributes, for: .normal)
 
