@@ -216,15 +216,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.animationDuration = 0.25;
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
             [strongSelf setEnable:YES];
-			[strongSelfsetKeyboardDistanceFromTextField:10.0];
+			[strongSelf setKeyboardDistanceFromTextField:10.0];
             [strongSelf setShouldPlayInputClicks:YES];
-            [strongSelfsetShouldResignOnTouchOutside:NO];
+            [strongSelf setShouldResignOnTouchOutside:NO];
             [strongSelf setOverrideKeyboardAppearance:NO];
             [strongSelf setKeyboardAppearance:UIKeyboardAppearanceDefault];
             [strongSelf setEnableAutoToolbar:YES];
-            [strongSelfsetShouldShowToolbarPlaceholder:YES];
+            [strongSelf setShouldShowToolbarPlaceholder:YES];
             [strongSelf setToolbarManageBehaviour:IQAutoToolbarBySubviews];
-            [strongSelfsetLayoutIfNeededOnUpdate:NO];
+            [strongSelf setLayoutIfNeededOnUpdate:NO];
             
             //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
