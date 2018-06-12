@@ -673,10 +673,10 @@ public extension UIView {
             //Left button
             var cancelButton = toolbar.previousBarButton
             if cancelButton.isSystemItem == false {
-                cancelButton.title = rightButtonTitle
+                cancelButton.title = leftButtonTitle
                 cancelButton.image = nil
                 cancelButton.target = target
-                cancelButton.action = rightButtonAction
+                cancelButton.action = leftButtonAction
             }
             else
             {
