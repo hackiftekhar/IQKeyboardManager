@@ -19,7 +19,7 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, U
         if (self.navigationController == nil)
         {
             buttonPush.isHidden = true
-            buttonPresent.setTitle("Dismiss", for: UIControlState())
+            buttonPresent.setTitle("Dismiss", for:.normal)
         }
     }
     

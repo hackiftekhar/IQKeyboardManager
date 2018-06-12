@@ -17,19 +17,13 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
         let shareImage : UIImage = UIImage(named: "IQKeyboardManagerScreenshot")!
         let youtubeUrl : URL = URL(string: "http://youtu.be/6nhLw6hju2A")!
         
-        var activityItems = [NSObject]()
-        activityItems.append(shareString as NSObject)
+        var activityItems = [Any]()
+        activityItems.append(shareString)
         activityItems.append(shareImage)
-        activityItems.append(youtubeUrl as NSObject)
+        activityItems.append(youtubeUrl)
 
-        let excludedActivities = [UIActivityType]()
-        activityItems.append(UIActivityType.print as NSObject)
-        activityItems.append(UIActivityType.copyToPasteboard as NSObject)
-        activityItems.append(UIActivityType.assignToContact as NSObject)
-        activityItems.append(UIActivityType.saveToCameraRoll as NSObject)
-        
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        controller.excludedActivityTypes = excludedActivities
+        controller.excludedActivityTypes = [.print,.copyToPasteboard,.assignToContact,.saveToCameraRoll]
         present(controller, animated: true) { () -> Void in
 
         }

@@ -15,10 +15,15 @@ class RefreshLayoutViewController: UIViewController {
     
     @IBAction func stepperChanged (_ sender : UIStepper) {
 
-        let animationCurve = UIViewAnimationOptions.init(rawValue: 7)
+        #if swift(>=4.2)
+        let finalCurve = UIView.AnimationOptions.beginFromCurrentState.union(.init(rawValue: 7))
+        #else
+        let finalCurve = UIViewAnimationOptions.beginFromCurrentState.union(.init(rawValue: 7))
+        #endif
+
         let animationDuration : TimeInterval = 0.3;
 
-        UIView.animate(withDuration: animationDuration, delay: 0, options: UIViewAnimationOptions.beginFromCurrentState.union(animationCurve), animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: finalCurve, animations: { () -> Void in
 
             self.textViewHeightConstraint.constant = CGFloat(sender.value);
 

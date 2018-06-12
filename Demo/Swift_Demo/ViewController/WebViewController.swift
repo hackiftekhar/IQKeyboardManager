@@ -10,7 +10,8 @@ import UIKit
 
 class WebViewController: UIViewController , UIWebViewDelegate {
     
-    let activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+
     @IBOutlet var _webView : UIWebView!
 
     override func viewDidLoad() {

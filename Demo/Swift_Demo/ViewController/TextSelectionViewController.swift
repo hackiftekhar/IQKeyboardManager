@@ -32,12 +32,12 @@ class TextSelectionViewController : UIViewController, UITableViewDelegate, UITab
         
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+            cell?.selectionStyle = .none
             cell?.backgroundColor = UIColor.clear
             
             let textView = UITextView(frame: CGRect(x: 5,y: 7,width: 135,height: 30))
-            textView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+            textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             textView.backgroundColor = UIColor.clear
             textView.text = _data[(indexPath as NSIndexPath).row]
             textView.dataDetectorTypes = UIDataDetectorTypes.all

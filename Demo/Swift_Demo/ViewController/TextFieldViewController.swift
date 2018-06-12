@@ -76,7 +76,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         if (self.presentingViewController != nil)
         {
             buttonPush.isHidden = true
-            buttonPresent.setTitle("Dismiss", for:UIControlState())
+            buttonPresent.setTitle("Dismiss", for:.normal)
         }
     }
     

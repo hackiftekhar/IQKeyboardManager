@@ -23,16 +23,16 @@ class TableViewInContainerViewController: UIViewController , UITableViewDataSour
         
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
             cell?.backgroundColor = UIColor.clear
             
             let contentView : UIView! = cell?.contentView
             
             let textField = UITextField(frame: CGRect(x: 10,y: 0,width: contentView.frame.size.width-20,height: 33))
-            textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
+            textField.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
             textField.center = contentView.center
             textField.backgroundColor = UIColor.clear
-            textField.borderStyle = UITextBorderStyle.roundedRect
+            textField.borderStyle = .roundedRect
             textField.tag = 123
             cell?.contentView.addSubview(textField)
         }

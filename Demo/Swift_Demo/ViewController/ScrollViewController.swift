@@ -45,14 +45,14 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
 
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+            cell?.selectionStyle = .none
             cell?.backgroundColor = UIColor.clear
             
             let textField = UITextField(frame: cell!.contentView.bounds.insetBy(dx: 5, dy: 5))
-            textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
+            textField.autoresizingMask = [.flexibleBottomMargin,.flexibleTopMargin,.flexibleWidth]
             textField.placeholder = identifier
-            textField.borderStyle = UITextBorderStyle.roundedRect
+            textField.borderStyle = .roundedRect
             cell?.contentView.addSubview(textField)
         }
 

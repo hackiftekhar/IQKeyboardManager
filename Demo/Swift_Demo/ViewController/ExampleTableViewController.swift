@@ -30,25 +30,25 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
         
         if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
             cell?.backgroundColor = UIColor.clear
-            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            cell?.selectionStyle = .none
 
             let contentView : UIView! = cell?.contentView
 
             if (((indexPath as NSIndexPath).row % 2) == 0) {
                 
                 let textField = UITextField(frame: CGRect(x: 5,y: 5,width: contentView.frame.size.width-10,height: 30))
-                textField.autoresizingMask = [UIViewAutoresizing.flexibleBottomMargin, UIViewAutoresizing.flexibleTopMargin, UIViewAutoresizing.flexibleWidth]
+                textField.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
                 textField.placeholder = identifier
                 textField.backgroundColor = UIColor.clear
-                textField.borderStyle = UITextBorderStyle.roundedRect
+                textField.borderStyle = .roundedRect
                 cell?.contentView.addSubview(textField)
 
             } else {
 
                 let textView = UITextView(frame: contentView.bounds.insetBy(dx: 5, dy: 5))
-                textView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+                textView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
                 textView.text = "Sample Text"
                 cell?.contentView.addSubview(textView)
             }

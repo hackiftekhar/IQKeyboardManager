@@ -32,9 +32,10 @@ class OptionsViewController: UITableViewController {
         
         if (indexPath as NSIndexPath).row == self.selectedIndex  {
             
-            cell.accessoryType = UITableViewCellAccessoryType.checkmark
+            cell.accessoryType = .checkmark
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.none
+
+            cell.accessoryType = .none
         }
 
         return cell
@@ -48,6 +49,6 @@ class OptionsViewController: UITableViewController {
         
         delegate?.optionsViewController(self, index: (indexPath as NSIndexPath).row)
         
-        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: UITableViewRowAnimation.automatic)
+        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
     }
 }

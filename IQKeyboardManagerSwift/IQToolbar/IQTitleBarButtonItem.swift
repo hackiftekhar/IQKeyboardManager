@@ -102,7 +102,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     
     @objc public convenience init(title : String?) {
 
-        self.init(title: nil, style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        self.init(title: nil, style: .plain, target: nil, action: nil)
         
         _titleView = UIView()
         _titleView?.backgroundColor = UIColor.clear
