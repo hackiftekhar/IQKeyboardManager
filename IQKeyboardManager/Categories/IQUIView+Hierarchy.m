@@ -92,6 +92,8 @@
 {
     UIViewController *matchController = [self viewContainingController];
     
+    UIViewController *parentContainerViewController = nil;
+    
     if (matchController.navigationController)
     {
         UINavigationController *navController = matchController.navigationController;
@@ -115,22 +117,22 @@
 
         if (navController == parentController)
         {
-            return navController.topViewController;
+            parentContainerViewController = navController.topViewController;
         }
         else
         {
-            return parentController;
+            parentContainerViewController = parentController;
         }
     }
     else if (matchController.tabBarController)
     {
         if ([matchController.tabBarController.selectedViewController isKindOfClass:[UINavigationController class]])
         {
-            return [(UINavigationController*)matchController.tabBarController.selectedViewController topViewController];
+            parentContainerViewController = [(UINavigationController*)matchController.tabBarController.selectedViewController topViewController];
         }
         else
         {
-            return matchController.tabBarController.selectedViewController;
+            parentContainerViewController = matchController.tabBarController.selectedViewController;
         }
     }
     else
@@ -146,8 +148,12 @@
             matchParentController = matchController.parentViewController;
         }
         
-        return matchController;
+        parentContainerViewController = matchController;
     }
+    
+    UIViewController *finalController = [parentContainerViewController parentIQContainerViewController] ?: parentContainerViewController;
+    
+    return finalController;
 }
 
 -(UIView*)superviewOfClassType:(Class)classType
@@ -412,6 +418,14 @@
 
 @end
 
+@implementation UIViewController (IQ_UIView_Hierarchy)
+
+-(nullable UIViewController*)parentIQContainerViewController
+{
+    return self;
+}
+
+@end
 
 @implementation NSObject (IQ_Logging)
 
