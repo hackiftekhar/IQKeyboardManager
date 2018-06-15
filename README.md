@@ -63,28 +63,25 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 |------------------------|----------|--------------------|-----------------------|
 | IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 8.2.1           |
 | IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 8.2.1           |
-| Demo Project           |          |                    | Xcode 9.0             |
+| Demo Project           |          |                    | Xcode 9.3             |
 
 **Note**
 - 3.3.7 is the last iOS 7 supported version.
 
 #### Swift versions support
 
-| Swift       | Xcode | IQKeyboardManagerSwift |
-|-------------|-------|------------------------|
-| 4.X         | 9.0   | >= 6.0.0               |
-| 4.0         | 9.0   | 5.0.0                  |
-| 3.1         | 8.3   | 4.0.10                 |
-| 3.0 (3.0.2) | 8.2   | 4.0.8                  |
-| 2.2 or 2.3  | 7.3   | 4.0.5                  |
-| 2.1.1       | 7.2   | 4.0.0                  |
-| 2.1         | 7.2   | 3.3.7                  |
-| 2.0         | 7.0   | 3.3.3.1                |
-| 1.2         | 6.3   | 3.3.1                  |
-| 1.0         | 6.0   | 3.3.2                  |
-
-**Note**
-- `6.0.0` is backward compatible till Swift 3.
+| Swift             | Xcode | IQKeyboardManagerSwift |
+|-------------------|-------|------------------------|
+| 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
+| 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
+| 3.1               | 8.3   | 4.0.10                 |
+| 3.0 (3.0.2)       | 8.2   | 4.0.8                  |
+| 2.2 or 2.3        | 7.3   | 4.0.5                  |
+| 2.1.1             | 7.2   | 4.0.0                  |
+| 2.1               | 7.2   | 3.3.7                  |
+| 2.0               | 7.0   | 3.3.3.1                |
+| 1.2               | 6.3   | 3.3.1                  |
+| 1.0               | 6.0   | 3.3.2                  |
 
 Installation
 ==========================
@@ -105,7 +102,7 @@ pod 'IQKeyboardManager', '3.3.7' #iOS7
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org), to install
 it simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 4.0 (Xcode 9.0)*
+*Swift 4.2, 4.0, 3.2, 3.0 (Xcode 9)*
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
