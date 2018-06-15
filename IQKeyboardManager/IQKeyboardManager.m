@@ -634,13 +634,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     kbSize.height += keyboardDistanceFromTextField;
     
     CGFloat topLayoutGuide = rootController.view.layoutMargins.top+5;
+    CGFloat bottomLayoutGuide = rootController.view.layoutMargins.bottom;
 
-    CGFloat move = 0;
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
-	
     //  Calculating move position. Common for both normal and special cases.
-    move = MIN(CGRectGetMinY(textFieldViewRectInRootSuperview)-topLayoutGuide, CGRectGetMaxY(textFieldViewRectInWindow)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
+    CGFloat move = MIN(CGRectGetMinY(textFieldViewRectInRootSuperview)-topLayoutGuide, CGRectGetMaxY(textFieldViewRectInWindow)-(CGRectGetHeight(keyWindow.frame)-kbSize.height)+bottomLayoutGuide);
 
     [self showLog:[NSString stringWithFormat:@"Need to move: %.2f",move]];
 

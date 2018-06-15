@@ -986,13 +986,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             kbSize.height += newKeyboardDistanceFromTextField
             
             let topLayoutGuide : CGFloat = rootController.view.layoutMargins.top + 5
-            
-            var move : CGFloat = 0.0
+            let bottomLayoutGuide : CGFloat = rootController.view.layoutMargins.bottom
+
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
-            
             //  Calculating move position.
-            move = min(textFieldViewRectInRootSuperview.minY-(topLayoutGuide), textFieldViewRectInWindow.maxY-(window.frame.height-kbSize.height))
+            var move : CGFloat = min(textFieldViewRectInRootSuperview.minY-(topLayoutGuide), textFieldViewRectInWindow.maxY-(window.frame.height-kbSize.height)+bottomLayoutGuide)
             
             showLog("Need to move: \(move)")
             
