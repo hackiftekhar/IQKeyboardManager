@@ -18,14 +18,14 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
     "UISound handling",
     "IQKeyboardManager Debug"]
     
-    let keyboardManagerProperties = [["Enable", "Keyboard Distance From TextField", "Prevent Showing Bottom Blank Space"],
+    let keyboardManagerProperties = [["Enable", "Keyboard Distance From TextField"],
     ["Enable AutoToolbar","Toolbar Manage Behaviour","Should Toolbar Uses TextField TintColor","Should Show TextField Placeholder","Placeholder Font","Toolbar Tint Color","Toolbar Done BarButtonItem Image","Toolbar Done Button Text"],
     ["Override Keyboard Appearance","UIKeyboard Appearance"],
     ["Should Resign On Touch Outside"],
     ["Should Play Input Clicks"],
     ["Debugging logs in Console"]]
     
-    let keyboardManagerPropertyDetails = [["Enable/Disable IQKeyboardManager","Set keyboard distance from textField","Prevent to show blank space between UIKeyboard and View"],
+    let keyboardManagerPropertyDetails = [["Enable/Disable IQKeyboardManager","Set keyboard distance from textField"],
     ["Automatic add the IQToolbar on UIKeyboard","AutoToolbar previous/next button managing behaviour","Uses textField's tintColor property for IQToolbar","Add the textField's placeholder text on IQToolbar","UIFont for IQToolbar placeholder text","Override toolbar tintColor property","Replace toolbar done button text with provided image","Override toolbar done button text"],
     ["Override the keyboardAppearance for all UITextField/UITextView","All the UITextField keyboardAppearance is set using this property"],
     ["Resigns Keyboard on touching outside of UITextField/View"],
@@ -52,13 +52,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         IQKeyboardManager.shared.keyboardDistanceFromTextField = CGFloat(sender.value)
         
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-    }
-    
-    @objc func preventShowingBottomBlankSpaceAction (_ sender: UISwitch) {
-        
-        IQKeyboardManager.shared.preventShowingBottomBlankSpace = sender.isOn
-        
-        self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
     
     /**  IQToolbar handling     */
@@ -222,22 +215,6 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.stepper.addTarget(self, action: #selector(self.keyboardDistanceFromTextFieldAction(_:)), for: .valueChanged)
                 
                 return cell
-                
-            case 2:
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell") as! SwitchTableViewCell
-                cell.switchEnable.isEnabled = true
-                
-                cell.labelTitle.text = keyboardManagerProperties[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
-                
-                cell.switchEnable.isOn = IQKeyboardManager.shared.preventShowingBottomBlankSpace
-                
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.preventShowingBottomBlankSpaceAction(_:)), for: .valueChanged)
-                
-                return cell
-                
             default:
                 break
             }
