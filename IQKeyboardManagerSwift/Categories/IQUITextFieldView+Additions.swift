@@ -96,7 +96,7 @@ public extension UIView {
     @objc public var shouldResignOnTouchOutsideMode: IQEnableMode {
         get {
             
-            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode) as? Int, let savedMode = IQEnableMode(rawValue: aValue) {
+            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode) as? IQEnableMode {
                 return savedMode
             } else {
                 return .Default
