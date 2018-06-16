@@ -79,7 +79,7 @@ public extension UIView {
 //    @objc public var enableMode: IQEnableMode {
 //        get {
 //            
-//            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? Int, let savedMode = IQEnableMode(rawValue: aValue) {
+//            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? IQEnableMode {
 //                return savedMode
 //            } else {
 //                return .Default

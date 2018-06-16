@@ -42,26 +42,24 @@ public extension UIView {
      IQToolbar references for better customization control.
      */
     public var keyboardToolbar: IQToolbar {
-        get {
-            var toolbar = inputAccessoryView as? IQToolbar
+        var toolbar = inputAccessoryView as? IQToolbar
+        
+        if (toolbar == nil)
+        {
+            toolbar = objc_getAssociatedObject(self, &kIQKeyboardToolbar) as? IQToolbar
+        }
+        
+        if let unwrappedToolbar = toolbar {
             
-            if (toolbar == nil)
-            {
-                toolbar = objc_getAssociatedObject(self, &kIQKeyboardToolbar) as? IQToolbar
-            }
+            return unwrappedToolbar
             
-            if let unwrappedToolbar = toolbar {
-                
-                return unwrappedToolbar
-
-            } else {
-                
-                let newToolbar = IQToolbar()
-                
-                objc_setAssociatedObject(self, &kIQKeyboardToolbar, newToolbar, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
-                return newToolbar
-            }
+        } else {
+            
+            let newToolbar = IQToolbar()
+            
+            objc_setAssociatedObject(self, &kIQKeyboardToolbar, newToolbar, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            return newToolbar
         }
     }
     

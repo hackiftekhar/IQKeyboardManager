@@ -132,12 +132,12 @@ public extension UIView {
                         matchController = parentController
             }
 
-            parentContainerViewController = matchController;
+            parentContainerViewController = matchController
         }
         
         let finalController = parentContainerViewController?.parentIQContainerViewController() ?? parentContainerViewController
         
-        return finalController;
+        return finalController
 
     }
 

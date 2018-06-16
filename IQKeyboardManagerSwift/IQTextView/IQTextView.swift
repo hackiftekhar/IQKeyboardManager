@@ -64,34 +64,29 @@ open class IQTextView : UITextView {
     }
     
     deinit {
-        privatePlaceholderLabel?.removeFromSuperview()
-        privatePlaceholderLabel = nil
+        placeholderLabel.removeFromSuperview()
         NotificationCenter.default.removeObserver(self)
     }
-    
-    private var privatePlaceholderLabel: UILabel?
-    internal var placeholderLabel: UILabel {
-        get {
-            if let unwrappedPlaceholderLabel = privatePlaceholderLabel {
-                return unwrappedPlaceholderLabel
-                
-            } else {
-                let label = UILabel()
-                privatePlaceholderLabel = label
-                
-                label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                label.lineBreakMode = .byWordWrapping
-                label.numberOfLines = 0
-                label.font = self.font
-                label.textAlignment = self.textAlignment
-                label.backgroundColor = UIColor.clear
-                label.textColor = UIColor(white: 0.7, alpha: 1.0)
-                label.alpha = 0
-                self.addSubview(label)
-                return label
-            }
-        }
+
+    private var placeholderInsets : UIEdgeInsets {
+        return UIEdgeInsets(top: self.textContainerInset.top, left: self.textContainerInset.left + self.textContainer.lineFragmentPadding, bottom: self.textContainerInset.bottom, right: self.textContainerInset.right + self.textContainer.lineFragmentPadding)
     }
+
+    lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.font = self.font
+        label.textAlignment = self.textAlignment
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor(white: 0.7, alpha: 1.0)
+        label.alpha = 0
+        self.addSubview(label)
+        
+        return label
+    }()
     
     /** @abstract To set textView's placeholder text color. */
     @IBInspectable open var placeholderTextColor : UIColor? {
@@ -121,17 +116,11 @@ open class IQTextView : UITextView {
     @objc override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if let unwrappedPlaceholderLabel = privatePlaceholderLabel {
-            
-            let offsetLeft = textContainerInset.left + textContainer.lineFragmentPadding
-            let offsetRight = textContainerInset.right + textContainer.lineFragmentPadding
-            let offsetTop = textContainerInset.top
-            let offsetBottom = textContainerInset.top
-            
-            let expectedSize = unwrappedPlaceholderLabel.sizeThatFits(CGSize(width: self.frame.width-offsetLeft-offsetRight, height: self.frame.height-offsetTop-offsetBottom))
-            
-            unwrappedPlaceholderLabel.frame = CGRect(x: offsetLeft, y: offsetTop, width: expectedSize.width, height: expectedSize.height)
-        }
+        let placeholderInsets = self.placeholderInsets
+        let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
+        let expectedSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        
+        placeholderLabel.frame = CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
     }
     
     @objc internal func refreshPlaceholder() {

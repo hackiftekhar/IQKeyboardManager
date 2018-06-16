@@ -1,0 +1,78 @@
+
+/* Class = "UITextField"; placeholder = "Custom Work"; ObjectID = "2mf-mU-ovU"; */
+"2mf-mU-ovU.placeholder" = "Custom Work";
+
+/* Class = "UINavigationItem"; title = "UIWebView Example"; ObjectID = "3s1-JL-XZo"; */
+"3s1-JL-XZo.title" = "UIWebView Example";
+
+/* Class = "UITextField"; placeholder = "TextField 2"; ObjectID = "48H-nl-1ha"; */
+"48H-nl-1ha.placeholder" = "TextField 2";
+
+/* Class = "UILabel"; text = "Enable Touch Resign inside CustomViewController"; ObjectID = "B56-NE-au7"; */
+"B56-NE-au7.text" = "Enable Touch Resign inside CustomViewController";
+
+/* Class = "UILabel"; text = "DisableDistanceHandling Inside CustomViewController even if IQKeyboardManager is enabled."; ObjectID = "I5d-yW-B3e"; */
+"I5d-yW-B3e.text" = "DisableDistanceHandling Inside CustomViewController even if IQKeyboardManager is enabled.";
+
+/* Class = "UILabel"; text = "Disable Toolbar inside CustomViewController"; ObjectID = "JGH-5V-8ic"; */
+"JGH-5V-8ic.text" = "Disable Toolbar inside CustomViewController";
+
+/* Class = "UINavigationItem"; title = "YYTextView"; ObjectID = "JZo-W7-Io1"; */
+"JZo-W7-Io1.title" = "YYTextView";
+
+/* Class = "UINavigationItem"; title = "UIStackView Example"; ObjectID = "L7c-7d-d1o"; */
+"L7c-7d-d1o.title" = "UIStackView Example";
+
+/* Class = "UITextField"; placeholder = "TextField 1"; ObjectID = "LhW-1m-VYd"; */
+"LhW-1m-VYd.placeholder" = "TextField 1";
+
+/* Class = "UITextField"; placeholder = "textField.userEnteractionEnabled = NO"; ObjectID = "PfH-qV-9D8"; */
+"PfH-qV-9D8.placeholder" = "textField.userEnteractionEnabled = NO";
+
+/* Class = "UITextField"; placeholder = "TextField 3"; ObjectID = "UJZ-io-mQK"; */
+"UJZ-io-mQK.placeholder" = "TextField 3";
+
+/* Class = "UIButton"; normalTitle = "Show Alert with TextField"; ObjectID = "YrO-Gs-dk3"; */
+"YrO-Gs-dk3.normalTitle" = "Show Alert with TextField";
+
+/* Class = "UILabel"; text = "Disable Touch Resign inside CustomViewController"; ObjectID = "a6b-j6-OEh"; */
+"a6b-j6-OEh.text" = "Disable Touch Resign inside CustomViewController";
+
+/* Class = "UINavigationItem"; title = "Refresh Layout"; ObjectID = "aR0-XP-p7v"; */
+"aR0-XP-p7v.title" = "Refresh Layout";
+
+/* Class = "UITextField"; placeholder = "TextField 5"; ObjectID = "cub-N3-8xz"; */
+"cub-N3-8xz.placeholder" = "TextField 5";
+
+/* Class = "UITextField"; placeholder = "TextField.enabled = NO"; ObjectID = "d6z-1T-UIh"; */
+"d6z-1T-UIh.placeholder" = "TextField.enabled = NO";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "djH-2u-YPC"; */
+"djH-2u-YPC.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UINavigationItem"; title = "UITextView Selection (#56)"; ObjectID = "f8P-PN-bre"; */
+"f8P-PN-bre.title" = "UITextView Selection (#56)";
+
+/* Class = "UINavigationItem"; title = "Special Cases"; ObjectID = "iYf-Wa-Sqo"; */
+"iYf-Wa-Sqo.title" = "Special Cases";
+
+/* Class = "UILabel"; text = "EnableDistanceHandling Inside CustomViewController even if IQKeyboardManager is disabled."; ObjectID = "nhk-VO-9Ye"; */
+"nhk-VO-9Ye.text" = "EnableDistanceHandling Inside CustomViewController even if IQKeyboardManager is disabled.";
+
+/* Class = "UILabel"; text = "Enable Toolbar inside CustomViewController"; ObjectID = "oLV-3B-B0Z"; */
+"oLV-3B-B0Z.text" = "Enable Toolbar inside CustomViewController";
+
+/* Class = "UINavigationItem"; title = "CustomView Demo"; ObjectID = "oVJ-aw-xfZ"; */
+"oVJ-aw-xfZ.title" = "CustomView Demo";
+
+/* Class = "UILabel"; text = "Allow Toolbar PreviousNext Inside IQPreviousNextView"; ObjectID = "uiA-Vu-37g"; */
+"uiA-Vu-37g.text" = "Allow Toolbar PreviousNext Inside IQPreviousNextView";
+
+/* Class = "UITextField"; placeholder = "TextField enabled. Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test,"; ObjectID = "wcb-LB-3eZ"; */
+"wcb-LB-3eZ.placeholder" = "TextField enabled. Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test, Long Text Test,";
+
+/* Class = "UITextField"; placeholder = "TextField 4"; ObjectID = "yDj-sx-3pn"; */
+"yDj-sx-3pn.placeholder" = "TextField 4";
+
+/* Class = "UIButton"; normalTitle = "Reload Layout"; ObjectID = "zDG-8z-I8F"; */
+"zDG-8z-I8F.normalTitle" = "Reload Layout";

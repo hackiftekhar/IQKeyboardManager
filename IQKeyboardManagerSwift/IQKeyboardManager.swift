@@ -156,9 +156,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
      */
     @objc public var keyboardShowing: Bool {
         
-        get {
-            return _privateIsKeyboardShowing
-        }
+        return _privateIsKeyboardShowing
     }
     
     /**
@@ -166,9 +164,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
      */
     @objc public var movedDistance: CGFloat {
         
-        get {
-            return _privateMovedDistance
-        }
+        return _privateMovedDistance
     }
 
     /**
@@ -369,7 +365,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     @objc public var shouldResignOnTouchOutside = false {
         
         didSet {
-            _tapGesture.isEnabled = privateShouldResignOnTouchOutside()
+            resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
             
             let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
             
@@ -378,12 +374,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
-    private var _tapGesture: UITapGestureRecognizer!
-    @objc public var resignFirstResponderGesture: UITapGestureRecognizer {
-        get {
-            return _tapGesture
-        }
-    }
+    @objc lazy public var resignFirstResponderGesture: UITapGestureRecognizer = {
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
+        tapGesture.cancelsTouchesInView = false
+        tapGesture.delegate = self
+
+        return tapGesture
+    }()
     
     /*******************************************/
     
@@ -592,7 +590,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Handling search bar special case
                 do {
                     if let searchBar = textFieldRetain.searchBar() {
-                        invocation = searchBar.keyboardToolbar.previousBarButton.invocation;
+                        invocation = searchBar.keyboardToolbar.previousBarButton.invocation
                     }
                 }
 
@@ -621,7 +619,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Handling search bar special case
                 do {
                     if let searchBar = textFieldRetain.searchBar() {
-                        invocation = searchBar.keyboardToolbar.nextBarButton.invocation;
+                        invocation = searchBar.keyboardToolbar.nextBarButton.invocation
                     }
                 }
 
@@ -649,7 +647,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Handling search bar special case
             do {
                 if let searchBar = textFieldRetain.searchBar() {
-                    invocation = searchBar.keyboardToolbar.doneBarButton.invocation;
+                    invocation = searchBar.keyboardToolbar.doneBarButton.invocation
                 }
             }
 
@@ -879,10 +877,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         self.registerAllNotifications()
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-        _tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
-        _tapGesture.cancelsTouchesInView = false
-        _tapGesture.delegate = self
-        _tapGesture.isEnabled = shouldResignOnTouchOutside
+        resignFirstResponderGesture.isEnabled = shouldResignOnTouchOutside
         
         //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
