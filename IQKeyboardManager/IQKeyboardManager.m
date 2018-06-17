@@ -208,23 +208,23 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
             strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
             strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
-            [strongSelf.resignFirstResponderGesture setDelegate:self];
+            [strongSelf.resignFirstResponderGesture setDelegate:strongSelf];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
             strongSelf.topViewBeginOrigin = kIQCGPointInvalid;
             
             //Setting it's initial values
             strongSelf.animationDuration = 0.25;
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
-            [self setEnable:YES];
-			[self setKeyboardDistanceFromTextField:10.0];
-            [self setShouldPlayInputClicks:YES];
-            [self setShouldResignOnTouchOutside:NO];
-            [self setOverrideKeyboardAppearance:NO];
-            [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
-            [self setEnableAutoToolbar:YES];
-            [self setShouldShowToolbarPlaceholder:YES];
-            [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
-            [self setLayoutIfNeededOnUpdate:NO];
+            [strongSelf setEnable:YES];
+			[strongSelf setKeyboardDistanceFromTextField:10.0];
+            [strongSelf setShouldPlayInputClicks:YES];
+            [strongSelf setShouldResignOnTouchOutside:NO];
+            [strongSelf setOverrideKeyboardAppearance:NO];
+            [strongSelf setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            [strongSelf setEnableAutoToolbar:YES];
+            [strongSelf setShouldShowToolbarPlaceholder:YES];
+            [strongSelf setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            [strongSelf setLayoutIfNeededOnUpdate:NO];
             
             //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
@@ -247,7 +247,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
             
-            [self setShouldToolbarUsesTextFieldTintColor:NO];
+            [strongSelf setShouldToolbarUsesTextFieldTintColor:NO];
         });
     }
     return self;
@@ -262,7 +262,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        kbManager = [[self alloc] init];
+        kbManager = [[IQKeyboardManager alloc] init];
     });
 	
 	return kbManager;
