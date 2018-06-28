@@ -1,31 +1,28 @@
-### Description
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-[Description of the issue]
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-### Steps to Reproduce
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
-1. [First Step]
-2. [Second Step]
-3. [and so on...]
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
 
-**Expected behavior:** [What you expect to happen]
-
-**Actual behavior:** [What actually happens]
-
-**Reproduces how often:** [What percentage of the time does it reproduce?]
+**Demo Project**
+If applicable, add demo project.
 
 ### Versions
+**Xcode:** x.x
+**Mac OS:** xx.xx.x
+**Simulator/Device:** xx.x
+**Simulator/Device Name:** iPhone xx
+**Library Version:** x.x.x
 
-**Xcode:** 9.2
-
-**Mac OS:** 10.12.0
-
-**Simulator/Device:** 11.2
-
-**Simulator/Device Name:** iPhone 5s
-
-**Library Version:** 5.0.7
-
-### Additional Information
-
-Any additional information, configuration or data that might be necessary to reproduce the issue.
+**Additional context**
+Add any other context about the problem here.
