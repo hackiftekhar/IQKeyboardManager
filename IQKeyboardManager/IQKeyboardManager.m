@@ -1083,6 +1083,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         UIViewController *rootController = [textFieldView parentContainerViewController];
         _rootViewController = rootController;
         _topViewBeginOrigin = rootController.view.frame.origin;
+        if (([_rootViewController isKindOfClass:[UINavigationController class]] || _rootViewController.navigationController) &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+            [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
+        {
+            _topViewBeginOrigin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+        }
 
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[rootController _IQDescription] ,NSStringFromCGPoint(_topViewBeginOrigin)]];
     }
@@ -1292,6 +1298,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIViewController *rootController = [textFieldView parentContainerViewController];
             _rootViewController = rootController;
             _topViewBeginOrigin = rootController.view.frame.origin;
+            if (([_rootViewController isKindOfClass:[UINavigationController class]] || _rootViewController.navigationController) &&
+                [_rootViewController modalPresentationStyle] != UIModalPresentationFormSheet &&
+                [_rootViewController modalPresentationStyle] != UIModalPresentationPageSheet)
+            {
+                _topViewBeginOrigin = CGPointMake(0, [self keyWindow].frame.size.height-_rootViewController.view.frame.size.height);
+            }
             
             [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[rootController _IQDescription], NSStringFromCGPoint(_topViewBeginOrigin)]];
         }
