@@ -814,7 +814,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /** To save rootViewController.view.frame.origin. */
     private var         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
-    
+
+    /** To overcome with popGestureRecognizer issue Bug ID: #1361 */
+    private weak var    _rootViewControllerWhilePopGestureRecognizerActive: UIViewController?
+    private var         _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
+
     /** To save rootViewController */
     private weak var    _rootViewController: UIViewController?
     
@@ -1280,7 +1284,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         
             let elapsedTime = CACurrentMediaTime() - startTime
-            showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+            showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
         }
     }
 
@@ -1296,7 +1300,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                     
-                    self.showLog("Restoring \(rootViewController._IQDescription()) frame to : \(self._topViewBeginOrigin)")
+                    self.showLog("Restoring \(rootViewController._IQDescription()) origin to : \(self._topViewBeginOrigin)")
                     
                     //  Setting it's new frame
                     var rect = rootViewController.view.frame
@@ -1304,6 +1308,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     rootViewController.view.frame = rect
                     
                     self._privateMovedDistance = 0
+
+                    if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
+                        self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
+                        self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
+                    }
                     
                     //Animating content if needed (Bug ID: #204)
                     if self.layoutIfNeededOnUpdate == true {
@@ -1410,7 +1419,17 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
             _rootViewController = textFieldView.parentContainerViewController()
             if let controller = _rootViewController {
-                _topViewBeginOrigin = controller.view.frame.origin
+                
+                if _rootViewControllerWhilePopGestureRecognizerActive == controller {
+                    _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive
+                } else {
+                    _topViewBeginOrigin = controller.view.frame.origin
+                }
+
+                _rootViewControllerWhilePopGestureRecognizerActive = nil
+                _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
+                
+                self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
             }
         }
 
@@ -1429,7 +1448,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     /*  UIKeyboardDidShowNotification. */
@@ -1450,7 +1469,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1539,7 +1558,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     @objc internal func keyboardDidHide(_ notification:Notification) {
@@ -1552,7 +1571,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _kbSize = CGSize.zero
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
     
     ///-------------------------------------------
@@ -1620,7 +1639,17 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 _rootViewController = _textFieldView?.parentContainerViewController()
 
                 if let controller = _rootViewController {
-                    _topViewBeginOrigin = controller.view.frame.origin
+                    
+                    if _rootViewControllerWhilePopGestureRecognizerActive == controller {
+                        _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive
+                    } else {
+                        _topViewBeginOrigin = controller.view.frame.origin
+                    }
+                    
+                    _rootViewControllerWhilePopGestureRecognizerActive = nil
+                    _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
+
+                    self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
                 }
             }
             
@@ -1636,7 +1665,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
     
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
@@ -1672,7 +1701,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _textFieldView = nil
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
 
     ///---------------------------------------
@@ -1707,7 +1736,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         restorePosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
     
     ///------------------
@@ -1905,7 +1934,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
     
     /** Remove any toolbar if it is IQToolbar. */
@@ -1940,7 +1969,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
     }
     
     /**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
