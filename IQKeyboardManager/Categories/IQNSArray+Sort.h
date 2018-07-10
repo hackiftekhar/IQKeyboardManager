@@ -23,6 +23,8 @@
 
 #import <Foundation/NSArray.h>
 
+@class UIView;
+
 /**
  UIView.subviews sorting category.
  */
@@ -35,11 +37,11 @@
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-@property (nonatomic, readonly, copy) NSArray * _Nonnull sortedArrayByTag;
+@property (nonatomic, readonly, copy) NSArray<UIView*> * _Nonnull sortedArrayByTag;
 
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-@property (nonatomic, readonly, copy) NSArray * _Nonnull sortedArrayByPosition;
+@property (nonatomic, readonly, copy) NSArray<UIView*> * _Nonnull sortedArrayByPosition;
 
 @end

@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIView.h>
+#import <UIKit/UIViewController.h>
 #import "IQKeyboardManagerConstants.h"
 
 @class UICollectionView, UIScrollView, UITableView, UISearchBar, NSArray;
@@ -62,12 +63,12 @@
 /**
  Returns all siblings of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray *responderSiblings;
+@property (nonnull, nonatomic, readonly, copy) NSArray<UIView*> *responderSiblings;
 
 /**
  Returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray *deepResponderViews;
+@property (nonnull, nonatomic, readonly, copy) NSArray<UIView*> *deepResponderViews;
 
 ///-------------------------
 /// @name Special TextFields
