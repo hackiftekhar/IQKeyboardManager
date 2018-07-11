@@ -63,12 +63,12 @@
 /**
  Returns all siblings of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray<UIView*> *responderSiblings;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *responderSiblings;
 
 /**
  Returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray<UIView*> *deepResponderViews;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *deepResponderViews;
 
 ///-------------------------
 /// @name Special TextFields

@@ -28,7 +28,7 @@
 
 @implementation NSArray (IQ_NSArray_Sort)
 
-- (NSArray*)sortedArrayByTag
+- (NSArray<UIView*>*)sortedArrayByTag
 {
     return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         
@@ -45,7 +45,7 @@
     }];
 }
 
-- (NSArray*)sortedArrayByPosition
+- (NSArray<UIView*>*)sortedArrayByPosition
 {
     return [self sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
         

@@ -145,6 +145,18 @@
     if (_fixedSpaceBarButton == nil)
     {
         _fixedSpaceBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+#ifdef __IPHONE_11_0
+        if (@available(iOS 10.0, *))
+#else
+            if (IQ_IS_IOS10_OR_GREATER)
+#endif
+            {
+                [_fixedSpaceBarButton setWidth:6];
+            }
+            else
+            {
+                [_fixedSpaceBarButton setWidth:20];
+            }
     }
     
     return _fixedSpaceBarButton;
@@ -201,7 +213,7 @@
         
         BOOL isTitleBarButtonFound = NO;
         
-        NSArray *subviews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
+        NSArray<UIView*> *subviews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
             
             CGFloat x1 = CGRectGetMinX(view1.frame);
             CGFloat y1 = CGRectGetMinY(view1.frame);

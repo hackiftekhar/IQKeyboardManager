@@ -212,10 +212,10 @@
     return _IQcanBecomeFirstResponder;
 }
 
-- (NSArray*)responderSiblings
+- (NSArray<UIView*>*)responderSiblings
 {
     //	Getting all siblings
-    NSArray *siblings = self.superview.subviews;
+    NSArray<UIView*> *siblings = self.superview.subviews;
     
     //Array of (UITextField/UITextView's).
     NSMutableArray<UIView*> *tempTextFields = [[NSMutableArray alloc] init];
@@ -227,7 +227,7 @@
     return tempTextFields;
 }
 
-- (NSArray*)deepResponderViews
+- (NSArray<UIView*>*)deepResponderViews
 {
     NSMutableArray<UIView*> *textFields = [[NSMutableArray alloc] init];
     

@@ -1502,7 +1502,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)canGoPrevious
 {
     //Getting all responder view's.
-    NSArray *textFields = [self responderViews];
+    NSArray<UIView*> *textFields = [self responderViews];
 
     //Getting index of current textField.
     NSUInteger index = [textFields indexOfObject:_textFieldView];
@@ -1523,7 +1523,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)canGoNext
 {
     //Getting all responder view's.
-    NSArray *textFields = [self responderViews];
+    NSArray<UIView*> *textFields = [self responderViews];
     
     //Getting index of current textField.
     NSUInteger index = [textFields indexOfObject:_textFieldView];
@@ -1544,7 +1544,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)goPrevious
 {
     //Getting all responder view's.
-    NSArray *textFields = [self responderViews];
+    NSArray<__kindof UIView*> *textFields = [self responderViews];
     
     //Getting index of current textField.
     NSUInteger index = [textFields indexOfObject:_textFieldView];
@@ -1581,7 +1581,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)goNext
 {
     //Getting all responder view's.
-    NSArray *textFields = [self responderViews];
+    NSArray<__kindof UIView*> *textFields = [self responderViews];
     
     //Getting index of current textField.
     NSUInteger index = [textFields indexOfObject:_textFieldView];
@@ -1617,7 +1617,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 #pragma mark AutoToolbar methods
 
 /**    Get all UITextField/UITextView siblings of textFieldView. */
--(NSArray*)responderViews
+-(NSArray<__kindof UIView*>*)responderViews
 {
     UIView *superConsideredView;
     
@@ -1640,7 +1640,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Otherwise fetching all the siblings
     else
     {
-        NSArray *textFields = [textFieldView responderSiblings];
+        NSArray<UIView*> *textFields = [textFieldView responderSiblings];
         
         //Sorting textFields according to behaviour
         switch (_toolbarManageBehaviour)
@@ -1673,7 +1673,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
     
     //    Getting all the sibling textFields.
-    NSArray *siblings = [self responderViews];
+    NSArray<UIView*> *siblings = [self responderViews];
     
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
@@ -1689,44 +1689,69 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             UITextField *textField = (UITextField*)textFieldView;
 
+            IQBarButtonItemConfiguration *rightConfiguration = nil;
+            
+            //Supporting Custom Done button image (Enhancement ID: #366)
+            if (_toolbarDoneBarButtonItemImage)
+            {
+                rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:_toolbarDoneBarButtonItemImage action:@selector(doneAction:)];
+            }
+            //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+            else if (_toolbarDoneBarButtonItemText)
+            {
+                rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:_toolbarDoneBarButtonItemText action:@selector(doneAction:)];
+            }
+            else
+            {
+                rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone action:@selector(doneAction:)];
+            }
+
             //    If only one object is found, then adding only Done button.
             if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
-                //Supporting Custom Done button image (Enhancement ID: #366)
-                if (_toolbarDoneBarButtonItemImage)
-                {
-                    [textField addRightButtonOnKeyboardWithImage:_toolbarDoneBarButtonItemImage target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                }
-                //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                else if (_toolbarDoneBarButtonItemText)
-                {
-                    [textField addRightButtonOnKeyboardWithText:_toolbarDoneBarButtonItemText target:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                }
-                else
-                {
-                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                    [textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
-                }
+                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+
                 textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
             //If there is multiple siblings of textField
             else if ((siblings.count && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
             {
+                IQBarButtonItemConfiguration *prevConfiguration = nil;
+                
                 //Supporting Custom Done button image (Enhancement ID: #366)
-                if (_toolbarDoneBarButtonItemImage)
+                if (_toolbarPreviousBarButtonItemImage)
                 {
-                    [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonImage:_toolbarDoneBarButtonItemImage previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
+                    prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:_toolbarPreviousBarButtonItemImage action:@selector(previousAction:)];
                 }
                 //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
-                else if (_toolbarDoneBarButtonItemText)
+                else if (_toolbarPreviousBarButtonItemText)
                 {
-                    [textField addPreviousNextRightOnKeyboardWithTarget:self rightButtonTitle:_toolbarDoneBarButtonItemText previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) rightButtonAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
+                    prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:_toolbarPreviousBarButtonItemText action:@selector(previousAction:)];
                 }
                 else
                 {
-                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                    [textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowToolbarPlaceholder];
+                    prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:@selector(previousAction:)];
                 }
+                
+                IQBarButtonItemConfiguration *nextConfiguration = nil;
+                
+                //Supporting Custom Done button image (Enhancement ID: #366)
+                if (_toolbarNextBarButtonItemImage)
+                {
+                    nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:_toolbarNextBarButtonItemImage action:@selector(nextAction:)];
+                }
+                //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                else if (_toolbarNextBarButtonItemText)
+                {
+                    nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:_toolbarNextBarButtonItemText action:@selector(nextAction:)];
+                }
+                else
+                {
+                    nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:@selector(nextAction:)];
+                }
+
+                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
+
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
             }
             
@@ -1737,7 +1762,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 switch ([textField keyboardAppearance])
                 {
-                    case UIKeyboardAppearanceAlert:
+                    case UIKeyboardAppearanceDark:
                     {
                         toolbar.barStyle = UIBarStyleBlack;
                         [toolbar setTintColor:[UIColor whiteColor]];
@@ -1845,7 +1870,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
     //    Getting all the sibling textFields.
-    NSArray *siblings = [self responderViews];
+    NSArray<UIView*> *siblings = [self responderViews];
     
     [self showLog:[NSString stringWithFormat:@"Found %lu responder sibling(s)",(unsigned long)siblings.count]];
 
