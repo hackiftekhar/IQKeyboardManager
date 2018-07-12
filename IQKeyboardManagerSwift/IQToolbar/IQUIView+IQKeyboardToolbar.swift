@@ -34,14 +34,24 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
  */
 public class IQBarButtonItemConfiguration : NSObject {
     
-    public init(barButtonSystemItem : UIBarButtonSystemItem, action: Selector) {
+    #if swift(>=4.2)
+    public init(barButtonSystemItem : UIBarButtonItem.SystemItem, action: Selector) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
         self.action = action
         super.init()
     }
-    
+    #else
+    public init(barButtonSystemItem : UIBarButtonSystemItem, action: Selector) {
+        self.barButtonSystemItem = barButtonSystemItem
+        self.image = nil
+        self.title = nil
+        self.action = action
+    super.init()
+    }
+    #endif
+
     public init(image : UIImage, action: Selector) {
         self.barButtonSystemItem = nil
         self.image = image
@@ -58,7 +68,11 @@ public class IQBarButtonItemConfiguration : NSObject {
         super.init()
     }
     
+    #if swift(>=4.2)
+    public let barButtonSystemItem : UIBarButtonItem.SystemItem?    //System Item to be used to instantiate bar button.
+    #else
     public let barButtonSystemItem : UIBarButtonSystemItem?    //System Item to be used to instantiate bar button.
+    #endif
     
     public let image : UIImage?    //Image to show on bar button item if it's not a system item.
     
