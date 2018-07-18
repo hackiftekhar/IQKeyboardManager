@@ -642,7 +642,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
     
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
-    CGFloat bottomLayoutGuide = rootController.view.layoutMargins.bottom;
+    CGFloat bottomLayoutGuide = [textFieldView isKindOfClass:[UITextView class]] ? 0 : rootController.view.layoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.

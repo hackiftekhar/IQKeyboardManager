@@ -992,7 +992,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let layoutAreaHeight : CGFloat = rootController.view.layoutMargins.bottom
 
             let topLayoutGuide : CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
-            let bottomLayoutGuide : CGFloat = rootController.view.layoutMargins.bottom
+            let bottomLayoutGuide : CGFloat = (textFieldView is UITextView) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
