@@ -987,8 +987,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
             var kbSize = _kbSize
             kbSize.height += newKeyboardDistanceFromTextField
-            
-            let topLayoutGuide : CGFloat = rootController.view.layoutMargins.top + 5
+
+            let navigationBarAreaHeight : CGFloat = UIApplication.shared.statusBarFrame.height + ( rootController.navigationController?.navigationBar.frame.height ?? 0)
+            let layoutAreaHeight : CGFloat = rootController.view.layoutMargins.bottom
+
+            let topLayoutGuide : CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
             let bottomLayoutGuide : CGFloat = rootController.view.layoutMargins.bottom
 
             //  Move positive = textField is hidden.

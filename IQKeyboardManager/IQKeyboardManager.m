@@ -638,7 +638,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGSize kbSize = _kbSize;
     kbSize.height += keyboardDistanceFromTextField;
     
-    CGFloat topLayoutGuide = rootController.view.layoutMargins.top+5;
+    CGFloat navigationBarAreaHeight = [[UIApplication sharedApplication] statusBarFrame].size.height + rootController.navigationController.navigationBar.frame.size.height;
+    CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
+    
+    CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
     CGFloat bottomLayoutGuide = rootController.view.layoutMargins.bottom;
 
     //  +Move positive = textField is hidden.
