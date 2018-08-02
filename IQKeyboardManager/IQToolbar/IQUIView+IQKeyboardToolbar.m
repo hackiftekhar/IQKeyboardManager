@@ -228,11 +228,11 @@
     if (IQ_IS_IOS10_OR_GREATER)
 #endif
     {
-        return [UIImage keyboardNextiOS9Image];
+        return [UIImage keyboardNextiOS10Image];
     }
     else
     {
-        return [UIImage keyboardPreviousiOS9Image];
+        return [UIImage keyboardNextiOS9Image];
     }
 }
 
