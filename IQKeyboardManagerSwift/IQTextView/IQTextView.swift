@@ -71,6 +71,14 @@ open class IQTextView : UITextView {
     private var placeholderInsets : UIEdgeInsets {
         return UIEdgeInsets(top: self.textContainerInset.top, left: self.textContainerInset.left + self.textContainer.lineFragmentPadding, bottom: self.textContainerInset.bottom, right: self.textContainerInset.right + self.textContainer.lineFragmentPadding)
     }
+    
+    private var placeholderExpectedFrame : CGRect {
+        let placeholderInsets = self.placeholderInsets
+        let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
+        let expectedSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        
+        return CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
+    }
 
     lazy var placeholderLabel: UILabel = {
         let label = UILabel()
@@ -116,11 +124,7 @@ open class IQTextView : UITextView {
     @objc override open func layoutSubviews() {
         super.layoutSubviews()
         
-        let placeholderInsets = self.placeholderInsets
-        let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
-        let expectedSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
-        
-        placeholderLabel.frame = CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
+        placeholderLabel.frame = placeholderExpectedFrame
     }
     
     @objc internal func refreshPlaceholder() {
@@ -170,6 +174,18 @@ open class IQTextView : UITextView {
         set {
             super.delegate = newValue
         }
+    }
+    
+    @objc override open var intrinsicContentSize: CGSize {
+        guard !hasText else {
+            return super.intrinsicContentSize
+        }
+        
+        var newSize = super.intrinsicContentSize
+        let placeholderInsets = self.placeholderInsets
+        newSize.height = placeholderExpectedFrame.height + placeholderInsets.top + placeholderInsets.bottom
+        
+        return newSize
     }
 }
 
