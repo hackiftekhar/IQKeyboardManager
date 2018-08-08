@@ -174,6 +174,7 @@
     
     UIEdgeInsets placeholderInsets = [self placeholderInsets];
     CGSize newSize = [super intrinsicContentSize];
+    
     newSize.height = [self placeholderExpectedFrame].size.height + placeholderInsets.top + placeholderInsets.bottom;
     
     return newSize;
