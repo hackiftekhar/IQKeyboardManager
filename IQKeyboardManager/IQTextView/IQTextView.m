@@ -108,13 +108,7 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-
-    UIEdgeInsets placeholderInsets = [self placeholderInsets];
-    CGFloat maxWidth = CGRectGetWidth(self.frame)-placeholderInsets.left-placeholderInsets.right;
-
-    CGSize expectedSize = [self.placeholderLabel sizeThatFits:CGSizeMake(maxWidth, CGRectGetHeight(self.frame)-placeholderInsets.top-placeholderInsets.bottom)];
-    
-    self.placeholderLabel.frame = CGRectMake(placeholderInsets.left, placeholderInsets.top, maxWidth, expectedSize.height);
+    self.placeholderLabel.frame = self.placeholderExpectedFrame;
 }
 
 -(void)setPlaceholder:(NSString *)placeholder
@@ -134,6 +128,16 @@
 -(UIEdgeInsets)placeholderInsets
 {
     return UIEdgeInsetsMake(self.textContainerInset.top, self.textContainerInset.left + self.textContainer.lineFragmentPadding, self.textContainerInset.bottom, self.textContainerInset.right + self.textContainer.lineFragmentPadding);
+}
+
+-(CGRect)placeholderExpectedFrame
+{
+    UIEdgeInsets placeholderInsets = [self placeholderInsets];
+    CGFloat maxWidth = CGRectGetWidth(self.frame)-placeholderInsets.left-placeholderInsets.right;
+    
+    CGSize expectedSize = [self.placeholderLabel sizeThatFits:CGSizeMake(maxWidth, CGRectGetHeight(self.frame)-placeholderInsets.top-placeholderInsets.bottom)];
+    
+    return CGRectMake(placeholderInsets.left, placeholderInsets.top, maxWidth, expectedSize.height);
 }
 
 -(UILabel*)placeholderLabel
@@ -160,6 +164,19 @@
 {
     [self refreshPlaceholder];
     return [super delegate];
+}
+
+-(CGSize)intrinsicContentSize
+{
+    if (self.hasText) {
+        return [super intrinsicContentSize];
+    }
+    
+    UIEdgeInsets placeholderInsets = [self placeholderInsets];
+    CGSize newSize = [super intrinsicContentSize];
+    newSize.height = self.placeholderExpectedFrame.size.height + placeholderInsets.top + placeholderInsets.bottom;
+    
+    return newSize;
 }
 
 @end
