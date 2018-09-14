@@ -235,8 +235,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
                 UITextField *view = [[UITextField alloc] init];
-                [view addDoneOnKeyboardWithTarget:nil action:nil];
-                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
+                [view iq_addDoneOnKeyboardWithTarget:nil action:nil];
+                [view iq_addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
             }
             
             //Initializing disabled classes Set.
@@ -340,7 +340,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    }
 //    else
     {
-        UIViewController *textFieldViewController = [_textFieldView viewContainingController];
+        UIViewController *textFieldViewController = [_textFieldView iq_viewContainingController];
         
         if (textFieldViewController)
         {
@@ -422,7 +422,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     BOOL shouldResignOnTouchOutside = _shouldResignOnTouchOutside;
     
     UIView *textFieldView = _textFieldView;
-    IQEnableMode enableMode = textFieldView.shouldResignOnTouchOutsideMode;
+    IQEnableMode enableMode = textFieldView.iq_shouldResignOnTouchOutsideMode;
     
     if (enableMode == IQEnableModeEnabled)
     {
@@ -434,7 +434,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     else
     {
-        UIViewController *textFieldViewController = [textFieldView viewContainingController];
+        UIViewController *textFieldViewController = [textFieldView iq_viewContainingController];
         
         if (textFieldViewController)
         {
@@ -504,7 +504,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     BOOL enableAutoToolbar = _enableAutoToolbar;
     
-    UIViewController *textFieldViewController = [_textFieldView viewContainingController];
+    UIViewController *textFieldViewController = [_textFieldView iq_viewContainingController];
     
     if (textFieldViewController)
     {
@@ -623,14 +623,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGPoint rootViewOrigin = rootController.view.frame.origin;
 
     //Maintain keyboardDistanceFromTextField
-    CGFloat specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField;
+    CGFloat specialKeyboardDistanceFromTextField = textFieldView.iq_keyboardDistanceFromTextField;
 
     {
-        UISearchBar *searchBar = textFieldView.searchBar;
+        UISearchBar *searchBar = textFieldView.iq_searchBar;
         
         if (searchBar)
         {
-            specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
+            specialKeyboardDistanceFromTextField = searchBar.iq_keyboardDistanceFromTextField;
         }
     }
     
@@ -652,12 +652,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [self showLog:[NSString stringWithFormat:@"Need to move: %.2f",move]];
 
     UIScrollView *superScrollView = nil;
-    UIScrollView *superView = (UIScrollView*)[textFieldView superviewOfClassType:[UIScrollView class]];
+    UIScrollView *superView = (UIScrollView*)[textFieldView iq_superviewOfClassType:[UIScrollView class]];
 
     //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
     while (superView)
     {
-        if (superView.isScrollEnabled && superView.shouldIgnoreScrollingAdjustment == NO)
+        if (superView.isScrollEnabled && superView.iq_shouldIgnoreScrollingAdjustment == NO)
         {
             superScrollView = superView;
             break;
@@ -665,7 +665,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         else
         {
             //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-            superView = (UIScrollView*)[superView superviewOfClassType:[UIScrollView class]];
+            superView = (UIScrollView*)[superView iq_superviewOfClassType:[UIScrollView class]];
         }
     }
     
@@ -688,7 +688,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             } completion:NULL];
             
-            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (_lastScrollView.iq_shouldRestoreScrollViewContentOffset)
             {
                 [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
@@ -714,7 +714,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             } completion:NULL];
 
-            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (_lastScrollView.iq_shouldRestoreScrollViewContentOffset)
             {
                 [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
@@ -753,12 +753,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                    (move>0?(move > (-superScrollView.contentOffset.y-superScrollView.contentInset.top)):superScrollView.contentOffset.y>0) )
             {
                 UIScrollView *nextScrollView = nil;
-                UIScrollView *tempScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]];
+                UIScrollView *tempScrollView = (UIScrollView*)[superScrollView iq_superviewOfClassType:[UIScrollView class]];
                 
                 //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
                 while (tempScrollView)
                 {
-                    if (tempScrollView.isScrollEnabled && tempScrollView.shouldIgnoreScrollingAdjustment == NO)
+                    if (tempScrollView.isScrollEnabled && tempScrollView.iq_shouldIgnoreScrollingAdjustment == NO)
                     {
                         nextScrollView = tempScrollView;
                         break;
@@ -766,7 +766,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     else
                     {
                         //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-                        tempScrollView = (UIScrollView*)[tempScrollView superviewOfClassType:[UIScrollView class]];
+                        tempScrollView = (UIScrollView*)[tempScrollView iq_superviewOfClassType:[UIScrollView class]];
                     }
                 }
 
@@ -1093,7 +1093,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (textFieldView && CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid))    //  (Bug ID: #5)
     {
         //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-        UIViewController *rootController = [textFieldView parentContainerViewController];
+        UIViewController *rootController = [textFieldView iq_parentContainerViewController];
         _rootViewController = rootController;
         
         if (_rootViewControllerWhilePopGestureRecognizerActive == _rootViewController)
@@ -1139,7 +1139,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     UIView *textFieldView = _textFieldView;
 
     //  Getting topMost ViewController.
-    UIViewController *controller = [textFieldView topMostController];
+    UIViewController *controller = [textFieldView iq_topMostController];
 
     //If _textFieldView viewController is presented as formSheet, then adjustPosition again because iOS internally update formSheet frame on keyboardShown. (Bug ID: #37, #74, #76)
     if (_keyboardShowing == YES &&
@@ -1192,7 +1192,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.lastScrollView.contentInset = strongSelf.startingContentInsets;
             strongSelf.lastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             
-            if (strongSelf.lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (strongSelf.lastScrollView.iq_shouldRestoreScrollViewContentOffset)
             {
                 strongSelf.lastScrollView.contentOffset = strongSelf.startingContentOffset;
             }
@@ -1214,7 +1214,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     
                     [self showLog:[NSString stringWithFormat:@"Restoring %@ contentOffset to : %@",[superscrollView _IQDescription],NSStringFromCGPoint(superscrollView.contentOffset)]];
                 }
-            } while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
+            } while ((superscrollView = (UIScrollView*)[superscrollView iq_superviewOfClassType:[UIScrollView class]]));
 
         } completion:NULL];
     }
@@ -1313,7 +1313,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         if (CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid))    //  (Bug ID: #5)
         {
             //  keyboard is not showing(At the beginning only).
-            UIViewController *rootController = [textFieldView parentContainerViewController];
+            UIViewController *rootController = [textFieldView iq_parentContainerViewController];
             _rootViewController = rootController;
             
             if (_rootViewControllerWhilePopGestureRecognizerActive == _rootViewController)
@@ -1629,7 +1629,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If find any consider responderView in it's upper hierarchy then will get deepResponderView.
     for (Class consideredClass in _toolbarPreviousNextAllowedClasses)
     {
-        superConsideredView = [textFieldView superviewOfClassType:consideredClass];
+        superConsideredView = [textFieldView iq_superviewOfClassType:consideredClass];
         
         if (superConsideredView)
             break;
@@ -1638,12 +1638,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
     if (superConsideredView)
     {
-        return [superConsideredView deepResponderViews];
+        return [superConsideredView iq_deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
     {
-        NSArray<UIView*> *textFields = [textFieldView responderSiblings];
+        NSArray<UIView*> *textFields = [textFieldView iq_responderSiblings];
         
         //Sorting textFields according to behaviour
         switch (_toolbarManageBehaviour)
@@ -1655,12 +1655,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 //If autoToolbar behaviour is by tag, then sorting it according to tag property.
             case IQAutoToolbarByTag:
-                return [textFields sortedArrayByTag];
+                return [textFields iq_sortedArrayByTag];
                 break;
                 
                 //If autoToolbar behaviour is by tag, then sorting it according to tag property.
             case IQAutoToolbarByPosition:
-                return [textFields sortedArrayByPosition];
+                return [textFields iq_sortedArrayByPosition];
                 break;
             default:
                 return nil;
@@ -1712,7 +1712,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //    If only one object is found, then adding only Done button.
             if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
-                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+                [textField iq_addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.iq_drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 
                 textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
@@ -1733,7 +1733,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 }
                 else
                 {
-                    prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:@selector(previousAction:)];
+                    prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardPreviousImage] action:@selector(previousAction:)];
                 }
                 
                 IQBarButtonItemConfiguration *nextConfiguration = nil;
@@ -1750,15 +1750,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 }
                 else
                 {
-                    nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:@selector(nextAction:)];
+                    nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardNextImage] action:@selector(nextAction:)];
                 }
 
-                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
+                [textField iq_addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.iq_drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
 
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
             }
             
-            IQToolbar *toolbar = textField.keyboardToolbar;
+            IQToolbar *toolbar = textField.iq_keyboardToolbar;
             
             //Bar style according to keyboard appearance
             if ([textField respondsToSelector:@selector(keyboardAppearance)])
@@ -1796,13 +1796,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 //If need to show placeholder
                 if (_shouldShowToolbarPlaceholder &&
-                    textField.shouldHideToolbarPlaceholder == NO)
+                    textField.iq_shouldHideToolbarPlaceholder == NO)
                 {
                     //Updating placeholder     //(Bug ID: #148, #272)
                     if (toolbar.titleBarButton.title == nil ||
-                        [toolbar.titleBarButton.title isEqualToString:textField.drawingToolbarPlaceholder] == NO)
+                        [toolbar.titleBarButton.title isEqualToString:textField.iq_drawingToolbarPlaceholder] == NO)
                     {
-                        [toolbar.titleBarButton setTitle:textField.drawingToolbarPlaceholder];
+                        [toolbar.titleBarButton setTitle:textField.iq_drawingToolbarPlaceholder];
                     }
                     
                     //Setting toolbar title font.   //  (Enhancement ID: #30)
@@ -1839,25 +1839,25 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 if (siblings.count == 1)
                 {
-                    textField.keyboardToolbar.previousBarButton.enabled = NO;
-                    textField.keyboardToolbar.nextBarButton.enabled = NO;
+                    textField.iq_keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.iq_keyboardToolbar.nextBarButton.enabled = NO;
                 }
                 else
                 {
-                    textField.keyboardToolbar.previousBarButton.enabled = NO;
-                    textField.keyboardToolbar.nextBarButton.enabled = YES;
+                    textField.iq_keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.iq_keyboardToolbar.nextBarButton.enabled = YES;
                 }
             }
             //    If lastTextField then next should not be enaled.
             else if ([siblings lastObject] == textField)
             {
-                textField.keyboardToolbar.previousBarButton.enabled = YES;
-                textField.keyboardToolbar.nextBarButton.enabled = NO;
+                textField.iq_keyboardToolbar.previousBarButton.enabled = YES;
+                textField.iq_keyboardToolbar.nextBarButton.enabled = NO;
             }
             else
             {
-                textField.keyboardToolbar.previousBarButton.enabled = YES;
-                textField.keyboardToolbar.nextBarButton.enabled = YES;
+                textField.iq_keyboardToolbar.previousBarButton.enabled = YES;
+                textField.iq_keyboardToolbar.nextBarButton.enabled = YES;
             }
         }
     }
@@ -1929,11 +1929,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         //Handling search bar special case
         {
-            UISearchBar *searchBar = currentTextFieldView.searchBar;
+            UISearchBar *searchBar = currentTextFieldView.iq_searchBar;
             
             if (searchBar)
             {
-                invocation = searchBar.keyboardToolbar.previousBarButton.invocation;
+                invocation = searchBar.iq_keyboardToolbar.previousBarButton.invocation;
             }
         }
 
@@ -1967,11 +1967,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         //Handling search bar special case
         {
-            UISearchBar *searchBar = currentTextFieldView.searchBar;
+            UISearchBar *searchBar = currentTextFieldView.iq_searchBar;
             
             if (searchBar)
             {
-                invocation = searchBar.keyboardToolbar.nextBarButton.invocation;
+                invocation = searchBar.iq_keyboardToolbar.nextBarButton.invocation;
             }
         }
 
@@ -2003,11 +2003,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //Handling search bar special case
     {
-        UISearchBar *searchBar = currentTextFieldView.searchBar;
+        UISearchBar *searchBar = currentTextFieldView.iq_searchBar;
         
         if (searchBar)
         {
-            invocation = searchBar.keyboardToolbar.doneBarButton.invocation;
+            invocation = searchBar.iq_keyboardToolbar.doneBarButton.invocation;
         }
     }
 

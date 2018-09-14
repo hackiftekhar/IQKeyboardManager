@@ -26,26 +26,26 @@
 
 @implementation UIScrollView (Additions)
 
--(void)setShouldIgnoreScrollingAdjustment:(BOOL)shouldIgnoreScrollingAdjustment
+-(void)setIq_shouldIgnoreScrollingAdjustment:(BOOL)shouldIgnoreScrollingAdjustment
 {
-    objc_setAssociatedObject(self, @selector(shouldIgnoreScrollingAdjustment), @(shouldIgnoreScrollingAdjustment), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_shouldIgnoreScrollingAdjustment), @(shouldIgnoreScrollingAdjustment), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(BOOL)shouldIgnoreScrollingAdjustment
+-(BOOL)iq_shouldIgnoreScrollingAdjustment
 {
-    NSNumber *shouldIgnoreScrollingAdjustment = objc_getAssociatedObject(self, @selector(shouldIgnoreScrollingAdjustment));
+    NSNumber *shouldIgnoreScrollingAdjustment = objc_getAssociatedObject(self, @selector(iq_shouldIgnoreScrollingAdjustment));
     
     return [shouldIgnoreScrollingAdjustment boolValue];
 }
 
--(void)setShouldRestoreScrollViewContentOffset:(BOOL)shouldRestoreScrollViewContentOffset
+-(void)setIq_shouldRestoreScrollViewContentOffset:(BOOL)shouldRestoreScrollViewContentOffset
 {
-    objc_setAssociatedObject(self, @selector(shouldRestoreScrollViewContentOffset), @(shouldRestoreScrollViewContentOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_shouldRestoreScrollViewContentOffset), @(shouldRestoreScrollViewContentOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(BOOL)shouldRestoreScrollViewContentOffset
+-(BOOL)iq_shouldRestoreScrollViewContentOffset
 {
-    NSNumber *shouldRestoreScrollViewContentOffset = objc_getAssociatedObject(self, @selector(shouldRestoreScrollViewContentOffset));
+    NSNumber *shouldRestoreScrollViewContentOffset = objc_getAssociatedObject(self, @selector(iq_shouldRestoreScrollViewContentOffset));
     
     return [shouldRestoreScrollViewContentOffset boolValue];
 }

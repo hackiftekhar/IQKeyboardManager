@@ -39,17 +39,17 @@
 /**
  Returns the UIViewController object that manages the receiver.
  */
-@property (nullable, nonatomic, readonly, strong) UIViewController *viewContainingController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *iq_viewContainingController;
 
 /**
  Returns the topMost UIViewController object in hierarchy.
  */
-@property (nullable, nonatomic, readonly, strong) UIViewController *topMostController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *iq_topMostController;
 
 /**
  Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
  */
-@property (nullable, nonatomic, readonly, strong) UIViewController *parentContainerViewController;
+@property (nullable, nonatomic, readonly, strong) UIViewController *iq_parentContainerViewController;
 
 ///-----------------------------------
 /// @name Superviews/Subviews/Siglings
@@ -58,17 +58,17 @@
 /**
  Returns the superView of provided class type.
  */
--(nullable UIView*)superviewOfClassType:(nonnull Class)classType;
+-(nullable UIView*)iq_superviewOfClassType:(nonnull Class)classType;
 
 /**
  Returns all siblings of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *responderSiblings;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *iq_responderSiblings;
 
 /**
  Returns all deep subViews of the receiver which canBecomeFirstResponder.
  */
-@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *deepResponderViews;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> *iq_deepResponderViews;
 
 ///-------------------------
 /// @name Special TextFields
@@ -77,12 +77,12 @@
 /**
  Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
  */
-@property (nullable, nonatomic, readonly) UISearchBar *searchBar;
+@property (nullable, nonatomic, readonly) UISearchBar *iq_searchBar;
 
 /**
  Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
  */
-@property (nonatomic, getter=isAlertViewTextField, readonly) BOOL alertViewTextField;
+@property (nonatomic, getter=isAlertViewTextField, readonly) BOOL iq_alertViewTextField;
 
 ///----------------
 /// @name Transform
@@ -91,7 +91,7 @@
 /**
  Returns current view transform with respect to the 'toView'.
  */
--(CGAffineTransform)convertTransformToView:(nullable UIView*)toView;
+-(CGAffineTransform)iq_convertTransformToView:(nullable UIView*)toView;
 
 ///-----------------
 /// @name Hierarchy
@@ -100,17 +100,17 @@
 /**
  Returns a string that represent the information about it's subview's hierarchy. You can use this method to debug the subview's positions.
  */
-@property (nonnull, nonatomic, readonly, copy) NSString *subHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *iq_subHierarchy;
 
 /**
  Returns an string that represent the information about it's upper hierarchy. You can use this method to debug the superview's positions.
  */
-@property (nonnull, nonatomic, readonly, copy) NSString *superHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *iq_superHierarchy;
 
 /**
  Returns an string that represent the information about it's frame positions. You can use this method to debug self positions.
  */
-@property (nonnull, nonatomic, readonly, copy) NSString *debugHierarchy;
+@property (nonnull, nonatomic, readonly, copy) NSString *iq_debugHierarchy;
 
 @end
 

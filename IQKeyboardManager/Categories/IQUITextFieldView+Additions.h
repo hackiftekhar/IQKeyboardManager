@@ -33,12 +33,12 @@
 /**
  To set customized distance from keyboard for textField/textView. Can't be less than zero
  */
-@property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
+@property(nonatomic, assign) CGFloat iq_keyboardDistanceFromTextField;
 
 /**
  If shouldIgnoreSwitchingByNextPrevious is YES then library will ignore this textField/textView while moving to other textField/textView using keyboard toolbar next previous buttons. Default is NO
  */
-@property(nonatomic, assign) BOOL ignoreSwitchingByNextPrevious;
+@property(nonatomic, assign) BOOL iq_ignoreSwitchingByNextPrevious;
 
 ///**
 // Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
@@ -48,7 +48,7 @@
 /**
  Override resigns Keyboard on touching outside of UITextField/View behaviour for this particular textField.
  */
-@property(nonatomic, assign) IQEnableMode shouldResignOnTouchOutsideMode;
+@property(nonatomic, assign) IQEnableMode iq_shouldResignOnTouchOutsideMode;
 
 @end
 

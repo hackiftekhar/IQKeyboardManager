@@ -41,7 +41,7 @@
 
 @implementation UIView (IQ_UIView_Hierarchy)
 
--(UIViewController*)viewContainingController
+-(UIViewController*)iq_viewContainingController
 {
     UIResponder *nextResponder =  self;
     
@@ -57,7 +57,7 @@
     return nil;
 }
 
--(UIViewController *)topMostController
+-(UIViewController *)iq_topMostController
 {
     NSMutableArray<UIViewController*> *controllersHierarchy = [[NSMutableArray alloc] init];
     
@@ -74,7 +74,7 @@
         [controllersHierarchy addObject:topController];
     }
     
-    UIViewController *matchController = [self viewContainingController];
+    UIViewController *matchController = [self iq_viewContainingController];
     
     while (matchController && [controllersHierarchy containsObject:matchController] == NO)
     {
@@ -88,9 +88,9 @@
     return matchController;
 }
 
--(UIViewController *)parentContainerViewController
+-(UIViewController *)iq_parentContainerViewController
 {
-    UIViewController *matchController = [self viewContainingController];
+    UIViewController *matchController = [self iq_viewContainingController];
     
     UIViewController *parentContainerViewController = nil;
     
@@ -156,7 +156,7 @@
     return finalController;
 }
 
--(UIView*)superviewOfClassType:(Class)classType
+-(UIView*)iq_superviewOfClassType:(Class)classType
 {
     UIView *superview = self.superview;
     
@@ -206,13 +206,13 @@
 
     if (_IQcanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.searchBar);
+        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.iq_searchBar);
     }
     
     return _IQcanBecomeFirstResponder;
 }
 
-- (NSArray<UIView*>*)responderSiblings
+- (NSArray<UIView*>*)iq_responderSiblings
 {
     //	Getting all siblings
     NSArray<UIView*> *siblings = self.superview.subviews;
@@ -221,19 +221,19 @@
     NSMutableArray<UIView*> *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UIView *textField in siblings)
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.iq_ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
 }
 
-- (NSArray<UIView*>*)deepResponderViews
+- (NSArray<UIView*>*)iq_deepResponderViews
 {
     NSMutableArray<UIView*> *textFields = [[NSMutableArray alloc] init];
     
     for (UIView *textField in self.subviews)
     {
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.iq_ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
         {
             [textFields addObject:textField];
         }
@@ -242,7 +242,7 @@
         //Uncommented else (Bug ID: #625)
         if (textField.subviews.count && [textField isUserInteractionEnabled] && ![textField isHidden] && [textField alpha]!=0.0)
         {
-            [textFields addObjectsFromArray:[textField deepResponderViews]];
+            [textFields addObjectsFromArray:[textField iq_deepResponderViews]];
         }
     }
 
@@ -272,7 +272,7 @@
     return textFields;
 }
 
--(CGAffineTransform)convertTransformToView:(UIView*)toView
+-(CGAffineTransform)iq_convertTransformToView:(UIView*)toView
 {
     if (toView == nil)
     {
@@ -285,7 +285,7 @@
     {
         UIView *superView = [self superview];
         
-        if (superView)  myTransform = CGAffineTransformConcat(self.transform, [superView convertTransformToView:nil]);
+        if (superView)  myTransform = CGAffineTransformConcat(self.transform, [superView iq_convertTransformToView:nil]);
         else            myTransform = self.transform;
     }
     
@@ -295,7 +295,7 @@
     {
         UIView *superView = [toView superview];
         
-        if (superView)  viewTransform = CGAffineTransformConcat(toView.transform, [superView convertTransformToView:nil]);
+        if (superView)  viewTransform = CGAffineTransformConcat(toView.transform, [superView iq_convertTransformToView:nil]);
         else if (toView)  viewTransform = toView.transform;
     }
     
@@ -315,30 +315,30 @@
     return depth;
 }
 
-- (NSString *)subHierarchy
+- (NSString *)iq_subHierarchy
 {
     NSMutableString *debugInfo = [[NSMutableString alloc] initWithString:@"\n"];
     NSInteger depth = [self depth];
     
     for (int counter = 0; counter < depth; counter ++)  [debugInfo appendString:@"|  "];
     
-    [debugInfo appendString:[self debugHierarchy]];
+    [debugInfo appendString:[self iq_debugHierarchy]];
     
     for (UIView *subview in self.subviews)
     {
-        [debugInfo appendString:[subview subHierarchy]];
+        [debugInfo appendString:[subview iq_subHierarchy]];
     }
     
     return debugInfo;
 }
 
-- (NSString *)superHierarchy
+- (NSString *)iq_superHierarchy
 {
     NSMutableString *debugInfo = [[NSMutableString alloc] init];
 
     if (self.superview)
     {
-        [debugInfo appendString:[self.superview superHierarchy]];
+        [debugInfo appendString:[self.superview iq_superHierarchy]];
     }
     else
     {
@@ -349,14 +349,14 @@
     
     for (int counter = 0; counter < depth; counter ++)  [debugInfo appendString:@"|  "];
     
-    [debugInfo appendString:[self debugHierarchy]];
+    [debugInfo appendString:[self iq_debugHierarchy]];
 
     [debugInfo appendString:@"\n"];
     
     return debugInfo;
 }
 
--(NSString *)debugHierarchy
+-(NSString *)iq_debugHierarchy
 {
     NSMutableString *debugInfo = [[NSMutableString alloc] init];
 
@@ -376,7 +376,7 @@
     return debugInfo;
 }
 
--(UISearchBar *)searchBar
+-(UISearchBar *)iq_searchBar
 {
     UIResponder *searchBar = [self nextResponder];
     
@@ -399,7 +399,7 @@
 
 -(BOOL)isAlertViewTextField
 {
-    UIResponder *alertViewController = [self viewContainingController];
+    UIResponder *alertViewController = [self iq_viewContainingController];
     
     BOOL isAlertViewTextField = NO;
     while (alertViewController && isAlertViewTextField == NO)

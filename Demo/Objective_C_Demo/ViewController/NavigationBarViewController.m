@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    textField3.toolbarPlaceholder = @"This is the customised placeholder title for displaying as toolbar title";
+    textField3.iq_toolbarPlaceholder = @"This is the customised placeholder title for displaying as toolbar title";
     
     returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     [returnKeyHandler setLastTextFieldReturnKeyType:UIReturnKeyDone];
@@ -42,7 +42,7 @@
 
 - (IBAction)shouldHideTitle:(UISwitch *)sender
 {
-    textField2.shouldHideToolbarPlaceholder = !textField2.shouldHideToolbarPlaceholder;
+    textField2.iq_shouldHideToolbarPlaceholder = !textField2.iq_shouldHideToolbarPlaceholder;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
