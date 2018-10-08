@@ -593,7 +593,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 var invocation = barButton.invocation
                 //Handling search bar special case
                 do {
-                    if let searchBar = textFieldRetain.searchBar() {
+                    if let searchBar = textFieldRetain.textFieldSearchBar() {
                         invocation = searchBar.keyboardToolbar.previousBarButton.invocation
                     }
                 }
@@ -622,7 +622,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 var invocation = barButton.invocation
                 //Handling search bar special case
                 do {
-                    if let searchBar = textFieldRetain.searchBar() {
+                    if let searchBar = textFieldRetain.textFieldSearchBar() {
                         invocation = searchBar.keyboardToolbar.nextBarButton.invocation
                     }
                 }
@@ -650,7 +650,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             var invocation = barButton.invocation
             //Handling search bar special case
             do {
-                if let searchBar = textFieldRetain.searchBar() {
+                if let searchBar = textFieldRetain.textFieldSearchBar() {
                     invocation = searchBar.keyboardToolbar.doneBarButton.invocation
                 }
             }
@@ -979,7 +979,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             //Maintain keyboardDistanceFromTextField
             var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
             
-            if let searchBar = textFieldView.searchBar() {
+            if let searchBar = textFieldView.textFieldSearchBar() {
                 
                 specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
             }

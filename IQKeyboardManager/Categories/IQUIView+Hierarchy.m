@@ -206,7 +206,7 @@
 
     if (_IQcanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.searchBar);
+        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
     }
     
     return _IQcanBecomeFirstResponder;
@@ -376,7 +376,7 @@
     return debugInfo;
 }
 
--(UISearchBar *)searchBar
+-(UISearchBar *)textFieldSearchBar
 {
     UIResponder *searchBar = [self nextResponder];
     

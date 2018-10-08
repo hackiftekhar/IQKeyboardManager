@@ -626,7 +626,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGFloat specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField;
 
     {
-        UISearchBar *searchBar = textFieldView.searchBar;
+        UISearchBar *searchBar = textFieldView.textFieldSearchBar;
         
         if (searchBar)
         {
@@ -1929,7 +1929,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         //Handling search bar special case
         {
-            UISearchBar *searchBar = currentTextFieldView.searchBar;
+            UISearchBar *searchBar = currentTextFieldView.textFieldSearchBar;
             
             if (searchBar)
             {
@@ -1967,7 +1967,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
         //Handling search bar special case
         {
-            UISearchBar *searchBar = currentTextFieldView.searchBar;
+            UISearchBar *searchBar = currentTextFieldView.textFieldSearchBar;
             
             if (searchBar)
             {
@@ -2003,7 +2003,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //Handling search bar special case
     {
-        UISearchBar *searchBar = currentTextFieldView.searchBar;
+        UISearchBar *searchBar = currentTextFieldView.textFieldSearchBar;
         
         if (searchBar)
         {
