@@ -277,16 +277,6 @@
     return [shouldHideToolbarPlaceholder boolValue];
 }
 
--(void)setShouldHidePlaceholderText:(BOOL)shouldHidePlaceholderText
-{
-    [self setShouldHideToolbarPlaceholder:shouldHidePlaceholderText];
-}
-
--(BOOL)shouldHidePlaceholderText
-{
-    return [self shouldHideToolbarPlaceholder];
-}
-
 -(void)setToolbarPlaceholder:(NSString *)toolbarPlaceholder
 {
     objc_setAssociatedObject(self, @selector(toolbarPlaceholder), toolbarPlaceholder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -298,16 +288,6 @@
 {
     NSString *toolbarPlaceholder = objc_getAssociatedObject(self, @selector(toolbarPlaceholder));
     return toolbarPlaceholder;
-}
-
--(void)setPlaceholderText:(NSString*)placeholderText
-{
-    [self setToolbarPlaceholder:placeholderText];
-}
-
--(NSString*)placeholderText
-{
-    return [self toolbarPlaceholder];
 }
 
 -(NSString *)drawingToolbarPlaceholder
@@ -328,11 +308,6 @@
     {
         return nil;
     }
-}
-
--(NSString*)drawingPlaceholderText
-{
-    return [self drawingToolbarPlaceholder];
 }
 
 #pragma mark - Private helper

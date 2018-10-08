@@ -69,19 +69,16 @@
  If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
  */
 @property (assign, nonatomic) BOOL shouldHideToolbarPlaceholder;
-@property (assign, nonatomic) BOOL shouldHidePlaceholderText __attribute__((deprecated("This is renamed to `shouldHideToolbarPlaceholder` for more clear naming.")));
 
 /**
  `toolbarPlaceholder` to override default `placeholder` text when drawing text on toolbar.
  */
 @property (nullable, strong, nonatomic) NSString* toolbarPlaceholder;
-@property (nullable, strong, nonatomic) NSString* placeholderText __attribute__((deprecated("This is renamed to `toolbarPlaceholder` for more clear naming.")));
 
 /**
  `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. This would either `placeholder` or `toolbarPlaceholder`.
  */
 @property (nullable, strong, nonatomic, readonly) NSString* drawingToolbarPlaceholder;
-@property (nullable, strong, nonatomic, readonly) NSString* drawingPlaceholderText __attribute__((deprecated("This is renamed to `drawingToolbarPlaceholder` for more clear naming.")));
 
 ///-------------
 /// MARK: Common

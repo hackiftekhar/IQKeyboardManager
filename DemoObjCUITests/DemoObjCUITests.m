@@ -234,7 +234,7 @@
 }
 
 /**
- shouldShowTextFieldPlaceholder   If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+ shouldShowToolbarPlaceholder   If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  ShouldToolbarUsesTextFieldTintColor    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
  placeholderFont    Placeholder Font. Default is nil.
  */

@@ -270,16 +270,6 @@ public extension UIView {
             self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder
         }
     }
-
-    @available(*,deprecated, message: "This is renamed to `shouldHideToolbarPlaceholder` for more clear naming.")
-    @objc public var shouldHidePlaceholderText: Bool {
-        get {
-            return shouldHideToolbarPlaceholder
-        }
-        set(newValue) {
-            shouldHideToolbarPlaceholder = newValue
-        }
-    }
     
     /**
      `toolbarPlaceholder` to override default `placeholder` text when drawing text on toolbar.
@@ -297,16 +287,6 @@ public extension UIView {
         }
     }
 
-    @available(*,deprecated, message: "This is renamed to `toolbarPlaceholder` for more clear naming.")
-    @objc public var placeholderText: String? {
-        get {
-            return toolbarPlaceholder
-        }
-        set(newValue) {
-            toolbarPlaceholder = newValue
-        }
-    }
-    
     /**
      `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. This would either `placeholder` or `toolbarPlaceholder`.
      */
@@ -334,12 +314,6 @@ public extension UIView {
         }
     }
 
-    @available(*,deprecated, message: "This is renamed to `drawingToolbarPlaceholder` for more clear naming.")
-    @objc public var drawingPlaceholderText: String? {
-        
-        return drawingToolbarPlaceholder
-    }
-    
     ///---------------------
     /// MARK: Private helper
     ///---------------------

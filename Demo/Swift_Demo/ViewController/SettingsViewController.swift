@@ -67,7 +67,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
         IQKeyboardManager.shared.shouldToolbarUsesTextFieldTintColor = sender.isOn
     }
     
-    @objc func shouldShowTextFieldPlaceholder (_ sender: UISwitch) {
+    @objc func shouldShowToolbarPlaceholder (_ sender: UISwitch) {
         
         IQKeyboardManager.shared.shouldShowToolbarPlaceholder = sender.isOn
         
@@ -274,7 +274,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                 cell.switchEnable.isOn = IQKeyboardManager.shared.shouldShowToolbarPlaceholder
                 
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldShowTextFieldPlaceholder(_:)), for: .valueChanged)
+                cell.switchEnable.addTarget(self, action: #selector(self.shouldShowToolbarPlaceholder(_:)), for: .valueChanged)
                 
                 return cell
                 

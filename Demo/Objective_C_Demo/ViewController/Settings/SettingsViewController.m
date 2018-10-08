@@ -93,7 +93,7 @@
     [[IQKeyboardManager sharedManager] setShouldToolbarUsesTextFieldTintColor:sender.on];
 }
 
-- (void)shouldShowTextFieldPlaceholder:(UISwitch *)sender
+- (void)shouldShowToolbarPlaceholder:(UISwitch *)sender
 {
     [[IQKeyboardManager sharedManager] setShouldShowToolbarPlaceholder:sender.on];
     
@@ -291,7 +291,7 @@
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
                     cell.switchEnable.on = [[IQKeyboardManager sharedManager] shouldShowToolbarPlaceholder];
                     [cell.switchEnable removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-                    [cell.switchEnable addTarget:self action:@selector(shouldShowTextFieldPlaceholder:) forControlEvents:UIControlEventValueChanged];
+                    [cell.switchEnable addTarget:self action:@selector(shouldShowToolbarPlaceholder:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                 }
                     break;

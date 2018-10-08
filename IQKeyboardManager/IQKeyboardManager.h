@@ -87,13 +87,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) CGFloat keyboardDistanceFromTextField;
 
 /**
- Prevent keyboard manager to slide up the rootView to more than keyboard height. Default is YES.
- 
- Due to change in core-logic of handling distance between textField and keyboard distance, this tweak is no longer needed and things will just work out of the box for most of the cases.
- */
-@property(nonatomic, assign) BOOL preventShowingBottomBlankSpace __attribute__((deprecated("Due to change in core-logic of handling distance between textField and keyboard distance, this tweak is no longer needed and things will just work out of the box for most of the cases. This property will be removed in future release.")));
-
-/**
  Refreshes textField/textView position if any external changes is explicitly made by user.
  */
 - (void)reloadLayoutIfNeeded;
@@ -166,7 +159,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
  */
-@property(nonatomic, assign) BOOL shouldShowTextFieldPlaceholder __attribute__((deprecated("This is renamed to `shouldShowToolbarPlaceholder` for more clear naming.")));
 @property(nonatomic, assign) BOOL shouldShowToolbarPlaceholder;
 
 /**
@@ -257,26 +249,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
  */
 @property(nonatomic, assign) BOOL layoutIfNeededOnUpdate;
-
-///-----------------------------------------------
-/// @name InteractivePopGestureRecognizer handling
-///-----------------------------------------------
-
-/**
- If YES, then always consider UINavigationController.view begin point as {0,0}, this is a workaround to fix a bug #464 because there are no notification mechanism exist when UINavigationController.view.frame gets changed internally.
- */
-@property(nonatomic, assign) BOOL shouldFixInteractivePopGestureRecognizer __attribute__((deprecated("Due to change in core-logic of handling distance between textField and keyboard distance, this tweak is no longer needed and things will just work out of the box for most of the cases. This property will be removed in future release.")));
-
-#ifdef __IPHONE_11_0
-///---------------------------
-/// @name Safe Area
-///---------------------------
-
-/**
- If YES, then library will try to adjust viewController.additionalSafeAreaInsets to automatically handle layout guide. Default is NO.
- */
-@property(nonatomic, assign) BOOL canAdjustAdditionalSafeAreaInsets __attribute__((deprecated("Due to change in core-logic of handling distance between textField and keyboard distance, this safe area tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview. This property will be removed in future release.")));
-#endif
 
 ///---------------------------------------------
 /// @name Class Level enabling/disabling methods

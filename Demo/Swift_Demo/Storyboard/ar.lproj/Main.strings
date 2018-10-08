@@ -53,8 +53,8 @@
 /* Class = "UILabel"; text = "UITableView inside UIScrollView"; ObjectID = "JUG-pm-L0a"; */
 "JUG-pm-L0a.text" = "UITableView inside UIScrollView";
 
-/* Class = "UILabel"; text = "- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHidePlaceholderText (Category) - placeholderText (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText"; ObjectID = "KuD-1z-36f"; */
-"KuD-1z-36f.text" = "- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHidePlaceholderText (Category) - placeholderText (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText";
+/* Class = "UILabel"; text = "- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHideToolbarPlaceholder (Category) - toolbarPlaceholder (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText"; ObjectID = "KuD-1z-36f"; */
+"KuD-1z-36f.text" = "- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHideToolbarPlaceholder (Category) - toolbarPlaceholder (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText";
 
 /* Class = "UILabel"; text = "Text Selection"; ObjectID = "WIY-wJ-lgq"; */
 "WIY-wJ-lgq.text" = "Text Selection";
@@ -101,8 +101,8 @@
 /* Class = "UILabel"; text = "UITextField/UITextView example"; ObjectID = "itr-sp-j54"; */
 "itr-sp-j54.text" = "UITextField/UITextView example";
 
-/* Class = "UILabel"; text = "- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowTextFieldPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)"; ObjectID = "ko2-SX-mJs"; */
-"ko2-SX-mJs.text" = "- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowTextFieldPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)";
+/* Class = "UILabel"; text = "- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowToolbarPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)"; ObjectID = "ko2-SX-mJs"; */
+"ko2-SX-mJs.text" = "- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowToolbarPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)";
 
 /* Class = "UILabel"; text = "Search Controller"; ObjectID = "sfy-kL-TLi"; */
 "sfy-kL-TLi.text" = "Search Controller";

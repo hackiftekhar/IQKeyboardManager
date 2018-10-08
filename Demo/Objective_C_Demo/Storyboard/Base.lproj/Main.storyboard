@@ -37,7 +37,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ko2-SX-mJs">
                                                     <rect key="frame" x="16" y="28" width="264" height="143.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <string key="text">- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowTextFieldPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)</string>
+                                                    <string key="text">- enable - shouldToolbarUsesTextFieldTintColor - keyboardDistanceFromTextField - shouldShowToolbarPlaceholder - placeholderFont - keyboardDistanceFromTextField (Category) - IQTextView (Class) - setCustomPreviousTarget: action: (Category) - setCustomNextTarget: action: (Category) - setCustomDoneTarget: action: (Category)</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -63,9 +63,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KuD-1z-36f">
-                                                    <rect key="frame" x="16" y="30.5" width="227.5" height="158"/>
+                                                    <rect key="frame" x="16" y="30.5" width="245.5" height="158"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <string key="text">- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHidePlaceholderText (Category) - placeholderText (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText</string>
+                                                    <string key="text">- enableAutoToolbar - toolbarManageBehaviour - overrideKeyboardAppearance - keyboardAppearance - shouldResignOnTouchOutside - IQKeyboardReturnKeyHandler (Class) - shouldHideToolbarPlaceholder (Category) - toolbarPlaceholder (Category) - toolbarTintColor - toolbarDoneBarButtonItemImage - toolbarDoneBarButtonItemText</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -584,7 +584,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iFF-SZ-t3m" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="sxS-VT-UFI">
-                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
