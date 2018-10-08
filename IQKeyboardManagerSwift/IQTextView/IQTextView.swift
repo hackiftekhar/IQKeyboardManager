@@ -120,6 +120,18 @@ open class IQTextView : UITextView {
             refreshPlaceholder()
         }
     }
+
+    /** @abstract To set textView's placeholder attributed text. Default is nil.    */
+    open var attributedPlaceholder: NSAttributedString? {
+        get {
+            return placeholderLabel.attributedText
+        }
+
+        set {
+            placeholderLabel.attributedText = newValue
+            refreshPlaceholder()
+        }
+    }
     
     @objc override open func layoutSubviews() {
         super.layoutSubviews()
