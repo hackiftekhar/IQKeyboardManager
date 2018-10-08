@@ -141,7 +141,7 @@ open class IQTextView : UITextView {
     
     @objc internal func refreshPlaceholder() {
         
-        if !text.isEmpty {
+        if !text.isEmpty || !attributedText.string.isEmpty {
             placeholderLabel.alpha = 0
         } else {
             placeholderLabel.alpha = 1
@@ -151,9 +151,14 @@ open class IQTextView : UITextView {
     @objc override open var text: String! {
         
         didSet {
-            
             refreshPlaceholder()
-            
+        }
+    }
+    
+    open override var attributedText: NSAttributedString! {
+        
+        didSet {
+            refreshPlaceholder()
         }
     }
     

@@ -68,7 +68,7 @@
 
 -(void)refreshPlaceholder
 {
-    if([[self text] length])
+    if([[self text] length] || [[self attributedText] length])
     {
         [_placeholderLabel setAlpha:0];
     }
@@ -84,6 +84,12 @@
 - (void)setText:(NSString *)text
 {
     [super setText:text];
+    [self refreshPlaceholder];
+}
+
+-(void)setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
     [self refreshPlaceholder];
 }
 
@@ -116,6 +122,14 @@
     _placeholder = placeholder;
     
     self.placeholderLabel.text = placeholder;
+    [self refreshPlaceholder];
+}
+
+-(void)setAttributedPlaceholder:(NSAttributedString *)attributedPlaceholder
+{
+    _attributedPlaceholder = attributedPlaceholder;
+    
+    self.placeholderLabel.attributedText = attributedPlaceholder;
     [self refreshPlaceholder];
 }
 
