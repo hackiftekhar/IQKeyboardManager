@@ -107,14 +107,14 @@
 #pragma mark - Add/Remove TextFields
 -(void)addResponderFromView:(UIView*)view
 {
-    NSArray<UIView*> *textFields = [view deepResponderViews];
+    NSArray<UIView*> *textFields = [view iq_deepResponderViews];
     
     for (UIView *textField in textFields)  [self addTextFieldView:textField];
 }
 
 -(void)removeResponderFromView:(UIView*)view
 {
-    NSArray<UIView*> *textFields = [view deepResponderViews];
+    NSArray<UIView*> *textFields = [view iq_deepResponderViews];
     
     for (UIView *textField in textFields)  [self removeTextFieldView:textField];
 }
@@ -171,7 +171,7 @@
     //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
     for (Class consideredClass in [[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses])
     {
-        superConsideredView = [textField superviewOfClassType:consideredClass];
+        superConsideredView = [textField iq_superviewOfClassType:consideredClass];
         
         if (superConsideredView)
             break;
@@ -182,24 +182,24 @@
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
     if (superConsideredView)  //     //   (Enhancement ID: #22)
     {
-        textFields = [superConsideredView deepResponderViews];
+        textFields = [superConsideredView iq_deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
     {
-        textFields = [textField responderSiblings];
+        textFields = [textField iq_responderSiblings];
         
         //Sorting textFields according to behaviour
         switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:
-                textFields = [textFields sortedArrayByTag];
+                textFields = [textFields iq_sortedArrayByTag];
                 break;
                 
                 //If needs to sort it by Position
             case IQAutoToolbarByPosition:
-                textFields = [textFields sortedArrayByPosition];
+                textFields = [textFields iq_sortedArrayByPosition];
                 break;
                 
             default:
@@ -220,7 +220,7 @@
     //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
     for (Class consideredClass in [[IQKeyboardManager sharedManager] toolbarPreviousNextAllowedClasses])
     {
-        superConsideredView = [textField superviewOfClassType:consideredClass];
+        superConsideredView = [textField iq_superviewOfClassType:consideredClass];
         
         if (superConsideredView)
             break;
@@ -231,24 +231,24 @@
     //If there is a tableView in view's hierarchy, then fetching all it's subview that responds. No sorting for tableView, it's by subView position.
     if (superConsideredView)  //     //   (Enhancement ID: #22)
     {
-        textFields = [superConsideredView deepResponderViews];
+        textFields = [superConsideredView iq_deepResponderViews];
     }
     //Otherwise fetching all the siblings
     else
     {
-        textFields = [textField responderSiblings];
+        textFields = [textField iq_responderSiblings];
         
         //Sorting textFields according to behaviour
         switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:
-                textFields = [textFields sortedArrayByTag];
+                textFields = [textFields iq_sortedArrayByTag];
                 break;
                 
                 //If needs to sort it by Position
             case IQAutoToolbarByPosition:
-                textFields = [textFields sortedArrayByPosition];
+                textFields = [textFields iq_sortedArrayByPosition];
                 break;
                 
             default:

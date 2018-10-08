@@ -68,7 +68,7 @@
 
 @implementation UIImage (IQKeyboardToolbarNextPreviousImage)
 
-+(UIImage*)keyboardPreviousiOS9Image
++(UIImage*)iq_keyboardPreviousiOS9Image
 {
     static UIImage *keyboardPreviousiOS9Image = nil;
     
@@ -102,7 +102,7 @@
     return keyboardPreviousiOS9Image;
 }
 
-+(UIImage*)keyboardNextiOS9Image
++(UIImage*)iq_keyboardNextiOS9Image
 {
     static UIImage *keyboardNextiOS9Image = nil;
     
@@ -136,7 +136,7 @@
     return keyboardNextiOS9Image;
 }
 
-+(UIImage*)keyboardPreviousiOS10Image
++(UIImage*)iq_keyboardPreviousiOS10Image
 {
     static UIImage *keyboardPreviousiOS10Image = nil;
     
@@ -170,7 +170,7 @@
     return keyboardPreviousiOS10Image;
 }
 
-+(UIImage*)keyboardNextiOS10Image
++(UIImage*)iq_keyboardNextiOS10Image
 {
     static UIImage *keyboardNextiOS10Image = nil;
     
@@ -204,7 +204,7 @@
     return keyboardNextiOS10Image;
 }
 
-+(UIImage*)keyboardPreviousImage
++(UIImage*)iq_keyboardPreviousImage
 {
 #ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *))
@@ -212,15 +212,15 @@
     if (IQ_IS_IOS10_OR_GREATER)
 #endif
     {
-        return [UIImage keyboardPreviousiOS10Image];
+        return [UIImage iq_keyboardPreviousiOS10Image];
     }
     else
     {
-        return [UIImage keyboardPreviousiOS9Image];
+        return [UIImage iq_keyboardPreviousiOS9Image];
     }
 }
 
-+(UIImage*)keyboardNextImage
++(UIImage*)iq_keyboardNextImage
 {
 #ifdef __IPHONE_11_0
     if (@available(iOS 10.0, *))
@@ -228,11 +228,11 @@
     if (IQ_IS_IOS10_OR_GREATER)
 #endif
     {
-        return [UIImage keyboardNextiOS10Image];
+        return [UIImage iq_keyboardNextiOS10Image];
     }
     else
     {
-        return [UIImage keyboardNextiOS9Image];
+        return [UIImage iq_keyboardNextiOS9Image];
     }
 }
 
@@ -242,7 +242,7 @@
 /*UIKeyboardToolbar Category implementation*/
 @implementation UIView (IQToolbarAddition)
 
--(IQToolbar *)keyboardToolbar
+-(IQToolbar *)iq_keyboardToolbar
 {
     IQToolbar *keyboardToolbar = nil;
     if ([[self inputAccessoryView] isKindOfClass:[IQToolbar class]])
@@ -251,74 +251,54 @@
     }
     else
     {
-        keyboardToolbar = objc_getAssociatedObject(self, @selector(keyboardToolbar));
+        keyboardToolbar = objc_getAssociatedObject(self, @selector(iq_keyboardToolbar));
         
         if (keyboardToolbar == nil)
         {
             keyboardToolbar = [[IQToolbar alloc] init];
             
-            objc_setAssociatedObject(self, @selector(keyboardToolbar), keyboardToolbar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, @selector(iq_keyboardToolbar), keyboardToolbar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     return keyboardToolbar;
 }
 
--(void)setShouldHideToolbarPlaceholder:(BOOL)shouldHideToolbarPlaceholder
+-(void)setIq_shouldHideToolbarPlaceholder:(BOOL)shouldHideToolbarPlaceholder
 {
-    objc_setAssociatedObject(self, @selector(shouldHideToolbarPlaceholder), @(shouldHideToolbarPlaceholder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_shouldHideToolbarPlaceholder), @(shouldHideToolbarPlaceholder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder;
+    self.iq_keyboardToolbar.titleBarButton.title = self.iq_drawingToolbarPlaceholder;
 }
 
--(BOOL)shouldHideToolbarPlaceholder
+-(BOOL)iq_shouldHideToolbarPlaceholder
 {
-    NSNumber *shouldHideToolbarPlaceholder = objc_getAssociatedObject(self, @selector(shouldHideToolbarPlaceholder));
+    NSNumber *shouldHideToolbarPlaceholder = objc_getAssociatedObject(self, @selector(iq_shouldHideToolbarPlaceholder));
     return [shouldHideToolbarPlaceholder boolValue];
 }
 
--(void)setShouldHidePlaceholderText:(BOOL)shouldHidePlaceholderText
+-(void)setIq_toolbarPlaceholder:(NSString *)toolbarPlaceholder
 {
-    [self setShouldHideToolbarPlaceholder:shouldHidePlaceholderText];
+    objc_setAssociatedObject(self, @selector(iq_toolbarPlaceholder), toolbarPlaceholder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    self.iq_keyboardToolbar.titleBarButton.title = self.iq_drawingToolbarPlaceholder;
 }
 
--(BOOL)shouldHidePlaceholderText
+-(NSString *)iq_toolbarPlaceholder
 {
-    return [self shouldHideToolbarPlaceholder];
-}
-
--(void)setToolbarPlaceholder:(NSString *)toolbarPlaceholder
-{
-    objc_setAssociatedObject(self, @selector(toolbarPlaceholder), toolbarPlaceholder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
-    self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder;
-}
-
--(NSString *)toolbarPlaceholder
-{
-    NSString *toolbarPlaceholder = objc_getAssociatedObject(self, @selector(toolbarPlaceholder));
+    NSString *toolbarPlaceholder = objc_getAssociatedObject(self, @selector(iq_toolbarPlaceholder));
     return toolbarPlaceholder;
 }
 
--(void)setPlaceholderText:(NSString*)placeholderText
+-(NSString *)iq_drawingToolbarPlaceholder
 {
-    [self setToolbarPlaceholder:placeholderText];
-}
-
--(NSString*)placeholderText
-{
-    return [self toolbarPlaceholder];
-}
-
--(NSString *)drawingToolbarPlaceholder
-{
-    if (self.shouldHideToolbarPlaceholder)
+    if (self.iq_shouldHideToolbarPlaceholder)
     {
         return nil;
     }
-    else if (self.toolbarPlaceholder.length != 0)
+    else if (self.iq_toolbarPlaceholder.length != 0)
     {
-        return self.toolbarPlaceholder;
+        return self.iq_toolbarPlaceholder;
     }
     else if ([self respondsToSelector:@selector(placeholder)])
     {
@@ -328,11 +308,6 @@
     {
         return nil;
     }
-}
-
--(NSString*)drawingPlaceholderText
-{
-    return [self drawingToolbarPlaceholder];
 }
 
 #pragma mark - Private helper
@@ -351,13 +326,13 @@
 
 #pragma mark - Common
 
-- (void)addKeyboardToolbarWithTarget:(id)target titleText:(NSString*)titleText rightBarButtonConfiguration:(IQBarButtonItemConfiguration*)rightBarButtonConfiguration previousBarButtonConfiguration:(IQBarButtonItemConfiguration*)previousBarButtonConfiguration nextBarButtonConfiguration:(IQBarButtonItemConfiguration*)nextBarButtonConfiguration
+- (void)iq_addKeyboardToolbarWithTarget:(id)target titleText:(NSString*)titleText rightBarButtonConfiguration:(IQBarButtonItemConfiguration*)rightBarButtonConfiguration previousBarButtonConfiguration:(IQBarButtonItemConfiguration*)previousBarButtonConfiguration nextBarButtonConfiguration:(IQBarButtonItemConfiguration*)nextBarButtonConfiguration
 {
     //If can't set InputAccessoryView. Then return
     if (![self respondsToSelector:@selector(setInputAccessoryView:)])    return;
     
     //  Creating a toolBar for phoneNumber keyboard
-    IQToolbar *toolbar = self.keyboardToolbar;
+    IQToolbar *toolbar = self.iq_keyboardToolbar;
     
     NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
@@ -513,163 +488,163 @@
 
 #pragma mark - Right
 
-- (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action
+- (void)iq_addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action
 {
-    [self addRightButtonOnKeyboardWithText:text target:target action:action titleText:nil];
+    [self iq_addRightButtonOnKeyboardWithText:text target:target action:action titleText:nil];
 }
 
-- (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+- (void)iq_addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addRightButtonOnKeyboardWithText:text target:target action:action titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addRightButtonOnKeyboardWithText:text target:target action:action titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
+- (void)iq_addRightButtonOnKeyboardWithText:(NSString*)text target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:text action:action];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 }
 
 
-- (void)addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action
+- (void)iq_addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action
 {
-    [self addRightButtonOnKeyboardWithImage:image target:target action:action titleText:nil];
+    [self iq_addRightButtonOnKeyboardWithImage:image target:target action:action titleText:nil];
 }
 
-- (void)addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+- (void)iq_addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addRightButtonOnKeyboardWithImage:image target:target action:action titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addRightButtonOnKeyboardWithImage:image target:target action:action titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action titleText:(NSString*)titleText
+- (void)iq_addRightButtonOnKeyboardWithImage:(UIImage*)image target:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:image action:action];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 }
 
 
--(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action
+-(void)iq_addDoneOnKeyboardWithTarget:(id)target action:(SEL)action
 {
-    [self addDoneOnKeyboardWithTarget:target action:action titleText:nil];
+    [self iq_addDoneOnKeyboardWithTarget:target action:action titleText:nil];
 }
 
--(void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+-(void)iq_addDoneOnKeyboardWithTarget:(id)target action:(SEL)action shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addDoneOnKeyboardWithTarget:target action:action titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addDoneOnKeyboardWithTarget:target action:action titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addDoneOnKeyboardWithTarget:(id)target action:(SEL)action titleText:(NSString*)titleText
+- (void)iq_addDoneOnKeyboardWithTarget:(id)target action:(SEL)action titleText:(NSString*)titleText
 {
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone action:action];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 }
 
 
-- (void)addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction
+- (void)iq_addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction
 {
-    [self addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:nil];
+    [self iq_addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:nil];
 }
 
-- (void)addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+- (void)iq_addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addLeftRightOnKeyboardWithTarget:target leftButtonTitle:leftTitle rightButtonTitle:rightTitle leftButtonAction:leftAction rightButtonAction:rightAction titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction titleText:(NSString*)titleText
+- (void)iq_addLeftRightOnKeyboardWithTarget:(id)target leftButtonTitle:(NSString*)leftTitle rightButtonTitle:(NSString*)rightTitle leftButtonAction:(SEL)leftAction rightButtonAction:(SEL)rightAction titleText:(NSString*)titleText
 {
     IQBarButtonItemConfiguration *leftConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:leftTitle action:leftAction];
     
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:rightTitle action:rightAction];
 
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:leftConfiguration nextBarButtonConfiguration:nil];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:leftConfiguration nextBarButtonConfiguration:nil];
 }
 
 
--(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction
+-(void)iq_addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction
 {
-    [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:nil];
+    [self iq_addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:nil];
 }
 
--(void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+-(void)iq_addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addCancelDoneOnKeyboardWithTarget:target cancelAction:cancelAction doneAction:doneAction titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
+- (void)iq_addCancelDoneOnKeyboardWithTarget:(id)target cancelAction:(SEL)cancelAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
 {
     IQBarButtonItemConfiguration *leftConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel action:cancelAction];
     
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone action:doneAction];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:leftConfiguration nextBarButtonConfiguration:nil];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:leftConfiguration nextBarButtonConfiguration:nil];
 }
 
 
--(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction
+-(void)iq_addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction
 {
-    [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:nil];
+    [self iq_addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:nil];
 }
 
--(void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+-(void)iq_addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addPreviousNextDoneOnKeyboardWithTarget:target previousAction:previousAction nextAction:nextAction doneAction:doneAction titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
+- (void)iq_addPreviousNextDoneOnKeyboardWithTarget:(id)target previousAction:(SEL)previousAction nextAction:(SEL)nextAction doneAction:(SEL)doneAction titleText:(NSString*)titleText
 {
-    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:previousAction];
+    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardPreviousImage] action:previousAction];
     
-    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:nextAction];
+    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardNextImage] action:nextAction];
     
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone action:doneAction];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
 }
 
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction
 {
-    [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:nil];
+    [self iq_addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:nil];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(nullable id)target rightButtonImage:(nullable UIImage*)rightButtonImage previousAction:(nullable SEL)previousAction nextAction:(nullable SEL)nextAction rightButtonAction:(nullable SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addPreviousNextRightOnKeyboardWithTarget:target rightButtonImage:rightButtonImage previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonImage:(UIImage*)rightButtonImage previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction titleText:(NSString*)titleText
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonImage:(UIImage*)rightButtonImage previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction titleText:(NSString*)titleText
 {
-    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:previousAction];
+    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardPreviousImage] action:previousAction];
     
-    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:nextAction];
+    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardNextImage] action:nextAction];
     
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:rightButtonImage action:rightButtonAction];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
 }
 
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction
 {
-    [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:nil];
+    [self iq_addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:nil];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction shouldShowPlaceholder:(BOOL)shouldShowPlaceholder
 {
-    [self addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:(shouldShowPlaceholder?[self drawingToolbarPlaceholder]:nil)];
+    [self iq_addPreviousNextRightOnKeyboardWithTarget:target rightButtonTitle:rightButtonTitle previousAction:previousAction nextAction:nextAction rightButtonAction:rightButtonAction titleText:(shouldShowPlaceholder?[self iq_drawingToolbarPlaceholder]:nil)];
 }
 
-- (void)addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction titleText:(NSString*)titleText
+- (void)iq_addPreviousNextRightOnKeyboardWithTarget:(id)target rightButtonTitle:(NSString*)rightButtonTitle previousAction:(SEL)previousAction nextAction:(SEL)nextAction rightButtonAction:(SEL)rightButtonAction titleText:(NSString*)titleText
 {
-    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:previousAction];
+    IQBarButtonItemConfiguration *previousConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardPreviousImage] action:previousAction];
     
-    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:nextAction];
+    IQBarButtonItemConfiguration *nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage iq_keyboardNextImage] action:nextAction];
     
     IQBarButtonItemConfiguration *rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithTitle:rightButtonTitle action:rightButtonAction];
     
-    [self addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
+    [self iq_addKeyboardToolbarWithTarget:target titleText:titleText rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:previousConfiguration nextBarButtonConfiguration:nextConfiguration];
 }
 
 

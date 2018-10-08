@@ -45,11 +45,11 @@
 {
     [super viewDidLoad];
     
-    [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
-    [textField3.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
-    [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
+    [textField3.iq_keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
+    [textField3.iq_keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
+    [textField3.iq_keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
     
-    dropDownTextField.keyboardDistanceFromTextField = 150;
+    dropDownTextField.iq_keyboardDistanceFromTextField = 150;
     
     [dropDownTextField setItemList:@[@"Zero Line Of Code",
                                      @"No More UIScrollView",

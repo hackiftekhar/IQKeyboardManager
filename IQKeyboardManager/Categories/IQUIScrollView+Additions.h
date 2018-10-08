@@ -29,12 +29,12 @@
 /**
  If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
  */
-@property(nonatomic, assign) BOOL shouldIgnoreScrollingAdjustment;
+@property(nonatomic, assign) BOOL iq_shouldIgnoreScrollingAdjustment;
 
 /**
  Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
  */
-@property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset;
+@property(nonatomic, assign) BOOL iq_shouldRestoreScrollViewContentOffset;
 
 
 @end

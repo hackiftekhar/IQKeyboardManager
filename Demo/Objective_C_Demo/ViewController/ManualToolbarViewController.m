@@ -42,21 +42,21 @@
 {
     [super viewDidLoad];
     
-    [textField1 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
-    textField1.keyboardToolbar.previousBarButton.enabled = NO;
-    textField1.keyboardToolbar.nextBarButton.enabled = YES;
+    [textField1 iq_addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
+    textField1.iq_keyboardToolbar.previousBarButton.enabled = NO;
+    textField1.iq_keyboardToolbar.nextBarButton.enabled = YES;
 
     
-    [textField2 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
-    textField2.keyboardToolbar.previousBarButton.enabled = YES;
-    textField2.keyboardToolbar.nextBarButton.enabled = NO;
+    [textField2 iq_addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
+    textField2.iq_keyboardToolbar.previousBarButton.enabled = YES;
+    textField2.iq_keyboardToolbar.nextBarButton.enabled = NO;
 
-    [textView3 addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
+    [textView3 iq_addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:YES];
 
-    [self.textField4.keyboardToolbar.titleBarButton setTarget:self action:@selector(titleAction:)];
-    self.textField4.toolbarPlaceholder = @"Saved Users";
+    [self.textField4.iq_keyboardToolbar.titleBarButton setTarget:self action:@selector(titleAction:)];
+    self.textField4.iq_toolbarPlaceholder = @"Saved Users";
     
-    [self.textField4 addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];
+    [self.textField4 iq_addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:YES];
     
     textField5.inputAccessoryView = [[UIView alloc] init];
 }

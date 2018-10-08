@@ -26,29 +26,29 @@
 
 @implementation UIView (Additions)
 
--(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
+-(void)setIq_keyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
 {
     //Can't be less than zero. Minimum is zero.
     keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
     
-    objc_setAssociatedObject(self, @selector(keyboardDistanceFromTextField), @(keyboardDistanceFromTextField), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_keyboardDistanceFromTextField), @(keyboardDistanceFromTextField), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(CGFloat)keyboardDistanceFromTextField
+-(CGFloat)iq_keyboardDistanceFromTextField
 {
-    NSNumber *keyboardDistanceFromTextField = objc_getAssociatedObject(self, @selector(keyboardDistanceFromTextField));
+    NSNumber *keyboardDistanceFromTextField = objc_getAssociatedObject(self, @selector(iq_keyboardDistanceFromTextField));
     
     return (keyboardDistanceFromTextField)?[keyboardDistanceFromTextField floatValue]:kIQUseDefaultKeyboardDistance;
 }
 
--(void)setIgnoreSwitchingByNextPrevious:(BOOL)ignoreSwitchingByNextPrevious
+-(void)setIq_ignoreSwitchingByNextPrevious:(BOOL)ignoreSwitchingByNextPrevious
 {
-    objc_setAssociatedObject(self, @selector(ignoreSwitchingByNextPrevious), @(ignoreSwitchingByNextPrevious), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_ignoreSwitchingByNextPrevious), @(ignoreSwitchingByNextPrevious), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(BOOL)ignoreSwitchingByNextPrevious
+-(BOOL)iq_ignoreSwitchingByNextPrevious
 {
-    NSNumber *ignoreSwitchingByNextPrevious = objc_getAssociatedObject(self, @selector(ignoreSwitchingByNextPrevious));
+    NSNumber *ignoreSwitchingByNextPrevious = objc_getAssociatedObject(self, @selector(iq_ignoreSwitchingByNextPrevious));
     
     return [ignoreSwitchingByNextPrevious boolValue];
 }
@@ -65,14 +65,14 @@
 //    return [enableMode unsignedIntegerValue];
 //}
 
--(void)setShouldResignOnTouchOutsideMode:(IQEnableMode)shouldResignOnTouchOutsideMode
+-(void)setIq_shouldResignOnTouchOutsideMode:(IQEnableMode)shouldResignOnTouchOutsideMode
 {
-    objc_setAssociatedObject(self, @selector(shouldResignOnTouchOutsideMode), @(shouldResignOnTouchOutsideMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(iq_shouldResignOnTouchOutsideMode), @(shouldResignOnTouchOutsideMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(IQEnableMode)shouldResignOnTouchOutsideMode
+-(IQEnableMode)iq_shouldResignOnTouchOutsideMode
 {
-    NSNumber *shouldResignOnTouchOutsideMode = objc_getAssociatedObject(self, @selector(shouldResignOnTouchOutsideMode));
+    NSNumber *shouldResignOnTouchOutsideMode = objc_getAssociatedObject(self, @selector(iq_shouldResignOnTouchOutsideMode));
     
     return [shouldResignOnTouchOutsideMode unsignedIntegerValue];
 }
