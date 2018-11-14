@@ -9,9 +9,13 @@
 import UIKit
 
 class WebViewController: UIViewController , UIWebViewDelegate {
-    
-    let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
+    #if swift(>=4.2)
+    let activity = UIActivityIndicatorView(style: .gray)
+    #else
+    let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+    #endif
+    
     @IBOutlet var _webView : UIWebView!
 
     override func viewDidLoad() {
