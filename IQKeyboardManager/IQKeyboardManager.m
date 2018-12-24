@@ -289,7 +289,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (enable == YES &&
         _enable == NO)
     {
-		//Setting NO to _enable.
+		//Setting YES to _enable.
 		_enable = enable;
         
 		//If keyboard is currently showing. Sending a fake notification for keyboardWillShow to adjust view according to keyboard.
