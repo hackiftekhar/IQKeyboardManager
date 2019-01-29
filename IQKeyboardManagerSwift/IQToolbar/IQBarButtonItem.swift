@@ -23,18 +23,17 @@
 
 
 import UIKit
-import Foundation
 
 open class IQBarButtonItem: UIBarButtonItem {
 
     private static var _classInitialize: Void = classInitialize()
     
-    @objc public override init() {
+    public override init() {
         _ = IQBarButtonItem._classInitialize
           super.init()
       }
 
-    @objc public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         _ = IQBarButtonItem._classInitialize
            super.init(coder: aDecoder)
        }
@@ -42,95 +41,75 @@ open class IQBarButtonItem: UIBarButtonItem {
    
     private class func classInitialize() {
 
-        let  appearanceProxy = self.appearance()
+        //Tint color
+        self.appearance().tintColor = nil
 
-        #if swift(>=4.2)
-        let states : [UIControl.State]
-        #else
-        let states : [UIControlState]
-        #endif
+        //Title
+        self.appearance().setTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.normal)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.highlighted)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.disabled)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.selected)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.application)
+        self.appearance().setTitleTextAttributes(nil, for: UIControl.State.reserved)
 
-        states = [.normal,.highlighted,.disabled,.selected,.application,.reserved]
-
-        for state in states {
-
-            appearanceProxy.setBackgroundImage(nil, for: state, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .done, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
-            appearanceProxy.setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
-        }
+        //Background Image
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.normal,      barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.highlighted, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.disabled,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.selected,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.application, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.reserved,    barMetrics: UIBarMetrics.default)
         
-        appearanceProxy.setTitlePositionAdjustment(UIOffset(), for: .default)
-        appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
-        appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
-    }
-    
-    @objc override open var tintColor: UIColor? {
-        didSet {
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.normal,      style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.highlighted, style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.disabled,    style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.selected,    style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.application, style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.reserved,    style: UIBarButtonItem.Style.done, barMetrics: UIBarMetrics.default)
+        
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.normal,      style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.highlighted, style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.disabled,    style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.selected,    style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.application, style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, for: UIControl.State.reserved,    style: UIBarButtonItem.Style.plain, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundVerticalPositionAdjustment(0, for: UIBarMetrics.default)
 
-            #if swift(>=4.2)
-            var textAttributes = [NSAttributedString.Key : Any]()
-            let foregroundColorKey = NSAttributedString.Key.foregroundColor
-            #elseif swift(>=4)
-            var textAttributes = [NSAttributedStringKey : Any]()
-            let foregroundColorKey = NSAttributedStringKey.foregroundColor
-            #else
-            var textAttributes = [String:Any]()
-            let foregroundColorKey = NSForegroundColorAttributeName
-            #endif
+        //Back Button
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.normal,      barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.highlighted, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.disabled,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.selected,    barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.application, barMetrics: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundImage(nil, for: UIControl.State.reserved,    barMetrics: UIBarMetrics.default)
 
-            textAttributes[foregroundColorKey] = tintColor
-
-            #if swift(>=4)
-
-                if let attributes = titleTextAttributes(for: .normal) {
-                    
-                    for (key, value) in attributes {
-                        #if swift(>=4.2)
-                        textAttributes[key] = value
-                        #else
-                        textAttributes[NSAttributedStringKey.init(key)] = value
-                        #endif
-                    }
-                }
-
-            #else
-
-                if let attributes = titleTextAttributes(for: .normal) {
-                    textAttributes = attributes
-                }
-            #endif
-
-            setTitleTextAttributes(textAttributes, for: .normal)
-        }
+        self.appearance().setBackButtonTitlePositionAdjustment(UIOffset.zero, for: UIBarMetrics.default)
+        self.appearance().setBackButtonBackgroundVerticalPositionAdjustment(0, for: UIBarMetrics.default)
     }
 
     /**
      Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
      */
-    @objc internal var isSystemItem = false
+    var isSystemItem = false
     
+//    public override init(barButtonSystemItem systemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
+//        return super.init(barButtonSystemItem: systemItem, target: target, action: action)
+//    }
+
     /**
      Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
      
      @param target Target object.
      @param action Target Selector.
      */
-    @objc open func setTarget(_ target: AnyObject?, action: Selector?) {
-        if let target = target, let action = action {
-            invocation = IQInvocation(target, action)
-        } else {
-            invocation = nil
-        }
+    open func setTarget(_ target: AnyObject?, action: Selector?) {
+        invocation = (target, action)
     }
     
     /**
      Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
      */
-    @objc open var invocation : IQInvocation?
+    open var invocation : (target: AnyObject?, action: Selector?)
     
-    deinit {
-        target = nil
-        invocation = nil
-    }
 }

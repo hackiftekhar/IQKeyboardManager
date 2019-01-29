@@ -30,32 +30,33 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
     private static var _classInitialize: Void = classInitialize()
     
     private class func classInitialize() {
+                
+        self.appearance().barTintColor = nil
         
-        let  appearanceProxy = self.appearance()
+        //Background image
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.any,            barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.bottom,         barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.top,            barMetrics: UIBarMetrics.default)
+        self.appearance().setBackgroundImage(nil, forToolbarPosition: UIBarPosition.topAttached,    barMetrics: UIBarMetrics.default)
 
-        appearanceProxy.barTintColor = nil
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.any)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.bottom)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.top)
+        self.appearance().setShadowImage(nil, forToolbarPosition: UIBarPosition.topAttached)
         
-        let positions : [UIBarPosition] = [.any,.bottom,.top,.topAttached]
-
-        for position in positions {
-
-            appearanceProxy.setBackgroundImage(nil, forToolbarPosition: position, barMetrics: .default)
-            appearanceProxy.setShadowImage(nil, forToolbarPosition: .any)
-        }
-
         //Background color
-        appearanceProxy.backgroundColor = nil
+        self.appearance().backgroundColor = nil
     }
     
     /**
      Previous bar button of toolbar.
      */
     private var privatePreviousBarButton: IQBarButtonItem?
-    @objc open var previousBarButton : IQBarButtonItem {
+    open var previousBarButton : IQBarButtonItem {
         get {
             if privatePreviousBarButton == nil {
                 privatePreviousBarButton = IQBarButtonItem(image: nil, style: .plain, target: nil, action: nil)
-                privatePreviousBarButton?.accessibilityLabel = "Previous"
+                privatePreviousBarButton?.accessibilityLabel = "Toolbar Previous Button"
             }
             return privatePreviousBarButton!
         }
@@ -69,11 +70,11 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
      Next bar button of toolbar.
      */
     private var privateNextBarButton: IQBarButtonItem?
-    @objc open var nextBarButton : IQBarButtonItem {
+    open var nextBarButton : IQBarButtonItem {
         get {
             if privateNextBarButton == nil {
                 privateNextBarButton = IQBarButtonItem(image: nil, style: .plain, target: nil, action: nil)
-                privateNextBarButton?.accessibilityLabel = "Next"
+                privateNextBarButton?.accessibilityLabel = "Toolbar Next Button"
             }
             return privateNextBarButton!
         }
@@ -87,11 +88,11 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
      Title bar button of toolbar.
      */
     private var privateTitleBarButton: IQTitleBarButtonItem?
-    @objc open var titleBarButton : IQTitleBarButtonItem {
+    open var titleBarButton : IQTitleBarButtonItem {
         get {
             if privateTitleBarButton == nil {
                 privateTitleBarButton = IQTitleBarButtonItem(title: nil)
-                privateTitleBarButton?.accessibilityLabel = "Title"
+                privateTitleBarButton?.accessibilityLabel = "Toolbar Title Button"
             }
             return privateTitleBarButton!
         }
@@ -105,11 +106,11 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
      Done bar button of toolbar.
      */
     private var privateDoneBarButton: IQBarButtonItem?
-    @objc open var doneBarButton : IQBarButtonItem {
+    open var doneBarButton : IQBarButtonItem {
         get {
             if privateDoneBarButton == nil {
                 privateDoneBarButton = IQBarButtonItem(title: nil, style: .done, target: nil, action: nil)
-                privateDoneBarButton?.accessibilityLabel = "Done"
+                privateDoneBarButton?.accessibilityLabel = "Toolbar Done Button"
             }
             return privateDoneBarButton!
         }
@@ -119,58 +120,33 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
 
-    /**
-     Fixed space bar button of toolbar.
-     */
-    private var privateFixedSpaceBarButton: IQBarButtonItem?
-    @objc open var fixedSpaceBarButton : IQBarButtonItem {
-        get {
-            if privateFixedSpaceBarButton == nil {
-                privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-            }
-            privateFixedSpaceBarButton!.isSystemItem = true
-
-            if #available(iOS 10, *) {
-                privateFixedSpaceBarButton!.width = 6
-            } else {
-                privateFixedSpaceBarButton!.width = 20
-            }
-            
-            return privateFixedSpaceBarButton!
-        }
-        
-        set (newValue) {
-            privateFixedSpaceBarButton = newValue
-        }
-    }
-
     override init(frame: CGRect) {
         _ = IQToolbar._classInitialize
         super.init(frame: frame)
         
         sizeToFit()
-        
-        autoresizingMask = .flexibleWidth
+        autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        tintColor = UIColor.black
         self.isTranslucent = true
     }
     
-    @objc required public init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         _ = IQToolbar._classInitialize
         super.init(coder: aDecoder)
 
         sizeToFit()
-
-        autoresizingMask = .flexibleWidth
+        autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        tintColor = UIColor.black
         self.isTranslucent = true
     }
 
-    @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
         var sizeThatFit = super.sizeThatFits(size)
         sizeThatFit.height = 44
         return sizeThatFit
     }
 
-    @objc override open var tintColor: UIColor! {
+    override open var tintColor: UIColor! {
         
         didSet {
             if let unwrappedItems = items {
@@ -181,29 +157,24 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
         }
     }
     
-    @objc override open var barStyle: UIBarStyle {
+    override open var barStyle: UIBarStyle {
         didSet {
             
-            if titleBarButton.selectableTitleColor == nil {
-                if barStyle == .default {
-                    titleBarButton.titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
-                } else {
-                    titleBarButton.titleButton?.setTitleColor(UIColor.yellow, for: .normal)
-                }
+            if barStyle == .default {
+                titleBarButton.selectableTextColor = UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1)
+            } else {
+                titleBarButton.selectableTextColor = UIColor.yellow
             }
         }
     }
     
-    @objc override open func layoutSubviews() {
+    override open func layoutSubviews() {
 
         super.layoutSubviews()
-
-        //If running on Xcode9 (iOS11) only then we'll validate for iOS version, otherwise for older versions of Xcode (iOS10 and below) we'll just execute the tweak
-#if swift(>=3.2)
-
+        
         if #available(iOS 11, *) {
             return
-        } else if let customTitleView = titleBarButton.customView {
+        } else {
             var leftRect = CGRect.null
             var rightRect = CGRect.null
             var isTitleBarButtonFound = false
@@ -227,7 +198,7 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 if isTitleBarButtonFound == true {
                     rightRect = barButtonItemView.frame
                     break
-                } else if barButtonItemView === customTitleView {
+                } else if type(of: barButtonItemView) === UIView.self {
                     isTitleBarButtonFound = true
                     //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
                 } else if barButtonItemView.isKind(of: UIControl.self) == true {
@@ -235,135 +206,31 @@ open class IQToolbar: UIToolbar , UIInputViewAudioFeedback {
                 }
             }
             
-            let titleMargin : CGFloat = 16
-
-            let maxWidth : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-            let maxHeight = self.frame.height
+            var x : CGFloat = 16
             
-            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
-            
-            var titleRect : CGRect
-            
-            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
-                let width = min(sizeThatFits.width, maxWidth)
-                let height = min(sizeThatFits.height, maxHeight)
-                
-                var x : CGFloat
-
-                if (leftRect.isNull == false) {
-                    x = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
-                } else {
-                    x = titleMargin
-                }
-                
-                let y = (maxHeight - height)/2
-                
-                titleRect = CGRect(x: x, y: y, width: width, height: height)
-            } else {
-                
-                var x : CGFloat
-                
-                if (leftRect.isNull == false) {
-                    x = titleMargin + leftRect.maxX
-                } else {
-                    x = titleMargin
-                }
-
-                let width : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-                
-                titleRect = CGRect(x: x, y: 0, width: width, height: maxHeight)
+            if (leftRect.isNull == false)
+            {
+                x = leftRect.maxX + 16
             }
             
-            customTitleView.frame = titleRect
+            let width : CGFloat = self.frame.width - 32 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
+            
+            
+            if let unwrappedItems = items {
+                for item in unwrappedItems {
+                    
+                    if let newItem = item as? IQTitleBarButtonItem {
+                        
+                        let titleRect = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
+                        newItem.customView?.frame = titleRect
+                        break
+                    }
+                }
+            }
         }
-    
-#else
-        if let customTitleView = titleBarButton.customView {
-            var leftRect = CGRect.null
-            var rightRect = CGRect.null
-            var isTitleBarButtonFound = false
-            
-            let sortedSubviews = self.subviews.sorted(by: { (view1 : UIView, view2 : UIView) -> Bool in
-                
-                let x1 = view1.frame.minX
-                let y1 = view1.frame.minY
-                let x2 = view2.frame.minX
-                let y2 = view2.frame.minY
-                
-                if x1 != x2 {
-                    return x1 < x2
-                } else {
-                    return y1 < y2
-                }
-            })
-            
-            for barButtonItemView in sortedSubviews {
-                
-                if isTitleBarButtonFound == true {
-                    rightRect = barButtonItemView.frame
-                    break
-                } else if barButtonItemView === titleBarButton.customView {
-                    isTitleBarButtonFound = true
-                    //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-                } else if barButtonItemView.isKind(of: UIControl.self) == true {
-                    leftRect = barButtonItemView.frame
-                }
-            }
-            
-            let titleMargin : CGFloat = 16
-            let maxWidth : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-            let maxHeight = self.frame.height
-            
-            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
-            
-            var titleRect : CGRect
-
-            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
-                let width = min(sizeThatFits.width, maxWidth)
-                let height = min(sizeThatFits.height, maxHeight)
-                
-                var x : CGFloat
-                
-                if (leftRect.isNull == false) {
-                    x = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
-                } else {
-                    x = titleMargin
-                }
-
-                let y = (maxHeight - height)/2
-                
-                titleRect = CGRect(x: x, y: y, width: width, height: height)
-            } else {
-                
-                var x : CGFloat
-                
-                if (leftRect.isNull == false) {
-                    x = titleMargin + leftRect.maxX
-                } else {
-                    x = titleMargin
-                }
-
-                let width : CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-                
-                titleRect = CGRect(x: x, y: 0, width: width, height: maxHeight)
-            }
-            
-            customTitleView.frame = titleRect
-        }
-#endif
     }
     
-    @objc open var enableInputClicksWhenVisible: Bool {
+    open var enableInputClicksWhenVisible: Bool {
         return true
-    }
-    
-    deinit {
-
-        items = nil
-        privatePreviousBarButton = nil
-        privateNextBarButton = nil
-        privateTitleBarButton = nil
-        privateDoneBarButton = nil
-        privateFixedSpaceBarButton = nil
     }
 }
