@@ -63,7 +63,7 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 |------------------------|----------|--------------------|-----------------------|
 | IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 8.2.1           |
 | IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 8.2.1           |
-| Demo Project           |          |                    | Xcode 9.3             |
+| Demo Project           |          |                    | Xcode 10.2             |
 
 **Note**
 - 3.3.7 is the last iOS 7 supported version.
@@ -72,6 +72,7 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 | Swift             | Xcode | IQKeyboardManagerSwift |
 |-------------------|-------|------------------------|
+| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1               |
 | 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
 | 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
 | 3.1               | 8.3   | 4.0.10                 |
@@ -102,7 +103,7 @@ pod 'IQKeyboardManager', '3.3.7' #iOS7
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 4.2, 4.0, 3.2, 3.0 (Xcode 9)*
+*Swift 5.0,4.2, 4.0, 3.2, 3.0 (Xcode 10.2)*
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
