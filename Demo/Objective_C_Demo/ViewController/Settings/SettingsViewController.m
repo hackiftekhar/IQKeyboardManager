@@ -429,7 +429,7 @@
             
     }
     
-    return nil;
+    return [UITableViewCell new];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -475,13 +475,13 @@
 
         if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 1)
         {
-            controller.title = @"Toolbar Manage Behaviour";
+            controller.title = NSLocalizedString(@"Toolbar Manage Behaviour",nil);
             controller.options = @[@"IQAutoToolbar By Subviews",@"IQAutoToolbar By Tag",@"IQAutoToolbar By Position"];
             controller.selectedIndex = [[IQKeyboardManager sharedManager] toolbarManageBehaviour];
         }
         else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
         {
-            controller.title = @"Fonts";
+            controller.title = NSLocalizedString(@"Fonts",nil);
             
             controller.options = @[@"Bold System Font",@"Italic system font",@"Regular"];
             
@@ -496,7 +496,7 @@
         }
         else if (selectedIndexPathForOptions.section == 2 && selectedIndexPathForOptions.row == 1)
         {
-            controller.title = @"Keyboard Appearance";
+            controller.title = NSLocalizedString(@"Keyboard Appearance",nil);
             controller.options = @[@"UIKeyboardAppearance Default",@"UIKeyboardAppearance Dark",@"UIKeyboardAppearance Light"];
             controller.selectedIndex = [[IQKeyboardManager sharedManager] keyboardAppearance];
         }

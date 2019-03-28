@@ -495,7 +495,7 @@ class SettingsViewController: UITableViewController, OptionsViewControllerDelega
                         
                         if let placeholderFont = IQKeyboardManager.shared.placeholderFont {
                             
-                            if let index = fonts.index(of: placeholderFont) {
+                            if let index = fonts.firstIndex(of: placeholderFont) {
                                 
                                 controller.selectedIndex = index
                             }

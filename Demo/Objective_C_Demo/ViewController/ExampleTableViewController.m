@@ -60,7 +60,7 @@
         {
             UITextView *textView = [[UITextView alloc] initWithFrame:CGRectInset(cell.contentView.bounds, 5, 5)];
             textView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-            textView.text = @"Sample Text";
+            textView.text = NSLocalizedString(@"Sample Text",nil);
             [cell.contentView addSubview:textView];
         }
     }

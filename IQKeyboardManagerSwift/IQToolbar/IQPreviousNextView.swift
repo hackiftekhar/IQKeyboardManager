@@ -23,6 +23,6 @@
 
 import UIKit
 
-public class IQPreviousNextView: UIView {
+@objc public class IQPreviousNextView: UIView {
 
 }

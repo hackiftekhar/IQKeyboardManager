@@ -94,16 +94,16 @@
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil) style:UIAlertActionStyleCancel handler:nil]];
     
     __weak typeof(self) weakSelf = self;
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"test@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        weakSelf.textField4.text = @"test@example.com";
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"test@example.com",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        weakSelf.textField4.text = NSLocalizedString(@"test@example.com",nil);
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"demo@example.com" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        weakSelf.textField4.text = @"demo@example.com";
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"demo@example.com",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        weakSelf.textField4.text = NSLocalizedString(@"demo@example.com",nil);
     }]];
     
     alertController.popoverPresentationController.sourceView = sender;

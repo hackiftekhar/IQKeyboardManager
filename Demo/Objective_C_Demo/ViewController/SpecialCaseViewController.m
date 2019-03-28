@@ -56,16 +56,16 @@
 
 - (IBAction)showAlertClicked:(UIButton *)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"IQKeyboardManager" message:@"It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"IQKeyboardManager",nil) message:NSLocalizedString(@"It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField",nil) preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK",nil) style:UIAlertActionStyleCancel handler:nil]];
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Username";
+        textField.placeholder = NSLocalizedString(@"Username",nil);
     }];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Password";
+        textField.placeholder = NSLocalizedString(@"Password",nil);
         textField.secureTextEntry = YES;
     }];
     
@@ -140,9 +140,9 @@
 {
     if (textField == customWorkTextField)
     {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"IQKeyboardManager" message:@"Do your custom work here" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"IQKeyboardManager",nil) message:NSLocalizedString(@"Do your custom work here",nil) preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK",nil) style:UIAlertActionStyleCancel handler:nil]];
         
         [self presentViewController:alertController animated:YES completion:nil];
 

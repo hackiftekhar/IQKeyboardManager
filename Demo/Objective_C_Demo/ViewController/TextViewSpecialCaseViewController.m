@@ -20,7 +20,7 @@
     if (!self.navigationController)
     {
         [buttonPush setHidden:YES];
-        [buttonPresent setTitle:@"Dismiss" forState:UIControlStateNormal];
+        [buttonPresent setTitle:NSLocalizedString(@"Dismiss", nil) forState:UIControlStateNormal];
     }
 }
 

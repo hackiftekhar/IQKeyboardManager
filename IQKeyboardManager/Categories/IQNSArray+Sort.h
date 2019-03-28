@@ -37,11 +37,11 @@
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-@property (nonatomic, readonly, copy) NSArray<__kindof UIView*> * _Nonnull sortedArrayByTag;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> * sortedArrayByTag;
 
 /**
  Returns the array by sorting the UIView's by their tag property.
  */
-@property (nonatomic, readonly, copy) NSArray<__kindof UIView*> * _Nonnull sortedArrayByPosition;
+@property (nonnull, nonatomic, readonly, copy) NSArray<__kindof UIView*> * sortedArrayByPosition;
 
 @end

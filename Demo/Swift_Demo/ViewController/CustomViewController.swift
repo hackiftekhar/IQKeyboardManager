@@ -105,7 +105,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
         else {
             
-            if let index = IQKeyboardManager.shared.disabledDistanceHandlingClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledDistanceHandlingClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.disabledDistanceHandlingClasses.remove(at: index)
@@ -120,7 +120,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
         else {
             
-            if let index = IQKeyboardManager.shared.enabledDistanceHandlingClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledDistanceHandlingClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.enabledDistanceHandlingClasses.remove(at: index)
@@ -135,7 +135,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
         else {
 
-            if let index = IQKeyboardManager.shared.disabledToolbarClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledToolbarClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.disabledToolbarClasses.remove(at: index)
@@ -149,7 +149,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
             IQKeyboardManager.shared.enabledToolbarClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.shared.enabledToolbarClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledToolbarClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.enabledToolbarClasses.remove(at: index)
@@ -163,7 +163,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
             IQKeyboardManager.shared.disabledTouchResignedClasses.append(CustomViewController.self)
         }
         else {
-            if let index = IQKeyboardManager.shared.disabledTouchResignedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.disabledTouchResignedClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.disabledTouchResignedClasses.remove(at: index)
@@ -178,7 +178,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
         else {
             
-            if let index = IQKeyboardManager.shared.enabledTouchResignedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.enabledTouchResignedClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.enabledTouchResignedClasses.remove(at: index)
@@ -193,7 +193,7 @@ class CustomViewController : UIViewController, UIPopoverPresentationControllerDe
         }
         else {
             
-            if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.index(where: { element in
+            if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.firstIndex(where: { element in
                 return element == IQPreviousNextView.self
             }) {
                 IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.remove(at: index)

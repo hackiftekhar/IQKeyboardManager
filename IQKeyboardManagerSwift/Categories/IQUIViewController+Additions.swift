@@ -27,7 +27,7 @@ import UIKit
 private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
 
 
-public extension UIViewController {
+@objc public extension UIViewController {
 
     /**
     To set customized distance from keyboard for textField/textView. Can't be less than zero

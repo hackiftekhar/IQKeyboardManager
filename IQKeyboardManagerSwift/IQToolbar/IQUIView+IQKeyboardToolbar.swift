@@ -32,10 +32,10 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
 /**
  IQBarButtonItemConfiguration for creating toolbar with bar button items
  */
-public class IQBarButtonItemConfiguration : NSObject {
+@objc public class IQBarButtonItemConfiguration : NSObject {
     
     #if swift(>=4.2)
-    public init(barButtonSystemItem : UIBarButtonItem.SystemItem, action: Selector) {
+    @objc public init(barButtonSystemItem : UIBarButtonItem.SystemItem, action: Selector) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
@@ -43,7 +43,7 @@ public class IQBarButtonItemConfiguration : NSObject {
         super.init()
     }
     #else
-    public init(barButtonSystemItem : UIBarButtonSystemItem, action: Selector) {
+    @objc public init(barButtonSystemItem : UIBarButtonSystemItem, action: Selector) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
@@ -52,7 +52,7 @@ public class IQBarButtonItemConfiguration : NSObject {
     }
     #endif
 
-    public init(image : UIImage, action: Selector) {
+    @objc public init(image : UIImage, action: Selector) {
         self.barButtonSystemItem = nil
         self.image = image
         self.title = nil
@@ -60,7 +60,7 @@ public class IQBarButtonItemConfiguration : NSObject {
         super.init()
     }
     
-    public init(title : String, action: Selector) {
+    @objc public init(title : String, action: Selector) {
         self.barButtonSystemItem = nil
         self.image = nil
         self.title = title
@@ -74,19 +74,19 @@ public class IQBarButtonItemConfiguration : NSObject {
     public let barButtonSystemItem : UIBarButtonSystemItem?    //System Item to be used to instantiate bar button.
     #endif
     
-    public let image : UIImage?    //Image to show on bar button item if it's not a system item.
+    @objc public let image : UIImage?    //Image to show on bar button item if it's not a system item.
     
-    public let title : String?     //Title to show on bar button item if it's not a system item.
+    @objc public let title : String?     //Title to show on bar button item if it's not a system item.
     
-    public let action : Selector?  //action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
+    @objc public let action : Selector?  //action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
 }
 
 /**
  UIImage category methods to get next/prev images
  */
-extension UIImage {
+@objc public extension UIImage {
     
-    public static func keyboardPreviousiOS9Image() -> UIImage? {
+    @objc public static func keyboardPreviousiOS9Image() -> UIImage? {
         
         struct Static {
             static var keyboardPreviousiOS9Image : UIImage?
@@ -113,7 +113,7 @@ extension UIImage {
         return Static.keyboardPreviousiOS9Image
     }
     
-    public static func keyboardNextiOS9Image() -> UIImage? {
+    @objc public static func keyboardNextiOS9Image() -> UIImage? {
         
         struct Static {
             static var keyboardNextiOS9Image : UIImage?
@@ -140,7 +140,7 @@ extension UIImage {
         return Static.keyboardNextiOS9Image
     }
     
-    public static func keyboardPreviousiOS10Image() -> UIImage? {
+    @objc public static func keyboardPreviousiOS10Image() -> UIImage? {
         
         struct Static {
             static var keyboardPreviousiOS10Image : UIImage?
@@ -167,7 +167,7 @@ extension UIImage {
         return Static.keyboardPreviousiOS10Image
     }
     
-    public static func keyboardNextiOS10Image() -> UIImage? {
+    @objc public static func keyboardNextiOS10Image() -> UIImage? {
         
         struct Static {
             static var keyboardNextiOS10Image : UIImage?
@@ -194,7 +194,7 @@ extension UIImage {
         return Static.keyboardNextiOS10Image
     }
     
-    public static func keyboardPreviousImage() -> UIImage? {
+    @objc public static func keyboardPreviousImage() -> UIImage? {
         
         if #available(iOS 10, *) {
             return keyboardPreviousiOS10Image()
@@ -203,7 +203,7 @@ extension UIImage {
         }
     }
     
-    public static func keyboardNextImage() -> UIImage? {
+    @objc public static func keyboardNextImage() -> UIImage? {
         
         if #available(iOS 10, *) {
             return keyboardNextiOS10Image()
@@ -216,7 +216,7 @@ extension UIImage {
 /**
 UIView category methods to add IQToolbar on UIKeyboard.
 */
-public extension UIView {
+@objc public extension UIView {
     
     ///--------------
     /// MARK: Toolbar
@@ -225,7 +225,7 @@ public extension UIView {
     /**
      IQToolbar references for better customization control.
      */
-    public var keyboardToolbar: IQToolbar {
+    @objc public var keyboardToolbar: IQToolbar {
         var toolbar = inputAccessoryView as? IQToolbar
         
         if (toolbar == nil)

@@ -31,7 +31,7 @@
 
 @interface IQTitleBarButtonItem (PrivateAccessor)
 
-@property(nonatomic, strong) UIButton *titleButton;
+@property(nonnull, nonatomic, strong) UIButton *titleButton;
 
 @end
 
@@ -89,11 +89,6 @@
 -(void)dealloc
 {
     self.items = nil;
-    _previousBarButton = nil;
-    _nextBarButton = nil;
-    _titleBarButton = nil;
-    _doneBarButton = nil;
-    _fixedSpaceBarButton = nil;
 }
 
 -(IQBarButtonItem *)previousBarButton

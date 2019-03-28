@@ -71,16 +71,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*******************************************/
 
 /** To save UITextField/UITextView object voa textField/textView notifications. */
-@property(nonatomic, weak) UIView       *textFieldView;
+@property(nullable, nonatomic, weak) UIView       *textFieldView;
 
 /** To save rootViewController.view.frame.origin. */
 @property(nonatomic, assign) CGPoint    topViewBeginOrigin;
 
 /** To save rootViewController */
-@property(nonatomic, weak) UIViewController *rootViewController;
+@property(nullable, nonatomic, weak) UIViewController *rootViewController;
 
 /** To overcome with popGestureRecognizer issue Bug ID: #1361 */
-@property(nonatomic, weak) UIViewController *rootViewControllerWhilePopGestureRecognizerActive;
+@property(nullable, nonatomic, weak) UIViewController *rootViewControllerWhilePopGestureRecognizerActive;
 @property(nonatomic, assign) CGPoint    topViewBeginOriginWhilePopGestureRecognizerActive;
 
 /** To know if we have any pending request to adjust view position. */
@@ -89,7 +89,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /*******************************************/
 
 /** Variable to save lastScrollView that was scrolled. */
-@property(nonatomic, weak) UIScrollView     *lastScrollView;
+@property(nullable, nonatomic, weak) UIScrollView     *lastScrollView;
 
 /** LastScrollView's initial contentInsets. */
 @property(nonatomic, assign) UIEdgeInsets   startingContentInsets;
@@ -1915,6 +1915,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         BOOL isAcceptAsFirstResponder = [self goPrevious];
         
         NSInvocation *invocation = barButton.invocation;
+        UIView *sender = currentTextFieldView;
 
         //Handling search bar special case
         {
@@ -1923,17 +1924,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             if (searchBar)
             {
                 invocation = searchBar.keyboardToolbar.previousBarButton.invocation;
+                sender = searchBar;
             }
         }
 
-        if (isAcceptAsFirstResponder == YES && barButton.invocation)
+        if (isAcceptAsFirstResponder == YES && invocation)
         {
-            if (barButton.invocation.methodSignature.numberOfArguments > 2)
+            if (invocation.methodSignature.numberOfArguments > 2)
             {
-                [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+                [invocation setArgument:&sender atIndex:2];
             }
 
-            [barButton.invocation invoke];
+            [invocation invoke];
         }
     }
 }
@@ -1953,6 +1955,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         BOOL isAcceptAsFirstResponder = [self goNext];
         
         NSInvocation *invocation = barButton.invocation;
+        UIView *sender = currentTextFieldView;
 
         //Handling search bar special case
         {
@@ -1961,17 +1964,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             if (searchBar)
             {
                 invocation = searchBar.keyboardToolbar.nextBarButton.invocation;
+                sender = searchBar;
             }
         }
 
-        if (isAcceptAsFirstResponder == YES && barButton.invocation)
+        if (isAcceptAsFirstResponder == YES && invocation)
         {
-            if (barButton.invocation.methodSignature.numberOfArguments > 2)
+            if (invocation.methodSignature.numberOfArguments > 2)
             {
-                [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+                [invocation setArgument:&sender atIndex:2];
             }
 
-            [barButton.invocation invoke];
+            [invocation invoke];
         }
     }
 }
@@ -1989,6 +1993,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     BOOL isResignedFirstResponder = [self resignFirstResponder];
     
     NSInvocation *invocation = barButton.invocation;
+    UIView *sender = currentTextFieldView;
 
     //Handling search bar special case
     {
@@ -1997,17 +2002,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         if (searchBar)
         {
             invocation = searchBar.keyboardToolbar.doneBarButton.invocation;
+            sender = searchBar;
         }
     }
 
-    if (isResignedFirstResponder == YES && barButton.invocation)
+    if (isResignedFirstResponder == YES && invocation)
     {
-        if (barButton.invocation.methodSignature.numberOfArguments > 2)
+        if (invocation.methodSignature.numberOfArguments > 2)
         {
-            [barButton.invocation setArgument:&currentTextFieldView atIndex:2];
+            [invocation setArgument:&sender atIndex:2];
         }
 
-        [barButton.invocation invoke];
+        [invocation invoke];
     }
 }
 

@@ -15,6 +15,13 @@
   "platforms": {
     "ios": "8.0"
   },
+  "swift_versions": [
+    "3.0",
+    "3.2",
+    "4.0",
+    "4.2",
+    "5.0"
+  ],
   "source_files": "IQKeyboardManagerSwift/**/*.{swift}",
   "resources": "IQKeyboardManagerSwift/Resources/IQKeyboardManager.bundle",
   "frameworks": [
