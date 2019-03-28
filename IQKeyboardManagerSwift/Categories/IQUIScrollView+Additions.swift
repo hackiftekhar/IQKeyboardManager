@@ -32,7 +32,7 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
     /**
      If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
      */
-    @objc public var shouldIgnoreScrollingAdjustment: Bool {
+    @objc var shouldIgnoreScrollingAdjustment: Bool {
         get {
             
             if let aValue = objc_getAssociatedObject(self, &kIQShouldIgnoreScrollingAdjustment) as? Bool {
@@ -49,7 +49,7 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
     /**
      To set customized distance from keyboard for textField/textView. Can't be less than zero
      */
-    @objc public var shouldRestoreScrollViewContentOffset: Bool {
+    @objc var shouldRestoreScrollViewContentOffset: Bool {
         get {
             
             if let aValue = objc_getAssociatedObject(self, &kIQShouldRestoreScrollViewContentOffset) as? Bool {
