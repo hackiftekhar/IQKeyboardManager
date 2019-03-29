@@ -20,7 +20,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
                     ["name":"Andrew White","email":"awhite@example.com"],
                     ["name":"Matt Thomas","email":"mthomas@example.com"],
                     ["name":"Michael Clark","email":"clarkm@example.com"],
-                      ["name":"Michaels Clarks","email":"clarkm@example.com"]]
+                 ["name":"Michael Clarkrr","email":"clarkm@exampless.com"]]
     
     var filteredList = [[String:String]]()
     
