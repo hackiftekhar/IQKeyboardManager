@@ -738,9 +738,81 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             superScrollView = _lastScrollView;
 
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-            while (superScrollView &&
-                   (move>0?(move > (-superScrollView.contentOffset.y-superScrollView.contentInset.top)):superScrollView.contentOffset.y>0) )
+            while (superScrollView)
             {
+                BOOL shouldContinue = NO;
+                
+                if (move > 0)
+                {
+                    shouldContinue = move > (-superScrollView.contentOffset.y-superScrollView.contentInset.top);
+                }
+                else
+                {
+                    //Special treatment for UITableView due to their cell reusing logic
+                    if ([superScrollView isKindOfClass:[UITableView class]])
+                    {
+                        shouldContinue = superScrollView.contentOffset.y>0;
+
+                        UITableView *tableView = (UITableView*)superScrollView;
+                        UITableViewCell *tableCell = nil;
+                        NSIndexPath *indexPath = nil;
+                        NSIndexPath *previousIndexPath = nil;
+
+                        if (shouldContinue &&
+                            (tableCell = (UITableViewCell*)[textFieldView superviewOfClassType:[UITableViewCell class]]) &&
+                            (indexPath = [tableView indexPathForCell:tableCell]) &&
+                            (previousIndexPath = [tableView previousIndexPathOfIndexPath:indexPath]))
+                        {
+                            CGRect previousCellRect = [tableView rectForRowAtIndexPath:previousIndexPath];
+                            if (CGRectIsEmpty(previousCellRect) == NO)
+                            {
+                                CGRect previousCellRectInRootSuperview = [tableView convertRect:previousCellRect toView:_rootViewController.view.superview];
+                                move = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
+                            }
+                        }
+                    }
+                    //Special treatment for UICollectionView due to their cell reusing logic
+                    else if ([superScrollView isKindOfClass:[UICollectionView class]])
+                    {
+                        shouldContinue = superScrollView.contentOffset.y>0;
+                        
+                        UICollectionView *collectionView = (UICollectionView*)superScrollView;
+                        UICollectionViewCell *collectionCell = nil;
+                        NSIndexPath *indexPath = nil;
+                        NSIndexPath *previousIndexPath = nil;
+
+                        if (shouldContinue &&
+                            (collectionCell = (UICollectionViewCell*)[textFieldView superviewOfClassType:[UICollectionViewCell class]]) &&
+                            (indexPath = [collectionView indexPathForCell:collectionCell]) &&
+                            (previousIndexPath = [collectionView previousIndexPathOfIndexPath:indexPath]))
+                        {
+                            UICollectionViewLayoutAttributes *attributes = [collectionView layoutAttributesForItemAtIndexPath:previousIndexPath];
+                            
+                            CGRect previousCellRect = attributes.frame;
+                            if (CGRectIsEmpty(previousCellRect) == NO)
+                            {
+                                CGRect previousCellRectInRootSuperview = [collectionView convertRect:previousCellRect toView:_rootViewController.view.superview];
+                                move = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //If the textField is hidden at the top
+                        shouldContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide;
+                        
+                        if (shouldContinue) {
+                            move = MIN(0, textFieldViewRectInRootSuperview.origin.y - topLayoutGuide);
+                        }
+                    }
+                }
+                
+                if (shouldContinue == NO)
+                {
+                    move = 0;
+                    break;
+                }
+
                 UIScrollView *nextScrollView = nil;
                 UIScrollView *tempScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]];
                 
@@ -801,8 +873,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [self showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
 
                     superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+                } completion:^(BOOL finished){
 
-                } completion:NULL];
+                    if ([superScrollView isKindOfClass:[UITableView class]] || [superScrollView isKindOfClass:[UICollectionView class]])
+                    {
+                        //This will update the next/previous states
+                        [self addToolbarIfRequired];
+                    }
+                }];
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;

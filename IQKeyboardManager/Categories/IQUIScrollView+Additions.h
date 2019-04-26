@@ -21,7 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIScrollView.h>
+#import <UIKit/UITableView.h>
+#import <UIKit/UICollectionView.h>
 
 
 @interface UIScrollView (Additions)
@@ -36,5 +37,19 @@
  */
 @property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset;
 
+
+@end
+
+@interface UITableView (PreviousNextIndexPath)
+
+-(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;
+//-(nullable NSIndexPath*)nextIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;
+
+@end
+
+@interface UICollectionView (PreviousNextIndexPath)
+
+-(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;
+//-(nullable NSIndexPath*)nextIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;
 
 @end

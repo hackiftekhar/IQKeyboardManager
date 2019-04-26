@@ -34,6 +34,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
 }
 

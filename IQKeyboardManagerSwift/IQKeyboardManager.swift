@@ -1051,8 +1051,48 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 
                 while let scrollView = superScrollView {
                     
+                    var shouldContinue = false
+                    
+                    if move > 0 {
+                        shouldContinue =  move > (-scrollView.contentOffset.y - scrollView.contentInset.top)
+
+                    } else if let tableView = scrollView.superviewOfClassType(UITableView.self) as? UITableView {
+
+                        shouldContinue = scrollView.contentOffset.y > 0
+                        
+                        if shouldContinue == true, let tableCell = textFieldView.superviewOfClassType(UITableViewCell.self) as? UITableViewCell, let indexPath = tableView.indexPath(for: tableCell), let previousIndexPath = tableView.previousIndexPath(of: indexPath) {
+                            
+                            let previousCellRect = tableView.rectForRow(at: previousIndexPath)
+                            if previousCellRect.isEmpty == false {
+                                let previousCellRectInRootSuperview = tableView.convert(previousCellRect, to: rootController.view.superview)
+                                
+                                move = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
+                            }
+                        }
+                    } else if let collectionView = scrollView.superviewOfClassType(UICollectionView.self) as? UICollectionView {
+                        
+                        shouldContinue = scrollView.contentOffset.y > 0
+                        
+                        if shouldContinue == true, let collectionCell = textFieldView.superviewOfClassType(UICollectionViewCell.self) as? UICollectionViewCell, let indexPath = collectionView.indexPath(for: collectionCell), let previousIndexPath = collectionView.previousIndexPath(of: indexPath), let attributes = collectionView.layoutAttributesForItem(at: previousIndexPath) {
+
+                            let previousCellRect = attributes.frame
+                            if previousCellRect.isEmpty == false {
+                                let previousCellRectInRootSuperview = collectionView.convert(previousCellRect, to: rootController.view.superview)
+                                
+                                move = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
+                            }
+                        }
+                    } else {
+                        
+                        shouldContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide
+
+                        if (shouldContinue) {
+                            move = min(0, textFieldViewRectInRootSuperview.origin.y - topLayoutGuide)
+                        }
+                    }
+                    
                     //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-                    if move > 0 ? (move > (-scrollView.contentOffset.y - scrollView.contentInset.top)) : scrollView.contentOffset.y>0 {
+                    if shouldContinue {
                         
                         var tempScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
                         var nextScrollView : UIScrollView? = nil
@@ -1114,13 +1154,20 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 self.showLog("Remaining Move: \(move)")
                                 
                                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
-                            }) { (animated:Bool) -> Void in }
+                            }) { (animated:Bool) -> Void in
+                                
+                                if scrollView is UITableView || scrollView is UICollectionView {
+                                    //This will update the next/previous states
+                                    self.addToolbarIfRequired()
+                                }
+                            }
                         }
                         
                         //  Getting next lastView & superScrollView.
                         lastView = scrollView
                         superScrollView = nextScrollView
                     } else {
+                        move = 0
                         break
                     }
                 }
