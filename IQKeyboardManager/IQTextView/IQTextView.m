@@ -29,7 +29,7 @@
 
 @interface IQTextView ()
 
-@property(nonnull, nonatomic, strong) UILabel *placeholderLabel;
+@property(nullable, nonatomic, strong) UILabel *placeholderLabel;
 
 @end
 

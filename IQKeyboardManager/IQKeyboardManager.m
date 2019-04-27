@@ -44,11 +44,12 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UITableViewController.h>
 #import <UIKit/UICollectionViewController.h>
+#import <UIKit/UICollectionViewCell.h>
+#import <UIKit/UICollectionViewLayout.h>
 #import <UIKit/UINavigationController.h>
 #import <UIKit/UITouch.h>
 #import <UIKit/UIWindow.h>
 #import <UIKit/NSLayoutConstraint.h>
-
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -558,14 +559,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         /*  (Bug ID: #23, #25, #73)   */
         UIWindow *originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
         
+        UIWindow *strongKeyWindow = _keyWindow;
+        
         //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-        if (originalKeyWindow &&
-            _keyWindow != originalKeyWindow)
+        if (originalKeyWindow && strongKeyWindow != originalKeyWindow)
         {
-            _keyWindow = originalKeyWindow;
+            strongKeyWindow = _keyWindow = originalKeyWindow;
         }
         
-        return _keyWindow;
+        return strongKeyWindow;
     }
 }
 
@@ -658,62 +660,64 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
     }
     
+    __strong typeof(UIScrollView) *strongLastScrollView = _lastScrollView;
+
     //If there was a lastScrollView.    //  (Bug ID: #34)
-    if (_lastScrollView)
+    if (strongLastScrollView)
     {
         //If we can't find current superScrollView, then setting lastScrollView to it's original form.
         if (superScrollView == nil)
         {
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
 
             __weak typeof(self) weakSelf = self;
 
             [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 
                 __strong typeof(self) strongSelf = weakSelf;
-                UIScrollView *strongLastScrollView = strongSelf.lastScrollView;
 
                 [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             } completion:NULL];
             
-            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
             {
-                [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
 
             _startingContentInsets = UIEdgeInsetsZero;
             _startingScrollIndicatorInsets = UIEdgeInsetsZero;
             _startingContentOffset = CGPointZero;
             _lastScrollView = nil;
+            strongLastScrollView = _lastScrollView;
         }
         //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-        else if (superScrollView != _lastScrollView)
+        else if (superScrollView != strongLastScrollView)
         {
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
 
             __weak typeof(self) weakSelf = self;
 
             [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                 
                 __strong typeof(self) strongSelf = weakSelf;
-                UIScrollView *strongLastScrollView = strongSelf.lastScrollView;
 
                 [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             } completion:NULL];
 
-            if (_lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
             {
-                [_lastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
             }
             
             _lastScrollView = superScrollView;
+            strongLastScrollView = _lastScrollView;
             _startingContentInsets = superScrollView.contentInset;
             _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
             _startingContentOffset = superScrollView.contentOffset;
 
-            [self showLog:[NSString stringWithFormat:@"Saving New %@ contentInset: %@ and contentOffset : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+            [self showLog:[NSString stringWithFormat:@"Saving New %@ contentInset: %@ and contentOffset : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
         }
         //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing
     }
@@ -721,21 +725,22 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     else if(superScrollView)
     {
         _lastScrollView = superScrollView;
+        strongLastScrollView = _lastScrollView;
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
         _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
 
-        [self showLog:[NSString stringWithFormat:@"Saving %@ contentInset: %@ and contentOffset : %@",[_lastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+        [self showLog:[NSString stringWithFormat:@"Saving %@ contentInset: %@ and contentOffset : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
     }
     
     //  Special case for ScrollView.
     {
         //  If we found lastScrollView then setting it's contentOffset to show textField.
-        if (_lastScrollView)
+        if (strongLastScrollView)
         {
             //Saving
             UIView *lastView = textFieldView;
-            superScrollView = _lastScrollView;
+            superScrollView = strongLastScrollView;
 
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
             while (superScrollView)
@@ -766,7 +771,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                             CGRect previousCellRect = [tableView rectForRowAtIndexPath:previousIndexPath];
                             if (CGRectIsEmpty(previousCellRect) == NO)
                             {
-                                CGRect previousCellRectInRootSuperview = [tableView convertRect:previousCellRect toView:_rootViewController.view.superview];
+                                CGRect previousCellRectInRootSuperview = [tableView convertRect:previousCellRect toView:rootController.view.superview];
                                 move = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
                             }
                         }
@@ -791,7 +796,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                             CGRect previousCellRect = attributes.frame;
                             if (CGRectIsEmpty(previousCellRect) == NO)
                             {
-                                CGRect previousCellRectInRootSuperview = [collectionView convertRect:previousCellRect toView:_rootViewController.view.superview];
+                                CGRect previousCellRectInRootSuperview = [collectionView convertRect:previousCellRect toView:rootController.view.superview];
                                 move = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
                             }
                         }
@@ -889,24 +894,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             //Updating contentInset
             {
-                CGRect lastScrollViewRect = [[_lastScrollView superview] convertRect:_lastScrollView.frame toView:keyWindow];
+                CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
                 CGFloat bottom = (kbSize.height-keyboardDistanceFromTextField)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
-                UIEdgeInsets movedInsets = _lastScrollView.contentInset;
+                UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
 
                 movedInsets.bottom = MAX(_startingContentInsets.bottom, bottom);
                 
-                [self showLog:[NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]];
+                [self showLog:[NSString stringWithFormat:@"%@ old ContentInset : %@",[strongLastScrollView _IQDescription], NSStringFromUIEdgeInsets(strongLastScrollView.contentInset)]];
                 
-                __weak typeof(self) weakSelf = self;
-
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                     
-                    __strong typeof(self) strongSelf = weakSelf;
-                    UIScrollView *strongLastScrollView = strongSelf.lastScrollView;
-
                     strongLastScrollView.contentInset = movedInsets;
                     
                     UIEdgeInsets newInset = strongLastScrollView.scrollIndicatorInsets;
@@ -915,7 +915,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
                 } completion:NULL];
 
-                [self showLog:[NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]];
+                [self showLog:[NSString stringWithFormat:@"%@ new ContentInset : %@",[strongLastScrollView _IQDescription], NSStringFromUIEdgeInsets(strongLastScrollView.contentInset)]];
             }
         }
         //Going ahead. No else if.
@@ -1163,7 +1163,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         UIViewController *rootController = [textFieldView parentContainerViewController];
         _rootViewController = rootController;
         
-        if (_rootViewControllerWhilePopGestureRecognizerActive == _rootViewController)
+        if (_rootViewControllerWhilePopGestureRecognizerActive == rootController)
         {
             _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive;
         }
@@ -1248,7 +1248,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    if (_textFieldView == nil)   return;
 
     //Restoring the contentOffset of the lastScrollView
-    if (_lastScrollView)
+    __strong typeof(UIScrollView) *strongLastScrollView = _lastScrollView;
+
+    if (strongLastScrollView)
     {
         __weak typeof(self) weakSelf = self;
 
@@ -1256,19 +1258,19 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             __strong typeof(self) strongSelf = weakSelf;
 
-            strongSelf.lastScrollView.contentInset = strongSelf.startingContentInsets;
-            strongSelf.lastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
+           strongLastScrollView.contentInset = strongSelf.startingContentInsets;
+            strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
             
-            if (strongSelf.lastScrollView.shouldRestoreScrollViewContentOffset)
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
             {
-                strongSelf.lastScrollView.contentOffset = strongSelf.startingContentOffset;
+                strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
             }
 
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongSelf.lastScrollView _IQDescription],NSStringFromUIEdgeInsets(strongSelf.startingContentInsets),NSStringFromCGPoint(strongSelf.startingContentOffset)]];
+            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(strongSelf.startingContentInsets),NSStringFromCGPoint(strongSelf.startingContentOffset)]];
             
             // TODO: restore scrollView state
             // This is temporary solution. Have to implement the save and restore scrollView state
-            UIScrollView *superscrollView = strongSelf.lastScrollView;
+            UIScrollView *superscrollView = strongLastScrollView;
             do
             {
                 CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, CGRectGetWidth(superscrollView.frame)), MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame)));
@@ -1383,7 +1385,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIViewController *rootController = [textFieldView parentContainerViewController];
             _rootViewController = rootController;
             
-            if (_rootViewControllerWhilePopGestureRecognizerActive == _rootViewController)
+            if (_rootViewControllerWhilePopGestureRecognizerActive == rootController)
             {
                 _topViewBeginOrigin = _topViewBeginOriginWhilePopGestureRecognizerActive;
             }

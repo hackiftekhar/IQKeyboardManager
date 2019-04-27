@@ -30,8 +30,8 @@
 
 @interface IQTitleBarButtonItem ()
 
-@property(nonnull, nonatomic, strong) UIView *titleView;
-@property(nonnull, nonatomic, strong) UIButton *titleButton;
+@property(nullable, nonatomic, strong) UIView *titleView;
+@property(nullable, nonatomic, strong) UIButton *titleButton;
 
 @end
 
