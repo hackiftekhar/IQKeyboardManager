@@ -147,7 +147,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == textField3) {
-        textField.keyboardToolbar.doneBarButton.enabled = textField.text.length > 0;
+//        textField.keyboardToolbar.doneBarButton.enabled = textField.text.length > 0;
     }
 }
 
@@ -155,8 +155,8 @@
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == textField3) {
-        NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        textField.keyboardToolbar.doneBarButton.enabled = newText.length > 0;
+//        NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//        textField.keyboardToolbar.doneBarButton.enabled = newText.length > 0;
     }
     
     return YES;
