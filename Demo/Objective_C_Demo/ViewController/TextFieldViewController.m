@@ -45,6 +45,7 @@
 {
     [super viewDidLoad];
     
+    textField3.delegate = self;
     [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
     [textField3.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
     [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
@@ -140,6 +141,24 @@
 
 - (BOOL)shouldAutorotate
 {
+    return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == textField3) {
+        textField.keyboardToolbar.doneBarButton.enabled = textField.text.length > 0;
+    }
+}
+
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == textField3) {
+        NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        textField.keyboardToolbar.doneBarButton.enabled = newText.length > 0;
+    }
+    
     return YES;
 }
 

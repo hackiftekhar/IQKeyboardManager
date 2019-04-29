@@ -364,6 +364,8 @@ UIView category methods to add IQToolbar on UIKeyboard.
                     
                     prev.invocation = toolbar.previousBarButton.invocation
                     prev.accessibilityLabel = toolbar.previousBarButton.accessibilityLabel
+                    prev.enabled = toolbar.previousBarButton.enabled
+                    prev.tag = toolbar.previousBarButton.tag
                     toolbar.previousBarButton = prev
                 }
 
@@ -396,6 +398,8 @@ UIView category methods to add IQToolbar on UIKeyboard.
                     
                     next.invocation = toolbar.nextBarButton.invocation
                     next.accessibilityLabel = toolbar.nextBarButton.accessibilityLabel
+                    next.enabled = toolbar.nextBarButton.enabled
+                    next.tag = toolbar.nextBarButton.tag
                     toolbar.nextBarButton = next
                 }
 
@@ -446,6 +450,8 @@ UIView category methods to add IQToolbar on UIKeyboard.
                     
                     done.invocation = toolbar.doneBarButton.invocation
                     done.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel
+                    done.enabled = toolbar.doneBarButton.enabled
+                    done.tag = toolbar.doneBarButton.tag
                     toolbar.doneBarButton = done
                 }
                 

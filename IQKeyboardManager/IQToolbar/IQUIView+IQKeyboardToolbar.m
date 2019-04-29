@@ -352,6 +352,8 @@
             prev = [[IQBarButtonItem alloc] initWithImage:previousBarButtonConfiguration.image style:UIBarButtonItemStylePlain target:target action:previousBarButtonConfiguration.action];
             prev.invocation = toolbar.previousBarButton.invocation;
             prev.accessibilityLabel = toolbar.previousBarButton.accessibilityLabel;
+            prev.enabled = toolbar.previousBarButton.enabled;
+            prev.tag = toolbar.previousBarButton.tag;
             toolbar.previousBarButton = prev;
         }
         else if (previousBarButtonConfiguration.title)
@@ -359,6 +361,8 @@
             prev = [[IQBarButtonItem alloc] initWithTitle:previousBarButtonConfiguration.title style:UIBarButtonItemStylePlain target:target action:previousBarButtonConfiguration.action];
             prev.invocation = toolbar.previousBarButton.invocation;
             prev.accessibilityLabel = toolbar.previousBarButton.accessibilityLabel;
+            prev.enabled = toolbar.previousBarButton.enabled;
+            prev.tag = toolbar.previousBarButton.tag;
             toolbar.previousBarButton = prev;
         }
         else
@@ -366,6 +370,8 @@
             prev = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:previousBarButtonConfiguration.barButtonSystemItem target:target action:previousBarButtonConfiguration.action];
             prev.invocation = toolbar.previousBarButton.invocation;
             prev.accessibilityLabel = toolbar.previousBarButton.accessibilityLabel;
+            prev.enabled = toolbar.previousBarButton.enabled;
+            prev.tag = toolbar.previousBarButton.tag;
             toolbar.previousBarButton = prev;
         }
         
@@ -393,6 +399,8 @@
             next = [[IQBarButtonItem alloc] initWithImage:nextBarButtonConfiguration.image style:UIBarButtonItemStylePlain target:target action:nextBarButtonConfiguration.action];
             next.invocation = toolbar.nextBarButton.invocation;
             next.accessibilityLabel = toolbar.nextBarButton.accessibilityLabel;
+            next.enabled = toolbar.nextBarButton.enabled;
+            next.tag = toolbar.nextBarButton.tag;
             toolbar.nextBarButton = next;
         }
         else if (nextBarButtonConfiguration.title)
@@ -400,6 +408,8 @@
             next = [[IQBarButtonItem alloc] initWithTitle:nextBarButtonConfiguration.title style:UIBarButtonItemStylePlain target:target action:nextBarButtonConfiguration.action];
             next.invocation = toolbar.nextBarButton.invocation;
             next.accessibilityLabel = toolbar.nextBarButton.accessibilityLabel;
+            next.enabled = toolbar.nextBarButton.enabled;
+            next.tag = toolbar.nextBarButton.tag;
             toolbar.nextBarButton = next;
         }
         else
@@ -407,6 +417,8 @@
             next = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:nextBarButtonConfiguration.barButtonSystemItem target:target action:nextBarButtonConfiguration.action];
             next.invocation = toolbar.nextBarButton.invocation;
             next.accessibilityLabel = toolbar.nextBarButton.accessibilityLabel;
+            next.enabled = toolbar.nextBarButton.enabled;
+            next.tag = toolbar.nextBarButton.tag;
             toolbar.nextBarButton = next;
         }
         
@@ -449,6 +461,8 @@
             done = [[IQBarButtonItem alloc] initWithImage:rightBarButtonConfiguration.image style:UIBarButtonItemStylePlain target:target action:rightBarButtonConfiguration.action];
             done.invocation = toolbar.doneBarButton.invocation;
             done.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
+            done.enabled = toolbar.doneBarButton.enabled;
+            done.tag = toolbar.doneBarButton.tag;
             toolbar.doneBarButton = done;
         }
         else if (rightBarButtonConfiguration.title)
@@ -456,6 +470,8 @@
             done = [[IQBarButtonItem alloc] initWithTitle:rightBarButtonConfiguration.title style:UIBarButtonItemStylePlain target:target action:rightBarButtonConfiguration.action];
             done.invocation = toolbar.doneBarButton.invocation;
             done.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
+            done.enabled = toolbar.doneBarButton.enabled;
+            done.tag = toolbar.doneBarButton.tag;
             toolbar.doneBarButton = done;
         }
         else
@@ -463,6 +479,8 @@
             done = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:rightBarButtonConfiguration.barButtonSystemItem target:target action:rightBarButtonConfiguration.action];
             done.invocation = toolbar.doneBarButton.invocation;
             done.accessibilityLabel = toolbar.doneBarButton.accessibilityLabel;
+            done.enabled = toolbar.doneBarButton.enabled;
+            done.tag = toolbar.doneBarButton.tag;
             toolbar.doneBarButton = done;
         }
         
