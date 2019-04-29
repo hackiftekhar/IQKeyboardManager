@@ -816,8 +816,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /** To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
     private var         _kbShowNotification: Notification?
     
-    /** To save keyboard size. */
-    private var         _kbSize = CGSize.zero
+    /** To save keyboard rame. */
+    private var         _kbFrame = CGRect.zero
     
     /** To save keyboard animation duration. */
     private var         _animationDuration : TimeInterval = 0.25
@@ -956,8 +956,24 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             }
             
             let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
-            var kbSize = _kbSize
-            kbSize.height += newKeyboardDistanceFromTextField
+
+            var kbSize = _kbFrame.size
+
+            do {
+                var kbFrame = _kbFrame
+
+                kbFrame.origin.y -= newKeyboardDistanceFromTextField
+                kbFrame.size.height += newKeyboardDistanceFromTextField
+
+                //Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+                let intersectRect = kbFrame.intersection(window.frame)
+                
+                if intersectRect.isNull {
+                    kbSize = CGSize(width: kbFrame.size.width, height: 0)
+                } else {
+                    kbSize = intersectRect.size
+                }
+            }
 
             let navigationBarAreaHeight : CGFloat = UIApplication.shared.statusBarFrame.height + ( rootController.navigationController?.navigationBar.frame.height ?? 0)
             let layoutAreaHeight : CGFloat = rootController.view.layoutMargins.bottom
@@ -1381,7 +1397,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = true
         
-        let oldKBSize = _kbSize
+        let oldKBFrame = _kbFrame
 
         if let info = notification?.userInfo {
             
@@ -1416,18 +1432,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             //  Getting UIKeyboardSize.
             if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
                 
-                let screenSize = UIScreen.main.bounds
-                
-                //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
-                let intersectRect = kbFrame.intersection(screenSize)
-                
-                if intersectRect.isNull {
-                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
-                } else {
-                    _kbSize = intersectRect.size
-                }
-
-                showLog("UIKeyboard Size : \(_kbSize)")
+                _kbFrame = kbFrame
+                showLog("UIKeyboard Frame : \(_kbFrame)")
             }
         }
 
@@ -1459,7 +1465,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
 
         //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
-        if _kbSize.equalTo(oldKBSize) == false {
+        if _kbFrame.equalTo(oldKBFrame) == false {
             
             //If _textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
             
@@ -1576,7 +1582,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         //Reset all values
         _lastScrollView = nil
-        _kbSize = CGSize.zero
+        _kbFrame = CGRect.zero
         _startingContentInsets = UIEdgeInsets()
         _startingScrollIndicatorInsets = UIEdgeInsets()
         _startingContentOffset = CGPoint.zero
@@ -1593,7 +1599,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         
-        _kbSize = CGSize.zero
+        _kbFrame = CGRect.zero
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")

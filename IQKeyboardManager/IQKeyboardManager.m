@@ -149,7 +149,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     NSNotification          *_kbShowNotification;
     
     /** To save keyboard size. */
-    CGSize                   _kbSize;
+    CGRect                   _kbFrame;
     
     /*******************************************/
 }
@@ -626,8 +626,27 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
-    CGSize kbSize = _kbSize;
-    kbSize.height += keyboardDistanceFromTextField;
+
+    CGSize kbSize = _kbFrame.size;
+    
+    {
+        CGRect kbFrame = _kbFrame;
+        
+        kbFrame.origin.y -= keyboardDistanceFromTextField;
+        kbFrame.size.height += keyboardDistanceFromTextField;
+        
+        //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+        CGRect intersectRect = CGRectIntersection(kbFrame, keyWindow.frame);
+        
+        if (CGRectIsNull(intersectRect))
+        {
+            kbSize = CGSizeMake(kbFrame.size.width, 0);
+        }
+        else
+        {
+            kbSize = intersectRect.size;
+        }
+    }
     
     CGFloat navigationBarAreaHeight = [[UIApplication sharedApplication] statusBarFrame].size.height + rootController.navigationController.navigationBar.frame.size.height;
     CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
@@ -1131,25 +1150,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Saving animation duration
     if (duration != 0.0)    _animationDuration = duration;
     
-    CGSize oldKBSize = _kbSize;
+    CGRect oldKBFrame = _kbFrame;
     
     //  Getting UIKeyboardSize.
-    CGRect kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
-    CGRect screenSize = [[UIScreen mainScreen] bounds];
-
-    //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
-    CGRect intersectRect = CGRectIntersection(kbFrame, screenSize);
-
-    if (CGRectIsNull(intersectRect))
-    {
-        _kbSize = CGSizeMake(screenSize.size.width, 0);
-    }
-    else
-    {
-        _kbSize = intersectRect.size;
-    }
-    
 	if ([self privateIsEnabled] == NO)	return;
 	
     CFTimeInterval startTime = CACurrentMediaTime();
@@ -1179,7 +1184,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
-    if (!CGSizeEqualToSize(_kbSize, oldKBSize))
+    if (!CGRectEqualToRect(_kbFrame, oldKBFrame))
     {
         //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
         //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
@@ -1292,7 +1297,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //Reset all values
     _lastScrollView = nil;
-    _kbSize = CGSizeZero;
+    _kbFrame = CGRectZero;
     _startingContentInsets = UIEdgeInsetsZero;
     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
@@ -1309,7 +1314,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     _topViewBeginOrigin = kIQCGPointInvalid;
 
-    _kbSize = CGSizeZero;
+    _kbFrame = CGRectZero;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
