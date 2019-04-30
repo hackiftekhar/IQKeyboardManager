@@ -1022,7 +1022,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(_startingContentOffset) == false {
                         showLog("Restoring contentOffset to : \(_startingContentOffset)")
                         
-                        var animatedContentOffset = false
+                        var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
 
                         if #available(iOS 9, *) {
                             animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
@@ -1053,7 +1053,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(_startingContentOffset) == false {
                         showLog("Restoring contentOffset to : \(_startingContentOffset)")
                         
-                        var animatedContentOffset = false
+                        var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
                         
                         if #available(iOS 9, *) {
                             animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
@@ -1199,7 +1199,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                                 UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                                     
-                                    var animatedContentOffset = false
+                                    var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
                                     
                                     if #available(iOS 9, *) {
                                         animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
@@ -1601,7 +1601,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(self._startingContentOffset) == false {
                     self.showLog("Restoring contentOffset to : \(self._startingContentOffset)")
                     
-                    var animatedContentOffset = false
+                    var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
                     
                     if #available(iOS 9, *) {
                         animatedContentOffset = self._textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
@@ -1629,7 +1629,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
                         if scrollView.contentOffset.equalTo(newContentOffset) == false {
                             
-                            var animatedContentOffset = false
+                            var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
                             
                             if #available(iOS 9, *) {
                                 animatedContentOffset = self._textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil

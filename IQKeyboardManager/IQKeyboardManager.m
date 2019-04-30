@@ -706,7 +706,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
                 
-                BOOL animatedContentOffset = NO;
+                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
                 if (@available(iOS 9.0, *))
 #else
@@ -751,7 +751,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
 
-                BOOL animatedContentOffset = NO;
+                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
                 if (@available(iOS 9.0, *))
 #else
@@ -938,7 +938,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [self showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
                         [self showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
                         
-                        BOOL animatedContentOffset = NO;
+                        BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
                         if (@available(iOS 9.0, *))
 #else
@@ -1333,7 +1333,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
 
-                BOOL animatedContentOffset = NO;
+                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
                 if (@available(iOS 9.0, *))
 #else
@@ -1366,7 +1366,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     {
                         [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
 
-                        BOOL animatedContentOffset = NO;
+                        BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
                         if (@available(iOS 9.0, *))
 #else
