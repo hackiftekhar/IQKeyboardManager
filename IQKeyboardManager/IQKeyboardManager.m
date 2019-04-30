@@ -220,16 +220,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //Setting it's initial values
             strongSelf.animationDuration = 0.25;
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
-            [self setEnable:YES];
-			[self setKeyboardDistanceFromTextField:10.0];
-            [self setShouldPlayInputClicks:YES];
-            [self setShouldResignOnTouchOutside:NO];
-            [self setOverrideKeyboardAppearance:NO];
-            [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
-            [self setEnableAutoToolbar:YES];
-            [self setShouldShowToolbarPlaceholder:YES];
-            [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
-            [self setLayoutIfNeededOnUpdate:NO];
+            [strongSelf setEnable:YES];
+			[strongSelf setKeyboardDistanceFromTextField:10.0];
+            [strongSelf setShouldPlayInputClicks:YES];
+            [strongSelf setShouldResignOnTouchOutside:NO];
+            [strongSelf setOverrideKeyboardAppearance:NO];
+            [strongSelf setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            [strongSelf setEnableAutoToolbar:YES];
+            [strongSelf setShouldShowToolbarPlaceholder:YES];
+            [strongSelf setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            [strongSelf setLayoutIfNeededOnUpdate:NO];
             
             //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
@@ -605,7 +605,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRectInWindow = [[textFieldView superview] convertRect:textFieldView.frame toView:keyWindow];
@@ -687,21 +687,40 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //If we can't find current superScrollView, then setting lastScrollView to it's original form.
         if (superScrollView == nil)
         {
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
-
-            __weak typeof(self) weakSelf = self;
-
-            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                
-                __strong typeof(self) strongSelf = weakSelf;
-
-                [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
-                strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
-            } completion:NULL];
-            
-            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
+            if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, _startingContentInsets) == NO)
             {
-                [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(_startingContentInsets)]];
+                
+                __weak typeof(self) weakSelf = self;
+
+                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                    
+                    __strong typeof(self) strongSelf = weakSelf;
+                    
+                    [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
+                    strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
+                } completion:NULL];
+            }
+            
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, _startingContentOffset) == NO)
+            {
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
+                
+                BOOL animatedContentOffset = NO;
+#ifdef __IPHONE_11_0
+                if (@available(iOS 9.0, *))
+#else
+                if (IQ_IS_IOS9_OR_GREATER)
+#endif
+                {
+                    animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
+                }
+
+                if (animatedContentOffset) {
+                    [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                } else {
+                    strongLastScrollView.contentOffset = _startingContentOffset;
+                }
             }
 
             _startingContentInsets = UIEdgeInsetsZero;
@@ -713,21 +732,40 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
         else if (superScrollView != strongLastScrollView)
         {
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
-
-            __weak typeof(self) weakSelf = self;
-
-            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                
-                __strong typeof(self) strongSelf = weakSelf;
-
-                [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
-                strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
-            } completion:NULL];
-
-            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
+            if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, _startingContentInsets) == NO)
             {
-                [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(_startingContentInsets)]];
+
+                __weak typeof(self) weakSelf = self;
+                
+                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                    
+                    __strong typeof(self) strongSelf = weakSelf;
+                    
+                    [strongLastScrollView setContentInset:strongSelf.startingContentInsets];
+                    strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
+                } completion:NULL];
+            }
+
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, _startingContentOffset) == NO)
+            {
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
+
+                BOOL animatedContentOffset = NO;
+#ifdef __IPHONE_11_0
+                if (@available(iOS 9.0, *))
+#else
+                if (IQ_IS_IOS9_OR_GREATER)
+#endif
+                {
+                    animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
+                }
+
+                if (animatedContentOffset) {
+                    [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
+                } else {
+                    strongLastScrollView.contentOffset = _startingContentOffset;
+                }
             }
             
             _lastScrollView = superScrollView;
@@ -736,7 +774,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
             _startingContentOffset = superScrollView.contentOffset;
 
-            [self showLog:[NSString stringWithFormat:@"Saving New %@ contentInset: %@ and contentOffset : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+            [self showLog:[NSString stringWithFormat:@"Saving New contentInset: %@ and contentOffset : %@",NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
         }
         //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing
     }
@@ -749,7 +787,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _startingContentOffset = superScrollView.contentOffset;
         _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
 
-        [self showLog:[NSString stringWithFormat:@"Saving %@ contentInset: %@ and contentOffset : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
+        [self showLog:[NSString stringWithFormat:@"Saving contentInset: %@ and contentOffset : %@",NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
     }
     
     //  Special case for ScrollView.
@@ -890,21 +928,40 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 }
 
                 
-                //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                    
-                    [self showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
-                    [self showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
+                CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+                
+                if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
+                {
+                    //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+                    [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                        
+                        [self showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
+                        [self showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
+                        
+                        BOOL animatedContentOffset = NO;
+#ifdef __IPHONE_11_0
+                        if (@available(iOS 9.0, *))
+#else
+                        if (IQ_IS_IOS9_OR_GREATER)
+#endif
+                        {
+                            animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);
+                        }
 
-                    superScrollView.contentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
-                } completion:^(BOOL finished){
-
-                    if ([superScrollView isKindOfClass:[UITableView class]] || [superScrollView isKindOfClass:[UICollectionView class]])
-                    {
-                        //This will update the next/previous states
-                        [self addToolbarIfRequired];
-                    }
-                }];
+                        if (animatedContentOffset) {
+                            [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
+                        } else {
+                            superScrollView.contentOffset = newContentOffset;
+                        }
+                    } completion:^(BOOL finished){
+                        
+                        if ([superScrollView isKindOfClass:[UITableView class]] || [superScrollView isKindOfClass:[UICollectionView class]])
+                        {
+                            //This will update the next/previous states
+                            [self addToolbarIfRequired];
+                        }
+                    }];
+                }
 
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
@@ -922,19 +979,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
                 movedInsets.bottom = MAX(_startingContentInsets.bottom, bottom);
                 
-                [self showLog:[NSString stringWithFormat:@"%@ old ContentInset : %@",[strongLastScrollView _IQDescription], NSStringFromUIEdgeInsets(strongLastScrollView.contentInset)]];
-                
-                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, movedInsets) == NO)
+                {
+                    [self showLog:[NSString stringWithFormat:@"old ContentInset : %@ new ContentInset : %@", NSStringFromUIEdgeInsets(strongLastScrollView.contentInset), NSStringFromUIEdgeInsets(movedInsets)]];
                     
-                    strongLastScrollView.contentInset = movedInsets;
-                    
-                    UIEdgeInsets newInset = strongLastScrollView.scrollIndicatorInsets;
-                    newInset.bottom = movedInsets.bottom;
-                    strongLastScrollView.scrollIndicatorInsets = newInset;
-
-                } completion:NULL];
-
-                [self showLog:[NSString stringWithFormat:@"%@ new ContentInset : %@",[strongLastScrollView _IQDescription], NSStringFromUIEdgeInsets(strongLastScrollView.contentInset)]];
+                    [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                        
+                        strongLastScrollView.contentInset = movedInsets;
+                        
+                        UIEdgeInsets newInset = strongLastScrollView.scrollIndicatorInsets;
+                        newInset.bottom = movedInsets.bottom;
+                        strongLastScrollView.scrollIndicatorInsets = newInset;
+                        
+                    } completion:NULL];
+                }
             }
         }
         //Going ahead. No else if.
@@ -958,31 +1016,31 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             if (textFieldView.frame.size.height-textView.contentInset.bottom>textViewHeight)
             {
-                __weak typeof(self) weakSelf = self;
-                
-                [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
+                if (self.isTextViewContentInsetChanged == NO)
+                {
+                    self.startingTextViewContentInsets = textView.contentInset;
+                    self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
+                }
+
+                UIEdgeInsets newContentInset = textView.contentInset;
+                newContentInset.bottom = self.textFieldView.frame.size.height-textViewHeight;
+                self.isTextViewContentInsetChanged = YES;
+
+                if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, newContentInset) == NO)
+                {
+                    __weak typeof(self) weakSelf = self;
                     
-                    __strong typeof(self) strongSelf = weakSelf;
-                    UIView *strongTextFieldView = strongSelf.textFieldView;
-                    
-                    [self showLog:[NSString stringWithFormat:@"%@ Old UITextView.contentInset : %@",[strongTextFieldView _IQDescription], NSStringFromUIEdgeInsets(textView.contentInset)]];
-                    
-                    //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
-                    if (strongSelf.isTextViewContentInsetChanged == NO)
-                    {
-                        strongSelf.startingTextViewContentInsets = textView.contentInset;
-                        strongSelf.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
-                    }
-                    
-                    UIEdgeInsets newContentInset = textView.contentInset;
-                    newContentInset.bottom = strongTextFieldView.frame.size.height-textViewHeight;
-                    textView.contentInset = newContentInset;
-                    textView.scrollIndicatorInsets = newContentInset;
-                    strongSelf.isTextViewContentInsetChanged = YES;
-                    
-                    [self showLog:[NSString stringWithFormat:@"%@ New UITextView.contentInset : %@",[strongTextFieldView _IQDescription], NSStringFromUIEdgeInsets(textView.contentInset)]];
-                    
-                } completion:NULL];
+                    [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                        
+                        __strong typeof(self) strongSelf = weakSelf;
+                        
+                        [strongSelf showLog:[NSString stringWithFormat:@"Old UITextView.contentInset : %@ New UITextView.contentInset : %@", NSStringFromUIEdgeInsets(textView.contentInset), NSStringFromUIEdgeInsets(textView.contentInset)]];
+                        
+                        textView.contentInset = newContentInset;
+                        textView.scrollIndicatorInsets = newContentInset;
+                    } completion:NULL];
+                }
             }
         }
 
@@ -1018,7 +1076,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [rootController.view layoutIfNeeded];
                     }
                     
-                    [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",[rootController _IQDescription],NSStringFromCGPoint(rootViewOrigin)]];
+                    [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                 } completion:NULL];
 
                 _movedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y);
@@ -1055,7 +1113,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                             [rootController.view layoutIfNeeded];
                         }
                         
-                        [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",[rootController _IQDescription],NSStringFromCGPoint(rootViewOrigin)]];
+                        [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                     } completion:NULL];
 
                     _movedDistance = (_topViewBeginOrigin.y-rootController.view.frame.origin.y);
@@ -1065,7 +1123,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 -(void)restorePosition
@@ -1084,7 +1142,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             UIViewController *strongRootController = strongSelf.rootViewController;
             
             {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",[strongRootController _IQDescription],NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",strongRootController,NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
                 
                 //Restoring
                 CGRect rect = strongRootController.view.frame;
@@ -1158,7 +1216,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	if ([self privateIsEnabled] == NO)	return;
 	
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     UIView *textFieldView = _textFieldView;
 
@@ -1180,7 +1238,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _rootViewControllerWhilePopGestureRecognizerActive = nil;
         _topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
         
-        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[rootController _IQDescription] ,NSStringFromCGPoint(_topViewBeginOrigin)]];
+        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",rootController,NSStringFromCGPoint(_topViewBeginOrigin)]];
     }
 
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
@@ -1197,7 +1255,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardDidShowNotification. */
@@ -1206,7 +1264,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if ([self privateIsEnabled] == NO)	return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
     
     UIView *textFieldView = _textFieldView;
 
@@ -1223,7 +1281,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1246,7 +1304,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if ([self privateIsEnabled] == NO)	return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
@@ -1263,15 +1321,34 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             __strong typeof(self) strongSelf = weakSelf;
 
-           strongLastScrollView.contentInset = strongSelf.startingContentInsets;
-            strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
-            
-            if (strongLastScrollView.shouldRestoreScrollViewContentOffset)
+            if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, strongSelf.startingContentInsets) == NO)
             {
-                strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
-            }
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingContentInsets)]];
 
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ contentInset to : %@ and contentOffset to : %@",[strongLastScrollView _IQDescription],NSStringFromUIEdgeInsets(strongSelf.startingContentInsets),NSStringFromCGPoint(strongSelf.startingContentOffset)]];
+                strongLastScrollView.contentInset = strongSelf.startingContentInsets;
+                strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
+            }
+            
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, strongSelf.startingContentOffset) == NO)
+            {
+                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
+
+                BOOL animatedContentOffset = NO;
+#ifdef __IPHONE_11_0
+                if (@available(iOS 9.0, *))
+#else
+                if (IQ_IS_IOS9_OR_GREATER)
+#endif
+                {
+                    animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
+                }
+
+                if (animatedContentOffset) {
+                    [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
+                } else {
+                    strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
+                }
+            }
             
             // TODO: restore scrollView state
             // This is temporary solution. Have to implement the save and restore scrollView state
@@ -1284,9 +1361,27 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 if (minimumY<superscrollView.contentOffset.y)
                 {
-                    superscrollView.contentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
-                    
-                    [self showLog:[NSString stringWithFormat:@"Restoring %@ contentOffset to : %@",[superscrollView _IQDescription],NSStringFromCGPoint(superscrollView.contentOffset)]];
+                    CGPoint newContentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
+                    if (CGPointEqualToPoint(superscrollView.contentOffset, newContentOffset) == NO)
+                    {
+                        [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
+
+                        BOOL animatedContentOffset = NO;
+#ifdef __IPHONE_11_0
+                        if (@available(iOS 9.0, *))
+#else
+                        if (IQ_IS_IOS9_OR_GREATER)
+#endif
+                        {
+                            animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);
+                        }
+
+                        if (animatedContentOffset) {
+                            [superscrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
+                        } else {
+                            superscrollView.contentOffset = newContentOffset;
+                        }
+                    }
                 }
             } while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
 
@@ -1303,21 +1398,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _startingContentOffset = CGPointZero;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardDidHideNotification. So topViewBeginRect can be set to CGRectZero. */
 - (void)keyboardDidHide:(NSNotification*)aNotification
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     _topViewBeginOrigin = kIQCGPointInvalid;
 
     _kbFrame = CGRectZero;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 #pragma mark - UITextFieldView Delegate methods
@@ -1325,7 +1420,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //  Getting object
     _textFieldView = notification.object;
@@ -1402,7 +1497,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             _rootViewControllerWhilePopGestureRecognizerActive = nil;
             _topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
             
-            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",[rootController _IQDescription], NSStringFromCGPoint(_topViewBeginOrigin)]];
+            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",rootController, NSStringFromCGPoint(_topViewBeginOrigin)]];
         }
         
         //If textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
@@ -1422,14 +1517,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //    }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     UIView *textFieldView = _textFieldView;
 
@@ -1446,29 +1541,30 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
        [textFieldView isKindOfClass:[UITextView class]])
     {
         UITextView *textView = (UITextView*)textFieldView;
-
-        __weak typeof(self) weakSelf = self;
-
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        self.isTextViewContentInsetChanged = NO;
+        if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, self.startingTextViewContentInsets) == NO)
+        {
+            __weak typeof(self) weakSelf = self;
             
-            __strong typeof(self) strongSelf = weakSelf;
-
-            strongSelf.isTextViewContentInsetChanged = NO;
-
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ textView.contentInset to : %@",[strongSelf.textFieldView _IQDescription],NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
-
-            //Setting textField to it's initial contentInset
-            textView.contentInset = strongSelf.startingTextViewContentInsets;
-            textView.scrollIndicatorInsets = strongSelf.startingTextViewScrollIndicatorInsets;
-
-        } completion:NULL];
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                
+                __strong typeof(self) strongSelf = weakSelf;
+                
+                [self showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
+                
+                //Setting textField to it's initial contentInset
+                textView.contentInset = strongSelf.startingTextViewContentInsets;
+                textView.scrollIndicatorInsets = strongSelf.startingTextViewScrollIndicatorInsets;
+                
+            } completion:NULL];
+        }
     }
     
     //Setting object to nil
     _textFieldView = nil;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 //-(void)editingDidEndOnExit:(UITextField*)textField
@@ -1481,35 +1577,36 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 - (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //If textViewContentInsetChanged is changed then restore it.
     if (_isTextViewContentInsetChanged == YES &&
         [_textFieldView isKindOfClass:[UITextView class]])
     {
         UITextView *textView = (UITextView*)_textFieldView;
-
-        __weak typeof(self) weakSelf = self;
-
-        //Due to orientation callback we need to set it's original position.
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        self.isTextViewContentInsetChanged = NO;
+        if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, self.startingTextViewContentInsets) == NO)
+        {
+            __weak typeof(self) weakSelf = self;
             
-            __strong typeof(self) strongSelf = weakSelf;
-
-            strongSelf.isTextViewContentInsetChanged = NO;
-
-            [self showLog:[NSString stringWithFormat:@"Restoring %@ textView.contentInset to : %@",[strongSelf.textFieldView _IQDescription],NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
-            
-            //Setting textField to it's initial contentInset
-            textView.contentInset = strongSelf.startingTextViewContentInsets;
-            textView.scrollIndicatorInsets = strongSelf.startingTextViewScrollIndicatorInsets;
-        } completion:NULL];
+            //Due to orientation callback we need to set it's original position.
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                
+                __strong typeof(self) strongSelf = weakSelf;
+                
+                [self showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
+                
+                //Setting textField to it's initial contentInset
+                textView.contentInset = strongSelf.startingTextViewContentInsets;
+                textView.scrollIndicatorInsets = strongSelf.startingTextViewScrollIndicatorInsets;
+            } completion:NULL];
+        }
     }
 
     [self restorePosition];
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 #pragma mark AutoResign methods
@@ -1564,7 +1661,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If it refuses to resign then becoming it first responder again for getting notifications callback.
             [textFieldRetain becomeFirstResponder];
             
-            [self showLog:[NSString stringWithFormat:@"Refuses to Resign first responder: %@",[textFieldView _IQDescription]]];
+            [self showLog:[NSString stringWithFormat:@"Refuses to Resign first responder: %@",textFieldView]];
         }
         
         return isResignFirstResponder;
@@ -1643,7 +1740,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If next field refuses to become first responder then restoring old textField as first responder.
             [textFieldRetain becomeFirstResponder];
             
-            [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]];
+            [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
         
         return isAcceptAsFirstResponder;
@@ -1680,7 +1777,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If next field refuses to become first responder then restoring old textField as first responder.
             [textFieldRetain becomeFirstResponder];
             
-            [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]];
+            [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
         
         return isAcceptAsFirstResponder;
@@ -1747,7 +1844,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(void)addToolbarIfRequired
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
     
     //    Getting all the sibling textFields.
     NSArray<UIView*> *siblings = [self responderViews];
@@ -1937,14 +2034,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /** Remove any toolbar if it is IQToolbar. */
 -(void)removeToolbarIfRequired  //  (Bug ID: #18)
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //    Getting all the sibling textFields.
     NSArray<UIView*> *siblings = [self responderViews];
@@ -1966,7 +2063,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******\n",NSStringFromSelector(_cmd),elapsedTime]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
@@ -2176,9 +2273,33 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 -(void)showLog:(NSString*)logString
 {
+    [self showLog:logString indentation:0];
+}
+
+-(void)showLog:(NSString*)logString indentation:(NSInteger)indent
+{
+    static NSInteger indentation = 0;
+    
+    if (indent < 0)
+    {
+        indentation = MAX(0, indentation + indent);
+    }
+    
     if (_enableDebugging)
     {
-        NSLog(@"IQKeyboardManager: %@",logString);
+        NSMutableString *preLog = [[NSMutableString alloc] init];
+        
+        for (int i = 0; i<=indentation; i++) {
+            [preLog appendString:@"|\t"];
+        }
+
+        [preLog appendString:logString];
+        NSLog(@"%@",preLog);
+    }
+    
+    if (indent > 0)
+    {
+        indentation += indent;
     }
 }
 

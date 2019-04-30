@@ -156,7 +156,12 @@
     return finalController;
 }
 
--(UIView*)superviewOfClassType:(Class)classType
+-(UIView*)superviewOfClassType:(nonnull Class)classType
+{
+    return [self superviewOfClassType:classType belowView:nil];
+}
+
+-(nullable __kindof UIView*)superviewOfClassType:(nonnull Class)classType belowView:(nullable UIView*)belowView
 {
     UIView *superview = self.superview;
     
@@ -183,6 +188,10 @@
             {
                 return superview;
             }
+        }
+        else if (belowView == superview)
+        {
+            return nil;
         }
         
         superview = superview.superview;

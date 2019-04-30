@@ -441,7 +441,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 //If it refuses to resign then becoming it first responder again for getting notifications callback.
                 textFieldRetain.becomeFirstResponder()
                 
-                showLog("Refuses to resign first responder: \(String(describing: textFieldRetain._IQDescription()))")
+                showLog("Refuses to resign first responder: \(textFieldRetain)")
             }
             
             return isResignFirstResponder
@@ -514,7 +514,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
                             
-                            showLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            showLog("Refuses to become first responder: \(nextTextField)")
                         }
                         
                         return isAcceptAsFirstResponder
@@ -548,7 +548,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
                             
-                            showLog("Refuses to become first responder: \(nextTextField._IQDescription())")
+                            showLog("Refuses to become first responder: \(nextTextField)")
                         }
                         
                         return isAcceptAsFirstResponder
@@ -942,7 +942,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             let textFieldViewRectInRootSuperview = textFieldView.superview?.convert(textFieldView.frame, to: rootController.view?.superview)
         {
             let startTime = CACurrentMediaTime()
-            showLog("****** \(#function) started ******")
+            showLog("****** \(#function) started ******", indentation:1)
             
             //  Getting RootViewOrigin.
             var rootViewOrigin = rootController.view.frame.origin
@@ -1009,16 +1009,30 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 //If we can't find current superScrollView, then setting lastScrollView to it's original form.
                 if superScrollView == nil {
                     
-                    showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
-                    
-                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                    if lastScrollView.contentInset != self._startingContentInsets {
+                        showLog("Restoring contentInset to : \(_startingContentInsets)")
+                        UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                            
+                            lastScrollView.contentInset = self._startingContentInsets
+                            lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
+                        }) { (animated:Bool) -> Void in }
                         
-                        lastScrollView.contentInset = self._startingContentInsets
-                        lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
+                    }
                     
-                    if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                        lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
+                    if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(_startingContentOffset) == false {
+                        showLog("Restoring contentOffset to : \(_startingContentOffset)")
+                        
+                        var animatedContentOffset = false
+
+                        if #available(iOS 9, *) {
+                            animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
+                        }
+
+                        if animatedContentOffset {
+                            lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
+                        } else {
+                            lastScrollView.contentOffset = _startingContentOffset
+                        }
                     }
                     
                     _startingContentInsets = UIEdgeInsets()
@@ -1027,16 +1041,29 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     _lastScrollView = nil
                 } else if superScrollView != lastScrollView {     //If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
                     
-                    showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(_startingContentInsets) and contentOffset to : \(_startingContentOffset)")
+                    if lastScrollView.contentInset != self._startingContentInsets {
+                        showLog("Restoring contentInset to : \(_startingContentInsets)")
+                        UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                            
+                            lastScrollView.contentInset = self._startingContentInsets
+                            lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
+                        }) { (animated:Bool) -> Void in }
+                    }
                     
-                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                    if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(_startingContentOffset) == false {
+                        showLog("Restoring contentOffset to : \(_startingContentOffset)")
                         
-                        lastScrollView.contentInset = self._startingContentInsets
-                        lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                    }) { (animated:Bool) -> Void in }
-                    
-                    if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                        lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
+                        var animatedContentOffset = false
+                        
+                        if #available(iOS 9, *) {
+                            animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
+                        }
+                        
+                        if animatedContentOffset {
+                            lastScrollView.setContentOffset(_startingContentOffset, animated: UIView.areAnimationsEnabled)
+                        } else {
+                            lastScrollView.contentOffset = _startingContentOffset
+                        }
                     }
                     
                     _lastScrollView = superScrollView
@@ -1046,7 +1073,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         _startingContentOffset = scrollView.contentOffset
                     }
                     
-                    showLog("Saving New \(lastScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
+                    showLog("Saving ScrollView New contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
                 }
                 //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
             } else if let unwrappedSuperScrollView = superScrollView {    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
@@ -1055,7 +1082,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
                 _startingContentOffset = unwrappedSuperScrollView.contentOffset
                 
-                showLog("Saving \(unwrappedSuperScrollView._IQDescription()) contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
+                showLog("Saving ScrollView contentInset : \(_startingContentInsets) and contentOffset : \(_startingContentOffset)")
             }
             
             //  Special case for ScrollView.
@@ -1162,19 +1189,34 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 move -= (shouldOffsetY-scrollView.contentOffset.y)
                             }
                             
-                            //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                            UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                                
-                                self.showLog("Adjusting \(scrollView.contentOffset.y-shouldOffsetY) to \(scrollView._IQDescription()) ContentOffset")
-                                
+                            let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
+                            
+                            if scrollView.contentOffset.equalTo(newContentOffset) == false {
+
+                                showLog("old contentOffset : \(scrollView.contentOffset) new contentOffset : \(newContentOffset)")
                                 self.showLog("Remaining Move: \(move)")
-                                
-                                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
-                            }) { (animated:Bool) -> Void in
-                                
-                                if scrollView is UITableView || scrollView is UICollectionView {
-                                    //This will update the next/previous states
-                                    self.addToolbarIfRequired()
+
+                                //Getting problem while using `setContentOffset:animated:`, So I used animation API.
+                                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                                    
+                                    var animatedContentOffset = false
+                                    
+                                    if #available(iOS 9, *) {
+                                        animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
+                                    }
+
+                                    if animatedContentOffset {
+                                        scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
+                                    } else {
+                                        scrollView.contentOffset = newContentOffset
+                                    }
+                                    
+                                }) { (animated:Bool) -> Void in
+                                    
+                                    if scrollView is UITableView || scrollView is UICollectionView {
+                                        //This will update the next/previous states
+                                        self.addToolbarIfRequired()
+                                    }
                                 }
                             }
                         }
@@ -1198,19 +1240,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     
                     movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
                     
-                    showLog("\(lastScrollView._IQDescription()) old ContentInset : \(lastScrollView.contentInset)")
-                    
-                    //Getting problem while using `setContentOffset:animated:`, So I used animation API.
-                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        lastScrollView.contentInset = movedInsets
-                        
-                        var newInset = lastScrollView.scrollIndicatorInsets
-                        newInset.bottom = movedInsets.bottom
-                        lastScrollView.scrollIndicatorInsets = newInset
-                        
-                    }) { (animated:Bool) -> Void in }
-                    
-                    showLog("\(lastScrollView._IQDescription()) new ContentInset : \(lastScrollView.contentInset)")
+                    if lastScrollView.contentInset != movedInsets {
+                        showLog("old ContentInset : \(lastScrollView.contentInset) new ContentInset : \(movedInsets)")
+
+                        UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                            lastScrollView.contentInset = movedInsets
+                            
+                            var newInset = lastScrollView.scrollIndicatorInsets
+                            newInset.bottom = movedInsets.bottom
+                            lastScrollView.scrollIndicatorInsets = newInset
+                            
+                        }) { (animated:Bool) -> Void in }
+                    }
                 }
             }
             //Going ahead. No else if.
@@ -1238,70 +1279,37 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 
                 if (textView.frame.size.height-textView.contentInset.bottom>textViewHeight)
                 {
-                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
-                        self.showLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
-                        
-                        //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
-                        if (self.isTextViewContentInsetChanged == false)
-                        {
-                            self.startingTextViewContentInsets = textView.contentInset
-                            self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets
-                        }
-                        
-                        var newContentInset = textView.contentInset
-                        newContentInset.bottom = textView.frame.size.height-textViewHeight
-                        textView.contentInset = newContentInset
-                        textView.scrollIndicatorInsets = newContentInset
-                        self.isTextViewContentInsetChanged = true
-                        
-                        self.showLog("\(textFieldView._IQDescription()) Old UITextView.contentInset : \(textView.contentInset)")
-                        
-                        
-                    }, completion: { (finished) -> Void in })
+                    //_isTextViewContentInsetChanged,  If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
+                    if (self.isTextViewContentInsetChanged == false)
+                    {
+                        self.startingTextViewContentInsets = textView.contentInset
+                        self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets
+                    }
+
+                    self.isTextViewContentInsetChanged = true
+
+                    var newContentInset = textView.contentInset
+                    newContentInset.bottom = textView.frame.size.height-textViewHeight
+
+                    if textView.contentInset != newContentInset {
+                        self.showLog("\(textFieldView) Old UITextView.contentInset : \(textView.contentInset) New UITextView.contentInset : \(newContentInset)")
+
+                        UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                            
+                            textView.contentInset = newContentInset
+                            textView.scrollIndicatorInsets = newContentInset
+                        }, completion: { (finished) -> Void in })
+                    }
                 }
             }
                 
             //  +Positive or zero.
             if move >= 0 {
                 
-                rootViewOrigin.y -= move
-                
-                rootViewOrigin.y = max(rootViewOrigin.y, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
+                rootViewOrigin.y = max(rootViewOrigin.y - move, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
 
-                showLog("Moving Upward")
-                //  Setting adjusted rootViewRect
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
-                    var rect = rootController.view.frame
-                    rect.origin = rootViewOrigin
-                    rootController.view.frame = rect
-                    
-                    //Animating content if needed (Bug ID: #204)
-                    if self.layoutIfNeededOnUpdate == true {
-                        //Animating content (Bug ID: #160)
-                        rootController.view.setNeedsLayout()
-                        rootController.view.layoutIfNeeded()
-                    }
-                    
-                    self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
-                    
-                }) { (finished) -> Void in }
-                
-                _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
-            } else {  //  -Negative
-                let disturbDistance : CGFloat = rootViewOrigin.y-_topViewBeginOrigin.y
-                
-                //  disturbDistance Negative = frame disturbed.
-                //  disturbDistance positive = frame not disturbed.
-                if disturbDistance <= 0 {
-                    
-                    rootViewOrigin.y -= max(move, disturbDistance)
-                    
-                    showLog("Moving Downward")
-                    //  Setting adjusted rootViewRect
-                    //  Setting adjusted rootViewRect
+                if rootController.view.frame.origin.equalTo(rootViewOrigin) == false {
+                    showLog("Moving Upward")
                     
                     UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                         
@@ -1316,16 +1324,50 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             rootController.view.layoutIfNeeded()
                         }
                         
-                        self.showLog("Set \(String(describing: rootController._IQDescription())) origin to : \(rootViewOrigin)")
+                        self.showLog("Set \(rootController) origin to : \(rootViewOrigin)")
                         
                     }) { (finished) -> Void in }
+                }
+                
+                _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
+            } else {  //  -Negative
+                let disturbDistance : CGFloat = rootViewOrigin.y-_topViewBeginOrigin.y
+                
+                //  disturbDistance Negative = frame disturbed.
+                //  disturbDistance positive = frame not disturbed.
+                if disturbDistance <= 0 {
+                    
+                    rootViewOrigin.y -= max(move, disturbDistance)
+                    
+                    if rootController.view.frame.origin.equalTo(rootViewOrigin) == false {
+                        showLog("Moving Downward")
+                        //  Setting adjusted rootViewRect
+                        //  Setting adjusted rootViewRect
+                        
+                        UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                            
+                            var rect = rootController.view.frame
+                            rect.origin = rootViewOrigin
+                            rootController.view.frame = rect
+                            
+                            //Animating content if needed (Bug ID: #204)
+                            if self.layoutIfNeededOnUpdate == true {
+                                //Animating content (Bug ID: #160)
+                                rootController.view.setNeedsLayout()
+                                rootController.view.layoutIfNeeded()
+                            }
+                            
+                            self.showLog("Set \(rootController) origin to : \(rootViewOrigin)")
+                            
+                        }) { (finished) -> Void in }
+                    }
                     
                     _privateMovedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y)
                 }
             }
         
             let elapsedTime = CACurrentMediaTime() - startTime
-            showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+            showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
         }
     }
 
@@ -1338,30 +1380,32 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             
             if let rootViewController = _rootViewController {
                 
-                //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
-                    self.showLog("Restoring \(rootViewController._IQDescription()) origin to : \(self._topViewBeginOrigin)")
-                    
-                    //  Setting it's new frame
-                    var rect = rootViewController.view.frame
-                    rect.origin = self._topViewBeginOrigin
-                    rootViewController.view.frame = rect
-                    
-                    self._privateMovedDistance = 0
-
-                    if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
-                        self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
-                        self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
-                    }
-                    
-                    //Animating content if needed (Bug ID: #204)
-                    if self.layoutIfNeededOnUpdate == true {
-                        //Animating content (Bug ID: #160)
-                        rootViewController.view.setNeedsLayout()
-                        rootViewController.view.layoutIfNeeded()
-                    }
-                }) { (finished) -> Void in }
+                if rootViewController.view.frame.origin.equalTo(self._topViewBeginOrigin) == false {
+                    //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                        
+                        self.showLog("Restoring \(rootViewController) origin to : \(self._topViewBeginOrigin)")
+                        
+                        //  Setting it's new frame
+                        var rect = rootViewController.view.frame
+                        rect.origin = self._topViewBeginOrigin
+                        rootViewController.view.frame = rect
+                        
+                        //Animating content if needed (Bug ID: #204)
+                        if self.layoutIfNeededOnUpdate == true {
+                            //Animating content (Bug ID: #160)
+                            rootViewController.view.setNeedsLayout()
+                            rootViewController.view.layoutIfNeeded()
+                        }
+                    }) { (finished) -> Void in }
+                }
+                
+                self._privateMovedDistance = 0
+                
+                if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
+                    self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
+                    self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
+                }
                 
                 _rootViewController = nil
             }
@@ -1442,7 +1486,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //  (Bug ID: #5)
         if let textFieldView = _textFieldView, _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {
@@ -1460,7 +1504,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 _rootViewControllerWhilePopGestureRecognizerActive = nil
                 _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
                 
-                self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
+                self.showLog("Saving \(controller) beginning origin : \(self._topViewBeginOrigin)")
             }
         }
 
@@ -1479,7 +1523,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
 
     /*  UIKeyboardDidShowNotification. */
@@ -1490,7 +1534,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
         
         if let textFieldView = _textFieldView,
             let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
@@ -1500,7 +1544,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
 
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1537,7 +1581,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
@@ -1548,14 +1592,27 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             
             UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
                 
-                lastScrollView.contentInset = self._startingContentInsets
-                lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
-                
-                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
-                    lastScrollView.contentOffset = self._startingContentOffset
+                if lastScrollView.contentInset != self._startingContentInsets {
+                    self.showLog("Restoring contentInset to : \(self._startingContentInsets)")
+                    lastScrollView.contentInset = self._startingContentInsets
+                    lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                 }
                 
-                self.showLog("Restoring \(lastScrollView._IQDescription()) contentInset to : \(self._startingContentInsets) and contentOffset to : \(self._startingContentOffset)")
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(self._startingContentOffset) == false {
+                    self.showLog("Restoring contentOffset to : \(self._startingContentOffset)")
+                    
+                    var animatedContentOffset = false
+                    
+                    if #available(iOS 9, *) {
+                        animatedContentOffset = self._textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
+                    }
+
+                    if animatedContentOffset {
+                        lastScrollView.setContentOffset(self._startingContentOffset, animated: UIView.areAnimationsEnabled)
+                    } else {
+                        lastScrollView.contentOffset = self._startingContentOffset
+                    }
+                }
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
@@ -1568,9 +1625,24 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     let minimumY = contentSize.height - scrollView.frame.height
                     
                     if minimumY < scrollView.contentOffset.y {
-                        scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
                         
-                        self.showLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
+                        let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
+                        if scrollView.contentOffset.equalTo(newContentOffset) == false {
+                            
+                            var animatedContentOffset = false
+                            
+                            if #available(iOS 9, *) {
+                                animatedContentOffset = self._textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
+                            }
+
+                            if animatedContentOffset {
+                                scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
+                            } else {
+                                scrollView.contentOffset = newContentOffset
+                            }
+                            
+                            self.showLog("Restoring contentOffset to : \(self._startingContentOffset)")
+                        }
                     }
                     
                     superScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
@@ -1589,20 +1661,20 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
 
     @objc internal func keyboardDidHide(_ notification:Notification) {
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
         
         _topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         
         _kbFrame = CGRect.zero
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
     
     ///-------------------------------------------
@@ -1613,7 +1685,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc internal func textFieldViewDidBeginEditing(_ notification:Notification) {
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //  Getting object
         _textFieldView = notification.object as? UIView
@@ -1680,7 +1752,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     _rootViewControllerWhilePopGestureRecognizerActive = nil
                     _topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
 
-                    self.showLog("Saving \(controller._IQDescription()) beginning origin : \(self._topViewBeginOrigin)")
+                    self.showLog("Saving \(controller) beginning origin : \(self._topViewBeginOrigin)")
                 }
             }
             
@@ -1696,14 +1768,14 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
     
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
     @objc internal func textFieldViewDidEndEditing(_ notification:Notification) {
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //Removing gesture recognizer   (Enhancement ID: #14)
         _textFieldView?.window?.removeGestureRecognizer(resignFirstResponderGesture)
@@ -1713,18 +1785,19 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if let textView = _textFieldView as? UITextView {
 
             if isTextViewContentInsetChanged == true {
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
-                    self.isTextViewContentInsetChanged = false
-                    
-                    self.showLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
-                    
-                    //Setting textField to it's initial contentInset
-                    textView.contentInset = self.startingTextViewContentInsets
-                    textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
+                self.isTextViewContentInsetChanged = false
 
+                if textView.contentInset != self.startingTextViewContentInsets {
+                    self.showLog("Restoring textView.contentInset to : \(self.startingTextViewContentInsets)")
+                    
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                        
+                        //Setting textField to it's initial contentInset
+                        textView.contentInset = self.startingTextViewContentInsets
+                        textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
+                        
                     }, completion: { (finished) -> Void in })
+                }
             }
         }
         
@@ -1732,7 +1805,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         _textFieldView = nil
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
 
     ///---------------------------------------
@@ -1743,31 +1816,33 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc internal func willChangeStatusBarOrientation(_ notification:Notification) {
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
         
         //If textViewContentInsetChanged is saved then restore it.
         if let textView = _textFieldView as? UITextView {
             
             if isTextViewContentInsetChanged == true {
-                
-                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                    
-                    self.isTextViewContentInsetChanged = false
-                    
-                    self.showLog("Restoring \(textView._IQDescription()) textView.contentInset to : \(self.startingTextViewContentInsets)")
-                    
-                    //Setting textField to it's initial contentInset
-                    textView.contentInset = self.startingTextViewContentInsets
-                    textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
-                    
+
+                self.isTextViewContentInsetChanged = false
+
+                if textView.contentInset != self.startingTextViewContentInsets {
+                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                        
+                        self.showLog("Restoring textView.contentInset to : \(self.startingTextViewContentInsets)")
+                        
+                        //Setting textField to it's initial contentInset
+                        textView.contentInset = self.startingTextViewContentInsets
+                        textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
+                        
                     }, completion: { (finished) -> Void in })
+                }
             }
         }
 
         restorePosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
     
     ///------------------
@@ -1817,7 +1892,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     private func addToolbarIfRequired() {
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //	Getting all the sibling textFields.
         if let siblings = responderViews(), !siblings.isEmpty {
@@ -1978,14 +2053,14 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
     
     /** Remove any toolbar if it is IQToolbar. */
     private func removeToolbarIfRequired() {    //  (Bug ID: #18)
         
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******")
+        showLog("****** \(#function) started ******", indentation:1)
 
         //	Getting all the sibling textFields.
         if let siblings = responderViews() {
@@ -2013,7 +2088,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******\n")
+        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation:-1)
     }
     
     /**	reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
@@ -2128,10 +2203,28 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         NotificationCenter.default.removeObserver(self, name: UIApplicationWillChangeStatusBarOrientation, object: UIApplication.shared)
     }
 
-    private func showLog(_ logString: String) {
+    private func showLog(_ logString: String, indentation: Int = 0) {
         
+        struct Static {
+            static var indentation = 0
+        }
+
+        if indentation < 0 {
+            Static.indentation = max(0, Static.indentation + indentation)
+        }
+
         if enableDebugging {
-            print("IQKeyboardManager: " + logString)
+
+            var preLog = "IQKeyboardManager"
+
+            for _ in 0 ... Static.indentation {
+                preLog += "|\t"
+            }
+            print(preLog + logString)
+        }
+
+        if indentation > 0 {
+            Static.indentation += indentation
         }
     }
 }
