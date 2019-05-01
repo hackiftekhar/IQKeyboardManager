@@ -210,9 +210,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [strongSelf registerAllNotifications];
 
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-            strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            strongSelf.resignFirstResponderGesture = [[UITapGestureRecognizer alloc] initWithTarget:strongSelf action:@selector(tapRecognized:)];
             strongSelf.resignFirstResponderGesture.cancelsTouchesInView = NO;
-            [strongSelf.resignFirstResponderGesture setDelegate:self];
+            [strongSelf.resignFirstResponderGesture setDelegate:strongSelf];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
             strongSelf.topViewBeginOrigin = kIQCGPointInvalid;
             strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
@@ -230,7 +230,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [strongSelf setShouldShowToolbarPlaceholder:YES];
             [strongSelf setToolbarManageBehaviour:IQAutoToolbarBySubviews];
             [strongSelf setLayoutIfNeededOnUpdate:NO];
-            
+            [strongSelf setShouldToolbarUsesTextFieldTintColor:NO];
+
             //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
             {
                 //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
@@ -251,8 +252,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
-            
-            [self setShouldToolbarUsesTextFieldTintColor:NO];
         });
     }
     return self;
@@ -580,8 +579,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         __weak typeof(self) weakSelf = self;
 
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self adjustPosition];
-            weakSelf.hasPendingAdjustRequest = NO;
+            
+            __strong typeof(self) strongSelf = weakSelf;
+
+            [strongSelf adjustPosition];
+            strongSelf.hasPendingAdjustRequest = NO;
         }];
     }
 }
@@ -932,11 +934,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
                 {
+                    __weak typeof(self) weakSelf = self;
+
                     //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                     [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                         
-                        [self showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
-                        [self showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
+                        __strong typeof(self) strongSelf = weakSelf;
+
+                        [strongSelf showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
+                        [strongSelf showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
                         
                         BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
@@ -955,10 +961,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         }
                     } completion:^(BOOL finished){
                         
+                        __strong typeof(self) strongSelf = weakSelf;
+
                         if ([superScrollView isKindOfClass:[UITableView class]] || [superScrollView isKindOfClass:[UICollectionView class]])
                         {
                             //This will update the next/previous states
-                            [self addToolbarIfRequired];
+                            [strongSelf addToolbarIfRequired];
                         }
                     }];
                 }
@@ -1076,7 +1084,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [rootController.view layoutIfNeeded];
                     }
                     
-                    [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
+                    [strongSelf showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                 } completion:NULL];
 
                 _movedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y);
@@ -1113,7 +1121,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                             [rootController.view layoutIfNeeded];
                         }
                         
-                        [self showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
+                        [strongSelf showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                     } completion:NULL];
 
                     _movedDistance = (_topViewBeginOrigin.y-rootController.view.frame.origin.y);
@@ -1323,7 +1331,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
             if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, strongSelf.startingContentInsets) == NO)
             {
-                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingContentInsets)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingContentInsets)]];
 
                 strongLastScrollView.contentInset = strongSelf.startingContentInsets;
                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
@@ -1331,7 +1339,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             
             if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, strongSelf.startingContentOffset) == NO)
             {
-                [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
 
                 BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
 #ifdef __IPHONE_11_0
@@ -1453,7 +1461,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             __weak typeof(self) weakSelf = self;
 
             [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-                [self addToolbarIfRequired];
+
+                __strong typeof(self) strongSelf = weakSelf;
+
+                [strongSelf addToolbarIfRequired];
             } completion:^(BOOL finished) {
 
                 __strong typeof(self) strongSelf = weakSelf;
@@ -1550,7 +1561,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 __strong typeof(self) strongSelf = weakSelf;
                 
-                [self showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
                 
                 //Setting textField to it's initial contentInset
                 textView.contentInset = strongSelf.startingTextViewContentInsets;
@@ -1594,7 +1605,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 
                 __strong typeof(self) strongSelf = weakSelf;
                 
-                [self showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring textView.contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingTextViewContentInsets)]];
                 
                 //Setting textField to it's initial contentInset
                 textView.contentInset = strongSelf.startingTextViewContentInsets;
