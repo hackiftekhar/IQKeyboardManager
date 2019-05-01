@@ -5,7 +5,7 @@ matrix:
           only:
               - master
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode10.2
       xcode_workspace: Demo.xcworkspace
       xcode_project: Demo.xcodeproj
       xcode_scheme: DemoObjC
@@ -22,7 +22,7 @@ matrix:
           only:
               - master
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode10.2
       xcode_workspace: Demo.xcworkspace
       xcode_project: Demo.xcodeproj
       xcode_scheme: DemoSwift

@@ -50,6 +50,7 @@
 #import <UIKit/UITouch.h>
 #import <UIKit/UIWindow.h>
 #import <UIKit/NSLayoutConstraint.h>
+#import <UIKit/UIStackView.h>
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -629,7 +630,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
 
-    CGSize kbSize = _kbFrame.size;
+    CGSize kbSize;
     
     {
         CGRect kbFrame = _kbFrame;
@@ -1324,10 +1325,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     if (strongLastScrollView)
     {
         __weak typeof(self) weakSelf = self;
+        __weak typeof(UIView) *weakTextFieldView = self.textFieldView;
 
         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
             
             __strong typeof(self) strongSelf = weakSelf;
+            __strong typeof(UIView) *strongTextFieldView = weakTextFieldView;
 
             if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, strongSelf.startingContentInsets) == NO)
             {
@@ -1348,7 +1351,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 if (IQ_IS_IOS9_OR_GREATER)
 #endif
                 {
-                    animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
+                    animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
                 }
 
                 if (animatedContentOffset) {
