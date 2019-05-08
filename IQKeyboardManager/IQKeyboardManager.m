@@ -1139,43 +1139,44 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _hasPendingAdjustRequest = NO;
 
     //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
-    if (_rootViewController && CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid) == false)
-    {
-        __weak typeof(self) weakSelf = self;
+    if (!_rootViewController || CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid)) return;
+    // Prevent resetting frame in the customized navigation pop animation
+    if (self.rootViewController.view.layer.animationKeys.count) return;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+    [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
         
-        //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        __strong typeof(self) strongSelf = weakSelf;
+        UIViewController *strongRootController = strongSelf.rootViewController;
+        
+        {
+            [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",strongRootController,NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
             
-            __strong typeof(self) strongSelf = weakSelf;
-            UIViewController *strongRootController = strongSelf.rootViewController;
+            //Restoring
+            CGRect rect = strongRootController.view.frame;
+            rect.origin = strongSelf.topViewBeginOrigin;
+            strongRootController.view.frame = rect;
             
-            {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",strongRootController,NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
-                
-                //Restoring
-                CGRect rect = strongRootController.view.frame;
-                rect.origin = strongSelf.topViewBeginOrigin;
-                strongRootController.view.frame = rect;
-
-                strongSelf.movedDistance = 0;
-                
-                if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-                    strongSelf.rootViewControllerWhilePopGestureRecognizerActive = strongRootController;
-                    strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = strongSelf.topViewBeginOrigin;
-                }
-                
-                //Animating content if needed (Bug ID: #204)
-                if (strongSelf.layoutIfNeededOnUpdate)
-                {
-                    //Animating content (Bug ID: #160)
-                    [strongRootController.view setNeedsLayout];
-                    [strongRootController.view layoutIfNeeded];
-                }
+            strongSelf.movedDistance = 0;
+            
+            if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+                strongSelf.rootViewControllerWhilePopGestureRecognizerActive = strongRootController;
+                strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = strongSelf.topViewBeginOrigin;
             }
             
-        } completion:NULL];
-        _rootViewController = nil;
-    }
+            //Animating content if needed (Bug ID: #204)
+            if (strongSelf.layoutIfNeededOnUpdate)
+            {
+                //Animating content (Bug ID: #160)
+                [strongRootController.view setNeedsLayout];
+                [strongRootController.view layoutIfNeeded];
+            }
+        }
+        
+    } completion:NULL];
+    _rootViewController = nil;
 }
 
 #pragma mark - Public Methods
