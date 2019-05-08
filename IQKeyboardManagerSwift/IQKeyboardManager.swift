@@ -1376,39 +1376,44 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         _privateHasPendingAdjustRequest = false
         
         //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
-        if _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false {
+        if  _topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
+            return
+        }
+        // Prevent resetting frame in the customized navigation pop animation
+        if _rootViewController?.view.layer.animationKeys()?.count ?? 0 > 0 {
+            return
+        }
+        
+        if let rootViewController = _rootViewController {
             
-            if let rootViewController = _rootViewController {
-                
-                if rootViewController.view.frame.origin.equalTo(self._topViewBeginOrigin) == false {
-                    //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
-                    UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
-                        
-                        self.showLog("Restoring \(rootViewController) origin to : \(self._topViewBeginOrigin)")
-                        
-                        //  Setting it's new frame
-                        var rect = rootViewController.view.frame
-                        rect.origin = self._topViewBeginOrigin
-                        rootViewController.view.frame = rect
-                        
-                        //Animating content if needed (Bug ID: #204)
-                        if self.layoutIfNeededOnUpdate == true {
-                            //Animating content (Bug ID: #160)
-                            rootViewController.view.setNeedsLayout()
-                            rootViewController.view.layoutIfNeeded()
-                        }
-                    }) { (finished) -> Void in }
-                }
-                
-                self._privateMovedDistance = 0
-                
-                if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
-                    self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
-                    self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
-                }
-                
-                _rootViewController = nil
+            if rootViewController.view.frame.origin.equalTo(self._topViewBeginOrigin) == false {
+                //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
+                UIView.animate(withDuration: _animationDuration, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
+                    
+                    self.showLog("Restoring \(rootViewController) origin to : \(self._topViewBeginOrigin)")
+                    
+                    //  Setting it's new frame
+                    var rect = rootViewController.view.frame
+                    rect.origin = self._topViewBeginOrigin
+                    rootViewController.view.frame = rect
+                    
+                    //Animating content if needed (Bug ID: #204)
+                    if self.layoutIfNeededOnUpdate == true {
+                        //Animating content (Bug ID: #160)
+                        rootViewController.view.setNeedsLayout()
+                        rootViewController.view.layoutIfNeeded()
+                    }
+                }) { (finished) -> Void in }
             }
+            
+            self._privateMovedDistance = 0
+            
+            if rootViewController.navigationController?.interactivePopGestureRecognizer?.state == .began {
+                self._rootViewControllerWhilePopGestureRecognizerActive = rootViewController
+                self._topViewBeginOriginWhilePopGestureRecognizerActive = self._topViewBeginOrigin
+            }
+            
+            _rootViewController = nil
         }
     }
 
