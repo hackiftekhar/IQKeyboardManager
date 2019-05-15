@@ -96,7 +96,7 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",nil) style:UIAlertActionStyleCancel handler:nil]];
     
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof__(self) weakSelf = self;
 
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"test@example.com",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         weakSelf.textField4.text = NSLocalizedString(@"test@example.com",nil);
