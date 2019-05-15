@@ -112,7 +112,7 @@ pod 'IQKeyboardManagerSwift'
 *Or you can choose the version you need based on Swift support table from [Requirements](README.md#requirements)*
 
 ```ruby
-pod 'IQKeyboardManagerSwift', '5.0.0'
+pod 'IQKeyboardManagerSwift', '6.3.0'
 ```
 
 In AppDelegate.swift, just import IQKeyboardManagerSwift framework and enable IQKeyboardManager.
