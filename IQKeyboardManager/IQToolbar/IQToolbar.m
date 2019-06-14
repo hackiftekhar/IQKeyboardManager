@@ -140,18 +140,14 @@
     if (_fixedSpaceBarButton == nil)
     {
         _fixedSpaceBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-#ifdef __IPHONE_11_0
         if (@available(iOS 10.0, *))
-#else
-            if (IQ_IS_IOS10_OR_GREATER)
-#endif
-            {
-                [_fixedSpaceBarButton setWidth:6];
-            }
-            else
-            {
-                [_fixedSpaceBarButton setWidth:20];
-            }
+        {
+            [_fixedSpaceBarButton setWidth:6];
+        }
+        else
+        {
+            [_fixedSpaceBarButton setWidth:20];
+        }
     }
     
     return _fixedSpaceBarButton;
@@ -197,12 +193,8 @@
 {
     [super layoutSubviews];
 
-    //If running on Xcode9 (iOS11) only then we'll validate for iOS version, otherwise for older versions of Xcode (iOS10 and below) we'll just execute the tweak
-#ifdef __IPHONE_11_0
     if (@available(iOS 11.0, *)) {}
-    else
-#endif
-    {
+    else {
         CGRect leftRect = CGRectNull;
         CGRect rightRect = CGRectNull;
         

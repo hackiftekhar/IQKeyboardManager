@@ -66,7 +66,7 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
 
 internal extension UITableView {
     
-    func previousIndexPath(of indexPath:IndexPath) -> IndexPath? {
+    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
         
@@ -89,7 +89,7 @@ internal extension UITableView {
 
 internal extension UICollectionView {
     
-    func previousIndexPath(of indexPath:IndexPath) -> IndexPath? {
+    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
         

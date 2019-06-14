@@ -51,6 +51,10 @@
 #import <UIKit/UIWindow.h>
 #import <UIKit/NSLayoutConstraint.h>
 #import <UIKit/UIStackView.h>
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#import <UIKit/UIWindowScene.h>
+#import <UIKit/UIStatusBarManager.h>
+#endif
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
@@ -650,8 +654,21 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             kbSize = intersectRect.size;
         }
     }
-    
-    CGFloat navigationBarAreaHeight = [[UIApplication sharedApplication] statusBarFrame].size.height + rootController.navigationController.navigationBar.frame.size.height;
+
+    CGFloat statusBarHeight = 0;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
+
+    } else
+#endif
+    {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+        statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+#endif
+    }
+
+    CGFloat navigationBarAreaHeight = statusBarHeight + rootController.navigationController.navigationBar.frame.size.height;
     CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
     
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
@@ -710,11 +727,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
                 
                 BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-#ifdef __IPHONE_11_0
+
                 if (@available(iOS 9.0, *))
-#else
-                if (IQ_IS_IOS9_OR_GREATER)
-#endif
                 {
                     animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
                 }
@@ -755,11 +769,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
 
                 BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-#ifdef __IPHONE_11_0
+
                 if (@available(iOS 9.0, *))
-#else
-                if (IQ_IS_IOS9_OR_GREATER)
-#endif
                 {
                     animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
                 }
@@ -774,8 +785,17 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             _lastScrollView = superScrollView;
             strongLastScrollView = _lastScrollView;
             _startingContentInsets = superScrollView.contentInset;
-            _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
             _startingContentOffset = superScrollView.contentOffset;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+            if (@available(iOS 11.1, *)) {
+                _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
+            } else
+#endif
+            {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+                _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
+#endif
+            }
 
             [self showLog:[NSString stringWithFormat:@"Saving New contentInset: %@ and contentOffset : %@",NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
         }
@@ -788,7 +808,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         strongLastScrollView = _lastScrollView;
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
-        _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        if (@available(iOS 11.1, *)) {
+            _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
+        } else
+#endif
+        {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+            _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
+#endif
+        }
 
         [self showLog:[NSString stringWithFormat:@"Saving contentInset: %@ and contentOffset : %@",NSStringFromUIEdgeInsets(_startingContentInsets),NSStringFromCGPoint(_startingContentOffset)]];
     }
@@ -946,11 +975,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [strongSelf showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
                         
                         BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-#ifdef __IPHONE_11_0
+
                         if (@available(iOS 9.0, *))
-#else
-                        if (IQ_IS_IOS9_OR_GREATER)
-#endif
                         {
                             animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);
                         }
@@ -995,8 +1021,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                         
                         strongLastScrollView.contentInset = movedInsets;
-                        
-                        UIEdgeInsets newInset = strongLastScrollView.scrollIndicatorInsets;
+                        UIEdgeInsets newInset;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+                        if (@available(iOS 11.1, *)) {
+                            newInset = strongLastScrollView.verticalScrollIndicatorInsets;
+                        } else
+#endif
+                        {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+                            newInset = strongLastScrollView.scrollIndicatorInsets;
+#endif
+                        }
+
                         newInset.bottom = movedInsets.bottom;
                         strongLastScrollView.scrollIndicatorInsets = newInset;
                         
@@ -1029,7 +1065,17 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 if (self.isTextViewContentInsetChanged == NO)
                 {
                     self.startingTextViewContentInsets = textView.contentInset;
-                    self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
+                    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+                    if (@available(iOS 11.1, *)) {
+                        self.startingTextViewScrollIndicatorInsets = textView.verticalScrollIndicatorInsets;
+                    } else
+#endif
+                    {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+                        self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
+#endif
+                    }
                 }
 
                 UIEdgeInsets newContentInset = textView.contentInset;
@@ -1345,11 +1391,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
 
                 BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-#ifdef __IPHONE_11_0
+
                 if (@available(iOS 9.0, *))
-#else
-                if (IQ_IS_IOS9_OR_GREATER)
-#endif
                 {
                     animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
                 }
@@ -1378,11 +1421,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
 
                         BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-#ifdef __IPHONE_11_0
+
                         if (@available(iOS 9.0, *))
-#else
-                        if (IQ_IS_IOS9_OR_GREATER)
-#endif
                         {
                             animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);
                         }
@@ -1590,6 +1630,28 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
 - (void)willChangeStatusBarOrientation:(NSNotification*)aNotification
 {
+    UIInterfaceOrientation currentStatusBarOrientation = UIInterfaceOrientationUnknown;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        currentStatusBarOrientation = [self keyWindow].windowScene.interfaceOrientation;
+    } else
+#endif
+    {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+        currentStatusBarOrientation = UIApplication.sharedApplication.statusBarOrientation;
+#endif
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    UIInterfaceOrientation statusBarOrientation = [aNotification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
+#pragma clang diagnostic pop
+    
+    if (statusBarOrientation != currentStatusBarOrientation) {
+        return;
+    }
+    
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
@@ -2260,7 +2322,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
        didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
     
     //  Registering for orientation changes notification
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+#pragma clang diagnostic pop
 }
 
 -(void)unregisterAllNotifications
@@ -2282,7 +2347,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
        didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
     
     //  Unregistering for orientation changes notification
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+#pragma clang diagnostic pop
 }
 
 -(void)showLog:(NSString*)logString

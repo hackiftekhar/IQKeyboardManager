@@ -23,9 +23,7 @@
 
 import UIKit
 
-
 private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
-
 
 @objc public extension UIViewController {
 
@@ -34,7 +32,7 @@ private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
      
      @deprecated    Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview
     */
-    @available(*,deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.")
+    @available(*, deprecated, message: "Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.")
     @IBOutlet @objc var IQLayoutGuideConstraint: NSLayoutConstraint? {
         get {
             
@@ -42,7 +40,7 @@ private var kIQLayoutGuideConstraint = "kIQLayoutGuideConstraint"
         }
 
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQLayoutGuideConstraint, newValue,objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kIQLayoutGuideConstraint, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

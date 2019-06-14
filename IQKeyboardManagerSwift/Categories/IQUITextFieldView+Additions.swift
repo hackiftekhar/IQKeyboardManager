@@ -31,7 +31,7 @@ public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
 //private var kIQKeyboardEnableMode = "kIQKeyboardEnableMode"
-private var kIQKeyboardShouldResignOnTouchOutsideMode = "kIQKeyboardShouldResignOnTouchOutsideMode"
+private var kIQShouldResignOnTouchOutsideMode = "kIQShouldResignOnTouchOutsideMode"
 private var kIQIgnoreSwitchingByNextPrevious = "kIQIgnoreSwitchingByNextPrevious"
 
 /**
@@ -82,7 +82,7 @@ UIView category for managing UITextField/UITextView
 //            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? IQEnableMode {
 //                return savedMode
 //            } else {
-//                return .Default
+//                return .default
 //            }
 //        }
 //        set(newValue) {
@@ -96,15 +96,14 @@ UIView category for managing UITextField/UITextView
     @objc var shouldResignOnTouchOutsideMode: IQEnableMode {
         get {
             
-            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode) as? IQEnableMode {
+            if let savedMode = objc_getAssociatedObject(self, &kIQShouldResignOnTouchOutsideMode) as? IQEnableMode {
                 return savedMode
             } else {
-                return .Default
+                return .default
             }
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardShouldResignOnTouchOutsideMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kIQShouldResignOnTouchOutsideMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
-

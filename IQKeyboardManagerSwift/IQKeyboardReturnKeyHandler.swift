@@ -21,18 +21,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import Foundation
 import UIKit
 
-fileprivate class IQTextFieldViewInfoModal : NSObject {
+private class IQTextFieldViewInfoModal: NSObject {
 
     fileprivate weak var textFieldDelegate: UITextFieldDelegate?
     fileprivate weak var textViewDelegate: UITextViewDelegate?
     fileprivate weak var textFieldView: UIView?
     fileprivate var originalReturnKeyType = UIReturnKeyType.default
     
-    init(textFieldView : UIView?, textFieldDelegate : UITextFieldDelegate?, textViewDelegate : UITextViewDelegate?, originalReturnKeyType : UIReturnKeyType = .default) {
+    init(textFieldView: UIView?, textFieldDelegate: UITextFieldDelegate?, textViewDelegate: UITextViewDelegate?, originalReturnKeyType: UIReturnKeyType = .default) {
         self.textFieldView = textFieldView
         self.textFieldDelegate = textFieldDelegate
         self.textViewDelegate = textViewDelegate
@@ -43,9 +42,8 @@ fileprivate class IQTextFieldViewInfoModal : NSObject {
 /**
 Manages the return key to work like next/done in a view hierarchy.
 */
-public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextViewDelegate {
-    
-    
+public class IQKeyboardReturnKeyHandler: NSObject, UITextFieldDelegate, UITextViewDelegate {
+
     ///---------------
     /// MARK: Settings
     ///---------------
@@ -58,7 +56,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.
     */
-    @objc public var lastTextFieldReturnKeyType : UIReturnKeyType = UIReturnKeyType.default {
+    @objc public var lastTextFieldReturnKeyType: UIReturnKeyType = UIReturnKeyType.default {
         
         didSet {
             
@@ -82,7 +80,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     /**
     Add all the textFields available in UIViewController's view.
     */
-    @objc public init(controller : UIViewController) {
+    @objc public init(controller: UIViewController) {
         super.init()
         
         addResponderFromView(controller.view)
@@ -107,7 +105,6 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         
         textFieldInfoCache.removeAll()
     }
-    
 
     ///------------------------
     /// MARK: Private variables
@@ -117,7 +114,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     ///------------------------
     /// MARK: Private Functions
     ///------------------------
-    private func textFieldViewCachedInfo(_ textField : UIView) -> IQTextFieldViewInfoModal? {
+    private func textFieldViewCachedInfo(_ textField: UIView) -> IQTextFieldViewInfoModal? {
         
         for modal in textFieldInfoCache {
             
@@ -132,9 +129,8 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         return nil
     }
 
-    private func updateReturnKeyTypeOnTextField(_ view : UIView)
-    {
-        var superConsideredView : UIView?
+    private func updateReturnKeyTypeOnTextField(_ view: UIView) {
+        var superConsideredView: UIView?
         
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
@@ -170,15 +166,14 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             if let textField = view as? UITextField {
                 
                 //If it's the last textField in responder view, else next
-                textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType : UIReturnKeyType.next
+                textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
             } else if let textView = view as? UITextView {
                 
                 //If it's the last textField in responder view, else next
-                textView.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType : UIReturnKeyType.next
+                textView.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
             }
         }
     }
-    
 
     ///----------------------------------------------
     /// MARK: Registering/Unregistering textFieldView
@@ -189,7 +184,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @param view UITextField/UITextView object to register.
     */
-    @objc public func addTextFieldView(_ view : UIView) {
+    @objc public func addTextFieldView(_ view: UIView) {
         
         let modal = IQTextFieldViewInfoModal(textFieldView: view, textFieldDelegate: nil, textViewDelegate: nil)
         
@@ -214,7 +209,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @param view UITextField/UITextView object to unregister.
     */
-    @objc public func removeTextFieldView(_ view : UIView) {
+    @objc public func removeTextFieldView(_ view: UIView) {
         
         if let modal = textFieldViewCachedInfo(view) {
             
@@ -240,7 +235,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @param view UIView object to register all it's responder subviews.
     */
-    @objc public func addResponderFromView(_ view : UIView) {
+    @objc public func addResponderFromView(_ view: UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -255,7 +250,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @param view UIView object to unregister all it's responder subviews.
     */
-    @objc public func removeResponderFromView(_ view : UIView) {
+    @objc public func removeResponderFromView(_ view: UIView) {
         
         let textFields = view.deepResponderViews()
         
@@ -265,9 +260,9 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
     }
     
-    @discardableResult private func goToNextResponderOrResign(_ view : UIView) -> Bool {
+    @discardableResult private func goToNextResponderOrResign(_ view: UIView) -> Bool {
         
-        var superConsideredView : UIView?
+        var superConsideredView: UIView?
         
         //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
@@ -316,7 +311,6 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             return true
         }
     }
-    
 
     ///---------------------------------------
     /// MARK: UITextField/UITextView delegates
@@ -353,7 +347,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     @objc public func textFieldDidBeginEditing(_ textField: UITextField) {
         updateReturnKeyTypeOnTextField(textField)
         
-        var aDelegate : UITextFieldDelegate? = delegate
+        var aDelegate: UITextFieldDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -367,7 +361,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @objc public func textFieldDidEndEditing(_ textField: UITextField) {
         
-        var aDelegate : UITextFieldDelegate? = delegate
+        var aDelegate: UITextFieldDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -383,7 +377,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     @available(iOS 10.0, *)
     @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         
-        var aDelegate : UITextFieldDelegate? = delegate
+        var aDelegate: UITextFieldDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -398,7 +392,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     @available(iOS 10.0, *)
     @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
 
-        var aDelegate : UITextFieldDelegate? = delegate
+        var aDelegate: UITextFieldDelegate? = delegate
     
         if aDelegate == nil {
     
@@ -437,8 +431,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
 
         return true
     }
-    
-    
+
     @objc public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         var shouldReturn = true
@@ -459,8 +452,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
             return goToNextResponderOrResign(textField)
         }
     }
-    
-    
+
     @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
         if delegate == nil {
@@ -492,7 +484,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     @objc public func textViewDidBeginEditing(_ textView: UITextView) {
         updateReturnKeyTypeOnTextField(textView)
         
-        var aDelegate : UITextViewDelegate? = delegate
+        var aDelegate: UITextViewDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -506,7 +498,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @objc public func textViewDidEndEditing(_ textView: UITextView) {
         
-        var aDelegate : UITextViewDelegate? = delegate
+        var aDelegate: UITextViewDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -540,7 +532,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @objc public func textViewDidChange(_ textView: UITextView) {
         
-        var aDelegate : UITextViewDelegate? = delegate
+        var aDelegate: UITextViewDelegate? = delegate
         
         if aDelegate == nil {
             
@@ -554,7 +546,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
     
     @objc public func textViewDidChangeSelection(_ textView: UITextView) {
         
-        var aDelegate : UITextViewDelegate? = delegate
+        var aDelegate: UITextViewDelegate? = delegate
         
         if aDelegate == nil {
             

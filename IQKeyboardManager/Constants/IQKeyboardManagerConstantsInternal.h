@@ -25,7 +25,4 @@
 #define IQKeyboardManagerConstantsInternal_h
 
 
-#define IQ_IS_IOS10_OR_GREATER ([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion >= 10)
-#define IQ_IS_IOS9_OR_GREATER ([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion >= 9)
-
 #endif

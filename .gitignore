@@ -1,5 +1,4 @@
 # Xcode
-#
 build/
 *.pbxuser
 !default.pbxuser
@@ -16,11 +15,25 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+
+#CocoaPods
 Pods/
 
 # MacOS X
-#
 .DS_Store
 *.DS_Store
 **/.DS_Store
 
+#Swift Package Manager
+.build
+/.previous-build
+*~
+\#*
+.\#*
+*.xcscmblueprint
+/default.profraw
+Utilities/Docker/*.tar.gz
+.swiftpm
+Packages/
+Package.pins
+Package.resolved

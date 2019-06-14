@@ -21,13 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import Foundation
 import UIKit
 
 open class IQTitleBarButtonItem: IQBarButtonItem {
    
-    @objc open var titleFont : UIFont? {
+    @objc open var titleFont: UIFont? {
     
         didSet {
             if let unwrappedFont = titleFont {
@@ -47,14 +46,14 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      titleColor to be used for displaying button text when displaying title (disabled state).
      */
-    @objc open var titleColor : UIColor? {
+    @objc open var titleColor: UIColor? {
 
         didSet {
             
             if let color = titleColor {
-                titleButton?.setTitleColor(color, for:.disabled)
+                titleButton?.setTitleColor(color, for: .disabled)
             } else {
-                titleButton?.setTitleColor(UIColor.lightGray, for:.disabled)
+                titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
             }
         }
     }
@@ -62,14 +61,14 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      selectableTitleColor to be used for displaying button text when button is enabled.
      */
-    @objc open var selectableTitleColor : UIColor? {
+    @objc open var selectableTitleColor: UIColor? {
         
         didSet {
             
             if let color = selectableTitleColor {
-                titleButton?.setTitleColor(color, for:.normal)
+                titleButton?.setTitleColor(color, for: .normal)
             } else {
-                titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:.normal)
+                titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
             }
         }
     }
@@ -77,7 +76,7 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
     /**
      Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
      */
-    @objc override open var invocation : IQInvocation? {
+    @objc override open var invocation: IQInvocation? {
 
         didSet {
             
@@ -93,14 +92,14 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         }
     }
 
-    internal var titleButton : UIButton?
-    private var _titleView : UIView?
+    internal var titleButton: UIButton?
+    private var _titleView: UIView?
 
     override init() {
         super.init()
     }
     
-    @objc public convenience init(title : String?) {
+    @objc public convenience init(title: String?) {
 
         self.init(title: nil, style: .plain, target: nil, action: nil)
         
@@ -110,8 +109,8 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
         titleButton = UIButton(type: .system)
         titleButton?.isEnabled = false
         titleButton?.titleLabel?.numberOfLines = 3
-        titleButton?.setTitleColor(UIColor.lightGray, for:.disabled)
-        titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for:.normal)
+        titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
+        titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
         titleButton?.backgroundColor = UIColor.clear
         titleButton?.titleLabel?.textAlignment = .center
         titleButton?.setTitle(title, for: .normal)
@@ -122,8 +121,8 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
 #if swift(>=3.2)
         if #available(iOS 11, *) {
             
-            var layoutDefaultLowPriority : UILayoutPriority
-            var layoutDefaultHighPriority : UILayoutPriority
+            var layoutDefaultLowPriority: UILayoutPriority
+            var layoutDefaultHighPriority: UILayoutPriority
 
             #if swift(>=4.0)
                 let layoutPriorityLowValue = UILayoutPriority.defaultLow.rawValue-1
@@ -152,14 +151,14 @@ open class IQTitleBarButtonItem: IQBarButtonItem {
             let leading = NSLayoutConstraint.init(item: titleButton!, attribute: .leading, relatedBy: .equal, toItem: _titleView, attribute: .leading, multiplier: 1, constant: 0)
             let trailing = NSLayoutConstraint.init(item: titleButton!, attribute: .trailing, relatedBy: .equal, toItem: _titleView, attribute: .trailing, multiplier: 1, constant: 0)
             
-            _titleView?.addConstraints([top,bottom,leading,trailing])
+            _titleView?.addConstraints([top, bottom, leading, trailing])
         } else {
-            _titleView?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-            titleButton?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+            _titleView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            titleButton?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
 #else
-    _titleView?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-    titleButton?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+    _titleView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    titleButton?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 #endif
 
         customView = _titleView
