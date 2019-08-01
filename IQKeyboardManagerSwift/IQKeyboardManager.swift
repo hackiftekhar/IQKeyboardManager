@@ -1858,7 +1858,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         currentStatusBarOrientation = UIApplication.shared.statusBarOrientation
         #endif
 
-        guard let statusBarOrientation = notification.userInfo?[UIApplication.statusBarOrientationUserInfoKey] as? Int, currentStatusBarOrientation.rawValue != statusBarOrientation else {
+        #if swift(>=4.2)
+        let statusBarUserInfoKey    = UIApplication.statusBarOrientationUserInfoKey
+        #else
+        let statusBarUserInfoKey    = UIApplicationStatusBarOrientationUserInfoKey
+        #endif
+
+        guard let statusBarOrientation = notification.userInfo?[statusBarUserInfoKey] as? Int, currentStatusBarOrientation.rawValue != statusBarOrientation else {
             return
         }
         
