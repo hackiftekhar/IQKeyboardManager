@@ -261,7 +261,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var shouldToolbarUsesTextFieldTintColor = false
     
     /**
-    This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+    This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses UIColor.label (iOS 13) or black color.
     */
     @objc public var toolbarTintColor: UIColor?
 
@@ -2027,7 +2027,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black
+                                    if #available(iOS 13.0, *) {
+                                        toolbar.tintColor = UIColor.label
+                                    } else {
+                                        toolbar.tintColor = UIColor.black
+                                    }
                                 }
                             }
                         } else if let textView = textField as? UITextView {
@@ -2048,7 +2052,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black
+                                    if #available(iOS 13.0, *) {
+                                        toolbar.tintColor = UIColor.label
+                                    } else {
+                                        toolbar.tintColor = UIColor.black
+                                    }
                                 }
                             }
                         }
