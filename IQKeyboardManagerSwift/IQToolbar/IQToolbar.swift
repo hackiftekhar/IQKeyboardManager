@@ -180,19 +180,6 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
         }
     }
     
-    @objc override open var barStyle: UIBarStyle {
-        didSet {
-            
-            if titleBarButton.selectableTitleColor == nil {
-                if barStyle == .default {
-                    titleBarButton.titleButton?.setTitleColor(UIColor.init(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
-                } else {
-                    titleBarButton.titleButton?.setTitleColor(UIColor.yellow, for: .normal)
-                }
-            }
-        }
-    }
-    
     @objc override open func layoutSubviews() {
 
         super.layoutSubviews()

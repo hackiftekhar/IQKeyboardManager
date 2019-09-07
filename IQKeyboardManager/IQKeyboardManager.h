@@ -121,17 +121,17 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
 
 /**
- If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+ If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is nil. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldToolbarUsesTextFieldTintColor;
 
 /**
- This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+ This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil.
  */
 @property(nullable, nonatomic, strong) UIColor *toolbarTintColor;
 
 /**
- This is used for toolbar.barTintColor. Default is nil and uses white color.
+ This is used for toolbar.barTintColor. Default is nil.
  */
 @property(nullable, nonatomic, strong) UIColor *toolbarBarTintColor;
 
@@ -172,7 +172,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *placeholderColor;
 
 /**
- Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
+ Placeholder Button Color when it's treated as button. Default is nil
  */
 @property(nullable, nonatomic, strong) UIColor *placeholderButtonColor;
 

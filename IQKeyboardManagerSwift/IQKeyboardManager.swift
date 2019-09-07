@@ -256,7 +256,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
 
     /**
-    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is black. Default is NO.
+    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
     */
     @objc public var shouldToolbarUsesTextFieldTintColor = false
     
@@ -266,7 +266,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var toolbarTintColor: UIColor?
 
     /**
-     This is used for toolbar.barTintColor. Default is nil and uses white color.
+     This is used for toolbar.barTintColor. Default is nil.
      */
     @objc public var toolbarBarTintColor: UIColor?
 
@@ -307,7 +307,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var placeholderColor: UIColor?
     
     /**
-     Placeholder Button Color when it's treated as button. Default is nil. Which means iOS Blue for light toolbar and Yellow for dark toolbar
+     Placeholder Button Color when it's treated as button. Default is nil.
      */
     @objc public var placeholderButtonColor: UIColor?
 
@@ -927,7 +927,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /* Adjusting RootViewController's frame according to interface orientation. */
     private func adjustPosition() {
         
-        //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
+        //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         if _privateHasPendingAdjustRequest == true,
             let textFieldView = _textFieldView,
             let rootController = textFieldView.parentContainerViewController(),
@@ -1615,8 +1615,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******", indentation: 1)
 
-        //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
-        //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
+        //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
+        //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         //    if (_textFieldView == nil)   return
 
         //Restoring the contentOffset of the lastScrollView
@@ -2014,11 +2014,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             switch textField.keyboardAppearance {
                                 
                             case .dark:
-                                toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white
+                                toolbar.barStyle = .black
+                                toolbar.tintColor = nil
                                 toolbar.barTintColor = nil
                             default:
-                                toolbar.barStyle = UIBarStyle.default
+                                toolbar.barStyle = .default
                                 toolbar.barTintColor = toolbarBarTintColor
                                 
                                 //Setting toolbar tintColor //  (Enhancement ID: #30)
@@ -2027,7 +2027,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black
+                                    toolbar.tintColor = nil
                                 }
                             }
                         } else if let textView = textField as? UITextView {
@@ -2036,11 +2036,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             switch textView.keyboardAppearance {
                                 
                             case .dark:
-                                toolbar.barStyle = UIBarStyle.black
-                                toolbar.tintColor = UIColor.white
+                                toolbar.barStyle = .black
+                                toolbar.tintColor = nil
                                 toolbar.barTintColor = nil
                             default:
-                                toolbar.barStyle = UIBarStyle.default
+                                toolbar.barStyle = .default
                                 toolbar.barTintColor = toolbarBarTintColor
 
                                 if shouldToolbarUsesTextFieldTintColor {
@@ -2048,7 +2048,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
-                                    toolbar.tintColor = UIColor.black
+                                    toolbar.tintColor = nil
                                 }
                             }
                         }

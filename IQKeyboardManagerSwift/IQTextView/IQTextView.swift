@@ -88,7 +88,8 @@ open class IQTextView: UITextView {
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.backgroundColor = UIColor.clear
-        label.textColor = UIColor(white: 0.7, alpha: 1.0)
+        label.textColor = UIColor.lightText
+//        label.textColor = UIColor.systemGray  //For iOS13
         label.alpha = 0
         self.addSubview(label)
         

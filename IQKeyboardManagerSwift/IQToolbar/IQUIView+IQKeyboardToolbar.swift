@@ -460,18 +460,18 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                 switch textField.keyboardAppearance {
                 case .dark:
-                    toolbar.barStyle = UIBarStyle.black
+                    toolbar.barStyle = .black
                 default:
-                    toolbar.barStyle = UIBarStyle.default
+                    toolbar.barStyle = .default
                 }
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
 
                 switch textView.keyboardAppearance {
                 case .dark:
-                    toolbar.barStyle = UIBarStyle.black
+                    toolbar.barStyle = .black
                 default:
-                    toolbar.barStyle = UIBarStyle.default
+                    toolbar.barStyle = .default
                 }
             }
         }
