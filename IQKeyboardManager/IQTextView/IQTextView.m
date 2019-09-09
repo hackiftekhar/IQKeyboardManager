@@ -165,8 +165,16 @@
         _placeholderLabel.font = self.font;
         _placeholderLabel.textAlignment = self.textAlignment;
         _placeholderLabel.backgroundColor = [UIColor clearColor];
-        _placeholderLabel.textColor = [UIColor lightTextColor];
-//        _placeholderLabel.textColor = [UIColor systemGrayColor];  //iOS 13
+        #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+            if (@available(iOS 13.0, *)) {
+                _placeholderLabel.textColor = [UIColor systemGrayColor];
+            } else
+        #endif
+            {
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+                _placeholderLabel.textColor = [UIColor lightTextColor];
+        #endif
+            }
         _placeholderLabel.alpha = 0;
         [self addSubview:_placeholderLabel];
     }
