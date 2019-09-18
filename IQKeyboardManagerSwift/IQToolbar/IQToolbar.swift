@@ -145,8 +145,12 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     override init(frame: CGRect) {
         _ = IQToolbar._classInitialize
-        super.init(frame: frame)
-        
+        if frame.width <= 10 {
+            super.init(frame: CGRect(x: 0, y: 0, width: 1000, height: 44))
+        } else {
+            super.init(frame: frame)
+        }
+
         sizeToFit()
         
         autoresizingMask = .flexibleWidth
