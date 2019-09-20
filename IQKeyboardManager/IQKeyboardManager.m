@@ -126,8 +126,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 /*******************************************/
 
-@property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *registeredClasses;
-
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *disabledDistanceHandlingClasses;
 @property(nonatomic, strong, nonnull, readwrite) NSMutableSet<Class> *enabledDistanceHandlingClasses;
 
@@ -216,9 +214,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         dispatch_once(&onceToken, ^{
             
             __strong __typeof__(self) strongSelf = weakSelf;
-
-            strongSelf.registeredClasses = [[NSMutableSet alloc] init];
-
+            
             [strongSelf registerAllNotifications];
 
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
@@ -2289,8 +2285,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
   didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
     didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
 {
-    [_registeredClasses addObject:aClass];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:didBeginEditingNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidEndEditing:) name:didEndEditingNotificationName object:nil];
 }
@@ -2302,8 +2296,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
       didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
 {
-    [_registeredClasses removeObject:aClass];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:didBeginEditingNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:didEndEditingNotificationName object:nil];
 }

@@ -56,11 +56,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------------
     
     /**
-     Registered classes list with library.
-     */
-    private var registeredClasses  = [UIView.Type]()
-    
-    /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
     */
     @objc public var enable = false {
@@ -752,8 +747,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     */
     
     @objc public func registerTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
-        
-        registeredClasses.append(aClass)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)), name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)), name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
@@ -761,12 +754,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     
     @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
         
-        if let index = registeredClasses.firstIndex(where: { element in
-            return element == aClass.self
-        }) {
-            registeredClasses.remove(at: index)
-        }
-
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
     }
