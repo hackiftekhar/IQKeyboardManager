@@ -675,7 +675,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
     
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
-    CGFloat bottomLayoutGuide = [textFieldView isKindOfClass:[UITextView class]] ? 0 : rootController.view.layoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+    CGFloat bottomLayoutGuide = ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]]) ? 0 : rootController.view.layoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
@@ -940,7 +940,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 //[textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                 //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierarchy.)
                 //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
-                if ([textFieldView isKindOfClass:[UITextView class]] &&
+                if ([textFieldView respondsToSelector:@selector(isEditable)]  && [textFieldView isKindOfClass:[UIScrollView class]] &&
                     nextScrollView == nil &&
                     (shouldOffsetY >= 0))
                 {
@@ -1050,9 +1050,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
         //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
         //[textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-        if ([textFieldView isKindOfClass:[UITextView class]])
+        if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]])
         {
-            UITextView *textView = (UITextView*)textFieldView;
+            UIScrollView *textView = (UIScrollView*)textFieldView;
 
             CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField);
 
@@ -1501,7 +1501,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 	if ([self privateIsEnableAutoToolbar])
     {
         //UITextView special case. Keyboard Notification is firing before textView notification so we need to reload it's inputViews.
-        if ([textFieldView isKindOfClass:[UITextView class]] &&
+        if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]] &&
             textFieldView.inputAccessoryView == nil)
         {
             __weak __typeof__(self) weakSelf = self;
@@ -1595,9 +1595,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     // We check if there's a change in original frame or not.
     if(_isTextViewContentInsetChanged == YES &&
-       [textFieldView isKindOfClass:[UITextView class]])
+       [textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]])
     {
-        UITextView *textView = (UITextView*)textFieldView;
+        UIScrollView *textView = (UIScrollView*)textFieldView;
         self.isTextViewContentInsetChanged = NO;
         if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, self.startingTextViewContentInsets) == NO)
         {
@@ -1660,9 +1660,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
     //If textViewContentInsetChanged is changed then restore it.
     if (_isTextViewContentInsetChanged == YES &&
-        [_textFieldView isKindOfClass:[UITextView class]])
+        [_textFieldView respondsToSelector:@selector(isEditable)] && [_textFieldView isKindOfClass:[UIScrollView class]])
     {
-        UITextView *textView = (UITextView*)_textFieldView;
+        UIScrollView *textView = (UIScrollView*)_textFieldView;
         self.isTextViewContentInsetChanged = NO;
         if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, self.startingTextViewContentInsets) == NO)
         {
@@ -1960,14 +1960,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
 
             //    If only one object is found, then adding only Done button.
-            if ((siblings.count==1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
+            if ((siblings.count <= 1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
                 [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 
                 textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
             //If there is multiple siblings of textField
-            else if ((siblings.count && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
+            else if ((self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
             {
                 IQBarButtonItemConfiguration *prevConfiguration = nil;
                 

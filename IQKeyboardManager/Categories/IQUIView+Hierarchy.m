@@ -204,15 +204,17 @@
 {
     BOOL _IQcanBecomeFirstResponder = NO;
     
-    if ([self isKindOfClass:[UITextField class]])
-    {
-        _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+    if ([self conformsToProtocol:@protocol(UITextInput)]) {
+        if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
+        {
+            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+        }
+        else if ([self respondsToSelector:@selector(isEnabled)])
+        {
+            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+        }
     }
-    else if ([self isKindOfClass:[UITextView class]])
-    {
-        _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
-    }
-
+    
     if (_IQcanBecomeFirstResponder == YES)
     {
         _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);

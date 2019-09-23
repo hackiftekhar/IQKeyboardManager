@@ -248,11 +248,13 @@ UIView hierarchy category.
         
         var IQcanBecomeFirstResponder = false
         
-        //  Setting toolbar to keyboard.
-        if let textField = self as? UITextField {
-            IQcanBecomeFirstResponder = textField.isEnabled
-        } else if let textView = self as? UITextView {
-            IQcanBecomeFirstResponder = textView.isEditable
+        if self.conforms(to: UITextInput.self) {
+            //  Setting toolbar to keyboard.
+            if let textView = self as? UITextView {
+                IQcanBecomeFirstResponder = textView.isEditable
+            } else if let textField = self as? UITextField {
+                IQcanBecomeFirstResponder = textField.isEnabled
+            }
         }
         
         if IQcanBecomeFirstResponder == true {

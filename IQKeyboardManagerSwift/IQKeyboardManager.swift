@@ -971,7 +971,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
 
             let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
-            let bottomLayoutGuide: CGFloat = (textFieldView is UITextView) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+            let bottomLayoutGuide: CGFloat = (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
@@ -1170,7 +1170,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             //nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                             //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
-                            if textFieldView is UITextView == true &&
+                            if (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) &&
                                 nextScrollView == nil &&
                                 shouldOffsetY >= 0 {
                                 
@@ -1273,7 +1273,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-            if let textView = textFieldView as? UITextView {
+            if let textView = textFieldView as? UIScrollView, textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
                 
 //                CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
 //
@@ -1732,7 +1732,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if privateIsEnableAutoToolbar() == true {
 
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
-            if let textView = _textFieldView as? UITextView,
+            if let textView = _textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)),
                 textView.inputAccessoryView == nil {
                 
                 UIView.animate(withDuration: 0.00001, delay: 0, options: _animationCurve.union(.beginFromCurrentState), animations: { () -> Void in
@@ -1801,7 +1801,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         // We check if there's a change in original frame or not.
         
-        if let textView = _textFieldView as? UITextView {
+        if let textView = _textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
             if isTextViewContentInsetChanged == true {
                 self.isTextViewContentInsetChanged = false
@@ -1859,7 +1859,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         showLog("****** \(#function) started ******", indentation: 1)
         
         //If textViewContentInsetChanged is saved then restore it.
-        if let textView = _textFieldView as? UITextView {
+        if let textView = _textFieldView as? UITextView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
             
             if isTextViewContentInsetChanged == true {
 
@@ -1959,13 +1959,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         }
                         
                         //	If only one object is found, then adding only Done button.
-                        if (siblings.count == 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
+                        if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
                             
                             textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
 
                             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
                             
-                        } else if (siblings.count > 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysShow {
+                        } else if previousNextDisplayMode == .default || previousNextDisplayMode == .alwaysShow {
                             
                             let prevConfiguration: IQBarButtonItemConfiguration
                             
@@ -1995,10 +1995,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         let toolbar = textField.keyboardToolbar
 
                         //  Setting toolbar to keyboard.
-                        if let textField = textField as? UITextField {
+                        if let textFieldView = textField as? UITextInput {
                             
                             //Bar style according to keyboard appearance
-                            switch textField.keyboardAppearance {
+                            switch textFieldView.keyboardAppearance {
                                 
                             case .dark:
                                 toolbar.barStyle = .black
@@ -2011,27 +2011,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 //Setting toolbar tintColor //  (Enhancement ID: #30)
                                 if shouldToolbarUsesTextFieldTintColor {
                                     toolbar.tintColor = textField.tintColor
-                                } else if let tintColor = toolbarTintColor {
-                                    toolbar.tintColor = tintColor
-                                } else {
-                                    toolbar.tintColor = nil
-                                }
-                            }
-                        } else if let textView = textField as? UITextView {
-                            
-                            //Bar style according to keyboard appearance
-                            switch textView.keyboardAppearance {
-                                
-                            case .dark:
-                                toolbar.barStyle = .black
-                                toolbar.tintColor = nil
-                                toolbar.barTintColor = nil
-                            default:
-                                toolbar.barStyle = .default
-                                toolbar.barTintColor = toolbarBarTintColor
-
-                                if shouldToolbarUsesTextFieldTintColor {
-                                    toolbar.tintColor = textView.tintColor
                                 } else if let tintColor = toolbarTintColor {
                                     toolbar.tintColor = tintColor
                                 } else {
@@ -2117,11 +2096,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         
                         if let textField = view as? UITextField {
                             textField.inputAccessoryView = nil
-                            textField.reloadInputViews()
                         } else if let textView = view as? UITextView {
                             textView.inputAccessoryView = nil
-                            textView.reloadInputViews()
                         }
+
+                        view.reloadInputViews()
                     }
                 }
             }
