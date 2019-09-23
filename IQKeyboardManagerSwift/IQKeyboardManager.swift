@@ -89,7 +89,12 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 //            isEnabled = false
 //        } else {
         
-            if let textFieldViewController = _textFieldView?.viewContainingController() {
+            if var textFieldViewController = _textFieldView?.viewContainingController() {
+                
+                //If it is searchBar textField embedded in Navigation Bar
+                if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                    textFieldViewController = topController
+                }
                 
                 if isEnabled == false {
                     
@@ -197,8 +202,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         var enableToolbar = enableAutoToolbar
         
-        if let textFieldViewController = _textFieldView?.viewContainingController() {
+        if var textFieldViewController = _textFieldView?.viewContainingController() {
             
+            //If it is searchBar textField embedded in Navigation Bar
+            if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                textFieldViewController = topController
+            }
+
             if enableToolbar == false {
                 
                 //If found any toolbar enabled classes then return.
@@ -374,8 +384,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         } else if enableMode == .disabled {
             shouldResign = false
         } else {
-            if let textFieldViewController = _textFieldView?.viewContainingController() {
+            if var textFieldViewController = _textFieldView?.viewContainingController() {
                 
+                //If it is searchBar textField embedded in Navigation Bar
+                if _textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+                    textFieldViewController = topController
+                }
+
                 if shouldResign == false {
                     
                     //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.

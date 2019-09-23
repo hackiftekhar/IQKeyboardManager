@@ -351,6 +351,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         if (textFieldViewController)
         {
+            //If it is searchBar textField embedded in Navigation Bar
+            if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+                
+                UINavigationController navController = (UINavigationController*)textFieldViewController;
+                if (navController.topViewController) {
+                    textFieldViewController = navController.topViewController
+                }
+            }
+
             if (enable == NO)
             {
                 //If viewController is kind of enable viewController class, then assuming it's enabled.
@@ -435,6 +444,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         if (textFieldViewController)
         {
+            //If it is searchBar textField embedded in Navigation Bar
+            if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+                
+                UINavigationController navController = (UINavigationController*)textFieldViewController;
+                if (navController.topViewController) {
+                    textFieldViewController = navController.topViewController
+                }
+            }
+
             if (shouldResignOnTouchOutside == NO)
             {
                 //If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
@@ -505,6 +523,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     if (textFieldViewController)
     {
+        //If it is searchBar textField embedded in Navigation Bar
+        if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+            
+            UINavigationController navController = (UINavigationController*)textFieldViewController;
+            if (navController.topViewController) {
+                textFieldViewController = navController.topViewController
+            }
+        }
+
         if (enableAutoToolbar == NO)
         {
             //If found any toolbar enabled classes then return.
