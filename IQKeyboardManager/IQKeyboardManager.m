@@ -2040,12 +2040,25 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //Bar style according to keyboard appearance
             if ([textField respondsToSelector:@selector(keyboardAppearance)])
             {
+                //Setting toolbar tintColor //  (Enhancement ID: #30)
+                if (_shouldToolbarUsesTextFieldTintColor)
+                {
+                    toolbar.tintColor = [textField tintColor];
+                }
+                else if (_toolbarTintColor)
+                {
+                    toolbar.tintColor = _toolbarTintColor;
+                }
+                else
+                {
+                    toolbar.tintColor = nil;
+                }
+
                 switch ([textField keyboardAppearance])
                 {
                     case UIKeyboardAppearanceDark:
                     {
                         toolbar.barStyle = UIBarStyleBlack;
-                        [toolbar setTintColor:nil];
                         [toolbar setBarTintColor:nil];
                     }
                         break;
@@ -2053,20 +2066,6 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     {
                         toolbar.barStyle = UIBarStyleDefault;
                         toolbar.barTintColor = _toolbarBarTintColor;
-
-                        //Setting toolbar tintColor //  (Enhancement ID: #30)
-                        if (_shouldToolbarUsesTextFieldTintColor)
-                        {
-                            toolbar.tintColor = [textField tintColor];
-                        }
-                        else if (_toolbarTintColor)
-                        {
-                            toolbar.tintColor = _toolbarTintColor;
-                        }
-                        else
-                        {
-                            toolbar.tintColor = nil;
-                        }
                     }
                         break;
                 }

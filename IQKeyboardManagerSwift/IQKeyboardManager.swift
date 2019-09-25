@@ -1725,20 +1725,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         _textFieldView = notification.object as? UIView
         
         if overrideKeyboardAppearance == true {
-            
-            if let textFieldView = _textFieldView as? UITextField {
-                //If keyboard appearance is not like the provided appearance
-                if textFieldView.keyboardAppearance != keyboardAppearance {
+            if let textInput = _textFieldView as? UITextInput {
+                if textInput.keyboardAppearance != keyboardAppearance {
                     //Setting textField keyboard appearance and reloading inputViews.
-                    textFieldView.keyboardAppearance = keyboardAppearance
-                    textFieldView.reloadInputViews()
-                }
-            } else if  let textFieldView = _textFieldView as? UITextView {
-                //If keyboard appearance is not like the provided appearance
-                if textFieldView.keyboardAppearance != keyboardAppearance {
-                    //Setting textField keyboard appearance and reloading inputViews.
-                    textFieldView.keyboardAppearance = keyboardAppearance
-                    textFieldView.reloadInputViews()
+                    if let textFieldView = _textFieldView as? UITextField {
+                        textFieldView.keyboardAppearance = keyboardAppearance
+                    } else if  let textFieldView = _textFieldView as? UITextView {
+                        textFieldView.keyboardAppearance = keyboardAppearance
+                    }
+                    _textFieldView?.reloadInputViews()
                 }
             }
         }
@@ -2009,6 +2004,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                         let toolbar = textField.keyboardToolbar
 
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if shouldToolbarUsesTextFieldTintColor {
+                            toolbar.tintColor = textField.tintColor
+                        } else if let tintColor = toolbarTintColor {
+                            toolbar.tintColor = tintColor
+                        } else {
+                            toolbar.tintColor = nil
+                        }
+
                         //  Setting toolbar to keyboard.
                         if let textFieldView = textField as? UITextInput {
                             
@@ -2017,20 +2021,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 
                             case .dark:
                                 toolbar.barStyle = .black
-                                toolbar.tintColor = nil
                                 toolbar.barTintColor = nil
                             default:
                                 toolbar.barStyle = .default
                                 toolbar.barTintColor = toolbarBarTintColor
-                                
-                                //Setting toolbar tintColor //  (Enhancement ID: #30)
-                                if shouldToolbarUsesTextFieldTintColor {
-                                    toolbar.tintColor = textField.tintColor
-                                } else if let tintColor = toolbarTintColor {
-                                    toolbar.tintColor = tintColor
-                                } else {
-                                    toolbar.tintColor = nil
-                                }
                             }
                         }
 
