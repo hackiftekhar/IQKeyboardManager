@@ -1040,10 +1040,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 CGFloat bottom = (kbSize.height-keyboardDistanceFromTextField)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
-                UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
+                CGFloat bottomInset = MAX(_startingContentInsets.bottom, bottom);
 
-                movedInsets.bottom = MAX(_startingContentInsets.bottom, bottom);
-                
+                if (@available(iOS 11, *)) {
+                    bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                }
+
+                UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
+                movedInsets.bottom = bottomInset;
+
                 if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, movedInsets) == NO)
                 {
                     [self showLog:[NSString stringWithFormat:@"old ContentInset : %@ new ContentInset : %@", NSStringFromUIEdgeInsets(strongLastScrollView.contentInset), NSStringFromUIEdgeInsets(movedInsets)]];
@@ -1108,8 +1113,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     }
                 }
 
+                CGFloat bottomInset = self.textFieldView.frame.size.height-textViewHeight;
+
+                if (@available(iOS 11, *)) {
+                    bottomInset -= self.textFieldView.safeAreaInsets.bottom;
+                }
+
                 UIEdgeInsets newContentInset = textView.contentInset;
-                newContentInset.bottom = self.textFieldView.frame.size.height-textViewHeight;
+                newContentInset.bottom = bottomInset;
+
                 self.isTextViewContentInsetChanged = YES;
 
                 if (UIEdgeInsetsEqualToEdgeInsets(textView.contentInset, newContentInset) == NO)

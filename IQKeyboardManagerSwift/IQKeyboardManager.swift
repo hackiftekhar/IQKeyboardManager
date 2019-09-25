@@ -1255,10 +1255,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     let bottom: CGFloat = (kbSize.height-newKeyboardDistanceFromTextField)-(window.frame.height-lastScrollViewRect.maxY)
                     
                     // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                    
+                    var bottomInset = max(_startingContentInsets.bottom, bottom)
+                    
+                    #if swift(>=4.0)
+                    if #available(iOS 11, *) {
+                        bottomInset -= lastScrollView.safeAreaInsets.bottom
+                    }
+                    #endif
+
                     var movedInsets = lastScrollView.contentInset
-                    
-                    movedInsets.bottom = max(_startingContentInsets.bottom, bottom)
-                    
+                    movedInsets.bottom = bottomInset
+
                     if lastScrollView.contentInset != movedInsets {
                         showLog("old ContentInset: \(lastScrollView.contentInset) new ContentInset: \(movedInsets)")
 
@@ -1326,6 +1334,12 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
                     var newContentInset = textView.contentInset
                     newContentInset.bottom = textView.frame.size.height-textViewHeight
+
+                    #if swift(>=4.0)
+                    if #available(iOS 11, *) {
+                        newContentInset.bottom -= textView.safeAreaInsets.bottom
+                    }
+                    #endif
 
                     if textView.contentInset != newContentInset {
                         self.showLog("\(textFieldView) Old UITextView.contentInset: \(textView.contentInset) New UITextView.contentInset: \(newContentInset)")
