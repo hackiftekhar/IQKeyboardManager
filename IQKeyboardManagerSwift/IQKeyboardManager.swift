@@ -165,6 +165,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         return _privateMovedDistance
     }
+    
+    /**
+     Will be called then movedDistance will be changed
+     */
+    @objc public var movedDistanceChanged: ((CGFloat) -> Void)?
 
     /**
     Returns the default singleton instance.
@@ -830,7 +835,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /** Boolean to maintain keyboard is showing or it is hide. To solve rootViewController.view.frame calculations. */
     private var         _privateIsKeyboardShowing = false
 
-    private var         _privateMovedDistance: CGFloat = 0.0
+    private var         _privateMovedDistance : CGFloat = 0.0 {
+        didSet {
+            movedDistanceChanged?(_privateMovedDistance)
+        }
+    }
     
     /** To use with keyboardDistanceFromTextField. */
     private var         _privateKeyboardDistanceFromTextField: CGFloat = 10.0
