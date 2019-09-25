@@ -17,7 +17,7 @@ matrix:
       script:
         - xcodebuild -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator
 
-    - language: objective-c
+    - language: swift
       branches:
           only:
               - master

@@ -354,9 +354,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If it is searchBar textField embedded in Navigation Bar
             if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
                 
-                UINavigationController navController = (UINavigationController*)textFieldViewController;
+                UINavigationController *navController = (UINavigationController*)textFieldViewController;
                 if (navController.topViewController) {
-                    textFieldViewController = navController.topViewController
+                    textFieldViewController = navController.topViewController;
                 }
             }
 
@@ -447,9 +447,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             //If it is searchBar textField embedded in Navigation Bar
             if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
                 
-                UINavigationController navController = (UINavigationController*)textFieldViewController;
+                UINavigationController *navController = (UINavigationController*)textFieldViewController;
                 if (navController.topViewController) {
-                    textFieldViewController = navController.topViewController
+                    textFieldViewController = navController.topViewController;
                 }
             }
 
@@ -526,9 +526,9 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //If it is searchBar textField embedded in Navigation Bar
         if ([_textFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
             
-            UINavigationController navController = (UINavigationController*)textFieldViewController;
+            UINavigationController *navController = (UINavigationController*)textFieldViewController;
             if (navController.topViewController) {
-                textFieldViewController = navController.topViewController
+                textFieldViewController = navController.topViewController;
             }
         }
 
