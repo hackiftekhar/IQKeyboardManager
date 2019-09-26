@@ -207,3 +207,24 @@ open class IQTextView: UITextView {
         return newSize
     }
 }
+
+//#if swift(>=5.1)
+//import SwiftUI
+//
+//struct IQTextViewSwiftUI: UIViewRepresentable {
+//    func makeUIView(context: Context) -> IQTextView {
+//        IQTextView(frame: .zero)
+//    }
+//
+//    func updateUIView(_ view: IQTextView, context: Context) {
+//    }
+//}
+//
+//struct IQTextViewSwiftUI_Preview: PreviewProvider {
+//    static var previews: some View {
+//        IQTextViewSwiftUI()
+//    }
+//}
+//
+//#endif
+//
