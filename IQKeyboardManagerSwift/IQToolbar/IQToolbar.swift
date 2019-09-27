@@ -184,9 +184,6 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
         super.layoutSubviews()
 
-        //If running on Xcode9 (iOS11) only then we'll validate for iOS version, otherwise for older versions of Xcode (iOS10 and below) we'll just execute the tweak
-#if swift(>=3.2)
-
         if #available(iOS 11, *) {
             return
         } else if let customTitleView = titleBarButton.customView {
@@ -256,75 +253,6 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
             
             customTitleView.frame = titleRect
         }
-    
-#else
-        if let customTitleView = titleBarButton.customView {
-            var leftRect = CGRect.null
-            var rightRect = CGRect.null
-            var isTitleBarButtonFound = false
-            
-            let sortedSubviews = self.subviews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
-                if view1.frame.minX != view2.frame.minX {
-                    return view1.frame.minX < view2.frame.minX
-                } else {
-                    return view1.frame.minY < view2.frame.minY
-                }
-            })
-            
-            for barButtonItemView in sortedSubviews {
-                
-                if isTitleBarButtonFound == true {
-                    rightRect = barButtonItemView.frame
-                    break
-                } else if barButtonItemView === titleBarButton.customView {
-                    isTitleBarButtonFound = true
-                    //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-                } else if barButtonItemView.isKind(of: UIControl.self) == true {
-                    leftRect = barButtonItemView.frame
-                }
-            }
-            
-            let titleMargin: CGFloat = 16
-            let maxWidth: CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-            let maxHeight = self.frame.height
-            
-            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
-            
-            var titleRect: CGRect
-
-            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
-                let width = min(sizeThatFits.width, maxWidth)
-                let height = min(sizeThatFits.height, maxHeight)
-                
-                var xPosition: CGFloat
-                
-                if leftRect.isNull == false {
-                    xPosition = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
-                } else {
-                    xPosition = titleMargin
-                }
-
-                let yPosition = (maxHeight - height)/2
-                
-                titleRect = CGRect(x: xPosition, y: yPosition, width: width, height: height)
-            } else {
-                
-                var xPosition: CGFloat
-                
-                if leftRect.isNull == false {
-                    xPosition = titleMargin + leftRect.maxX
-                } else {
-                    xPosition = titleMargin
-                }
-
-                let width: CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-                
-                titleRect = CGRect(x: xPosition, y: 0, width: width, height: maxHeight)
-            }
-            
-            customTitleView.frame = titleRect
-        }
-#endif
     }
     
     @objc open var enableInputClicksWhenVisible: Bool {

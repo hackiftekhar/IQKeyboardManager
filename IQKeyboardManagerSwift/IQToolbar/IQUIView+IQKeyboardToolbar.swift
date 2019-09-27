@@ -409,13 +409,9 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 //Title button
                 toolbar.titleBarButton.title = titleText
                 
-                #if swift(>=3.2)
                 if #available(iOS 11, *) {} else {
                     toolbar.titleBarButton.customView?.frame = CGRect.zero
                 }
-                #else
-                toolbar.titleBarButton.customView?.frame = CGRect.zero
-                #endif
                 
                 items.append(toolbar.titleBarButton)
                 
