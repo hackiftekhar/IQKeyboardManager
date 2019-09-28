@@ -98,7 +98,7 @@
     {
         UINavigationController *navController = matchController.navigationController;
         
-        while (navController.navigationController) {
+        while (navController.navigationController && navController != navController.navigationController) {
             navController = navController.navigationController;
         }
         
