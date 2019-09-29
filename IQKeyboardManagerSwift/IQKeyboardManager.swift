@@ -2042,7 +2042,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             //Bar style according to keyboard appearance
                             switch textFieldView.keyboardAppearance {
                                 
-                            case .dark:
+                            case .dark?:
                                 toolbar.barStyle = .black
                                 toolbar.barTintColor = nil
                             default:
