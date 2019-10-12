@@ -169,6 +169,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
+#### Installation with Swift Package Manager
+
+[Swift Package Manager(SPM)](https://swift.org/package-manager/) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well. 
+
+To install IQKeyboardManager package into your packages, add a reference to IQKeyboardManager and a targeting release version in the dependencies section in `Package.swift` file:
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "YOUR_PROJECT_NAME",
+    products: [],
+    dependencies: [
+        .package(url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "6.5.0")
+    ]
+)
+```
+
+To install IQKeyboardManager package via Xcode
+
+ * Go to File -> Swift Packages -> Add Package Dependency...
+ * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
+ * And choose the version you want
+
 Migration Guide
 ==========================
 - [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-6.0.0-Migration-Guide)
