@@ -90,7 +90,6 @@
     if (_previousBarButton == nil)
     {
         _previousBarButton = [[IQBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:nil action:nil];
-        _previousBarButton.accessibilityLabel = @"Previous";
     }
     
     return _previousBarButton;
@@ -101,7 +100,6 @@
     if (_nextBarButton == nil)
     {
         _nextBarButton = [[IQBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:nil action:nil];
-        _nextBarButton.accessibilityLabel = @"Next";
     }
     
     return _nextBarButton;
@@ -123,7 +121,6 @@
     if (_doneBarButton == nil)
     {
         _doneBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
-        _doneBarButton.accessibilityLabel = @"Done";
     }
     
     return _doneBarButton;

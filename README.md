@@ -61,28 +61,18 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 |                        | Language | Minimum iOS Target | Minimum Xcode Version |
 |------------------------|----------|--------------------|-----------------------|
-| IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 8.2.1           |
-| IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 8.2.1           |
-| Demo Project           |          |                    | Xcode 10.2             |
-
-**Note**
-- 3.3.7 is the last iOS 7 supported version.
+| IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 9           |
+| IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 9           |
+| Demo Project           |          |                    | Xcode 11             |
 
 #### Swift versions support
 
 | Swift             | Xcode | IQKeyboardManagerSwift |
 |-------------------|-------|------------------------|
+| 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0               |
 | 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1               |
 | 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
 | 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
-| 3.1               | 8.3   | 4.0.10                 |
-| 3.0 (3.0.2)       | 8.2   | 4.0.8                  |
-| 2.2 or 2.3        | 7.3   | 4.0.5                  |
-| 2.1.1             | 7.2   | 4.0.0                  |
-| 2.1               | 7.2   | 3.3.7                  |
-| 2.0               | 7.0   | 3.3.3.1                |
-| 1.2               | 6.3   | 3.3.1                  |
-| 1.0               | 6.0   | 3.3.2                  |
 
 Installation
 ==========================
@@ -96,14 +86,12 @@ it, simply add the following line to your Podfile: ([#9](https://github.com/hack
 
 ```ruby
 pod 'IQKeyboardManager' #iOS8 and later
-
-pod 'IQKeyboardManager', '3.3.7' #iOS7
 ```
 
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 5.0,4.2, 4.0, 3.2, 3.0 (Xcode 10.2)*
+*Swift 5.1, 5.0, 4.2, 4.0, 3.2, 3.0 (Xcode 11)*
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
@@ -125,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
       IQKeyboardManager.shared.enable = true
 
@@ -172,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
       IQKeyboardManager.shared.enable = true
 
@@ -180,6 +168,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 ```
+
+#### Installation with Swift Package Manager
+
+[Swift Package Manager(SPM)](https://swift.org/package-manager/) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well. 
+
+To install IQKeyboardManager package into your packages, add a reference to IQKeyboardManager and a targeting release version in the dependencies section in `Package.swift` file:
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "YOUR_PROJECT_NAME",
+    products: [],
+    dependencies: [
+        .package(url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "6.5.0")
+    ]
+)
+```
+
+To install IQKeyboardManager package via Xcode
+
+ * Go to File -> Swift Packages -> Add Package Dependency...
+ * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
+ * And choose the version you want
 
 Migration Guide
 ==========================
