@@ -293,8 +293,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
      Toolbar previous/next/done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
      */
     @objc public var toolbarPreviousBarButtonItemText: String?
+    @objc public var toolbarPreviousBarButtonItemAccessibilityLabel: String?
     @objc public var toolbarNextBarButtonItemText: String?
+    @objc public var toolbarNextBarButtonItemAccessibilityLabel: String?
     @objc public var toolbarDoneBarButtonItemText: String?
+    @objc public var toolbarDoneBarButtonItemAccessibilityLabel: String?
 
     /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -1981,6 +1984,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         } else {
                             rightConfiguration = IQBarButtonItemConfiguration(barButtonSystemItem: .done, action: #selector(self.doneAction(_:)))
                         }
+                        rightConfiguration.accessibilityLabel = toolbarDoneBarButtonItemAccessibilityLabel ?? "Done"
                         
                         //	If only one object is found, then adding only Done button.
                         if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
@@ -2000,6 +2004,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             } else {
                                 prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage() ?? UIImage()), action: #selector(self.previousAction(_:)))
                             }
+                            prevConfiguration.accessibilityLabel = toolbarPreviousBarButtonItemAccessibilityLabel ?? "Previous"
 
                             let nextConfiguration: IQBarButtonItemConfiguration
                             
@@ -2010,6 +2015,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                             } else {
                                 nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage() ?? UIImage()), action: #selector(self.nextAction(_:)))
                             }
+                            nextConfiguration.accessibilityLabel = toolbarNextBarButtonItemAccessibilityLabel ?? "Next"
 
                             textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: prevConfiguration, nextBarButtonConfiguration: nextConfiguration)
 
