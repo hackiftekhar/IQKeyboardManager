@@ -220,10 +220,9 @@ UIView hierarchy category.
             if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField.IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             }
-
             //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
             //Uncommented else (Bug ID: #625)
-            if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
+            else if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
                 for deepView in textField.deepResponderViews() {
                     textfields.append(deepView)
                 }
