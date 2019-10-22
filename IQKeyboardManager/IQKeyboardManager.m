@@ -496,6 +496,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     return shouldResignOnTouchOutside;
 }
 
+/** Setter of movedDistance property. */
+-(void)setMovedDistance:(CGFloat)movedDistance
+{
+    _movedDistance = movedDistance;
+    if (self.movedDistanceChanged != nil) {
+        self.movedDistanceChanged(movedDistance);
+    }
+}
+
 /** Enable/disable autotoolbar. Adding and removing toolbar if required. */
 -(void)setEnableAutoToolbar:(BOOL)enableAutoToolbar
 {
@@ -1176,7 +1185,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [strongSelf showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                 } completion:NULL];
 
-                _movedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y);
+                self.movedDistance = (_topViewBeginOrigin.y-rootViewOrigin.y);
             }
             //  -Negative
             else
@@ -1213,7 +1222,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [strongSelf showLog:[NSString stringWithFormat:@"Set %@ origin to : %@",rootController,NSStringFromCGPoint(rootViewOrigin)]];
                     } completion:NULL];
 
-                    _movedDistance = (_topViewBeginOrigin.y-rootController.view.frame.origin.y);
+                    self.movedDistance = (_topViewBeginOrigin.y-rootController.view.frame.origin.y);
                 }
             }
         }
