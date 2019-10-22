@@ -2006,6 +2006,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 rightConfiguration = [[IQBarButtonItemConfiguration alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone action:@selector(doneAction:)];
             }
+            rightConfiguration.accessibilityLabel = _toolbarDoneBarButtonItemAccessibilityLabel ? : @"Done";
 
             //    If only one object is found, then adding only Done button.
             if ((siblings.count <= 1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
@@ -2033,6 +2034,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 {
                     prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:@selector(previousAction:)];
                 }
+                prevConfiguration.accessibilityLabel = _toolbarPreviousBarButtonItemAccessibilityLabel ? : @"Previous";
                 
                 IQBarButtonItemConfiguration *nextConfiguration = nil;
                 
@@ -2050,6 +2052,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 {
                     nextConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardNextImage] action:@selector(nextAction:)];
                 }
+                nextConfiguration.accessibilityLabel = _toolbarNextBarButtonItemAccessibilityLabel ? : @"Next";
 
                 [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
 
