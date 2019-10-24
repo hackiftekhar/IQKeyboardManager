@@ -101,6 +101,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign, readonly) CGFloat movedDistance;
 
+/**
+ Will be called then movedDistance will be changed.
+ */
+@property(nullable, nonatomic, copy) void (^movedDistanceChanged)(CGFloat movedDistance);
 
 ///-------------------------
 /// @name IQToolbar handling
