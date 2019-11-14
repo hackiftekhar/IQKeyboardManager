@@ -24,7 +24,9 @@
     "5.1"
   ],
   "source_files": "IQKeyboardManagerSwift/**/*.{swift}",
-  "resources": "IQKeyboardManagerSwift/Resources/IQKeyboardManager.xcassets",
+  "resource_bundles": {
+    "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/Resources/**"
+  },
   "frameworks": [
     "UIKit",
     "Foundation",

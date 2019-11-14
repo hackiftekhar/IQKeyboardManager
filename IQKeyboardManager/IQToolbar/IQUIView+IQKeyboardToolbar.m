@@ -76,7 +76,12 @@
     if (keyboardPreviousiOS9Image == nil)
     {
         // Get the top level "bundle" which may actually be the framework
-        NSBundle *libraryBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+        
+        // Check to see if the resource bundle exists inside the top level bundle
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        
+        if (libraryBundle == nil) libraryBundle = mainBundle;
         
         keyboardPreviousiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:libraryBundle compatibleWithTraitCollection:nil];;
         
@@ -99,8 +104,13 @@
     if (keyboardNextiOS9Image == nil)
     {
         // Get the top level "bundle" which may actually be the framework
-        NSBundle *libraryBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
+        // Check to see if the resource bundle exists inside the top level bundle
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
         keyboardNextiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
@@ -122,8 +132,13 @@
     if (keyboardPreviousiOS10Image == nil)
     {
         // Get the top level "bundle" which may actually be the framework
-        NSBundle *libraryBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
+        // Check to see if the resource bundle exists inside the top level bundle
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
         keyboardPreviousiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
@@ -145,8 +160,13 @@
     if (keyboardNextiOS10Image == nil)
     {
         // Get the top level "bundle" which may actually be the framework
-        NSBundle *libraryBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
+        NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
+        // Check to see if the resource bundle exists inside the top level bundle
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
         keyboardNextiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)

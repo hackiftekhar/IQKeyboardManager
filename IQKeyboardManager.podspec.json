@@ -31,7 +31,9 @@
       "IQKeyboardManager/IQToolbar/IQToolbar.h",
       "IQKeyboardManager/IQToolbar/IQUIView+IQKeyboardToolbar.h"
   ],
-  "resources": "IQKeyboardManager/Resources/IQKeyboardManager.xcassets",
+  "resource_bundles": {
+    "IQKeyboardManager": "IQKeyboardManager/Resources/**"
+  },
   "frameworks": [
     "UIKit",
     "Foundation",

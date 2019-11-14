@@ -14,6 +14,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     
     @IBOutlet fileprivate var textField3 : UITextField!
     @IBOutlet var textView1: IQTextView!
+    @IBOutlet var textView2: UITextView!
 
     @IBOutlet fileprivate var dropDownTextField : IQDropDownTextField!
 
@@ -41,6 +42,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        textView2.enableMode = .disabled
         textView1.delegate = self
 
 //        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])

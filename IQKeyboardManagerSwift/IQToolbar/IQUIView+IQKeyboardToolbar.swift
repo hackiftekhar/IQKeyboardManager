@@ -95,6 +95,12 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
             // Get the top level "bundle" which may actually be the framework
             var libraryBundle = Bundle(for: IQKeyboardManager.self)
             
+            if let resourcePath = libraryBundle.path(forResource: "IQKeyboardManagerSwift", ofType: "bundle") {
+                if let resourcesBundle = Bundle(path: resourcePath) {
+                    libraryBundle = resourcesBundle
+                }
+            }
+            
             Static.keyboardPreviousiOS9Image = UIImage(named: "IQButtonBarArrowLeft", in: libraryBundle, compatibleWith: nil)
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
@@ -116,6 +122,12 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
             // Get the top level "bundle" which may actually be the framework
             var libraryBundle = Bundle(for: IQKeyboardManager.self)
             
+            if let resourcePath = libraryBundle.path(forResource: "IQKeyboardManagerSwift", ofType: "bundle") {
+                if let resourcesBundle = Bundle(path: resourcePath) {
+                    libraryBundle = resourcesBundle
+                }
+            }
+
             Static.keyboardNextiOS9Image = UIImage(named: "IQButtonBarArrowRight", in: libraryBundle, compatibleWith: nil)
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
@@ -137,6 +149,12 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
             // Get the top level "bundle" which may actually be the framework
             var libraryBundle = Bundle(for: IQKeyboardManager.self)
             
+            if let resourcePath = libraryBundle.path(forResource: "IQKeyboardManagerSwift", ofType: "bundle") {
+                if let resourcesBundle = Bundle(path: resourcePath) {
+                    libraryBundle = resourcesBundle
+                }
+            }
+
             Static.keyboardPreviousiOS10Image = UIImage(named: "IQButtonBarArrowUp", in: libraryBundle, compatibleWith: nil)
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
@@ -158,6 +176,12 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
             // Get the top level "bundle" which may actually be the framework
             var libraryBundle = Bundle(for: IQKeyboardManager.self)
             
+            if let resourcePath = libraryBundle.path(forResource: "IQKeyboardManagerSwift", ofType: "bundle") {
+                if let resourcesBundle = Bundle(path: resourcePath) {
+                    libraryBundle = resourcesBundle
+                }
+            }
+
             Static.keyboardNextiOS10Image = UIImage(named: "IQButtonBarArrowDown", in: libraryBundle, compatibleWith: nil)
             
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
