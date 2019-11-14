@@ -336,17 +336,17 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 {
     BOOL enable = _enable;
     
-//    IQEnableMode enableMode = _textFieldView.enableMode;
-//
-//    if (enableMode == IQEnableModeEnabled)
-//    {
-//        enable = YES;
-//    }
-//    else if (enableMode == IQEnableModeDisabled)
-//    {
-//        enable = NO;
-//    }
-//    else
+    IQEnableMode enableMode = _textFieldView.enableMode;
+
+    if (enableMode == IQEnableModeEnabled)
+    {
+        enable = YES;
+    }
+    else if (enableMode == IQEnableModeDisabled)
+    {
+        enable = NO;
+    }
+    else
     {
         __strong __typeof__(UIView) *strongTextFieldView = _textFieldView;
 
@@ -1325,7 +1325,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Getting UIKeyboardSize.
     _kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
-	if ([self privateIsEnabled] == NO)	return;
+    if ([self privateIsEnabled] == NO)
+    {
+        [self restorePosition];
+        _topViewBeginOrigin = kIQCGPointInvalid;
+        return;
+    }
 	
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
@@ -1588,7 +1593,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     [_resignFirstResponderGesture setEnabled:[self privateShouldResignOnTouchOutside]];
     [textFieldView.window addGestureRecognizer:_resignFirstResponderGesture];
 
-	if ([self privateIsEnabled] == YES)
+    if ([self privateIsEnabled] == NO)
+    {
+        [self restorePosition];
+        _topViewBeginOrigin = kIQCGPointInvalid;
+    }
+    else
     {
         if (CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid))    //  (Bug ID: #5)
         {
