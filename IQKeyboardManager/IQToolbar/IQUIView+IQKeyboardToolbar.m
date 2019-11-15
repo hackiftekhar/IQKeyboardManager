@@ -79,13 +79,11 @@
         NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
         // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
         
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
+        if (libraryBundle == nil) libraryBundle = mainBundle;
         
-        keyboardPreviousiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:resourcesBundle compatibleWithTraitCollection:nil];;
+        keyboardPreviousiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowLeft" inBundle:libraryBundle compatibleWithTraitCollection:nil];;
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
         if (@available(iOS 9.0, *)) {
@@ -109,13 +107,11 @@
         NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
         // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
         
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        keyboardNextiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
+        keyboardNextiOS9Image = [UIImage imageNamed:@"IQButtonBarArrowRight" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
         if (@available(iOS 9.0, *)) {
@@ -139,13 +135,11 @@
         NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
         // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
         
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        keyboardPreviousiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
+        keyboardPreviousiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowUp" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
         if (@available(iOS 9.0, *)) {
@@ -169,13 +163,11 @@
         NSBundle *mainBundle = [NSBundle bundleForClass:[IQKeyboardManager class]];
         
         // Check to see if the resource bundle exists inside the top level bundle
-        NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
+        NSBundle *libraryBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:@"IQKeyboardManager" ofType:@"bundle"]];
         
-        if (resourcesBundle == nil) {
-            resourcesBundle = mainBundle;
-        }
-        
-        keyboardNextiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
+        if (libraryBundle == nil) libraryBundle = mainBundle;
+
+        keyboardNextiOS10Image = [UIImage imageNamed:@"IQButtonBarArrowDown" inBundle:libraryBundle compatibleWithTraitCollection:nil];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
         if (@available(iOS 9.0, *)) {

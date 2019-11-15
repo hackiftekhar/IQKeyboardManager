@@ -15,6 +15,7 @@
 @implementation TextFieldViewController
 {
     IBOutlet UITextField *textField3;
+    IBOutlet UITextView *textView2;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
 
@@ -44,6 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    textView2.enableMode = IQEnableModeDisabled;
     
     textField3.delegate = self;
     [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];

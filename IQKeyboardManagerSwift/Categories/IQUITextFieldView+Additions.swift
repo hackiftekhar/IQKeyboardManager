@@ -30,7 +30,7 @@ Uses default keyboard distance for textField.
 public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
-//private var kIQKeyboardEnableMode = "kIQKeyboardEnableMode"
+private var kIQKeyboardEnableMode = "kIQKeyboardEnableMode"
 private var kIQShouldResignOnTouchOutsideMode = "kIQShouldResignOnTouchOutsideMode"
 private var kIQIgnoreSwitchingByNextPrevious = "kIQIgnoreSwitchingByNextPrevious"
 
@@ -76,19 +76,19 @@ UIView category for managing UITextField/UITextView
 //    /**
 //     Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
 //     */
-//    @objc public var enableMode: IQEnableMode {
-//        get {
-//            
-//            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? IQEnableMode {
-//                return savedMode
-//            } else {
-//                return .default
-//            }
-//        }
-//        set(newValue) {
-//            objc_setAssociatedObject(self, &kIQKeyboardEnableMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-//        }
-//    }
+    @objc var enableMode: IQEnableMode {
+        get {
+            
+            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? IQEnableMode {
+                return savedMode
+            } else {
+                return .default
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQKeyboardEnableMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
     
     /**
      Override resigns Keyboard on touching outside of UITextField/View behaviour for this particular textField.
