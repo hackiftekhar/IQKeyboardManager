@@ -56,6 +56,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     ///---------------------------
     
     /**
+     Enable ability to avoid retained text item become first responder.
+     */
+    @objc public var canCallRetainedItems = true
+    
+    /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
     */
     @objc public var enable = false {
@@ -522,7 +527,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                         
                         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
+                        if canCallRetainedItems, isAcceptAsFirstResponder == false {
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
                             
@@ -556,7 +561,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                         let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
                         
                         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
+                        if canCallRetainedItems, isAcceptAsFirstResponder == false {
                             //If next field refuses to become first responder then restoring old textField as first responder.
                             textFieldRetain.becomeFirstResponder()
                             
