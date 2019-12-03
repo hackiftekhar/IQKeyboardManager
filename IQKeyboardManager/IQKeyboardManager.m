@@ -49,6 +49,7 @@
 #import <UIKit/UINavigationController.h>
 #import <UIKit/UITouch.h>
 #import <UIKit/UIWindow.h>
+#import <UIKit/UIStackView.h>
 #import <UIKit/NSLayoutConstraint.h>
 #import <UIKit/UIStackView.h>
 #import <UIKit/UIAccessibility.h>
@@ -1049,6 +1050,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
             
             //Updating contentInset
+            if (strongLastScrollView.shouldIgnoreContentInsetAdjustment == false)
             {
                 CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
