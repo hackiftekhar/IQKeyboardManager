@@ -1261,7 +1261,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 }
                 
                 //Updating contentInset
-                if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window) {
+                if let lastScrollViewRect = lastScrollView.superview?.convert(lastScrollView.frame, to: window),
+                    lastScrollView.shouldIgnoreContentInsetAdjustment == false {
                     
                     let bottom: CGFloat = (kbSize.height)-(window.frame.height-lastScrollViewRect.maxY)
                     

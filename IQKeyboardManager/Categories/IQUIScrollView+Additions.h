@@ -33,6 +33,11 @@
 @property(nonatomic, assign) BOOL shouldIgnoreScrollingAdjustment;
 
 /**
+ If YES, then scrollview will ignore content inset adjustment (simply not updating it) when keyboard is shown. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldIgnoreContentInsetAdjustment;
+
+/**
  Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldRestoreScrollViewContentOffset;

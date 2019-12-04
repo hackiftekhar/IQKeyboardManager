@@ -25,6 +25,7 @@ import Foundation
 import UIKit
 
 private var kIQShouldIgnoreScrollingAdjustment      = "kIQShouldIgnoreScrollingAdjustment"
+private var kIQShouldIgnoreContentInsetAdjustment   = "kIQShouldIgnoreContentInsetAdjustment"
 private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollViewContentOffset"
 
 @objc public extension UIScrollView {
@@ -46,6 +47,23 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
         }
     }
 
+    /**
+     If YES, then scrollview will ignore content inset adjustment (simply not updating it) when keyboard is shown. Default is NO.
+     */
+    @objc var shouldIgnoreContentInsetAdjustment: Bool {
+        get {
+            
+            if let aValue = objc_getAssociatedObject(self, &kIQShouldIgnoreContentInsetAdjustment) as? Bool {
+                return aValue
+            } else {
+                return false
+            }
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &kIQShouldIgnoreContentInsetAdjustment, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
     /**
      To set customized distance from keyboard for textField/textView. Can't be less than zero
      */
