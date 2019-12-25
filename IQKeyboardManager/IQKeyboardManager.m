@@ -1054,13 +1054,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
-                CGFloat bottom = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottomInset = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField;
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
-                CGFloat bottomInset = MAX(_startingContentInsets.bottom, bottom);
+                bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
+                bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
                 if (@available(iOS 11, *)) {
                     bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                    bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
                 }
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
@@ -1073,20 +1076,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                         
                         strongLastScrollView.contentInset = movedInsets;
-                        UIEdgeInsets newInset;
+                        UIEdgeInsets newScrollIndicatorInset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
                         if (@available(iOS 11.1, *)) {
-                            newInset = strongLastScrollView.verticalScrollIndicatorInsets;
+                            newScrollIndicatorInset = strongLastScrollView.verticalScrollIndicatorInsets;
                         } else
 #endif
                         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
-                            newInset = strongLastScrollView.scrollIndicatorInsets;
+                            newScrollIndicatorInset = strongLastScrollView.scrollIndicatorInsets;
 #endif
                         }
 
-                        newInset.bottom = movedInsets.bottom;
-                        strongLastScrollView.scrollIndicatorInsets = newInset;
+                        newScrollIndicatorInset.bottom = bottomScrollIndicatorInset;
+                        strongLastScrollView.scrollIndicatorInsets = newScrollIndicatorInset;
                         
                     } completion:NULL];
                 }
