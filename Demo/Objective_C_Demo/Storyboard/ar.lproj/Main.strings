@@ -38,9 +38,6 @@
 /* Class = "UILabel"; text = "NavigationBar & Toolbar"; ObjectID = "F3P-4I-j2h"; */
 "F3P-4I-j2h.text" = "NavigationBar & Toolbar";
 
-/* Class = "UILabel"; text = "Subclasses that behaves like UITextField or UITextView (YYTextView)"; ObjectID = "FhZ-ZD-n87"; */
-"FhZ-ZD-n87.text" = "Subclasses that behaves like UITextField or UITextView (YYTextView)";
-
 /* Class = "UITableViewSection"; headerTitle = "Full Screen"; ObjectID = "GLu-hg-zhP"; */
 "GLu-hg-zhP.headerTitle" = "Full Screen";
 

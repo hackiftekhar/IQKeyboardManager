@@ -17,9 +17,6 @@
 /* Class = "UILabel"; text = "Disable Toolbar inside CustomViewController"; ObjectID = "JGH-5V-8ic"; */
 "JGH-5V-8ic.text" = "Disable Toolbar inside CustomViewController";
 
-/* Class = "UINavigationItem"; title = "YYTextView"; ObjectID = "JZo-W7-Io1"; */
-"JZo-W7-Io1.title" = "YYTextView";
-
 /* Class = "UINavigationItem"; title = "UIStackView Example"; ObjectID = "L7c-7d-d1o"; */
 "L7c-7d-d1o.title" = "UIStackView Example";
 
