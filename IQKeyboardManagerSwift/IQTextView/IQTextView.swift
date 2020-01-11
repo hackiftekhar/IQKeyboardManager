@@ -63,7 +63,7 @@ open class IQTextView: UITextView {
     }
     
     deinit {
-        placeholderLabel.removeFromSuperview()
+        IQ_PlaceholderLabel.removeFromSuperview()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -74,12 +74,12 @@ open class IQTextView: UITextView {
     private var placeholderExpectedFrame: CGRect {
         let placeholderInsets = self.placeholderInsets
         let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
-        let expectedSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        let expectedSize = IQ_PlaceholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
         
         return CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
     }
 
-    lazy var placeholderLabel: UILabel = {
+    lazy var IQ_PlaceholderLabel: UILabel = {
         let label = UILabel()
         
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -103,11 +103,11 @@ open class IQTextView: UITextView {
     @IBInspectable open var placeholderTextColor: UIColor? {
         
         get {
-            return placeholderLabel.textColor
+            return IQ_PlaceholderLabel.textColor
         }
         
         set {
-            placeholderLabel.textColor = newValue
+            IQ_PlaceholderLabel.textColor = newValue
         }
     }
     
@@ -115,11 +115,11 @@ open class IQTextView: UITextView {
     @IBInspectable open var placeholder: String? {
         
         get {
-            return placeholderLabel.text
+            return IQ_PlaceholderLabel.text
         }
         
         set {
-            placeholderLabel.text = newValue
+            IQ_PlaceholderLabel.text = newValue
             refreshPlaceholder()
         }
     }
@@ -127,11 +127,11 @@ open class IQTextView: UITextView {
     /** @abstract To set textView's placeholder attributed text. Default is nil.    */
     open var attributedPlaceholder: NSAttributedString? {
         get {
-            return placeholderLabel.attributedText
+            return IQ_PlaceholderLabel.attributedText
         }
 
         set {
-            placeholderLabel.attributedText = newValue
+            IQ_PlaceholderLabel.attributedText = newValue
             refreshPlaceholder()
         }
     }
@@ -139,15 +139,15 @@ open class IQTextView: UITextView {
     @objc override open func layoutSubviews() {
         super.layoutSubviews()
         
-        placeholderLabel.frame = placeholderExpectedFrame
+        IQ_PlaceholderLabel.frame = placeholderExpectedFrame
     }
     
     @objc internal func refreshPlaceholder() {
         
         if !text.isEmpty || !attributedText.string.isEmpty {
-            placeholderLabel.alpha = 0
+            IQ_PlaceholderLabel.alpha = 0
         } else {
-            placeholderLabel.alpha = 1
+            IQ_PlaceholderLabel.alpha = 1
         }
     }
     
@@ -170,16 +170,16 @@ open class IQTextView: UITextView {
         didSet {
             
             if let unwrappedFont = font {
-                placeholderLabel.font = unwrappedFont
+                IQ_PlaceholderLabel.font = unwrappedFont
             } else {
-                placeholderLabel.font = UIFont.systemFont(ofSize: 12)
+                IQ_PlaceholderLabel.font = UIFont.systemFont(ofSize: 12)
             }
         }
     }
     
     @objc override open var textAlignment: NSTextAlignment {
         didSet {
-            placeholderLabel.textAlignment = textAlignment
+            IQ_PlaceholderLabel.textAlignment = textAlignment
         }
     }
     
