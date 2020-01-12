@@ -322,13 +322,6 @@ UIView hierarchy category.
     
 }
 
-@objc public extension UIViewController {
-
-    func parentIQContainerViewController() -> UIViewController? {
-        return self
-    }
-}
-
 extension NSObject {
     
     internal func _IQDescription() -> String {
