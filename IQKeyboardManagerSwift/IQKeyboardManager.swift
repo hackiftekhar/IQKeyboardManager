@@ -904,9 +904,25 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 static weak var keyWindow: UIWindow?
             }
 
+            var originalKeyWindow : UIWindow? = nil
+            
+            #if swift(>=5.1)
+            if #available(iOS 13, *) {
+                originalKeyWindow = UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .flatMap { $0.windows }
+                    .first(where: { $0.isKeyWindow })
+            } else {
+                originalKeyWindow = UIApplication.shared.keyWindow
+            }
+            #else
+            originalKeyWindow = UIApplication.shared.keyWindow
+            #endif
+
+            
+            
             //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if let originalKeyWindow = UIApplication.shared.keyWindow,
-                (Static.keyWindow == nil || Static.keyWindow != originalKeyWindow) {
+            if let originalKeyWindow = originalKeyWindow {
                 Static.keyWindow = originalKeyWindow
             }
 
