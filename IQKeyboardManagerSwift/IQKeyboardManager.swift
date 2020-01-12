@@ -173,15 +173,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     Returns the default singleton instance.
     */
-    @objc public class var shared: IQKeyboardManager {
-        struct Static {
-            //Singleton instance. Initializing keyboard manger.
-            static let kbManager = IQKeyboardManager()
-        }
-        
-        /** @return Returns the default singleton instance. */
-        return Static.kbManager
-    }
+    @objc public static let shared = IQKeyboardManager()
     
     ///-------------------------
     /// MARK: IQToolbar handling
