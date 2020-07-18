@@ -1122,7 +1122,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
         //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
         //[textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-        if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]])
+        if ([textFieldView isKindOfClass:[UIScrollView class]] && [(UIScrollView*)textFieldView isScrollEnabled] && [textFieldView respondsToSelector:@selector(isEditable)])
         {
             UIScrollView *textView = (UIScrollView*)textFieldView;
 

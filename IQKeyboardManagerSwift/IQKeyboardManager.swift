@@ -1318,7 +1318,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
             //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
             //[_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-            if let textView = textFieldView as? UIScrollView, textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
+            if let textView = textFieldView as? UIScrollView, textView.isScrollEnabled, textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
                 
 //                CGRect rootSuperViewFrameInWindow = [_rootViewController.view.superview convertRect:_rootViewController.view.superview.bounds toView:keyWindow];
 //
