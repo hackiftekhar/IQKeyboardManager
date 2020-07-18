@@ -45,6 +45,11 @@
 		4CE74F651CF186720093AC0C /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F641CF186720093AC0C /* TextFieldTableViewCell.m */; };
 		4CE74F681CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */; };
 		4CF58EAD1D36BD910081FB08 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9A0FC218C9DB5700585D3F /* Social.framework */; };
+		56FCBF7924C36672007B0332 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FCBF7824C36672007B0332 /* WebKit.framework */; };
+		56FCBF7A24C36678007B0332 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FCBF7824C36672007B0332 /* WebKit.framework */; };
+		56FCBF7B24C36686007B0332 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
+		56FCBF7C24C3668A007B0332 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
+		56FCBF7D24C3668E007B0332 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		5E01D9D1D5DAED537E5F3846 /* Pods_DemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCAA37FCDF6347632377497 /* Pods_DemoSwift.framework */; };
 		74EEE75B8742B346576A7E78 /* Pods_DemoObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF83944ADEC65E0AF10B2E /* Pods_DemoObjC.framework */; };
 		C0017B791BAD943400BD1D70 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0017B781BAD943400BD1D70 /* CustomViewController.swift */; };
@@ -163,6 +168,7 @@
 		4CE74F661CF1BBCC0093AC0C /* ImageSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSwitchTableViewCell.h; sourceTree = "<group>"; };
 		4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSwitchTableViewCell.m; sourceTree = "<group>"; };
 		55CF83944ADEC65E0AF10B2E /* Pods_DemoObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56FCBF7824C36672007B0332 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5FC4E5EE6D1D6932EE354185 /* Pods-DemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoSwift/Pods-DemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		9D0BB82F18BB1AE100667349 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9D0BB83018BB1AE100667349 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -260,8 +266,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56FCBF7C24C3668A007B0332 /* Foundation.framework in Frameworks */,
+				56FCBF7D24C3668E007B0332 /* UIKit.framework in Frameworks */,
+				56FCBF7B24C36686007B0332 /* CoreGraphics.framework in Frameworks */,
 				4CF58EAD1D36BD910081FB08 /* Social.framework in Frameworks */,
 				5E01D9D1D5DAED537E5F3846 /* Pods_DemoSwift.framework in Frameworks */,
+				56FCBF7A24C36678007B0332 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56FCBF7924C36672007B0332 /* WebKit.framework in Frameworks */,
 				C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */,
 				C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */,
 				C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */,
@@ -356,6 +367,7 @@
 		C0B63B9E1781FAB1008D3B64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56FCBF7824C36672007B0332 /* WebKit.framework */,
 				9D9A0FC218C9DB5700585D3F /* Social.framework */,
 				C0B63B9F1781FAB1008D3B64 /* UIKit.framework */,
 				C0B63BA11781FAB1008D3B64 /* Foundation.framework */,

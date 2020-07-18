@@ -10,8 +10,8 @@ import UIKit
 
 class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet fileprivate var buttonPush : UIButton!
-    @IBOutlet fileprivate var buttonPresent : UIButton!
+    @IBOutlet var buttonPush : UIButton!
+    @IBOutlet var buttonPresent : UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,9 @@ class TextViewSpecialCaseViewController: UIViewController, UITextViewDelegate, U
     @IBAction func presentClicked (_ barButton : UIButton!) {
         
         if (navigationController) != nil {
-            let controller : TextViewSpecialCaseViewController = TextViewSpecialCaseViewController()
-            present(controller, animated: true, completion: nil)
+            if let controller = self.storyboard?.instantiateViewController(withIdentifier: "TextViewSpecialCaseViewController") {
+                present(controller, animated: true, completion: nil)
+            }
         } else {
             dismiss(animated: true, completion: nil)
         }

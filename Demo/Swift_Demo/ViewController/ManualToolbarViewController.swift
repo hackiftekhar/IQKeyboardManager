@@ -11,11 +11,11 @@ import IQKeyboardManagerSwift
 
 class ManualToolbarViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet fileprivate var textField1 : UITextField!
-    @IBOutlet fileprivate var textField2 : UITextField!
-    @IBOutlet fileprivate var textView3 : UITextView!
-    @IBOutlet fileprivate var textField4 : UITextField!
-    @IBOutlet fileprivate var textField5 : UITextField!
+    @IBOutlet var textField1 : UITextField!
+    @IBOutlet var textField2 : UITextField!
+    @IBOutlet var textView3 : UITextView!
+    @IBOutlet var textField4 : UITextField!
+    @IBOutlet var textField5 : UITextField!
 
     deinit {
         textField1 = nil

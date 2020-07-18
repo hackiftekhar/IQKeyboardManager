@@ -12,9 +12,9 @@ import IQKeyboardManagerSwift
 class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate {
     
     fileprivate var returnKeyHandler : IQKeyboardReturnKeyHandler!
-    @IBOutlet fileprivate var textField2 : UITextField!
-    @IBOutlet fileprivate var textField3 : UITextField!
-    @IBOutlet fileprivate var scrollView : UIScrollView!
+    @IBOutlet var textField2 : UITextField!
+    @IBOutlet var textField3 : UITextField!
+    @IBOutlet var scrollView : UIScrollView!
 
     deinit {
         returnKeyHandler = nil

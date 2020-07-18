@@ -3,8 +3,12 @@
 //  KeyboardTextFieldDemo
 
 #import "WebViewController.h"
+#import <WebKit/WebKit.h>
 
-@interface WebViewController ()
+@interface WebViewController ()<WKUIDelegate, WKNavigationDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) IBOutlet UIView *webContainerView;
 
 @end
 
@@ -19,7 +23,15 @@
 {
     [super viewDidLoad];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.gmail.com"]];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+
+    self.webView = [[WKWebView alloc] initWithFrame:_webContainerView.bounds configuration:configuration];
+    self.webView.UIDelegate = self;
+    self.webView.navigationDelegate = self;
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
+    [self.webContainerView addSubview:self.webView];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]];
     [_webView loadRequest:request];
     
     activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -27,15 +39,17 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activity];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
+-(void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
 {
     [activity startAnimating];
 }
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     [activity stopAnimating];
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     [activity stopAnimating];
 }

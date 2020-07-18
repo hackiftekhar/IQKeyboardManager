@@ -10,17 +10,17 @@ import UIKit
 
 class ScrollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet fileprivate var scrollViewDemo : UIScrollView!
-    @IBOutlet fileprivate var simpleTableView : UITableView!
-    @IBOutlet fileprivate var scrollViewOfTableViews : UIScrollView!
-    @IBOutlet fileprivate var tableViewInsideScrollView : UITableView!
-    @IBOutlet fileprivate var scrollViewInsideScrollView : UIScrollView!
+    @IBOutlet var scrollViewDemo : UIScrollView!
+    @IBOutlet var simpleTableView : UITableView!
+    @IBOutlet var scrollViewOfTableViews : UIScrollView!
+    @IBOutlet var tableViewInsideScrollView : UITableView!
+    @IBOutlet var scrollViewInsideScrollView : UIScrollView!
     
-    @IBOutlet fileprivate var topTextField : UITextField!
-    @IBOutlet fileprivate var bottomTextField : UITextField!
+    @IBOutlet var topTextField : UITextField!
+    @IBOutlet var bottomTextField : UITextField!
     
-    @IBOutlet fileprivate var topTextView : UITextView!
-    @IBOutlet fileprivate var bottomTextView : UITextView!
+    @IBOutlet var topTextView : UITextView!
+    @IBOutlet var bottomTextView : UITextView!
     
     deinit {
         topTextField = nil

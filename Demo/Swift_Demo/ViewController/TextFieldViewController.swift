@@ -12,14 +12,14 @@ import IQDropDownTextField
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet fileprivate var textField3 : UITextField!
+    @IBOutlet var textField3 : UITextField!
     @IBOutlet var textView1: IQTextView!
     @IBOutlet var textView2: UITextView!
 
-    @IBOutlet fileprivate var dropDownTextField : IQDropDownTextField!
+    @IBOutlet var dropDownTextField : IQDropDownTextField!
 
-    @IBOutlet fileprivate var buttonPush : UIButton!
-    @IBOutlet fileprivate var buttonPresent : UIButton!
+    @IBOutlet var buttonPush : UIButton!
+    @IBOutlet var buttonPresent : UIButton!
 
     @objc func previousAction(_ sender : UITextField) {
         print("PreviousAction")

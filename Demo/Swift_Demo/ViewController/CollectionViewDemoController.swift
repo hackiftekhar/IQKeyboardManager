@@ -10,7 +10,7 @@ import UIKit
 
 class CollectionViewDemoController: UIViewController , UICollectionViewDelegate , UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
 
-    @IBOutlet fileprivate var collectionView : UICollectionView!
+    @IBOutlet var collectionView : UICollectionView!
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20

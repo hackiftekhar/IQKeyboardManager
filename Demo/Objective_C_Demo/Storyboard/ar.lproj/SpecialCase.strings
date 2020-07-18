@@ -2,8 +2,8 @@
 /* Class = "UITextField"; placeholder = "Custom Work"; ObjectID = "2mf-mU-ovU"; */
 "2mf-mU-ovU.placeholder" = "Custom Work";
 
-/* Class = "UINavigationItem"; title = "UIWebView Example"; ObjectID = "3s1-JL-XZo"; */
-"3s1-JL-XZo.title" = "UIWebView Example";
+/* Class = "UINavigationItem"; title = "WKWebView Example"; ObjectID = "3s1-JL-XZo"; */
+"3s1-JL-XZo.title" = "WKWebView Example";
 
 /* Class = "UITextField"; placeholder = "TextField 2"; ObjectID = "48H-nl-1ha"; */
 "48H-nl-1ha.placeholder" = "TextField 2";

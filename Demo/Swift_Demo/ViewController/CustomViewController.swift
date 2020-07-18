@@ -12,20 +12,20 @@ import IQKeyboardManagerSwift
 class CustomViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
     fileprivate var returnHandler : IQKeyboardReturnKeyHandler!
-    @IBOutlet fileprivate var settingsView : UIView!
+    @IBOutlet var settingsView : UIView!
 
-    @IBOutlet fileprivate var switchDisableViewController : UISwitch!
-    @IBOutlet fileprivate var switchEnableViewController : UISwitch!
+    @IBOutlet var switchDisableViewController : UISwitch!
+    @IBOutlet var switchEnableViewController : UISwitch!
 
-    @IBOutlet fileprivate var switchDisableToolbar : UISwitch!
-    @IBOutlet fileprivate var switchEnableToolbar : UISwitch!
+    @IBOutlet var switchDisableToolbar : UISwitch!
+    @IBOutlet var switchEnableToolbar : UISwitch!
     
-    @IBOutlet fileprivate var switchDisableTouchResign : UISwitch!
-    @IBOutlet fileprivate var switchEnableTouchResign : UISwitch!
+    @IBOutlet var switchDisableTouchResign : UISwitch!
+    @IBOutlet var switchEnableTouchResign : UISwitch!
 
-    @IBOutlet fileprivate var switchAllowPreviousNext : UISwitch!
+    @IBOutlet var switchAllowPreviousNext : UISwitch!
 
-    @IBOutlet fileprivate var settingsTopConstraint : NSLayoutConstraint!
+    @IBOutlet var settingsTopConstraint : NSLayoutConstraint!
 
     deinit {
         returnHandler = nil

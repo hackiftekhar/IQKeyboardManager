@@ -11,18 +11,18 @@ import IQKeyboardManagerSwift
 
 class SpecialCaseViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet fileprivate var customWorkTextField : UITextField!
+    @IBOutlet var customWorkTextField : UITextField!
     
-    @IBOutlet fileprivate var textField6 : UITextField!
-    @IBOutlet fileprivate var textField7 : UITextField!
-    @IBOutlet fileprivate var textField8 : UITextField!
+    @IBOutlet var textField6 : UITextField!
+    @IBOutlet var textField7 : UITextField!
+    @IBOutlet var textField8 : UITextField!
     
-    @IBOutlet fileprivate var switchInteraction1 : UISwitch!
-    @IBOutlet fileprivate var switchInteraction2 : UISwitch!
-    @IBOutlet fileprivate var switchInteraction3 : UISwitch!
-    @IBOutlet fileprivate var switchEnabled1 : UISwitch!
-    @IBOutlet fileprivate var switchEnabled2 : UISwitch!
-    @IBOutlet fileprivate var switchEnabled3 : UISwitch!
+    @IBOutlet var switchInteraction1 : UISwitch!
+    @IBOutlet var switchInteraction2 : UISwitch!
+    @IBOutlet var switchInteraction3 : UISwitch!
+    @IBOutlet var switchEnabled1 : UISwitch!
+    @IBOutlet var switchEnabled2 : UISwitch!
+    @IBOutlet var switchEnabled3 : UISwitch!
     
     deinit {
         customWorkTextField = nil
