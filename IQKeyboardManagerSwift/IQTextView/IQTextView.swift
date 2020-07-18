@@ -182,8 +182,8 @@ open class IQTextView: UITextView {
             IQ_PlaceholderLabel.textAlignment = textAlignment
         }
     }
-    
-    @objc override open var delegate: UITextViewDelegate? {
+
+    @objc override weak open var delegate: UITextViewDelegate? {
         
         get {
             refreshPlaceholder()
