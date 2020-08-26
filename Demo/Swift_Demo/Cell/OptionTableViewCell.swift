@@ -6,11 +6,10 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
-
 class OptionTableViewCell: UITableViewCell {
 
-    @IBOutlet var labelOption : UILabel!
-    
+    @IBOutlet var labelOption: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

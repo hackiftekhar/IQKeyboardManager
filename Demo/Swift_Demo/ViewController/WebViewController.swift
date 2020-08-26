@@ -16,9 +16,9 @@ class WebViewController: UIViewController {
     #else
     let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
     #endif
-    
-    var webView : WKWebView!
-    @IBOutlet var webContainerView : UIView!
+
+    var webView: WKWebView!
+    @IBOutlet var webContainerView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,21 +28,21 @@ class WebViewController: UIViewController {
         self.webView = WKWebView(frame: webContainerView.bounds, configuration: configuration)
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
-        self.webView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.webContainerView.addSubview(self.webView)
 
-        let request : URLRequest = URLRequest(url: URL(string: "http://www.google.com")!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 60)
+        let request: URLRequest = URLRequest(url: URL(string: "http://www.google.com")!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 60)
         self.webView.load(request)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activity)
     }
 
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return true
     }
 }
 
-extension WebViewController: WKUIDelegate, WKNavigationDelegate  {
+extension WebViewController: WKUIDelegate, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         activity.startAnimating()

@@ -28,7 +28,7 @@
     self.webView = [[WKWebView alloc] initWithFrame:_webContainerView.bounds configuration:configuration];
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.webContainerView addSubview:self.webView];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]];

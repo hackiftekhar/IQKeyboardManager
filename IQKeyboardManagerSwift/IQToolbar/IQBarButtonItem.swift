@@ -1,7 +1,7 @@
 //
 //  IQBarButtonItem.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -57,12 +57,12 @@ open class IQBarButtonItem: UIBarButtonItem {
             appearanceProxy.setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
             appearanceProxy.setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
         }
-        
+
         appearanceProxy.setTitlePositionAdjustment(UIOffset(), for: .default)
         appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
         appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
-    
+
     @objc override open var tintColor: UIColor? {
         didSet {
 
@@ -82,7 +82,7 @@ open class IQBarButtonItem: UIBarButtonItem {
             #if swift(>=4)
 
                 if let attributes = titleTextAttributes(for: .normal) {
-                    
+
                     for (key, value) in attributes {
                         #if swift(>=4.2)
                         textAttributes[key] = value
@@ -107,7 +107,7 @@ open class IQBarButtonItem: UIBarButtonItem {
      Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
      */
     @objc internal var isSystemItem = false
-    
+
     /**
      Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
      
@@ -121,12 +121,12 @@ open class IQBarButtonItem: UIBarButtonItem {
             invocation = nil
         }
     }
-    
+
     /**
      Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
      */
     @objc open var invocation: IQInvocation?
-    
+
     deinit {
         target = nil
         invocation = nil

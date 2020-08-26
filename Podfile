@@ -12,6 +12,7 @@ end
 
 target 'DemoSwift' do
 
+    pod 'SwiftLint'
     pod "IQDropDownTextField"
     pod "IQKeyboardManagerSwift", :path => "."
 

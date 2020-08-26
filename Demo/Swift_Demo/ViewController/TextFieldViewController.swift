@@ -11,25 +11,25 @@ import IQKeyboardManagerSwift
 import IQDropDownTextField
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
-    
-    @IBOutlet var textField3 : UITextField!
+
+    @IBOutlet var textField3: UITextField!
     @IBOutlet var textView1: IQTextView!
     @IBOutlet var textView2: UITextView!
 
-    @IBOutlet var dropDownTextField : IQDropDownTextField!
+    @IBOutlet var dropDownTextField: IQDropDownTextField!
 
-    @IBOutlet var buttonPush : UIButton!
-    @IBOutlet var buttonPresent : UIButton!
+    @IBOutlet var buttonPush: UIButton!
+    @IBOutlet var buttonPresent: UIButton!
 
-    @objc func previousAction(_ sender : UITextField) {
+    @objc func previousAction(_ sender: UITextField) {
         print("PreviousAction")
     }
-    
-    @objc func nextAction(_ sender : UITextField) {
+
+    @objc func nextAction(_ sender: UITextField) {
         print("nextAction")
     }
-    
-    @objc func doneAction(_ sender : UITextField) {
+
+    @objc func doneAction(_ sender: UITextField) {
         print("doneAction")
     }
 
@@ -41,7 +41,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         textView2.enableMode = .disabled
         textView1.delegate = self
 
@@ -50,8 +50,8 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         textField3.keyboardToolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
         textField3.keyboardToolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
         textField3.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
-        dropDownTextField.keyboardDistanceFromTextField = 150;
-        
+        dropDownTextField.keyboardDistanceFromTextField = 150
+
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
         itemLists.append("No More UIScrollView")
@@ -73,30 +73,29 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 
         dropDownTextField.itemList = itemLists
     }
-    
-    override func viewWillAppear(_ animated : Bool) {
+
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if (self.presentingViewController != nil)
-        {
+
+        if self.presentingViewController != nil {
             buttonPush.isHidden = true
-            buttonPresent.setTitle("Dismiss", for:.normal)
+            buttonPresent.setTitle("Dismiss", for: .normal)
         }
     }
-    
+
     @IBAction func presentClicked (_ sender: AnyObject!) {
-        
+
         if self.presentingViewController == nil {
-            
+
             let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: "TextFieldViewController"))!
-            let navController : UINavigationController = UINavigationController(rootViewController: controller)
+            let navController: UINavigationController = UINavigationController(rootViewController: controller)
             navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
             navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
             navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
             navController.modalTransitionStyle = UIModalTransitionStyle(rawValue: Int(arc4random()%4))!
 
             // TransitionStylePartialCurl can only be presented by FullScreen style.
-            if (navController.modalTransitionStyle == UIModalTransitionStyle.partialCurl) {
+            if navController.modalTransitionStyle == UIModalTransitionStyle.partialCurl {
                 navController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
             } else {
                 navController.modalPresentationStyle = UIModalPresentationStyle.formSheet
@@ -107,39 +106,39 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
             dismiss(animated: true, completion: nil)
         }
     }
- 
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if let identifier = segue.identifier {
-            
+
             if identifier == "SettingsNavigationController" {
-                
+
                 let controller = segue.destination
-                
+
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                
-                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
-    
+
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
+
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
 
-        print("textViewDidBeginEditing");
+        print("textViewDidBeginEditing")
     }
-    
-    override var shouldAutorotate : Bool {
+
+    override var shouldAutorotate: Bool {
         return true
     }
 }

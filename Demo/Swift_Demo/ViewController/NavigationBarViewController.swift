@@ -10,11 +10,11 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate {
-    
-    fileprivate var returnKeyHandler : IQKeyboardReturnKeyHandler!
-    @IBOutlet var textField2 : UITextField!
-    @IBOutlet var textField3 : UITextField!
-    @IBOutlet var scrollView : UIScrollView!
+
+    fileprivate var returnKeyHandler: IQKeyboardReturnKeyHandler!
+    @IBOutlet var textField2: UITextField!
+    @IBOutlet var textField3: UITextField!
+    @IBOutlet var scrollView: UIScrollView!
 
     deinit {
         returnKeyHandler = nil
@@ -31,50 +31,49 @@ class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopo
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
     }
 
-    @IBAction func textFieldClicked(_ sender : UITextField!) {
-        
+    @IBAction func textFieldClicked(_ sender: UITextField!) {
+
     }
-    
-    @IBAction func enableScrollAction(_ sender : UISwitch!) {
-        scrollView.isScrollEnabled = sender.isOn;
+
+    @IBAction func enableScrollAction(_ sender: UISwitch!) {
+        scrollView.isScrollEnabled = sender.isOn
     }
-    
-    @IBAction func shouldHideTitle(_ sender : UISwitch!) {
-        textField2.shouldHideToolbarPlaceholder = !textField2.shouldHideToolbarPlaceholder;
+
+    @IBAction func shouldHideTitle(_ sender: UISwitch!) {
+        textField2.shouldHideToolbarPlaceholder = !textField2.shouldHideToolbarPlaceholder
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if let identifier = segue.identifier {
-            
+
             if identifier == "SettingsNavigationController" {
-                
+
                 let controller = segue.destination
-                
+
                 controller.modalPresentationStyle = .popover
                 controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                
-                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height);
+
+                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
                 controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
                 controller.popoverPresentationController?.delegate = self
             }
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
-    
+
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
+
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.endEditing(true)
     }
-    
-    override var shouldAutorotate : Bool {
+
+    override var shouldAutorotate: Bool {
         return true
     }
 }
-
