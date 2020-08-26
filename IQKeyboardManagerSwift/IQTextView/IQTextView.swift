@@ -28,38 +28,17 @@ open class IQTextView: UITextView {
 
     @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-        #if swift(>=4.2)
-        let UITextViewTextDidChange = UITextView.textDidChangeNotification
-        #else
-        let UITextViewTextDidChange = Notification.Name.UITextViewTextDidChange
-        #endif
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChange, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
 
     @objc override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-
-        #if swift(>=4.2)
-        let notificationName = UITextView.textDidChangeNotification
-        #else
-        let notificationName = Notification.Name.UITextViewTextDidChange
-        #endif
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: notificationName, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
 
     @objc override open func awakeFromNib() {
         super.awakeFromNib()
-
-        #if swift(>=4.2)
-        let UITextViewTextDidChange = UITextView.textDidChangeNotification
-        #else
-        let UITextViewTextDidChange = Notification.Name.UITextViewTextDidChange
-        #endif
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChange, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
     }
 
     deinit {

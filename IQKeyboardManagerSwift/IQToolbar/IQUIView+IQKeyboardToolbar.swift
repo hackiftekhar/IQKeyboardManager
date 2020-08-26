@@ -23,33 +23,22 @@
 
 import UIKit
 
-private var kIQShouldHideToolbarPlaceholder = "kIQShouldHideToolbarPlaceholder"
-private var kIQToolbarPlaceholder           = "kIQToolbarPlaceholder"
-
-private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
-
 /**
  IQBarButtonItemConfiguration for creating toolbar with bar button items
  */
 @objc public class IQBarButtonItemConfiguration: NSObject {
 
     #if swift(>=4.2)
-    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem, action: Selector) {
+    public typealias  UIBarButtonSystemItem = UIBarButtonItem.SystemItem
+    #endif
+
+    @objc public init(barButtonSystemItem: UIBarButtonSystemItem, action: Selector) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
         self.action = action
         super.init()
     }
-    #else
-    @objc public init(barButtonSystemItem: UIBarButtonSystemItem, action: Selector) {
-        self.barButtonSystemItem = barButtonSystemItem
-        self.image = nil
-        self.title = nil
-        self.action = action
-    super.init()
-    }
-    #endif
 
     @objc public init(image: UIImage, action: Selector) {
         self.barButtonSystemItem = nil
@@ -67,11 +56,7 @@ private var kIQKeyboardToolbar              = "kIQKeyboardToolbar"
         super.init()
     }
 
-    #if swift(>=4.2)
-    public let barButtonSystemItem: UIBarButtonItem.SystemItem?    //System Item to be used to instantiate bar button.
-    #else
     public let barButtonSystemItem: UIBarButtonSystemItem?    //System Item to be used to instantiate bar button.
-    #endif
 
     @objc public let image: UIImage?    //Image to show on bar button item if it's not a system item.
 
@@ -203,6 +188,12 @@ UIView category methods to add IQToolbar on UIKeyboard.
 */
 @objc public extension UIView {
 
+    private struct AssociatedKeys {
+        static var keyboardToolbar = "keyboardToolbar"
+        static var shouldHideToolbarPlaceholder = "shouldHideToolbarPlaceholder"
+        static var toolbarPlaceholder = "toolbarPlaceholder"
+    }
+
     // MARK: Toolbar
 
     /**
@@ -212,19 +203,17 @@ UIView category methods to add IQToolbar on UIKeyboard.
         var toolbar = inputAccessoryView as? IQToolbar
 
         if toolbar == nil {
-            toolbar = objc_getAssociatedObject(self, &kIQKeyboardToolbar) as? IQToolbar
+            toolbar = objc_getAssociatedObject(self, &AssociatedKeys.keyboardToolbar) as? IQToolbar
         }
 
         if let unwrappedToolbar = toolbar {
-
             return unwrappedToolbar
-
         } else {
 
             let frame = CGRect(origin: .zero, size: .init(width: UIScreen.main.bounds.width, height: 44))
             let newToolbar = IQToolbar(frame: frame)
 
-            objc_setAssociatedObject(self, &kIQKeyboardToolbar, newToolbar, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardToolbar, newToolbar, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
             return newToolbar
         }
@@ -237,17 +226,10 @@ UIView category methods to add IQToolbar on UIKeyboard.
     */
     var shouldHideToolbarPlaceholder: Bool {
         get {
-            let aValue = objc_getAssociatedObject(self, &kIQShouldHideToolbarPlaceholder) as Any?
-
-            if let unwrapedValue = aValue as? Bool {
-                return unwrapedValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldHideToolbarPlaceholder) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldHideToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldHideToolbarPlaceholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder
         }
     }
@@ -257,13 +239,10 @@ UIView category methods to add IQToolbar on UIKeyboard.
      */
     var toolbarPlaceholder: String? {
         get {
-            let aValue = objc_getAssociatedObject(self, &kIQToolbarPlaceholder) as? String
-
-            return aValue
+            return objc_getAssociatedObject(self, &AssociatedKeys.toolbarPlaceholder) as? String
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQToolbarPlaceholder, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
+            objc_setAssociatedObject(self, &AssociatedKeys.toolbarPlaceholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             self.keyboardToolbar.titleBarButton.title = self.drawingToolbarPlaceholder
         }
     }

@@ -24,26 +24,23 @@
 import Foundation
 import UIKit
 
-private var kIQShouldIgnoreScrollingAdjustment      = "kIQShouldIgnoreScrollingAdjustment"
-private var kIQShouldIgnoreContentInsetAdjustment   = "kIQShouldIgnoreContentInsetAdjustment"
-private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollViewContentOffset"
-
 @objc public extension UIScrollView {
+
+    private struct AssociatedKeys {
+        static var shouldIgnoreScrollingAdjustment = "shouldIgnoreScrollingAdjustment"
+        static var shouldIgnoreContentInsetAdjustment = "shouldIgnoreContentInsetAdjustment"
+        static var shouldRestoreScrollViewContentOffset = "shouldRestoreScrollViewContentOffset"
+    }
 
     /**
      If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
      */
     var shouldIgnoreScrollingAdjustment: Bool {
         get {
-
-            if let aValue = objc_getAssociatedObject(self, &kIQShouldIgnoreScrollingAdjustment) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldIgnoreScrollingAdjustment) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldIgnoreScrollingAdjustment, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldIgnoreScrollingAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -52,15 +49,10 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
      */
     var shouldIgnoreContentInsetAdjustment: Bool {
         get {
-
-            if let aValue = objc_getAssociatedObject(self, &kIQShouldIgnoreContentInsetAdjustment) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldIgnoreContentInsetAdjustment) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldIgnoreContentInsetAdjustment, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldIgnoreContentInsetAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -69,15 +61,10 @@ private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollVie
      */
     var shouldRestoreScrollViewContentOffset: Bool {
         get {
-
-            if let aValue = objc_getAssociatedObject(self, &kIQShouldRestoreScrollViewContentOffset) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldRestoreScrollViewContentOffset) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldRestoreScrollViewContentOffset, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldRestoreScrollViewContentOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

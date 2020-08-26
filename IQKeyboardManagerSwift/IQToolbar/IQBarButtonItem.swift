@@ -43,10 +43,10 @@ open class IQBarButtonItem: UIBarButtonItem {
         let  appearanceProxy = self.appearance()
 
         #if swift(>=4.2)
-        let states: [UIControl.State]
-        #else
-        let states: [UIControlState]
+        typealias UIControlState = UIControl.State
         #endif
+
+        let states: [UIControlState]
 
         states = [.normal, .highlighted, .disabled, .selected, .application, .reserved]
 
@@ -67,9 +67,10 @@ open class IQBarButtonItem: UIBarButtonItem {
         didSet {
 
             #if swift(>=4.2)
-            var textAttributes = [NSAttributedString.Key: Any]()
-            let foregroundColorKey = NSAttributedString.Key.foregroundColor
-            #elseif swift(>=4)
+            typealias  NSAttributedStringKey = NSAttributedString.Key
+            #endif
+
+            #if swift(>=4)
             var textAttributes = [NSAttributedStringKey: Any]()
             let foregroundColorKey = NSAttributedStringKey.foregroundColor
             #else
@@ -82,7 +83,6 @@ open class IQBarButtonItem: UIBarButtonItem {
             #if swift(>=4)
 
                 if let attributes = titleTextAttributes(for: .normal) {
-
                     for (key, value) in attributes {
                         #if swift(>=4.2)
                         textAttributes[key] = value
@@ -93,7 +93,6 @@ open class IQBarButtonItem: UIBarButtonItem {
                 }
 
             #else
-
                 if let attributes = titleTextAttributes(for: .normal) {
                     textAttributes = attributes
                 }

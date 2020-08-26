@@ -26,6 +26,62 @@ import Foundation
 // MARK: UITextField/UITextView Notifications
 internal extension IQKeyboardManager {
 
+    private struct AssociatedKeys {
+        static var textFieldView = "textFieldView"
+        static var topViewBeginOrigin = "topViewBeginOrigin"
+        static var rootViewController = "rootViewController"
+        static var rootViewControllerWhilePopGestureRecognizerActive = "rootViewControllerWhilePopGestureRecognizerActive"
+        static var topViewBeginOriginWhilePopGestureRecognizerActive = "topViewBeginOriginWhilePopGestureRecognizerActive"
+    }
+
+    /** To save UITextField/UITextView object voa textField/textView notifications. */
+    weak var textFieldView: UIView? {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedKeys.textFieldView) as? WeakObjectContainer)?.object as? UIView
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.textFieldView, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    var topViewBeginOrigin: CGPoint {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.topViewBeginOrigin) as? CGPoint ?? IQKeyboardManager.kIQCGPointInvalid
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginOrigin, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** To save rootViewController */
+    weak var rootViewController: UIViewController? {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedKeys.rootViewController) as? WeakObjectContainer)?.object as? UIViewController
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.rootViewController, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** To overcome with popGestureRecognizer issue Bug ID: #1361 */
+    weak var rootViewControllerWhilePopGestureRecognizerActive: UIViewController? {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedKeys.rootViewControllerWhilePopGestureRecognizerActive) as? WeakObjectContainer)?.object as? UIViewController
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.rootViewControllerWhilePopGestureRecognizerActive, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    var topViewBeginOriginWhilePopGestureRecognizerActive: CGPoint {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.topViewBeginOriginWhilePopGestureRecognizerActive) as? CGPoint ?? IQKeyboardManager.kIQCGPointInvalid
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginOriginWhilePopGestureRecognizerActive, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
     @objc func textFieldViewDidBeginEditing(_ notification: Notification) {
 

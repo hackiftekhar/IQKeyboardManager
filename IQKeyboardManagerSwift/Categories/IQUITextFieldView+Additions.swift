@@ -29,30 +29,27 @@ Uses default keyboard distance for textField.
 */
 public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
-private var kIQKeyboardDistanceFromTextField = "kIQKeyboardDistanceFromTextField"
-private var kIQKeyboardEnableMode = "kIQKeyboardEnableMode"
-private var kIQShouldResignOnTouchOutsideMode = "kIQShouldResignOnTouchOutsideMode"
-private var kIQIgnoreSwitchingByNextPrevious = "kIQIgnoreSwitchingByNextPrevious"
-
 /**
 UIView category for managing UITextField/UITextView
 */
 @objc public extension UIView {
+
+    private struct AssociatedKeys {
+        static var keyboardDistanceFromTextField = "keyboardDistanceFromTextField"
+        static var ignoreSwitchingByNextPrevious = "ignoreSwitchingByNextPrevious"
+        static var enableMode = "enableMode"
+        static var shouldResignOnTouchOutsideMode = "shouldResignOnTouchOutsideMode"
+    }
 
     /**
      To set customized distance from keyboard for textField/textView. Can't be less than zero
      */
     var keyboardDistanceFromTextField: CGFloat {
         get {
-
-            if let aValue = objc_getAssociatedObject(self, &kIQKeyboardDistanceFromTextField) as? CGFloat {
-                return aValue
-            } else {
-                return kIQUseDefaultKeyboardDistance
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardDistanceFromTextField) as? CGFloat ?? kIQUseDefaultKeyboardDistance
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardDistanceFromTextField, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardDistanceFromTextField, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -61,32 +58,22 @@ UIView category for managing UITextField/UITextView
      */
     var ignoreSwitchingByNextPrevious: Bool {
         get {
-
-            if let aValue = objc_getAssociatedObject(self, &kIQIgnoreSwitchingByNextPrevious) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.ignoreSwitchingByNextPrevious) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQIgnoreSwitchingByNextPrevious, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.ignoreSwitchingByNextPrevious, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
-//    /**
-//     Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
-//     */
+    /**
+     Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
+     */
     var enableMode: IQEnableMode {
         get {
-
-            if let savedMode = objc_getAssociatedObject(self, &kIQKeyboardEnableMode) as? IQEnableMode {
-                return savedMode
-            } else {
-                return .default
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.enableMode) as? IQEnableMode ?? .default
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardEnableMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.enableMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -95,15 +82,10 @@ UIView category for managing UITextField/UITextView
      */
     var shouldResignOnTouchOutsideMode: IQEnableMode {
         get {
-
-            if let savedMode = objc_getAssociatedObject(self, &kIQShouldResignOnTouchOutsideMode) as? IQEnableMode {
-                return savedMode
-            } else {
-                return .default
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldResignOnTouchOutsideMode) as? IQEnableMode ?? .default
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldResignOnTouchOutsideMode, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldResignOnTouchOutsideMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

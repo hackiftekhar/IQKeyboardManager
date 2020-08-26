@@ -77,9 +77,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     Automatic add the IQToolbar functionality. Default is YES.
     */
     @objc public var enableAutoToolbar = true {
-
         didSet {
-
             privateIsEnableAutoToolbar() ? addToolbarIfRequired() : removeToolbarIfRequired()
 
             let enableToolbar = enableAutoToolbar ? "Yes" : "NO"
@@ -411,47 +409,9 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     }
 
     /**************************************************************************************/
-    // MARK: Private variables
-
-    /*******************************************/
-
-    /** To save UITextField/UITextView object voa textField/textView notifications. */
-    internal weak var    textFieldView: UIView?
-
-    /** To save rootViewController.view.frame.origin. */
-    internal var         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
-
-    /** To overcome with popGestureRecognizer issue Bug ID: #1361 */
-    internal weak var    rootViewControllerWhilePopGestureRecognizerActive: UIViewController?
-    internal var         topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
-
-    /** To save rootViewController */
-    internal weak var    rootViewController: UIViewController?
-
-    /*******************************************/
-
-    /** Variable to save lastScrollView that was scrolled. */
-    internal weak var    lastScrollView: UIScrollView?
-
-    /** LastScrollView's initial contentOffset. */
-    internal var         startingContentOffset = CGPoint.zero
-
-    /** LastScrollView's initial scrollIndicatorInsets. */
-    internal var         startingScrollIndicatorInsets = UIEdgeInsets()
-
-    /** LastScrollView's initial contentInsets. */
-    internal var         startingContentInsets = UIEdgeInsets()
-
-    /*******************************************/
-
-    /** used to adjust contentInset of UITextView. */
-    internal var         startingTextViewContentInsets = UIEdgeInsets()
-
-    /** used to adjust scrollIndicatorInsets of UITextView. */
-    internal var         startingTextViewScrollIndicatorInsets = UIEdgeInsets()
-
-    /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
-    internal var         isTextViewContentInsetChanged = false
+    internal struct WeakObjectContainer {
+        weak var object: AnyObject?
+    }
 
     /**************************************************************************************/
 

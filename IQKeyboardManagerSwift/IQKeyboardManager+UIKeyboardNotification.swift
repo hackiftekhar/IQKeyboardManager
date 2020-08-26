@@ -23,54 +23,56 @@
 
 import Foundation
 
-private var kIQKeyboardShowing              = "kIQKeyboardShowing"
-private var kIQKeyboardShowNotification     = "kIQKeyboardShowNotification"
-private var kIQKeyboardFrame                = "kIQKeyboardFrame"
-private var kIQAnimationDuration            = "kIQAnimationDuration"
-private var kIQAnimationCurve               = "kIQAnimationCurve"
-
 // MARK: UIKeyboard Notifications
 public extension IQKeyboardManager {
+
+    private struct AssociatedKeys {
+        static var keyboardShowing = "keyboardShowing"
+        static var keyboardShowNotification = "keyboardShowNotification"
+        static var keyboardFrame = "keyboardFrame"
+        static var animationDuration = "animationDuration"
+        static var animationCurve = "animationCurve"
+    }
 
     /**
      Boolean to know if keyboard is showing.
      */
     @objc private(set) var keyboardShowing: Bool {
         get {
-            return objc_getAssociatedObject(self, &kIQKeyboardShowing) as? Bool ?? false
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardShowing) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardShowing, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardShowing, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /** To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
     internal var keyboardShowNotification: Notification? {
         get {
-            return objc_getAssociatedObject(self, &kIQKeyboardShowNotification) as? Notification
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardShowNotification) as? Notification
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardShowNotification, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardShowNotification, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /** To save keyboard rame. */
     internal var keyboardFrame: CGRect {
         get {
-            return objc_getAssociatedObject(self, &kIQKeyboardFrame) as? CGRect ?? .zero
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardFrame) as? CGRect ?? .zero
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQKeyboardFrame, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardFrame, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /** To save keyboard animation duration. */
     internal var animationDuration: TimeInterval {
         get {
-            return objc_getAssociatedObject(self, &kIQAnimationDuration) as? TimeInterval ?? 0.25
+            return objc_getAssociatedObject(self, &AssociatedKeys.animationDuration) as? TimeInterval ?? 0.25
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQAnimationDuration, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.animationDuration, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -81,10 +83,10 @@ public extension IQKeyboardManager {
     /** To mimic the keyboard animation */
     internal var animationCurve: UIViewAnimationOptions {
         get {
-            return objc_getAssociatedObject(self, &kIQAnimationDuration) as? UIViewAnimationOptions ?? .curveEaseOut
+            return objc_getAssociatedObject(self, &AssociatedKeys.animationCurve) as? UIViewAnimationOptions ?? .curveEaseOut
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQAnimationDuration, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.animationCurve, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -100,36 +102,18 @@ public extension IQKeyboardManager {
 
         if let info = notification?.userInfo {
 
-            #if swift(>=4.2)
-            let curveUserInfoKey    = UIResponder.keyboardAnimationCurveUserInfoKey
-            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
-            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-            #else
-            let curveUserInfoKey    = UIKeyboardAnimationCurveUserInfoKey
-            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
-            let frameEndUserInfoKey = UIKeyboardFrameEndUserInfoKey
-            #endif
-
             //  Getting keyboard animation.
-            if let curve = info[curveUserInfoKey] as? UInt {
+            if let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt {
                 animationCurve = UIViewAnimationOptions(rawValue: curve).union(.beginFromCurrentState)
             } else {
                 animationCurve = UIViewAnimationOptions.curveEaseOut.union(.beginFromCurrentState)
             }
 
             //  Getting keyboard animation duration
-            if let duration = info[durationUserInfoKey] as? TimeInterval {
-
-                //Saving animation duration
-                if duration != 0.0 {
-                    animationDuration = duration
-                }
-            } else {
-                animationDuration = 0.25
-            }
+            animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
 
             //  Getting UIKeyboardSize.
-            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
+            if let kbFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect {
 
                 keyboardFrame = kbFrame
                 showLog("UIKeyboard Frame: \(keyboardFrame)")
@@ -216,15 +200,8 @@ public extension IQKeyboardManager {
         keyboardShowing = false
 
         if let info = notification?.userInfo {
-
-            #if swift(>=4.2)
-            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
-            #else
-            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
-            #endif
-
             //  Getting keyboard animation duration
-            if let duration =  info[durationUserInfoKey] as? TimeInterval {
+            if let duration =  info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval {
                 if duration != 0 {
                     //  Setitng keyboard animation duration
                     animationDuration = duration

@@ -365,20 +365,9 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     #if swift(>=4.2)
     @available(iOS 10.0, *)
-    @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    public typealias UITextFieldDidEndEditingReason = UITextField.DidEndEditingReason
+    #endif
 
-        var aDelegate: UITextFieldDelegate? = delegate
-
-        if aDelegate == nil {
-
-            if let modal = textFieldViewCachedInfo(textField) {
-                aDelegate = modal.textFieldDelegate
-            }
-        }
-
-        aDelegate?.textFieldDidEndEditing?(textField, reason: reason)
-    }
-    #else
     @available(iOS 10.0, *)
     @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
 
@@ -393,7 +382,6 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         aDelegate?.textFieldDidEndEditing?(textField, reason: reason)
     }
-    #endif
 
     @objc public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 

@@ -23,21 +23,30 @@
 
 import Foundation
 
-private var kMovedDistance              = "kMovedDistance"
-private var kMovedDistanceChanged       = "kMovedDistanceChanged"
-private var kHasPendingAdjustRequest    = "kHasPendingAdjustRequest"
-
 public extension IQKeyboardManager {
+
+    private struct AssociatedKeys {
+        static var movedDistance = "movedDistance"
+        static var movedDistanceChanged = "movedDistanceChanged"
+        static var lastScrollView = "lastScrollView"
+        static var startingContentOffset = "startingContentOffset"
+        static var startingScrollIndicatorInsets = "startingScrollIndicatorInsets"
+        static var startingContentInsets = "startingContentInsets"
+        static var startingTextViewContentInsets = "startingTextViewContentInsets"
+        static var startingTextViewScrollIndicatorInsets = "startingTextViewScrollIndicatorInsets"
+        static var isTextViewContentInsetChanged = "isTextViewContentInsetChanged"
+        static var hasPendingAdjustRequest = "hasPendingAdjustRequest"
+    }
 
     /**
      moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
      */
     @objc private(set) var movedDistance: CGFloat {
         get {
-            return objc_getAssociatedObject(self, &kMovedDistance) as? CGFloat ?? 0.0
+            return objc_getAssociatedObject(self, &AssociatedKeys.movedDistance) as? CGFloat ?? 0.0
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kMovedDistance, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.movedDistance, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             movedDistanceChanged?(movedDistance)
         }
     }
@@ -47,21 +56,91 @@ public extension IQKeyboardManager {
      */
     @objc var movedDistanceChanged: ((CGFloat) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &kMovedDistanceChanged) as? ((CGFloat) -> Void)
+            return objc_getAssociatedObject(self, &AssociatedKeys.movedDistanceChanged) as? ((CGFloat) -> Void)
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kMovedDistanceChanged, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.movedDistanceChanged, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             movedDistanceChanged?(movedDistance)
+        }
+    }
+
+    /** Variable to save lastScrollView that was scrolled. */
+    internal weak var lastScrollView: UIScrollView? {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedKeys.lastScrollView) as? WeakObjectContainer)?.object as? UIScrollView
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.lastScrollView, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** LastScrollView's initial contentOffset. */
+    internal var startingContentOffset: CGPoint {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.startingContentOffset) as? CGPoint ?? IQKeyboardManager.kIQCGPointInvalid
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.startingContentOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** LastScrollView's initial scrollIndicatorInsets. */
+    internal var startingScrollIndicatorInsets: UIEdgeInsets {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.startingScrollIndicatorInsets) as? UIEdgeInsets ?? .init()
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.startingScrollIndicatorInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** LastScrollView's initial contentInsets. */
+    internal var startingContentInsets: UIEdgeInsets {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.startingContentInsets) as? UIEdgeInsets ?? .init()
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.startingContentInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** used to adjust contentInset of UITextView. */
+    internal var startingTextViewContentInsets: UIEdgeInsets {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.startingTextViewContentInsets) as? UIEdgeInsets ?? .init()
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.startingTextViewContentInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** used to adjust scrollIndicatorInsets of UITextView. */
+    internal var startingTextViewScrollIndicatorInsets: UIEdgeInsets {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.startingTextViewScrollIndicatorInsets) as? UIEdgeInsets ?? .init()
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.startingTextViewScrollIndicatorInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /** used with textView to detect a textFieldView contentInset is changed or not. (Bug ID: #92)*/
+    internal var isTextViewContentInsetChanged: Bool {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.isTextViewContentInsetChanged) as? Bool ?? false
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.isTextViewContentInsetChanged, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /** To know if we have any pending request to adjust view position. */
     private var hasPendingAdjustRequest: Bool {
         get {
-            return objc_getAssociatedObject(self, &kHasPendingAdjustRequest) as? Bool ?? false
+            return objc_getAssociatedObject(self, &AssociatedKeys.hasPendingAdjustRequest) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kHasPendingAdjustRequest, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.hasPendingAdjustRequest, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
