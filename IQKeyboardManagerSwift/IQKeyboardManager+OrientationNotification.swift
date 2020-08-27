@@ -54,10 +54,8 @@ internal extension IQKeyboardManager {
         //If textViewContentInsetChanged is saved then restore it.
         if let textView = textFieldView as? UITextView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
-            if isTextViewContentInsetChanged == true {
-
+            if isTextViewContentInsetChanged {
                 self.isTextViewContentInsetChanged = false
-
                 if textView.contentInset != self.startingTextViewContentInsets {
                     UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
 

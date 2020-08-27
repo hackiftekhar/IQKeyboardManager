@@ -300,7 +300,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                 var prev = toolbar.previousBarButton
 
-                if prevConfig.barButtonSystemItem == nil && prev.isSystemItem == false {
+                if prevConfig.barButtonSystemItem == nil, !prev.isSystemItem {
                     prev.title = prevConfig.title
                     prev.accessibilityLabel = prevConfig.accessibilityLabel
                     prev.image = prevConfig.image
@@ -326,7 +326,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 items.append(prev)
             }
 
-            if previousBarButtonConfiguration != nil && nextBarButtonConfiguration != nil {
+            if previousBarButtonConfiguration != nil, nextBarButtonConfiguration != nil {
 
                 items.append(toolbar.fixedSpaceBarButton)
             }
@@ -335,7 +335,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                 var next = toolbar.nextBarButton
 
-                if nextConfig.barButtonSystemItem == nil && next.isSystemItem == false {
+                if nextConfig.barButtonSystemItem == nil, !next.isSystemItem {
                     next.title = nextConfig.title
                     next.accessibilityLabel = nextConfig.accessibilityLabel
                     next.image = nextConfig.image
@@ -383,7 +383,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                 var done = toolbar.doneBarButton
 
-                if rightConfig.barButtonSystemItem == nil && done.isSystemItem == false {
+                if rightConfig.barButtonSystemItem == nil, !done.isSystemItem {
                     done.title = rightConfig.title
                     done.accessibilityLabel = rightConfig.accessibilityLabel
                     done.image = rightConfig.image

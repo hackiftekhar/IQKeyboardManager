@@ -198,13 +198,13 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
             for barButtonItemView in sortedSubviews {
 
-                if isTitleBarButtonFound == true {
+                if isTitleBarButtonFound {
                     rightRect = barButtonItemView.frame
                     break
                 } else if barButtonItemView === customTitleView {
                     isTitleBarButtonFound = true
                     //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-                } else if barButtonItemView.isKind(of: UIControl.self) == true {
+                } else if barButtonItemView.isKind(of: UIControl.self) {
                     leftRect = barButtonItemView.frame
                 }
             }
@@ -218,13 +218,13 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
             var titleRect: CGRect
 
-            if sizeThatFits.width > 0 && sizeThatFits.height > 0 {
+            if sizeThatFits.width > 0, sizeThatFits.height > 0 {
                 let width = min(sizeThatFits.width, maxWidth)
                 let height = min(sizeThatFits.height, maxHeight)
 
                 var xPosition: CGFloat
 
-                if leftRect.isNull == false {
+                if !leftRect.isNull {
                     xPosition = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
                 } else {
                     xPosition = titleMargin
@@ -237,7 +237,7 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
                 var xPosition: CGFloat
 
-                if leftRect.isNull == false {
+                if !leftRect.isNull {
                     xPosition = titleMargin + leftRect.maxX
                 } else {
                     xPosition = titleMargin

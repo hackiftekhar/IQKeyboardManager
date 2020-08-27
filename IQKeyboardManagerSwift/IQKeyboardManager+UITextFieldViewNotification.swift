@@ -91,22 +91,18 @@ internal extension IQKeyboardManager {
         //  Getting object
         textFieldView = notification.object as? UIView
 
-        if overrideKeyboardAppearance == true {
-            if let textInput = textFieldView as? UITextInput {
-                if textInput.keyboardAppearance != keyboardAppearance {
-                    //Setting textField keyboard appearance and reloading inputViews.
-                    if let textFieldView = textFieldView as? UITextField {
-                        textFieldView.keyboardAppearance = keyboardAppearance
-                    } else if  let textFieldView = textFieldView as? UITextView {
-                        textFieldView.keyboardAppearance = keyboardAppearance
-                    }
-                    textFieldView?.reloadInputViews()
-                }
+        if overrideKeyboardAppearance, let textInput = textFieldView as? UITextInput, textInput.keyboardAppearance != keyboardAppearance {
+            //Setting textField keyboard appearance and reloading inputViews.
+            if let textFieldView = textFieldView as? UITextField {
+                textFieldView.keyboardAppearance = keyboardAppearance
+            } else if  let textFieldView = textFieldView as? UITextView {
+                textFieldView.keyboardAppearance = keyboardAppearance
             }
+            textFieldView?.reloadInputViews()
         }
 
         //If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        if privateIsEnableAutoToolbar() == true {
+        if privateIsEnableAutoToolbar() {
 
             //UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
             if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)),
@@ -136,7 +132,7 @@ internal extension IQKeyboardManager {
             restorePosition()
             topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         } else {
-            if topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {    //  (Bug ID: #5)
+            if topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {    //  (Bug ID: #5)
 
                 rootViewController = textFieldView?.parentContainerViewController()
 
@@ -157,7 +153,7 @@ internal extension IQKeyboardManager {
 
             //If textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
             //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-            if keyboardShowing == true,
+            if keyboardShowing,
                 let textFieldView = textFieldView,
                 textFieldView.isAlertViewTextField() == false {
 
@@ -183,7 +179,7 @@ internal extension IQKeyboardManager {
 
         if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
-            if isTextViewContentInsetChanged == true {
+            if isTextViewContentInsetChanged {
                 self.isTextViewContentInsetChanged = false
 
                 if textView.contentInset != self.startingTextViewContentInsets {

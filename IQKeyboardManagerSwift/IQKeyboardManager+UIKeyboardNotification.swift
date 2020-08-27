@@ -120,7 +120,7 @@ public extension IQKeyboardManager {
             }
         }
 
-        if privateIsEnabled() == false {
+        guard privateIsEnabled() else {
             restorePosition()
             topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
             return
@@ -130,7 +130,7 @@ public extension IQKeyboardManager {
         showLog("****** \(#function) started ******", indentation: 1)
 
         //  (Bug ID: #5)
-        if let textFieldView = textFieldView, topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == true {
+        if let textFieldView = textFieldView, topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
 
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
             rootViewController = textFieldView.parentContainerViewController()
@@ -154,7 +154,7 @@ public extension IQKeyboardManager {
 
             //If textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
 
-            if keyboardShowing == true,
+            if keyboardShowing,
                 let textFieldView = textFieldView,
                 textFieldView.isAlertViewTextField() == false {
 
@@ -170,19 +170,17 @@ public extension IQKeyboardManager {
     /*  UIKeyboardDidShowNotification. */
     @objc internal func keyboardDidShow(_ notification: Notification?) {
 
-        if privateIsEnabled() == false {
-            return
+        guard privateIsEnabled(),
+            let textFieldView = textFieldView,
+            let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
+            textFieldView.isAlertViewTextField() == false else {
+                return
         }
 
         let startTime = CACurrentMediaTime()
         showLog("****** \(#function) started ******", indentation: 1)
 
-        if let textFieldView = textFieldView,
-            let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
-            textFieldView.isAlertViewTextField() == false {
-
-            self.optimizedAdjustPosition()
-        }
+        self.optimizedAdjustPosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
@@ -200,17 +198,20 @@ public extension IQKeyboardManager {
         keyboardShowing = false
 
         if let info = notification?.userInfo {
-            //  Getting keyboard animation duration
-            if let duration =  info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval {
-                if duration != 0 {
-                    //  Setitng keyboard animation duration
-                    animationDuration = duration
-                }
+
+            //  Getting keyboard animation.
+            if let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt {
+                animationCurve = UIViewAnimationOptions(rawValue: curve).union(.beginFromCurrentState)
+            } else {
+                animationCurve = UIViewAnimationOptions.curveEaseOut.union(.beginFromCurrentState)
             }
+
+            //  Getting keyboard animation duration
+            animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
         }
 
         //If not enabled then do nothing.
-        if privateIsEnabled() == false {
+        guard privateIsEnabled() else {
             return
         }
 
@@ -232,7 +233,7 @@ public extension IQKeyboardManager {
                     lastScrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
                 }
 
-                if lastScrollView.shouldRestoreScrollViewContentOffset == true && lastScrollView.contentOffset.equalTo(self.startingContentOffset) == false {
+                if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(self.startingContentOffset) {
                     self.showLog("Restoring contentOffset to: \(self.startingContentOffset)")
 
                     var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)

@@ -78,13 +78,12 @@ internal extension UITableView {
         //Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
-
             if previousSection >= 0 {
                 previousRow = self.numberOfRows(inSection: previousSection) - 1
             }
         }
 
-        if previousRow >= 0 && previousSection >= 0 {
+        if previousRow >= 0, previousSection >= 0 {
             return IndexPath(row: previousRow, section: previousSection)
         } else {
             return nil
@@ -101,13 +100,12 @@ internal extension UICollectionView {
         //Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
-
             if previousSection >= 0 {
                 previousRow = self.numberOfItems(inSection: previousSection) - 1
             }
         }
 
-        if previousRow >= 0 && previousSection >= 0 {
+        if previousRow >= 0, previousSection >= 0 {
             return IndexPath(item: previousRow, section: previousSection)
         } else {
             return nil

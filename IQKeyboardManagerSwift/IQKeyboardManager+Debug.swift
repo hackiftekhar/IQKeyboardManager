@@ -83,6 +83,10 @@ public extension IQKeyboardManager {
 
     internal func showLog(_ logString: String, indentation: Int = 0) {
 
+        guard enableDebugging else {
+            return
+        }
+
         struct Static {
             static var indentation = 0
         }
@@ -91,15 +95,12 @@ public extension IQKeyboardManager {
             Static.indentation = max(0, Static.indentation + indentation)
         }
 
-        if enableDebugging {
-
-            var preLog = "IQKeyboardManager"
-
-            for _ in 0 ... Static.indentation {
-                preLog += "|\t"
-            }
-            print(preLog + logString)
+        var preLog = "IQKeyboardManager"
+        for _ in 0 ... Static.indentation {
+            preLog += "|\t"
         }
+
+        print(preLog + logString)
 
         if indentation > 0 {
             Static.indentation += indentation

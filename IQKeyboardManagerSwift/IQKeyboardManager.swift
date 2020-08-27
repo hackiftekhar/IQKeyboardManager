@@ -53,13 +53,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         didSet {
             //If not enable, enable it.
-            if enable == true && oldValue == false {
+            if enable, !oldValue {
                 //If keyboard is currently showing. Sending a fake notification for keyboardWillHide to retain view's original position.
                 if let notification = keyboardShowNotification {
                     keyboardWillShow(notification)
                 }
                 showLog("Enabled")
-            } else if enable == false && oldValue == true {   //If not disable, desable it.
+            } else if !enable, oldValue {   //If not disable, desable it.
                 keyboardWillHide(nil)
                 showLog("Disabled")
             }
@@ -202,133 +202,19 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     */
     @objc @discardableResult public func resignFirstResponder() -> Bool {
 
-        if let textFieldRetain = textFieldView {
+        guard let textFieldRetain = textFieldView else {
+            return false
+        }
 
-            //Resigning first responder
-            let isResignFirstResponder = textFieldRetain.resignFirstResponder()
-
+        //Resigning first responder
+        guard textFieldRetain.resignFirstResponder() else {
+            showLog("Refuses to resign first responder: \(textFieldRetain)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
-            if isResignFirstResponder == false {
-                //If it refuses to resign then becoming it first responder again for getting notifications callback.
-                textFieldRetain.becomeFirstResponder()
-
-                showLog("Refuses to resign first responder: \(textFieldRetain)")
-            }
-
-            return isResignFirstResponder
+            //If it refuses to resign then becoming it first responder again for getting notifications callback.
+            textFieldRetain.becomeFirstResponder()
+            return false
         }
-
-        return false
-    }
-
-    /**
-    Returns YES if can navigate to previous responder textField/textView, otherwise NO.
-    */
-    @objc public var canGoPrevious: Bool {
-        //Getting all responder view's.
-        if let textFields = responderViews() {
-            if let textFieldRetain = textFieldView {
-
-                //Getting index of current textField.
-                if let index = textFields.firstIndex(of: textFieldRetain) {
-
-                    //If it is not first textField. then it's previous object canBecomeFirstResponder.
-                    if index > 0 {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    /**
-    Returns YES if can navigate to next responder textField/textView, otherwise NO.
-    */
-    @objc public var canGoNext: Bool {
-        //Getting all responder view's.
-        if let textFields = responderViews() {
-            if let  textFieldRetain = textFieldView {
-                //Getting index of current textField.
-                if let index = textFields.firstIndex(of: textFieldRetain) {
-
-                    //If it is not first textField. then it's previous object canBecomeFirstResponder.
-                    if index < textFields.count-1 {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    /**
-    Navigate to previous responder textField/textView.
-    */
-    @objc @discardableResult public func goPrevious() -> Bool {
-
-        //Getting all responder view's.
-        if let  textFieldRetain = textFieldView {
-            if let textFields = responderViews() {
-                //Getting index of current textField.
-                if let index = textFields.firstIndex(of: textFieldRetain) {
-
-                    //If it is not first textField. then it's previous object becomeFirstResponder.
-                    if index > 0 {
-
-                        let nextTextField = textFields[index-1]
-
-                        let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-
-                        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
-                            //If next field refuses to become first responder then restoring old textField as first responder.
-                            textFieldRetain.becomeFirstResponder()
-
-                            showLog("Refuses to become first responder: \(nextTextField)")
-                        }
-
-                        return isAcceptAsFirstResponder
-                    }
-                }
-            }
-        }
-
-        return false
-    }
-
-    /**
-    Navigate to next responder textField/textView.
-    */
-    @objc @discardableResult public func goNext() -> Bool {
-
-        //Getting all responder view's.
-        if let  textFieldRetain = textFieldView {
-            if let textFields = responderViews() {
-                //Getting index of current textField.
-                if let index = textFields.firstIndex(of: textFieldRetain) {
-                    //If it is not last textField. then it's next object becomeFirstResponder.
-                    if index < textFields.count-1 {
-
-                        let nextTextField = textFields[index+1]
-
-                        let isAcceptAsFirstResponder = nextTextField.becomeFirstResponder()
-
-                        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-                        if isAcceptAsFirstResponder == false {
-                            //If next field refuses to become first responder then restoring old textField as first responder.
-                            textFieldRetain.becomeFirstResponder()
-
-                            showLog("Refuses to become first responder: \(nextTextField)")
-                        }
-
-                        return isAcceptAsFirstResponder
-                    }
-                }
-            }
-        }
-
-        return false
+        return true
     }
 
     // MARK: UISound handling
@@ -495,14 +381,13 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
     @objc public func reloadLayoutIfNeeded() {
 
-        if privateIsEnabled() == true {
-            if keyboardShowing == true,
-                topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false,
-                let textFieldView = textFieldView,
-                textFieldView.isAlertViewTextField() == false {
-                optimizedAdjustPosition()
-            }
+        guard privateIsEnabled(),
+            keyboardShowing,
+            topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false, let textFieldView = textFieldView,
+            textFieldView.isAlertViewTextField() == false else {
+                return
         }
+        optimizedAdjustPosition()
     }
 }
 
@@ -529,7 +414,7 @@ extension IQKeyboardManager: UIGestureRecognizerDelegate {
 
         for ignoreClass in touchResignedGestureIgnoreClasses {
 
-            if touch.view?.isKind(of: ignoreClass) == true {
+            if touch.view?.isKind(of: ignoreClass) ?? false {
                 return false
             }
         }

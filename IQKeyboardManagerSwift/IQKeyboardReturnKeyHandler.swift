@@ -312,7 +312,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldBeginEditing(_:))) {
-                    return unwrapDelegate.textFieldShouldBeginEditing?(textField) == true
+                    return unwrapDelegate.textFieldShouldBeginEditing?(textField) ?? false
                 }
             }
         }
@@ -326,7 +326,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:))) {
-                    return unwrapDelegate.textFieldShouldEndEditing?(textField) == true
+                    return unwrapDelegate.textFieldShouldEndEditing?(textField) ?? false
                 }
             }
         }
@@ -389,7 +389,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:replacementString:))) {
-                    return unwrapDelegate.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == true
+                    return unwrapDelegate.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) ?? false
                 }
             }
         }
@@ -402,7 +402,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldClear(_:))) {
-                    return unwrapDelegate.textFieldShouldClear?(textField) == true
+                    return unwrapDelegate.textFieldShouldClear?(textField) ?? false
                 }
             }
         }
@@ -418,12 +418,12 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldReturn(_:))) {
-                    shouldReturn = unwrapDelegate.textFieldShouldReturn?(textField) == true
+                    shouldReturn = unwrapDelegate.textFieldShouldReturn?(textField) ?? false
                 }
             }
         }
 
-        if shouldReturn == true {
+        if shouldReturn {
             goToNextResponderOrResign(textField)
             return true
         } else {
@@ -441,7 +441,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldBeginEditing(_:))) {
-                    return unwrapDelegate.textViewShouldBeginEditing?(textView) == true
+                    return unwrapDelegate.textViewShouldBeginEditing?(textView) ?? false
                 }
             }
         }
@@ -455,7 +455,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldEndEditing(_:))) {
-                    return unwrapDelegate.textViewShouldEndEditing?(textView) == true
+                    return unwrapDelegate.textViewShouldEndEditing?(textView) ?? false
                 }
             }
         }
@@ -500,12 +500,12 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textView(_:shouldChangeTextIn:replacementText:))) {
-                    shouldReturn = (unwrapDelegate.textView?(textView, shouldChangeTextIn: range, replacementText: text)) == true
+                    shouldReturn = (unwrapDelegate.textView?(textView, shouldChangeTextIn: range, replacementText: text)) ?? false
                 }
             }
         }
 
-        if shouldReturn == true && text == "\n" {
+        if shouldReturn, text == "\n" {
             shouldReturn = goToNextResponderOrResign(textView)
         }
 
@@ -547,7 +547,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange, interaction: interaction) == true
+                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? false
                 }
             }
         }
@@ -562,7 +562,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange, UITextItemInteraction) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) == true
+                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? false
                 }
             }
         }
@@ -577,7 +577,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange) == true
+                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: URL, in: characterRange) ?? false
                 }
             }
         }
@@ -592,7 +592,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
             if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange) == true
+                    return unwrapDelegate.textView?(aTextView, shouldInteractWith: textAttachment, in: characterRange) ?? false
                 }
             }
         }

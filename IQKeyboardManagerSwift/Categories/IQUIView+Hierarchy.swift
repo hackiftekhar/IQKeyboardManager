@@ -163,8 +163,8 @@ UIView hierarchy category.
                     //  If it's not UITableViewWrapperView class, this is internal class which is actually manage in UITableview. The speciality of this class is that it's superview is UITableView.
                     //  If it's not UITableViewCellScrollView class, this is internal class which is actually manage in UITableviewCell. The speciality of this class is that it's superview is UITableViewCell.
                     //If it's not _UIQueuingScrollView class, actually we validate for _ prefix which usually used by Apple internal classes
-                    if unwrappedSuperView.superview?.isKind(of: UITableView.self) == false &&
-                        unwrappedSuperView.superview?.isKind(of: UITableViewCell.self) == false &&
+                    if unwrappedSuperView.superview?.isKind(of: UITableView.self) == false,
+                        unwrappedSuperView.superview?.isKind(of: UITableViewCell.self) == false,
                         classNameString.hasPrefix("_") == false {
                         return superView
                     }
@@ -191,10 +191,8 @@ UIView hierarchy category.
 
         //	Getting all siblings
         if let siblings = superview?.subviews {
-
             for textField in siblings {
-
-                if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField.IQcanBecomeFirstResponder() == true {
+                if (textField == self || textField.ignoreSwitchingByNextPrevious == false), textField.IQcanBecomeFirstResponder() {
                     tempTextFields.append(textField)
                 }
             }
@@ -213,12 +211,12 @@ UIView hierarchy category.
 
         for textField in subviews {
 
-            if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField.IQcanBecomeFirstResponder() == true {
+            if (textField == self || textField.ignoreSwitchingByNextPrevious == false), textField.IQcanBecomeFirstResponder() {
                 textfields.append(textField)
             }
             //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
             //Uncommented else (Bug ID: #625)
-            else if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
+            else if textField.subviews.count != 0, isUserInteractionEnabled, !isHidden, alpha != 0.0 {
                 for deepView in textField.deepResponderViews() {
                     textfields.append(deepView)
                 }
@@ -252,8 +250,8 @@ UIView hierarchy category.
             }
         }
 
-        if IQcanBecomeFirstResponder == true {
-            IQcanBecomeFirstResponder = isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 && isAlertViewTextField() == false && textFieldSearchBar() == nil
+        if IQcanBecomeFirstResponder {
+            IQcanBecomeFirstResponder = isUserInteractionEnabled && !isHidden && alpha != 0.0 && !isAlertViewTextField() && textFieldSearchBar() == nil
         }
 
         return IQcanBecomeFirstResponder
@@ -291,7 +289,7 @@ UIView hierarchy category.
 
         var isAlertViewTextField = false
 
-        while let controller = alertViewController, isAlertViewTextField == false {
+        while let controller = alertViewController, !isAlertViewTextField {
 
             if controller.isKind(of: UIAlertController.self) {
                 isAlertViewTextField = true
