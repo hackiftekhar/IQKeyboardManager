@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import CoreGraphics
+// import Foundation - UIKit contains Foundation
 import UIKit
+import CoreGraphics
 import QuartzCore
 
 // MARK: IQToolbar tags
