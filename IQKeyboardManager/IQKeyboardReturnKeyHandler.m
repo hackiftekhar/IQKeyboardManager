@@ -141,21 +141,27 @@
     }
 }
 
+// I want to use this function，avoid crash
 -(void)addTextFieldView:(UIView*)view
 {
     IQTextFieldViewInfoModal *modal = [[IQTextFieldViewInfoModal alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
-    
-    UITextField *textField = (UITextField*)view;
-
-    if ([view respondsToSelector:@selector(setReturnKeyType:)])
-    {
-        modal.originalReturnKeyType = textField.returnKeyType;
+    if ([textFieldInfoCache containsObject:modal]) {
+        return;
     }
-
-    if ([view respondsToSelector:@selector(setDelegate:)])
+    
+    if ([view isKindOfClass:[UITextField class]])
     {
+        UITextField *textField = (UITextField*)view;
+        modal.originalReturnKeyType = textField.returnKeyType;
         modal.textFieldDelegate = textField.delegate;
         [textField setDelegate:self];
+    }
+    else if ([view isKindOfClass:[UITextView class]])
+    {
+        UITextView *textView = (UITextView*)view;
+        modal.originalReturnKeyType = textView.returnKeyType;
+        modal.textViewDelegate = textView.delegate;
+        [textView setDelegate:self];
     }
 
     [textFieldInfoCache addObject:modal];
