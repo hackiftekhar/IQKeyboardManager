@@ -23,6 +23,7 @@
 
 #import "IQUIView+Hierarchy.h"
 #import "IQUITextFieldView+Additions.h"
+#import "IQUIViewController+Additions.h"
 
 #import <UIKit/UICollectionView.h>
 #import <UIKit/UIAlertController.h>
@@ -424,15 +425,6 @@
     }
     
     return isAlertViewTextField;
-}
-
-@end
-
-@implementation UIViewController (IQ_UIView_Hierarchy)
-
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
 }
 
 @end

@@ -1,7 +1,7 @@
 //
 //  IQUIScrollView+Additions.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,65 +21,69 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+// import Foundation - UIKit contains Foundation
 import UIKit
 
-private var kIQShouldIgnoreScrollingAdjustment      = "kIQShouldIgnoreScrollingAdjustment"
-private var kIQShouldRestoreScrollViewContentOffset = "kIQShouldRestoreScrollViewContentOffset"
-
 @objc public extension UIScrollView {
-    
+
+    private struct AssociatedKeys {
+        static var shouldIgnoreScrollingAdjustment = "shouldIgnoreScrollingAdjustment"
+        static var shouldIgnoreContentInsetAdjustment = "shouldIgnoreContentInsetAdjustment"
+        static var shouldRestoreScrollViewContentOffset = "shouldRestoreScrollViewContentOffset"
+    }
+
     /**
      If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
      */
-    @objc var shouldIgnoreScrollingAdjustment: Bool {
+    var shouldIgnoreScrollingAdjustment: Bool {
         get {
-            
-            if let aValue = objc_getAssociatedObject(self, &kIQShouldIgnoreScrollingAdjustment) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldIgnoreScrollingAdjustment) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldIgnoreScrollingAdjustment, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldIgnoreScrollingAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    /**
+     If YES, then scrollview will ignore content inset adjustment (simply not updating it) when keyboard is shown. Default is NO.
+     */
+    var shouldIgnoreContentInsetAdjustment: Bool {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldIgnoreContentInsetAdjustment) as? Bool ?? false
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldIgnoreContentInsetAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /**
      To set customized distance from keyboard for textField/textView. Can't be less than zero
      */
-    @objc var shouldRestoreScrollViewContentOffset: Bool {
+    var shouldRestoreScrollViewContentOffset: Bool {
         get {
-            
-            if let aValue = objc_getAssociatedObject(self, &kIQShouldRestoreScrollViewContentOffset) as? Bool {
-                return aValue
-            } else {
-                return false
-            }
+            return objc_getAssociatedObject(self, &AssociatedKeys.shouldRestoreScrollViewContentOffset) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &kIQShouldRestoreScrollViewContentOffset, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.shouldRestoreScrollViewContentOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
 
 internal extension UITableView {
-    
+
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
-        
+
         //Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
-            
             if previousSection >= 0 {
                 previousRow = self.numberOfRows(inSection: previousSection) - 1
             }
         }
-        
-        if previousRow >= 0 && previousSection >= 0 {
+
+        if previousRow >= 0, previousSection >= 0 {
             return IndexPath(row: previousRow, section: previousSection)
         } else {
             return nil
@@ -88,21 +92,20 @@ internal extension UITableView {
 }
 
 internal extension UICollectionView {
-    
+
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
-        
+
         //Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
-            
             if previousSection >= 0 {
                 previousRow = self.numberOfItems(inSection: previousSection) - 1
             }
         }
-        
-        if previousRow >= 0 && previousSection >= 0 {
+
+        if previousRow >= 0, previousSection >= 0 {
             return IndexPath(item: previousRow, section: previousSection)
         } else {
             return nil

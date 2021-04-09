@@ -1,0 +1,22 @@
+disabled_rules:
+    - identifier_name
+    - function_parameter_count
+    - cyclomatic_complexity
+
+excluded:
+  - Pods
+
+force_cast: warning
+
+type_name:
+    validates_start_with_lowercase: false
+
+function_body_length:
+    warning: 100
+    error: 400
+
+file_length:
+    warning: 800
+    error: 1200
+
+line_length: 400
