@@ -6,15 +6,14 @@ use_frameworks!
 target 'DemoObjC' do
 
     pod "IQDropDownTextField"
-    pod "YYText"
     pod "IQKeyboardManager", :path => "."
 
 end
 
 target 'DemoSwift' do
 
+    pod 'SwiftLint'
     pod "IQDropDownTextField"
-    pod "YYText"
     pod "IQKeyboardManagerSwift", :path => "."
 
 end

@@ -120,12 +120,6 @@
 @end
 
 
-@interface UIViewController (IQ_UIView_Hierarchy)
-
--(nullable UIViewController*)parentIQContainerViewController;
-
-@end
-
 /**
  NSObject category to used for logging purposes
  */

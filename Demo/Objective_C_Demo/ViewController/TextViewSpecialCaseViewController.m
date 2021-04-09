@@ -41,8 +41,8 @@
     @try {
         if (self.navigationController)
         {
-            TextViewSpecialCaseViewController *controller = [[TextViewSpecialCaseViewController alloc] init];
-            
+            UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TextViewSpecialCaseViewController"];
+
             [controller setModalTransitionStyle:arc4random()%4];
             
             // TransitionStylePartialCurl can only be presented by FullScreen style.

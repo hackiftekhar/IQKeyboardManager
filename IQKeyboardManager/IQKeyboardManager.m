@@ -49,6 +49,7 @@
 #import <UIKit/UINavigationController.h>
 #import <UIKit/UITouch.h>
 #import <UIKit/UIWindow.h>
+#import <UIKit/UIStackView.h>
 #import <UIKit/NSLayoutConstraint.h>
 #import <UIKit/UIStackView.h>
 #import <UIKit/UIAccessibility.h>
@@ -603,20 +604,40 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
     else
     {
-        static __weak UIWindow *_keyWindow = nil;
+        static __weak UIWindow *cachedKeyWindow = nil;
         
         /*  (Bug ID: #23, #25, #73)   */
-        UIWindow *originalKeyWindow = [[UIApplication sharedApplication] keyWindow];
-        
-        UIWindow *strongKeyWindow = _keyWindow;
-        
-        //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-        if (originalKeyWindow && strongKeyWindow != originalKeyWindow)
+        UIWindow *originalKeyWindow = nil;
+
+        #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        if (@available(iOS 13.0, *)) {
+            NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
+            for (UIScene *scene in connectedScenes) {
+                if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
+                    UIWindowScene *windowScene = (UIWindowScene *)scene;
+                    for (UIWindow *window in windowScene.windows) {
+                        if (window.isKeyWindow) {
+                            originalKeyWindow = window;
+                            break;
+                        }
+                    }
+                }
+            }
+        } else
+        #endif
         {
-            strongKeyWindow = _keyWindow = originalKeyWindow;
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+            originalKeyWindow = [UIApplication sharedApplication].keyWindow;
+        #endif
+        }
+
+        //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
+        if (originalKeyWindow)
+        {
+            cachedKeyWindow = originalKeyWindow;
         }
         
-        return strongKeyWindow;
+        return cachedKeyWindow;
     }
 }
 
@@ -1049,16 +1070,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             }
             
             //Updating contentInset
+            if (strongLastScrollView.shouldIgnoreContentInsetAdjustment == false)
             {
                 CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
-                CGFloat bottom = (kbSize.height-keyboardDistanceFromTextField)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottomInset = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
+                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField;
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
-                CGFloat bottomInset = MAX(_startingContentInsets.bottom, bottom);
+                bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
+                bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
                 if (@available(iOS 11, *)) {
                     bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                    bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
                 }
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
@@ -1071,20 +1096,20 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
                         
                         strongLastScrollView.contentInset = movedInsets;
-                        UIEdgeInsets newInset;
+                        UIEdgeInsets newScrollIndicatorInset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
                         if (@available(iOS 11.1, *)) {
-                            newInset = strongLastScrollView.verticalScrollIndicatorInsets;
+                            newScrollIndicatorInset = strongLastScrollView.verticalScrollIndicatorInsets;
                         } else
 #endif
                         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
-                            newInset = strongLastScrollView.scrollIndicatorInsets;
+                            newScrollIndicatorInset = strongLastScrollView.scrollIndicatorInsets;
 #endif
                         }
 
-                        newInset.bottom = movedInsets.bottom;
-                        strongLastScrollView.scrollIndicatorInsets = newInset;
+                        newScrollIndicatorInset.bottom = bottomScrollIndicatorInset;
+                        strongLastScrollView.scrollIndicatorInsets = newScrollIndicatorInset;
                         
                     } completion:NULL];
                 }
@@ -1097,7 +1122,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
         //_lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
         //[textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-        if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]])
+        if ([textFieldView isKindOfClass:[UIScrollView class]] && [(UIScrollView*)textFieldView isScrollEnabled] && [textFieldView respondsToSelector:@selector(isEditable)])
         {
             UIScrollView *textView = (UIScrollView*)textFieldView;
 

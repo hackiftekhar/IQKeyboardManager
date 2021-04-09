@@ -8,8 +8,8 @@
 
 class NavigationTableViewCell: UITableViewCell {
 
-    @IBOutlet var labelTitle : UILabel!
-    @IBOutlet var labelSubtitle : UILabel!
+    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var labelSubtitle: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

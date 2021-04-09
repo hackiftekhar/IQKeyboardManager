@@ -27,6 +27,11 @@
 
 @implementation UIViewController (Additions)
 
+-(nullable UIViewController*)parentIQContainerViewController
+{
+    return self;
+}
+
 -(void)setIQLayoutGuideConstraint:(NSLayoutConstraint *)IQLayoutGuideConstraint
 {
     objc_setAssociatedObject(self, @selector(IQLayoutGuideConstraint), IQLayoutGuideConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
