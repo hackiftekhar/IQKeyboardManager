@@ -23,7 +23,7 @@
 
 // import Foundation - UIKit contains Foundation
 import UIKit
-
+@available(iOSApplicationExtension, unavailable)
 private class IQTextFieldViewInfoModal: NSObject {
 
     fileprivate weak var textFieldDelegate: UITextFieldDelegate?
@@ -42,6 +42,7 @@ private class IQTextFieldViewInfoModal: NSObject {
 /**
 Manages the return key to work like next/done in a view hierarchy.
 */
+@available(iOSApplicationExtension, unavailable)
 public class IQKeyboardReturnKeyHandler: NSObject {
 
     // MARK: Settings
@@ -304,6 +305,7 @@ public class IQKeyboardReturnKeyHandler: NSObject {
 }
 
 // MARK: UITextFieldDelegate
+@available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     @objc public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -433,6 +435,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 }
 
 // MARK: UITextViewDelegate
+@available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {

@@ -23,7 +23,7 @@
 
 // import Foundation - UIKit contains Foundation
 import UIKit
-
+@available(iOSApplicationExtension, unavailable)
 open class IQBarButtonItem: UIBarButtonItem {
 
     private static var _classInitialize: Void = classInitialize()

@@ -186,6 +186,7 @@ import UIKit
 /**
 UIView category methods to add IQToolbar on UIKeyboard.
 */
+@available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
 
     private struct AssociatedKeys {

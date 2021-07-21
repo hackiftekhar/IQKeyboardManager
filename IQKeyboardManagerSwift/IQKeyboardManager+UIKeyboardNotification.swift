@@ -25,6 +25,7 @@
 import UIKit
 
 // MARK: UIKeyboard Notifications
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {

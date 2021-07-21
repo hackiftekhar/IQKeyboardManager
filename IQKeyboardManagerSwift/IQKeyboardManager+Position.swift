@@ -23,7 +23,7 @@
 
 // import Foundation - UIKit contains Foundation
 import UIKit
-
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {
@@ -314,7 +314,7 @@ public extension IQKeyboardManager {
                         startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
                     }
                     #else
-                    _startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
+//                    _startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
                     #endif
                 }
 
@@ -333,7 +333,7 @@ public extension IQKeyboardManager {
                 startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
             }
             #else
-            _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
+//            _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
             #endif
 
             showLog("Saving ScrollView contentInset: \(startingContentInsets) and contentOffset: \(startingContentOffset)")
