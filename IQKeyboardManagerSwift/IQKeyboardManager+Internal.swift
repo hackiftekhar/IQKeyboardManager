@@ -23,6 +23,7 @@
 
 // import Foundation - UIKit contains Foundation
 import UIKit
+
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 

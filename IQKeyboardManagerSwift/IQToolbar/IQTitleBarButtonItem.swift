@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
+
 @available(iOSApplicationExtension, unavailable)
 open class IQTitleBarButtonItem: IQBarButtonItem {
 
