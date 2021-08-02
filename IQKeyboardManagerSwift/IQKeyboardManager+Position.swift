@@ -313,7 +313,7 @@ public extension IQKeyboardManager {
                     } else {
                         startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
                     }
-                    #else
+                    #elseif swift(>=4.2)
                     _startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
                     #endif
                 }
@@ -332,7 +332,7 @@ public extension IQKeyboardManager {
             } else {
                 startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
             }
-            #else
+            #elseif swift(>=4.2)
             _startingScrollIndicatorInsets = unwrappedSuperScrollView.scrollIndicatorInsets
             #endif
 
