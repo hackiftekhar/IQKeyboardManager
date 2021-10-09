@@ -166,7 +166,7 @@ public extension IQKeyboardManager {
         showLog("****** \(#function) started ******", indentation: 1)
 
         showLog("Found \(siblings.count) responder sibling(s)")
-        
+
         for view in siblings {
             if let toolbar = view.inputAccessoryView as? IQToolbar {
 

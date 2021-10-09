@@ -112,11 +112,11 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
         }
 
         if searchController.isActive == false {
-            cell?.textLabel?.text         = dataList[(indexPath as NSIndexPath).row]["name"]
-            cell?.detailTextLabel?.text   = dataList[(indexPath as NSIndexPath).row]["email"]
+            cell?.textLabel?.text         = dataList[indexPath.row]["name"]
+            cell?.detailTextLabel?.text   = dataList[indexPath.row]["email"]
         } else {
-            cell?.textLabel?.text         = filteredList[(indexPath as NSIndexPath).row]["name"]
-            cell?.detailTextLabel?.text   = filteredList[(indexPath as NSIndexPath).row]["email"]
+            cell?.textLabel?.text         = filteredList[indexPath.row]["name"]
+            cell?.detailTextLabel?.text   = filteredList[indexPath.row]["email"]
         }
 
         return cell!

@@ -461,13 +461,13 @@ public extension IQKeyboardManager {
                                 } else {
                                     scrollView.contentOffset = newContentOffset
                                 }
-                            }) { _ in
+                            }, completion: { _ in
 
                                 if scrollView is UITableView || scrollView is UICollectionView {
                                     //This will update the next/previous states
                                     self.addToolbarIfRequired()
                                 }
-                            }
+                            })
                         }
                     }
 

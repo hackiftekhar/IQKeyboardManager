@@ -15,7 +15,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ((indexPath as NSIndexPath).row % 2) == 0 {
+        if (indexPath.row % 2) == 0 {
             return 40
         } else {
             return 160
@@ -24,7 +24,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
+        let identifier = "\(indexPath.section) \(indexPath.row)"
 
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
 
@@ -36,7 +36,7 @@ class ExampleTableViewController: UIViewController, UITableViewDataSource, UITab
 
             let contentView: UIView! = cell?.contentView
 
-            if ((indexPath as NSIndexPath).row % 2) == 0 {
+            if (indexPath.row % 2) == 0 {
 
                 let textField = UITextField(frame: CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: 30))
                 textField.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]

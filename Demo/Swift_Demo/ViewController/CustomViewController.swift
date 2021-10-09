@@ -94,7 +94,7 @@ class CustomViewController: UIViewController, UIPopoverPresentationControllerDel
 
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
-            }) { (_: Bool) -> Void in}
+            }, completion: nil)
         }
     }
 

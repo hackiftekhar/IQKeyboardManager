@@ -82,14 +82,14 @@ public extension IQKeyboardManager {
         NotificationCenter.default.removeObserver(self, name: UIApplicationWillChangeStatusBarOrientationNotification, object: UIApplication.shared)
     }
 
+    struct Static {
+        static var indentation = 0
+    }
+
     internal func showLog(_ logString: String, indentation: Int = 0) {
 
         guard enableDebugging else {
             return
-        }
-
-        struct Static {
-            static var indentation = 0
         }
 
         if indentation < 0 {

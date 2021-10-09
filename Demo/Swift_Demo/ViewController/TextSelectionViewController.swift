@@ -26,7 +26,7 @@ class TextSelectionViewController: UIViewController, UITableViewDelegate, UITabl
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
+        let identifier = "\(indexPath.section) \(indexPath.row)"
 
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
 
@@ -39,7 +39,7 @@ class TextSelectionViewController: UIViewController, UITableViewDelegate, UITabl
             let textView = UITextView(frame: CGRect(x: 5, y: 7, width: 135, height: 30))
             textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             textView.backgroundColor = UIColor.clear
-            textView.text = data[(indexPath as NSIndexPath).row]
+            textView.text = data[indexPath.row]
             textView.dataDetectorTypes = UIDataDetectorTypes.all
             textView.isScrollEnabled = false
             textView.isEditable = false
