@@ -117,6 +117,10 @@ internal extension IQKeyboardManager {
 
                     //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
                     textView.reloadInputViews()
+                    //-------NOTE:-added to remove the bug where first time textview is hidden by keyboard--------
+                    textView.resignFirstResponder()
+                    textView.becomeFirstResponder()
+                    //-----------------------------------//
                 })
             } else {
                 //Adding toolbar
