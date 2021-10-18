@@ -26,6 +26,10 @@ import UIKit
 
 open class IQBarButtonItem: UIBarButtonItem {
 
+    #if swift(>=4.2)
+    typealias UIControlState = UIControl.State
+    #endif
+
     private static var _classInitialize: Void = classInitialize()
 
     @objc public override init() {
@@ -41,10 +45,6 @@ open class IQBarButtonItem: UIBarButtonItem {
     private class func classInitialize() {
 
         let  appearanceProxy = self.appearance()
-
-        #if swift(>=4.2)
-        typealias UIControlState = UIControl.State
-        #endif
 
         let states: [UIControlState]
 

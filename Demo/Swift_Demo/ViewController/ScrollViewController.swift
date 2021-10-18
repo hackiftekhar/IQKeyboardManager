@@ -39,7 +39,7 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let identifier = "\((indexPath as NSIndexPath).section) \((indexPath as NSIndexPath).row)"
+        let identifier = "\(indexPath.section) \(indexPath.row)"
 
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
 

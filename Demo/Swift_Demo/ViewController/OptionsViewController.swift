@@ -26,9 +26,9 @@ class OptionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell", for: indexPath) as? OptionTableViewCell {
-            cell.labelOption.text = options[(indexPath as NSIndexPath).row]
+            cell.labelOption.text = options[indexPath.row]
 
-            if (indexPath as NSIndexPath).row == self.selectedIndex {
+            if indexPath.row == self.selectedIndex {
 
                 cell.accessoryType = .checkmark
             } else {
@@ -44,9 +44,9 @@ class OptionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        selectedIndex = (indexPath as NSIndexPath).row
+        selectedIndex = indexPath.row
 
-        delegate?.optionsViewController(self, index: (indexPath as NSIndexPath).row)
+        delegate?.optionsViewController(self, index: indexPath.row)
 
         tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
     }

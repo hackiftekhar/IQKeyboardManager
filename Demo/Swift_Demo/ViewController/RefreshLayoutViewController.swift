@@ -29,7 +29,7 @@ class RefreshLayoutViewController: UIViewController {
 
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
-        }) { (_: Bool) -> Void in}
+        }, completion: nil)
     }
 
     @IBAction func reloadLayoutAction (_ sender: UIButton) {

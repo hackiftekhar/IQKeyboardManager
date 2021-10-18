@@ -37,7 +37,7 @@ class TableViewInContainerViewController: UIViewController, UITableViewDataSourc
         }
 
         let textField = cell?.viewWithTag(123) as? UITextField
-        textField?.placeholder = "Cell \((indexPath as NSIndexPath).row)"
+        textField?.placeholder = "Cell \(indexPath.row)"
 
         return cell!
     }
