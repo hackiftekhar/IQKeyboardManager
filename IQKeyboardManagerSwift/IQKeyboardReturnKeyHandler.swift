@@ -24,6 +24,7 @@
 // import Foundation - UIKit contains Foundation
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 private final class IQTextFieldViewInfoModal: NSObject {
 
     fileprivate weak var textFieldDelegate: UITextFieldDelegate?
@@ -42,6 +43,7 @@ private final class IQTextFieldViewInfoModal: NSObject {
 /**
 Manages the return key to work like next/done in a view hierarchy.
 */
+@available(iOSApplicationExtension, unavailable)
 public final class IQKeyboardReturnKeyHandler: NSObject {
 
     // MARK: Settings

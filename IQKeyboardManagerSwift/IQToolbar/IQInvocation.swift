@@ -23,6 +23,7 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 @objc public final class IQInvocation: NSObject {
     @objc public weak var target: AnyObject?
     @objc public var action: Selector

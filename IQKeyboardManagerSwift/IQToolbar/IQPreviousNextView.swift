@@ -23,6 +23,7 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 @objc public class IQPreviousNextView: UIView {
 
 }
