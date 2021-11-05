@@ -258,11 +258,7 @@ public extension IQKeyboardManager {
                 if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(startingContentOffset) {
                     showLog("Restoring contentOffset to: \(startingContentOffset)")
 
-                    var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
-
-                    if #available(iOS 9, *) {
-                        animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
-                    }
+                    let animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                     if animatedContentOffset {
                         lastScrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)
@@ -289,11 +285,7 @@ public extension IQKeyboardManager {
                 if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(startingContentOffset) {
                     showLog("Restoring contentOffset to: \(startingContentOffset)")
 
-                    var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
-
-                    if #available(iOS 9, *) {
-                        animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
-                    }
+                    let animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                     if animatedContentOffset {
                         lastScrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)
@@ -450,11 +442,7 @@ public extension IQKeyboardManager {
                             //Getting problem while using `setContentOffset:animated:`, So I used animation API.
                             UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
 
-                                var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
-
-                                if #available(iOS 9, *) {
-                                    animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
-                                }
+                                let animatedContentOffset = textFieldView.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -491,12 +479,10 @@ public extension IQKeyboardManager {
                 bottomInset = max(startingContentInsets.bottom, bottomInset)
                 bottomScrollIndicatorInset = max(startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset)
 
-                #if swift(>=4.0)
                 if #available(iOS 11, *) {
                     bottomInset -= lastScrollView.safeAreaInsets.bottom
                     bottomScrollIndicatorInset -= lastScrollView.safeAreaInsets.bottom
                 }
-                #endif
 
                 var movedInsets = lastScrollView.contentInset
                 movedInsets.bottom = bottomInset
@@ -569,11 +555,9 @@ public extension IQKeyboardManager {
                 var newContentInset = textView.contentInset
                 newContentInset.bottom = textView.frame.size.height-textViewHeight
 
-                #if swift(>=4.0)
                 if #available(iOS 11, *) {
                     newContentInset.bottom -= textView.safeAreaInsets.bottom
                 }
-                #endif
 
                 if textView.contentInset != newContentInset {
                     self.showLog("\(textFieldView) Old UITextView.contentInset: \(textView.contentInset) New UITextView.contentInset: \(newContentInset)")

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
-protocol OptionsViewControllerDelegate: class {
+protocol OptionsViewControllerDelegate: AnyObject {
 
     func optionsViewController(_ controller: OptionsViewController, index: NSInteger)
 }

@@ -30,7 +30,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
 
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
-        self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.scopeButtonTitles = ["All", "Name", "Email"]
         self.searchController.searchBar.delegate = self
         self.searchController.searchBar.sizeToFit()

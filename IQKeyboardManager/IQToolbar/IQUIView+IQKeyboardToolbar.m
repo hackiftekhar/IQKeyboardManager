@@ -83,12 +83,7 @@
         keyboardLeftImage = [UIImage imageWithData:data scale:3];
 
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-        if (@available(iOS 9.0, *)) {
-            if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-            {
-                keyboardLeftImage = [keyboardLeftImage imageFlippedForRightToLeftLayoutDirection];
-            }
-        }
+        keyboardLeftImage = [keyboardLeftImage imageFlippedForRightToLeftLayoutDirection];
     }
     
     return keyboardLeftImage;
@@ -106,12 +101,7 @@
         keyboardRightImage = [UIImage imageWithData:data scale:3];
 
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-        if (@available(iOS 9.0, *)) {
-            if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-            {
-                keyboardRightImage = [keyboardRightImage imageFlippedForRightToLeftLayoutDirection];
-            }
-        }
+        keyboardRightImage = [keyboardRightImage imageFlippedForRightToLeftLayoutDirection];
     }
     
     return keyboardRightImage;
@@ -129,12 +119,7 @@
         keyboardUpImage = [UIImage imageWithData:data scale:3];
 
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-        if (@available(iOS 9.0, *)) {
-            if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-            {
-                keyboardUpImage = [keyboardUpImage imageFlippedForRightToLeftLayoutDirection];
-            }
-        }
+        keyboardUpImage = [keyboardUpImage imageFlippedForRightToLeftLayoutDirection];
     }
     
     return keyboardUpImage;
@@ -152,12 +137,7 @@
         keyboardDownImage = [UIImage imageWithData:data scale:3];
         
         //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-        if (@available(iOS 9.0, *)) {
-            if ([UIImage instancesRespondToSelector:@selector(imageFlippedForRightToLeftLayoutDirection)])
-            {
-                keyboardDownImage = [keyboardDownImage imageFlippedForRightToLeftLayoutDirection];
-            }
-        }
+        keyboardDownImage = [keyboardDownImage imageFlippedForRightToLeftLayoutDirection];
     }
     
     return keyboardDownImage;

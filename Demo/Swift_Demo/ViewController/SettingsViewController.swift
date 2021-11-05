@@ -115,12 +115,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        #if swift(>=4.2)
         return UITableView.automaticDimension
-        #else
-        return UITableViewAutomaticDimension
-        #endif
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -176,7 +171,8 @@ class SettingsViewController: UITableViewController {
         return sectionTitles[section]
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         switch indexPath.section {
         case 0:

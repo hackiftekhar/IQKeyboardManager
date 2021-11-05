@@ -363,13 +363,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
         aDelegate?.textFieldDidEndEditing?(textField)
     }
 
-    #if swift(>=4.2)
     @available(iOS 10.0, *)
-    public typealias UITextFieldDidEndEditingReason = UITextField.DidEndEditingReason
-    #endif
-
-    @available(iOS 10.0, *)
-    @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
 
         var aDelegate: UITextFieldDelegate? = delegate
 

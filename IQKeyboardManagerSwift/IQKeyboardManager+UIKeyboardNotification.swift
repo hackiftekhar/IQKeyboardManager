@@ -77,14 +77,10 @@ public extension IQKeyboardManager {
         }
     }
 
-    #if swift(>=4.2)
-    typealias  UIViewAnimationOptions = UIView.AnimationOptions
-    #endif
-
     /** To mimic the keyboard animation */
-    internal var animationCurve: UIViewAnimationOptions {
+    internal var animationCurve: UIView.AnimationOptions {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.animationCurve) as? UIViewAnimationOptions ?? .curveEaseOut
+            return objc_getAssociatedObject(self, &AssociatedKeys.animationCurve) as? UIView.AnimationOptions ?? .curveEaseOut
         }
         set(newValue) {
             objc_setAssociatedObject(self, &AssociatedKeys.animationCurve, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -104,17 +100,17 @@ public extension IQKeyboardManager {
         if let info = notification?.userInfo {
 
             //  Getting keyboard animation.
-            if let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt {
-                animationCurve = UIViewAnimationOptions(rawValue: curve).union(.beginFromCurrentState)
+            if let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+                animationCurve = UIView.AnimationOptions(rawValue: curve).union(.beginFromCurrentState)
             } else {
-                animationCurve = UIViewAnimationOptions.curveEaseOut.union(.beginFromCurrentState)
+                animationCurve = UIView.AnimationOptions.curveEaseOut.union(.beginFromCurrentState)
             }
 
             //  Getting keyboard animation duration
-            animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
 
             //  Getting UIKeyboardSize.
-            if let kbFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+            if let kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
 
                 keyboardFrame = kbFrame
                 showLog("UIKeyboard Frame: \(keyboardFrame)")
@@ -201,14 +197,14 @@ public extension IQKeyboardManager {
         if let info = notification?.userInfo {
 
             //  Getting keyboard animation.
-            if let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt {
-                animationCurve = UIViewAnimationOptions(rawValue: curve).union(.beginFromCurrentState)
+            if let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+                animationCurve = UIView.AnimationOptions(rawValue: curve).union(.beginFromCurrentState)
             } else {
-                animationCurve = UIViewAnimationOptions.curveEaseOut.union(.beginFromCurrentState)
+                animationCurve = UIView.AnimationOptions.curveEaseOut.union(.beginFromCurrentState)
             }
 
             //  Getting keyboard animation duration
-            animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
         }
 
         //If not enabled then do nothing.
@@ -237,11 +233,7 @@ public extension IQKeyboardManager {
                 if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(self.startingContentOffset) {
                     self.showLog("Restoring contentOffset to: \(self.startingContentOffset)")
 
-                    var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
-
-                    if #available(iOS 9, *) {
-                        animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil
-                    }
+                    let animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                     if animatedContentOffset {
                         lastScrollView.setContentOffset(self.startingContentOffset, animated: UIView.areAnimationsEnabled)
@@ -265,11 +257,7 @@ public extension IQKeyboardManager {
                         let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
                         if scrollView.contentOffset.equalTo(newContentOffset) == false {
 
-                            var animatedContentOffset = false   //  (Bug ID: #1365, #1508, #1541)
-
-                            if #available(iOS 9, *) {
-                                animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
-                            }
+                            let animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)

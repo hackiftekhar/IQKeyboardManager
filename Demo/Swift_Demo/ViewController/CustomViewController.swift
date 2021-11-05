@@ -76,11 +76,7 @@ class CustomViewController: UIViewController, UIPopoverPresentationControllerDel
     @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
 
-            #if swift(>=4.2)
             let finalCurve = UIView.AnimationOptions.beginFromCurrentState.union(.init(rawValue: 7))
-            #else
-            let finalCurve = UIViewAnimationOptions.beginFromCurrentState.union(.init(rawValue: 7))
-            #endif
 
             let animationDuration: TimeInterval = 0.3
 

@@ -28,22 +28,21 @@ open class IQTextView: UITextView {
 
     @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextView.textDidChangeNotification, object: self)
     }
 
     @objc override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextView.textDidChangeNotification, object: self)
     }
 
     @objc override open func awakeFromNib() {
         super.awakeFromNib()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextViewTextDidChangeNotification, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextView.textDidChangeNotification, object: self)
     }
 
     deinit {
         IQ_PlaceholderLabel.removeFromSuperview()
-        NotificationCenter.default.removeObserver(self)
     }
 
     private var placeholderInsets: UIEdgeInsets {
@@ -186,24 +185,3 @@ open class IQTextView: UITextView {
         return newSize
     }
 }
-
-//#if swift(>=5.1)
-//import SwiftUI
-//
-//struct IQTextViewSwiftUI: UIViewRepresentable {
-//    func makeUIView(context: Context) -> IQTextView {
-//        IQTextView(frame: .zero)
-//    }
-//
-//    func updateUIView(_ view: IQTextView, context: Context) {
-//    }
-//}
-//
-//struct IQTextViewSwiftUI_Preview: PreviewProvider {
-//    static var previews: some View {
-//        IQTextViewSwiftUI()
-//    }
-//}
-//
-//#endif
-//

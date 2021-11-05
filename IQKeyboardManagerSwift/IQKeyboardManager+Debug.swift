@@ -49,37 +49,37 @@ public extension IQKeyboardManager {
     @objc func registerAllNotifications() {
 
         //  Registering for keyboard notification.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
 
         //  Registering for UITextField notification.
-        registerTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextFieldTextDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextFieldTextDidEndEditingNotification.rawValue)
+        registerTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextField.textDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextField.textDidEndEditingNotification.rawValue)
 
         //  Registering for UITextView notification.
-        registerTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextViewTextDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextViewTextDidEndEditingNotification.rawValue)
+        registerTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextView.textDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextView.textDidEndEditingNotification.rawValue)
 
         //  Registering for orientation changes notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)), name: UIApplicationWillChangeStatusBarOrientationNotification, object: UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)), name: UIApplication.willChangeStatusBarOrientationNotification, object: UIApplication.shared)
     }
 
     @objc func unregisterAllNotifications() {
 
         //  Unregistering for keyboard notification.
-        NotificationCenter.default.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIKeyboardDidHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
 
         //  Unregistering for UITextField notification.
-        unregisterTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextFieldTextDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextFieldTextDidEndEditingNotification.rawValue)
+        unregisterTextFieldViewClass(UITextField.self, didBeginEditingNotificationName: UITextField.textDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextField.textDidEndEditingNotification.rawValue)
 
         //  Unregistering for UITextView notification.
-        unregisterTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextViewTextDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextViewTextDidEndEditingNotification.rawValue)
+        unregisterTextFieldViewClass(UITextView.self, didBeginEditingNotificationName: UITextView.textDidBeginEditingNotification.rawValue, didEndEditingNotificationName: UITextView.textDidEndEditingNotification.rawValue)
 
         //  Unregistering for orientation changes notification
-        NotificationCenter.default.removeObserver(self, name: UIApplicationWillChangeStatusBarOrientationNotification, object: UIApplication.shared)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willChangeStatusBarOrientationNotification, object: UIApplication.shared)
     }
 
     struct Static {

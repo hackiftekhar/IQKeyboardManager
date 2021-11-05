@@ -333,9 +333,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     deinit {
         //  Disable the keyboard manager.
         enable = false
-
-        //Removing notification observers on dealloc.
-        NotificationCenter.default.removeObserver(self)
     }
 
     /** Getting keyWindow. */

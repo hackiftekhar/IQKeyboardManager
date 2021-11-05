@@ -190,8 +190,7 @@
 {
     self.selectedColor = selectedColor;
 
-    if ([self.delegate respondsToSelector:@selector(colorPickerTextField:selectedColorAttributes:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(colorPickerTextField:selectedColorAttributes:)]) {
         [self.delegate colorPickerTextField:self selectedColorAttributes:self.selectedColorAttributes];
     }
 }

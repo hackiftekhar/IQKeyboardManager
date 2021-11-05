@@ -11,11 +11,7 @@ import WebKit
 
 class WebViewController: UIViewController {
 
-    #if swift(>=4.2)
     let activity = UIActivityIndicatorView(style: .gray)
-    #else
-    let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
-    #endif
 
     var webView: WKWebView!
     @IBOutlet var webContainerView: UIView!

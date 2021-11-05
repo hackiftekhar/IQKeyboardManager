@@ -28,11 +28,7 @@ import UIKit
  */
 @objc public class IQBarButtonItemConfiguration: NSObject {
 
-    #if swift(>=4.2)
-    public typealias  UIBarButtonSystemItem = UIBarButtonItem.SystemItem
-    #endif
-
-    @objc public init(barButtonSystemItem: UIBarButtonSystemItem, action: Selector) {
+    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem, action: Selector) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
@@ -56,7 +52,7 @@ import UIKit
         super.init()
     }
 
-    public let barButtonSystemItem: UIBarButtonSystemItem?    //System Item to be used to instantiate bar button.
+    public let barButtonSystemItem: UIBarButtonItem.SystemItem?    //System Item to be used to instantiate bar button.
 
     @objc public let image: UIImage?    //Image to show on bar button item if it's not a system item.
 
@@ -87,9 +83,7 @@ import UIKit
             }
 
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9, *) {
-                Static.keyboardLeftImage = Static.keyboardLeftImage?.imageFlippedForRightToLeftLayoutDirection()
-            }
+            Static.keyboardLeftImage = Static.keyboardLeftImage?.imageFlippedForRightToLeftLayoutDirection()
         }
 
         return Static.keyboardLeftImage
@@ -110,9 +104,7 @@ import UIKit
             }
 
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9, *) {
-                Static.keyboardRightImage = Static.keyboardRightImage?.imageFlippedForRightToLeftLayoutDirection()
-            }
+            Static.keyboardRightImage = Static.keyboardRightImage?.imageFlippedForRightToLeftLayoutDirection()
         }
 
         return Static.keyboardRightImage
@@ -133,9 +125,7 @@ import UIKit
             }
 
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9, *) {
-                Static.keyboardUpImage = Static.keyboardUpImage?.imageFlippedForRightToLeftLayoutDirection()
-            }
+            Static.keyboardUpImage = Static.keyboardUpImage?.imageFlippedForRightToLeftLayoutDirection()
         }
 
         return Static.keyboardUpImage
@@ -156,9 +146,7 @@ import UIKit
             }
 
             //Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            if #available(iOS 9, *) {
-                Static.keyboardDownImage = Static.keyboardDownImage?.imageFlippedForRightToLeftLayoutDirection()
-            }
+            Static.keyboardDownImage = Static.keyboardDownImage?.imageFlippedForRightToLeftLayoutDirection()
         }
 
         return Static.keyboardDownImage

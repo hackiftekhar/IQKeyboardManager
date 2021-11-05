@@ -792,12 +792,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
                 
-                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-
-                if (@available(iOS 9.0, *))
-                {
-                    animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
-                }
+                BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                 if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
@@ -834,12 +829,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
 
-                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-
-                if (@available(iOS 9.0, *))
-                {
-                    animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
-                }
+                BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                 if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
@@ -1040,12 +1030,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         [strongSelf showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
                         [strongSelf showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",move]];
                         
-                        BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-
-                        if (@available(iOS 9.0, *))
-                        {
-                            animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);
-                        }
+                        BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                         if (animatedContentOffset) {
                             [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
@@ -1477,12 +1462,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             {
                 [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
 
-                BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-
-                if (@available(iOS 9.0, *))
-                {
-                    animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);
-                }
+                BOOL animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                 if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
@@ -1507,12 +1487,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                     {
                         [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
 
-                        BOOL animatedContentOffset = NO;    //  (Bug ID: #1365, #1508, #1541)
-
-                        if (@available(iOS 9.0, *))
-                        {
-                            animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);
-                        }
+                        BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                         if (animatedContentOffset) {
                             [superscrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
