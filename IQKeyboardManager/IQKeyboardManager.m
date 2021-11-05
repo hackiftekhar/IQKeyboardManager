@@ -1386,8 +1386,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
     if (!CGRectEqualToRect(_kbFrame, oldKBFrame))
     {
-        //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
-        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        //If _textFieldView is inside AlertView then do nothing. (Bug ID: #37, #74, #76)
+        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is AlertView textField then do not affect anything (Bug ID: #70).
         if (_keyboardShowing == YES &&
             textFieldView &&
             [textFieldView isAlertViewTextField] == NO)
@@ -1646,8 +1646,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",rootController, NSStringFromCGPoint(_topViewBeginOrigin)]];
         }
         
-        //If textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
-        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+        //If textFieldView is inside AlertView then do nothing. (Bug ID: #37, #74, #76)
+        //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is AlertView textField then do not affect anything (Bug ID: #70).
         if (_keyboardShowing == YES &&
             textFieldView &&
             [textFieldView isAlertViewTextField] == NO)
