@@ -25,20 +25,21 @@ class OptionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell", for: indexPath) as? OptionTableViewCell {
-            cell.labelOption.text = options[indexPath.row]
-
-            if indexPath.row == self.selectedIndex {
-
-                cell.accessoryType = .checkmark
-            } else {
-
-                cell.accessoryType = .none
-            }
-
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell", for: indexPath) as? OptionTableViewCell else {
+            fatalError("Can't dequeue cell")
         }
-        return UITableViewCell()
+
+        cell.labelOption.text = options[indexPath.row]
+
+        if indexPath.row == self.selectedIndex {
+
+            cell.accessoryType = .checkmark
+        } else {
+
+            cell.accessoryType = .none
+        }
+
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

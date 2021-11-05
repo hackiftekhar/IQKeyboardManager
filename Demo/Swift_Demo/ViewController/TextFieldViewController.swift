@@ -109,19 +109,20 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        if let identifier = segue.identifier {
+        guard let identifier = segue.identifier else {
+            return
+        }
 
-            if identifier == "SettingsNavigationController" {
+        if identifier == "SettingsNavigationController" {
 
-                let controller = segue.destination
+            let controller = segue.destination
 
-                controller.modalPresentationStyle = .popover
-                controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+            controller.modalPresentationStyle = .popover
+            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
 
-                let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-                controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-                controller.popoverPresentationController?.delegate = self
-            }
+            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
+            controller.popoverPresentationController?.delegate = self
         }
     }
 

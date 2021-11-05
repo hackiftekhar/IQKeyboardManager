@@ -32,7 +32,7 @@ import QuartzCore
 Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
 */
 
-@objc public class IQKeyboardManager: NSObject {
+@objc public final class IQKeyboardManager: NSObject {
 
     /**
     Returns the default singleton instance.

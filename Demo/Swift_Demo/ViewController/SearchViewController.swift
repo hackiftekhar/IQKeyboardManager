@@ -47,40 +47,38 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
 
     func searchForText(_ searchText: String?, scope: Int) {
 
-        if let text = searchText {
+        guard let text = searchText, !text.isEmpty else {
+            self.filteredList = self.dataList
+            return
+        }
+        
+        if scope == 0 {
+            self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
 
-            if text.isEmpty == false {
-                if scope == 0 {
-                    self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
-
-                        if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
-                            return true
-                        } else {
-                            return false
-                        }
-                    })
-                } else if scope == 1 {
-                    self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
-
-                        if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
-                            return true
-                        } else {
-                            return false
-                        }
-                    })
-                } else if scope == 2 {
-                    self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
-
-                        if obj["email"]?.contains(text) == true {
-                            return true
-                        } else {
-                            return false
-                        }
-                    })
+                if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
+                    return true
+                } else {
+                    return false
                 }
-            } else {
-                self.filteredList = self.dataList
-            }
+            })
+        } else if scope == 1 {
+            self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
+
+                if obj["name"]?.contains(text) == true || obj["email"]?.contains(text) == true {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        } else if scope == 2 {
+            self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
+
+                if obj["email"]?.contains(text) == true {
+                    return true
+                } else {
+                    return false
+                }
+            })
         }
     }
 
