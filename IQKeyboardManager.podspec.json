@@ -13,7 +13,7 @@
     "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "IQKeyboardManager/**/*.{h,m}",
   "public_header_files": [
