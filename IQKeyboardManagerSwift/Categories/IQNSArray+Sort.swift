@@ -27,6 +27,7 @@ import UIKit
 /**
 UIView.subviews sorting category.
 */
+@available(iOSApplicationExtension, unavailable)
 internal extension Array where Element: UIView {
 
     /**

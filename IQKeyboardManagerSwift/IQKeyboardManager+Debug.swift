@@ -25,6 +25,7 @@
 import UIKit
 
 // MARK: Debugging & Developer options
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {

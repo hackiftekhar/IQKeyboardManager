@@ -25,6 +25,7 @@
 import UIKit
 
 // MARK: UITextField/UITextView Notifications
+@available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
     private struct AssociatedKeys {

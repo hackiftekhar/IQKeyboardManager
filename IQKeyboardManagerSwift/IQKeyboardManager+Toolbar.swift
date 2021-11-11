@@ -24,6 +24,7 @@
 // import Foundation - UIKit contains Foundation
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     /**
@@ -202,6 +203,7 @@ public extension IQKeyboardManager {
 }
 
 // MARK: Previous next button actions
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     /**

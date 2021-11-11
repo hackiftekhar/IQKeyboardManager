@@ -306,6 +306,7 @@ public final class IQKeyboardReturnKeyHandler: NSObject {
 }
 
 // MARK: UITextFieldDelegate
+@available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     @objc public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -430,6 +431,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 }
 
 // MARK: UITextViewDelegate
+@available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {

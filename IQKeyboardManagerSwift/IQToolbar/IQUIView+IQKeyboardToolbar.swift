@@ -67,6 +67,7 @@ import UIKit
  */
 // swiftlint:disable nesting
 // swiftlint:disable line_length
+@available(iOSApplicationExtension, unavailable)
 @objc public extension UIImage {
 
     static func keyboardLeftImage() -> UIImage? {
@@ -175,6 +176,7 @@ import UIKit
 /**
 UIView category methods to add IQToolbar on UIKeyboard.
 */
+@available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
 
     private struct AssociatedKeys {

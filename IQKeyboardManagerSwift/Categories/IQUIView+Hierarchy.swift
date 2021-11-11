@@ -26,6 +26,7 @@ import UIKit
 /**
 UIView hierarchy category.
 */
+@available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
 
     // MARK: viewControllers
@@ -314,6 +315,7 @@ UIView hierarchy category.
 
 }
 
+@available(iOSApplicationExtension, unavailable)
 extension NSObject {
 
     internal func _IQDescription() -> String {

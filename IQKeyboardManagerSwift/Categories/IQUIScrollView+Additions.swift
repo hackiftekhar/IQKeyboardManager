@@ -24,6 +24,7 @@
 // import Foundation - UIKit contains Foundation
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 @objc public extension UIScrollView {
 
     private struct AssociatedKeys {
@@ -69,6 +70,7 @@ import UIKit
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
 internal extension UITableView {
 
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
@@ -91,6 +93,7 @@ internal extension UITableView {
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
 internal extension UICollectionView {
 
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {

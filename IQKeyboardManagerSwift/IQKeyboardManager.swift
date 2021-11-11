@@ -389,6 +389,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
 extension IQKeyboardManager: UIGestureRecognizerDelegate {
 
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/

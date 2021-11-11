@@ -25,6 +25,7 @@
 import UIKit
 
 // MARK: UIStatusBar Notification methods
+@available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
     /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/

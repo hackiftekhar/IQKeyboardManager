@@ -24,6 +24,7 @@
 // import Foundation - UIKit contains Foundation
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {
