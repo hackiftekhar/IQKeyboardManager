@@ -159,7 +159,7 @@ UIView hierarchy category.
                 //If it's UIScrollView, then validating for special cases
                 if unwrappedSuperView.isKind(of: UIScrollView.self) {
 
-                    let classNameString = NSStringFromClass(type(of: unwrappedSuperView.self))
+                    let classNameString: String = "\(type(of: unwrappedSuperView.self))"
 
                     //  If it's not UITableViewWrapperView class, this is internal class which is actually manage in UITableview. The speciality of this class is that it's superview is UITableView.
                     //  If it's not UITableViewCellScrollView class, this is internal class which is actually manage in UITableviewCell. The speciality of this class is that it's superview is UITableViewCell.
