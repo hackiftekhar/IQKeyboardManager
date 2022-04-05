@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -261,7 +261,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jg-i8-jqX">
                                 <rect key="frame" x="0.0" y="771" width="414" height="91"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-47-EvZ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-47-EvZ">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="91"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Push">
@@ -272,7 +272,7 @@
                                             <segue destination="csO-qF-Ohn" kind="show" id="YIr-Cf-zkf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-Vm-PL6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-Vm-PL6">
                                         <rect key="frame" x="207" y="0.0" width="207" height="91"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Present">
@@ -296,6 +296,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ptp-zt-Sh7"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TZX-d4-nhG" firstAttribute="leading" secondItem="07C-Jx-O92" secondAttribute="leading" id="0hd-mo-Nbr"/>
@@ -335,7 +336,6 @@
                             <constraint firstItem="0lP-yw-jhD" firstAttribute="height" secondItem="07C-Jx-O92" secondAttribute="height" id="xRS-DP-aWL"/>
                             <constraint firstItem="07C-Jx-O92" firstAttribute="leading" secondItem="Ptp-zt-Sh7" secondAttribute="leading" id="zTi-hu-eO8"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ptp-zt-Sh7"/>
                     </view>
                     <navigationItem key="navigationItem" title="TextField Demo" id="s8z-5e-RBK">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="qRy-Jd-18s">
@@ -349,7 +349,7 @@
                         <outlet property="buttonPush" destination="Tt5-47-EvZ" id="OaH-l9-8QM"/>
                         <outlet property="dropDownTextField" destination="z7r-JB-8xa" id="lNo-Ce-mO7"/>
                         <outlet property="textField3" destination="f9i-hv-EJj" id="DBN-J6-duh"/>
-                        <outlet property="textView1" destination="Nry-4j-VcI" id="Ptk-Vw-cNe"/>
+                        <outlet property="textView1" destination="0xQ-D1-B5M" id="4qn-yT-4ks"/>
                         <outlet property="textView2" destination="wIC-LZ-asw" id="7PI-Gv-TL0"/>
                     </connections>
                 </viewController>
@@ -447,6 +447,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="moM-Jc-ICu"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Pgv-Nr-BWR" firstAttribute="leading" secondItem="dET-Cl-VUb" secondAttribute="leading" id="3le-BI-CJa"/>
@@ -469,7 +470,6 @@
                             <constraint firstItem="9al-mX-KU2" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="xDs-zv-VIN"/>
                             <constraint firstItem="Zjk-gc-QEr" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="zIO-cM-iyj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="moM-Jc-ICu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manual UIToolbar" id="Bsk-WG-eqv">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="EP2-V0-ARn"/>
@@ -494,7 +494,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-N5-MlD">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-N5-MlD">
                                 <rect key="frame" x="0.0" y="54" width="207" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="fn2-mB-2Uo"/>
@@ -508,7 +508,7 @@
                                     <segue destination="S5Z-0B-U3b" kind="show" id="bIL-2r-tuw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNE-Wh-GsT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNE-Wh-GsT">
                                 <rect key="frame" x="207" y="54" width="207" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="Present">
@@ -570,6 +570,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="tof-Nw-9td"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="L8v-ua-y0A" firstAttribute="leading" secondItem="tof-Nw-9td" secondAttribute="leading" constant="5" id="1Z6-kz-nkX"/>
@@ -602,7 +603,6 @@
                             <constraint firstItem="tof-Nw-9td" firstAttribute="trailing" secondItem="uNE-Wh-GsT" secondAttribute="trailing" id="tg3-wx-JQw"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="leading" secondItem="2d0-tG-Pzx" secondAttribute="leading" id="yOI-0E-V1k"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="tof-Nw-9td"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITextView" id="Qen-Wv-SxX">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="3yn-Xo-guq"/>

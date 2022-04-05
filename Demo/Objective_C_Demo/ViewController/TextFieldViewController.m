@@ -15,6 +15,7 @@
 @implementation TextFieldViewController
 {
     IBOutlet UITextField *textField3;
+    IBOutlet UITextView *textView1;
     IBOutlet UITextView *textView2;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
