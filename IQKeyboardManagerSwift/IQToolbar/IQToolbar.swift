@@ -25,7 +25,7 @@ import UIKit
 
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
-open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
+@objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     private static var _classInitialize: Void = classInitialize()
 
