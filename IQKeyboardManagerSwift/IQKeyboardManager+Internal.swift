@@ -129,7 +129,7 @@ internal extension IQKeyboardManager {
 
             //If found any toolbar disabled classes then return.
             if disabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                enableToolbar = true
+                enableToolbar = false
             }
 
             //Special Controllers
