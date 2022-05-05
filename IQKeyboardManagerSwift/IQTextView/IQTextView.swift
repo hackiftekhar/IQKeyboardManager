@@ -67,6 +67,7 @@ import UIKit
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.backgroundColor = UIColor.clear
+        label.isAccessibilityElement = false
         #if swift(>=5.1)
         label.textColor = UIColor.systemGray
         #else

@@ -168,6 +168,7 @@
         _IQ_PlaceholderLabel.font = self.font;
         _IQ_PlaceholderLabel.textAlignment = self.textAlignment;
         _IQ_PlaceholderLabel.backgroundColor = [UIColor clearColor];
+        _IQ_PlaceholderLabel.isAccessibilityElement = false
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
             if (@available(iOS 13.0, *)) {
                 _IQ_PlaceholderLabel.textColor = [UIColor systemGrayColor];
