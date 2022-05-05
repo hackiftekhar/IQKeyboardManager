@@ -54,9 +54,7 @@
         } else
         #endif
         {
-        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
             [_titleButton setTitleColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
-        #endif
         }
         [_titleButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         [_titleButton setBackgroundColor:[UIColor clearColor]];
@@ -134,9 +132,7 @@
     } else
     #endif
     {
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
         [_titleButton setTitleColor:_selectableTitleColor?:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
-    #endif
     }
 }
 
