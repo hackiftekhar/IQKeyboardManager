@@ -294,6 +294,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 if prevConfig.barButtonSystemItem == nil, !prev.isSystemItem {
                     prev.title = prevConfig.title
                     prev.accessibilityLabel = prevConfig.accessibilityLabel
+                    prev.accessibilityIdentifier = prev.accessibilityLabel
                     prev.image = prevConfig.image
                     prev.target = target
                     prev.action = prevConfig.action
@@ -309,6 +310,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                     prev.invocation = toolbar.previousBarButton.invocation
                     prev.accessibilityLabel = prevConfig.accessibilityLabel
+                    prev.accessibilityIdentifier = prev.accessibilityLabel
                     prev.isEnabled = toolbar.previousBarButton.isEnabled
                     prev.tag = toolbar.previousBarButton.tag
                     toolbar.previousBarButton = prev
@@ -329,6 +331,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 if nextConfig.barButtonSystemItem == nil, !next.isSystemItem {
                     next.title = nextConfig.title
                     next.accessibilityLabel = nextConfig.accessibilityLabel
+                    next.accessibilityIdentifier = next.accessibilityLabel
                     next.image = nextConfig.image
                     next.target = target
                     next.action = nextConfig.action
@@ -344,6 +347,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                     next.invocation = toolbar.nextBarButton.invocation
                     next.accessibilityLabel = nextConfig.accessibilityLabel
+                    next.accessibilityIdentifier = next.accessibilityLabel
                     next.isEnabled = toolbar.nextBarButton.isEnabled
                     next.tag = toolbar.nextBarButton.tag
                     toolbar.nextBarButton = next
@@ -377,6 +381,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 if rightConfig.barButtonSystemItem == nil, !done.isSystemItem {
                     done.title = rightConfig.title
                     done.accessibilityLabel = rightConfig.accessibilityLabel
+                    done.accessibilityIdentifier = done.accessibilityLabel
                     done.image = rightConfig.image
                     done.target = target
                     done.action = rightConfig.action
@@ -392,6 +397,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
                     done.invocation = toolbar.doneBarButton.invocation
                     done.accessibilityLabel = rightConfig.accessibilityLabel
+                    done.accessibilityIdentifier = done.accessibilityLabel
                     done.isEnabled = toolbar.doneBarButton.isEnabled
                     done.tag = toolbar.doneBarButton.tag
                     toolbar.doneBarButton = done

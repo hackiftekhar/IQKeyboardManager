@@ -90,6 +90,7 @@ import UIKit
             if privateTitleBarButton == nil {
                 privateTitleBarButton = IQTitleBarButtonItem(title: nil)
                 privateTitleBarButton?.accessibilityLabel = "Title"
+                privateTitleBarButton?.accessibilityIdentifier = privateTitleBarButton?.accessibilityLabel
             }
             return privateTitleBarButton!
         }
