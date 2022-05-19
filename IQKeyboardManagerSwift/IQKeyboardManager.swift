@@ -43,7 +43,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
      Invalid point value.
      */
-    internal static let  kIQCGPointInvalid = CGPoint.init(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
+    internal static let kIQCGPointInvalid = CGPoint.init(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
 
     // MARK: UIKeyboard handling
 

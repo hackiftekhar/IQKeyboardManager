@@ -59,7 +59,7 @@ public extension IQKeyboardManager {
     }
 
     /** To save keyboard rame. */
-    internal var keyboardFrame: CGRect {
+    @objc private(set) var keyboardFrame: CGRect {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.keyboardFrame) as? CGRect ?? .zero
         }
