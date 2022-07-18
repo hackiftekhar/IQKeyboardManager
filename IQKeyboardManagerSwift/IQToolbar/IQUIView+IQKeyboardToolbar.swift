@@ -423,6 +423,8 @@ UIView category methods to add IQToolbar on UIKeyboard.
                 textField.inputAccessoryView = toolbar
             } else if let textView = self as? UITextView {
                 textView.inputAccessoryView = toolbar
+            } else if let searchBar = self as? UISearchBar {
+                searchBar.inputAccessoryView = toolbar
             }
         }
     }
