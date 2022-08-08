@@ -721,20 +721,28 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
     }
 
-    CGFloat statusBarHeight = 0;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-    if (@available(iOS 13.0, *)) {
-        statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
 
-    } else
-#endif
-    {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
-        statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-#endif
+    CGFloat navigationBarAreaHeight = 0;
+
+    if (rootController.navigationController != nil) {
+        navigationBarAreaHeight = CGRectGetMaxY(rootController.navigationController.navigationBar.frame);
+    } else {
+        CGFloat statusBarHeight = 0;
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+        if (@available(iOS 13.0, *)) {
+            statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
+
+        } else
+    #endif
+        {
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+            statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    #endif
+        }
+
+        navigationBarAreaHeight = statusBarHeight;
     }
 
-    CGFloat navigationBarAreaHeight = statusBarHeight + rootController.navigationController.navigationBar.frame.size.height;
     CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
     
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;

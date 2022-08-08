@@ -204,17 +204,22 @@ public extension IQKeyboardManager {
 
         let statusBarHeight: CGFloat
 
-        #if swift(>=5.1)
-        if #available(iOS 13, *) {
-            statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let navigationBarAreaHeight: CGFloat
+        if let navigationController = rootController.navigationController {
+            navigationBarAreaHeight = navigationController.navigationBar.frame.maxY
         } else {
+#if swift(>=5.1)
+            if #available(iOS 13, *) {
+                statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            } else {
+                statusBarHeight = UIApplication.shared.statusBarFrame.height
+            }
+#else
             statusBarHeight = UIApplication.shared.statusBarFrame.height
+#endif
+            navigationBarAreaHeight = statusBarHeight
         }
-        #else
-        statusBarHeight = UIApplication.shared.statusBarFrame.height
-        #endif
 
-        let navigationBarAreaHeight: CGFloat = statusBarHeight + ( rootController.navigationController?.navigationBar.frame.height ?? 0)
         let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
 
         let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
