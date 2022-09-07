@@ -115,10 +115,14 @@
             parentController = parentParentController;
             parentParentController = parentController.parentViewController;
         }
-
+        
         if (navController == parentController)
         {
-            parentContainerViewController = navController.topViewController;
+            if (navController.view.frame.origin.y > 0) {
+                parentContainerViewController = navController;
+            } else {
+                parentContainerViewController = navController.topViewController;
+            }
         }
         else
         {
