@@ -27,21 +27,17 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @objc open class IQBarButtonItem: UIBarButtonItem {
 
-    private static var _classInitialize: Void = classInitialize()
-
     @objc public override init() {
-        _ = IQBarButtonItem._classInitialize
-          super.init()
-      }
+        super.init()
+        initialize()
+    }
 
     @objc public required init?(coder aDecoder: NSCoder) {
-        _ = IQBarButtonItem._classInitialize
-           super.init(coder: aDecoder)
-       }
+        super.init(coder: aDecoder)
+        initialize()
+    }
 
-    private class func classInitialize() {
-
-        let  appearanceProxy = self.appearance()
+    private func initialize() {
 
         let states: [UIControl.State]
 
@@ -49,15 +45,14 @@ import UIKit
 
         for state in states {
 
-            appearanceProxy.setBackgroundImage(nil, for: state, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .done, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
-            appearanceProxy.setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
+            setBackgroundImage(nil, for: state, barMetrics: .default)
+            setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
+            setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
         }
 
-        appearanceProxy.setTitlePositionAdjustment(UIOffset(), for: .default)
-        appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
-        appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
+        setTitlePositionAdjustment(UIOffset(), for: .default)
+        setBackgroundVerticalPositionAdjustment(0, for: .default)
+        setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
 
     @objc override open var tintColor: UIColor? {

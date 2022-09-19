@@ -387,9 +387,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CD597111D1C5EBE00AB28D3 /* Build configuration list for PBXNativeTarget "IQKeyboardManagerSwift" */;
 			buildPhases = (
+				4CD597091D1C5EBE00AB28D3 /* Headers */,
 				4CD597071D1C5EBE00AB28D3 /* Sources */,
 				4CD597081D1C5EBE00AB28D3 /* Frameworks */,
-				4CD597091D1C5EBE00AB28D3 /* Headers */,
 				4CD5970A1D1C5EBE00AB28D3 /* Resources */,
 			);
 			buildRules = (

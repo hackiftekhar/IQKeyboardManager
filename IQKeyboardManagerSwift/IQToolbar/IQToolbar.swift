@@ -27,24 +27,36 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
-    private static var _classInitialize: Void = classInitialize()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-    private class func classInitialize() {
+        initialize()
+    }
 
-        let  appearanceProxy = self.appearance()
+    @objc required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
-        appearanceProxy.barTintColor = nil
+        initialize()
+    }
+
+    private func initialize() {
+
+        sizeToFit()
+
+        autoresizingMask = .flexibleWidth
+        self.isTranslucent = true
+        self.barTintColor = nil
 
         let positions: [UIBarPosition] = [.any, .bottom, .top, .topAttached]
 
         for position in positions {
 
-            appearanceProxy.setBackgroundImage(nil, forToolbarPosition: position, barMetrics: .default)
-            appearanceProxy.setShadowImage(nil, forToolbarPosition: .any)
+            self.setBackgroundImage(nil, forToolbarPosition: position, barMetrics: .default)
+            self.setShadowImage(nil, forToolbarPosition: .any)
         }
 
         //Background color
-        appearanceProxy.backgroundColor = nil
+        self.backgroundColor = nil
     }
 
     /**
@@ -140,26 +152,6 @@ import UIKit
         set (newValue) {
             privateFixedSpaceBarButton = newValue
         }
-    }
-
-    override init(frame: CGRect) {
-        _ = IQToolbar._classInitialize
-        super.init(frame: frame)
-
-        sizeToFit()
-
-        autoresizingMask = .flexibleWidth
-        self.isTranslucent = true
-    }
-
-    @objc required public init?(coder aDecoder: NSCoder) {
-        _ = IQToolbar._classInitialize
-        super.init(coder: aDecoder)
-
-        sizeToFit()
-
-        autoresizingMask = .flexibleWidth
-        self.isTranslucent = true
     }
 
     @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {

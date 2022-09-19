@@ -27,27 +27,46 @@
 
 @implementation IQBarButtonItem
 
-+(void)initialize
+-(void)initialize
 {
-    [super initialize];
-
-    IQBarButtonItem *appearanceProxy = [self appearance];
-
     NSArray <NSNumber*> *states = @[@(UIControlStateNormal),@(UIControlStateHighlighted),@(UIControlStateDisabled),@(UIControlStateSelected),@(UIControlStateApplication),@(UIControlStateReserved)];
-    
+
     for (NSNumber *state in states)
     {
         UIControlState controlState = [state unsignedIntegerValue];
 
-        [appearanceProxy setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackButtonBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+        [self setBackButtonBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
     }
 
-    [appearanceProxy setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
-    [appearanceProxy setBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
-    [appearanceProxy setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+    [self setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
+    [self setBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+    [self setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+}
+
+- (instancetype)init {
+
+    self = [super init];
+
+    if (self)
+    {
+        [self initialize];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+
+    self = [super initWithCoder: coder];
+
+    if (self)
+    {
+        [self initialize];
+    }
+
+    return self;
 }
 
 -(void)setTintColor:(UIColor *)tintColor
