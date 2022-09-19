@@ -636,8 +636,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         {
             cachedKeyWindow = originalKeyWindow;
         }
-        
-        return cachedKeyWindow;
+
+        __strong UIWindow *strongCachedKeyWindow = cachedKeyWindow;
+
+        return strongCachedKeyWindow;
     }
 }
 

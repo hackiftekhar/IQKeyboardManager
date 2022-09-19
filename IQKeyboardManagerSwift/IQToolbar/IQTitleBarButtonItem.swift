@@ -163,8 +163,5 @@ import UIKit
 
     deinit {
         customView = nil
-        titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
-        _titleView = nil
-        titleButton = nil
     }
 }

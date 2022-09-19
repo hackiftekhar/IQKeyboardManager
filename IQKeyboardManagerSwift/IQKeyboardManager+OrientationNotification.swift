@@ -50,7 +50,7 @@ internal extension IQKeyboardManager {
         showLog("****** \(#function) started ******", indentation: 1)
 
         //If textViewContentInsetChanged is saved then restore it.
-        if let textView = textFieldView as? UITextView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
+        if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
             if isTextViewContentInsetChanged {
                 self.isTextViewContentInsetChanged = false

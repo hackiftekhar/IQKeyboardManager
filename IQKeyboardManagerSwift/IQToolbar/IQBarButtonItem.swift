@@ -102,6 +102,5 @@ import UIKit
 
     deinit {
         target = nil
-        invocation = nil
     }
 }

@@ -33,12 +33,12 @@ class CollectionViewDemoController: UIViewController, UICollectionViewDelegate, 
         }
 
         if identifier == "SettingsNavigationController" {
-            
+
             let controller = segue.destination
-            
+
             controller.modalPresentationStyle = .popover
             controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            
+
             let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
             controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
             controller.popoverPresentationController?.delegate = self

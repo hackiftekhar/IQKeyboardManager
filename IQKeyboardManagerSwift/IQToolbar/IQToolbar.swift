@@ -257,14 +257,4 @@ import UIKit
     @objc open var enableInputClicksWhenVisible: Bool {
         return true
     }
-
-    deinit {
-
-        items = nil
-        privatePreviousBarButton = nil
-        privateNextBarButton = nil
-        privateTitleBarButton = nil
-        privateDoneBarButton = nil
-        privateFixedSpaceBarButton = nil
-    }
 }

@@ -23,7 +23,7 @@
 
 #import <UIKit/UIView.h>
 #import <UIKit/UIViewController.h>
-#import "IQKeyboardManagerConstants.h"
+#import <IQKeyboardManagerConstants.h>
 
 @class UICollectionView, UIScrollView, UITableView, UISearchBar, NSArray;
 
