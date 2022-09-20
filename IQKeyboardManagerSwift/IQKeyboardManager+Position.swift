@@ -170,7 +170,7 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         //  Getting RootViewOrigin.
         var rootViewOrigin = rootController.view.frame.origin
@@ -673,7 +673,7 @@ public extension IQKeyboardManager {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     internal func restorePosition() {

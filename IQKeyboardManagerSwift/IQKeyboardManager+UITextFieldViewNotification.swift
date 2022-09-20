@@ -87,8 +87,13 @@ internal extension IQKeyboardManager {
     /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
     @objc func textFieldViewDidBeginEditing(_ notification: Notification) {
 
+        guard let object = notification.object as? UIView, let isKeyWindow = object.window?.isKeyWindow, isKeyWindow else {
+            return
+        }
+
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("📝>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         //  Getting object
         textFieldView = notification.object as? UIView
@@ -165,14 +170,19 @@ internal extension IQKeyboardManager {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
     @objc func textFieldViewDidEndEditing(_ notification: Notification) {
 
+        guard let object = notification.object as? UIView, let isKeyWindow = object.window?.isKeyWindow, isKeyWindow else {
+            return
+        }
+
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("📝>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         //Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView?.window?.removeGestureRecognizer(resignFirstResponderGesture)
@@ -199,9 +209,19 @@ internal extension IQKeyboardManager {
         }
 
         //Setting object to nil
-        textFieldView = nil
+        if #available(iOS 16.0, *) {
+            if let textView = object as? UITextView, textView.isFindInteractionEnabled {
+                //Not setting it nil, because it may be doing find interaction.
+                //As of now, here textView.findInteraction?.isFindNavigatorVisible returns false
+                //So there is no way to detect if this is dismissed due to findInteraction
+            } else {
+                textFieldView = nil
+            }
+        } else {
+            textFieldView = nil
+        }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

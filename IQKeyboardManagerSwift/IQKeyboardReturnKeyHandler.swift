@@ -598,4 +598,46 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         return true
     }
+
+    @available(iOS 16.0, *)
+    public func textView(_ aTextView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        if delegate == nil {
+
+            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSRange, [UIMenuElement]) -> UIMenu?)) {
+                    return unwrapDelegate.textView?(aTextView, editMenuForTextIn: range, suggestedActions: suggestedActions)
+                }
+            }
+        }
+
+        return nil
+    }
+
+    @available(iOS 16.0, *)
+    public func textView(_ aTextView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        var aDelegate: UITextViewDelegate? = delegate
+
+        if aDelegate == nil {
+
+            if let modal = textFieldViewCachedInfo(aTextView) {
+                aDelegate = modal.textViewDelegate
+            }
+        }
+
+        aDelegate?.textView?(aTextView, willPresentEditMenuWith: animator)
+    }
+
+    @available(iOS 16.0, *)
+    public func textView(_ aTextView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        var aDelegate: UITextViewDelegate? = delegate
+
+        if aDelegate == nil {
+
+            if let modal = textFieldViewCachedInfo(aTextView) {
+                aDelegate = modal.textViewDelegate
+            }
+        }
+
+        aDelegate?.textView?(aTextView, willDismissEditMenuWith: animator)
+    }
 }

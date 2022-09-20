@@ -50,7 +50,7 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         showLog("Found \(siblings.count) responder sibling(s)")
 
@@ -149,7 +149,7 @@ public extension IQKeyboardManager {
         textField.keyboardToolbar.nextBarButton.isEnabled = (siblings.last != textField)        //    If lastTextField then next should not be enaled.
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /** Remove any toolbar if it is IQToolbar. */
@@ -164,7 +164,7 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         showLog("Found \(siblings.count) responder sibling(s)")
 
@@ -187,7 +187,7 @@ public extension IQKeyboardManager {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */

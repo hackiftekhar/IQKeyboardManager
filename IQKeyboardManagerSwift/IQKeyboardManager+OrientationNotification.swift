@@ -47,7 +47,8 @@ internal extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("📱>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         //If textViewContentInsetChanged is saved then restore it.
         if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
@@ -71,6 +72,6 @@ internal extension IQKeyboardManager {
         restorePosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("📱<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

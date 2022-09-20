@@ -17,6 +17,7 @@
     IBOutlet UITextField *textField3;
     IBOutlet UITextView *textView1;
     IBOutlet UITextView *textView2;
+    IBOutlet UITextView *textView3;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
 
@@ -53,7 +54,12 @@
     [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
     [textField3.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
     [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
-    
+
+
+    if (@available(iOS 16.0, *)) {
+        textView3.findInteractionEnabled = YES;
+    }
+
     dropDownTextField.keyboardDistanceFromTextField = 150;
     
     [dropDownTextField setItemList:@[@"Zero Line Of Code",

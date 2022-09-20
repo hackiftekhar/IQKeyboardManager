@@ -15,6 +15,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     @IBOutlet var textField3: UITextField!
     @IBOutlet var textView1: IQTextView!
     @IBOutlet var textView2: UITextView!
+    @IBOutlet var textView3: UITextView!
 
     @IBOutlet var dropDownTextField: IQDropDownTextField!
 
@@ -44,6 +45,10 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 
         textView2.enableMode = .disabled
         textView1.delegate = self
+
+        if #available(iOS 16.0, *) {
+            textView3.isFindInteractionEnabled = true
+        }
 
 //        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])
 

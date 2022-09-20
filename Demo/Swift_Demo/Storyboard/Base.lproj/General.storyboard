@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07C-Jx-O92">
-                                <rect key="frame" x="0.0" y="43.999999999999993" width="375" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="47" width="375" height="85"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Easiest integration" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Rr4-Yx-SRn">
                                         <rect key="frame" x="20" y="25.666666666666671" width="335" height="34"/>
@@ -34,7 +34,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-Gd-Tgq">
-                                <rect key="frame" x="0.0" y="129.33333333333334" width="375" height="85.333333333333343"/>
+                                <rect key="frame" x="0.0" y="132" width="375" height="85"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="90" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Device Orientation support" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-Kn-JCR">
                                         <rect key="frame" x="20" y="25.666666666666657" width="335" height="34"/>
@@ -51,16 +51,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKE-F4-xNG">
-                                <rect key="frame" x="0.0" y="214.66666666666666" width="375" height="85.333333333333343"/>
+                                <rect key="frame" x="0.0" y="217" width="375" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This textField observes custom prev/next/done selector" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s35-Qq-Nsv">
-                                        <rect key="frame" x="20" y="13.666666666666686" width="335" height="12"/>
+                                        <rect key="frame" x="20" y="13.666666666666657" width="335" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UITextField Category for Keyboard" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f9i-hv-EJj">
-                                        <rect key="frame" x="20" y="25.666666666666686" width="335" height="34"/>
+                                        <rect key="frame" x="20" y="25.666666666666657" width="335" height="34"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.47692340353260865" green="0.42763441709464001" blue="0.014257565567641661" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -77,7 +77,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lP-yw-jhD">
-                                <rect key="frame" x="0.0" y="300" width="375" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="302" width="375" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customised keyboardDistanceFromTextField = 150" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fq-Kb-dPm">
                                         <rect key="frame" x="20" y="13.666666666666686" width="335" height="12"/>
@@ -103,16 +103,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVr-ue-nU2">
-                                <rect key="frame" x="0.0" y="385.33333333333331" width="375" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="387" width="375" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is IQTextView with placeholder support" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGW-E3-wza">
-                                        <rect key="frame" x="20" y="13.333333333333371" width="335" height="12"/>
+                                        <rect key="frame" x="20" y="13" width="335" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nry-4j-VcI" customClass="IQTextView" customModule="IQKeyboardManagerSwift">
-                                        <rect key="frame" x="20" y="25.333333333333371" width="335" height="35"/>
+                                        <rect key="frame" x="20" y="25" width="335" height="35"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.47692340353260865" green="0.013985326711680755" blue="0.039278733763664801" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -138,10 +138,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBP-UW-teE">
-                                <rect key="frame" x="0.0" y="470.66666666666669" width="375" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="472" width="375" height="85"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="105" contentMode="scaleToFill" text="Can set keyboard and textFiled distance" translatesAutoresizingMaskIntoConstraints="NO" id="0xQ-D1-B5M">
-                                        <rect key="frame" x="20" y="25.333333333333314" width="335" height="35"/>
+                                        <rect key="frame" x="20" y="25" width="335" height="35"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.47692340353260865" green="3.6346713731378741e-05" blue="0.45383219108448247" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -158,10 +158,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63Q-wt-23t">
-                                <rect key="frame" x="0.0" y="556" width="375" height="85.333333333333371"/>
+                                <rect key="frame" x="0.0" y="557" width="375" height="85"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="108" contentMode="scaleToFill" text="Can resign on touching outside" translatesAutoresizingMaskIntoConstraints="NO" id="wIC-LZ-asw">
-                                        <rect key="frame" x="20" y="25.333333333333371" width="335" height="35"/>
+                                        <rect key="frame" x="20" y="25" width="335" height="35"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.2440839877768155" green="0.0" blue="0.47692340353260865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -178,10 +178,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZX-d4-nhG">
-                                <rect key="frame" x="0.0" y="641.33333333333337" width="375" height="85.333333333333371"/>
+                                <rect key="frame" x="0.0" y="642" width="375" height="85"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="94" contentMode="scaleToFill" text="can adjust textView's height when it is too big to fit on screen" translatesAutoresizingMaskIntoConstraints="NO" id="Inj-lY-mEU">
-                                        <rect key="frame" x="20" y="25.333333333333258" width="335" height="35"/>
+                                        <rect key="frame" x="20" y="25" width="335" height="35"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.018422932627533785" green="0.05210980157170237" blue="0.47692340353260865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -198,10 +198,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jg-i8-jqX">
-                                <rect key="frame" x="0.0" y="726.66666666666663" width="375" height="85.333333333333371"/>
+                                <rect key="frame" x="0.0" y="727" width="375" height="85"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-47-EvZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="85.333333333333329"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-47-EvZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="85"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Push">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -211,8 +211,8 @@
                                             <segue destination="csO-qF-Ohn" kind="show" id="YIr-Cf-zkf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-Vm-PL6">
-                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="85.333333333333329"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D8-Vm-PL6">
+                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="85"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <state key="normal" title="Present">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -235,6 +235,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gVk-b7-f0c"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TZX-d4-nhG" firstAttribute="leading" secondItem="07C-Jx-O92" secondAttribute="leading" id="0hd-mo-Nbr"/>
@@ -274,7 +275,6 @@
                             <constraint firstItem="0lP-yw-jhD" firstAttribute="height" secondItem="07C-Jx-O92" secondAttribute="height" id="xRS-DP-aWL"/>
                             <constraint firstItem="07C-Jx-O92" firstAttribute="leading" secondItem="gVk-b7-f0c" secondAttribute="leading" id="zTi-hu-eO8"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gVk-b7-f0c"/>
                     </view>
                     <navigationItem key="navigationItem" title="TextField Demo" id="s8z-5e-RBK">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="qRy-Jd-18s">
@@ -290,6 +290,7 @@
                         <outlet property="textField3" destination="f9i-hv-EJj" id="DBN-J6-duh"/>
                         <outlet property="textView1" destination="Nry-4j-VcI" id="TlE-FP-Tnc"/>
                         <outlet property="textView2" destination="wIC-LZ-asw" id="f9v-Pn-QjU"/>
+                        <outlet property="textView3" destination="Inj-lY-mEU" id="nnY-RW-NSk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLS-w0-J9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -313,13 +314,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dET-Cl-VUb">
-                                <rect key="frame" x="10" y="69" width="355" height="34"/>
+                                <rect key="frame" x="10" y="72" width="355" height="34"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pgv-Nr-BWR">
-                                <rect key="frame" x="10" y="108" width="355" height="44"/>
+                                <rect key="frame" x="10" y="111" width="355" height="44"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-LR-bIl">
                                         <rect key="frame" x="10" y="5" width="335" height="34"/>
@@ -364,7 +365,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zjk-gc-QEr">
-                                <rect key="frame" x="10" y="157" width="355" height="458"/>
+                                <rect key="frame" x="10" y="160" width="355" height="455"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">2 There are also nice optional features allowing you to customize the distance from the text field, add the next/previous done button as a keyboard UIToolbar, play sounds when the user navigations through the form and more. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -386,6 +387,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Yjf-Wp-up3"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Pgv-Nr-BWR" firstAttribute="leading" secondItem="dET-Cl-VUb" secondAttribute="leading" id="3le-BI-CJa"/>
@@ -408,7 +410,6 @@
                             <constraint firstItem="9al-mX-KU2" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="xDs-zv-VIN"/>
                             <constraint firstItem="Zjk-gc-QEr" firstAttribute="trailing" secondItem="dET-Cl-VUb" secondAttribute="trailing" id="zIO-cM-iyj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Yjf-Wp-up3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manual UIToolbar" id="Bsk-WG-eqv">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="EP2-V0-ARn"/>
@@ -433,8 +434,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-N5-MlD">
-                                <rect key="frame" x="0.0" y="44" width="187.66666666666666" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-N5-MlD">
+                                <rect key="frame" x="0.0" y="47" width="187.66666666666666" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="fn2-mB-2Uo"/>
                                 </constraints>
@@ -447,8 +448,8 @@
                                     <segue destination="S5Z-0B-U3b" kind="show" id="bIL-2r-tuw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNE-Wh-GsT">
-                                <rect key="frame" x="187.66666666666663" y="44" width="187.33333333333337" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNE-Wh-GsT">
+                                <rect key="frame" x="187.66666666666663" y="47" width="187.33333333333337" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="Present">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -459,7 +460,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8v-ua-y0A">
-                                <rect key="frame" x="4.9999999999999929" y="88" width="118.33333333333331" height="680"/>
+                                <rect key="frame" x="4.9999999999999929" y="91" width="118.33333333333331" height="677"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.037223728980000002" green="0.2286975034" blue="0.47692340350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">`IQKeyboardManager` allows you to prevent issues of the keyboard sliding up and covering a text field without needing you to enter any code.
@@ -469,7 +470,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rUI-UY-dtz">
-                                <rect key="frame" x="128.33333333333334" y="88.000000000000028" width="118.33333333333334" height="337.66666666666674"/>
+                                <rect key="frame" x="128.33333333333334" y="91" width="118.33333333333334" height="336"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.17938000649999999" green="0.47692340350000001" blue="0.46705995909999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">One of the Speciality of this Library is `It Works Automatically`.
@@ -479,7 +480,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2d0-tG-Pzx">
-                                <rect key="frame" x="251.66666666666666" y="88" width="118.33333333333334" height="225"/>
+                                <rect key="frame" x="251.66666666666666" y="91" width="118.33333333333334" height="224"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.35979851940000002" green="0.47692340350000001" blue="0.23990625860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">`IQKeyboardManager` works on all orientations, and with the toolbar.
@@ -489,7 +490,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m72-tJ-oyd">
-                                <rect key="frame" x="128.33333333333334" y="430.66666666666674" width="118.33333333333334" height="337.33333333333326"/>
+                                <rect key="frame" x="128.33333333333334" y="432" width="118.33333333333334" height="336"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.1750397256" green="0.47692340350000001" blue="0.27988265709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">`ZERO LINE OF CODE`, `No More imports`, `No More Subclasses`, `No More Manual Work`.
@@ -499,7 +500,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEb-Ei-7Sx">
-                                <rect key="frame" x="251.66666666666666" y="318" width="118.33333333333334" height="450"/>
+                                <rect key="frame" x="251.66666666666666" y="320" width="118.33333333333334" height="448"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.47692340350000001" green="0.36313484200000001" blue="0.25518210050000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">To use `IQKeyboardManager` you simply need to add the framework to your project or add the source files to your project.
@@ -509,6 +510,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Hs-Z1-5S0"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="L8v-ua-y0A" firstAttribute="leading" secondItem="4Hs-Z1-5S0" secondAttribute="leading" constant="5" id="1Z6-kz-nkX"/>
@@ -541,7 +543,6 @@
                             <constraint firstItem="4Hs-Z1-5S0" firstAttribute="trailing" secondItem="uNE-Wh-GsT" secondAttribute="trailing" id="tg3-wx-JQw"/>
                             <constraint firstItem="LEb-Ei-7Sx" firstAttribute="leading" secondItem="2d0-tG-Pzx" secondAttribute="leading" id="yOI-0E-V1k"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4Hs-Z1-5S0"/>
                     </view>
                     <navigationItem key="navigationItem" title="UITextView" id="Qen-Wv-SxX">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="3yn-Xo-guq"/>

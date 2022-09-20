@@ -364,6 +364,52 @@
         return YES;
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 160000
+- (UIMenu *)textField:(UITextField *)textField editMenuForCharactersInRange:(NSRange)range suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextFieldDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
+        delegate = modal.textFieldDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textField:editMenuForCharactersInRange:suggestedActions:)])
+        return [delegate textField:textField editMenuForCharactersInRange:range suggestedActions:suggestedActions];
+    else
+        return nil;
+}
+
+- (void)textField:(UITextField *)textField willPresentEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextFieldDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
+        delegate = modal.textFieldDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textField:willPresentEditMenuWithAnimator:)])
+        [delegate textField:textField willPresentEditMenuWithAnimator:animator];
+}
+
+- (void)textField:(UITextField *)textField willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextFieldDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
+        delegate = modal.textFieldDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textField:willDismissEditMenuWithAnimator:)])
+        [delegate textField:textField willDismissEditMenuWithAnimator:animator];
+}
+#endif
+
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
     id<UITextFieldDelegate> delegate = self.delegate;
@@ -589,6 +635,53 @@
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange];
     else
         return YES;
+}
+#endif
+
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 160000
+-(UIMenu *)textView:(UITextView *)textView editMenuForTextInRange:(NSRange)range suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions  NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
+        delegate = modal.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:editMenuForTextInRange:suggestedActions:)])
+        return [delegate textView:textView editMenuForTextInRange:range suggestedActions:suggestedActions];
+    else
+        return nil;
+}
+
+- (void)textView:(UITextView *)textView willPresentEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator  NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
+        delegate = modal.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:willPresentEditMenuWithAnimator:)])
+        [delegate textView:textView willPresentEditMenuWithAnimator:animator];
+}
+
+- (void)textView:(UITextView *)textView willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator  NS_AVAILABLE_IOS(16_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
+        delegate = modal.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:willDismissEditMenuWithAnimator:)])
+        [delegate textView:textView willDismissEditMenuWithAnimator:animator];
 }
 #endif
 

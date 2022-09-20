@@ -89,7 +89,7 @@ public extension IQKeyboardManager {
     }
 
     /*  UIKeyboardWillShowNotification. */
-    @objc internal func keyboardWillShow(_ notification: Notification?) {
+    @objc internal func keyboardWillShow(_ notification: Notification) {
 
         keyboardShowNotification = notification
 
@@ -98,7 +98,7 @@ public extension IQKeyboardManager {
 
         let oldKBFrame = keyboardFrame
 
-        if let info = notification?.userInfo {
+        if let info = notification.userInfo {
 
             //  Getting keyboard animation.
             if let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
@@ -125,7 +125,9 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         //  (Bug ID: #5)
         if let textFieldView = textFieldView, topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
@@ -162,11 +164,11 @@ public extension IQKeyboardManager {
         }
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /*  UIKeyboardDidShowNotification. */
-    @objc internal func keyboardDidShow(_ notification: Notification?) {
+    @objc internal func keyboardDidShow(_ notification: Notification) {
 
         guard privateIsEnabled(),
             let textFieldView = textFieldView,
@@ -176,12 +178,13 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         self.optimizedAdjustPosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -214,7 +217,8 @@ public extension IQKeyboardManager {
         }
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification?.object ?? "NULL")")
 
         //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
         //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
@@ -286,19 +290,20 @@ public extension IQKeyboardManager {
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     @objc internal func keyboardDidHide(_ notification: Notification) {
 
         let startTime = CACurrentMediaTime()
-        showLog("****** \(#function) started ******", indentation: 1)
+        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+        showLog("Notification Object:\(notification.object ?? "NULL")")
 
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
 
         keyboardFrame = CGRect.zero
 
         let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("****** \(#function) ended: \(elapsedTime) seconds ******", indentation: -1)
+        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }
