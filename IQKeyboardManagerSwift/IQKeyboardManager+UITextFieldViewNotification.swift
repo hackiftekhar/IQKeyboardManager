@@ -209,17 +209,17 @@ internal extension IQKeyboardManager {
         }
 
         //Setting object to nil
-        if #available(iOS 16.0, *) {
-            if let textView = object as? UITextView, textView.isFindInteractionEnabled {
+#if swift(>=5.7)
+        if #available(iOS 16.0, *), let textView = object as? UITextView, textView.isFindInteractionEnabled {
                 //Not setting it nil, because it may be doing find interaction.
                 //As of now, here textView.findInteraction?.isFindNavigatorVisible returns false
                 //So there is no way to detect if this is dismissed due to findInteraction
-            } else {
-                textFieldView = nil
-            }
         } else {
             textFieldView = nil
         }
+ #else
+        textFieldView = nil
+#endif
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)

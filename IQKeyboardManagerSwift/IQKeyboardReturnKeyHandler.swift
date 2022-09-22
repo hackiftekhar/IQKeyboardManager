@@ -599,6 +599,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         return true
     }
 
+#if swift(>=5.7)
     @available(iOS 16.0, *)
     public func textView(_ aTextView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         if delegate == nil {
@@ -640,4 +641,5 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         aDelegate?.textView?(aTextView, willDismissEditMenuWith: animator)
     }
+#endif
 }

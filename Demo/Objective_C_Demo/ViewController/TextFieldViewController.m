@@ -56,9 +56,11 @@
     [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
 
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
     if (@available(iOS 16.0, *)) {
         textView3.findInteractionEnabled = YES;
     }
+#endif
 
     dropDownTextField.keyboardDistanceFromTextField = 150;
     

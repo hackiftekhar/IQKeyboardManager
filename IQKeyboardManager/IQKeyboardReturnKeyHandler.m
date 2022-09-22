@@ -364,7 +364,7 @@
         return YES;
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 160000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
 - (UIMenu *)textField:(UITextField *)textField editMenuForCharactersInRange:(NSRange)range suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions NS_AVAILABLE_IOS(16_0);
 {
     id<UITextFieldDelegate> delegate = self.delegate;
@@ -639,7 +639,7 @@
 #endif
 
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 160000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
 -(UIMenu *)textView:(UITextView *)textView editMenuForTextInRange:(NSRange)range suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions  NS_AVAILABLE_IOS(16_0);
 {
     id<UITextViewDelegate> delegate = self.delegate;
