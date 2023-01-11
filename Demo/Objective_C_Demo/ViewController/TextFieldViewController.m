@@ -92,6 +92,17 @@
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:NSLocalizedString(@"Dismiss",nil) forState:UIControlStateNormal];
     }
+
+    [[IQKeyboardManager sharedManager] registerKeyboardSizeChangeWithIdentifier: @"TextFieldViewController" sizeHandler:^(CGSize size) {
+        NSLog(@"%@", NSStringFromCGSize(size));
+    }];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear: animated];
+
+    [[IQKeyboardManager sharedManager] unregisterKeyboardSizeChangeWithIdentifier: @"TextFieldViewController"];
 }
 
 - (IBAction)presentClicked:(id)sender

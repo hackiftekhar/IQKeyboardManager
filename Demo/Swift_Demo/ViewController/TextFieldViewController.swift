@@ -88,6 +88,15 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
             buttonPush.isHidden = true
             buttonPresent.setTitle("Dismiss", for: .normal)
         }
+
+        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
+            print(size)
+        })
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.unregisterKeyboardSizeChange(identifier: "TextFieldViewController")
     }
 
     @IBAction func presentClicked (_ sender: AnyObject!) {

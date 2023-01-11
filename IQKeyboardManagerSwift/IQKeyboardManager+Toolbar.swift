@@ -244,13 +244,11 @@ public extension IQKeyboardManager {
 
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if isAcceptAsFirstResponder == false {
-            //If next field refuses to become first responder then restoring old textField as first responder.
-            textFieldRetain.becomeFirstResponder()
-
             showLog("Refuses to become first responder: \(nextTextField)")
         }
 
-        return isAcceptAsFirstResponder    }
+        return isAcceptAsFirstResponder
+    }
 
     /**
     Navigate to next responder textField/textView.
@@ -268,9 +266,6 @@ public extension IQKeyboardManager {
 
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if isAcceptAsFirstResponder == false {
-            //If next field refuses to become first responder then restoring old textField as first responder.
-            textFieldRetain.becomeFirstResponder()
-
             showLog("Refuses to become first responder: \(nextTextField)")
         }
 

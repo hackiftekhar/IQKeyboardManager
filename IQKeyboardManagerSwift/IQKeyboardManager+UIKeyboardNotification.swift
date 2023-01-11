@@ -28,12 +28,65 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
+    typealias SizeBlock = (_ size: CGSize) -> Void
+
+    private final class KeyboardSizeObserver: NSObject {
+        weak var observer: NSObject?
+        var sizeHandler: (_ size: CGSize) -> Void
+
+        init(observer: NSObject?, sizeHandler: @escaping (_ size: CGSize) -> Void) {
+            self.observer = observer
+            self.sizeHandler = sizeHandler
+        }
+    }
+
     private struct AssociatedKeys {
+        static var keyboardSizeObservers = "keyboardSizeObservers"
+        static var keyboardLastNotifySize = "keyboardLastNotifySize"
         static var keyboardShowing = "keyboardShowing"
         static var keyboardShowNotification = "keyboardShowNotification"
         static var keyboardFrame = "keyboardFrame"
         static var animationDuration = "animationDuration"
         static var animationCurve = "animationCurve"
+    }
+
+    private var keyboardLastNotifySize: CGSize {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardLastNotifySize) as? CGSize ?? .zero
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardLastNotifySize, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    private var keyboardSizeObservers: [AnyHashable: SizeBlock] {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardSizeObservers) as? [AnyHashable: SizeBlock] ?? [:]
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardSizeObservers, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {
+        keyboardSizeObservers[identifier] = sizeHandler
+    }
+
+    @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {
+        keyboardSizeObservers[identifier] = nil
+    }
+
+    internal func notifyKeyboardSize(size: CGSize) {
+
+        guard !size.equalTo(keyboardLastNotifySize) else {
+            return
+        }
+
+        keyboardLastNotifySize = size
+
+        for block in keyboardSizeObservers.values {
+            block(size)
+        }
     }
 
     /**
@@ -114,6 +167,7 @@ public extension IQKeyboardManager {
             if let kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
 
                 keyboardFrame = kbFrame
+                notifyKeyboardSize(size: keyboardFrame.size)
                 showLog("UIKeyboard Frame: \(keyboardFrame)")
             }
         }
@@ -284,6 +338,7 @@ public extension IQKeyboardManager {
         //Reset all values
         lastScrollView = nil
         keyboardFrame = CGRect.zero
+        notifyKeyboardSize(size: keyboardFrame.size)
         startingContentInsets = UIEdgeInsets()
         startingScrollIndicatorInsets = UIEdgeInsets()
         startingContentOffset = CGPoint.zero
@@ -302,6 +357,7 @@ public extension IQKeyboardManager {
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
 
         keyboardFrame = CGRect.zero
+        notifyKeyboardSize(size: keyboardFrame.size)
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)

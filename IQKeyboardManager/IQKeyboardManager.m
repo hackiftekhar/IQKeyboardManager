@@ -63,6 +63,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 #define kIQCGPointInvalid CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)
 
+typedef void (^SizeBlock)(CGSize size);
+
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
 /*******************************************/
@@ -155,7 +157,10 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     /** To save keyboard size. */
     CGRect                   _kbFrame;
-    
+
+    CGSize                   _keyboardLastNotifySize;
+    NSMutableDictionary<id<NSCopying>, SizeBlock>* _keyboardSizeObservers;
+
     /*******************************************/
 }
 
@@ -249,7 +254,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 [view addDoneOnKeyboardWithTarget:nil action:nil];
                 [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
             }
-            
+
+            strongSelf->_keyboardSizeObservers = [[NSMutableDictionary alloc] init];
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
@@ -1345,6 +1351,8 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Getting UIKeyboardSize.
     _kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
+    [self notifyKeyboardSize:_kbFrame.size];
+
     if ([self privateIsEnabled] == NO)
     {
         [self restorePosition];
@@ -1520,6 +1528,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //Reset all values
     _lastScrollView = nil;
     _kbFrame = CGRectZero;
+    [self notifyKeyboardSize:_kbFrame.size];
     _startingContentInsets = UIEdgeInsetsZero;
     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
@@ -1539,9 +1548,30 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _topViewBeginOrigin = kIQCGPointInvalid;
 
     _kbFrame = CGRectZero;
+    [self notifyKeyboardSize:_kbFrame.size];
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+}
+
+-(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler
+{
+    _keyboardSizeObservers[identifier] = sizeHandler;
+}
+
+-(void)unregisterKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier
+{
+    _keyboardSizeObservers[identifier] = nil;
+}
+
+-(void)notifyKeyboardSize:(CGSize)size
+{
+    if (!CGSizeEqualToSize(size, _keyboardLastNotifySize)) {
+        _keyboardLastNotifySize = size;
+        for (SizeBlock block in _keyboardSizeObservers.allValues) {
+            block(size);
+        }
+    }
 }
 
 #pragma mark - UITextFieldView Delegate methods
@@ -1920,20 +1950,14 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         UITextField *nextTextField = textFields[index-1];
         
-        //  Retaining textFieldView
-        UIView *textFieldRetain = _textFieldView;
-        
         BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-        
+
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if (isAcceptAsFirstResponder == NO)
         {
-            //If next field refuses to become first responder then restoring old textField as first responder.
-            [textFieldRetain becomeFirstResponder];
-            
             [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
-        
+
         return isAcceptAsFirstResponder;
     }
     else
@@ -1956,21 +1980,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         index < textFields.count-1)
     {
         UITextField *nextTextField = textFields[index+1];
-        
-        //  Retaining textFieldView
-        UIView *textFieldRetain = _textFieldView;
-        
+
         BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-        
+
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if (isAcceptAsFirstResponder == NO)
         {
-            //If next field refuses to become first responder then restoring old textField as first responder.
-            [textFieldRetain becomeFirstResponder];
-            
             [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
-        
+
         return isAcceptAsFirstResponder;
     }
     else

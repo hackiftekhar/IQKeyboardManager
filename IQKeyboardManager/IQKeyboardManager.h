@@ -301,6 +301,20 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *touchResignedGestureIgnoreClasses;
 
+///---------------------------------------------
+/// @name Register for keyboard size events
+///---------------------------------------------
+
+/**
+ register an object to get keyboard size change events
+ */
+-(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler;
+
+/**
+ unregister the object which was registered before
+ */
+-(void)unregisterKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier;
+
 ///-------------------------------------------
 /// @name Third Party Library support
 /// Add TextField/TextView Notifications customised NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
