@@ -32,5 +32,9 @@
     "CoreGraphics",
     "QuartzCore"
   ],
+  "libraries": "swiftCoreGraphics",
+  "xcconfig": {
+      "LIBRARY_SEARCH_PATHS": "$(SDKROOT)/usr/lib/swift"
+  },
   "requires_arc": true
 }
