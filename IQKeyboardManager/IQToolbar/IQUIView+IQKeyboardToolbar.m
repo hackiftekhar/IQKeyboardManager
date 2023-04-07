@@ -266,6 +266,7 @@
     
     //  Creating a toolBar for phoneNumber keyboard
     IQToolbar *toolbar = self.keyboardToolbar;
+    toolbar.tintColor = [UIColor colorWithRed:10/255.0 green:121/255.0 blue:184/255.0 alpha:1.0];
     
     NSMutableArray<UIBarButtonItem*> *items = [[NSMutableArray alloc] init];
     
