@@ -21,10 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQNSArray+Sort.h"
 #import "IQUIView+Hierarchy.h"
 
-#import <UIKit/UIView.h>
 
 @implementation NSArray (IQ_NSArray_Sort)
 

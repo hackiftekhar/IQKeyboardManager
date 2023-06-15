@@ -21,14 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQKeyboardReturnKeyHandler.h"
 #import "IQKeyboardManager.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQNSArray+Sort.h"
-
-#import <UIKit/UITextField.h>
-#import <UIKit/UITextView.h>
-#import <UIKit/UIViewController.h>
 
 @interface IQTextFieldViewInfoModal : NSObject
 

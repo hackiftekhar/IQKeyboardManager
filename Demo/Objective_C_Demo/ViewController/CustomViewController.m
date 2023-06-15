@@ -7,9 +7,9 @@
 //
 
 #import "CustomViewController.h"
-#import "IQKeyboardManager.h"
-#import "IQKeyboardReturnKeyHandler.h"
-#import "IQPreviousNextView.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <IQKeyboardManager/IQKeyboardReturnKeyHandler.h>
+#import <IQKeyboardManager/IQPreviousNextView.h>
 
 @interface CustomViewController ()<UIPopoverPresentationControllerDelegate>
 {

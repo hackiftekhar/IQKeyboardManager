@@ -3,10 +3,8 @@
 //  KeyboardTextFieldDemo
 
 #import "TextFieldViewController.h"
-#import "IQKeyboardManager.h"
-#import "IQDropDownTextField.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQUITextFieldView+Additions.h"
+#import <IQDropDownTextField/IQDropDownTextField.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface TextFieldViewController ()<UIPopoverPresentationControllerDelegate>
 

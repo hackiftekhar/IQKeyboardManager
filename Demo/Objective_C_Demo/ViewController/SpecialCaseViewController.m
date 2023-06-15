@@ -3,9 +3,9 @@
 //  KeyboardTextFieldDemo
 
 #import "SpecialCaseViewController.h"
-#import "IQUIView+Hierarchy.h"
-#import "IQKeyboardManager.h"
-#import "IQUIView+IQKeyboardToolbar.h"
+#import <IQKeyboardManager/IQUIView+Hierarchy.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <IQKeyboardManager/IQUIView+IQKeyboardToolbar.h>
 
 @interface SpecialCaseViewController ()<UISearchBarDelegate,UITextFieldDelegate,UITextViewDelegate,UIGestureRecognizerDelegate,UIPopoverPresentationControllerDelegate>
 

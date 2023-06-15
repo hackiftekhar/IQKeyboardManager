@@ -7,9 +7,9 @@
 //
 
 #import "ManualToolbarViewController.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQToolbar.h"
-#import "IQTitleBarButtonItem.h"
+#import <IQKeyboardManager/IQUIView+IQKeyboardToolbar.h>
+#import <IQKeyboardManager/IQToolbar.h>
+#import <IQKeyboardManager/IQTitleBarButtonItem.h>
 
 @interface ManualToolbarViewController ()<UIPopoverPresentationControllerDelegate>
 

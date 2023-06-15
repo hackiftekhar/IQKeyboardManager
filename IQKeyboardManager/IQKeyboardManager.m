@@ -21,6 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
+
 #import "IQKeyboardManager.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQUIView+IQKeyboardToolbar.h"
@@ -30,33 +34,6 @@
 #import "IQUITextFieldView+Additions.h"
 #import "IQUIViewController+Additions.h"
 #import "IQPreviousNextView.h"
-
-#import <QuartzCore/CABase.h>
-
-#import <objc/runtime.h>
-
-#import <UIKit/UIAlertController.h>
-#import <UIKit/UISearchBar.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UINavigationBar.h>
-#import <UIKit/UITapGestureRecognizer.h>
-#import <UIKit/UITextField.h>
-#import <UIKit/UITextView.h>
-#import <UIKit/UITableViewController.h>
-#import <UIKit/UICollectionViewController.h>
-#import <UIKit/UICollectionViewCell.h>
-#import <UIKit/UICollectionViewLayout.h>
-#import <UIKit/UINavigationController.h>
-#import <UIKit/UITouch.h>
-#import <UIKit/UIWindow.h>
-#import <UIKit/UIStackView.h>
-#import <UIKit/NSLayoutConstraint.h>
-#import <UIKit/UIStackView.h>
-#import <UIKit/UIAccessibility.h>
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-#import <UIKit/UIWindowScene.h>
-#import <UIKit/UIStatusBarManager.h>
-#endif
 
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;

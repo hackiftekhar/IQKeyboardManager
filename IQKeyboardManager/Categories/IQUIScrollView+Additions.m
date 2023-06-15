@@ -21,8 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQUIScrollView+Additions.h"
 #import <objc/runtime.h>
+
+#import "IQUIScrollView+Additions.h"
 
 @implementation UIScrollView (Additions)
 

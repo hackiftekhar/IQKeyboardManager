@@ -1,11 +1,13 @@
 PODS:
-  - IQDropDownTextField (1.1.1)
-  - IQKeyboardManager (6.5.8)
-  - IQKeyboardManagerSwift (6.5.8)
-  - SwiftLint (0.40.0)
+  - IQDropDownTextField (4.0.1)
+  - IQDropDownTextFieldSwift (4.0.0)
+  - IQKeyboardManager (6.5.12)
+  - IQKeyboardManagerSwift (6.5.12)
+  - SwiftLint (0.52.2)
 
 DEPENDENCIES:
   - IQDropDownTextField
+  - IQDropDownTextFieldSwift
   - IQKeyboardManager (from `.`)
   - IQKeyboardManagerSwift (from `.`)
   - SwiftLint
@@ -13,6 +15,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - IQDropDownTextField
+    - IQDropDownTextFieldSwift
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -22,11 +25,12 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  IQDropDownTextField: 3d2e5728a2b83ff5dbb14cb9b497a80005124cbe
-  IQKeyboardManager: 1943526a2fa1a6ea24f90c845c274b0e80dd1912
-  IQKeyboardManagerSwift: 8139150a3c90a915a413d72a8a3e8634c2d3278b
-  SwiftLint: 4154893c73a4c52d6240195507eb7a3e3c64087e
+  IQDropDownTextField: c3a149deb3c6c4bba5edd85d88b6e83e90e08f63
+  IQDropDownTextFieldSwift: da07082650f59e04d88470ed0c28899ba3b50692
+  IQKeyboardManager: b1fd66ccf7a79095bdcc4a2735231586f744216e
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
+  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
 
-PODFILE CHECKSUM: dbd75d6b8b35d0cdee14571c29ff90fc1ce4a9ed
+PODFILE CHECKSUM: 2967c4a229076bdd1c8dc911a8859a7fd6701a1a
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.12.1
