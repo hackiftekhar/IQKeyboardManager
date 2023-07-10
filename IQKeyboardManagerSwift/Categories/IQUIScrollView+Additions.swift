@@ -77,7 +77,7 @@ internal extension UITableView {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
 
-        //Fixing indexPath
+        // Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
             if previousSection >= 0 {
@@ -100,7 +100,7 @@ internal extension UICollectionView {
         var previousRow = indexPath.row - 1
         var previousSection = indexPath.section
 
-        //Fixing indexPath
+        // Fixing indexPath
         if previousRow < 0 {
             previousSection -= 1
             if previousSection >= 0 {

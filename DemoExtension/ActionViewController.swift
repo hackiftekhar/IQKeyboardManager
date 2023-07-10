@@ -22,22 +22,20 @@ class ActionViewController: UIViewController {
         var imageFound = false
         let inputItems = self.extensionContext?.inputItems as? [NSExtensionItem]
         for item in inputItems ?? [] {
-            for provider in item.attachments ?? [] {
-                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-                    // This is an image. We'll load it, then place it in our image view.
-                    weak var weakImageView = self.imageView
-                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, _) in
-                        OperationQueue.main.addOperation {
-                            if let strongImageView = weakImageView {
-                                if let imageURL = imageURL as? URL, let data =  try? Data(contentsOf: imageURL) {
-                                    strongImageView.image = UIImage(data: data)
-                                }
+            for provider in item.attachments ?? [] where provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+                // This is an image. We'll load it, then place it in our image view.
+                weak var weakImageView = self.imageView
+                provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, _) in
+                    OperationQueue.main.addOperation {
+                        if let strongImageView = weakImageView {
+                            if let imageURL = imageURL as? URL, let data =  try? Data(contentsOf: imageURL) {
+                                strongImageView.image = UIImage(data: data)
                             }
                         }
-                    })
-                    imageFound = true
-                    break
-                }
+                    }
+                })
+                imageFound = true
+                break
             }
             if imageFound {
                 // We only handle one image, so stop looking for more.

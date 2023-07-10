@@ -126,7 +126,7 @@ Manages the return key to work like next/done in a view hierarchy.
     private func updateReturnKeyTypeOnTextField(_ view: UIView) {
         var superConsideredView: UIView?
 
-        //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+        // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
             superConsideredView = view.superviewOfClassType(disabledClass)
@@ -138,18 +138,18 @@ Manages the return key to work like next/done in a view hierarchy.
 
         var textFields = [UIView]()
 
-        //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
+        // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
             textFields = unwrappedTableView.deepResponderViews()
-        } else {  //Otherwise fetching all the siblings
+        } else {  // Otherwise fetching all the siblings
 
             textFields = view.responderSiblings()
 
-            //Sorting textFields according to behaviour
+            // Sorting textFields according to behaviour
             switch IQKeyboardManager.shared.toolbarManageBehaviour {
-                //If needs to sort it by tag
+                // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
-                //If needs to sort it by Position
+                // If needs to sort it by Position
             case .byPosition:   textFields = textFields.sortedArrayByPosition()
             default:    break
             }
@@ -159,11 +159,11 @@ Manages the return key to work like next/done in a view hierarchy.
 
             if let textField = view as? UITextField {
 
-                //If it's the last textField in responder view, else next
+                // If it's the last textField in responder view, else next
                 textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
             } else if let textView = view as? UITextView {
 
-                //If it's the last textField in responder view, else next
+                // If it's the last textField in responder view, else next
                 textView.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
             }
         }
@@ -256,7 +256,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
         var superConsideredView: UIView?
 
-        //If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
+        // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
             superConsideredView = view.superviewOfClassType(disabledClass)
@@ -268,27 +268,27 @@ Manages the return key to work like next/done in a view hierarchy.
 
         var textFields = [UIView]()
 
-        //If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
+        // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView = superConsideredView {     //   (Enhancement ID: #22)
             textFields = unwrappedTableView.deepResponderViews()
-        } else {  //Otherwise fetching all the siblings
+        } else {  // Otherwise fetching all the siblings
 
             textFields = view.responderSiblings()
 
-            //Sorting textFields according to behaviour
+            // Sorting textFields according to behaviour
             switch IQKeyboardManager.shared.toolbarManageBehaviour {
-                //If needs to sort it by tag
+                // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
-                //If needs to sort it by Position
+                // If needs to sort it by Position
             case .byPosition:   textFields = textFields.sortedArrayByPosition()
             default:
                 break
             }
         }
 
-        //Getting index of current textField.
+        //  Getting index of current textField.
         if let index = textFields.firstIndex(of: view) {
-            //If it is not last textField. then it's next object becomeFirstResponder.
+            //  If it is not last textField. then it's next object becomeFirstResponder.
             if index < (textFields.count - 1) {
 
                 let nextTextField = textFields[index+1]
