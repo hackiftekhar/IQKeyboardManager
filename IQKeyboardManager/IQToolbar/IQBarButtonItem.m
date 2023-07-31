@@ -37,9 +37,9 @@
     {
         UIControlState controlState = [state unsignedIntegerValue];
 
-        [self setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
-        [self setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
-        [self setBackButtonBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:[UIImage new] forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:[UIImage new] forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+        [self setBackButtonBackgroundImage:[UIImage new] forState:controlState barMetrics:UIBarMetricsDefault];
     }
 
     [self setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
