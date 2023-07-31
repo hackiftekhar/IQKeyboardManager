@@ -7,7 +7,7 @@
 //
 
 #import "RefreshLayoutViewController.h"
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface RefreshLayoutViewController ()
 

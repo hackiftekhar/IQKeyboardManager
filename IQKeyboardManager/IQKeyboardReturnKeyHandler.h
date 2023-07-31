@@ -21,12 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <IQKeyboardManagerConstants.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSObjCRuntime.h>
-
-#import <UIKit/UITextInputTraits.h>
+#import "IQKeyboardManagerConstants.h"
 
 @class UITextField, UIView, UIViewController;
 @protocol UITextFieldDelegate, UITextViewDelegate;

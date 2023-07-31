@@ -3,7 +3,7 @@
 //  KeyboardTextFieldDemo
 
 #import "TextViewSpecialCaseViewController.h"
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface TextViewSpecialCaseViewController ()<UIPopoverPresentationControllerDelegate>
 

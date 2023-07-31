@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 #import "OptionsViewController.h"
 
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 #import "SwitchTableViewCell.h"
 #import "StepperTableViewCell.h"

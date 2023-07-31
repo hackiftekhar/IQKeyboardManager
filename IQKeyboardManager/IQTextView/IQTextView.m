@@ -21,12 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQTextView.h"
 
-#import <UIKit/NSTextContainer.h>
-#import <UIKit/UIAccessibility.h>
-#import <UIKit/UILabel.h>
-#import <UIKit/UINibLoading.h>
 
 @interface IQTextView ()
 

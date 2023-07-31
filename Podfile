@@ -1,6 +1,6 @@
 project 'Demo.xcodeproj'
 
-platform :ios, '8.0'
+platform :ios, '11.0'
 use_frameworks!
 
 target 'DemoObjC' do
@@ -13,7 +13,7 @@ end
 target 'DemoSwift' do
 
     pod 'SwiftLint'
-    pod "IQDropDownTextField"
+    pod "IQDropDownTextFieldSwift"
     pod "IQKeyboardManagerSwift", :path => "."
 
 end

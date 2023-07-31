@@ -55,7 +55,7 @@ import UIKit
             self.setShadowImage(nil, forToolbarPosition: .any)
         }
 
-        //Background color
+        // Background color
         self.backgroundColor = nil
     }
 
@@ -168,81 +168,6 @@ import UIKit
                     item.tintColor = tintColor
                 }
             }
-        }
-    }
-
-    @objc override open func layoutSubviews() {
-
-        super.layoutSubviews()
-
-        if #available(iOS 11, *) {
-            return
-        } else if let customTitleView = titleBarButton.customView {
-            var leftRect = CGRect.null
-            var rightRect = CGRect.null
-            var isTitleBarButtonFound = false
-
-            let sortedSubviews = self.subviews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
-                if view1.frame.minX != view2.frame.minX {
-                    return view1.frame.minX < view2.frame.minX
-                } else {
-                    return view1.frame.minY < view2.frame.minY
-                }
-            })
-
-            for barButtonItemView in sortedSubviews {
-
-                if isTitleBarButtonFound {
-                    rightRect = barButtonItemView.frame
-                    break
-                } else if barButtonItemView === customTitleView {
-                    isTitleBarButtonFound = true
-                    //If it's UIToolbarButton or UIToolbarTextButton (which actually UIBarButtonItem)
-                } else if barButtonItemView.isKind(of: UIControl.self) {
-                    leftRect = barButtonItemView.frame
-                }
-            }
-
-            let titleMargin: CGFloat = 16
-
-            let maxWidth: CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-            let maxHeight = self.frame.height
-
-            let sizeThatFits = customTitleView.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
-
-            var titleRect: CGRect
-
-            if sizeThatFits.width > 0, sizeThatFits.height > 0 {
-                let width = min(sizeThatFits.width, maxWidth)
-                let height = min(sizeThatFits.height, maxHeight)
-
-                var xPosition: CGFloat
-
-                if !leftRect.isNull {
-                    xPosition = titleMargin + leftRect.maxX + ((maxWidth - width)/2)
-                } else {
-                    xPosition = titleMargin
-                }
-
-                let yPosition = (maxHeight - height)/2
-
-                titleRect = CGRect(x: xPosition, y: yPosition, width: width, height: height)
-            } else {
-
-                var xPosition: CGFloat
-
-                if !leftRect.isNull {
-                    xPosition = titleMargin + leftRect.maxX
-                } else {
-                    xPosition = titleMargin
-                }
-
-                let width: CGFloat = self.frame.width - titleMargin*2 - (leftRect.isNull ? 0 : leftRect.maxX) - (rightRect.isNull ? 0 : self.frame.width - rightRect.minX)
-
-                titleRect = CGRect(x: xPosition, y: 0, width: width, height: maxHeight)
-            }
-
-            customTitleView.frame = titleRect
         }
     }
 

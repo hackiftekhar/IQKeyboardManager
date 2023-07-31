@@ -3,7 +3,7 @@
 //  KeyboardTextFieldDemo
 
 #import "ViewController.h"
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface ViewController ()<UIPopoverPresentationControllerDelegate>
 

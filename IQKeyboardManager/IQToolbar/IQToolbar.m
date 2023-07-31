@@ -21,13 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQToolbar.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 
-#import <UIKit/UIButton.h>
-#import <UIKit/UIAccessibility.h>
-#import <UIKit/UIViewController.h>
 
 @implementation IQToolbar
 @synthesize previousBarButton = _previousBarButton;

@@ -8,7 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import IQDropDownTextField
+import IQDropDownTextFieldSwift
 
 class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
 
@@ -108,7 +108,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
             navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
             navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
             navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
-            navController.modalTransitionStyle = UIModalTransitionStyle(rawValue: Int(arc4random()%4))!
+            navController.modalTransitionStyle = UIModalTransitionStyle(rawValue: Int.random(in: 0..<4))!
 
             // TransitionStylePartialCurl can only be presented by FullScreen style.
             if navController.modalTransitionStyle == UIModalTransitionStyle.partialCurl {

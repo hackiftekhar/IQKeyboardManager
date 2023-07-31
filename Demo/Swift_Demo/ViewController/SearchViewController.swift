@@ -51,7 +51,7 @@ class SearchViewController: UITableViewController, UISearchResultsUpdating, UISe
             self.filteredList = self.dataList
             return
         }
-        
+
         if scope == 0 {
             self.filteredList = self.dataList.filter({ (obj: [String: String]) -> Bool in
 
