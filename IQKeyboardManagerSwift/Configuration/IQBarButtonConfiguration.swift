@@ -26,8 +26,8 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @objc public final class IQBarButtonItemConfiguration: NSObject {
 
-    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {
-        self.barButtonSystemItem = barButtonSystemItem
+    @objc public init(systemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {
+        self.systemItem = systemItem
         self.image = nil
         self.title = nil
         self.action = action
@@ -35,7 +35,7 @@ import UIKit
     }
 
     @objc public init(image: UIImage, action: Selector? = nil) {
-        self.barButtonSystemItem = nil
+        self.systemItem = nil
         self.image = image
         self.title = nil
         self.action = action
@@ -43,14 +43,14 @@ import UIKit
     }
 
     @objc public init(title: String, action: Selector? = nil) {
-        self.barButtonSystemItem = nil
+        self.systemItem = nil
         self.image = nil
         self.title = title
         self.action = action
         super.init()
     }
 
-    public let barButtonSystemItem: UIBarButtonItem.SystemItem?    // System Item to be used to instantiate bar button.
+    public let systemItem: UIBarButtonItem.SystemItem?    // System Item to be used to instantiate bar button.
 
     @objc public let image: UIImage?    // Image to show on bar button item if it's not a system item.
 

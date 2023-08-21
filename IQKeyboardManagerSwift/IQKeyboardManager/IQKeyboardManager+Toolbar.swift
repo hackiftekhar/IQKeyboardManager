@@ -58,7 +58,7 @@ public extension IQKeyboardManager {
             rightConfiguration = configuration
             rightConfiguration.action = #selector(self.doneAction(_:))
         } else {
-            rightConfiguration = IQBarButtonItemConfiguration(barButtonSystemItem: .done, action: #selector(self.doneAction(_:)))
+            rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: #selector(self.doneAction(_:)))
             rightConfiguration.accessibilityLabel = "Done"
         }
 
