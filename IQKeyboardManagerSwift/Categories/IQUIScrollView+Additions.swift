@@ -27,9 +27,9 @@ import UIKit
 @objc public extension UIScrollView {
 
     private struct AssociatedKeys {
-        static var shouldIgnoreScrollingAdjustment = "shouldIgnoreScrollingAdjustment"
-        static var shouldIgnoreContentInsetAdjustment = "shouldIgnoreContentInsetAdjustment"
-        static var shouldRestoreScrollViewContentOffset = "shouldRestoreScrollViewContentOffset"
+        static var shouldIgnoreScrollingAdjustment: Int = 0
+        static var shouldIgnoreContentInsetAdjustment: Int = 0
+        static var shouldRestoreScrollViewContentOffset: Int = 0
     }
 
     /**
@@ -73,8 +73,8 @@ import UIKit
 internal extension UITableView {
 
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
-        var previousRow = indexPath.row - 1
-        var previousSection = indexPath.section
+        var previousRow: Int = indexPath.row - 1
+        var previousSection: Int = indexPath.section
 
         // Fixing indexPath
         if previousRow < 0 {
@@ -96,8 +96,8 @@ internal extension UITableView {
 internal extension UICollectionView {
 
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
-        var previousRow = indexPath.row - 1
-        var previousSection = indexPath.section
+        var previousRow: Int = indexPath.row - 1
+        var previousSection: Int = indexPath.section
 
         // Fixing indexPath
         if previousRow < 0 {

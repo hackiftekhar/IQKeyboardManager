@@ -31,7 +31,7 @@ struct IQScrollViewConfiguration {
     internal let startingContentInsets: UIEdgeInsets
 
     init?(scrollView: UIScrollView?) {
-        guard let scrollView = scrollView else { return nil }
+        guard let scrollView: UIScrollView = scrollView else { return nil }
         self.scrollView = scrollView
         startingContentOffset = scrollView.contentOffset
         startingContentInsets = scrollView.contentInset
@@ -69,7 +69,9 @@ struct IQScrollViewConfiguration {
 #endif
 
         if scrollView.shouldRestoreScrollViewContentOffset, !scrollView.contentOffset.equalTo(startingContentOffset) {
-            let animatedContentOffset = textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+
+            //  (Bug ID: #1365, #1508, #1541)
+            let animatedContentOffset: Bool = textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil
 
             if animatedContentOffset {
                 scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)

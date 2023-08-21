@@ -40,11 +40,11 @@ internal extension IQKeyboardManager {
         }
 
         // If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
-        if let view = superConsideredView {
+        if let view: UIView = superConsideredView {
             return view.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
 
-            guard let textFields = textFieldView?.responderSiblings() else {
+            guard let textFields: [UIView] = textFieldView?.responderSiblings() else {
                 return nil
             }
 
@@ -64,18 +64,20 @@ internal extension IQKeyboardManager {
 
     func privateIsEnabled() -> Bool {
 
-        var isEnabled = enable
+        var isEnabled: Bool = enable
 
-        let enableMode = textFieldView?.enableMode
+        let enableMode: IQEnableMode? = textFieldView?.enableMode
 
         if enableMode == .enabled {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController = textFieldView?.viewContainingController() {
+        } else if var textFieldViewController: UIViewController = textFieldView?.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+            if textFieldView?.textFieldSearchBar() != nil,
+               let navController: UINavigationController = textFieldViewController as? UINavigationController,
+               let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController
             }
 
@@ -109,16 +111,18 @@ internal extension IQKeyboardManager {
 
     func privateIsEnableAutoToolbar() -> Bool {
 
-        guard var textFieldViewController = textFieldView?.viewContainingController() else {
+        guard var textFieldViewController: UIViewController = textFieldView?.viewContainingController() else {
             return enableAutoToolbar
         }
 
         // If it is searchBar textField embedded in Navigation Bar
-        if textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+        if textFieldView?.textFieldSearchBar() != nil,
+           let navController: UINavigationController = textFieldViewController as? UINavigationController,
+           let topController: UIViewController = navController.topViewController {
             textFieldViewController = topController
         }
 
-        var enableToolbar = enableAutoToolbar
+        var enableToolbar: Bool = enableAutoToolbar
 
         if !enableToolbar, enabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
             enableToolbar = true
@@ -148,9 +152,9 @@ internal extension IQKeyboardManager {
 
     func privateShouldResignOnTouchOutside() -> Bool {
 
-        var shouldResign = shouldResignOnTouchOutside
+        var shouldResign: Bool = shouldResignOnTouchOutside
 
-        let enableMode = textFieldView?.shouldResignOnTouchOutsideMode
+        let enableMode: IQEnableMode? = textFieldView?.shouldResignOnTouchOutsideMode
 
         if enableMode == .enabled {
             shouldResign = true
@@ -159,7 +163,9 @@ internal extension IQKeyboardManager {
         } else if var textFieldViewController = textFieldView?.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldView?.textFieldSearchBar() != nil, let navController = textFieldViewController as? UINavigationController, let topController = navController.topViewController {
+            if textFieldView?.textFieldSearchBar() != nil,
+               let navController: UINavigationController = textFieldViewController as? UINavigationController,
+               let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController
             }
 

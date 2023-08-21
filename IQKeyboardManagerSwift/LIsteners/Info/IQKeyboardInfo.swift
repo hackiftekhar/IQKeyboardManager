@@ -57,26 +57,26 @@ public struct IQKeyboardInfo: Equatable {
         self.name = name
 //        print("Notification Object:\(notification?.object ?? "NULL")")
 
-        if let info = notification?.userInfo {
+        if let info: [AnyHashable: Any] = notification?.userInfo {
 
             //  Getting keyboard animation.
-            if let curveValue = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
-                let curve = UIView.AnimationCurve(rawValue: curveValue) {
+            if let curveValue: Int = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
+               let curve: UIView.AnimationCurve = UIView.AnimationCurve(rawValue: curveValue) {
                 animationCurve = curve
             } else {
-                animationCurve = UIView.AnimationCurve.easeOut
+                animationCurve = .easeOut
             }
 
             //  Getting keyboard animation duration
-            let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+            let duration: TimeInterval = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
             animationDuration = TimeInterval.maximum(duration, 0.25)
-            let screen = (notification?.object as? UIScreen) ?? UIScreen.main
+            let screen: UIScreen = (notification?.object as? UIScreen) ?? UIScreen.main
 
             //  Getting UIKeyboardSize.
-            if var kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            if var kbFrame: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
 
                 // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
-                let intersectRect = kbFrame.intersection(screen.bounds)
+                let intersectRect: CGRect = kbFrame.intersection(screen.bounds)
 
                 if intersectRect.isNull {
                     kbFrame.size = CGSize(width: kbFrame.size.width, height: 0)
@@ -89,28 +89,32 @@ public struct IQKeyboardInfo: Equatable {
                 frame = CGRect(x: 0, y: screen.bounds.height, width: screen.bounds.width, height: 0)
             }
         } else {
-            animationCurve = UIView.AnimationCurve.easeOut
+            animationCurve = .easeOut
             animationDuration = 0.25
-            let screen = UIScreen.main
-            frame = CGRect(x: 0, y: screen.bounds.height, width: screen.bounds.width, height: 0)
+            let screen: UIScreen = UIScreen.main
+            frame = .init(x: 0, y: screen.bounds.height, width: screen.bounds.width, height: 0)
         }
     }
 
     public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
 
-        if let timing = UIView.AnimationCurve.RawValue(exactly: animationCurve.rawValue),
-           let curve = UIView.AnimationCurve(rawValue: timing) {
-            let animator = UIViewPropertyAnimator(duration: animationDuration, curve: curve) {
-                completion?()
-            }
-            animator.isUserInteractionEnabled = true
-            animator.startAnimation()
-        } else {
-            var animationOptions = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue << 16))
-            animationOptions.formUnion(.allowUserInteraction)
-            UIView.animate(withDuration: animationDuration, delay: 0, options: animationOptions, animations: transition, completion: { _ in
-                completion?()
-            })
-        }
+//        if let timing = UIView.AnimationCurve.RawValue(exactly: animationCurve.rawValue),
+//           let curve = UIView.AnimationCurve(rawValue: timing) {
+//            let animator = UIViewPropertyAnimator(duration: animationDuration, curve: curve) {
+//                transition()
+//            }
+//            animator.addCompletion { _ in
+//                completion?()
+//            }
+//            animator.isUserInteractionEnabled = true
+//            animator.startAnimation()
+//        } else {
+        var animationOptions: UIView.AnimationOptions = .init(rawValue: UInt(animationCurve.rawValue << 16))
+        animationOptions.formUnion(.allowUserInteraction)
+        animationOptions.formUnion(.beginFromCurrentState)
+        UIView.animate(withDuration: animationDuration, delay: 0, options: animationOptions, animations: transition, completion: { _ in
+            completion?()
+        })
+//        }
     }
 }

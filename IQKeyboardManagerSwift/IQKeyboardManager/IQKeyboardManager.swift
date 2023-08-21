@@ -37,26 +37,28 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     Returns the default singleton instance.
     */
-    @objc public static let shared = IQKeyboardManager()
+    @objc public static let shared: IQKeyboardManager = .init()
 
     /**
      Invalid point value.
      */
-    internal static let kIQCGPointInvalid = CGPoint.init(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
+    internal static let kIQCGPointInvalid: CGPoint = CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
 
     // MARK: UIKeyboard handling
 
     /**
     Enable/disable managing distance between keyboard and textField. Default is YES(Enabled when class loads in `+(void)load` method).
     */
-    @objc public var enable = false {
+    @objc public var enable: Bool = false {
 
         didSet {
             // If not enable, enable it.
             if enable, !oldValue {
-                // If keyboard is currently showing. Sending a fake notification for keyboardWillHide to retain view's original position.
-                if let notification = keyboardShowNotification {
-                    keyboardWillShow(notification)
+                // If keyboard is currently showing.
+                if keyboardInfo.keyboardShowing {
+                    optimizedAdjustPosition()
+                } else {
+                    restorePosition()
                 }
                 showLog("Enabled")
             } else if !enable, oldValue {   // If not disable, desable it.
@@ -76,7 +78,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     Automatic add the IQToolbar functionality. Default is YES.
     */
-    @objc public var enableAutoToolbar = true {
+    @objc public var enableAutoToolbar: Bool = true {
         didSet {
             if privateIsEnableAutoToolbar() {
                 addToolbarIfRequired()
@@ -84,16 +86,14 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                 removeToolbarIfRequired()
             }
 
-            let enableToolbar = enableAutoToolbar ? "Yes" : "NO"
-
-            showLog("enableAutoToolbar: \(enableToolbar)")
+            showLog("enableAutoToolbar: \(enableAutoToolbar ? "Yes" : "NO")")
         }
     }
 
     /**
     Configurations related to the toolbar display over the keyboard.
     */
-    @objc public let toolbarConfiguration: IQToolbarConfiguration = IQToolbarConfiguration()
+    @objc public let toolbarConfiguration: IQToolbarConfiguration = .init()
 
     /**
     Buttons configuration displayed on the toolbar, the selector parameter is ignored in below configuration
@@ -105,26 +105,24 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     Configuration related to keyboard appearance
     */
-    @objc public let keyboardConfiguration: IQKeyboardConfiguration = IQKeyboardConfiguration()
+    @objc public let keyboardConfiguration: IQKeyboardConfiguration = .init()
 
     // MARK: UITextField/UITextView Next/Previous/Resign handling
 
     /**
     Resigns Keyboard on touching outside of UITextField/View. Default is NO.
     */
-    @objc public var shouldResignOnTouchOutside = false {
+    @objc public var shouldResignOnTouchOutside: Bool = false {
 
         didSet {
             resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
 
-            let shouldResign = shouldResignOnTouchOutside ? "Yes" : "NO"
-
-            showLog("shouldResignOnTouchOutside: \(shouldResign)")
+            showLog("shouldResignOnTouchOutside: \(shouldResignOnTouchOutside ? "Yes" : "NO")")
         }
     }
 
     /** TapGesture to resign keyboard on view's touch. It's a readonly property and exposed only for adding/removing dependencies if your added gesture does have collision with this one */
-    @objc lazy public var resignFirstResponderGesture: UITapGestureRecognizer = {
+    @objc public lazy var resignFirstResponderGesture: UITapGestureRecognizer = {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
         tapGesture.cancelsTouchesInView = false
@@ -138,7 +136,8 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     Resigns currently first responder field.
     */
-    @objc @discardableResult public func resignFirstResponder() -> Bool {
+    @discardableResult
+    @objc public func resignFirstResponder() -> Bool {
 
         guard let textFieldRetain = textFieldView else {
             return false
@@ -160,56 +159,56 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /**
     If YES, then it plays inputClick sound on next/previous/done click.
     */
-    @objc public var shouldPlayInputClicks = true
+    @objc public var shouldPlayInputClicks: Bool = true
 
     // MARK: UIAnimation handling
 
     /**
     If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
     */
-    @objc public var layoutIfNeededOnUpdate = false
+    @objc public var layoutIfNeededOnUpdate: Bool = false
 
     // MARK: Class Level disabling methods
 
     /**
      Disable distance handling within the scope of disabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledDistanceHandlingClasses  = [UIViewController.Type]()
+    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = []
 
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes. Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledDistanceHandlingClasses list, then enabledDistanceHandlingClasses will be ignored.
      */
-    @objc public var enabledDistanceHandlingClasses  = [UIViewController.Type]()
+    @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
 
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledToolbarClasses  = [UIViewController.Type]()
+    @objc public var disabledToolbarClasses: [UIViewController.Type] = []
 
     /**
      Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes. Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController. If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
-    @objc public var enabledToolbarClasses  = [UIViewController.Type]()
+    @objc public var enabledToolbarClasses: [UIViewController.Type] = []
 
     /**
      Allowed subclasses of UIView to add all inner textField, this will allow to navigate between textField contains in different superview. Class should be kind of UIView.
      */
-    @objc public var toolbarPreviousNextAllowedClasses  = [UIView.Type]()
+    @objc public var toolbarPreviousNextAllowedClasses: [UIView.Type] = []
 
     /**
      Disabled classes to ignore 'shouldResignOnTouchOutside' property, Class should be kind of UIViewController.
      */
-    @objc public var disabledTouchResignedClasses  = [UIViewController.Type]()
+    @objc public var disabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
      Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
-    @objc public var enabledTouchResignedClasses  = [UIViewController.Type]()
+    @objc public var enabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
      if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
-    @objc public var touchResignedGestureIgnoreClasses  = [UIView.Type]()
+    @objc public var touchResignedGestureIgnoreClasses: [UIView.Type] = []
 
     // MARK: Third Party Library support
     /// Add TextField/TextView Notifications customised Notifications. For example while using YYTextView https://github.com/ibireme/YYText
@@ -253,7 +252,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-        let textField = UITextField()
+        let textField: UITextField = UITextField()
         textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
         textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
 
@@ -276,7 +275,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     /** Getting keyWindow. */
     internal func keyWindow() -> UIWindow? {
 
-        if let keyWindow = textFieldView?.window {
+        if let keyWindow: UIWindow = textFieldView?.window {
             return keyWindow
         } else {
 
@@ -302,7 +301,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             #endif
 
             // If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if let originalKeyWindow = originalKeyWindow {
+            if let originalKeyWindow: UIWindow = originalKeyWindow {
                 Static.keyWindow = originalKeyWindow
             }
 
@@ -317,9 +316,9 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public func reloadLayoutIfNeeded() {
 
         guard privateIsEnabled(),
-            keyboardShowing,
-            topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false, let textFieldView = textFieldView,
-            textFieldView.isAlertViewTextField() == false else {
+              keyboardInfo.keyboardShowing,
+              !topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid), let textFieldView: UIView = textFieldView,
+            !textFieldView.isAlertViewTextField() else {
                 return
         }
         optimizedAdjustPosition()

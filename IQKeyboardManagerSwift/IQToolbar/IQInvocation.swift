@@ -34,7 +34,7 @@ import UIKit
     }
 
     @objc public func invoke(from: Any) {
-        if let target = target {
+        if let target: AnyObject = target {
             UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
         }
     }

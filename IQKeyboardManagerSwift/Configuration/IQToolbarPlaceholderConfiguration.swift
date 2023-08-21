@@ -29,7 +29,7 @@ import UIKit
     /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
-    @objc public var showPlaceholder = true
+    @objc public var showPlaceholder: Bool = true
 
     /**
     Placeholder Font. Default is nil.

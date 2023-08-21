@@ -28,7 +28,7 @@ import UIKit
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var enableDebugging = "enableDebugging"
+        static var enableDebugging: Int = 0
     }
 
     @objc var enableDebugging: Bool {
@@ -96,7 +96,7 @@ public extension IQKeyboardManager {
             Static.indentation = max(0, Static.indentation + indentation)
         }
 
-        var preLog = "IQKeyboardManager"
+        var preLog: String = "IQKeyboardManager"
         for _ in 0 ... Static.indentation {
             preLog += "|\t"
         }

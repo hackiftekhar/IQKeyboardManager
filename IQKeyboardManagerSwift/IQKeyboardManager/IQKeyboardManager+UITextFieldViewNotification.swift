@@ -28,11 +28,11 @@ import UIKit
 internal extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var textFieldView = "textFieldView"
-        static var topViewBeginOrigin = "topViewBeginOrigin"
-        static var rootViewController = "rootViewController"
-        static var rootViewControllerWhilePopGestureRecognizerActive = "rootViewControllerWhilePopGestureRecognizerActive"
-        static var topViewBeginOriginWhilePopGestureRecognizerActive = "topViewBeginOriginWhilePopGestureRecognizerActive"
+        static var textFieldView: Int = 0
+        static var topViewBeginOrigin: Int = 0
+        static var rootViewController: Int = 0
+        static var rootViewControllerWhilePopGestureRecognizerActive: Int = 0
+        static var topViewBeginOriginWhilePopGestureRecognizerActive: Int = 0
     }
 
     /** To save UITextField/UITextView object voa textField/textView notifications. */
@@ -90,7 +90,7 @@ internal extension IQKeyboardManager {
             return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("📝>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
@@ -98,12 +98,12 @@ internal extension IQKeyboardManager {
         textFieldView = notification.object as? UIView
 
         if keyboardConfiguration.overrideAppearance,
-            let textInput = textFieldView as? UITextInput,
+           let textInput: UITextInput = textFieldView as? UITextInput,
             textInput.keyboardAppearance != keyboardConfiguration.appearance {
             // Setting textField keyboard appearance and reloading inputViews.
-            if let textFieldView = textFieldView as? UITextField {
+            if let textFieldView: UITextField = textFieldView as? UITextField {
                 textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-            } else if  let textFieldView = textFieldView as? UITextView {
+            } else if  let textFieldView: UITextView = textFieldView as? UITextView {
                 textFieldView.keyboardAppearance = keyboardConfiguration.appearance
             }
             textFieldView?.reloadInputViews()
@@ -113,10 +113,11 @@ internal extension IQKeyboardManager {
         if privateIsEnableAutoToolbar() {
 
             // UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
-            if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)),
+            if let textView: UIScrollView = textFieldView as? UIScrollView,
+                textView.responds(to: #selector(getter: UITextView.isEditable)),
                 textView.inputAccessoryView == nil {
 
-                UIView.animate(withDuration: 0.00001, delay: 0, options: animationCurve, animations: { () -> Void in
+                UIView.animate(withDuration: 0.00001, delay: 0, options: .curveLinear, animations: { () -> Void in
 
                     self.addToolbarIfRequired()
 
@@ -136,7 +137,7 @@ internal extension IQKeyboardManager {
         resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
         textFieldView?.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
 
-        if privateIsEnabled() == false {
+        if !privateIsEnabled() {
             restorePosition()
             topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         } else {
@@ -144,7 +145,7 @@ internal extension IQKeyboardManager {
 
                 rootViewController = textFieldView?.parentContainerViewController()
 
-                if let controller = rootViewController {
+                if let controller: UIViewController = rootViewController {
 
                     if rootViewControllerWhilePopGestureRecognizerActive == controller {
                         topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
@@ -161,27 +162,27 @@ internal extension IQKeyboardManager {
 
             // If textFieldView is inside ignored responder then do nothing. (Bug ID: #37, #74, #76)
             // See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-            if keyboardShowing,
-                let textFieldView = textFieldView,
-                textFieldView.isAlertViewTextField() == false {
+            if keyboardInfo.keyboardShowing,
+               let textFieldView: UIView = textFieldView,
+                !textFieldView.isAlertViewTextField() {
 
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
             }
         }
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
     @objc func textFieldViewDidEndEditing(_ notification: Notification) {
 
-        guard let object = notification.object as? UIView, let isKeyWindow = object.window?.isKeyWindow, isKeyWindow else {
+        guard let object: UIView = notification.object as? UIView, let isKeyWindow = object.window?.isKeyWindow, isKeyWindow else {
             return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("📝>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
@@ -190,7 +191,8 @@ internal extension IQKeyboardManager {
 
         // We check if there's a change in original frame or not.
 
-        if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
+        if let textView: UIScrollView = textFieldView as? UIScrollView,
+            textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
             if isTextViewContentInsetChanged {
                 self.isTextViewContentInsetChanged = false
@@ -198,13 +200,12 @@ internal extension IQKeyboardManager {
                 if textView.contentInset != self.startingTextViewContentInsets {
                     self.showLog("Restoring textView.contentInset to: \(self.startingTextViewContentInsets)")
 
-                    UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
+                    keyboardInfo.animate(alongsideTransition: {
 
                         // Setting textField to it's initial contentInset
                         textView.contentInset = self.startingTextViewContentInsets
                         textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
-
-                    }, completion: { (_) -> Void in })
+                    })
                 }
             }
         }
@@ -222,7 +223,7 @@ internal extension IQKeyboardManager {
         textFieldView = nil
 #endif
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

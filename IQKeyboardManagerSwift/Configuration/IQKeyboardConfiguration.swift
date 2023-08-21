@@ -29,10 +29,10 @@ import UIKit
     /**
     Override the keyboardAppearance for all textField/textView. Default is NO.
     */
-    @objc public var overrideAppearance = false
+    @objc public var overrideAppearance: Bool = false
 
     /**
     If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
     */
-    @objc public var appearance = UIKeyboardAppearance.default
+    @objc public var appearance: UIKeyboardAppearance = UIKeyboardAppearance.default
 }

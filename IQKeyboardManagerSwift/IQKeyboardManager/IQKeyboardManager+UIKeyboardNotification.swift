@@ -40,13 +40,9 @@ public extension IQKeyboardManager {
     }
 
     private struct AssociatedKeys {
-        static var keyboardSizeObservers = "keyboardSizeObservers"
-        static var keyboardLastNotifySize = "keyboardLastNotifySize"
-        static var keyboardShowing = "keyboardShowing"
-        static var keyboardShowNotification = "keyboardShowNotification"
-        static var keyboardFrame = "keyboardFrame"
-        static var animationDuration = "animationDuration"
-        static var animationCurve = "animationCurve"
+        static var keyboardSizeObservers: Int = 0
+        static var keyboardLastNotifySize: Int = 0
+        static var keyboardInfo: Int = 0
     }
 
     private var keyboardLastNotifySize: CGSize {
@@ -89,87 +85,25 @@ public extension IQKeyboardManager {
     }
 
     /**
-     Boolean to know if keyboard is showing.
+     This contains information related to keyboard.
      */
-    @objc private(set) var keyboardShowing: Bool {
+    private(set) var keyboardInfo: IQKeyboardInfo {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardShowing) as? Bool ?? false
+            return (objc_getAssociatedObject(self, &AssociatedKeys.keyboardInfo) as? IQKeyboardInfo) ?? IQKeyboardInfo(notification: nil, name: .didHide)
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardShowing, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /** To save keyboardWillShowNotification. Needed for enable keyboard functionality. */
-    internal var keyboardShowNotification: Notification? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardShowNotification) as? Notification
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardShowNotification, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /** To save keyboard rame. */
-    @objc private(set) var keyboardFrame: CGRect {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardFrame) as? CGRect ?? .zero
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardFrame, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /** To save keyboard animation duration. */
-    internal var animationDuration: TimeInterval {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.animationDuration) as? TimeInterval ?? 0.25
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.animationDuration, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /** To mimic the keyboard animation */
-    internal var animationCurve: UIView.AnimationOptions {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.animationCurve) as? UIView.AnimationOptions ?? .curveEaseOut
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.animationCurve, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.keyboardInfo, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /*  UIKeyboardWillShowNotification. */
     @objc internal func keyboardWillShow(_ notification: Notification) {
 
-        keyboardShowNotification = notification
+        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
+        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .willShow)
 
-        //  Boolean to know keyboard is showing/hiding
-        keyboardShowing = true
-
-        let oldKBFrame = keyboardFrame
-
-        if let info = notification.userInfo {
-
-            //  Getting keyboard animation.
-            if let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
-                animationCurve = UIView.AnimationOptions(rawValue: curve).union(.beginFromCurrentState)
-            } else {
-                animationCurve = UIView.AnimationOptions.curveEaseOut.union(.beginFromCurrentState)
-            }
-
-            //  Getting keyboard animation duration
-            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
-
-            //  Getting UIKeyboardSize.
-            if let kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-
-                keyboardFrame = kbFrame
-                notifyKeyboardSize(size: keyboardFrame.size)
-                showLog("UIKeyboard Frame: \(keyboardFrame)")
-            }
-        }
+        notifyKeyboardSize(size: keyboardInfo.frame.size)
+        showLog("UIKeyboard Frame: \(keyboardInfo.frame)")
 
         guard privateIsEnabled() else {
             restorePosition()
@@ -177,17 +111,18 @@ public extension IQKeyboardManager {
             return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
         //  (Bug ID: #5)
-        if let textFieldView = textFieldView, topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
+        if let textFieldView: UIView = textFieldView,
+           topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
 
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
             rootViewController = textFieldView.parentContainerViewController()
-            if let controller = rootViewController {
+            if let controller: UIViewController = rootViewController {
 
                 if rootViewControllerWhilePopGestureRecognizerActive == controller {
                     topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
@@ -203,73 +138,60 @@ public extension IQKeyboardManager {
         }
 
         // If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
-        if keyboardFrame.equalTo(oldKBFrame) == false {
+        if keyboardInfo != oldKeyboardInfo {
 
             // If textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
 
-            if keyboardShowing,
-                let textFieldView = textFieldView,
-                textFieldView.isAlertViewTextField() == false {
+            if keyboardInfo.keyboardShowing,
+               let textFieldView: UIView = textFieldView,
+                !textFieldView.isAlertViewTextField() {
 
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
             }
         }
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /*  UIKeyboardDidShowNotification. */
     @objc internal func keyboardDidShow(_ notification: Notification) {
 
+        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
+        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .didShow)
+
         guard privateIsEnabled(),
-            let textFieldView = textFieldView,
-            let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
-            textFieldView.isAlertViewTextField() == false else {
-                return
+              let textFieldView: UIView = textFieldView,
+              let parentController: UIViewController = textFieldView.parentContainerViewController(),
+              (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
+              !textFieldView.isAlertViewTextField() else {
+            return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
-        self.optimizedAdjustPosition()
+//        if keyboardInfo != oldKeyboardInfo {
+            self.optimizedAdjustPosition()
+//        }
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
     @objc internal func keyboardWillHide(_ notification: Notification?) {
 
-        // If it's not a fake notification generated by [self setEnable:NO].
-        if notification != nil {
-            keyboardShowNotification = nil
-        }
-
-        //  Boolean to know keyboard is showing/hiding
-        keyboardShowing = false
-
-        if let info = notification?.userInfo {
-
-            //  Getting keyboard animation.
-            if let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
-                animationCurve = UIView.AnimationOptions(rawValue: curve).union(.beginFromCurrentState)
-            } else {
-                animationCurve = UIView.AnimationOptions.curveEaseOut.union(.beginFromCurrentState)
-            }
-
-            //  Getting keyboard animation duration
-            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
-        }
+        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .willHide)
 
         // If not enabled then do nothing.
         guard privateIsEnabled() else {
             return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification?.object ?? "NULL")")
 
@@ -278,9 +200,9 @@ public extension IQKeyboardManager {
         //    if (_textFieldView == nil)   return
 
         // Restoring the contentOffset of the lastScrollView
-        if let lastScrollView = lastScrollView {
+        if let lastScrollView: UIScrollView = lastScrollView {
 
-            UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
+            keyboardInfo.animate(alongsideTransition: {
 
                 if lastScrollView.contentInset != self.startingContentInsets {
                     self.showLog("Restoring contentInset to: \(self.startingContentInsets)")
@@ -291,7 +213,7 @@ public extension IQKeyboardManager {
                 if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(self.startingContentOffset) {
                     self.showLog("Restoring contentOffset to: \(self.startingContentOffset)")
 
-                    let animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+                    let animatedContentOffset: Bool = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                     if animatedContentOffset {
                         lastScrollView.setContentOffset(self.startingContentOffset, animated: UIView.areAnimationsEnabled)
@@ -304,18 +226,18 @@ public extension IQKeyboardManager {
                 // This is temporary solution. Have to implement the save and restore scrollView state
                 var superScrollView: UIScrollView? = lastScrollView
 
-                while let scrollView = superScrollView {
+                while let scrollView: UIScrollView = superScrollView {
 
-                    let contentSize = CGSize(width: max(scrollView.contentSize.width, scrollView.frame.width), height: max(scrollView.contentSize.height, scrollView.frame.height))
+                    let contentSize: CGSize = CGSize(width: max(scrollView.contentSize.width, scrollView.frame.width), height: max(scrollView.contentSize.height, scrollView.frame.height))
 
-                    let minimumY = contentSize.height - scrollView.frame.height
+                    let minimumY: CGFloat = contentSize.height - scrollView.frame.height
 
                     if minimumY < scrollView.contentOffset.y {
 
-                        let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
-                        if scrollView.contentOffset.equalTo(newContentOffset) == false {
+                        let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
+                        if !scrollView.contentOffset.equalTo(newContentOffset) {
 
-                            let animatedContentOffset = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+                            let animatedContentOffset: Bool = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -336,29 +258,29 @@ public extension IQKeyboardManager {
 
         // Reset all values
         lastScrollView = nil
-        keyboardFrame = CGRect.zero
-        notifyKeyboardSize(size: keyboardFrame.size)
+        notifyKeyboardSize(size: keyboardInfo.frame.size)
         startingContentInsets = UIEdgeInsets()
         startingScrollIndicatorInsets = UIEdgeInsets()
         startingContentOffset = CGPoint.zero
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     @objc internal func keyboardDidHide(_ notification: Notification) {
 
-        let startTime = CACurrentMediaTime()
+        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .didHide)
+
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
 
-        keyboardFrame = CGRect.zero
-        notifyKeyboardSize(size: keyboardFrame.size)
+        notifyKeyboardSize(size: keyboardInfo.frame.size)
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

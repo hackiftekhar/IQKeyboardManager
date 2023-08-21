@@ -155,7 +155,7 @@ import UIKit
     }
 
     @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        var sizeThatFit = super.sizeThatFits(size)
+        var sizeThatFit: CGSize = super.sizeThatFits(size)
         sizeThatFit.height = 44
         return sizeThatFit
     }
@@ -163,7 +163,7 @@ import UIKit
     @objc override open var tintColor: UIColor! {
 
         didSet {
-            if let unwrappedItems = items {
+            if let unwrappedItems: [UIBarButtonItem] = items {
                 for item in unwrappedItems {
                     item.tintColor = tintColor
                 }

@@ -99,7 +99,7 @@ public extension IQKeyboardListener {
 
     private func notifyChange() {
 
-        let size = keyboardInfo.frame.size
+        let size: CGSize = keyboardInfo.frame.size
 
         for block in sizeObservers.values {
             block(keyboardInfo.name, size)

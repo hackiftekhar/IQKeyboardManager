@@ -41,21 +41,23 @@ internal extension IQKeyboardManager {
         currentStatusBarOrientation = UIApplication.shared.statusBarOrientation
         #endif
 
-        guard let statusBarOrientation = notification.userInfo?[UIApplication.statusBarOrientationUserInfoKey] as? Int, currentStatusBarOrientation.rawValue != statusBarOrientation else {
+        guard let statusBarOrientation: Int = notification.userInfo?[UIApplication.statusBarOrientationUserInfoKey] as? Int,
+              currentStatusBarOrientation.rawValue != statusBarOrientation else {
             return
         }
 
-        let startTime = CACurrentMediaTime()
+        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog("📱>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
         // If textViewContentInsetChanged is saved then restore it.
-        if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)) {
+        if let textView: UIScrollView = textFieldView as? UIScrollView,
+            textView.responds(to: #selector(getter: UITextView.isEditable)) {
 
             if isTextViewContentInsetChanged {
                 self.isTextViewContentInsetChanged = false
                 if textView.contentInset != self.startingTextViewContentInsets {
-                    UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
+                    keyboardInfo.animate(alongsideTransition: {
 
                         self.showLog("Restoring textView.contentInset to: \(self.startingTextViewContentInsets)")
 
@@ -63,14 +65,14 @@ internal extension IQKeyboardManager {
                         textView.contentInset = self.startingTextViewContentInsets
                         textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
 
-                    }, completion: { (_) -> Void in })
+                    })
                 }
             }
         }
 
         restorePosition()
 
-        let elapsedTime = CACurrentMediaTime() - startTime
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("📱<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

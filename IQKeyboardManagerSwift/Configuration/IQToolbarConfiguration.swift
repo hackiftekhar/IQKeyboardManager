@@ -29,7 +29,7 @@ import UIKit
     /**
      If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
      */
-    @objc public var useTextFieldTintColor = false
+    @objc public var useTextFieldTintColor: Bool = false
 
     /**
      This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
@@ -46,7 +46,7 @@ import UIKit
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
      */
-    @objc public var previousNextDisplayMode = IQPreviousNextDisplayMode.default
+    @objc public var previousNextDisplayMode: IQPreviousNextDisplayMode = .default
 
     /**
      /**
@@ -58,7 +58,7 @@ import UIKit
       */
      AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
      */
-    @objc public var manageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
+    @objc public var manageBehaviour: IQAutoToolbarManageBehaviour = .bySubviews
 
-    @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = IQToolbarPlaceholderConfiguration()
+    @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
 }

@@ -51,15 +51,15 @@ import UIKit
     }
 
     private var placeholderExpectedFrame: CGRect {
-        let placeholderInsets = self.placeholderInsets
-        let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
-        let expectedSize = IQ_PlaceholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        let placeholderInsets: UIEdgeInsets = self.placeholderInsets
+        let maxWidth: CGFloat = self.frame.width-placeholderInsets.left-placeholderInsets.right
+        let expectedSize: CGSize = IQ_PlaceholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
 
         return CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
     }
 
     lazy var IQ_PlaceholderLabel: UILabel = {
-        let label = UILabel()
+        let label: UILabel = UILabel()
 
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.lineBreakMode = .byWordWrapping
@@ -149,7 +149,7 @@ import UIKit
 
         didSet {
 
-            if let unwrappedFont = font {
+            if let unwrappedFont: UIFont = font {
                 IQ_PlaceholderLabel.font = unwrappedFont
             } else {
                 IQ_PlaceholderLabel.font = UIFont.systemFont(ofSize: 12)
@@ -180,8 +180,8 @@ import UIKit
             return super.intrinsicContentSize
         }
 
-        var newSize = super.intrinsicContentSize
-        let placeholderInsets = self.placeholderInsets
+        var newSize: CGSize = super.intrinsicContentSize
+        let placeholderInsets: UIEdgeInsets = self.placeholderInsets
         newSize.height = placeholderExpectedFrame.height + placeholderInsets.top + placeholderInsets.bottom
 
         return newSize

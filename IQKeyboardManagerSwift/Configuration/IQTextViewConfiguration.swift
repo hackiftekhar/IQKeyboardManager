@@ -30,7 +30,7 @@ struct IQTextViewConfiguration {
     internal let startingScrollIndicatorInsets: UIEdgeInsets
 
     init?(textView: UITextView?) {
-        guard let textView = textView else { return nil }
+        guard let textView: UITextView = textView else { return nil }
         self.textView = textView
         startingContentInsets = textView.contentInset
 #if swift(>=5.1)

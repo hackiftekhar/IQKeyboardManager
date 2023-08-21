@@ -29,7 +29,7 @@ import UIKit
     @objc open var titleFont: UIFont? {
 
         didSet {
-            if let unwrappedFont = titleFont {
+            if let unwrappedFont: UIFont = titleFont {
                 titleButton?.titleLabel?.font = unwrappedFont
             } else {
                 titleButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -50,7 +50,7 @@ import UIKit
 
         didSet {
 
-            if let color = titleColor {
+            if let color: UIColor = titleColor {
                 titleButton?.setTitleColor(color, for: .disabled)
             } else {
                 titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
@@ -65,7 +65,7 @@ import UIKit
 
         didSet {
 
-            if let color = selectableTitleColor {
+            if let color: UIColor = selectableTitleColor {
                 titleButton?.setTitleColor(color, for: .normal)
             } else {
                 #if swift(>=5.1)
@@ -84,7 +84,8 @@ import UIKit
 
         didSet {
 
-            if let target = invocation?.target, let action = invocation?.action {
+            if let target: AnyObject = invocation?.target,
+               let action: Selector = invocation?.action {
                 self.isEnabled = true
                 titleButton?.isEnabled = true
                 titleButton?.addTarget(target, action: action, for: .touchUpInside)
@@ -126,8 +127,8 @@ import UIKit
         titleButton?.titleLabel?.font = self.titleFont
         _titleView?.addSubview(titleButton!)
 
-        let layoutDefaultLowPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultLow.rawValue-1)
-        let layoutDefaultHighPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultHigh.rawValue-1)
+        let layoutDefaultLowPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultLow.rawValue-1)
+        let layoutDefaultHighPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultHigh.rawValue-1)
 
         _titleView?.translatesAutoresizingMaskIntoConstraints = false
         _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
@@ -141,10 +142,14 @@ import UIKit
         titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
         titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
 
-        let top = NSLayoutConstraint.init(item: titleButton!, attribute: .top, relatedBy: .equal, toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
-        let bottom = NSLayoutConstraint.init(item: titleButton!, attribute: .bottom, relatedBy: .equal, toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
-        let leading = NSLayoutConstraint.init(item: titleButton!, attribute: .leading, relatedBy: .equal, toItem: _titleView, attribute: .leading, multiplier: 1, constant: 0)
-        let trailing = NSLayoutConstraint.init(item: titleButton!, attribute: .trailing, relatedBy: .equal, toItem: _titleView, attribute: .trailing, multiplier: 1, constant: 0)
+        let top: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .top, relatedBy: .equal,
+                                                         toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
+        let bottom: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .bottom, relatedBy: .equal,
+                                                            toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
+        let leading: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .leading, relatedBy: .equal,
+                                                             toItem: _titleView, attribute: .leading, multiplier: 1, constant: 0)
+        let trailing: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .trailing, relatedBy: .equal,
+                                                              toItem: _titleView, attribute: .trailing, multiplier: 1, constant: 0)
 
         _titleView?.addConstraints([top, bottom, leading, trailing])
 
