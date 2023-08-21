@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQKeyboardConfiguration.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,34 +23,16 @@
 
 import UIKit
 
-/**
-UIView.subviews sorting category.
-*/
 @available(iOSApplicationExtension, unavailable)
-internal extension Array where Element: UIView {
+@objc public final class IQKeyboardConfiguration: NSObject {
 
     /**
-    Returns the array by sorting the UIView's by their tag property.
+    Override the keyboardAppearance for all textField/textView. Default is NO.
     */
-    func sortedArrayByTag() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-
-            return (obj1.tag < obj2.tag)
-        })
-    }
+    @objc public var overrideAppearance = false
 
     /**
-    Returns the array by sorting the UIView's by their tag property.
+    If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
     */
-    func sortedArrayByPosition() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
-    }
+    @objc public var appearance = UIKeyboardAppearance.default
 }

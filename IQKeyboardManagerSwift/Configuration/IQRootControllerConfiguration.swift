@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQRootControllerConfiguration.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,34 +23,23 @@
 
 import UIKit
 
-/**
-UIView.subviews sorting category.
-*/
 @available(iOSApplicationExtension, unavailable)
-internal extension Array where Element: UIView {
+struct IQRootControllerConfiguration {
+    internal let rootController: UIViewController
+    internal let beginOrigin: CGPoint
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByTag() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-
-            return (obj1.tag < obj2.tag)
-        })
+    init?(rootController: UIViewController?) {
+        guard let rootController = rootController else { return nil }
+        self.rootController = rootController
+        beginOrigin = rootController.view.frame.origin
     }
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByPosition() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
+    func restore() {
+        if !rootController.view.frame.origin.equalTo(beginOrigin) {
+            // Setting it's new frame
+            var rect = rootController.view.frame
+            rect.origin = beginOrigin
+            rootController.view.frame = rect
+        }
     }
 }

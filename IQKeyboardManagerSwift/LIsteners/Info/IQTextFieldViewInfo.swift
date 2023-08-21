@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQTextFieldViewInfo.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,34 +23,32 @@
 
 import UIKit
 
-/**
-UIView.subviews sorting category.
-*/
 @available(iOSApplicationExtension, unavailable)
-internal extension Array where Element: UIView {
-
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByTag() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-
-            return (obj1.tag < obj2.tag)
-        })
+public struct IQTextFieldViewInfo: Equatable {
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.textFieldView == rhs.textFieldView && lhs.name == rhs.name
     }
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByPosition() -> [Element] {
+    @objc public enum Name: Int {
+        case beginEditing
+        case endEditing
+    }
 
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
+    public let name: Name
+
+    public private(set) var textFieldView: UIView
+
+    public init?(notification: Notification?, name: Name) {
+        guard let view = notification?.object as? UIView else {
+            return nil
+        }
+
+        guard !view.isAlertViewTextField() else {
+            return nil
+        }
+
+        self.name = name
+        textFieldView = view
     }
 }

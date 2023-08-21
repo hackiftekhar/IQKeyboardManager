@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQToolbarPlaceholderConfiguration.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,34 +23,26 @@
 
 import UIKit
 
-/**
-UIView.subviews sorting category.
-*/
 @available(iOSApplicationExtension, unavailable)
-internal extension Array where Element: UIView {
+@objc public final class IQToolbarPlaceholderConfiguration: NSObject {
 
     /**
-    Returns the array by sorting the UIView's by their tag property.
+    If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
-    func sortedArrayByTag() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-
-            return (obj1.tag < obj2.tag)
-        })
-    }
+    @objc public var showPlaceholder = true
 
     /**
-    Returns the array by sorting the UIView's by their tag property.
+    Placeholder Font. Default is nil.
     */
-    func sortedArrayByPosition() -> [Element] {
+    @objc public var font: UIFont?
 
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
-    }
+    /**
+     Placeholder Color. Default is nil. Which means lightGray
+     */
+    @objc public var color: UIColor?
+
+    /**
+     Placeholder Button Color when it's treated as button. Default is nil.
+     */
+    @objc public var buttonColor: UIColor?
 }
