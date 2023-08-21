@@ -112,7 +112,7 @@ internal extension IQKeyboardManager {
             removeToolbarIfRequired()
         }
 
-        resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
+        resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
         textFieldView?.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
 
         if !privateIsEnabled() {

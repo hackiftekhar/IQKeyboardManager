@@ -295,7 +295,7 @@ public extension IQKeyboardManager {
     @objc internal func previousAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
-        if shouldPlayInputClicks {
+        if playInputClicks {
             // Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
@@ -327,7 +327,7 @@ public extension IQKeyboardManager {
     @objc internal func nextAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
-        if shouldPlayInputClicks {
+        if playInputClicks {
             // Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
@@ -359,7 +359,7 @@ public extension IQKeyboardManager {
     @objc internal func doneAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
-        if shouldPlayInputClicks {
+        if playInputClicks {
             // Play Input Click Sound.
             UIDevice.current.playInputClick()
         }

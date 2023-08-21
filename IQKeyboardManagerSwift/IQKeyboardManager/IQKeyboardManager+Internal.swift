@@ -150,16 +150,16 @@ internal extension IQKeyboardManager {
         return enableToolbar
     }
 
-    func privateShouldResignOnTouchOutside() -> Bool {
+    func privateResignOnTouchOutside() -> Bool {
 
-        var shouldResign: Bool = shouldResignOnTouchOutside
+        var resignOnTouchOutside: Bool = resignOnTouchOutside
 
         let enableMode: IQEnableMode? = textFieldView?.iq.resignOnTouchOutsideMode
 
         if enableMode == .enabled {
-            shouldResign = true
+            resignOnTouchOutside = true
         } else if enableMode == .disabled {
-            shouldResign = false
+            resignOnTouchOutside = false
         } else if var textFieldViewController = textFieldView?.iq.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
@@ -169,30 +169,32 @@ internal extension IQKeyboardManager {
                 textFieldViewController = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming shouldResignOnTouchOutside is enabled.
-            if !shouldResign, enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                shouldResign = true
+            // If viewController is kind of enable viewController class, then assuming resignOnTouchOutside is enabled.
+            if !resignOnTouchOutside,
+               enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                resignOnTouchOutside = true
             }
 
-            if shouldResign {
+            if resignOnTouchOutside {
 
-                // If viewController is kind of disable viewController class, then assuming shouldResignOnTouchOutside is disable.
+                // If viewController is kind of disable viewController class, then assuming resignOnTouchOutside is disable.
                 if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                    shouldResign = false
+                    resignOnTouchOutside = false
                 }
 
                 // Special Controllers
-                if shouldResign {
+                if resignOnTouchOutside {
 
                     let classNameString: String = "\(type(of: textFieldViewController.self))"
 
                     // _UIAlertControllerTextFieldViewController
-                    if classNameString.contains("UIAlertController"), classNameString.hasSuffix("TextFieldViewController") {
-                        shouldResign = false
+                    if classNameString.contains("UIAlertController"),
+                        classNameString.hasSuffix("TextFieldViewController") {
+                        resignOnTouchOutside = false
                     }
                 }
             }
         }
-        return shouldResign
+        return resignOnTouchOutside
     }
 }

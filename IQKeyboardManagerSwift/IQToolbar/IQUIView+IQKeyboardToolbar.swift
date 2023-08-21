@@ -63,7 +63,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     // MARK: Toolbar title
 
     /**
-     If `shouldHideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
+     If `hideToolbarPlaceholder` is YES, then title will not be added to the toolbar. Default to NO.
      */
     var hidePlaceholder: Bool {
         get {

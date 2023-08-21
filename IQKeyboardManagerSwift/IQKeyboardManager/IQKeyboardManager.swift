@@ -109,12 +109,12 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     /**
     Resigns Keyboard on touching outside of UITextField/View. Default is NO.
     */
-    @objc public var shouldResignOnTouchOutside: Bool = false {
+    @objc public var resignOnTouchOutside: Bool = false {
 
         didSet {
-            resignFirstResponderGesture.isEnabled = privateShouldResignOnTouchOutside()
+            resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
 
-            showLog("shouldResignOnTouchOutside: \(shouldResignOnTouchOutside ? "Yes" : "NO")")
+            showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "NO")")
         }
     }
 
@@ -156,7 +156,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     /**
     If YES, then it plays inputClick sound on next/previous/done click.
     */
-    @objc public var shouldPlayInputClicks: Bool = true
+    @objc public var playInputClicks: Bool = true
 
     // MARK: UIAnimation handling
 
@@ -193,17 +193,17 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     @objc public var toolbarPreviousNextAllowedClasses: [UIView.Type] = []
 
     /**
-     Disabled classes to ignore 'shouldResignOnTouchOutside' property, Class should be kind of UIViewController.
+     Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
      */
     @objc public var disabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
-     Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
+     Enabled classes to forcefully enable 'resignOnTouchOutsite' property. Class should be kind of UIViewController. If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
     @objc public var enabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
-     if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
+     if resignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
     @objc public var touchResignedGestureIgnoreClasses: [UIView.Type] = []
 
@@ -244,8 +244,8 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
 
         self.registerAllNotifications()
 
-        // Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
-        resignFirstResponderGesture.isEnabled = shouldResignOnTouchOutside
+        // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
+        resignFirstResponderGesture.isEnabled = resignOnTouchOutside
 
         // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator

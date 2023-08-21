@@ -278,16 +278,16 @@ public extension IQKeyboardManager {
 
             while let scrollView: UIScrollView = superScrollView {
 
-                var shouldContinue: Bool = false
+                var isContinue: Bool = false
 
                 if move > 0 {
-                    shouldContinue = move > (-scrollView.contentOffset.y - scrollView.contentInset.top)
+                    isContinue = move > (-scrollView.contentOffset.y - scrollView.contentInset.top)
 
                 } else if let tableView: UITableView = scrollView.iq.superviewOf(type: UITableView.self) as? UITableView {
 
-                    shouldContinue = scrollView.contentOffset.y > 0
+                    isContinue = scrollView.contentOffset.y > 0
 
-                    if shouldContinue,
+                    if isContinue,
                        let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self) as? UITableViewCell,
                        let indexPath: IndexPath = tableView.indexPath(for: tableCell),
                        let previousIndexPath: IndexPath = tableView.previousIndexPath(of: indexPath) {
@@ -301,9 +301,9 @@ public extension IQKeyboardManager {
                     }
                 } else if let collectionView: UICollectionView = scrollView.iq.superviewOf(type: UICollectionView.self) as? UICollectionView {
 
-                    shouldContinue = scrollView.contentOffset.y > 0
+                    isContinue = scrollView.contentOffset.y > 0
 
-                    if shouldContinue,
+                    if isContinue,
                        let collectionCell: UICollectionViewCell = textFieldView.iq.superviewOf(type: UICollectionViewCell.self) as? UICollectionViewCell,
                        let indexPath: IndexPath = collectionView.indexPath(for: collectionCell),
                        let previousIndexPath: IndexPath = collectionView.previousIndexPath(of: indexPath),
@@ -319,22 +319,22 @@ public extension IQKeyboardManager {
                 } else {
 
                     if isNonScrollableTextView {
-                        shouldContinue = textFieldViewRectInWindow.maxY < visibleHeight + bottomLayoutGuide
+                        isContinue = textFieldViewRectInWindow.maxY < visibleHeight + bottomLayoutGuide
 
-                        if shouldContinue {
+                        if isContinue {
                             move = min(0, textFieldViewRectInWindow.maxY - visibleHeight + bottomLayoutGuide)
                         }
                     } else {
-                        shouldContinue = textFieldViewRectInRootSuperview.minY < topLayoutGuide
+                        isContinue = textFieldViewRectInRootSuperview.minY < topLayoutGuide
 
-                        if shouldContinue {
+                        if isContinue {
                             move = min(0, textFieldViewRectInRootSuperview.minY - topLayoutGuide)
                         }
                     }
                 }
 
                 // Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
-                if shouldContinue {
+                if isContinue {
 
                     var tempScrollView: UIScrollView? = scrollView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
                     var nextScrollView: UIScrollView?
@@ -352,23 +352,23 @@ public extension IQKeyboardManager {
                     if let lastViewRect: CGRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
 
                         // Calculating the expected Y offset from move and scrollView's contentOffset.
-                        var shouldOffsetY: CGFloat = scrollView.contentOffset.y - min(scrollView.contentOffset.y, -move)
+                        var suggestedOffsetY: CGFloat = scrollView.contentOffset.y - min(scrollView.contentOffset.y, -move)
 
                         // Rearranging the expected Y offset according to the view.
 
                         if isNonScrollableTextView {
-                            shouldOffsetY = min(shouldOffsetY, lastViewRect.maxY - visibleHeight + bottomLayoutGuide)
+                            suggestedOffsetY = min(suggestedOffsetY, lastViewRect.maxY - visibleHeight + bottomLayoutGuide)
                         } else {
-                            shouldOffsetY = min(shouldOffsetY, lastViewRect.minY)
+                            suggestedOffsetY = min(suggestedOffsetY, lastViewRect.minY)
                         }
 
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         // nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        // shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+                        // suggestedOffsetY >= 0     suggestedOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                         if isTextView, !isNonScrollableTextView,
                             nextScrollView == nil,
-                            shouldOffsetY >= 0 {
+                            suggestedOffsetY >= 0 {
 
                             // Converting Rectangle according to window bounds.
                             if let currentTextFieldViewRect: CGRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
@@ -376,21 +376,21 @@ public extension IQKeyboardManager {
                                 // Calculating expected fix distance which needs to be managed from navigation bar
                                 let expectedFixDistance: CGFloat = currentTextFieldViewRect.minY - topLayoutGuide
 
-                                // Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
-                                shouldOffsetY = min(shouldOffsetY, scrollView.contentOffset.y + expectedFixDistance)
+                                // Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current suggestedOffsetY, which means we're in a position where navigationBar up and hide, then reducing suggestedOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
+                                suggestedOffsetY = min(suggestedOffsetY, scrollView.contentOffset.y + expectedFixDistance)
 
                                 // Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
                                 move = 0
                             } else {
-                                // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
-                                move -= (shouldOffsetY-scrollView.contentOffset.y)
+                                // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
+                                move -= (suggestedOffsetY-scrollView.contentOffset.y)
                             }
                         } else {
-                            // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
-                            move -= (shouldOffsetY-scrollView.contentOffset.y)
+                            // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
+                            move -= (suggestedOffsetY-scrollView.contentOffset.y)
                         }
 
-                        let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: shouldOffsetY)
+                        let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: suggestedOffsetY)
 
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 

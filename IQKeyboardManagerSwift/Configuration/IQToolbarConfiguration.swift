@@ -32,7 +32,7 @@ import UIKit
     @objc public var useTextFieldTintColor: Bool = false
 
     /**
-     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If useTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
      */
     @objc public var tintColor: UIColor?
 

@@ -55,7 +55,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     If shouldIgnoreSwitchingByNextPrevious is true then library will ignore this textField/textView while moving to other textField/textView using keyboard toolbar next previous buttons. Default is false
+     If ignoreSwitchingByNextPrevious is true then library will ignore this textField/textView while moving to other textField/textView using keyboard toolbar next previous buttons. Default is false
      */
     var ignoreSwitchingByNextPrevious: Bool {
         get {

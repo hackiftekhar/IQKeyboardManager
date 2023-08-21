@@ -412,18 +412,18 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     @objc public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
-        var shouldReturn: Bool = true
+        var isReturn: Bool = true
 
         if delegate == nil {
 
             if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldReturn(_:))) {
-                    shouldReturn = unwrapDelegate.textFieldShouldReturn?(textField) ?? false
+                    isReturn = unwrapDelegate.textFieldShouldReturn?(textField) ?? false
                 }
             }
         }
 
-        if shouldReturn {
+        if isReturn {
             goToNextResponderOrResign(textField)
             return true
         } else {
@@ -495,22 +495,22 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 
-        var shouldReturn = true
+        var isReturn = true
 
         if delegate == nil {
 
             if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textView(_:shouldChangeTextIn:replacementText:))) {
-                    shouldReturn = (unwrapDelegate.textView?(textView, shouldChangeTextIn: range, replacementText: text)) ?? false
+                    isReturn = (unwrapDelegate.textView?(textView, shouldChangeTextIn: range, replacementText: text)) ?? false
                 }
             }
         }
 
-        if shouldReturn, text == "\n" {
-            shouldReturn = goToNextResponderOrResign(textView)
+        if isReturn, text == "\n" {
+            isReturn = goToNextResponderOrResign(textView)
         }
 
-        return shouldReturn
+        return isReturn
     }
 
     @objc public func textViewDidChange(_ textView: UITextView) {
