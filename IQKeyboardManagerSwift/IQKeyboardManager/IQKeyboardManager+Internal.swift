@@ -49,7 +49,7 @@ internal extension IQKeyboardManager {
             }
 
             // Sorting textFields according to behaviour
-            switch toolbarManageBehaviour {
+            switch toolbarConfiguration.manageBehaviour {
             // If autoToolbar behaviour is bySubviews, then returning it.
             case .bySubviews:   return textFields
 

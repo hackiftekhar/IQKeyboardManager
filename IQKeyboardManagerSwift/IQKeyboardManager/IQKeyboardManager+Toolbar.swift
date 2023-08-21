@@ -54,48 +54,52 @@ public extension IQKeyboardManager {
         showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
-
-        if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
-            rightConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.doneAction(_:)))
-        } else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
-            rightConfiguration = IQBarButtonItemConfiguration(title: doneBarButtonItemText, action: #selector(self.doneAction(_:)))
+        if var configuration = toolbarDoneBarButtonItemConfiguration {
+            rightConfiguration = configuration
+            rightConfiguration.action = #selector(self.doneAction(_:))
         } else {
             rightConfiguration = IQBarButtonItemConfiguration(barButtonSystemItem: .done, action: #selector(self.doneAction(_:)))
+            rightConfiguration.accessibilityLabel = "Done"
         }
-        rightConfiguration.accessibilityLabel = toolbarDoneBarButtonItemAccessibilityLabel ?? "Done"
 
+        let previousNextDisplayMode: IQPreviousNextDisplayMode = toolbarConfiguration.previousNextDisplayMode
         //    If only one object is found, then adding only Done button.
         if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
 
-            textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), titleAccessibilityLabel: toolbarTitlBarButtonItemAccessibilityLabel, rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
+            let titleText = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.drawingToolbarPlaceholder : nil
+            textField.addKeyboardToolbarWithTarget(target: self, titleText: titleText,
+                                                   titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel,
+                                                   rightBarButtonConfiguration: rightConfiguration,
+                                                   previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
 
         } else if previousNextDisplayMode == .default || previousNextDisplayMode == .alwaysShow {
 
             let prevConfiguration: IQBarButtonItemConfiguration
-
-            if let doneBarButtonItemImage = toolbarPreviousBarButtonItemImage {
-                prevConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.previousAction(_:)))
-            } else if let doneBarButtonItemText = toolbarPreviousBarButtonItemText {
-                prevConfiguration = IQBarButtonItemConfiguration(title: doneBarButtonItemText, action: #selector(self.previousAction(_:)))
+            if let configuration = toolbarPreviousBarButtonItemConfiguration {
+                configuration.action = #selector(self.previousAction(_:))
+                prevConfiguration = configuration
             } else {
                 prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage() ?? UIImage()), action: #selector(self.previousAction(_:)))
+                prevConfiguration.accessibilityLabel = "Previous"
             }
-            prevConfiguration.accessibilityLabel = toolbarPreviousBarButtonItemAccessibilityLabel ?? "Previous"
 
             let nextConfiguration: IQBarButtonItemConfiguration
-
-            if let doneBarButtonItemImage = toolbarNextBarButtonItemImage {
-                nextConfiguration = IQBarButtonItemConfiguration(image: doneBarButtonItemImage, action: #selector(self.nextAction(_:)))
-            } else if let doneBarButtonItemText = toolbarNextBarButtonItemText {
-                nextConfiguration = IQBarButtonItemConfiguration(title: doneBarButtonItemText, action: #selector(self.nextAction(_:)))
+            if let configuration = toolbarNextBarButtonItemConfiguration {
+                configuration.action = #selector(self.nextAction(_:))
+                nextConfiguration = configuration
             } else {
                 nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage() ?? UIImage()), action: #selector(self.nextAction(_:)))
+                nextConfiguration.accessibilityLabel = "Next"
             }
-            nextConfiguration.accessibilityLabel = toolbarNextBarButtonItemAccessibilityLabel ?? "Next"
 
-            textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), titleAccessibilityLabel: toolbarTitlBarButtonItemAccessibilityLabel, rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: prevConfiguration, nextBarButtonConfiguration: nextConfiguration)
+            let titleText = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.drawingToolbarPlaceholder : nil
+            textField.addKeyboardToolbarWithTarget(target: self, titleText: titleText,
+                                                   titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel,
+                                                   rightBarButtonConfiguration: rightConfiguration,
+                                                   previousBarButtonConfiguration: prevConfiguration,
+                                                   nextBarButtonConfiguration: nextConfiguration)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
         }
@@ -103,7 +107,7 @@ public extension IQKeyboardManager {
         let toolbar = textField.keyboardToolbar
 
         // Setting toolbar tintColor //  (Enhancement ID: #30)
-        toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? textField.tintColor : toolbarTintColor
+        toolbar.tintColor = toolbarConfiguration.useTextFieldTintColor ? textField.tintColor : toolbarConfiguration.tintColor
 
         //  Setting toolbar to keyboard.
         if let textFieldView = textField as? UITextInput {
@@ -116,12 +120,13 @@ public extension IQKeyboardManager {
                 toolbar.barTintColor = nil
             default:
                 toolbar.barStyle = .default
-                toolbar.barTintColor = toolbarBarTintColor
+                toolbar.barTintColor = toolbarConfiguration.barTintColor
             }
         }
 
         // Setting toolbar title font.   //  (Enhancement ID: #30)
-        if shouldShowToolbarPlaceholder, !textField.shouldHideToolbarPlaceholder {
+        if toolbarConfiguration.placeholderConfiguration.showPlaceholder,
+            !textField.shouldHideToolbarPlaceholder {
 
             // Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
             if toolbar.titleBarButton.title == nil ||
@@ -130,13 +135,13 @@ public extension IQKeyboardManager {
             }
 
             // Setting toolbar title font.   //  (Enhancement ID: #30)
-            toolbar.titleBarButton.titleFont = placeholderFont
+            toolbar.titleBarButton.titleFont = toolbarConfiguration.placeholderConfiguration.font
 
             // Setting toolbar title color.   //  (Enhancement ID: #880)
-            toolbar.titleBarButton.titleColor = placeholderColor
+            toolbar.titleBarButton.titleColor = toolbarConfiguration.placeholderConfiguration.color
 
             // Setting toolbar button title color.   //  (Enhancement ID: #880)
-            toolbar.titleBarButton.selectableTitleColor = placeholderButtonColor
+            toolbar.titleBarButton.selectableTitleColor = toolbarConfiguration.placeholderConfiguration.buttonColor
 
         } else {
             toolbar.titleBarButton.title = nil

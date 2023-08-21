@@ -145,7 +145,7 @@ Manages the return key to work like next/done in a view hierarchy.
             textFields = view.responderSiblings()
 
             // Sorting textFields according to behaviour
-            switch IQKeyboardManager.shared.toolbarManageBehaviour {
+            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
                 // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
                 // If needs to sort it by Position
@@ -275,7 +275,7 @@ Manages the return key to work like next/done in a view hierarchy.
             textFields = view.responderSiblings()
 
             // Sorting textFields according to behaviour
-            switch IQKeyboardManager.shared.toolbarManageBehaviour {
+            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
                 // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedArrayByTag()
                 // If needs to sort it by Position

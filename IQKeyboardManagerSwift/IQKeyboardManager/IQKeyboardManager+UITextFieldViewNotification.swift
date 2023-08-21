@@ -97,12 +97,14 @@ internal extension IQKeyboardManager {
         //  Getting object
         textFieldView = notification.object as? UIView
 
-        if overrideKeyboardAppearance, let textInput = textFieldView as? UITextInput, textInput.keyboardAppearance != keyboardAppearance {
+        if keyboardConfiguration.overrideAppearance,
+            let textInput = textFieldView as? UITextInput,
+            textInput.keyboardAppearance != keyboardConfiguration.appearance {
             // Setting textField keyboard appearance and reloading inputViews.
             if let textFieldView = textFieldView as? UITextField {
-                textFieldView.keyboardAppearance = keyboardAppearance
+                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
             } else if  let textFieldView = textFieldView as? UITextView {
-                textFieldView.keyboardAppearance = keyboardAppearance
+                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
             }
             textFieldView?.reloadInputViews()
         }

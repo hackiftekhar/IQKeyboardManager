@@ -23,46 +23,10 @@
 
 import UIKit
 
-/**
- IQBarButtonItemConfiguration for creating toolbar with bar button items
- */
-//@available(iOSApplicationExtension, unavailable)
-//@objc public final class IQBarButtonItemConfiguration: NSObject {
-//
-//    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem) {
-//        self.systemItem = barButtonSystemItem
-//        self.image = nil
-//        self.title = nil
-//        super.init()
-//    }
-//
-//    @objc public init(image: UIImage) {
-//        self.systemItem = nil
-//        self.image = image
-//        self.title = nil
-//        super.init()
-//    }
-//
-//    @objc public init(title: String) {
-//        self.systemItem = nil
-//        self.image = nil
-//        self.title = title
-//        super.init()
-//    }
-//
-//    public let systemItem: UIBarButtonItem.SystemItem?    // System Item to be used to instantiate bar button.
-//
-//    @objc public let image: UIImage?    // Image to show on bar button item if it's not a system item.
-//
-//    @objc public let title: String?     // Title to show on bar button item if it's not a system item.
-//
-//    @objc internal var action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
-//}
-
 @available(iOSApplicationExtension, unavailable)
 @objc public final class IQBarButtonItemConfiguration: NSObject {
 
-    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem, action: Selector) {
+    @objc public init(barButtonSystemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {
         self.barButtonSystemItem = barButtonSystemItem
         self.image = nil
         self.title = nil
@@ -70,7 +34,7 @@ import UIKit
         super.init()
     }
 
-    @objc public init(image: UIImage, action: Selector) {
+    @objc public init(image: UIImage, action: Selector? = nil) {
         self.barButtonSystemItem = nil
         self.image = image
         self.title = nil
@@ -78,7 +42,7 @@ import UIKit
         super.init()
     }
 
-    @objc public init(title: String, action: Selector) {
+    @objc public init(title: String, action: Selector? = nil) {
         self.barButtonSystemItem = nil
         self.image = nil
         self.title = title
@@ -92,5 +56,5 @@ import UIKit
 
     @objc public let title: String?     // Title to show on bar button item if it's not a system item.
 
-    @objc public let action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
+    @objc public var action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
 }

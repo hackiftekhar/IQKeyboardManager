@@ -91,87 +91,21 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     }
 
     /**
-     /**
-     IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hirarchy of Textfield's in view.
-     IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextField's.
-     IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position of textField in it's superview coordinate.
-
-     Default is IQAutoToolbarBySubviews.
-     */
-    AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
+    Configurations related to the toolbar display over the keyboard.
     */
-    @objc public var toolbarManageBehaviour = IQAutoToolbarManageBehaviour.bySubviews
+    @objc public let toolbarConfiguration: IQToolbarConfiguration = IQToolbarConfiguration()
 
     /**
-    If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
+    Buttons configuration displayed on the toolbar, the selector parameter is ignored in below configuration
     */
-    @objc public var shouldToolbarUsesTextFieldTintColor = false
+    @objc public var toolbarPreviousBarButtonItemConfiguration: IQBarButtonItemConfiguration?
+    @objc public var toolbarNextBarButtonItemConfiguration: IQBarButtonItemConfiguration?
+    @objc public var toolbarDoneBarButtonItemConfiguration: IQBarButtonItemConfiguration?
 
     /**
-    This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+    Configuration related to keyboard appearance
     */
-    @objc public var toolbarTintColor: UIColor?
-
-    /**
-     This is used for toolbar.barTintColor. Default is nil.
-     */
-    @objc public var toolbarBarTintColor: UIColor?
-
-    /**
-     IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
-     IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
-     IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
-     */
-    @objc public var previousNextDisplayMode = IQPreviousNextDisplayMode.default
-
-    /**
-     Toolbar previous/next/done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
-     */
-    @objc public var toolbarPreviousBarButtonItemImage: UIImage?
-    @objc public var toolbarNextBarButtonItemImage: UIImage?
-    @objc public var toolbarDoneBarButtonItemImage: UIImage?
-
-    /**
-     Toolbar previous/next/done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
-     */
-    @objc public var toolbarPreviousBarButtonItemText: String?
-    @objc public var toolbarPreviousBarButtonItemAccessibilityLabel: String?
-    @objc public var toolbarNextBarButtonItemText: String?
-    @objc public var toolbarNextBarButtonItemAccessibilityLabel: String?
-    @objc public var toolbarDoneBarButtonItemText: String?
-    @objc public var toolbarDoneBarButtonItemAccessibilityLabel: String?
-    @objc public var toolbarTitlBarButtonItemAccessibilityLabel: String?
-    /**
-    If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
-    */
-    @objc public var shouldShowToolbarPlaceholder = true
-
-    /**
-    Placeholder Font. Default is nil.
-    */
-    @objc public var placeholderFont: UIFont?
-
-    /**
-     Placeholder Color. Default is nil. Which means lightGray
-     */
-    @objc public var placeholderColor: UIColor?
-
-    /**
-     Placeholder Button Color when it's treated as button. Default is nil.
-     */
-    @objc public var placeholderButtonColor: UIColor?
-
-    // MARK: UIKeyboard appearance overriding
-
-    /**
-    Override the keyboardAppearance for all textField/textView. Default is NO.
-    */
-    @objc public var overrideKeyboardAppearance = false
-
-    /**
-    If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
-    */
-    @objc public var keyboardAppearance = UIKeyboardAppearance.default
+    @objc public let keyboardConfiguration: IQKeyboardConfiguration = IQKeyboardConfiguration()
 
     // MARK: UITextField/UITextView Next/Previous/Resign handling
 
