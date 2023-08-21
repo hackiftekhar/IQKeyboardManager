@@ -29,10 +29,8 @@ internal extension IQKeyboardManager {
 
     private struct AssociatedKeys {
         static var textFieldView: Int = 0
-        static var topViewBeginOrigin: Int = 0
-        static var rootViewController: Int = 0
-        static var rootViewControllerWhilePopGestureRecognizerActive: Int = 0
-        static var topViewBeginOriginWhilePopGestureRecognizerActive: Int = 0
+        static var rootControllerConfiguration: Int = 0
+        static var rootControllerConfigurationWhilePopGestureRecognizerActive: Int = 0
     }
 
     /** To save UITextField/UITextView object voa textField/textView notifications. */
@@ -45,41 +43,21 @@ internal extension IQKeyboardManager {
         }
     }
 
-    var topViewBeginOrigin: CGPoint {
+    var rootControllerConfiguration: IQRootControllerConfiguration? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.topViewBeginOrigin) as? CGPoint ?? IQKeyboardManager.kIQCGPointInvalid
+            return objc_getAssociatedObject(self, &AssociatedKeys.rootControllerConfiguration) as? IQRootControllerConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginOrigin, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.rootControllerConfiguration, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
-    /** To save rootViewController */
-    weak var rootViewController: UIViewController? {
+    var rootControllerConfigurationWhilePopGestureRecognizerActive: IQRootControllerConfiguration? {
         get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.rootViewController) as? WeakObjectContainer)?.object as? UIViewController
+            return objc_getAssociatedObject(self, &AssociatedKeys.rootControllerConfigurationWhilePopGestureRecognizerActive) as? IQRootControllerConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.rootViewController, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /** To overcome with popGestureRecognizer issue Bug ID: #1361 */
-    weak var rootViewControllerWhilePopGestureRecognizerActive: UIViewController? {
-        get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.rootViewControllerWhilePopGestureRecognizerActive) as? WeakObjectContainer)?.object as? UIViewController
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.rootViewControllerWhilePopGestureRecognizerActive, WeakObjectContainer(object: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    var topViewBeginOriginWhilePopGestureRecognizerActive: CGPoint {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.topViewBeginOriginWhilePopGestureRecognizerActive) as? CGPoint ?? IQKeyboardManager.kIQCGPointInvalid
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginOriginWhilePopGestureRecognizerActive, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.rootControllerConfigurationWhilePopGestureRecognizerActive, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -139,24 +117,23 @@ internal extension IQKeyboardManager {
 
         if !privateIsEnabled() {
             restorePosition()
-            topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+            rootControllerConfiguration = nil
         } else {
-            if topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {    //  (Bug ID: #5)
+            if rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
-                rootViewController = textFieldView?.parentContainerViewController()
+                if let controller: UIViewController = textFieldView?.iq.parentContainerViewController() {
 
-                if let controller: UIViewController = rootViewController {
-
-                    if rootViewControllerWhilePopGestureRecognizerActive == controller {
-                        topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
+                    if rootControllerConfigurationWhilePopGestureRecognizerActive?.rootController == controller {
+                        rootControllerConfiguration = rootControllerConfigurationWhilePopGestureRecognizerActive
                     } else {
-                        topViewBeginOrigin = controller.view.frame.origin
+                        rootControllerConfiguration = .init(rootController: controller)
                     }
 
-                    rootViewControllerWhilePopGestureRecognizerActive = nil
-                    topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
+                    rootControllerConfigurationWhilePopGestureRecognizerActive = nil
 
-                    self.showLog("Saving \(controller) beginning origin: \(self.topViewBeginOrigin)")
+                    if let rootControllerConfiguration = rootControllerConfiguration {
+                        self.showLog("Saving \(rootControllerConfiguration.rootController) beginning origin: \(rootControllerConfiguration.beginOrigin)")
+                    }
                 }
             }
 
@@ -164,7 +141,7 @@ internal extension IQKeyboardManager {
             // See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
             if keyboardInfo.keyboardShowing,
                let textFieldView: UIView = textFieldView,
-                !textFieldView.isAlertViewTextField() {
+                !textFieldView.iq.isAlertViewTextField() {
 
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
@@ -189,26 +166,18 @@ internal extension IQKeyboardManager {
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView?.window?.removeGestureRecognizer(resignFirstResponderGesture)
 
-        // We check if there's a change in original frame or not.
+        if let startingTextViewConfiguration = startingTextViewConfiguration,
+           startingTextViewConfiguration.hasChanged {
 
-        if let textView: UIScrollView = textFieldView as? UIScrollView,
-            textView.responds(to: #selector(getter: UITextView.isEditable)) {
-
-            if isTextViewContentInsetChanged {
-                self.isTextViewContentInsetChanged = false
-
-                if textView.contentInset != self.startingTextViewContentInsets {
-                    self.showLog("Restoring textView.contentInset to: \(self.startingTextViewContentInsets)")
-
-                    keyboardInfo.animate(alongsideTransition: {
-
-                        // Setting textField to it's initial contentInset
-                        textView.contentInset = self.startingTextViewContentInsets
-                        textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
-                    })
-                }
+            if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
+                showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
             }
+
+            keyboardInfo.animate(alongsideTransition: {
+                startingTextViewConfiguration.restore(for: self.textFieldView)
+            })
         }
+        startingTextViewConfiguration = nil
 
         // Setting object to nil
 #if swift(>=5.7)

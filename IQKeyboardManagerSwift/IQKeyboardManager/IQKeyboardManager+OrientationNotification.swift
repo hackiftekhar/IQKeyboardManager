@@ -50,25 +50,18 @@ internal extension IQKeyboardManager {
         showLog("📱>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
-        // If textViewContentInsetChanged is saved then restore it.
-        if let textView: UIScrollView = textFieldView as? UIScrollView,
-            textView.responds(to: #selector(getter: UITextView.isEditable)) {
+        if let startingTextViewConfiguration = startingTextViewConfiguration,
+           startingTextViewConfiguration.hasChanged {
 
-            if isTextViewContentInsetChanged {
-                self.isTextViewContentInsetChanged = false
-                if textView.contentInset != self.startingTextViewContentInsets {
-                    keyboardInfo.animate(alongsideTransition: {
-
-                        self.showLog("Restoring textView.contentInset to: \(self.startingTextViewContentInsets)")
-
-                        // Setting textField to it's initial contentInset
-                        textView.contentInset = self.startingTextViewContentInsets
-                        textView.scrollIndicatorInsets = self.startingTextViewScrollIndicatorInsets
-
-                    })
-                }
+            if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
+                showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
             }
+
+            keyboardInfo.animate(alongsideTransition: {
+                startingTextViewConfiguration.restore(for: self.textFieldView)
+            })
         }
+        startingTextViewConfiguration = nil
 
         restorePosition()
 

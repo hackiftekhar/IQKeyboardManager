@@ -43,7 +43,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView2.enableMode = .disabled
+        textView2.iq.enableMode = .disabled
         textView1.delegate = self
 
 #if swift(>=5.7)
@@ -54,10 +54,10 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
 
 //        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])
 
-        textField3.keyboardToolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
-        textField3.keyboardToolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
-        textField3.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
-        dropDownTextField.keyboardDistanceFromTextField = 150
+        textField3.iq.toolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
+        textField3.iq.toolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
+        textField3.iq.toolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
+        dropDownTextField.iq.distanceFromKeyboard = 150
 
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
@@ -90,7 +90,7 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         }
 
         IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
-            print(size)
+//            print(size)
         })
     }
 

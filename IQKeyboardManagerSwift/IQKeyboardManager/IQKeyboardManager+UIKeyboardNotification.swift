@@ -107,7 +107,7 @@ public extension IQKeyboardManager {
 
         guard privateIsEnabled() else {
             restorePosition()
-            topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+            rootControllerConfiguration = nil
             return
         }
 
@@ -118,22 +118,22 @@ public extension IQKeyboardManager {
 
         //  (Bug ID: #5)
         if let textFieldView: UIView = textFieldView,
-           topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {
+           rootControllerConfiguration == nil {
 
             //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            rootViewController = textFieldView.parentContainerViewController()
-            if let controller: UIViewController = rootViewController {
+            if let controller: UIViewController = textFieldView.iq.parentContainerViewController() {
 
-                if rootViewControllerWhilePopGestureRecognizerActive == controller {
-                    topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
+                if rootControllerConfigurationWhilePopGestureRecognizerActive?.rootController == controller {
+                    rootControllerConfiguration = rootControllerConfigurationWhilePopGestureRecognizerActive
                 } else {
-                    topViewBeginOrigin = controller.view.frame.origin
+                    rootControllerConfiguration = .init(rootController: controller)
                 }
 
-                rootViewControllerWhilePopGestureRecognizerActive = nil
-                topViewBeginOriginWhilePopGestureRecognizerActive = IQKeyboardManager.kIQCGPointInvalid
+                rootControllerConfigurationWhilePopGestureRecognizerActive = nil
 
-                self.showLog("Saving \(controller) beginning origin: \(self.topViewBeginOrigin)")
+                if let rootControllerConfiguration = rootControllerConfiguration {
+                    self.showLog("Saving \(rootControllerConfiguration.rootController) beginning origin: \(rootControllerConfiguration.beginOrigin)")
+                }
             }
         }
 
@@ -144,7 +144,7 @@ public extension IQKeyboardManager {
 
             if keyboardInfo.keyboardShowing,
                let textFieldView: UIView = textFieldView,
-                !textFieldView.isAlertViewTextField() {
+                !textFieldView.iq.isAlertViewTextField() {
 
                 //  keyboard is already showing. adjust position.
                 optimizedAdjustPosition()
@@ -158,14 +158,14 @@ public extension IQKeyboardManager {
     /*  UIKeyboardDidShowNotification. */
     @objc internal func keyboardDidShow(_ notification: Notification) {
 
-        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
+//        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
         self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .didShow)
 
         guard privateIsEnabled(),
               let textFieldView: UIView = textFieldView,
-              let parentController: UIViewController = textFieldView.parentContainerViewController(),
+              let parentController: UIViewController = textFieldView.iq.parentContainerViewController(),
               (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
-              !textFieldView.isAlertViewTextField() else {
+              !textFieldView.iq.isAlertViewTextField() else {
             return
         }
 
@@ -200,31 +200,28 @@ public extension IQKeyboardManager {
         //    if (_textFieldView == nil)   return
 
         // Restoring the contentOffset of the lastScrollView
-        if let lastScrollView: UIScrollView = lastScrollView {
+        if let lastScrollViewConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
 
             keyboardInfo.animate(alongsideTransition: {
 
-                if lastScrollView.contentInset != self.startingContentInsets {
-                    self.showLog("Restoring contentInset to: \(self.startingContentInsets)")
-                    lastScrollView.contentInset = self.startingContentInsets
-                    lastScrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
-                }
-
-                if lastScrollView.shouldRestoreScrollViewContentOffset, !lastScrollView.contentOffset.equalTo(self.startingContentOffset) {
-                    self.showLog("Restoring contentOffset to: \(self.startingContentOffset)")
-
-                    let animatedContentOffset: Bool = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: lastScrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
-
-                    if animatedContentOffset {
-                        lastScrollView.setContentOffset(self.startingContentOffset, animated: UIView.areAnimationsEnabled)
-                    } else {
-                        lastScrollView.contentOffset = self.startingContentOffset
+                if lastScrollViewConfiguration.hasChanged {
+                    if lastScrollViewConfiguration.scrollView.contentInset != lastScrollViewConfiguration.startingContentInsets {
+                        self.showLog("Restoring contentInset to: \(lastScrollViewConfiguration.startingContentInsets)")
                     }
+
+                    if lastScrollViewConfiguration.scrollView.iq.restoreContentOffset,
+                       !lastScrollViewConfiguration.scrollView.contentOffset.equalTo(lastScrollViewConfiguration.startingContentOffset) {
+                        self.showLog("Restoring contentOffset to: \(lastScrollViewConfiguration.startingContentOffset)")
+                    }
+
+                    self.keyboardInfo.animate(alongsideTransition: {
+                        lastScrollViewConfiguration.restore(for: self.textFieldView)
+                    })
                 }
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView: UIScrollView? = lastScrollView
+                var superScrollView: UIScrollView? = lastScrollViewConfiguration.scrollView
 
                 while let scrollView: UIScrollView = superScrollView {
 
@@ -237,7 +234,7 @@ public extension IQKeyboardManager {
                         let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
-                            let animatedContentOffset: Bool = self.textFieldView?.superviewOfClassType(UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+                            let animatedContentOffset: Bool = self.textFieldView?.iq.superviewOf(type: UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -245,11 +242,11 @@ public extension IQKeyboardManager {
                                 scrollView.contentOffset = newContentOffset
                             }
 
-                            self.showLog("Restoring contentOffset to: \(self.startingContentOffset)")
+                            self.showLog("Restoring contentOffset to: \(newContentOffset)")
                         }
                     }
 
-                    superScrollView = scrollView.superviewOfClassType(UIScrollView.self) as? UIScrollView
+                    superScrollView = scrollView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
                 }
             })
         }
@@ -257,11 +254,8 @@ public extension IQKeyboardManager {
         restorePosition()
 
         // Reset all values
-        lastScrollView = nil
+        self.lastScrollViewConfiguration = nil
         notifyKeyboardSize(size: keyboardInfo.frame.size)
-        startingContentInsets = UIEdgeInsets()
-        startingScrollIndicatorInsets = UIEdgeInsets()
-        startingContentOffset = CGPoint.zero
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
@@ -276,8 +270,7 @@ public extension IQKeyboardManager {
         showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
-        topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
-
+        rootControllerConfiguration = nil
         notifyKeyboardSize(size: keyboardInfo.frame.size)
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime

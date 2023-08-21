@@ -28,7 +28,9 @@ import QuartzCore
 // MARK: IQToolbar tags
 
 /**
-Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
+Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html (OLD DOCUMENTATION) LINK
+
+https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_your_layout_with_keyboard_layout_guide
 */
 
 @available(iOSApplicationExtension, unavailable)
@@ -38,11 +40,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     Returns the default singleton instance.
     */
     @objc public static let shared: IQKeyboardManager = .init()
-
-    /**
-     Invalid point value.
-     */
-    internal static let kIQCGPointInvalid: CGPoint = CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
 
     // MARK: UIKeyboard handling
 
@@ -252,9 +249,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
         // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-        let textField: UITextField = UITextField()
-        textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
-        textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
+        let textField: UIView = UITextField()
+        textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
+        textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
+                                         nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
 
         disabledDistanceHandlingClasses.append(UITableViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
@@ -317,8 +315,9 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 
         guard privateIsEnabled(),
               keyboardInfo.keyboardShowing,
-              !topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid), let textFieldView: UIView = textFieldView,
-            !textFieldView.isAlertViewTextField() else {
+              rootControllerConfiguration != nil,
+              let textFieldView: UIView = textFieldView,
+              !textFieldView.iq.isAlertViewTextField() else {
                 return
         }
         optimizedAdjustPosition()

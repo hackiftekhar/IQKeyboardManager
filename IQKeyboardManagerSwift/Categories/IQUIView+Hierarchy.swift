@@ -26,8 +26,9 @@ import UIKit
 /**
 UIView hierarchy category.
 */
+
 @available(iOSApplicationExtension, unavailable)
-@objc public extension UIView {
+public extension IQKeyboardManagerWrapper where Base: UIView {
 
     // MARK: viewControllers
 
@@ -36,7 +37,7 @@ UIView hierarchy category.
     */
     func viewContainingController() -> UIViewController? {
 
-        var nextResponder: UIResponder? = self
+        var nextResponder: UIResponder? = base
 
         repeat {
             nextResponder = nextResponder?.next
@@ -57,7 +58,7 @@ UIView hierarchy category.
 
         var controllersHierarchy: [UIViewController] = []
 
-        if var topController: UIViewController = window?.rootViewController {
+        if var topController: UIViewController = base.window?.rootViewController {
             controllersHierarchy.append(topController)
 
             while let presented: UIViewController = topController.presentedViewController {
@@ -133,7 +134,7 @@ UIView hierarchy category.
             parentContainerViewController = matchController
         }
 
-        let finalController: UIViewController? = parentContainerViewController?.parentIQContainerViewController() ?? parentContainerViewController
+        let finalController: UIViewController? = parentContainerViewController?.iq_parentContainerViewController() ?? parentContainerViewController
 
         return finalController
 
@@ -149,9 +150,9 @@ UIView hierarchy category.
      
      @param belowView view object in upper hierarchy where method should stop searching and return nil
 */
-    func superviewOfClassType(_ classType: UIView.Type, belowView: UIView? = nil) -> UIView? {
+    func superviewOf(type classType: UIView.Type, belowView: UIView? = nil) -> UIView? {
 
-        var superView: UIView? = superview
+        var superView: UIView? = base.superview
 
         while let unwrappedSuperView: UIView = superView {
 
@@ -182,19 +183,23 @@ UIView hierarchy category.
 
         return nil
     }
+}
+
+@available(iOSApplicationExtension, unavailable)
+internal extension IQKeyboardManagerWrapper where Base: UIView {
 
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.
     */
-    internal func responderSiblings() -> [UIView] {
+    func responderSiblings() -> [UIView] {
 
         // Array of (UITextField/UITextView's).
         var tempTextFields: [UIView] = []
 
-        //	Getting all siblings
-        if let siblings: [UIView] = superview?.subviews {
+        //    Getting all siblings
+        if let siblings: [UIView] = base.superview?.subviews {
             for textField in siblings {
-                if (textField == self || !textField.ignoreSwitchingByNextPrevious), textField.IQcanBecomeFirstResponder() {
+                if (textField == base || !textField.iq.ignoreSwitchingByNextPrevious), textField.iq.canBecomeFirstResponder() {
                     tempTextFields.append(textField)
                 }
             }
@@ -206,20 +211,20 @@ UIView hierarchy category.
     /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    internal func deepResponderViews() -> [UIView] {
+    func deepResponderViews() -> [UIView] {
 
         // Array of (UITextField/UITextView's).
         var textfields: [UIView] = []
 
-        for textField in subviews {
+        for textField in base.subviews {
 
-            if (textField == self || !textField.ignoreSwitchingByNextPrevious), textField.IQcanBecomeFirstResponder() {
+            if (textField == base || !textField.iq.ignoreSwitchingByNextPrevious), textField.iq.canBecomeFirstResponder() {
                 textfields.append(textField)
             }
             // Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
             // Uncommented else (Bug ID: #625)
-            else if textField.subviews.count != 0, isUserInteractionEnabled, !isHidden, alpha != 0.0 {
-                for deepView in textField.deepResponderViews() {
+            else if textField.subviews.count != 0, base.isUserInteractionEnabled, !base.isHidden, base.alpha != 0.0 {
+                for deepView in textField.iq.deepResponderViews() {
                     textfields.append(deepView)
                 }
             }
@@ -228,8 +233,8 @@ UIView hierarchy category.
         // subviews are returning in opposite order. Sorting according the frames 'y'.
         return textfields.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
 
-            let frame1: CGRect = view1.convert(view1.bounds, to: self)
-            let frame2: CGRect = view2.convert(view2.bounds, to: self)
+            let frame1: CGRect = view1.convert(view1.bounds, to: base)
+            let frame2: CGRect = view2.convert(view2.bounds, to: base)
 
             if frame1.minY != frame2.minY {
                 return frame1.minY < frame2.minY
@@ -239,24 +244,24 @@ UIView hierarchy category.
         })
     }
 
-    private func IQcanBecomeFirstResponder() -> Bool {
+    private func canBecomeFirstResponder() -> Bool {
 
-        var IQcanBecomeFirstResponder: Bool = false
+        var canBecomeFirstResponder: Bool = false
 
-        if self.conforms(to: UITextInput.self) {
+        if base.conforms(to: UITextInput.self) {
             //  Setting toolbar to keyboard.
-            if let textView: UITextView = self as? UITextView {
-                IQcanBecomeFirstResponder = textView.isEditable
-            } else if let textField: UITextField = self as? UITextField {
-                IQcanBecomeFirstResponder = textField.isEnabled
+            if let textView: UITextView = base as? UITextView {
+                canBecomeFirstResponder = textView.isEditable
+            } else if let textField: UITextField = base as? UITextField {
+                canBecomeFirstResponder = textField.isEnabled
             }
         }
 
-        if IQcanBecomeFirstResponder {
-            IQcanBecomeFirstResponder = isUserInteractionEnabled && !isHidden && alpha != 0.0 && !isAlertViewTextField() && textFieldSearchBar() == nil
+        if canBecomeFirstResponder {
+            canBecomeFirstResponder = base.isUserInteractionEnabled && !base.isHidden && base.alpha != 0.0 && !isAlertViewTextField() && textFieldSearchBar() == nil
         }
 
-        return IQcanBecomeFirstResponder
+        return canBecomeFirstResponder
     }
 
     // MARK: Special TextFields
@@ -264,9 +269,9 @@ UIView hierarchy category.
     /**
      Returns searchBar if receiver object is UISearchBarTextField, otherwise return nil.
     */
-    internal func textFieldSearchBar() -> UISearchBar? {
+    func textFieldSearchBar() -> UISearchBar? {
 
-        var responder: UIResponder? = self.next
+        var responder: UIResponder? = base.next
 
         while let bar: UIResponder = responder {
 
@@ -285,7 +290,7 @@ UIView hierarchy category.
     /**
     Returns YES if the receiver object is UIAlertSheetTextField, otherwise return NO.
     */
-    internal func isAlertViewTextField() -> Bool {
+    func isAlertViewTextField() -> Bool {
 
         var alertViewController: UIResponder? = viewContainingController()
 
@@ -304,22 +309,13 @@ UIView hierarchy category.
         return isAlertViewTextField
     }
 
-    private func depth() -> Int {
+    func depth() -> Int {
         var depth: Int = 0
 
-        if let superView: UIView = superview {
-            depth = superView.depth()+1
+        if let superView: UIView = base.superview {
+            depth = superView.iq.depth()+1
         }
 
         return depth
-    }
-
-}
-
-@available(iOSApplicationExtension, unavailable)
-extension NSObject {
-
-    internal func _IQDescription() -> String {
-        return "<\(self) \(Unmanaged.passUnretained(self).toOpaque())>"
     }
 }

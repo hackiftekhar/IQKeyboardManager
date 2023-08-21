@@ -45,4 +45,6 @@ import UIKit
      Placeholder Button Color when it's treated as button. Default is nil.
      */
     @objc public var buttonColor: UIColor?
+
+    public override var accessibilityLabel: String? { didSet { } }
 }

@@ -24,9 +24,9 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-struct IQRootControllerConfiguration {
-    internal let rootController: UIViewController
-    internal let beginOrigin: CGPoint
+internal struct IQRootControllerConfiguration {
+    let rootController: UIViewController
+    let beginOrigin: CGPoint
 
     init?(rootController: UIViewController?) {
         guard let rootController: UIViewController = rootController else { return nil }
@@ -34,12 +34,19 @@ struct IQRootControllerConfiguration {
         beginOrigin = rootController.view.frame.origin
     }
 
-    func restore() {
+    var hasChanged: Bool {
+        return !rootController.view.frame.origin.equalTo(beginOrigin)
+    }
+
+    @discardableResult
+    func restore() -> Bool {
         if !rootController.view.frame.origin.equalTo(beginOrigin) {
             // Setting it's new frame
             var rect: CGRect = rootController.view.frame
             rect.origin = beginOrigin
             rootController.view.frame = rect
+            return true
         }
+        return false
     }
 }

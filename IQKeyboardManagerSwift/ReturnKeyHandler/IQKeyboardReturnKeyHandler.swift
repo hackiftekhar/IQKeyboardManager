@@ -129,7 +129,7 @@ Manages the return key to work like next/done in a view hierarchy.
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
-            superConsideredView = view.superviewOfClassType(disabledClass)
+            superConsideredView = view.iq.superviewOf(type: disabledClass)
 
             if superConsideredView != nil {
                 break
@@ -140,17 +140,17 @@ Manages the return key to work like next/done in a view hierarchy.
 
         // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView: UIView = superConsideredView {     //   (Enhancement ID: #22)
-            textFields = unwrappedTableView.deepResponderViews()
+            textFields = unwrappedTableView.iq.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
 
-            textFields = view.responderSiblings()
+            textFields = view.iq.responderSiblings()
 
             // Sorting textFields according to behaviour
             switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
                 // If needs to sort it by tag
-            case .byTag:        textFields = textFields.sortedArrayByTag()
+            case .byTag:        textFields = textFields.sortedByTag()
                 // If needs to sort it by Position
-            case .byPosition:   textFields = textFields.sortedArrayByPosition()
+            case .byPosition:   textFields = textFields.sortedByPosition()
             default:    break
             }
         }
@@ -230,7 +230,7 @@ Manages the return key to work like next/done in a view hierarchy.
     */
     @objc public func addResponderFromView(_ view: UIView) {
 
-        let textFields: [UIView] = view.deepResponderViews()
+        let textFields: [UIView] = view.iq.deepResponderViews()
 
         for textField in textFields {
 
@@ -245,7 +245,7 @@ Manages the return key to work like next/done in a view hierarchy.
     */
     @objc public func removeResponderFromView(_ view: UIView) {
 
-        let textFields: [UIView] = view.deepResponderViews()
+        let textFields: [UIView] = view.iq.deepResponderViews()
 
         for textField in textFields {
 
@@ -261,7 +261,7 @@ Manages the return key to work like next/done in a view hierarchy.
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
-            superConsideredView = view.superviewOfClassType(disabledClass)
+            superConsideredView = view.iq.superviewOf(type: disabledClass)
 
             if superConsideredView != nil {
                 break
@@ -272,17 +272,17 @@ Manages the return key to work like next/done in a view hierarchy.
 
         // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
         if let unwrappedTableView: UIView = superConsideredView {     //   (Enhancement ID: #22)
-            textFields = unwrappedTableView.deepResponderViews()
+            textFields = unwrappedTableView.iq.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
 
-            textFields = view.responderSiblings()
+            textFields = view.iq.responderSiblings()
 
             // Sorting textFields according to behaviour
             switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
                 // If needs to sort it by tag
-            case .byTag:        textFields = textFields.sortedArrayByTag()
+            case .byTag:        textFields = textFields.sortedByTag()
                 // If needs to sort it by Position
-            case .byPosition:   textFields = textFields.sortedArrayByPosition()
+            case .byPosition:   textFields = textFields.sortedByPosition()
             default:
                 break
             }

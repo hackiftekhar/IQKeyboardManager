@@ -57,4 +57,36 @@ import UIKit
     @objc public let title: String?     // Title to show on bar button item if it's not a system item.
 
     @objc public var action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
+
+    public override var accessibilityLabel: String? { didSet { } } // Accessibility related labels
+
+    func apply(on oldBarButtonItem: IQBarButtonItem, target: AnyObject?) -> IQBarButtonItem {
+
+        var newBarButtonItem: IQBarButtonItem = oldBarButtonItem
+
+        if systemItem == nil, !oldBarButtonItem.isSystemItem {
+            newBarButtonItem.title = title
+            newBarButtonItem.accessibilityLabel = accessibilityLabel
+            newBarButtonItem.accessibilityIdentifier = newBarButtonItem.accessibilityLabel
+            newBarButtonItem.image = image
+            newBarButtonItem.target = target
+            newBarButtonItem.action = action
+        } else {
+            if let systemItem: UIBarButtonItem.SystemItem = systemItem {
+                newBarButtonItem = IQBarButtonItem(barButtonSystemItem: systemItem, target: target, action: action)
+                newBarButtonItem.isSystemItem = true
+            } else if let image: UIImage = image {
+                newBarButtonItem = IQBarButtonItem(image: image, style: .plain, target: target, action: action)
+            } else {
+                newBarButtonItem = IQBarButtonItem(title: title, style: .plain, target: target, action: action)
+            }
+
+            newBarButtonItem.invocation = oldBarButtonItem.invocation
+            newBarButtonItem.accessibilityLabel = accessibilityLabel
+            newBarButtonItem.accessibilityIdentifier = oldBarButtonItem.accessibilityLabel
+            newBarButtonItem.isEnabled = oldBarButtonItem.isEnabled
+            newBarButtonItem.tag = oldBarButtonItem.tag
+        }
+        return newBarButtonItem
+    }
 }

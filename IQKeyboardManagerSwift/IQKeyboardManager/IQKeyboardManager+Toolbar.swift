@@ -67,11 +67,10 @@ public extension IQKeyboardManager {
         //    If only one object is found, then adding only Done button.
         if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
 
-            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.drawingToolbarPlaceholder : nil
-            textField.addKeyboardToolbarWithTarget(target: self, titleText: titleText,
-                                                   titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel,
-                                                   rightBarButtonConfiguration: rightConfiguration,
-                                                   previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
+            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
+            textField.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
+                                    title: titleText,
+                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
 
@@ -95,17 +94,17 @@ public extension IQKeyboardManager {
                 nextConfiguration.accessibilityLabel = "Next"
             }
 
-            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.drawingToolbarPlaceholder : nil
-            textField.addKeyboardToolbarWithTarget(target: self, titleText: titleText,
-                                                   titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel,
-                                                   rightBarButtonConfiguration: rightConfiguration,
-                                                   previousBarButtonConfiguration: prevConfiguration,
-                                                   nextBarButtonConfiguration: nextConfiguration)
+            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
+            textField.iq.addToolbar(target: self,
+                                    previousConfiguration: prevConfiguration,
+                                    nextConfiguration: nextConfiguration,
+                                    rightConfiguration: rightConfiguration, title: titleText,
+                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
         }
 
-        let toolbar: IQToolbar = textField.keyboardToolbar
+        let toolbar: IQToolbar = textField.iq.toolbar
 
         // Setting toolbar tintColor //  (Enhancement ID: #30)
         toolbar.tintColor = toolbarConfiguration.useTextFieldTintColor ? textField.tintColor : toolbarConfiguration.tintColor
@@ -127,12 +126,12 @@ public extension IQKeyboardManager {
 
         // Setting toolbar title font.   //  (Enhancement ID: #30)
         if toolbarConfiguration.placeholderConfiguration.showPlaceholder,
-            !textField.shouldHideToolbarPlaceholder {
+            !textField.iq.hidePlaceholder {
 
             // Updating placeholder font to toolbar.     //(Bug ID: #148, #272)
             if toolbar.titleBarButton.title == nil ||
-                toolbar.titleBarButton.title != textField.drawingToolbarPlaceholder {
-                toolbar.titleBarButton.title = textField.drawingToolbarPlaceholder
+                toolbar.titleBarButton.title != textField.iq.drawingPlaceholder {
+                toolbar.titleBarButton.title = textField.iq.drawingPlaceholder
             }
 
             // Setting toolbar title font.   //  (Enhancement ID: #30)
@@ -150,8 +149,8 @@ public extension IQKeyboardManager {
 
         // In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
 
-        textField.keyboardToolbar.previousBarButton.isEnabled = (siblings.first != textField)   //    If firstTextField, then previous should not be enabled.
-        textField.keyboardToolbar.nextBarButton.isEnabled = (siblings.last != textField)        //    If lastTextField then next should not be enaled.
+        textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)   //    If firstTextField, then previous should not be enabled.
+        textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)        //    If lastTextField then next should not be enaled.
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
@@ -313,8 +312,8 @@ public extension IQKeyboardManager {
 
         // Handling search bar special case
         do {
-            if let searchBar: UISearchBar = textFieldRetain.textFieldSearchBar() {
-                invocation = searchBar.keyboardToolbar.previousBarButton.invocation
+            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+                invocation = searchBar.iq.toolbar.previousBarButton.invocation
                 sender = searchBar
             }
         }
@@ -345,8 +344,8 @@ public extension IQKeyboardManager {
 
         // Handling search bar special case
         do {
-            if let searchBar: UISearchBar = textFieldRetain.textFieldSearchBar() {
-                invocation = searchBar.keyboardToolbar.nextBarButton.invocation
+            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+                invocation = searchBar.iq.toolbar.nextBarButton.invocation
                 sender = searchBar
             }
         }
@@ -377,8 +376,8 @@ public extension IQKeyboardManager {
 
         // Handling search bar special case
         do {
-            if let searchBar: UISearchBar = textFieldRetain.textFieldSearchBar() {
-                invocation = searchBar.keyboardToolbar.doneBarButton.invocation
+            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+                invocation = searchBar.iq.toolbar.doneBarButton.invocation
                 sender = searchBar
             }
         }
