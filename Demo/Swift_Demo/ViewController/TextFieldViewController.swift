@@ -17,6 +17,8 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     @IBOutlet var textView2: UITextView!
     @IBOutlet var textView3: UITextView!
 
+    let keyboardListener = IQKeyboardListener()
+
     @IBOutlet var dropDownTextField: IQDropDownTextField!
 
     @IBOutlet var buttonPush: UIButton!
@@ -89,14 +91,14 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
             buttonPresent.setTitle("Dismiss", for: .normal)
         }
 
-        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
+        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
 //            print(size)
-        })
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.shared.unregisterKeyboardSizeChange(identifier: "TextFieldViewController")
+        keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
     }
 
     @IBAction func presentClicked (_ sender: AnyObject!) {

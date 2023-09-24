@@ -28,10 +28,10 @@ public class IQKeyboardListener {
 
     private var sizeObservers: [AnyHashable: SizeCompletion] = [:]
 
-    private var keyboardInfo: IQKeyboardInfo {
+    private(set) var keyboardInfo: IQKeyboardInfo {
         didSet {
             if keyboardInfo != oldValue {
-                notifyChange()
+                sendEvent()
             }
         }
     }
@@ -51,8 +51,8 @@ public class IQKeyboardListener {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
     }
 
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -71,13 +71,13 @@ public class IQKeyboardListener {
         keyboardInfo = IQKeyboardInfo(notification: notification, name: .didHide)
     }
 
-//    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
-//        keyboardInfo = IQKeyboardInfo(notification: notification, name: .willChangeFrame)
-//    }
-//
-//    @objc private func keyboardDidChangeFrame(_ notification: Notification) {
-//        keyboardInfo = IQKeyboardInfo(notification: notification, name: .didChangeFrame)
-//    }
+    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
+        keyboardInfo = IQKeyboardInfo(notification: notification, name: .willChangeFrame)
+    }
+
+    @objc private func keyboardDidChangeFrame(_ notification: Notification) {
+        keyboardInfo = IQKeyboardInfo(notification: notification, name: .didChangeFrame)
+    }
 
     public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
         keyboardInfo.animate(alongsideTransition: transition, completion: completion)
@@ -97,7 +97,7 @@ public extension IQKeyboardListener {
         sizeObservers[identifier] = nil
     }
 
-    private func notifyChange() {
+    private func sendEvent() {
 
         let size: CGSize = keyboardInfo.frame.size
 

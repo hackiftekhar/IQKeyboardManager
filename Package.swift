@@ -6,12 +6,13 @@ import PackageDescription
 let package = Package(
     name: "IQKeyboardManagerSwift",
     products: [
-       .library(name: "IQKeyboardManagerSwift", targets: ["IQKeyboardManagerSwift"])
-   ],
-   targets: [
-       .target(
-           name: "IQKeyboardManagerSwift",
-           path: "IQKeyboardManagerSwift"
-       )
-   ]
+        .library(name: "IQKeyboardManagerSwift",
+                 targets: ["IQKeyboardManagerSwift"])
+    ],
+    targets: [
+        .target(
+            name: "IQKeyboardManagerSwift",
+            path: "IQKeyboardManagerSwift"
+        )
+    ]
 )

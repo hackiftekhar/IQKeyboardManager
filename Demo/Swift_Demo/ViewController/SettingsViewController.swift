@@ -96,13 +96,13 @@ class SettingsViewController: UITableViewController {
     /**  Resign first responder handling    */
     @objc func shouldResignOnTouchOutsideAction (_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = sender.isOn
+        IQKeyboardManager.shared.resignOnTouchOutside = sender.isOn
     }
 
     /**  Sound handling         */
     @objc func shouldPlayInputClicksAction (_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.shouldPlayInputClicks = sender.isOn
+        IQKeyboardManager.shared.playInputClicks = sender.isOn
     }
 
     /**  Debugging         */
@@ -330,7 +330,7 @@ class SettingsViewController: UITableViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.shouldResignOnTouchOutside
+                cell.switchEnable.isOn = IQKeyboardManager.shared.resignOnTouchOutside
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldResignOnTouchOutsideAction(_:)), for: .valueChanged)
                 return cell
@@ -346,7 +346,7 @@ class SettingsViewController: UITableViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.shouldPlayInputClicks
+                cell.switchEnable.isOn = IQKeyboardManager.shared.playInputClicks
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldPlayInputClicksAction(_:)), for: .valueChanged)
                 return cell

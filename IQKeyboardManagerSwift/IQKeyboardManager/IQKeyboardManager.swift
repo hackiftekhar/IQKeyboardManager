@@ -52,14 +52,14 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
             // If not enable, enable it.
             if enable, !oldValue {
                 // If keyboard is currently showing.
-                if keyboardInfo.keyboardShowing {
+                if activeConfiguration.keyboardInfo.keyboardShowing {
                     optimizedAdjustPosition()
                 } else {
                     restorePosition()
                 }
                 showLog("Enabled")
             } else if !enable, oldValue {   // If not disable, desable it.
-                keyboardWillHide(nil)
+                restorePosition()
                 showLog("Disabled")
             }
         }
@@ -86,6 +86,8 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
             showLog("enableAutoToolbar: \(enableAutoToolbar ? "Yes" : "NO")")
         }
     }
+
+    internal var activeConfiguration: IQActiveConfiguration = .init()
 
     /**
     Configurations related to the toolbar display over the keyboard.
@@ -136,7 +138,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     @discardableResult
     @objc public func resignFirstResponder() -> Bool {
 
-        guard let textFieldRetain = textFieldView else {
+        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return false
         }
 
@@ -210,30 +212,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     // MARK: Third Party Library support
     /// Add TextField/TextView Notifications customised Notifications. For example while using YYTextView https://github.com/ibireme/YYText
 
-    /**
-    Add/Remove customised Notification for third party customised TextField/TextView. Please be aware that the Notification object must be idential to UITextField/UITextView Notification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
-    @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
-    @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
-    */
-
-    @objc public func registerTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidBeginEditing(_:)), name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldViewDidEndEditing(_:)), name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
-    }
-
-    @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName: String, didEndEditingNotificationName: String) {
-
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didBeginEditingNotificationName), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: didEndEditingNotificationName), object: nil)
-    }
-
-    /**************************************************************************************/
-    internal struct WeakObjectContainer {
-        weak var object: AnyObject?
-    }
-
-    /**************************************************************************************/
+   /**************************************************************************************/
 
     // MARK: Initialization/Deinitialization
 
@@ -242,6 +221,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
 
         super.init()
 
+        self.addActiveConfiguratinObserver()
         self.registerAllNotifications()
 
         // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
@@ -273,7 +253,8 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     /** Getting keyWindow. */
     internal func keyWindow() -> UIWindow? {
 
-        if let keyWindow: UIWindow = textFieldView?.window {
+        if let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+           let keyWindow: UIWindow = textFieldView.window {
             return keyWindow
         } else {
 
@@ -314,10 +295,8 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
     @objc public func reloadLayoutIfNeeded() {
 
         guard privateIsEnabled(),
-              keyboardInfo.keyboardShowing,
-              rootControllerConfiguration != nil,
-              let textFieldView: UIView = textFieldView,
-              !textFieldView.iq.isAlertViewTextField() else {
+              activeConfiguration.keyboardInfo.keyboardShowing,
+              activeConfiguration.isReady else {
                 return
         }
         optimizedAdjustPosition()

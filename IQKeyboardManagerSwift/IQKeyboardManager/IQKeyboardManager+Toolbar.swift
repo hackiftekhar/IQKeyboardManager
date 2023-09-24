@@ -41,7 +41,7 @@ public extension IQKeyboardManager {
 
         // Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textField: UIView = textFieldView,
+              let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
               (textField.inputAccessoryView == nil ||
                 textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
@@ -49,10 +49,10 @@ public extension IQKeyboardManager {
             return
         }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
-        showLog("Found \(siblings.count) responder sibling(s)")
+//        showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
         if let configuration: IQBarButtonItemConfiguration = toolbarDoneBarButtonItemConfiguration {
@@ -152,15 +152,15 @@ public extension IQKeyboardManager {
         textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)   //    If firstTextField, then previous should not be enabled.
         textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)        //    If lastTextField then next should not be enaled.
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /** Remove any toolbar if it is IQToolbar. */
     internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
 
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textField: UIView = textFieldView,
+              let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
                 textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
               (textField.inputAccessoryView == nil ||
                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
@@ -168,10 +168,9 @@ public extension IQKeyboardManager {
             return
         }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-
-        showLog("Found \(siblings.count) responder sibling(s)")
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+//        showLog("Found \(siblings.count) responder sibling(s)")
 
         for view in siblings {
             if let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar {
@@ -191,8 +190,8 @@ public extension IQKeyboardManager {
             }
         }
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
@@ -217,7 +216,7 @@ public extension IQKeyboardManager {
     @objc var canGoPrevious: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldView,
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -231,7 +230,7 @@ public extension IQKeyboardManager {
     @objc var canGoNext: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldView,
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -247,7 +246,7 @@ public extension IQKeyboardManager {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldView,
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -273,7 +272,7 @@ public extension IQKeyboardManager {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldView,
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -301,7 +300,7 @@ public extension IQKeyboardManager {
         }
 
         guard canGoPrevious,
-              let textFieldRetain: UIView = textFieldView else {
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return
         }
 
@@ -333,7 +332,7 @@ public extension IQKeyboardManager {
         }
 
         guard canGoNext,
-                let textFieldRetain: UIView = textFieldView else {
+              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return
         }
 
@@ -364,7 +363,7 @@ public extension IQKeyboardManager {
             UIDevice.current.playInputClick()
         }
 
-        guard let textFieldRetain: UIView = textFieldView else {
+        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return
         }
 

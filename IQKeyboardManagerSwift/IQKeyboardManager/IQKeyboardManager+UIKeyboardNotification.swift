@@ -27,253 +27,160 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
-    typealias SizeBlock = (_ size: CGSize) -> Void
+    internal func handleKeyboardTextFieldViewVisible() {
+//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        showLog("UIKeyboard Frame: \(activeConfiguration.keyboardInfo.frame)")
 
-    private final class KeyboardSizeObserver: NSObject {
-        weak var observer: NSObject?
-        var sizeHandler: (_ size: CGSize) -> Void
+        if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
-        init(observer: NSObject?, sizeHandler: @escaping (_ size: CGSize) -> Void) {
-            self.observer = observer
-            self.sizeHandler = sizeHandler
-        }
-    }
+            if let gestureConfiguration = self.rootControllerConfigurationWhilePopGestureRecognizerActive,
+               gestureConfiguration.rootController == self.activeConfiguration.rootControllerConfiguration?.rootController {
+                self.activeConfiguration.rootControllerConfiguration = gestureConfiguration
+            }
 
-    private struct AssociatedKeys {
-        static var keyboardSizeObservers: Int = 0
-        static var keyboardLastNotifySize: Int = 0
-        static var keyboardInfo: Int = 0
-    }
+            self.rootControllerConfigurationWhilePopGestureRecognizerActive = nil
 
-    private var keyboardLastNotifySize: CGSize {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardLastNotifySize) as? CGSize ?? .zero
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardLastNotifySize, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    private var keyboardSizeObservers: [AnyHashable: SizeBlock] {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.keyboardSizeObservers) as? [AnyHashable: SizeBlock] ?? [:]
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardSizeObservers, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {
-        keyboardSizeObservers[identifier] = sizeHandler
-    }
-
-    @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {
-        keyboardSizeObservers[identifier] = nil
-    }
-
-    internal func notifyKeyboardSize(size: CGSize) {
-
-        guard !size.equalTo(keyboardLastNotifySize) else {
-            return
+            if let configuration = self.activeConfiguration.rootControllerConfiguration {
+                let classNameString: String = "\(type(of: configuration.rootController.self))"
+                self.showLog("Saving \(classNameString) beginning origin: \(configuration.beginOrigin)")
+            }
         }
 
-        keyboardLastNotifySize = size
+        setupTextFieldView()
 
-        for block in keyboardSizeObservers.values {
-            block(size)
-        }
-    }
-
-    /**
-     This contains information related to keyboard.
-     */
-    private(set) var keyboardInfo: IQKeyboardInfo {
-        get {
-            return (objc_getAssociatedObject(self, &AssociatedKeys.keyboardInfo) as? IQKeyboardInfo) ?? IQKeyboardInfo(notification: nil, name: .didHide)
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.keyboardInfo, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    /*  UIKeyboardWillShowNotification. */
-    @objc internal func keyboardWillShow(_ notification: Notification) {
-
-        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
-        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .willShow)
-
-        notifyKeyboardSize(size: keyboardInfo.frame.size)
-        showLog("UIKeyboard Frame: \(keyboardInfo.frame)")
-
-        guard privateIsEnabled() else {
+        if !privateIsEnabled() {
             restorePosition()
-            rootControllerConfiguration = nil
-            return
+        } else {
+            optimizedAdjustPosition()
         }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-
-        showLog("Notification Object:\(notification.object ?? "NULL")")
-
-        //  (Bug ID: #5)
-        if let textFieldView: UIView = textFieldView,
-           rootControllerConfiguration == nil {
-
-            //  keyboard is not showing(At the beginning only). We should save rootViewRect.
-            if let controller: UIViewController = textFieldView.iq.parentContainerViewController() {
-
-                if rootControllerConfigurationWhilePopGestureRecognizerActive?.rootController == controller {
-                    rootControllerConfiguration = rootControllerConfigurationWhilePopGestureRecognizerActive
-                } else {
-                    rootControllerConfiguration = .init(rootController: controller)
-                }
-
-                rootControllerConfigurationWhilePopGestureRecognizerActive = nil
-
-                if let rootControllerConfiguration = rootControllerConfiguration {
-                    self.showLog("Saving \(rootControllerConfiguration.rootController) beginning origin: \(rootControllerConfiguration.beginOrigin)")
-                }
-            }
-        }
-
-        // If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
-        if keyboardInfo != oldKeyboardInfo {
-
-            // If textFieldView is inside UITableViewController then let UITableViewController to handle it (Bug ID: #37) (Bug ID: #76) See note:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
-
-            if keyboardInfo.keyboardShowing,
-               let textFieldView: UIView = textFieldView,
-                !textFieldView.iq.isAlertViewTextField() {
-
-                //  keyboard is already showing. adjust position.
-                optimizedAdjustPosition()
-            }
-        }
-
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
-    /*  UIKeyboardDidShowNotification. */
-    @objc internal func keyboardDidShow(_ notification: Notification) {
+    internal func handleKeyboardTextFieldViewChanged() {
+//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
 
-//        let oldKeyboardInfo: IQKeyboardInfo = self.keyboardInfo
-        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .didShow)
+        setupTextFieldView()
 
-        guard privateIsEnabled(),
-              let textFieldView: UIView = textFieldView,
-              let parentController: UIViewController = textFieldView.iq.parentContainerViewController(),
-              (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
-              !textFieldView.iq.isAlertViewTextField() else {
-            return
+        if !privateIsEnabled() {
+            restorePosition()
+        } else {
+            optimizedAdjustPosition()
         }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-        showLog("Notification Object:\(notification.object ?? "NULL")")
-
-//        if keyboardInfo != oldKeyboardInfo {
-            self.optimizedAdjustPosition()
-//        }
-
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
-    /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
-    @objc internal func keyboardWillHide(_ notification: Notification?) {
+    internal func handleKeyboardTextFieldViewHide() {
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
-        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .willHide)
+        self.restorePosition()
+        self.benishTextFieldViewSetup()
 
-        // If not enabled then do nothing.
-        guard privateIsEnabled() else {
-            return
+        if let configuration = self.activeConfiguration.rootControllerConfiguration,
+           configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
+            self.rootControllerConfigurationWhilePopGestureRecognizerActive = configuration
         }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-        showLog("Notification Object:\(notification?.object ?? "NULL")")
-
-        // Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
-        //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
-        //    if (_textFieldView == nil)   return
-
-        // Restoring the contentOffset of the lastScrollView
-        if let lastScrollViewConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
-
-            keyboardInfo.animate(alongsideTransition: {
-
-                if lastScrollViewConfiguration.hasChanged {
-                    if lastScrollViewConfiguration.scrollView.contentInset != lastScrollViewConfiguration.startingContentInsets {
-                        self.showLog("Restoring contentInset to: \(lastScrollViewConfiguration.startingContentInsets)")
-                    }
-
-                    if lastScrollViewConfiguration.scrollView.iq.restoreContentOffset,
-                       !lastScrollViewConfiguration.scrollView.contentOffset.equalTo(lastScrollViewConfiguration.startingContentOffset) {
-                        self.showLog("Restoring contentOffset to: \(lastScrollViewConfiguration.startingContentOffset)")
-                    }
-
-                    self.keyboardInfo.animate(alongsideTransition: {
-                        lastScrollViewConfiguration.restore(for: self.textFieldView)
-                    })
-                }
-
-                // TODO: restore scrollView state
-                // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView: UIScrollView? = lastScrollViewConfiguration.scrollView
-
-                while let scrollView: UIScrollView = superScrollView {
-
-                    let contentSize: CGSize = CGSize(width: max(scrollView.contentSize.width, scrollView.frame.width), height: max(scrollView.contentSize.height, scrollView.frame.height))
-
-                    let minimumY: CGFloat = contentSize.height - scrollView.frame.height
-
-                    if minimumY < scrollView.contentOffset.y {
-
-                        let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
-                        if !scrollView.contentOffset.equalTo(newContentOffset) {
-
-                            let animatedContentOffset: Bool = self.textFieldView?.iq.superviewOf(type: UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
-
-                            if animatedContentOffset {
-                                scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
-                            } else {
-                                scrollView.contentOffset = newContentOffset
-                            }
-
-                            self.showLog("Restoring contentOffset to: \(newContentOffset)")
-                        }
-                    }
-
-                    superScrollView = scrollView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
-                }
-            })
-        }
-
-        restorePosition()
-
-        // Reset all values
         self.lastScrollViewConfiguration = nil
-        notifyKeyboardSize(size: keyboardInfo.frame.size)
-        //    topViewBeginRect = CGRectZero    //Commented due to #82
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+extension IQKeyboardManager {
+    
+    internal func setupTextFieldView() {
+
+        guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+            return
+        }
+
+        do {
+            if let startingTextViewConfiguration = startingTextViewConfiguration,
+               startingTextViewConfiguration.hasChanged {
+
+                if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
+                    showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
+                }
+
+                activeConfiguration.animate(alongsideTransition: {
+                    startingTextViewConfiguration.restore(for: textFieldView)
+                })
+            }
+            startingTextViewConfiguration = nil
+        }
+
+        if keyboardConfiguration.overrideAppearance,
+           let textInput: UITextInput = textFieldView as? UITextInput,
+            textInput.keyboardAppearance != keyboardConfiguration.appearance {
+            // Setting textField keyboard appearance and reloading inputViews.
+            if let textFieldView: UITextField = textFieldView as? UITextField {
+                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
+            } else if  let textFieldView: UITextView = textFieldView as? UITextView {
+                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
+            }
+            textFieldView.reloadInputViews()
+        }
+
+        // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
+        if privateIsEnableAutoToolbar() {
+
+            // UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
+            if let textView: UIScrollView = textFieldView as? UIScrollView,
+                textView.responds(to: #selector(getter: UITextView.isEditable)),
+                textView.inputAccessoryView == nil {
+
+                self.addToolbarIfRequired()
+                // On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
+                textView.reloadInputViews()
+            } else {
+                // Adding toolbar
+                addToolbarIfRequired()
+            }
+        } else {
+            removeToolbarIfRequired()
+        }
+
+        resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
+        textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
 
-    @objc internal func keyboardDidHide(_ notification: Notification) {
+    internal func benishTextFieldViewSetup() {
 
-        self.keyboardInfo = IQKeyboardInfo(notification: notification, name: .didHide)
+        guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+            return
+        }
 
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-        showLog("Notification Object:\(notification.object ?? "NULL")")
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
-        rootControllerConfiguration = nil
-        notifyKeyboardSize(size: keyboardInfo.frame.size)
+        // Removing gesture recognizer   (Enhancement ID: #14)
+        textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        do {
+            if let startingTextViewConfiguration = startingTextViewConfiguration,
+               startingTextViewConfiguration.hasChanged {
+
+                if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
+                    showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
+                }
+
+                activeConfiguration.animate(alongsideTransition: {
+                    startingTextViewConfiguration.restore(for: textFieldView)
+                })
+            }
+            startingTextViewConfiguration = nil
+        }
+
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

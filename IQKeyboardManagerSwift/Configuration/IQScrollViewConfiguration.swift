@@ -32,8 +32,7 @@ internal struct IQScrollViewConfiguration {
 
     private let canRestoreContentOffset: Bool
 
-    init?(scrollView: UIScrollView?, canRestoreContentOffset: Bool) {
-        guard let scrollView: UIScrollView = scrollView else { return nil }
+    init(scrollView: UIScrollView, canRestoreContentOffset: Bool) {
         self.scrollView = scrollView
         self.canRestoreContentOffset = canRestoreContentOffset
 

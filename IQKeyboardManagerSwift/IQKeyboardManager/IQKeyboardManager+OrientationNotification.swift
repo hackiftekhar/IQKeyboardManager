@@ -57,8 +57,8 @@ internal extension IQKeyboardManager {
                 showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
             }
 
-            keyboardInfo.animate(alongsideTransition: {
-                startingTextViewConfiguration.restore(for: self.textFieldView)
+            self.activeConfiguration.animate(alongsideTransition: {
+                startingTextViewConfiguration.restore(for: self.activeConfiguration.textFieldViewInfo?.textFieldView)
             })
         }
         startingTextViewConfiguration = nil
