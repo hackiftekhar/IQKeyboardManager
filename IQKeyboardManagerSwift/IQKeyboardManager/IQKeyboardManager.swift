@@ -235,12 +235,19 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
                                          nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
 
         disabledDistanceHandlingClasses.append(UITableViewController.self)
+        disabledDistanceHandlingClasses.append(UIInputViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
+
         disabledToolbarClasses.append(UIAlertController.self)
+        disabledToolbarClasses.append(UIInputViewController.self)
+
         disabledTouchResignedClasses.append(UIAlertController.self)
+        disabledTouchResignedClasses.append(UIInputViewController.self)
+
         toolbarPreviousNextAllowedClasses.append(UITableView.self)
         toolbarPreviousNextAllowedClasses.append(UICollectionView.self)
         toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
+        
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
     }

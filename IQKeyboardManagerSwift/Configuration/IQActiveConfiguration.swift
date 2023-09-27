@@ -67,6 +67,7 @@ internal class IQActiveConfiguration {
     }
 
     private func sendEvent() {
+
         if let textFieldViewInfo = textFieldViewInfo,
            let rootControllerConfiguration = rootControllerConfiguration,
            rootControllerConfiguration.isReady {
@@ -89,23 +90,42 @@ internal class IQActiveConfiguration {
 
     private func updateRootController(info: IQTextFieldViewInfo?) {
 
-        if rootControllerConfiguration == nil,
-            let controller: UIViewController = info?.textFieldView.iq.parentContainerViewController() {
-            rootControllerConfiguration = IQRootControllerConfiguration(rootController: controller)
+        guard let info = info,
+              let controller: UIViewController = info.textFieldView.iq.parentContainerViewController() else {
+            if let rootControllerConfiguration = rootControllerConfiguration,
+               rootControllerConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootControllerConfiguration.restore()
+                }, completion: nil)
+            }
+            rootControllerConfiguration = nil
+            return
+        }
+
+        let newConfiguration = IQRootControllerConfiguration(rootController: controller)
+
+        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window {
+
+            // If there was an old configuration but windows now changed
+            if let rootControllerConfiguration = rootControllerConfiguration,
+               rootControllerConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootControllerConfiguration.restore()
+                }, completion: nil)
+            }
+
+            rootControllerConfiguration = newConfiguration
 
             windowObserver?.invalidate()
-            windowObserver = nil
-            if let info = info {
 
-                windowObserver = IQPropertyObserver(object: controller.view, keyPath: \.window, debounce: 0.1, changeHandler: { [self] _, _ in
-                    if let rootControllerConfiguration = rootControllerConfiguration,
-                        rootControllerConfiguration.isReady {
-                        if lastEvent == .show || lastEvent == .change {
-                            self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: info)
-                        }
+            windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view, keyPath: \.window, debounce: 0.1, changeHandler: { [self] _, _ in
+                if let rootControllerConfiguration = rootControllerConfiguration,
+                   rootControllerConfiguration.isReady {
+                    if lastEvent == .show || lastEvent == .change {
+                        self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: info)
                     }
-                })
-            }
+                }
+            })
         }
     }
 }

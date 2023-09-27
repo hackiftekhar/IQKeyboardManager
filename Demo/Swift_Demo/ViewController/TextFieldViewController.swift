@@ -37,16 +37,16 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     }
 
     deinit {
-        textField3 = nil
         textView1 = nil
+        textField3 = nil
         dropDownTextField = nil
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView2.iq.enableMode = .disabled
         textView1.delegate = self
+        textView2.iq.enableMode = .disabled
 
 #if swift(>=5.7)
         if #available(iOS 16.0, *) {

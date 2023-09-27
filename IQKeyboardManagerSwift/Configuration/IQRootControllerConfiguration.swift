@@ -24,12 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-internal struct IQRootControllerConfiguration: Equatable {
-
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.rootController == rhs.rootController &&
-        lhs.beginSafeAreaInsets == rhs.beginSafeAreaInsets
-    }
+internal struct IQRootControllerConfiguration {
 
     let rootController: UIViewController
     let beginOrigin: CGPoint

@@ -28,6 +28,10 @@ public class IQTextFieldViewListener {
 
     private var textFieldViewObservers: [AnyHashable: TextFieldViewCompletion] = [:]
 
+#if swift(>=5.7)
+    private(set) var lastTextFieldViewInfo: IQTextFieldViewInfo?
+#endif
+
     private(set) var textFieldViewInfo: IQTextFieldViewInfo?
 
     public var textFieldView: UIView? {
@@ -35,7 +39,6 @@ public class IQTextFieldViewListener {
     }
 
     public init() {
-        textFieldViewInfo = nil
         //  Registering for keyboard notification.
         NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)), name: UITextField.textDidBeginEditingNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)), name: UITextField.textDidEndEditingNotification, object: nil)
@@ -49,10 +52,27 @@ public class IQTextFieldViewListener {
             return
         }
 
+#if swift(>=5.7)
+
+        if #available(iOS 16.0, *),
+           let lastTextFieldViewInfo = lastTextFieldViewInfo,
+           let textView: UITextView = lastTextFieldViewInfo.textFieldView as? UITextView,
+           textView.findInteraction?.isFindNavigatorVisible == true { // This means the this didBeginEditing call comes due to find interaction
+            textFieldViewInfo = lastTextFieldViewInfo
+            sendEvent(info: lastTextFieldViewInfo)
+        } else if textFieldViewInfo != info {
+            textFieldViewInfo = info
+            lastTextFieldViewInfo = nil
+            sendEvent(info: info)
+        } else {
+            lastTextFieldViewInfo = nil
+        }
+#else
         if textFieldViewInfo != info {
             textFieldViewInfo = info
             sendEvent(info: info)
         }
+#endif
     }
 
     @objc private func didEndEditing(_ notification: Notification) {
@@ -60,26 +80,20 @@ public class IQTextFieldViewListener {
             return
         }
 
+        if textFieldViewInfo != info {
 #if swift(>=5.7)
-        
-        if #available(iOS 16.0, *),
-           let textView: UITextView = info.textFieldView as? UITextView,
-           textView.isFindInteractionEnabled {
-            // Not setting it nil, because it may be doing find interaction.
-            // As of now, here textView.findInteraction?.isFindNavigatorVisible returns false
-            // So there is no way to detect if this is dismissed due to findInteraction
-        } else if textFieldViewInfo != info {
-            textFieldViewInfo = info
-            sendEvent(info: info)
-            textFieldViewInfo = nil
-        }
-#else
-        if let info: IQTextFieldViewInfo = info, textFieldViewInfo != info {
-            textFieldViewInfo = info
-            sendEvent(info: info)
-            textFieldViewInfo = nil
-        }
+            if #available(iOS 16.0, *),
+               let textView: UITextView = info.textFieldView as? UITextView,
+                textView.isFindInteractionEnabled {
+                lastTextFieldViewInfo = textFieldViewInfo
+            } else {
+                lastTextFieldViewInfo = nil
+            }
 #endif
+            textFieldViewInfo = info
+            sendEvent(info: info)
+            textFieldViewInfo = nil
+        }
     }
 }
 

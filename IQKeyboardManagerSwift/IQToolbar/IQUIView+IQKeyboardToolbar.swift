@@ -185,10 +185,15 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             }
 
             //  Setting toolbar to keyboard.
+            var shouldReloadInputViews: Bool = base.inputAccessoryView == nil
             if let textField: UITextField = base as? UITextField {
                 textField.inputAccessoryView = toolbar
             } else if let textView: UITextView = base as? UITextView {
                 textView.inputAccessoryView = toolbar
+            }
+
+            if shouldReloadInputViews {
+                base.reloadInputViews()
             }
         }
     }
