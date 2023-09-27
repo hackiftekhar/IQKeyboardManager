@@ -29,11 +29,39 @@ internal struct IQRootControllerConfiguration {
     let rootController: UIViewController
     let beginOrigin: CGPoint
     let beginSafeAreaInsets: UIEdgeInsets
+    let beginOrientation: UIInterfaceOrientation
 
     init(rootController: UIViewController) {
         self.rootController = rootController
         beginOrigin = rootController.view.frame.origin
         beginSafeAreaInsets = rootController.view.safeAreaInsets
+
+        let interfaceOrientation: UIInterfaceOrientation
+        #if swift(>=5.1)
+        if #available(iOS 13, *) {
+            interfaceOrientation = rootController.view.window?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+        } else {
+            interfaceOrientation = UIApplication.shared.statusBarOrientation
+        }
+        #else
+        interfaceOrientation = UIApplication.shared.statusBarOrientation
+        #endif
+
+        beginOrientation = interfaceOrientation
+    }
+
+    var currentOrientation: UIInterfaceOrientation {
+        let interfaceOrientation: UIInterfaceOrientation
+        #if swift(>=5.1)
+        if #available(iOS 13, *) {
+            interfaceOrientation = rootController.view.window?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+        } else {
+            interfaceOrientation = UIApplication.shared.statusBarOrientation
+        }
+        #else
+        interfaceOrientation = UIApplication.shared.statusBarOrientation
+        #endif
+        return interfaceOrientation
     }
 
     var isReady: Bool {

@@ -40,24 +40,6 @@ public extension IQKeyboardManager {
         }
     }
 
-    /**
-     @warning Use below methods to completely enable/disable notifications registered by library internally.
-     Please keep in mind that library is totally dependent on NSNotification of UITextField, UITextField, Keyboard etc.
-     If you do unregisterAllNotifications then library will not work at all. You should only use below methods if you want to completedly disable all library functions.
-     You should use below methods at your own risk.
-     */
-    @objc func registerAllNotifications() {
-
-        //  Registering for orientation changes notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willChangeStatusBarOrientation(_:)), name: UIApplication.willChangeStatusBarOrientationNotification, object: UIApplication.shared)
-    }
-
-    @objc func unregisterAllNotifications() {
-
-        //  Unregistering for orientation changes notification
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willChangeStatusBarOrientationNotification, object: UIApplication.shared)
-    }
-
     struct Static {
         static var indentation = 0
     }

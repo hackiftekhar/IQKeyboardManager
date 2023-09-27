@@ -18,14 +18,14 @@ class SettingsViewController: UITableViewController {
     "UISound handling",
     "IQKeyboardManager Debug"]
 
-    let keyboardManagerProperties = [["Enable", "Keyboard Distance From TextField"],
+    let keyboardManagerProperties = [["Enable", "Keyboard Distance From TextField", "Layout If Needed on Update"],
     ["Enable AutoToolbar", "Toolbar Manage Behaviour", "Should Toolbar Uses TextField TintColor", "Should Show TextField Placeholder", "Placeholder Font", "Toolbar Tint Color", "Toolbar Done BarButtonItem Image", "Toolbar Done Button Text"],
     ["Override Keyboard Appearance", "UIKeyboard Appearance"],
     ["Should Resign On Touch Outside"],
     ["Should Play Input Clicks"],
     ["Debugging logs in Console"]]
 
-    let keyboardManagerPropertyDetails = [["Enable/Disable IQKeyboardManager", "Set keyboard distance from textField"],
+    let keyboardManagerPropertyDetails = [["Enable/Disable IQKeyboardManager", "Set keyboard distance from textField", "Layout the whole view on change"],
     ["Automatic add the IQToolbar on UIKeyboard", "AutoToolbar previous/next button managing behaviour", "Uses textField's tintColor property for IQToolbar", "Add the textField's placeholder text on IQToolbar", "UIFont for IQToolbar placeholder text", "Override toolbar tintColor property", "Replace toolbar done button text with provided image", "Override toolbar done button text"],
     ["Override the keyboardAppearance for all UITextField/UITextView", "All the UITextField keyboardAppearance is set using this property"],
     ["Resigns Keyboard on touching outside of UITextField/View"],
@@ -51,6 +51,13 @@ class SettingsViewController: UITableViewController {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = CGFloat(sender.value)
 
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+    }
+
+    @objc func layoutIfNeededOnUpdateAction (_ sender: UISwitch) {
+
+        IQKeyboardManager.shared.layoutIfNeededOnUpdate = sender.isOn
+
+        self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
     }
 
     /**  IQToolbar handling     */
@@ -201,6 +208,18 @@ class SettingsViewController: UITableViewController {
                 cell.labelStepperValue.text = NSString(format: "%.0f", IQKeyboardManager.shared.keyboardDistanceFromTextField) as String
                 cell.stepper.removeTarget(nil, action: nil, for: .allEvents)
                 cell.stepper.addTarget(self, action: #selector(self.keyboardDistanceFromTextFieldAction(_:)), for: .valueChanged)
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
+                    fatalError("Can't dequeue cell")
+                }
+
+                cell.switchEnable.isEnabled = true
+                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
+                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
+                cell.switchEnable.isOn = IQKeyboardManager.shared.layoutIfNeededOnUpdate
+                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
+                cell.switchEnable.addTarget(self, action: #selector(self.layoutIfNeededOnUpdateAction(_:)), for: .valueChanged)
                 return cell
             default:    break
             }

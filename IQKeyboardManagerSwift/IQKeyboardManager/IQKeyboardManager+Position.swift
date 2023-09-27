@@ -82,7 +82,6 @@ public extension IQKeyboardManager {
 
     internal func addActiveConfiguratinObserver() {
         activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
-            print("Event: \(event.name)")
             switch event {
             case .show:
                 self.handleKeyboardTextFieldViewVisible()

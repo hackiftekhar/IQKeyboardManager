@@ -55,7 +55,6 @@ public struct IQKeyboardInfo: Equatable {
 
     public init(notification: Notification?, name: Name) {
         self.name = name
-//        print("Notification Object:\(notification?.object ?? "NULL")")
 
         if let info: [AnyHashable: Any] = notification?.userInfo {
 
@@ -110,8 +109,8 @@ public struct IQKeyboardInfo: Equatable {
 //            animator.startAnimation()
 //        } else {
         var animationOptions: UIView.AnimationOptions = .init(rawValue: UInt(animationCurve.rawValue << 16))
-//        animationOptions.formUnion(.allowUserInteraction)
-//        animationOptions.formUnion(.beginFromCurrentState)
+        animationOptions.formUnion(.allowUserInteraction)
+        animationOptions.formUnion(.beginFromCurrentState)
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationOptions, animations: transition, completion: { _ in
             completion?()
         })

@@ -222,7 +222,6 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
         super.init()
 
         self.addActiveConfiguratinObserver()
-        self.registerAllNotifications()
 
         // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
         resignFirstResponderGesture.isEnabled = resignOnTouchOutside

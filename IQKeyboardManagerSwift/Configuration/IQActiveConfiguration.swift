@@ -78,12 +78,16 @@ internal class IQActiveConfiguration {
                     self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
                 }
             } else if lastEvent != .hide {
-                self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-
-                self.rootControllerConfiguration = nil
-                windowObserver?.invalidate()
-                windowObserver = nil
-
+                if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
+                    self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+                    self.rootControllerConfiguration = nil
+                    windowObserver?.invalidate()
+                    windowObserver = nil
+                } else if rootControllerConfiguration.hasChanged {
+                    animate(alongsideTransition: {
+                        rootControllerConfiguration.restore()
+                    }, completion: nil)
+                }
             }
         }
     }
@@ -104,28 +108,30 @@ internal class IQActiveConfiguration {
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window {
+        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window || newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation {
 
-            // If there was an old configuration but windows now changed
-            if let rootControllerConfiguration = rootControllerConfiguration,
-               rootControllerConfiguration.hasChanged {
-                animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
-                }, completion: nil)
+            if rootControllerConfiguration?.rootController != newConfiguration.rootController {
+
+                // If there was an old configuration but things are changed
+                if let rootControllerConfiguration = rootControllerConfiguration,
+                   rootControllerConfiguration.hasChanged {
+                    animate(alongsideTransition: {
+                        rootControllerConfiguration.restore()
+                    }, completion: nil)
+                }
+
+                windowObserver?.invalidate()
+                windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view, keyPath: \.window, changeHandler: { [self] _, _ in
+                    if let rootControllerConfiguration = rootControllerConfiguration,
+                       rootControllerConfiguration.isReady {
+                        if lastEvent == .show || lastEvent == .change {
+                            self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: info)
+                        }
+                    }
+                })
             }
 
             rootControllerConfiguration = newConfiguration
-
-            windowObserver?.invalidate()
-
-            windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view, keyPath: \.window, debounce: 0.1, changeHandler: { [self] _, _ in
-                if let rootControllerConfiguration = rootControllerConfiguration,
-                   rootControllerConfiguration.isReady {
-                    if lastEvent == .show || lastEvent == .change {
-                        self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: info)
-                    }
-                }
-            })
         }
     }
 }
@@ -139,6 +145,17 @@ extension IQActiveConfiguration {
 
     private func addKeyboardListener() {
         keyboardListener.registerSizeChange(identifier: "IQActiveConfiguration", changeHandler: { [self] name, _ in
+
+            if let info = textFieldViewInfo, keyboardInfo.keyboardShowing {
+                if let rootControllerConfiguration = rootControllerConfiguration {
+                    if rootControllerConfiguration.beginOrientation.isPortrait != rootControllerConfiguration.currentOrientation.isPortrait {
+                        updateRootController(info: info)
+                    }
+                } else {
+                    updateRootController(info: info)
+                }
+            }
+
             self.sendEvent()
 
             if name == .didHide {

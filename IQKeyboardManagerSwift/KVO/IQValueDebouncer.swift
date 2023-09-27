@@ -1,5 +1,5 @@
 //
-//  IQPropertyObserver.swift
+//  IQValueDebouncer.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,34 +23,26 @@
 
 import Foundation
 
-internal class IQPropertyObserver<Subject, Value> where Subject: NSObject, Value: Equatable {
-    let object: Subject
-    private var observation: NSKeyValueObservation?
-    private let debouncer: IQValueDebouncer = IQValueDebouncer<Value>()
+internal class IQValueDebouncer<Value> where Value: Equatable {
 
-    init(object: Subject,
-         keyPath: KeyPath<Subject, Value>,
-         debounce: TimeInterval? = nil,
-         changeHandler: @escaping ((_ old: Value?, _ new: Value?) -> Void)) {
-        self.object = object
+    var lastValue: Value?
+    var timer: Timer?
 
-        observation = object.observe(keyPath,
-                                     options: [.old, .new],
-                                     changeHandler: { [weak self] _, change in
-            if change.oldValue != change.newValue {
+    func debounce(value: Value?, interval: TimeInterval,
+                  changeHandler: @escaping ((_ old: Value?, _ new: Value?) -> Void)) {
 
-                if let debounce = debounce {
-                    self?.debouncer.debounce(value: change.newValue, interval: debounce, changeHandler: changeHandler)
-                } else {
-                    changeHandler(change.oldValue, change.newValue)
-                }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            if self.lastValue != value {
+                changeHandler(self.lastValue, value)
+                self.lastValue = value
             }
         })
     }
 
     func invalidate() {
-        observation?.invalidate()
-        observation = nil
-        debouncer.invalidate()
+        timer?.invalidate()
+        timer = nil
     }
 }
