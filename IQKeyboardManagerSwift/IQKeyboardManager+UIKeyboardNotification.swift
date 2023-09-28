@@ -175,6 +175,7 @@ public extension IQKeyboardManager {
         guard privateIsEnabled() else {
             restorePosition()
             topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+            topViewBeginSafeAreaInsets = .zero
             return
         }
 
@@ -194,6 +195,7 @@ public extension IQKeyboardManager {
                     topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
                 } else {
                     topViewBeginOrigin = controller.view.frame.origin
+                    topViewBeginSafeAreaInsets = controller.view.safeAreaInsets
                 }
 
                 rootViewControllerWhilePopGestureRecognizerActive = nil
@@ -355,6 +357,7 @@ public extension IQKeyboardManager {
         showLog("Notification Object:\(notification.object ?? "NULL")")
 
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+        topViewBeginSafeAreaInsets = .zero
 
         keyboardFrame = CGRect.zero
         notifyKeyboardSize(size: keyboardFrame.size)

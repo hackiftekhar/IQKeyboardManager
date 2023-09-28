@@ -193,6 +193,9 @@ public extension IQKeyboardManager {
             kbFrame.origin.y -= newKeyboardDistanceFromTextField
             kbFrame.size.height += newKeyboardDistanceFromTextField
 
+            kbFrame.origin.y -= topViewBeginSafeAreaInsets.bottom
+            kbFrame.size.height += topViewBeginSafeAreaInsets.bottom
+
             // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
             let intersectRect = kbFrame.intersection(window.frame)
 

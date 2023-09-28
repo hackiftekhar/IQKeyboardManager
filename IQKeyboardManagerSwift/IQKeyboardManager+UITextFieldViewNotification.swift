@@ -31,6 +31,7 @@ internal extension IQKeyboardManager {
     private struct AssociatedKeys {
         static var textFieldView: Int = 0
         static var topViewBeginOrigin: Int = 0
+        static var topViewBeginSafeAreaInsets: Int = 0
         static var rootViewController: Int = 0
         static var rootViewControllerWhilePopGestureRecognizerActive: Int = 0
         static var topViewBeginOriginWhilePopGestureRecognizerActive: Int = 0
@@ -52,6 +53,15 @@ internal extension IQKeyboardManager {
         }
         set(newValue) {
             objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginOrigin, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    var topViewBeginSafeAreaInsets: UIEdgeInsets {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.topViewBeginSafeAreaInsets) as? UIEdgeInsets ?? .zero
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.topViewBeginSafeAreaInsets, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -129,6 +139,7 @@ internal extension IQKeyboardManager {
         if privateIsEnabled() == false {
             restorePosition()
             topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
+            topViewBeginSafeAreaInsets = .zero
         } else {
             if topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) {    //  (Bug ID: #5)
 
@@ -140,6 +151,7 @@ internal extension IQKeyboardManager {
                         topViewBeginOrigin = topViewBeginOriginWhilePopGestureRecognizerActive
                     } else {
                         topViewBeginOrigin = controller.view.frame.origin
+                        topViewBeginSafeAreaInsets = controller.view.safeAreaInsets
                     }
 
                     rootViewControllerWhilePopGestureRecognizerActive = nil
