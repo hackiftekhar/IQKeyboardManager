@@ -1593,20 +1593,7 @@ typedef void (^SizeBlock)(CGSize size);
         if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]] &&
             textFieldView.inputAccessoryView == nil)
         {
-            __weak __typeof__(self) weakSelf = self;
-
-            [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-
-                __strong __typeof__(self) strongSelf = weakSelf;
-
-                [strongSelf addToolbarIfRequired];
-            } completion:^(BOOL finished) {
-
-                __strong __typeof__(self) strongSelf = weakSelf;
-
-                //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
-                [strongSelf.textFieldView reloadInputViews];
-            }];
+            [self addToolbarIfRequired];
         }
         //Else adding toolbar
         else

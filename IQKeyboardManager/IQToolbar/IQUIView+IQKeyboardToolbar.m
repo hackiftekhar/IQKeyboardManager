@@ -434,7 +434,6 @@
     
     //  Setting toolbar to keyboard.
     [(UITextField*)self setInputAccessoryView:toolbar];
-
     
     if ([self respondsToSelector:@selector(keyboardAppearance)])
     {
@@ -444,6 +443,7 @@
             default:                        toolbar.barStyle = UIBarStyleDefault;   break;
         }
     }
+    [self reloadInputViews];
 }
 
 #pragma mark - Right
