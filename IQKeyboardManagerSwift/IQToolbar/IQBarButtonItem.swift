@@ -43,9 +43,9 @@ import UIKit
 
         for state in states {
 
-            setBackgroundImage(nil, for: state, barMetrics: .default)
-            setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
-            setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
+            setBackgroundImage(UIImage(), for: state, barMetrics: .default)
+            setBackgroundImage(UIImage(), for: state, style: .plain, barMetrics: .default)
+            setBackButtonBackgroundImage(UIImage(), for: state, barMetrics: .default)
         }
 
         setTitlePositionAdjustment(UIOffset(), for: .default)
