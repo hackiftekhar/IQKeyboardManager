@@ -29,7 +29,7 @@ import UIKit
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var enableDebugging = "enableDebugging"
+        static var enableDebugging: Int = 0
     }
 
     @objc var enableDebugging: Bool {

@@ -28,9 +28,9 @@ import UIKit
 @objc public extension UIScrollView {
 
     private struct AssociatedKeys {
-        static var shouldIgnoreScrollingAdjustment = "shouldIgnoreScrollingAdjustment"
-        static var shouldIgnoreContentInsetAdjustment = "shouldIgnoreContentInsetAdjustment"
-        static var shouldRestoreScrollViewContentOffset = "shouldRestoreScrollViewContentOffset"
+        static var shouldIgnoreScrollingAdjustment: Int = 0
+        static var shouldIgnoreContentInsetAdjustment: Int = 0
+        static var shouldRestoreScrollViewContentOffset: Int = 0
     }
 
     /**

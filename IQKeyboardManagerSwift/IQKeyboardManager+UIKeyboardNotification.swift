@@ -41,13 +41,13 @@ public extension IQKeyboardManager {
     }
 
     private struct AssociatedKeys {
-        static var keyboardSizeObservers = "keyboardSizeObservers"
-        static var keyboardLastNotifySize = "keyboardLastNotifySize"
-        static var keyboardShowing = "keyboardShowing"
-        static var keyboardShowNotification = "keyboardShowNotification"
-        static var keyboardFrame = "keyboardFrame"
-        static var animationDuration = "animationDuration"
-        static var animationCurve = "animationCurve"
+        static var keyboardSizeObservers: Int = 0
+        static var keyboardLastNotifySize: Int = 0
+        static var keyboardShowing: Int = 0
+        static var keyboardShowNotification: Int = 0
+        static var keyboardFrame: Int = 0
+        static var animationDuration: Int = 0
+        static var animationCurve: Int = 0
     }
 
     private var keyboardLastNotifySize: CGSize {

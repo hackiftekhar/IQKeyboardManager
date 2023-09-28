@@ -29,11 +29,11 @@ import UIKit
 internal extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var textFieldView = "textFieldView"
-        static var topViewBeginOrigin = "topViewBeginOrigin"
-        static var rootViewController = "rootViewController"
-        static var rootViewControllerWhilePopGestureRecognizerActive = "rootViewControllerWhilePopGestureRecognizerActive"
-        static var topViewBeginOriginWhilePopGestureRecognizerActive = "topViewBeginOriginWhilePopGestureRecognizerActive"
+        static var textFieldView: Int = 0
+        static var topViewBeginOrigin: Int = 0
+        static var rootViewController: Int = 0
+        static var rootViewControllerWhilePopGestureRecognizerActive: Int = 0
+        static var topViewBeginOriginWhilePopGestureRecognizerActive: Int = 0
     }
 
     /** To save UITextField/UITextView object voa textField/textView notifications. */
@@ -114,16 +114,7 @@ internal extension IQKeyboardManager {
             // UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
             if let textView = textFieldView as? UIScrollView, textView.responds(to: #selector(getter: UITextView.isEditable)),
                 textView.inputAccessoryView == nil {
-
-                UIView.animate(withDuration: 0.00001, delay: 0, options: animationCurve, animations: { () -> Void in
-
-                    self.addToolbarIfRequired()
-
-                }, completion: { (_) -> Void in
-
-                    // On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
-                    textView.reloadInputViews()
-                })
+                self.addToolbarIfRequired()
             } else {
                 // Adding toolbar
                 addToolbarIfRequired()

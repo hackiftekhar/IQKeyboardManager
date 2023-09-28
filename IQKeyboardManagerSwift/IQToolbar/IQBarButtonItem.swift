@@ -91,7 +91,24 @@ import UIKit
     /**
      Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
      */
-    @objc open var invocation: IQInvocation?
+    @objc open var invocation: IQInvocation? {
+        didSet {
+            // We have to put this condition here because if we override this function then
+            // We were getting "Cannot override '_' which has been marked unavailable" in Xcode 15
+            if let titleBarButton = self as? IQTitleBarButtonItem {
+
+                if let target = invocation?.target, let action = invocation?.action {
+                    titleBarButton.isEnabled = true
+                    titleBarButton.titleButton?.isEnabled = true
+                    titleBarButton.titleButton?.addTarget(target, action: action, for: .touchUpInside)
+                } else {
+                    titleBarButton.isEnabled = false
+                    titleBarButton.titleButton?.isEnabled = false
+                    titleBarButton.titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
+                }
+            }
+        }
+    }
 
     deinit {
         target = nil

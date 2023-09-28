@@ -28,16 +28,16 @@ import UIKit
 public extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var movedDistance = "movedDistance"
-        static var movedDistanceChanged = "movedDistanceChanged"
-        static var lastScrollView = "lastScrollView"
-        static var startingContentOffset = "startingContentOffset"
-        static var startingScrollIndicatorInsets = "startingScrollIndicatorInsets"
-        static var startingContentInsets = "startingContentInsets"
-        static var startingTextViewContentInsets = "startingTextViewContentInsets"
-        static var startingTextViewScrollIndicatorInsets = "startingTextViewScrollIndicatorInsets"
-        static var isTextViewContentInsetChanged = "isTextViewContentInsetChanged"
-        static var hasPendingAdjustRequest = "hasPendingAdjustRequest"
+        static var movedDistance: Int = 0
+        static var movedDistanceChanged: Int = 0
+        static var lastScrollView: Int = 0
+        static var startingContentOffset: Int = 0
+        static var startingScrollIndicatorInsets: Int = 0
+        static var startingContentInsets: Int = 0
+        static var startingTextViewContentInsets: Int = 0
+        static var startingTextViewScrollIndicatorInsets: Int = 0
+        static var isTextViewContentInsetChanged: Int = 0
+        static var hasPendingAdjustRequest: Int = 0
     }
 
     /**
@@ -156,6 +156,7 @@ public extension IQKeyboardManager {
         }
     }
 
+    // swiftlint:disable function_body_length
     /* Adjusting RootViewController's frame according to interface orientation. */
     private func adjustPosition() {
 
@@ -665,6 +666,7 @@ public extension IQKeyboardManager {
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
+    // swiftlint:enable function_body_length
 
     internal func restorePosition() {
 

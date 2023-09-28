@@ -37,10 +37,10 @@ UIView category for managing UITextField/UITextView
 @objc public extension UIView {
 
     private struct AssociatedKeys {
-        static var keyboardDistanceFromTextField = "keyboardDistanceFromTextField"
-        static var ignoreSwitchingByNextPrevious = "ignoreSwitchingByNextPrevious"
-        static var enableMode = "enableMode"
-        static var shouldResignOnTouchOutsideMode = "shouldResignOnTouchOutsideMode"
+        static var keyboardDistanceFromTextField: Int = 0
+        static var ignoreSwitchingByNextPrevious: Int = 0
+        static var enableMode: Int = 0
+        static var shouldResignOnTouchOutsideMode: Int = 0
     }
 
     /**
