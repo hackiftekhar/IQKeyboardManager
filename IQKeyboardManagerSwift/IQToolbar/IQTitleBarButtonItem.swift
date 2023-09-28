@@ -77,26 +77,6 @@ import UIKit
         }
     }
 
-    /**
-     Customized Invocation to be called on title button action. titleInvocation is internally created using setTitleTarget:action: method.
-     */
-    @objc override open var invocation: IQInvocation? {
-
-        didSet {
-
-            if let target: AnyObject = invocation?.target,
-               let action: Selector = invocation?.action {
-                self.isEnabled = true
-                titleButton?.isEnabled = true
-                titleButton?.addTarget(target, action: action, for: .touchUpInside)
-            } else {
-                self.isEnabled = false
-                titleButton?.isEnabled = false
-                titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
-            }
-        }
-    }
-
     internal var titleButton: UIButton?
     private var _titleView: UIView?
 

@@ -106,7 +106,7 @@ public extension IQKeyboardManager {
         guard let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let superview: UIView = textFieldView.superview,
               let rootControllerConfiguration = activeConfiguration.rootControllerConfiguration,
-              let window: UIWindow = keyWindow() else {
+              let window: UIWindow = rootControllerConfiguration.rootController.view.window else {
             return
         }
 

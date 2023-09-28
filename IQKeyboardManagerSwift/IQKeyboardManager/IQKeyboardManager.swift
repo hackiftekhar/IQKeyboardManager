@@ -256,45 +256,6 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
         enable = false
     }
 
-    /** Getting keyWindow. */
-    internal func keyWindow() -> UIWindow? {
-
-        if let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-           let keyWindow: UIWindow = textFieldView.window {
-            return keyWindow
-        } else {
-
-            struct Static {
-                /** @abstract   Save keyWindow object for reuse.
-                @discussion Sometimes [[UIApplication sharedApplication] keyWindow] is returning nil between the app.   */
-                static weak var keyWindow: UIWindow?
-            }
-
-            var originalKeyWindow: UIWindow?
-
-            #if swift(>=5.1)
-            if #available(iOS 13, *) {
-                originalKeyWindow = UIApplication.shared.connectedScenes
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first(where: { $0.isKeyWindow })
-            } else {
-                originalKeyWindow = UIApplication.shared.keyWindow
-            }
-            #else
-            originalKeyWindow = UIApplication.shared.keyWindow
-            #endif
-
-            // If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
-            if let originalKeyWindow: UIWindow = originalKeyWindow {
-                Static.keyWindow = originalKeyWindow
-            }
-
-            // Return KeyWindow
-            return Static.keyWindow
-        }
-    }
-
     // MARK: Public Methods
 
     /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */

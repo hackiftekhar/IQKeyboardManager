@@ -139,8 +139,6 @@ extension IQKeyboardManager {
                 textView.inputAccessoryView == nil {
 
                 self.addToolbarIfRequired()
-                // On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
-                textView.reloadInputViews()
             } else {
                 // Adding toolbar
                 addToolbarIfRequired()
