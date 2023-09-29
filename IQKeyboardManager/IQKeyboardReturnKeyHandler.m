@@ -96,9 +96,9 @@
 
 -(IQTextFieldViewInfoModal*)textFieldViewCachedInfo:(UIView*)textField
 {
-    for (IQTextFieldViewInfoModal *modal in textFieldInfoCache)
-        if (modal.textFieldView == textField)  return modal;
-    
+    for (IQTextFieldViewInfoModal *model in textFieldInfoCache)
+        if (model.textFieldView == textField)  return model;
+
     return nil;
 }
 
@@ -119,44 +119,44 @@
 
 -(void)removeTextFieldView:(UIView*)view
 {
-    IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:view];
-    
-    if (modal)
+    IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:view];
+
+    if (model)
     {
         UITextField *textField = (UITextField*)view;
 
         if ([view respondsToSelector:@selector(setReturnKeyType:)])
         {
-            textField.returnKeyType = modal.originalReturnKeyType;
+            textField.returnKeyType = model.originalReturnKeyType;
         }
 
         if ([view respondsToSelector:@selector(setDelegate:)])
         {
-            textField.delegate = modal.textFieldDelegate;
+            textField.delegate = model.textFieldDelegate;
         }
         
-        [textFieldInfoCache removeObject:modal];
+        [textFieldInfoCache removeObject:model];
     }
 }
 
 -(void)addTextFieldView:(UIView*)view
 {
-    IQTextFieldViewInfoModal *modal = [[IQTextFieldViewInfoModal alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
+    IQTextFieldViewInfoModal *model = [[IQTextFieldViewInfoModal alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
     
     UITextField *textField = (UITextField*)view;
 
     if ([view respondsToSelector:@selector(setReturnKeyType:)])
     {
-        modal.originalReturnKeyType = textField.returnKeyType;
+        model.originalReturnKeyType = textField.returnKeyType;
     }
 
     if ([view respondsToSelector:@selector(setDelegate:)])
     {
-        modal.textFieldDelegate = textField.delegate;
+        model.textFieldDelegate = textField.delegate;
         [textField setDelegate:self];
     }
 
-    [textFieldInfoCache addObject:modal];
+    [textFieldInfoCache addObject:model];
 }
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField
@@ -274,8 +274,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textFieldShouldBeginEditing:)])
@@ -292,8 +292,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textFieldDidBeginEditing:)])
@@ -306,8 +306,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textFieldShouldEndEditing:)])
@@ -322,8 +322,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:)])
@@ -336,8 +336,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if (@available(iOS 10.0, *)) {
@@ -352,8 +352,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
@@ -369,8 +369,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textField:editMenuForCharactersInRange:suggestedActions:)])
@@ -385,8 +385,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textField:willPresentEditMenuWithAnimator:)])
@@ -399,8 +399,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textField:willDismissEditMenuWithAnimator:)])
@@ -414,8 +414,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textFieldShouldClear:)])
@@ -430,8 +430,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textField];
-        delegate = modal.textFieldDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        delegate = model.textFieldDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textFieldShouldReturn:)])
@@ -459,8 +459,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewShouldBeginEditing:)])
@@ -475,8 +475,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewShouldEndEditing:)])
@@ -493,8 +493,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewDidBeginEditing:)])
@@ -507,8 +507,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewDidEndEditing:)])
@@ -521,8 +521,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     BOOL shouldReturn = YES;
@@ -544,8 +544,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewDidChange:)])
@@ -558,8 +558,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textViewDidChangeSelection:)])
@@ -572,8 +572,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if (@available(iOS 10.0, *)) {
@@ -590,8 +590,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if (@available(iOS 10.0, *)) {
@@ -609,8 +609,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
@@ -625,8 +625,8 @@
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
     
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)])
@@ -644,8 +644,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textView:editMenuForTextInRange:suggestedActions:)])
@@ -660,8 +660,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textView:willPresentEditMenuWithAnimator:)])
@@ -674,8 +674,8 @@
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *modal = [self textFieldViewCachedInfo:textView];
-        delegate = modal.textViewDelegate;
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
     }
 
     if ([delegate respondsToSelector:@selector(textView:willDismissEditMenuWithAnimator:)])
@@ -685,18 +685,18 @@
 
 -(void)dealloc
 {
-    for (IQTextFieldViewInfoModal *modal in textFieldInfoCache)
+    for (IQTextFieldViewInfoModal *model in textFieldInfoCache)
     {
-        UITextField *textField = (UITextField*)modal.textFieldView;
+        UITextField *textField = (UITextField*)model.textFieldView;
 
         if ([textField respondsToSelector:@selector(setReturnKeyType:)])
         {
-            textField.returnKeyType = modal.originalReturnKeyType;
+            textField.returnKeyType = model.originalReturnKeyType;
         }
 
         if ([textField respondsToSelector:@selector(setDelegate:)])
         {
-            textField.delegate = modal.textFieldDelegate;
+            textField.delegate = model.textFieldDelegate;
         }
     }
 

@@ -27,6 +27,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
+    @MainActor
     private struct AssociatedKeys {
         static var movedDistance: Int = 0
         static var movedDistanceChanged: Int = 0
@@ -149,7 +150,7 @@ public extension IQKeyboardManager {
     internal func optimizedAdjustPosition() {
         if !hasPendingAdjustRequest {
             hasPendingAdjustRequest = true
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 self.adjustPosition()
                 self.hasPendingAdjustRequest = false
             }

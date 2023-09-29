@@ -33,6 +33,7 @@ import UIKit
         self.action = action
     }
 
+    @MainActor
     @objc public func invoke(from: Any) {
         if let target = target {
             UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
