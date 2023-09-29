@@ -69,55 +69,7 @@ import UIKit
 @MainActor
 @objc public extension UIImage {
 
-    static func keyboardLeftImage() -> UIImage? {
-
-        @MainActor
-        struct Static {
-            static var keyboardLeftImage: UIImage?
-        }
-
-        if Static.keyboardLeftImage == nil {
-
-            // swiftlint:disable line_length
-            let base64Data = "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"
-            // swiftlint:enable line_length
-
-            if let data = Data(base64Encoded: base64Data, options: .ignoreUnknownCharacters) {
-                Static.keyboardLeftImage = UIImage(data: data, scale: 3)
-            }
-
-            // Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            Static.keyboardLeftImage = Static.keyboardLeftImage?.imageFlippedForRightToLeftLayoutDirection()
-        }
-
-        return Static.keyboardLeftImage
-    }
-
-    static func keyboardRightImage() -> UIImage? {
-
-        @MainActor
-        struct Static {
-            static var keyboardRightImage: UIImage?
-        }
-
-        if Static.keyboardRightImage == nil {
-
-            // swiftlint:disable line_length
-            let base64Data = "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"
-            // swiftlint:enable line_length
-
-            if let data = Data(base64Encoded: base64Data, options: .ignoreUnknownCharacters) {
-                Static.keyboardRightImage = UIImage(data: data, scale: 3)
-            }
-
-            // Support for RTL languages like Arabic, Persia etc... (Bug ID: #448)
-            Static.keyboardRightImage = Static.keyboardRightImage?.imageFlippedForRightToLeftLayoutDirection()
-        }
-
-        return Static.keyboardRightImage
-    }
-
-    static func keyboardUpImage() -> UIImage? {
+    static func keyboardPreviousImage() -> UIImage? {
 
         @MainActor
         struct Static {
@@ -141,7 +93,7 @@ import UIKit
         return Static.keyboardUpImage
     }
 
-    static func keyboardDownImage() -> UIImage? {
+    static func keyboardNextImage() -> UIImage? {
 
         @MainActor
         struct Static {
@@ -163,24 +115,6 @@ import UIKit
         }
 
         return Static.keyboardDownImage
-    }
-
-    static func keyboardPreviousImage() -> UIImage? {
-
-        if #available(iOS 10, *) {
-            return keyboardUpImage()
-        } else {
-            return keyboardLeftImage()
-        }
-    }
-
-    static func keyboardNextImage() -> UIImage? {
-
-        if #available(iOS 10, *) {
-            return keyboardDownImage()
-        } else {
-            return keyboardRightImage()
-        }
     }
 }
 

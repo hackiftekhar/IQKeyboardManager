@@ -356,7 +356,6 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
         aDelegate?.textFieldDidEndEditing?(textField)
     }
 
-    @available(iOS 10.0, *)
     @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
 
         var aDelegate: UITextFieldDelegate? = delegate
@@ -529,7 +528,6 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         aDelegate?.textViewDidChangeSelection?(textView)
     }
 
-    @available(iOS 10.0, *)
     @objc public func textView(_ aTextView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 
         if delegate == nil {
@@ -544,7 +542,6 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         return true
     }
 
-    @available(iOS 10.0, *)
     @objc public func textView(_ aTextView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 
         if delegate == nil {
@@ -588,8 +585,11 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         return true
     }
+}
 
 #if swift(>=5.7)
+@available(iOSApplicationExtension, unavailable)
+extension IQKeyboardReturnKeyHandler {
     @available(iOS 16.0, *)
     public func textView(_ aTextView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         if delegate == nil {
@@ -631,5 +631,67 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         aDelegate?.textView?(aTextView, willDismissEditMenuWith: animator)
     }
-#endif
 }
+#endif
+
+#if swift(>=5.9)
+@available(iOSApplicationExtension, unavailable)
+extension IQKeyboardReturnKeyHandler {
+
+    @available(iOS 17.0, *)
+    public func textView(_ aTextView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if delegate == nil {
+
+            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector(textView as (UITextView, UITextItem, UIAction) -> UIAction?)) {
+                    return unwrapDelegate.textView?(aTextView, primaryActionFor: textItem, defaultAction: defaultAction)
+                }
+            }
+        }
+
+        return nil
+    }
+
+    @available(iOS 17.0, *)
+    public func textView(_ aTextView: UITextView, menuConfigurationFor textItem: UITextItem, defaultMenu: UIMenu) -> UITextItem.MenuConfiguration? {
+        if delegate == nil {
+
+            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector(textView as (UITextView, UITextItem, UIMenu) -> UITextItem.MenuConfiguration?)) {
+                    return unwrapDelegate.textView?(aTextView, menuConfigurationFor: textItem, defaultMenu: defaultMenu)
+                }
+            }
+        }
+
+        return nil
+    }
+
+    @available(iOS 17.0, *)
+    public func textView(_ textView: UITextView, textItemMenuWillDisplayFor textItem: UITextItem, animator: UIContextMenuInteractionAnimating) {
+        var aDelegate: UITextViewDelegate? = delegate
+
+        if aDelegate == nil {
+
+            if let model = textFieldViewCachedInfo(textView) {
+                aDelegate = model.textViewDelegate
+            }
+        }
+
+        aDelegate?.textView?(textView, textItemMenuWillDisplayFor: textItem, animator: animator)
+    }
+
+    @available(iOS 17.0, *)
+    public func textView(_ textView: UITextView, textItemMenuWillEndFor textItem: UITextItem, animator: UIContextMenuInteractionAnimating) {
+        var aDelegate: UITextViewDelegate? = delegate
+
+        if aDelegate == nil {
+
+            if let model = textFieldViewCachedInfo(textView) {
+                aDelegate = model.textViewDelegate
+            }
+        }
+
+        aDelegate?.textView?(textView, textItemMenuWillEndFor: textItem, animator: animator)
+    }
+}
+#endif

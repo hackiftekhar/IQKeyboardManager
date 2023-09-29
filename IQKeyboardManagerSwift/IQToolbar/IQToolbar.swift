@@ -139,12 +139,7 @@ import UIKit
                 privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             }
             privateFixedSpaceBarButton!.isSystemItem = true
-
-            if #available(iOS 10, *) {
-                privateFixedSpaceBarButton!.width = 6
-            } else {
-                privateFixedSpaceBarButton!.width = 20
-            }
+            privateFixedSpaceBarButton!.width = 6
 
             return privateFixedSpaceBarButton!
         }

@@ -340,10 +340,8 @@
         delegate = model.textFieldDelegate;
     }
     
-    if (@available(iOS 10.0, *)) {
-        if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:reason:)])
-            [delegate textFieldDidEndEditing:textField reason:reason];
-    }
+    if ([delegate respondsToSelector:@selector(textFieldDidEndEditing:reason:)])
+        [delegate textFieldDidEndEditing:textField reason:reason];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -576,10 +574,8 @@
         delegate = model.textViewDelegate;
     }
     
-    if (@available(iOS 10.0, *)) {
-        if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
-            return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
-    }
+    if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)])
+        return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
 
     return YES;
 }
@@ -594,48 +590,11 @@
         delegate = model.textViewDelegate;
     }
     
-    if (@available(iOS 10.0, *)) {
     if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:interaction:)])
         return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange interaction:interaction];
-    }
 
     return YES;
 }
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 100000
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
-{
-    id<UITextViewDelegate> delegate = self.delegate;
-    
-    if (delegate == nil)
-    {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
-        delegate = model.textViewDelegate;
-    }
-    
-    if ([delegate respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)])
-        return [delegate textView:textView shouldInteractWithURL:URL inRange:characterRange];
-    else
-        return YES;
-}
-
-- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange
-{
-    id<UITextViewDelegate> delegate = self.delegate;
-    
-    if (delegate == nil)
-    {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
-        delegate = model.textViewDelegate;
-    }
-    
-    if ([delegate respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)])
-        return [delegate textView:textView shouldInteractWithTextAttachment:textAttachment inRange:characterRange];
-    else
-        return YES;
-}
-#endif
-
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
 -(UIMenu *)textView:(UITextView *)textView editMenuForTextInRange:(NSRange)range suggestedActions:(NSArray<UIMenuElement *> *)suggestedActions  NS_AVAILABLE_IOS(16_0);
@@ -681,6 +640,70 @@
     if ([delegate respondsToSelector:@selector(textView:willDismissEditMenuWithAnimator:)])
         [delegate textView:textView willDismissEditMenuWithAnimator:animator];
 }
+#endif
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 170000
+
+- (nullable UIAction *)textView:(UITextView *)textView primaryActionForTextItem:(UITextItem *)textItem defaultAction:(UIAction *)defaultAction NS_AVAILABLE_IOS(17_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:primaryActionForTextItem:defaultAction:)])
+        return [delegate textView:textView primaryActionForTextItem:textItem defaultAction:defaultAction];
+    else
+        return nil;
+}
+
+- (nullable UITextItemMenuConfiguration *)textView:(UITextView *)textView menuConfigurationForTextItem:(UITextItem *)textItem defaultMenu:(UIMenu *)defaultMenu NS_AVAILABLE_IOS(17_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:menuConfigurationForTextItem:defaultMenu:)])
+        return [delegate textView:textView menuConfigurationForTextItem:textItem defaultMenu:defaultMenu];
+    else
+        return nil;
+}
+
+- (void)textView:(UITextView *)textView textItemMenuWillDisplayForTextItem:(UITextItem *)textItem animator:(id<UIContextMenuInteractionAnimating>)animator NS_AVAILABLE_IOS(17_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:textItemMenuWillDisplayForTextItem:animator:)])
+        [delegate textView:textView textItemMenuWillDisplayForTextItem:textItem animator:animator];
+}
+
+- (void)textView:(UITextView *)textView textItemMenuWillEndForTextItem:(UITextItem *)textItem animator:(id<UIContextMenuInteractionAnimating>)animator NS_AVAILABLE_IOS(17_0);
+{
+    id<UITextViewDelegate> delegate = self.delegate;
+
+    if (delegate == nil)
+    {
+        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        delegate = model.textViewDelegate;
+    }
+
+    if ([delegate respondsToSelector:@selector(textView:textItemMenuWillEndForTextItem:animator:)])
+        [delegate textView:textView textItemMenuWillEndForTextItem:textItem animator:animator];
+}
+
 #endif
 
 -(void)dealloc

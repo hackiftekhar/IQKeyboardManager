@@ -41,11 +41,6 @@
 
 @interface UIImage (IQKeyboardToolbarNextPreviousImage)
 
-+(nullable UIImage*)keyboardLeftImage;
-+(nullable UIImage*)keyboardRightImage;
-+(nullable UIImage*)keyboardUpImage;
-+(nullable UIImage*)keyboardDownImage;
-
 +(nullable UIImage*)keyboardPreviousImage;
 +(nullable UIImage*)keyboardNextImage;
 

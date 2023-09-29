@@ -1066,10 +1066,8 @@ typedef void (^SizeBlock)(CGSize size);
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
                 bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
-                if (@available(iOS 11, *)) {
-                    bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
-                    bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
-                }
+                bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
                 movedInsets.bottom = bottomInset;
@@ -1139,10 +1137,7 @@ typedef void (^SizeBlock)(CGSize size);
                 }
 
                 CGFloat bottomInset = textFieldView.frame.size.height-textViewHeight;
-
-                if (@available(iOS 11, *)) {
-                    bottomInset -= textFieldView.safeAreaInsets.bottom;
-                }
+                bottomInset -= textFieldView.safeAreaInsets.bottom;
 
                 UIEdgeInsets newContentInset = textView.contentInset;
                 newContentInset.bottom = bottomInset;
