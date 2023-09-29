@@ -225,7 +225,7 @@ public extension IQKeyboardManager {
             navigationBarAreaHeight = statusBarHeight
         }
 
-        let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
+        let layoutAreaHeight: CGFloat = rootController.view.directionalLayoutMargins.bottom
 
         let isTextView: Bool
         let isNonScrollableTextView: Bool
@@ -242,7 +242,7 @@ public extension IQKeyboardManager {
         let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
 
         // Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
-        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.layoutMargins.bottom
+        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.directionalLayoutMargins.bottom
         let visibleHeight: CGFloat = window.frame.height-kbSize.height
 
         //  Move positive = textField is hidden.

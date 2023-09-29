@@ -64,7 +64,6 @@
 		C03C9472273CF3FF00AF66B5 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C9471273CF3FF00AF66B5 /* ActionViewController.swift */; };
 		C03C9475273CF3FF00AF66B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03C9473273CF3FF00AF66B5 /* MainInterface.storyboard */; };
 		C03C9479273CF3FF00AF66B5 /* DemoExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C03C946D273CF3FF00AF66B5 /* DemoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C098D51A2AC6F10E006B0BDE /* DemoExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C03C946D273CF3FF00AF66B5 /* DemoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -121,13 +120,6 @@
 			remoteGlobalIDString = C03C946C273CF3FF00AF66B5;
 			remoteInfo = DemoExtension;
 		};
-		C098D5172AC6F0E0006B0BDE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C0B63B921781FAB0008D3B64 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C03C946C273CF3FF00AF66B5;
-			remoteInfo = DemoExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -138,17 +130,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				C03C9479273CF3FF00AF66B5 /* DemoExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C098D5192AC6F0F1006B0BDE /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				C098D51A2AC6F10E006B0BDE /* DemoExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -763,12 +744,10 @@
 				C0B63B981781FAB1008D3B64 /* Frameworks */,
 				C0B63B991781FAB1008D3B64 /* Resources */,
 				44A8E642B5165FD9391AE82F /* [CP] Embed Pods Frameworks */,
-				C098D5192AC6F0F1006B0BDE /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C098D5182AC6F0E0006B0BDE /* PBXTargetDependency */,
 			);
 			name = DemoObjC;
 			productName = KeyboardTextFieldDemo;
@@ -889,11 +868,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-DemoSwift/Pods-DemoSwift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/IQDropDownTextFieldSwift/IQDropDownTextFieldSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQDropDownTextFieldSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -909,11 +890,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-DemoObjC/Pods-DemoObjC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/IQDropDownTextField/IQDropDownTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQDropDownTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1101,11 +1084,6 @@
 			isa = PBXTargetDependency;
 			target = C03C946C273CF3FF00AF66B5 /* DemoExtension */;
 			targetProxy = C03C9477273CF3FF00AF66B5 /* PBXContainerItemProxy */;
-		};
-		C098D5182AC6F0E0006B0BDE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C03C946C273CF3FF00AF66B5 /* DemoExtension */;
-			targetProxy = C098D5172AC6F0E0006B0BDE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1650,7 +1628,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManagerDemo;
 				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1691,7 +1669,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManagerDemo;
 				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

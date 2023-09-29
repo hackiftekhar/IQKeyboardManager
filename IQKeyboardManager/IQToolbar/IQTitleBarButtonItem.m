@@ -28,6 +28,7 @@
 #import "IQKeyboardManagerConstantsInternal.h"
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTitleBarButtonItem ()
 
 @property(nullable, nonatomic, strong) UIView *titleView;
@@ -35,6 +36,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQTitleBarButtonItem
 
 -(nonnull instancetype)initWithTitle:(nullable NSString *)title

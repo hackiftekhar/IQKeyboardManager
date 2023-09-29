@@ -28,6 +28,7 @@
 #import "IQUIView+Hierarchy.h"
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQToolbar
 @synthesize previousBarButton = _previousBarButton;
 @synthesize nextBarButton = _nextBarButton;

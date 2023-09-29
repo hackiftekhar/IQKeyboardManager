@@ -26,12 +26,14 @@
 #import "IQTextView.h"
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTextView ()
 
 @property(nullable, nonatomic, strong) UILabel *IQ_PlaceholderLabel;
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQTextView
 
 @synthesize placeholder = _placeholder;

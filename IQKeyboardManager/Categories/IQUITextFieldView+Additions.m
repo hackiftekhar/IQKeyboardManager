@@ -25,6 +25,7 @@
 
 #import "IQUITextFieldView+Additions.h"
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIView (Additions)
 
 -(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField

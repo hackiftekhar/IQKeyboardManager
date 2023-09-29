@@ -30,7 +30,7 @@
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQKeyboardManager.h"
 
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQBarButtonItemConfiguration
 
 -(instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)barButtonSystemItem action:(SEL)action
@@ -65,6 +65,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIImage (IQKeyboardToolbarNextPreviousImage)
 
 +(UIImage*)keyboardPreviousImage
@@ -107,6 +108,7 @@
 
 
 /*UIKeyboardToolbar Category implementation*/
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIView (IQToolbarAddition)
 
 -(IQToolbar *)keyboardToolbar

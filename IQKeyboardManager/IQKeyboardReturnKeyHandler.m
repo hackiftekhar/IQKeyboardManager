@@ -28,6 +28,7 @@
 #import "IQUIView+Hierarchy.h"
 #import "IQNSArray+Sort.h"
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTextFieldViewInfoModal : NSObject
 
 @property(nullable, nonatomic, weak) UIView *textFieldView;
@@ -37,6 +38,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQTextFieldViewInfoModal
 
 -(instancetype)initWithTextFieldView:(UIView*)textFieldView textFieldDelegate:(id<UITextFieldDelegate>)textFieldDelegate textViewDelegate:(id<UITextViewDelegate>)textViewDelegate originalReturnKey:(UIReturnKeyType)returnKeyType
@@ -57,12 +59,14 @@
 @end
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardReturnKeyHandler ()<UITextFieldDelegate,UITextViewDelegate>
 
 -(void)updateReturnKeyTypeOnTextField:(UIView*)textField;
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQKeyboardReturnKeyHandler
 {
     NSMutableSet<IQTextFieldViewInfoModal*> *textFieldInfoCache;
@@ -330,7 +334,7 @@
         [delegate textFieldDidEndEditing:textField];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason NS_AVAILABLE_IOS(10_0);
+- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason
 {
     id<UITextFieldDelegate> delegate = self.delegate;
     
@@ -564,7 +568,7 @@
         [delegate textViewDidChangeSelection:textView];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction NS_AVAILABLE_IOS(10_0);
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction
 {
     id<UITextViewDelegate> delegate = self.delegate;
     
@@ -580,7 +584,7 @@
     return YES;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction NS_AVAILABLE_IOS(10_0);
+- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction
 {
     id<UITextViewDelegate> delegate = self.delegate;
     
