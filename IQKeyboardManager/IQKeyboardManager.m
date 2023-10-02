@@ -230,14 +230,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             [strongSelf setLayoutIfNeededOnUpdate:NO];
             [strongSelf setShouldToolbarUsesTextFieldTintColor:NO];
 
-            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
-            {
-                //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-                UITextField *view = [[UITextField alloc] init];
-                [view addDoneOnKeyboardWithTarget:nil action:nil];
-                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
-            }
-
             strongSelf->_keyboardSizeObservers = [[NSMutableDictionary alloc] init];
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
@@ -251,6 +243,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
+
+            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
+                UITextField *view = [[UITextField alloc] init];
+                [view addDoneOnKeyboardWithTarget:nil action:nil];
+                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
+            });
         });
     }
     return self;
@@ -634,19 +634,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)optimizedAdjustPosition
 {
-    if (_hasPendingAdjustRequest == NO)
+    if (_hasPendingAdjustRequest == NO &&
+        [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
     {
         _hasPendingAdjustRequest = YES;
         
         __weak __typeof__(self) weakSelf = self;
 
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            
+        dispatch_async(dispatch_get_main_queue(), ^{
+
             __strong __typeof__(self) strongSelf = weakSelf;
 
             [strongSelf adjustPosition];
             strongSelf.hasPendingAdjustRequest = NO;
-        }];
+        });
     }
 }
 
@@ -2412,7 +2413,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optimizedAdjustPosition) name:UIApplicationDidBecomeActiveNotification object:nil];
+
     //  Registering for UITextField notification.
     [self registerTextFieldViewClass:[UITextField class]
      didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
@@ -2437,6 +2440,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 
     //  Unregistering for UITextField notification.
     [self unregisterTextFieldViewClass:[UITextField class]

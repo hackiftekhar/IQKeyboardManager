@@ -22,7 +22,6 @@ end
 target 'DemoExtension' do
 
     pod 'SwiftLint'
-    pod "IQKeyboardManager", :path => "."
     pod "IQKeyboardManagerSwift", :path => "."
 
 end

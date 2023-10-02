@@ -147,7 +147,11 @@ public extension IQKeyboardManager {
         }
     }
 
-    internal func optimizedAdjustPosition() {
+    @objc internal func optimizedAdjustPosition() {
+        guard UIApplication.shared.applicationState == .active else {
+            return
+        }
+
         if !hasPendingAdjustRequest {
             hasPendingAdjustRequest = true
             DispatchQueue.main.async {
@@ -685,8 +689,6 @@ public extension IQKeyboardManager {
             // Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
             UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
 
-                self.showLog("Restoring \(rootViewController) origin to: \(self.topViewBeginOrigin)")
-
                 // Setting it's new frame
                 var rect = rootViewController.view.frame
                 rect.origin = self.topViewBeginOrigin
@@ -698,6 +700,8 @@ public extension IQKeyboardManager {
                     rootViewController.view.setNeedsLayout()
                     rootViewController.view.layoutIfNeeded()
                 }
+
+                self.showLog("Restoring \(rootViewController) origin to: \(self.topViewBeginOrigin)")
             })
         }
 

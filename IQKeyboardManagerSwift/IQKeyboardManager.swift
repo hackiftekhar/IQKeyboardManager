@@ -319,12 +319,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         // Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         resignFirstResponderGesture.isEnabled = shouldResignOnTouchOutside
 
-        // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
-        // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-        let textField = UITextField()
-        textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
-        textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
-
         disabledDistanceHandlingClasses.append(UITableViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
         disabledToolbarClasses.append(UIAlertController.self)
@@ -334,6 +328,14 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
+
+        // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
+        // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
+        DispatchQueue.main.async {
+            let textField = UITextField()
+            textField.addDoneOnKeyboardWithTarget(nil, action: #selector(self.doneAction(_:)))
+            textField.addPreviousNextDoneOnKeyboardWithTarget(nil, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
+        }
     }
 
     deinit {
