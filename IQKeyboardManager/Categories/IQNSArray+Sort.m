@@ -26,7 +26,7 @@
 #import "IQNSArray+Sort.h"
 #import "IQUIView+Hierarchy.h"
 
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation NSArray (IQ_NSArray_Sort)
 
 - (NSArray<UIView*>*)sortedArrayByTag

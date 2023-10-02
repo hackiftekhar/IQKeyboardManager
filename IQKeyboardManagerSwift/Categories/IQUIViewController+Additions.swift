@@ -26,6 +26,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @objc extension UIViewController {
 
+    @MainActor
     private struct AssociatedKeys {
         static var IQLayoutGuideConstraint: Int = 0
     }

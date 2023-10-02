@@ -27,6 +27,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
+    @MainActor
     private struct AssociatedKeys {
         static var movedDistance: Int = 0
         static var movedDistanceChanged: Int = 0
@@ -149,7 +150,7 @@ public extension IQKeyboardManager {
     internal func optimizedAdjustPosition() {
         if !hasPendingAdjustRequest {
             hasPendingAdjustRequest = true
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 self.adjustPosition()
                 self.hasPendingAdjustRequest = false
             }
@@ -224,7 +225,7 @@ public extension IQKeyboardManager {
             navigationBarAreaHeight = statusBarHeight
         }
 
-        let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
+        let layoutAreaHeight: CGFloat = rootController.view.directionalLayoutMargins.bottom
 
         let isTextView: Bool
         let isNonScrollableTextView: Bool
@@ -241,7 +242,7 @@ public extension IQKeyboardManager {
         let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
 
         // Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
-        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.layoutMargins.bottom
+        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.directionalLayoutMargins.bottom
         let visibleHeight: CGFloat = window.frame.height-kbSize.height
 
         //  Move positive = textField is hidden.

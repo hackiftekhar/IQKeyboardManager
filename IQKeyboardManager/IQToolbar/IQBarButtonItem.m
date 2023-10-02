@@ -26,7 +26,7 @@
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQBarButtonItem
 
 -(void)initialize

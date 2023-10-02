@@ -26,6 +26,7 @@
 #import "IQToolbar.h"
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQBarButtonItemConfiguration : NSObject
 
 -(nonnull instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)barButtonSystemItem action:(nullable SEL)action;
@@ -39,12 +40,8 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIImage (IQKeyboardToolbarNextPreviousImage)
-
-+(nullable UIImage*)keyboardLeftImage;
-+(nullable UIImage*)keyboardRightImage;
-+(nullable UIImage*)keyboardUpImage;
-+(nullable UIImage*)keyboardDownImage;
 
 +(nullable UIImage*)keyboardPreviousImage;
 +(nullable UIImage*)keyboardNextImage;
@@ -54,6 +51,7 @@
 /**
  UIView category methods to add IQToolbar on UIKeyboard.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (IQToolbarAddition)
 
 ///-------------------------

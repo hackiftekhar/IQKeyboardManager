@@ -135,8 +135,4 @@ import UIKit
     @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    deinit {
-        customView = nil
-    }
 }

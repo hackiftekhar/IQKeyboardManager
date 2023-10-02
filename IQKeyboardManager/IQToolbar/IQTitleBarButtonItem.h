@@ -30,6 +30,7 @@
 /**
  BarButtonItem with title text.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTitleBarButtonItem : IQBarButtonItem
 
 /**

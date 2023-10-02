@@ -29,6 +29,7 @@
 #import "IQUIViewController+Additions.h"
 #import "IQNSArray+Sort.h"
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIView (IQ_UIView_Hierarchy)
 
 -(UIViewController*)viewContainingController
@@ -418,6 +419,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation NSObject (IQ_Logging)
 
 -(NSString *)_IQDescription

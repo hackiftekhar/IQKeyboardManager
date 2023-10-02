@@ -42,6 +42,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 typedef void (^SizeBlock)(CGSize size);
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
 /*******************************************/
@@ -126,6 +127,7 @@ typedef void (^SizeBlock)(CGSize size);
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQKeyboardManager
 {
 	@package
@@ -735,10 +737,10 @@ typedef void (^SizeBlock)(CGSize size);
         navigationBarAreaHeight = statusBarHeight;
     }
 
-    CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
-    
+    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.top;
+
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
-    CGFloat bottomLayoutGuide = ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]]) ? 0 : rootController.view.layoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+    CGFloat bottomLayoutGuide = ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]]) ? 0 : rootController.view.directionalLayoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
@@ -1066,10 +1068,8 @@ typedef void (^SizeBlock)(CGSize size);
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
                 bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
-                if (@available(iOS 11, *)) {
-                    bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
-                    bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
-                }
+                bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
                 movedInsets.bottom = bottomInset;
@@ -1139,10 +1139,7 @@ typedef void (^SizeBlock)(CGSize size);
                 }
 
                 CGFloat bottomInset = textFieldView.frame.size.height-textViewHeight;
-
-                if (@available(iOS 11, *)) {
-                    bottomInset -= textFieldView.safeAreaInsets.bottom;
-                }
+                bottomInset -= textFieldView.safeAreaInsets.bottom;
 
                 UIEdgeInsets newContentInset = textView.contentInset;
                 newContentInset.bottom = bottomInset;
