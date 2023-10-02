@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScrollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class ScrollViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet var scrollViewDemo: UIScrollView!
     @IBOutlet var simpleTableView: UITableView!
@@ -57,36 +57,5 @@ class ScrollViewController: UIViewController, UITableViewDataSource, UITableView
         }
 
         return cell!
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

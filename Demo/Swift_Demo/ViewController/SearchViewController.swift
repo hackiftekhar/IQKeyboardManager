@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class SearchViewController: BaseTableViewController, UISearchResultsUpdating, UISearchBarDelegate {
 
     let dataList = [["name": "David Smith", "email": "david@example.com"],
                     ["name": "Kevin John", "email": "kjohn@example.com"],

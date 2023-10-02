@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class ReloadLayout1892ViewController: UIViewController {
+class ReloadLayout1892ViewController: BaseViewController {
     @IBOutlet weak var textView: UITextView!
 
     override func viewDidLoad() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SafeAreaViewController: UIViewController {
+class SafeAreaViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

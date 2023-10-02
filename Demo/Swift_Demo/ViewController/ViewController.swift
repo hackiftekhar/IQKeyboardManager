@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class ViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class ViewController: BaseTableViewController {
 
     @IBAction func shareClicked (_ sender: UIBarButtonItem) {
 
@@ -45,18 +45,7 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
             return
         }
 
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            controller.popoverPresentationController?.sourceView = sender as? UIView
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        } else if identifier == "PopoverViewController" {
+        if identifier == "PopoverViewController" {
             let controller = segue.destination
 
             controller.modalPresentationStyle = .popover
@@ -68,17 +57,5 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
             controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
             controller.popoverPresentationController?.delegate = self
         }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

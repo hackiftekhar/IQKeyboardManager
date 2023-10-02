@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AutofillPasswordViewController: UIViewController {
+class AutofillPasswordViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

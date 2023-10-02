@@ -12,7 +12,7 @@
         <!--UITableView in Container-->
         <scene sceneID="Wk6-cH-l7E">
             <objects>
-                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" customClass="TableViewContainerViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oJ4-BJ-1kW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,11 +35,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="UITableView in Container" id="f0D-mr-Rzc">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="a3q-Lh-gPg">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="Jpr-PP-pnX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="a3q-Lh-gPg"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUL-G0-Nth" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,7 +45,7 @@
         <!-- Container-->
         <scene sceneID="Md9-V5-6d7">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewInContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0RD-44-m2b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,11 +150,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UITableView Example" id="ZVF-w5-7zs">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="aHF-H7-Kng">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="Xs1-If-dkg"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="aHF-H7-Kng"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMe-b3-5Es" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -417,11 +409,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UIScrollView Example" id="1XW-VW-7XA">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="6ux-WY-384">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="whr-6p-RSw"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="6ux-WY-384"/>
                     </navigationItem>
                     <connections>
                         <outlet property="bottomTextField" destination="c1U-0a-Jva" id="sMX-3V-FuD"/>
@@ -526,6 +514,17 @@ EENvbnRhaW5lcg
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGh-Am-js1">
+                                        <rect key="frame" x="176" y="610.5" width="62" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Present">
+                                            <color key="titleColor" systemColor="systemBlueColor"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="presentClicked:" destination="Trg-4t-Fsg" eventType="touchUpInside" id="n9f-xk-Lxm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -543,6 +542,7 @@ EENvbnRhaW5lcg
                                     <constraint firstItem="bxS-Ei-dBG" firstAttribute="trailing" secondItem="2HE-8l-pwN" secondAttribute="trailing" id="MuT-93-Umz"/>
                                     <constraint firstAttribute="trailing" secondItem="2HE-8l-pwN" secondAttribute="trailing" constant="20" id="Ohj-rs-Jc1"/>
                                     <constraint firstItem="C1G-xr-Ikt" firstAttribute="centerY" secondItem="V8j-ee-Y7K" secondAttribute="centerY" id="Q6O-UH-5Su"/>
+                                    <constraint firstItem="bxS-Ei-dBG" firstAttribute="bottom" secondItem="NGh-Am-js1" secondAttribute="top" constant="-10" id="QUh-di-iyu"/>
                                     <constraint firstItem="JwK-tl-xro" firstAttribute="trailing" secondItem="2HE-8l-pwN" secondAttribute="trailing" id="SXp-Dp-WCU"/>
                                     <constraint firstItem="iZI-Ur-2uh" firstAttribute="top" secondItem="JwK-tl-xro" secondAttribute="bottom" constant="30" id="Tj9-EN-1GC"/>
                                     <constraint firstItem="LOI-el-lXZ" firstAttribute="trailing" secondItem="oiz-z1-TuT" secondAttribute="trailing" id="Y0f-52-hPn"/>
@@ -557,6 +557,7 @@ EENvbnRhaW5lcg
                                     <constraint firstAttribute="bottom" secondItem="bxS-Ei-dBG" secondAttribute="bottom" constant="30" id="hzx-9H-7ci"/>
                                     <constraint firstItem="cfl-i4-rKq" firstAttribute="trailing" secondItem="2HE-8l-pwN" secondAttribute="trailing" id="mpM-gH-nvK"/>
                                     <constraint firstItem="2HE-8l-pwN" firstAttribute="width" secondItem="YS6-oO-kvF" secondAttribute="width" constant="-40" id="nif-M7-c9n"/>
+                                    <constraint firstItem="NGh-Am-js1" firstAttribute="centerX" secondItem="YS6-oO-kvF" secondAttribute="centerX" id="p2C-OC-W8I"/>
                                     <constraint firstItem="cfl-i4-rKq" firstAttribute="leading" secondItem="2HE-8l-pwN" secondAttribute="leading" id="u1b-UE-cNH"/>
                                     <constraint firstItem="2HE-8l-pwN" firstAttribute="leading" secondItem="YS6-oO-kvF" secondAttribute="leading" constant="20" id="u2g-3E-U7e"/>
                                     <constraint firstItem="iZI-Ur-2uh" firstAttribute="leading" secondItem="2HE-8l-pwN" secondAttribute="leading" id="uwu-pK-WVD"/>
@@ -580,11 +581,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Navigation Bar" id="IWx-4s-DcF">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="kJy-g0-Z2Y">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="RMc-ox-EeG"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="kJy-g0-Z2Y"/>
                     </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="YS6-oO-kvF" id="fIl-LY-xqW"/>
@@ -652,11 +649,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UICollectionView" id="Byq-bS-sCQ">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="Sgb-WF-lWI">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="dM1-nA-eFz"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="Sgb-WF-lWI"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="pDc-0F-blt" id="pPb-MQ-Oqv"/>
@@ -669,7 +662,7 @@ EENvbnRhaW5lcg
         <!--UITableViewController-->
         <scene sceneID="f4C-KI-H3s">
             <objects>
-                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" customClass="TableViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="shB-z3-q47">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -893,7 +886,7 @@ EENvbnRhaW5lcg
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="fZy-eQ-hXM">
-                                        <rect key="frame" x="0.0" y="1049" width="414" height="350"/>
+                                        <rect key="frame" x="0.0" y="1655" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZy-eQ-hXM" id="sFJ-zD-DrA">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -918,7 +911,7 @@ EENvbnRhaW5lcg
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="pwM-BD-F3E">
-                                        <rect key="frame" x="0.0" y="1399" width="414" height="41"/>
+                                        <rect key="frame" x="0.0" y="2005" width="414" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pwM-BD-F3E" id="x38-ab-L3i">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
@@ -941,7 +934,7 @@ EENvbnRhaW5lcg
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="M69-7a-p9I">
-                                        <rect key="frame" x="0.0" y="1440" width="414" height="350"/>
+                                        <rect key="frame" x="0.0" y="2046" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M69-7a-p9I" id="wTg-2o-j8b">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -966,7 +959,7 @@ EENvbnRhaW5lcg
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="Y5C-vW-9q2">
-                                        <rect key="frame" x="0.0" y="1790" width="414" height="41"/>
+                                        <rect key="frame" x="0.0" y="2396" width="414" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y5C-vW-9q2" id="LdN-dG-2Xo">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
@@ -989,7 +982,7 @@ EENvbnRhaW5lcg
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="kS4-wf-gdb">
-                                        <rect key="frame" x="0.0" y="1831" width="414" height="350"/>
+                                        <rect key="frame" x="0.0" y="2437" width="414" height="350"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kS4-wf-gdb" id="X9y-jm-1sM">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -1070,29 +1063,14 @@ EENvbnRhaW5lcg
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="UITableViewController" id="7ET-Mf-F9b">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="Nhg-d2-hav">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="4u1-o5-vXI"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="Nhg-d2-hav"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJg-JT-LAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2843" y="217"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="afW-2d-U8J">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="wgh-oX-kmF" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B59-I0-iLK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2770" y="711"/>
-        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="4u1-o5-vXI"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="settings" width="25" height="25"/>
         <systemColor name="groupTableViewBackgroundColor">
