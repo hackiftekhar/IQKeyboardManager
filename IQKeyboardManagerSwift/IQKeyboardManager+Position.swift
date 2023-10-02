@@ -147,6 +147,17 @@ public extension IQKeyboardManager {
         }
     }
 
+    @objc internal func applicationDidBecomeActive(_ notificatin: Notification) {
+
+        guard privateIsEnabled(),
+            keyboardShowing,
+            topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false, let textFieldView = textFieldView,
+            textFieldView.isAlertViewTextField() == false else {
+                return
+        }
+        optimizedAdjustPosition()
+     }
+
     @objc internal func optimizedAdjustPosition() {
         guard UIApplication.shared.applicationState == .active else {
             return
@@ -182,16 +193,20 @@ public extension IQKeyboardManager {
         var rootViewOrigin = rootController.view.frame.origin
 
         // Maintain keyboardDistanceFromTextField
-        var specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
+        let specialKeyboardDistanceFromTextField: CGFloat
 
         if let searchBar = textFieldView.textFieldSearchBar() {
             specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField
+        } else {
+            specialKeyboardDistanceFromTextField = textFieldView.keyboardDistanceFromTextField
         }
 
         let newKeyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
 
-        var kbSize = keyboardFrame.size
+        let kbSize: CGSize
+        let originalKbSize: CGSize
 
+        // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
         do {
             var kbFrame = keyboardFrame
 
@@ -201,13 +216,20 @@ public extension IQKeyboardManager {
             kbFrame.origin.y -= topViewBeginSafeAreaInsets.bottom
             kbFrame.size.height += topViewBeginSafeAreaInsets.bottom
 
-            // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
             let intersectRect = kbFrame.intersection(window.frame)
-
             if intersectRect.isNull {
                 kbSize = CGSize(width: kbFrame.size.width, height: 0)
             } else {
                 kbSize = intersectRect.size
+            }
+        }
+
+        do {
+            let intersectRect = keyboardFrame.intersection(window.frame)
+            if intersectRect.isNull {
+                originalKbSize = CGSize(width: keyboardFrame.size.width, height: 0)
+            } else {
+                originalKbSize = intersectRect.size
             }
         }
 
@@ -523,7 +545,7 @@ public extension IQKeyboardManager {
                 lastScrollView.shouldIgnoreContentInsetAdjustment == false {
 
                 var bottomInset: CGFloat = (kbSize.height)-(window.frame.height-lastScrollViewRect.maxY)
-                var bottomScrollIndicatorInset = bottomInset - newKeyboardDistanceFromTextField
+                var bottomScrollIndicatorInset = bottomInset - newKeyboardDistanceFromTextField - topViewBeginSafeAreaInsets.bottom
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 bottomInset = max(startingContentInsets.bottom, bottomInset)
@@ -566,7 +588,7 @@ public extension IQKeyboardManager {
         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
         if let textView = textFieldView as? UIScrollView, textView.isScrollEnabled, textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
 
-            let keyboardYPosition = window.frame.height - (kbSize.height-newKeyboardDistanceFromTextField)
+            let keyboardYPosition = window.frame.height - originalKbSize.height
             var rootSuperViewFrameInWindow = window.frame
             if let rootSuperview = rootController.view.superview {
                 rootSuperViewFrameInWindow = rootSuperview.convert(rootSuperview.bounds, to: window)
@@ -613,7 +635,7 @@ public extension IQKeyboardManager {
         // +Positive or zero.
         if move >= 0 {
 
-            rootViewOrigin.y = max(rootViewOrigin.y - move, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
+            rootViewOrigin.y = max(rootViewOrigin.y - move, min(0, -originalKbSize.height))
 
             if rootController.view.frame.origin.equalTo(rootViewOrigin) == false {
                 showLog("Moving Upward")

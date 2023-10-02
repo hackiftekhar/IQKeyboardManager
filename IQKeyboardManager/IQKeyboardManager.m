@@ -632,6 +632,22 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 }
 
+-(void)applicationDidBecomeActive:(NSNotification*)aNotification
+{
+    if ([self privateIsEnabled] == YES)
+    {
+        UIView *textFieldView = _textFieldView;
+
+        if (textFieldView &&
+            _keyboardShowing == YES &&
+            CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid) == false &&
+            [textFieldView isAlertViewTextField] == NO)
+        {
+            [self optimizedAdjustPosition];
+        }
+    }
+}
+
 -(void)optimizedAdjustPosition
 {
     if (_hasPendingAdjustRequest == NO &&
@@ -693,7 +709,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
 
     CGSize kbSize;
-    
+    CGSize originalKbSize;
+
     {
         CGRect kbFrame = _kbFrame;
         
@@ -716,6 +733,18 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         }
     }
 
+    {
+        CGRect intersectRect = CGRectIntersection(_kbFrame, keyWindow.frame);
+
+        if (CGRectIsNull(intersectRect))
+        {
+            originalKbSize = CGSizeMake(_kbFrame.size.width, 0);
+        }
+        else
+        {
+            originalKbSize = intersectRect.size;
+        }
+    }
 
     CGFloat navigationBarAreaHeight = 0;
 
@@ -1063,7 +1092,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
                 CGFloat bottomInset = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
-                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField;
+                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField - _topViewBeginSafeAreaInsets.bottom;
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
@@ -1112,7 +1141,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             UIScrollView *textView = (UIScrollView*)textFieldView;
 
-            CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField);
+            CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-originalKbSize.height;
 
             CGRect rootSuperViewFrameInWindow = [rootController.view.superview convertRect:rootController.view.superview.bounds toView:keyWindow];
 
@@ -1173,7 +1202,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 rootViewOrigin.y -= move;
                 
                 //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -(kbSize.height-keyboardDistanceFromTextField)));
+                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -originalKbSize.height));
 
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewOrigin.ty
@@ -2414,7 +2443,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optimizedAdjustPosition) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 
     //  Registering for UITextField notification.
     [self registerTextFieldViewClass:[UITextField class]
