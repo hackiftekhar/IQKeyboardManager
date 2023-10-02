@@ -12,6 +12,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    _window.backgroundColor = [UIColor whiteColor];
+
     return YES;
 }
 

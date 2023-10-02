@@ -43,7 +43,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if ([nextResponder isKindOfClass:[UIViewController class]])
             return (UIViewController*)nextResponder;
 
-    } while (nextResponder);
+    }
+    while (nextResponder);
 
     return nil;
 }
@@ -59,7 +60,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [controllersHierarchy addObject:topController];
     }
     
-    while ([topController presentedViewController]) {
+    while ([topController presentedViewController])
+    {
         
         topController = [topController presentedViewController];
         [controllersHierarchy addObject:topController];
@@ -73,7 +75,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             matchController = (UIViewController*)[matchController nextResponder];
             
-        } while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
+        }
+        while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
     
     return matchController;
@@ -89,7 +92,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         UINavigationController *navController = matchController.navigationController;
         
-        while (navController.navigationController) {
+        while (navController.navigationController)
+        {
             navController = navController.navigationController;
         }
         
@@ -195,7 +199,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 {
     BOOL _IQcanBecomeFirstResponder = NO;
     
-    if ([self conformsToProtocol:@protocol(UITextInput)]) {
+    if ([self conformsToProtocol:@protocol(UITextInput)])
+    {
         if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
         {
             _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];

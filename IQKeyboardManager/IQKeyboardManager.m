@@ -345,10 +345,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if (textFieldViewController)
         {
             //If it is searchBar textField embedded in Navigation Bar
-            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
-                
+            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
+            {
                 UINavigationController *navController = (UINavigationController*)textFieldViewController;
-                if (navController.topViewController) {
+                if (navController.topViewController)
+                {
                     textFieldViewController = navController.topViewController;
                 }
             }
@@ -439,10 +440,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if (textFieldViewController)
         {
             //If it is searchBar textField embedded in Navigation Bar
-            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
-                
+            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
+            {
                 UINavigationController *navController = (UINavigationController*)textFieldViewController;
-                if (navController.topViewController) {
+                if (navController.topViewController)
+                {
                     textFieldViewController = navController.topViewController;
                 }
             }
@@ -494,7 +496,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 -(void)setMovedDistance:(CGFloat)movedDistance
 {
     _movedDistance = movedDistance;
-    if (self.movedDistanceChanged != nil) {
+    if (self.movedDistanceChanged != nil)
+    {
         self.movedDistanceChanged(movedDistance);
     }
 }
@@ -529,10 +532,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     if (textFieldViewController)
     {
         //If it is searchBar textField embedded in Navigation Bar
-        if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
-            
+        if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
+        {
             UINavigationController *navController = (UINavigationController*)textFieldViewController;
-            if (navController.topViewController) {
+            if (navController.topViewController)
+            {
                 textFieldViewController = navController.topViewController;
             }
         }
@@ -599,20 +603,26 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         UIWindow *originalKeyWindow = nil;
 
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 13.0, *)) {
+        if (@available(iOS 13.0, *))
+        {
             NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
-            for (UIScene *scene in connectedScenes) {
-                if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
+            for (UIScene *scene in connectedScenes)
+            {
+                if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]])
+                {
                     UIWindowScene *windowScene = (UIWindowScene *)scene;
-                    for (UIWindow *window in windowScene.windows) {
-                        if (window.isKeyWindow) {
+                    for (UIWindow *window in windowScene.windows)
+                    {
+                        if (window.isKeyWindow)
+                        {
                             originalKeyWindow = window;
                             break;
                         }
                     }
                 }
             }
-        } else
+        }
+        else
         #endif
         {
         #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -748,15 +758,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     CGFloat navigationBarAreaHeight = 0;
 
-    if (rootController.navigationController != nil) {
+    if (rootController.navigationController != nil)
+    {
         navigationBarAreaHeight = CGRectGetMaxY(rootController.navigationController.navigationBar.frame);
-    } else {
+    }
+    else
+    {
         CGFloat statusBarHeight = 0;
     #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 13.0, *)) {
+        if (@available(iOS 13.0, *))
+        {
             statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
 
-        } else
+        }
+        else
     #endif
         {
     #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -826,9 +841,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 
                 BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset) {
+                if (animatedContentOffset)
+                {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
-                } else {
+                }
+                else
+                {
                     strongLastScrollView.contentOffset = _startingContentOffset;
                 }
             }
@@ -863,9 +881,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset) {
+                if (animatedContentOffset)
+                {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
-                } else {
+                }
+                else
+                {
                     strongLastScrollView.contentOffset = _startingContentOffset;
                 }
             }
@@ -875,9 +896,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             _startingContentInsets = superScrollView.contentInset;
             _startingContentOffset = superScrollView.contentOffset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-            if (@available(iOS 11.1, *)) {
+            if (@available(iOS 11.1, *))
+            {
                 _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
-            } else
+            }
+            else
 #endif
             {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -897,9 +920,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 11.1, *)) {
+        if (@available(iOS 11.1, *))
+        {
             _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
-        } else
+        }
+        else
 #endif
         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -983,7 +1008,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         //If the textField is hidden at the top
                         shouldContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide;
                         
-                        if (shouldContinue) {
+                        if (shouldContinue)
+                        {
                             move = MIN(0, textFieldViewRectInRootSuperview.origin.y - topLayoutGuide);
                         }
                     }
@@ -1064,9 +1090,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         
                         BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                        if (animatedContentOffset) {
+                        if (animatedContentOffset)
+                        {
                             [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                        } else {
+                        }
+                        else
+                        {
                             superScrollView.contentOffset = newContentOffset;
                         }
                     } completion:^(BOOL finished){
@@ -1113,9 +1142,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         strongLastScrollView.contentInset = movedInsets;
                         UIEdgeInsets newScrollIndicatorInset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-                        if (@available(iOS 11.1, *)) {
+                        if (@available(iOS 11.1, *))
+                        {
                             newScrollIndicatorInset = strongLastScrollView.verticalScrollIndicatorInsets;
-                        } else
+                        }
+                        else
 #endif
                         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1157,9 +1188,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     self.startingTextViewContentInsets = textView.contentInset;
                     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-                    if (@available(iOS 11.1, *)) {
+                    if (@available(iOS 11.1, *))
+                    {
                         self.startingTextViewScrollIndicatorInsets = textView.verticalScrollIndicatorInsets;
-                    } else
+                    }
+                    else
 #endif
                     {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1300,7 +1333,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 strongSelf.movedDistance = 0;
                 
-                if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+                if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan)
+                {
                     strongSelf.rootViewControllerWhilePopGestureRecognizerActive = strongRootController;
                     strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = strongSelf.topViewBeginOrigin;
                 }
@@ -1355,8 +1389,15 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     //Saving animation duration
-    if (duration != 0.0)    _animationDuration = duration;
-    
+    if (duration!= 0.0f)
+    {
+        _animationDuration = duration;
+    }
+    else
+    {
+        _animationDuration = 0.25;
+    }
+
     CGRect oldKBFrame = _kbFrame;
     
     //  Getting UIKeyboardSize.
@@ -1454,10 +1495,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     _keyboardShowing = NO;
     
     //  Getting keyboard animation duration
-    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    if (aDuration!= 0.0f)
+    CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (duration!= 0.0f)
     {
-        _animationDuration = aDuration;
+        _animationDuration = duration;
+    }
+    else
+    {
+        _animationDuration = 0.25;
     }
     
     //If not enabled then do nothing.
@@ -1499,9 +1544,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 BOOL animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset) {
+                if (animatedContentOffset)
+                {
                     [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
-                } else {
+                }
+                else
+                {
                     strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
                 }
             }
@@ -1524,14 +1572,18 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                         BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                        if (animatedContentOffset) {
+                        if (animatedContentOffset)
+                        {
                             [superscrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                        } else {
+                        }
+                        else
+                        {
                             superscrollView.contentOffset = newContentOffset;
                         }
                     }
                 }
-            } while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
+            }
+            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
 
         } completion:NULL];
     }
@@ -1580,9 +1632,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)notifyKeyboardSize:(CGSize)size
 {
-    if (!CGSizeEqualToSize(size, _keyboardLastNotifySize)) {
+    if (!CGSizeEqualToSize(size, _keyboardLastNotifySize))
+    {
         _keyboardLastNotifySize = size;
-        for (SizeBlock block in _keyboardSizeObservers.allValues) {
+        for (SizeBlock block in _keyboardSizeObservers.allValues)
+        {
             block(size);
         }
     }
@@ -1593,7 +1647,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
     UIView *object = (UIView*)notification.object;
-    if (object.window.isKeyWindow == NO) {
+    if (object.window.isKeyWindow == NO)
+    {
         return;
     }
 
@@ -1701,7 +1756,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
     UIView *object = (UIView*)notification.object;
-    if (object.window.isKeyWindow == NO) {
+    if (object.window.isKeyWindow == NO)
+    {
         return;
     }
 
@@ -1747,15 +1803,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     //Setting object to nil
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
-    if (@available(iOS 16.0, *)) {
-        if ([textFieldView isKindOfClass:[UITextView class]] && [(UITextView*)textFieldView isFindInteractionEnabled]) {
+    if (@available(iOS 16.0, *))
+    {
+        if ([textFieldView isKindOfClass:[UITextView class]] && [(UITextView*)textFieldView isFindInteractionEnabled])
+        {
             //Not setting it nil, because it may be doing find interaction.
             //As of now, here textView.findInteraction.isFindNavigatorVisible returns NO
             //So there is no way to detect if this is dismissed due to findInteraction
-        } else {
+        }
+        else
+        {
             textFieldView = nil;
         }
-    } else
+    }
+    else
 #endif
     {
         textFieldView = nil;
@@ -1777,9 +1838,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     UIInterfaceOrientation currentStatusBarOrientation = UIInterfaceOrientationUnknown;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 13.0, *))
+    {
         currentStatusBarOrientation = [self keyWindow].windowScene.interfaceOrientation;
-    } else
+    }
+    else
 #endif
     {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1792,7 +1855,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     UIInterfaceOrientation statusBarOrientation = [aNotification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
 #pragma clang diagnostic pop
     
-    if (statusBarOrientation != currentStatusBarOrientation) {
+    if (statusBarOrientation != currentStatusBarOrientation)
+    {
         return;
     }
     
@@ -2093,18 +2157,46 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             }
             rightConfiguration.accessibilityLabel = _toolbarDoneBarButtonItemAccessibilityLabel ? : @"Done";
 
-            //    If only one object is found, then adding only Done button.
-            if ((siblings.count <= 1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
+            BOOL isTableCollectionView = NO;
+            if ([textFieldView superviewOfClassType:[UITableView class]] != nil
+                || [textFieldView superviewOfClassType:[UICollectionView class]] != nil)
             {
-                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
-
-                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+                isTableCollectionView = YES;
             }
-            //If there is multiple siblings of textField
-            else if ((self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
+            else
+            {
+                isTableCollectionView = NO;
+            }
+
+            BOOL shouldHavePreviousNext = NO;
+            switch (self.previousNextDisplayMode)
+            {
+                case IQPreviousNextDisplayModeDefault:
+                    if (isTableCollectionView)
+                    {
+                        shouldHavePreviousNext = YES;
+                    }
+                    else if (siblings.count <= 1)
+                    {
+                        shouldHavePreviousNext = NO;
+                    }
+                    else
+                    {
+                        shouldHavePreviousNext = YES;
+                    }
+                    break;
+                case IQPreviousNextDisplayModeAlwaysShow:
+                    shouldHavePreviousNext = YES;
+                    break;
+                case IQPreviousNextDisplayModeAlwaysHide:
+                    shouldHavePreviousNext = NO;
+                    break;
+            }
+
+            if (shouldHavePreviousNext)
             {
                 IQBarButtonItemConfiguration *prevConfiguration = nil;
-                
+
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarPreviousBarButtonItemImage)
                 {
@@ -2120,9 +2212,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:@selector(previousAction:)];
                 }
                 prevConfiguration.accessibilityLabel = _toolbarPreviousBarButtonItemAccessibilityLabel ? : @"Previous";
-                
+
                 IQBarButtonItemConfiguration *nextConfiguration = nil;
-                
+
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarNextBarButtonItemImage)
                 {
@@ -2142,8 +2234,28 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
 
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
+
+                if (isTableCollectionView)
+                {
+                    // In case of UITableView (Special), the next/previous buttons should always be enabled.    (Bug ID: #56)
+                    textField.keyboardToolbar.previousBarButton.enabled = YES;
+                    textField.keyboardToolbar.nextBarButton.enabled = YES;
+                }
+                else
+                {
+                    // If firstTextField, then previous should not be enabled.
+                    textField.keyboardToolbar.previousBarButton.enabled = (siblings.firstObject != textField);
+                    // If lastTextField then next should not be enaled.
+                    textField.keyboardToolbar.nextBarButton.enabled = (siblings.lastObject != textField);
+                }
             }
-            
+            else
+            {
+                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
+
+                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
+            }
+
             IQToolbar *toolbar = textField.keyboardToolbar;
             
             //Bar style according to keyboard appearance
@@ -2214,33 +2326,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     //Updating placeholder     //(Bug ID: #272)
                     toolbar.titleBarButton.title = nil;
                 }
-            }
-
-            //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
-            //    If firstTextField, then previous should not be enabled.
-            if (siblings.firstObject == textField)
-            {
-                if (siblings.count == 1)
-                {
-                    textField.keyboardToolbar.previousBarButton.enabled = NO;
-                    textField.keyboardToolbar.nextBarButton.enabled = NO;
-                }
-                else
-                {
-                    textField.keyboardToolbar.previousBarButton.enabled = NO;
-                    textField.keyboardToolbar.nextBarButton.enabled = YES;
-                }
-            }
-            //    If lastTextField then next should not be enaled.
-            else if ([siblings lastObject] == textField)
-            {
-                textField.keyboardToolbar.previousBarButton.enabled = YES;
-                textField.keyboardToolbar.nextBarButton.enabled = NO;
-            }
-            else
-            {
-                textField.keyboardToolbar.previousBarButton.enabled = YES;
-                textField.keyboardToolbar.nextBarButton.enabled = YES;
             }
         }
     }
@@ -2507,7 +2592,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         NSMutableString *preLog = [[NSMutableString alloc] init];
         
-        for (int i = 0; i<=indentation; i++) {
+        for (int i = 0; i<=indentation; i++)
+        {
             [preLog appendString:@"|\t"];
         }
 

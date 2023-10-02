@@ -47,8 +47,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [self setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
 }
 
-- (instancetype)init {
-
+- (instancetype)init
+{
     self = [super init];
 
     if (self)
@@ -59,8 +59,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
     self = [super initWithCoder: coder];
 
     if (self)

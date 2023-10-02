@@ -162,7 +162,11 @@ public extension IQKeyboardManager {
             }
 
             //  Getting keyboard animation duration
-            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+            if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval, duration != 0 {
+                animationDuration = duration
+            } else {
+                animationDuration = 0.25
+            }
 
             //  Getting UIKeyboardSize.
             if let kbFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -265,7 +269,11 @@ public extension IQKeyboardManager {
             }
 
             //  Getting keyboard animation duration
-            animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
+            if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval, duration != 0 {
+                animationDuration = duration
+            } else {
+                animationDuration = 0.25
+            }
         }
 
         // If not enabled then do nothing.

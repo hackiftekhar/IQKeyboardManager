@@ -51,9 +51,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _titleButton.enabled = NO;
         _titleButton.titleLabel.numberOfLines = 3;
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 13.0, *)) {
+        if (@available(iOS 13.0, *))
+        {
             [_titleButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
-        } else
+        }
+        else
         #endif
         {
             [_titleButton setTitleColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
@@ -121,9 +123,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 {
     _selectableTitleColor = selectableTitleColor;
     #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 13.0, *))
+    {
         [_titleButton setTitleColor:_selectableTitleColor?:[UIColor systemBlueColor] forState:UIControlStateNormal];
-    } else
+    }
+    else
     #endif
     {
         [_titleButton setTitleColor:_selectableTitleColor?:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];

@@ -71,7 +71,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 {
     if([[self text] length] || [[self attributedText] length])
     {
-        if (self.IQ_PlaceholderLabel.alpha != 0) {
+        if (self.IQ_PlaceholderLabel.alpha != 0)
+        {
             [self.IQ_PlaceholderLabel setAlpha:0];
             [self setNeedsLayout];
             [self layoutIfNeeded];
@@ -171,9 +172,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _IQ_PlaceholderLabel.backgroundColor = [UIColor clearColor];
         _IQ_PlaceholderLabel.isAccessibilityElement = NO;
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-            if (@available(iOS 13.0, *)) {
+            if (@available(iOS 13.0, *))
+            {
                 _IQ_PlaceholderLabel.textColor = [UIColor systemGrayColor];
-            } else
+            }
+            else
         #endif
             {
                 _IQ_PlaceholderLabel.textColor = [UIColor lightTextColor];
@@ -194,7 +197,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(CGSize)intrinsicContentSize
 {
-    if (self.hasText) {
+    if (self.hasText)
+    {
         return [super intrinsicContentSize];
     }
     

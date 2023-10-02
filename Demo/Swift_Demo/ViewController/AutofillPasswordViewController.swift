@@ -15,9 +15,11 @@ class AutofillPasswordViewController: UIViewController {
     }
 
     @IBAction private func loginActin(_ sender: UIButton) {
-
+        self.view.endEditing(true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            self.navigationController?.popViewController(animated: true)
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = UIColor.white
+            self.navigationController?.pushViewController(viewController, animated: true)
         })
     }
 }
