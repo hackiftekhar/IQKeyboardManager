@@ -233,7 +233,8 @@ public extension IQKeyboardManager {
 
         guard privateIsEnabled(),
             let textFieldView = textFieldView,
-            let parentController = textFieldView.parentContainerViewController(), (parentController.modalPresentationStyle == UIModalPresentationStyle.formSheet || parentController.modalPresentationStyle == UIModalPresentationStyle.pageSheet),
+            let parentController = textFieldView.parentContainerViewController(),
+              (parentController.modalPresentationStyle == .formSheet || parentController.modalPresentationStyle == .pageSheet),
             textFieldView.isAlertViewTextField() == false else {
                 return
         }

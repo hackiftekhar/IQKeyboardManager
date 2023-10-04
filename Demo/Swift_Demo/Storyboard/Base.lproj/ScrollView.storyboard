@@ -91,6 +91,9 @@
 EENvbnRhaW5lcg
 </string>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="va8-7o-UYk" id="uiJ-93-hJc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="csg-dz-Bkz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

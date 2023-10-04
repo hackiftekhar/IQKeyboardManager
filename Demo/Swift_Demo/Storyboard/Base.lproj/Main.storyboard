@@ -685,7 +685,7 @@
         <!--Navigation Controller-->
         <scene sceneID="d5l-vV-OYi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iFF-SZ-t3m" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iFF-SZ-t3m" customClass="NavigationController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="sxS-VT-UFI">
                         <rect key="frame" x="0.0" y="48" width="414" height="96"/>

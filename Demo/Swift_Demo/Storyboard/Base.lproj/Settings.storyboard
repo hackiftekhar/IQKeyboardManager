@@ -11,7 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="mFY-po-Edv">
             <objects>
-                <navigationController storyboardIdentifier="SettingsNavigationController" id="yh7-P7-TKe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SettingsNavigationController" id="yh7-P7-TKe" customClass="NavigationController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="488"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="sJ5-JV-N2N">
                         <rect key="frame" x="0.0" y="50" width="375" height="96"/>
@@ -36,7 +36,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9e-a2-WWs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-851" y="1704"/>
+            <point key="canvasLocation" x="-1033" y="1704"/>
         </scene>
         <!--Settings-->
         <scene sceneID="zPq-Kx-aQ0">

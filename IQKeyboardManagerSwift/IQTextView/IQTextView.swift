@@ -120,10 +120,11 @@ import UIKit
 
     @objc internal func refreshPlaceholder() {
 
-        if !text.isEmpty || !attributedText.string.isEmpty {
-            placeholderLabel.alpha = 0
-        } else {
+        let text: String = text ?? attributedText?.string ?? ""
+        if text.isEmpty {
             placeholderLabel.alpha = 1
+        } else {
+            placeholderLabel.alpha = 0
         }
     }
 

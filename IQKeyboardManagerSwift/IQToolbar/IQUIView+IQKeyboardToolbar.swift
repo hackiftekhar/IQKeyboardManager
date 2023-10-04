@@ -193,12 +193,13 @@ UIView category methods to add IQToolbar on UIKeyboard.
             return nil
         } else if self.toolbarPlaceholder?.isEmpty == false {
             return self.toolbarPlaceholder
-        } else if self.responds(to: #selector(getter: UITextField.placeholder)) {
+        } else if let placeholderable: IQPlaceholderable = self as? IQPlaceholderable {
 
-            if let textField = self as? UITextField {
-                return textField.placeholder
-            } else if let textView = self as? IQTextView {
-                return textView.placeholder
+            if let placeholder = placeholderable.attributedPlaceholder?.string,
+                !placeholder.isEmpty {
+                return placeholder
+            } else if let placeholder = placeholderable.placeholder {
+                return placeholder
             } else {
                 return nil
             }

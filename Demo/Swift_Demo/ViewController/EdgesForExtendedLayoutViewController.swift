@@ -12,5 +12,6 @@ class EdgesForExtendedLayoutViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.edgesForExtendedLayout = .all
     }
 }

@@ -85,7 +85,7 @@ extension BaseTableViewController {
         let classNameString: String = "\(type(of: self.self))"
 
         let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: classNameString))!
-        let navController: UINavigationController = UINavigationController(rootViewController: controller)
+        let navController: NavigationController = NavigationController(rootViewController: controller)
         navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
         navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
         navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
@@ -101,14 +101,15 @@ extension BaseTableViewController {
 extension BaseTableViewController {
 
     @IBAction private func settingsAction(_ sender: UIBarButtonItem) {
-        let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: "SettingsViewController"))!
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let controller: UIViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
         controller.popoverPresentationController?.barButtonItem = sender
 
         let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
         controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
         controller.popoverPresentationController?.delegate = self
 
-        let navController: UINavigationController = UINavigationController(rootViewController: controller)
+        let navController: NavigationController = NavigationController(rootViewController: controller)
         navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
         navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
         navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
