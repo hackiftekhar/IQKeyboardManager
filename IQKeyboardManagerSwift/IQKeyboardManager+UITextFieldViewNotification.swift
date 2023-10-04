@@ -28,7 +28,6 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
-    @MainActor
     private struct AssociatedKeys {
         static var textFieldView: Int = 0
         static var topViewBeginOrigin: Int = 0

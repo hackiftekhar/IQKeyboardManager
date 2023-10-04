@@ -66,12 +66,10 @@ import UIKit
  UIImage category methods to get next/prev images
  */
 @available(iOSApplicationExtension, unavailable)
-@MainActor
 @objc public extension UIImage {
 
     static func keyboardPreviousImage() -> UIImage? {
 
-        @MainActor
         struct Static {
             static var keyboardUpImage: UIImage?
         }
@@ -95,7 +93,6 @@ import UIKit
 
     static func keyboardNextImage() -> UIImage? {
 
-        @MainActor
         struct Static {
             static var keyboardDownImage: UIImage?
         }
@@ -124,7 +121,6 @@ UIView category methods to add IQToolbar on UIKeyboard.
 @available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
 
-    @MainActor
     private struct AssociatedKeys {
         static var keyboardToolbar: Int = 0
         static var shouldHideToolbarPlaceholder: Int = 0
@@ -210,10 +206,8 @@ UIView category methods to add IQToolbar on UIKeyboard.
 
     // MARK: Private helper
 
-    @MainActor
     private static func flexibleBarButtonItem () -> IQBarButtonItem {
 
-        @MainActor
         struct Static {
 
             static let nilButton = IQBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

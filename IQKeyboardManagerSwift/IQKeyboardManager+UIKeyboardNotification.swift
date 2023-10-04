@@ -40,7 +40,6 @@ public extension IQKeyboardManager {
         }
     }
 
-    @MainActor
     private struct AssociatedKeys {
         static var keyboardSizeObservers: Int = 0
         static var keyboardLastNotifySize: Int = 0

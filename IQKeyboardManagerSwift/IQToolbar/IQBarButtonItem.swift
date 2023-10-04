@@ -25,7 +25,6 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-@MainActor
 @objc open class IQBarButtonItem: UIBarButtonItem {
 
     @objc public override init() {

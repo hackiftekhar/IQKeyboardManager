@@ -36,7 +36,6 @@ UIView category for managing UITextField/UITextView
 @available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
 
-    @MainActor
     private struct AssociatedKeys {
         static var keyboardDistanceFromTextField: Int = 0
         static var ignoreSwitchingByNextPrevious: Int = 0

@@ -33,7 +33,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
 */
 
 @available(iOSApplicationExtension, unavailable)
-@MainActor
 @objc public final class IQKeyboardManager: NSObject {
 
     /**
@@ -350,7 +349,6 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             return keyWindow
         } else {
 
-            @MainActor
             struct Static {
                 /** @abstract   Save keyWindow object for reuse.
                 @discussion Sometimes [[UIApplication sharedApplication] keyWindow] is returning nil between the app.   */
