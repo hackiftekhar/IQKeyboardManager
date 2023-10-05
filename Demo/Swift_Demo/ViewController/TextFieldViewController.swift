@@ -83,9 +83,9 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
-            print(size)
-        })
+        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
+//            print(size)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

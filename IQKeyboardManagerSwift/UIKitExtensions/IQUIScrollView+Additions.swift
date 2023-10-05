@@ -23,6 +23,7 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 private struct AssociatedKeys {
     static var ignoreScrollingAdjustment: Int = 0
     static var ignoreContentInsetAdjustment: Int = 0

@@ -28,15 +28,15 @@ import UIKit
 internal extension IQKeyboardManager {
 
     private struct AssociatedKeys {
-        static var rootControllerConfigurationWhilePopGestureRecognizerActive: Int = 0
+        static var rootConfigurationWhilePopGestureActive: Int = 0
     }
 
-    var rootControllerConfigurationWhilePopGestureRecognizerActive: IQRootControllerConfiguration? {
+    var rootConfigurationWhilePopGestureActive: IQRootControllerConfiguration? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.rootControllerConfigurationWhilePopGestureRecognizerActive) as? IQRootControllerConfiguration
+            return objc_getAssociatedObject(self, &AssociatedKeys.rootConfigurationWhilePopGestureActive) as? IQRootControllerConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.rootControllerConfigurationWhilePopGestureRecognizerActive, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.rootConfigurationWhilePopGestureActive, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

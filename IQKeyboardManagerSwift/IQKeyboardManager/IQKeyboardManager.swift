@@ -227,13 +227,6 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
         // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
         resignFirstResponderGesture.isEnabled = resignOnTouchOutside
 
-        // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
-        // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-        let textField: UIView = UITextField()
-        textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
-        textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
-                                         nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
-
         disabledDistanceHandlingClasses.append(UITableViewController.self)
         disabledDistanceHandlingClasses.append(UIInputViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
@@ -250,6 +243,17 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
         
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        DispatchQueue.main.async {
+            // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
+            // If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
+            let textField: UIView = UITextField()
+            textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
+            textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
+                                             nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)))
+        }
     }
 
     deinit {
@@ -275,7 +279,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
 extension IQKeyboardManager: UIGestureRecognizerDelegate {
 
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/
-    @objc internal func tapRecognized(_ gesture: UITapGestureRecognizer) {
+    @objc private func tapRecognized(_ gesture: UITapGestureRecognizer) {
 
         if gesture.state == .ended {
 

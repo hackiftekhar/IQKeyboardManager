@@ -34,12 +34,12 @@ public extension IQKeyboardManager {
 
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
-            if let gestureConfiguration = self.rootControllerConfigurationWhilePopGestureRecognizerActive,
+            if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
                gestureConfiguration.rootController == self.activeConfiguration.rootControllerConfiguration?.rootController {
                 self.activeConfiguration.rootControllerConfiguration = gestureConfiguration
             }
 
-            self.rootControllerConfigurationWhilePopGestureRecognizerActive = nil
+            self.rootConfigurationWhilePopGestureActive = nil
 
             if let configuration = self.activeConfiguration.rootControllerConfiguration {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
@@ -84,7 +84,7 @@ public extension IQKeyboardManager {
 
         if let configuration = self.activeConfiguration.rootControllerConfiguration,
            configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
-            self.rootControllerConfigurationWhilePopGestureRecognizerActive = configuration
+            self.rootConfigurationWhilePopGestureActive = configuration
         }
 
         self.lastScrollViewConfiguration = nil

@@ -118,7 +118,7 @@ import UIKit
         placeholderLabel.frame = placeholderExpectedFrame
     }
 
-    @objc internal func refreshPlaceholder() {
+    @objc private func refreshPlaceholder() {
 
         let text: String = text ?? attributedText?.string ?? ""
         if text.isEmpty {

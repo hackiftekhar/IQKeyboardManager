@@ -23,6 +23,7 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 private struct AssociatedKeys {
     static var toolbar: Int = 0
     static var hidePlaceholder: Int = 0

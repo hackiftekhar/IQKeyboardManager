@@ -29,7 +29,7 @@
 #import "IQNSArray+Sort.h"
 
 NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@interface IQTextFieldViewInfoModal : NSObject
+@interface IQTextFieldViewInfoModel : NSObject
 
 @property(nullable, nonatomic, weak) UIView *textFieldView;
 @property(nullable, nonatomic, weak) id<UITextFieldDelegate> textFieldDelegate;
@@ -39,7 +39,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @end
 
 NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@implementation IQTextFieldViewInfoModal
+@implementation IQTextFieldViewInfoModel
 
 -(instancetype)initWithTextFieldView:(UIView*)textFieldView textFieldDelegate:(id<UITextFieldDelegate>)textFieldDelegate textViewDelegate:(id<UITextViewDelegate>)textViewDelegate originalReturnKey:(UIReturnKeyType)returnKeyType
 {
@@ -69,7 +69,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQKeyboardReturnKeyHandler
 {
-    NSMutableSet<IQTextFieldViewInfoModal*> *textFieldInfoCache;
+    NSMutableSet<IQTextFieldViewInfoModel*> *textFieldInfoCache;
 }
 
 @synthesize lastTextFieldReturnKeyType = _lastTextFieldReturnKeyType;
@@ -98,9 +98,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     return self;
 }
 
--(IQTextFieldViewInfoModal*)textFieldViewCachedInfo:(UIView*)textField
+-(IQTextFieldViewInfoModel*)textFieldViewCachedInfo:(UIView*)textField
 {
-    for (IQTextFieldViewInfoModal *model in textFieldInfoCache)
+    for (IQTextFieldViewInfoModel *model in textFieldInfoCache)
         if (model.textFieldView == textField)  return model;
 
     return nil;
@@ -123,7 +123,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)removeTextFieldView:(UIView*)view
 {
-    IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:view];
+    IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:view];
 
     if (model)
     {
@@ -145,7 +145,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)addTextFieldView:(UIView*)view
 {
-    IQTextFieldViewInfoModal *model = [[IQTextFieldViewInfoModal alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
+    IQTextFieldViewInfoModel *model = [[IQTextFieldViewInfoModel alloc] initWithTextFieldView:view textFieldDelegate:nil textViewDelegate:nil originalReturnKey:UIReturnKeyDefault];
     
     UITextField *textField = (UITextField*)view;
 
@@ -278,7 +278,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -296,7 +296,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -310,7 +310,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
 
@@ -326,7 +326,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -340,7 +340,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -354,7 +354,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -371,7 +371,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
 
@@ -387,7 +387,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
 
@@ -401,7 +401,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
 
@@ -416,7 +416,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -432,7 +432,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textField];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textField];
         delegate = model.textFieldDelegate;
     }
     
@@ -461,7 +461,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -477,7 +477,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -495,7 +495,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -509,7 +509,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -523,7 +523,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -546,7 +546,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -560,7 +560,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -574,7 +574,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -590,7 +590,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
     
@@ -607,7 +607,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -623,7 +623,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -637,7 +637,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -654,7 +654,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -670,7 +670,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -686,7 +686,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -700,7 +700,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     if (delegate == nil)
     {
-        IQTextFieldViewInfoModal *model = [self textFieldViewCachedInfo:textView];
+        IQTextFieldViewInfoModel *model = [self textFieldViewCachedInfo:textView];
         delegate = model.textViewDelegate;
     }
 
@@ -712,7 +712,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)dealloc
 {
-    for (IQTextFieldViewInfoModal *model in textFieldInfoCache)
+    for (IQTextFieldViewInfoModel *model in textFieldInfoCache)
     {
         UITextField *textField = (UITextField*)model.textFieldView;
 

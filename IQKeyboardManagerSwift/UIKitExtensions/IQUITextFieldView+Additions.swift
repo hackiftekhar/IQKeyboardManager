@@ -23,6 +23,7 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 private struct AssociatedKeys {
     static var distanceFromKeyboard: Int = 0
     static var ignoreSwitchingByNextPrevious: Int = 0

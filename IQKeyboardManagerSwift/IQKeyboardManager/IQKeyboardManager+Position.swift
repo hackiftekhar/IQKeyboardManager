@@ -93,8 +93,18 @@ public extension IQKeyboardManager {
         })
     }
 
+    @objc internal func applicationDidBecomeActive(_ notificatin: Notification) {
+
+        guard privateIsEnabled(),
+              activeConfiguration.keyboardInfo.keyboardShowing,
+              activeConfiguration.isReady else {
+            return
+        }
+        optimizedAdjustPosition()
+    }
+
     internal func optimizedAdjustPosition() {
-//        OperationQueue.main.addOperation {
+//        DispatchQueue.main.async {
             self.adjustPosition()
 //        }
     }
@@ -121,18 +131,21 @@ public extension IQKeyboardManager {
         var rootViewOrigin: CGPoint = rootController.view.frame.origin
 
         // Maintain keyboardDistanceFromTextField
-        var specialKeyboardDistanceFromTextField: CGFloat = textFieldView.iq.distanceFromKeyboard
+        let specialKeyboardDistanceFromTextField: CGFloat
 
         if let searchBar: UIView = textFieldView.iq.textFieldSearchBar() {
             specialKeyboardDistanceFromTextField = searchBar.iq.distanceFromKeyboard
+        } else {
+            specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
         }
 
         let newKeyboardDistanceFromTextField: CGFloat = (specialKeyboardDistanceFromTextField == UIView.defaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
 
-        var kbSize: CGSize =  activeConfiguration.keyboardInfo.frame.size
+        let kbSize: CGSize
+        let originalKbSize: CGSize
 
         do {
-            var kbFrame: CGRect =  activeConfiguration.keyboardInfo.frame
+            var kbFrame: CGRect = activeConfiguration.keyboardInfo.frame
 
             kbFrame.origin.y -= newKeyboardDistanceFromTextField
             kbFrame.size.height += newKeyboardDistanceFromTextField
@@ -147,6 +160,16 @@ public extension IQKeyboardManager {
                 kbSize = CGSize(width: kbFrame.size.width, height: 0)
             } else {
                 kbSize = intersectRect.size
+            }
+        }
+
+        do {
+            let kbFrame: CGRect = activeConfiguration.keyboardInfo.frame
+            let intersectRect = kbFrame.intersection(window.frame)
+            if intersectRect.isNull {
+                originalKbSize = CGSize(width: kbFrame.size.width, height: 0)
+            } else {
+                originalKbSize = intersectRect.size
             }
         }
 
@@ -181,10 +204,10 @@ public extension IQKeyboardManager {
             isNonScrollableTextView = false
         }
 
-        let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, rootController.view.layoutMargins.top) + 5
+        let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, rootController.view.directionalLayoutMargins.top) + 5
 
         // Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
-        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.layoutMargins.bottom
+        let bottomLayoutGuide: CGFloat = (isTextView && !isNonScrollableTextView) ? 0 : rootController.view.directionalLayoutMargins.bottom
         let visibleHeight: CGFloat = window.frame.height-kbSize.height
 
         //  Move positive = textField is hidden.
@@ -434,7 +457,7 @@ public extension IQKeyboardManager {
                 !lastScrollView.iq.ignoreContentInsetAdjustment {
 
                 var bottomInset: CGFloat = (kbSize.height)-(window.frame.height-lastScrollViewRect.maxY)
-                var bottomScrollIndicatorInset: CGFloat = bottomInset - newKeyboardDistanceFromTextField
+                var bottomScrollIndicatorInset: CGFloat = bottomInset - newKeyboardDistanceFromTextField - rootControllerConfiguration.beginSafeAreaInsets.bottom
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 bottomInset = max(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
@@ -479,7 +502,7 @@ public extension IQKeyboardManager {
            textView.isScrollEnabled,
            textFieldView.responds(to: #selector(getter: UITextView.isEditable)) {
 
-            let keyboardYPosition: CGFloat = window.frame.height - (kbSize.height-newKeyboardDistanceFromTextField)
+            let keyboardYPosition: CGFloat = window.frame.height - originalKbSize.height
             var rootSuperViewFrameInWindow: CGRect = window.frame
             if let rootSuperview: UIView = rootController.view.superview {
                 rootSuperViewFrameInWindow = rootSuperview.convert(rootSuperview.bounds, to: window)
@@ -514,7 +537,7 @@ public extension IQKeyboardManager {
         // +Positive or zero.
         if move >= 0 {
 
-            rootViewOrigin.y = max(rootViewOrigin.y - move, min(0, -(kbSize.height-newKeyboardDistanceFromTextField)))
+            rootViewOrigin.y = max(rootViewOrigin.y - move, min(0, -originalKbSize.height))
 
             if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
                 showLog("Moving Upward")

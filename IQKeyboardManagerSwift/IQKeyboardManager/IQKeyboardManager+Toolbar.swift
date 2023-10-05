@@ -64,12 +64,14 @@ public extension IQKeyboardManager {
         }
 
         let isTableCollectionView: Bool
-        if textField.superviewOfClassType(UITableView.self) != nil ||
-            textField.superviewOfClassType(UICollectionView.self) != nil{
+        if textField.iq.superviewOf(type: UITableView.self) != nil ||
+            textField.iq.superviewOf(type: UICollectionView.self) != nil {
             isTableCollectionView = true
         } else {
             isTableCollectionView = false
         }
+
+        let previousNextDisplayMode: IQPreviousNextDisplayMode = toolbarConfiguration.previousNextDisplayMode
 
         let shouldHavePreviousNext: Bool
         switch previousNextDisplayMode {
@@ -120,17 +122,21 @@ public extension IQKeyboardManager {
 
             if isTableCollectionView {
                 // In case of UITableView (Special), the next/previous buttons should always be enabled.    (Bug ID: #56)
-                textField.keyboardToolbar.previousBarButton.isEnabled = true
-                textField.keyboardToolbar.nextBarButton.isEnabled = true
+                textField.iq.toolbar.previousBarButton.isEnabled = true
+                textField.iq.toolbar.nextBarButton.isEnabled = true
             } else {
                 // If firstTextField, then previous should not be enabled.
-                textField.keyboardToolbar.previousBarButton.isEnabled = (siblings.first != textField)
+                textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)
                 // If lastTextField then next should not be enaled.
-                textField.keyboardToolbar.nextBarButton.isEnabled = (siblings.last != textField)
+                textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
             }
 
         } else {
-            textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), titleAccessibilityLabel: toolbarTitlBarButtonItemAccessibilityLabel, rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
+
+            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
+            textField.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
+                                    title: titleText,
+                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
         }

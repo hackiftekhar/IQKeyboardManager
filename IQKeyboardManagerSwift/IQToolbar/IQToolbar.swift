@@ -138,8 +138,8 @@ import UIKit
             if privateFixedSpaceBarButton == nil {
                 privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             }
-            privateFixedSpaceBarButton!.isSystemItem = true
-            privateFixedSpaceBarButton!.width = 6
+            privateFixedSpaceBarButton?.isSystemItem = true
+            privateFixedSpaceBarButton?.width = 6
 
             return privateFixedSpaceBarButton!
         }
