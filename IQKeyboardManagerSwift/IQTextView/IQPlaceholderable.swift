@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 public protocol IQPlaceholderable: AnyObject {
