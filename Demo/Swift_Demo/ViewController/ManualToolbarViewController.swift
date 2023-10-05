@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class ManualToolbarViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class ManualToolbarViewController: BaseViewController {
 
     @IBOutlet var textField1: UITextField!
     @IBOutlet var textField2: UITextField!
@@ -82,36 +82,5 @@ class ManualToolbarViewController: UIViewController, UIPopoverPresentationContro
 
         alertController.popoverPresentationController?.sourceView = sender
         self.present(alertController, animated: true, completion: nil)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

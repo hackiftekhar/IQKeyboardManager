@@ -1,8 +1,9 @@
 PODS:
   - IQDropDownTextField (4.0.1)
   - IQDropDownTextFieldSwift (4.0.1)
-  - IQKeyboardManager (6.5.12)
-  - IQKeyboardManagerSwift (6.5.12)
+  - IQKeyboardManager (6.5.13)
+  - IQKeyboardManagerSwift (6.5.13)
+  - RSKPlaceholderTextView (6.1.0)
   - SwiftLint (0.52.4)
 
 DEPENDENCIES:
@@ -10,12 +11,14 @@ DEPENDENCIES:
   - IQDropDownTextFieldSwift
   - IQKeyboardManager (from `.`)
   - IQKeyboardManagerSwift (from `.`)
+  - RSKPlaceholderTextView
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - IQDropDownTextField
     - IQDropDownTextFieldSwift
+    - RSKPlaceholderTextView
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -27,10 +30,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   IQDropDownTextField: c3a149deb3c6c4bba5edd85d88b6e83e90e08f63
   IQDropDownTextFieldSwift: a194ca9853f29cb90c19af31fabe7d899b0049ca
-  IQKeyboardManager: b1fd66ccf7a79095bdcc4a2735231586f744216e
-  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
+  IQKeyboardManager: a932e53c5175755c60a3e2ad31a9f3aa5e33dd89
+  IQKeyboardManagerSwift: 69b5fb9960edff37263d45c44fd97427e1f8c22b
+  RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 2967c4a229076bdd1c8dc911a8859a7fd6701a1a
+PODFILE CHECKSUM: 1d58689ba58536fe8ab7b1f3130d7d72975195cd
 
 COCOAPODS: 1.12.1

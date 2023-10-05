@@ -63,19 +63,34 @@ public extension IQKeyboardManager {
             rightConfiguration.accessibilityLabel = "Done"
         }
 
-        let previousNextDisplayMode: IQPreviousNextDisplayMode = toolbarConfiguration.previousNextDisplayMode
-        //    If only one object is found, then adding only Done button.
-        if (siblings.count <= 1 && previousNextDisplayMode == .default) || previousNextDisplayMode == .alwaysHide {
+        let isTableCollectionView: Bool
+        if textField.superviewOfClassType(UITableView.self) != nil ||
+            textField.superviewOfClassType(UICollectionView.self) != nil{
+            isTableCollectionView = true
+        } else {
+            isTableCollectionView = false
+        }
 
-            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
-            textField.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
-                                    title: titleText,
-                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
+        let shouldHavePreviousNext: Bool
+        switch previousNextDisplayMode {
+        case .default:
+            // If the textField is part of UITableView/UICollectionView then we should be exposing previous/next too
+            // Because at this time we don't know the previous or next cell if it contains another textField to move.
+            if isTableCollectionView {
+                shouldHavePreviousNext = true
+            } else if siblings.count <= 1 {
+                //    If only one object is found, then adding only Done button.
+                shouldHavePreviousNext = false
+            } else {
+                shouldHavePreviousNext = true
+            }
+        case .alwaysShow:
+            shouldHavePreviousNext = true
+        case .alwaysHide:
+            shouldHavePreviousNext = false
+        }
 
-            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
-
-        } else if previousNextDisplayMode == .default || previousNextDisplayMode == .alwaysShow {
-
+        if shouldHavePreviousNext {
             let prevConfiguration: IQBarButtonItemConfiguration
             if let configuration: IQBarButtonItemConfiguration = toolbarPreviousBarButtonItemConfiguration {
                 configuration.action = #selector(self.previousAction(_:))
@@ -102,6 +117,22 @@ public extension IQKeyboardManager {
                                     titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
+
+            if isTableCollectionView {
+                // In case of UITableView (Special), the next/previous buttons should always be enabled.    (Bug ID: #56)
+                textField.keyboardToolbar.previousBarButton.isEnabled = true
+                textField.keyboardToolbar.nextBarButton.isEnabled = true
+            } else {
+                // If firstTextField, then previous should not be enabled.
+                textField.keyboardToolbar.previousBarButton.isEnabled = (siblings.first != textField)
+                // If lastTextField then next should not be enaled.
+                textField.keyboardToolbar.nextBarButton.isEnabled = (siblings.last != textField)
+            }
+
+        } else {
+            textField.addKeyboardToolbarWithTarget(target: self, titleText: (shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder: nil), titleAccessibilityLabel: toolbarTitlBarButtonItemAccessibilityLabel, rightBarButtonConfiguration: rightConfiguration, previousBarButtonConfiguration: nil, nextBarButtonConfiguration: nil)
+
+            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
         }
 
         let toolbar: IQToolbar = textField.iq.toolbar

@@ -10,7 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import IQDropDownTextFieldSwift
 
-class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class TextFieldViewController: BaseViewController, UITextViewDelegate {
 
     @IBOutlet var textField3: UITextField!
     @IBOutlet var textView1: IQTextView!
@@ -20,9 +20,6 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     let keyboardListener = IQKeyboardListener()
 
     @IBOutlet var dropDownTextField: IQDropDownTextField!
-
-    @IBOutlet var buttonPush: UIButton!
-    @IBOutlet var buttonPresent: UIButton!
 
     @objc func previousAction(_ sender: UITextField) {
         print("PreviousAction")
@@ -86,14 +83,9 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if self.presentingViewController != nil {
-            buttonPush.isHidden = true
-            buttonPresent.setTitle("Dismiss", for: .normal)
-        }
-
-        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
-//            print(size)
-        }
+        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
+            print(size)
+        })
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,63 +93,8 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
     }
 
-    @IBAction func presentClicked (_ sender: AnyObject!) {
-
-        if self.presentingViewController == nil {
-
-            let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: "TextFieldViewController"))!
-            let navController: UINavigationController = UINavigationController(rootViewController: controller)
-            navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
-            navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
-            navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
-            navController.modalTransitionStyle = UIModalTransitionStyle(rawValue: Int.random(in: 0..<4))!
-
-            // TransitionStylePartialCurl can only be presented by FullScreen style.
-            if navController.modalTransitionStyle == UIModalTransitionStyle.partialCurl {
-                navController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-            } else {
-                navController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-            }
-
-            present(navController, animated: true, completion: nil)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
     func textViewDidBeginEditing(_ textView: UITextView) {
 
         print("textViewDidBeginEditing")
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

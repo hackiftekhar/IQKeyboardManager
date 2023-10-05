@@ -189,9 +189,11 @@
 - (void)colorPicker:(HFColorPickerView*)colorPickerView selectedColor:(UIColor*)selectedColor
 {
     self.selectedColor = selectedColor;
+    
+    __strong id<ColorPickerTextFieldDelegate> strongDelegate = self.delegate;
 
-    if ([self.delegate respondsToSelector:@selector(colorPickerTextField:selectedColorAttributes:)]) {
-        [self.delegate colorPickerTextField:self selectedColorAttributes:self.selectedColorAttributes];
+    if ([strongDelegate respondsToSelector:@selector(colorPickerTextField:selectedColorAttributes:)]) {
+        [strongDelegate colorPickerTextField:self selectedColorAttributes:self.selectedColorAttributes];
     }
 }
 

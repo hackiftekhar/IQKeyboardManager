@@ -29,9 +29,6 @@ private struct AssociatedKeys {
     static var placeholder: Int = 0
 }
 
-/**
-UIView category methods to add IQToolbar on UIKeyboard.
-*/
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManagerWrapper where Base: UIView {
 
@@ -97,12 +94,13 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return nil
         } else if placeholder?.isEmpty == false {
             return placeholder
-        } else if base.responds(to: #selector(getter: UITextField.placeholder)) {
+        } else if let placeholderable: IQPlaceholderable = base as? IQPlaceholderable {
 
-            if let textField: UITextField = base as? UITextField {
-                return textField.placeholder
-            } else if let textView: IQTextView = base as? IQTextView {
-                return textView.placeholder
+            if let placeholder = placeholderable.attributedPlaceholder?.string,
+                !placeholder.isEmpty {
+                return placeholder
+            } else if let placeholder = placeholderable.placeholder {
+                return placeholder
             } else {
                 return nil
             }
@@ -191,12 +189,12 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             } else if let textView: UITextView = base as? UITextView {
                 textView.inputAccessoryView = toolbar
             }
-
             if shouldReloadInputViews {
                 base.reloadInputViews()
             }
         }
     }
+    // swiftlint:enable function_body_length
 
     // MARK: Right
     func addDone(target: AnyObject?,

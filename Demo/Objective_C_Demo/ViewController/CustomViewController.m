@@ -76,18 +76,20 @@
 
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction|7<<16 animations:^{
             
-            if (weakSelf.settingsTopConstraint.constant != 0)
+            __strong __typeof__(self) strongSelf = weakSelf;
+
+            if (strongSelf.settingsTopConstraint.constant != 0)
             {
-                weakSelf.settingsTopConstraint.constant = 0;
+                strongSelf.settingsTopConstraint.constant = 0;
             }
             else
             {
-                weakSelf.settingsTopConstraint.constant = -weakSelf.settingsView.frame.size.height+30;
+                strongSelf.settingsTopConstraint.constant = -strongSelf.settingsView.frame.size.height+30;
             }
             
-            [weakSelf.view setNeedsLayout];
-            [weakSelf.view layoutIfNeeded];
-            
+            [strongSelf.view setNeedsLayout];
+            [strongSelf.view layoutIfNeeded];
+
         } completion:^(BOOL finished) {
             
         }];

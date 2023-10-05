@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class RefreshLayoutViewController: UIViewController {
+class RefreshLayoutViewController: BaseViewController {
 
     @IBOutlet var textViewHeightConstraint: NSLayoutConstraint!
 

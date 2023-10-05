@@ -1,5 +1,4 @@
 disabled_rules:
-    - identifier_name
     - function_parameter_count
     - cyclomatic_complexity
 
@@ -20,3 +19,8 @@ file_length:
     error: 1200
 
 line_length: 400
+
+identifier_name:
+    min_length:
+        warning: 2
+        error: 1

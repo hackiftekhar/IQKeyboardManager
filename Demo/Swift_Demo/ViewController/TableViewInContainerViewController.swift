@@ -8,10 +8,68 @@
 
 import UIKit
 
-class TableViewInContainerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+final class HeaderFooterView: UITableViewHeaderFooterView {
+    let textField: UITextField
+
+    override init(reuseIdentifier: String?) {
+        textField = UITextField(frame: CGRect(x: 15.0, y: 10.0, width: UIScreen.main.bounds.width - 30, height: 30.0))
+        super.init(reuseIdentifier: reuseIdentifier)
+        self.contentView.addSubview(textField)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class TableViewInContainerViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet private var tableView: UITableView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view: HeaderFooterView
+        if let reusableView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as? HeaderFooterView {
+            view = reusableView
+        } else {
+            view = HeaderFooterView(reuseIdentifier: "HeaderFooterView")
+        }
+
+        view.textField.placeholder = "\(section) Section Header"
+
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view: HeaderFooterView
+        if let reusableView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as? HeaderFooterView {
+            view = reusableView
+        } else {
+            view = HeaderFooterView(reuseIdentifier: "HeaderFooterView")
+        }
+
+        view.textField.placeholder = "\(section) Section Footer"
+
+        return view
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return 5
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,39 +95,8 @@ class TableViewInContainerViewController: UIViewController, UITableViewDataSourc
         }
 
         let textField = cell?.viewWithTag(123) as? UITextField
-        textField?.placeholder = "Cell \(indexPath.row)"
+        textField?.placeholder = "Cell \(indexPath.section), \(indexPath.row)"
 
         return cell!
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

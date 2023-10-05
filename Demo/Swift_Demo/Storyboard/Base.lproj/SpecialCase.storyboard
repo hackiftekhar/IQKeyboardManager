@@ -247,11 +247,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Special Cases" id="iYf-Wa-Sqo">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="g53-aV-qov">
-                            <connections>
-                                <segue destination="Jb2-GG-qSl" kind="presentation" identifier="SettingsNavigationController" id="ALr-9N-i2N"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="g53-aV-qov"/>
                     </navigationItem>
                     <connections>
                         <outlet property="customWorkTextField" destination="2mf-mU-ovU" id="3GY-QD-LQI"/>
@@ -649,11 +645,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CustomView Demo" id="oVJ-aw-xfZ">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="1FT-gp-Z1a">
-                            <connections>
-                                <segue destination="Jb2-GG-qSl" kind="presentation" identifier="SettingsNavigationController" id="Q72-Ah-YUm"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="1FT-gp-Z1a"/>
                     </navigationItem>
                     <connections>
                         <outlet property="settingsTopConstraint" destination="CaY-fa-4bg" id="v3a-F6-z4h"/>
@@ -679,7 +671,7 @@
         <!--UIStackView Example-->
         <scene sceneID="0zI-o4-2RU">
             <objects>
-                <viewController storyboardIdentifier="StackViewController" automaticallyAdjustsScrollViewInsets="NO" id="0iq-QC-GA9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StackViewController" automaticallyAdjustsScrollViewInsets="NO" id="0iq-QC-GA9" customClass="StackViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5wM-y3-LXg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -746,92 +738,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrD-fL-0A0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-276" y="215"/>
-        </scene>
-        <!--UITextView Selection (#56)-->
-        <scene sceneID="6Me-FU-xxD">
-            <objects>
-                <viewController storyboardIdentifier="TextSelectionViewController" id="wTU-tM-jot" customClass="TextSelectionViewController" customModule="DemoSwift" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="i2a-2r-Prw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HUH-vQ-Dj8">
-                                <rect key="frame" x="0.0" y="48" width="414" height="710"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="wTU-tM-jot" id="Jgi-Qv-kEi"/>
-                                    <outlet property="delegate" destination="wTU-tM-jot" id="0aP-U6-9Lp"/>
-                                </connections>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UF-WC-nUe">
-                                <rect key="frame" x="0.0" y="758" width="414" height="50"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5X-gz-grS">
-                                        <rect key="frame" x="5" y="10" width="404" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="CcS-xx-l5w"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="R5X-gz-grS" secondAttribute="trailing" constant="5" id="87D-xL-KXL"/>
-                                    <constraint firstItem="R5X-gz-grS" firstAttribute="leading" secondItem="5UF-WC-nUe" secondAttribute="leading" constant="5" id="Z0g-OJ-ohT"/>
-                                    <constraint firstAttribute="bottom" secondItem="R5X-gz-grS" secondAttribute="bottom" constant="10" id="iMk-y6-TER"/>
-                                    <constraint firstItem="R5X-gz-grS" firstAttribute="top" secondItem="5UF-WC-nUe" secondAttribute="top" constant="10" id="xia-4h-OgF"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRd-5H-bbl">
-                                <rect key="frame" x="0.0" y="808" width="414" height="54"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0IX-bl-o2k">
-                                        <rect key="frame" x="5" y="10" width="404" height="34"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="0IX-bl-o2k" firstAttribute="top" secondItem="CRd-5H-bbl" secondAttribute="top" constant="10" id="70W-Eb-osp"/>
-                                    <constraint firstItem="0IX-bl-o2k" firstAttribute="leading" secondItem="CRd-5H-bbl" secondAttribute="leading" constant="5" id="FpG-hU-liZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="0IX-bl-o2k" secondAttribute="bottom" constant="10" id="Vbo-Sp-16u"/>
-                                    <constraint firstAttribute="trailing" secondItem="0IX-bl-o2k" secondAttribute="trailing" constant="5" id="eTE-O8-JpR"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="fSP-uU-C2Z"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="CRd-5H-bbl" firstAttribute="top" secondItem="5UF-WC-nUe" secondAttribute="bottom" id="23u-Kv-9CJ"/>
-                            <constraint firstItem="HUH-vQ-Dj8" firstAttribute="top" secondItem="fSP-uU-C2Z" secondAttribute="top" id="2lV-eX-4sq"/>
-                            <constraint firstItem="5UF-WC-nUe" firstAttribute="trailing" secondItem="HUH-vQ-Dj8" secondAttribute="trailing" id="3uX-1e-me5"/>
-                            <constraint firstItem="fSP-uU-C2Z" firstAttribute="trailing" secondItem="HUH-vQ-Dj8" secondAttribute="trailing" id="LP2-Jm-skX"/>
-                            <constraint firstItem="HUH-vQ-Dj8" firstAttribute="leading" secondItem="fSP-uU-C2Z" secondAttribute="leading" id="PHi-lI-hsf"/>
-                            <constraint firstItem="5UF-WC-nUe" firstAttribute="top" secondItem="HUH-vQ-Dj8" secondAttribute="bottom" id="QJH-h6-HFB"/>
-                            <constraint firstItem="5UF-WC-nUe" firstAttribute="leading" secondItem="HUH-vQ-Dj8" secondAttribute="leading" id="X1G-hk-Grk"/>
-                            <constraint firstItem="CRd-5H-bbl" firstAttribute="leading" secondItem="HUH-vQ-Dj8" secondAttribute="leading" id="YmT-4c-vEq"/>
-                            <constraint firstItem="CRd-5H-bbl" firstAttribute="trailing" secondItem="HUH-vQ-Dj8" secondAttribute="trailing" id="tLL-vN-Xyn"/>
-                            <constraint firstItem="fSP-uU-C2Z" firstAttribute="bottom" secondItem="CRd-5H-bbl" secondAttribute="bottom" id="v6R-1L-Ku0"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="UITextView Selection (#56)" id="f8P-PN-bre">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="DUS-XL-qkM">
-                            <connections>
-                                <segue destination="Jb2-GG-qSl" kind="presentation" identifier="SettingsNavigationController" id="OTW-Og-F1H"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="HUH-vQ-Dj8" id="fZt-Jm-QpZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jcq-kl-QQO" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3041" y="217"/>
         </scene>
         <!--Refresh Layout-->
         <scene sceneID="Tw0-s7-gmb">
@@ -1127,18 +1033,10 @@
             </objects>
             <point key="canvasLocation" x="3798" y="215"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="Q9c-a1-yfF">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="Jb2-GG-qSl" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yUh-FQ-3ON" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-372" y="757"/>
-        </scene>
         <!--Page Screen-->
         <scene sceneID="oNq-q9-bec">
             <objects>
-                <viewController storyboardIdentifier="PageViewController" id="Qg6-ME-i2X" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageViewController" id="Qg6-ME-i2X" customClass="PageViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mju-MK-0pc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1168,9 +1066,6 @@
             <point key="canvasLocation" x="5423" y="217"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="OTW-Og-F1H"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="settings" width="25" height="25"/>
         <systemColor name="labelColor">

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController {
+class WebViewController: BaseViewController {
 
     let activity = UIActivityIndicatorView(style: .gray)
 
@@ -31,10 +31,6 @@ class WebViewController: UIViewController {
         self.webView.load(request)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activity)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }
 

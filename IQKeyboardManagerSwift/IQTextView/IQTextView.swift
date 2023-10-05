@@ -42,10 +42,6 @@ import UIKit
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder), name: UITextView.textDidChangeNotification, object: self)
     }
 
-    deinit {
-        IQ_PlaceholderLabel.removeFromSuperview()
-    }
-
     private var placeholderInsets: UIEdgeInsets {
         return UIEdgeInsets(top: self.textContainerInset.top, left: self.textContainerInset.left + self.textContainer.lineFragmentPadding, bottom: self.textContainerInset.bottom, right: self.textContainerInset.right + self.textContainer.lineFragmentPadding)
     }
@@ -53,13 +49,13 @@ import UIKit
     private var placeholderExpectedFrame: CGRect {
         let placeholderInsets: UIEdgeInsets = self.placeholderInsets
         let maxWidth: CGFloat = self.frame.width-placeholderInsets.left-placeholderInsets.right
-        let expectedSize: CGSize = IQ_PlaceholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        let expectedSize: CGSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
 
         return CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
     }
 
-    lazy var IQ_PlaceholderLabel: UILabel = {
-        let label: UILabel = UILabel()
+    lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
 
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.lineBreakMode = .byWordWrapping
@@ -83,11 +79,11 @@ import UIKit
     @IBInspectable open var placeholderTextColor: UIColor? {
 
         get {
-            return IQ_PlaceholderLabel.textColor
+            return placeholderLabel.textColor
         }
 
         set {
-            IQ_PlaceholderLabel.textColor = newValue
+            placeholderLabel.textColor = newValue
         }
     }
 
@@ -95,11 +91,11 @@ import UIKit
     @IBInspectable open var placeholder: String? {
 
         get {
-            return IQ_PlaceholderLabel.text
+            return placeholderLabel.text
         }
 
         set {
-            IQ_PlaceholderLabel.text = newValue
+            placeholderLabel.text = newValue
             refreshPlaceholder()
         }
     }
@@ -107,11 +103,11 @@ import UIKit
     /** @abstract To set textView's placeholder attributed text. Default is nil.    */
     open var attributedPlaceholder: NSAttributedString? {
         get {
-            return IQ_PlaceholderLabel.attributedText
+            return placeholderLabel.attributedText
         }
 
         set {
-            IQ_PlaceholderLabel.attributedText = newValue
+            placeholderLabel.attributedText = newValue
             refreshPlaceholder()
         }
     }
@@ -119,15 +115,16 @@ import UIKit
     @objc override open func layoutSubviews() {
         super.layoutSubviews()
 
-        IQ_PlaceholderLabel.frame = placeholderExpectedFrame
+        placeholderLabel.frame = placeholderExpectedFrame
     }
 
     @objc internal func refreshPlaceholder() {
 
-        if !text.isEmpty || !attributedText.string.isEmpty {
-            IQ_PlaceholderLabel.alpha = 0
+        let text: String = text ?? attributedText?.string ?? ""
+        if text.isEmpty {
+            placeholderLabel.alpha = 1
         } else {
-            IQ_PlaceholderLabel.alpha = 1
+            placeholderLabel.alpha = 0
         }
     }
 
@@ -150,16 +147,16 @@ import UIKit
         didSet {
 
             if let unwrappedFont: UIFont = font {
-                IQ_PlaceholderLabel.font = unwrappedFont
+                placeholderLabel.font = unwrappedFont
             } else {
-                IQ_PlaceholderLabel.font = UIFont.systemFont(ofSize: 12)
+                placeholderLabel.font = UIFont.systemFont(ofSize: 12)
             }
         }
     }
 
     @objc override open var textAlignment: NSTextAlignment {
         didSet {
-            IQ_PlaceholderLabel.textAlignment = textAlignment
+            placeholderLabel.textAlignment = textAlignment
         }
     }
 

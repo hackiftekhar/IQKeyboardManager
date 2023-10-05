@@ -26,7 +26,7 @@
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
 
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQBarButtonItem
 
 -(void)initialize
@@ -47,8 +47,8 @@
     [self setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
 }
 
-- (instancetype)init {
-
+- (instancetype)init
+{
     self = [super init];
 
     if (self)
@@ -59,8 +59,8 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
     self = [super initWithCoder: coder];
 
     if (self)

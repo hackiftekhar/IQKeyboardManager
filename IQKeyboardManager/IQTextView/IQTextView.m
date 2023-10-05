@@ -26,12 +26,14 @@
 #import "IQTextView.h"
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTextView ()
 
 @property(nullable, nonatomic, strong) UILabel *IQ_PlaceholderLabel;
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQTextView
 
 @synthesize placeholder = _placeholder;
@@ -69,7 +71,8 @@
 {
     if([[self text] length] || [[self attributedText] length])
     {
-        if (self.IQ_PlaceholderLabel.alpha != 0) {
+        if (self.IQ_PlaceholderLabel.alpha != 0)
+        {
             [self.IQ_PlaceholderLabel setAlpha:0];
             [self setNeedsLayout];
             [self layoutIfNeeded];
@@ -169,9 +172,11 @@
         _IQ_PlaceholderLabel.backgroundColor = [UIColor clearColor];
         _IQ_PlaceholderLabel.isAccessibilityElement = NO;
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-            if (@available(iOS 13.0, *)) {
+            if (@available(iOS 13.0, *))
+            {
                 _IQ_PlaceholderLabel.textColor = [UIColor systemGrayColor];
-            } else
+            }
+            else
         #endif
             {
                 _IQ_PlaceholderLabel.textColor = [UIColor lightTextColor];
@@ -192,7 +197,8 @@
 
 -(CGSize)intrinsicContentSize
 {
-    if (self.hasText) {
+    if (self.hasText)
+    {
         return [super intrinsicContentSize];
     }
     

@@ -32,6 +32,7 @@
 /**
  Manages the return key to work like next/done in a view hierarchy.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardReturnKeyHandler : NSObject
 
 ///----------------------

@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopoverPresentationControllerDelegate {
+class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
 
     fileprivate var returnKeyHandler: IQKeyboardReturnKeyHandler!
     @IBOutlet var textField2: UITextField!
@@ -43,38 +43,7 @@ class NavigationBarViewController: UIViewController, UITextFieldDelegate, UIPopo
         textField2.iq.hidePlaceholder = !textField2.iq.hidePlaceholder
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
         return true
     }
 }
