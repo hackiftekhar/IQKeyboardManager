@@ -391,7 +391,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             textFieldView.isAlertViewTextField() == false else {
                 return
         }
-        optimizedAdjustPosition()
+        self.adjustPosition()
     }
 }
 

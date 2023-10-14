@@ -37,7 +37,6 @@ public extension IQKeyboardManager {
         static var startingTextViewContentInsets: Int = 0
         static var startingTextViewScrollIndicatorInsets: Int = 0
         static var isTextViewContentInsetChanged: Int = 0
-        static var hasPendingAdjustRequest: Int = 0
     }
 
     /**
@@ -136,16 +135,6 @@ public extension IQKeyboardManager {
         }
     }
 
-    /** To know if we have any pending request to adjust view position. */
-    private var hasPendingAdjustRequest: Bool {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.hasPendingAdjustRequest) as? Bool ?? false
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.hasPendingAdjustRequest, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
     @objc internal func applicationDidBecomeActive(_ notificatin: Notification) {
 
         guard privateIsEnabled(),
@@ -154,30 +143,16 @@ public extension IQKeyboardManager {
             textFieldView.isAlertViewTextField() == false else {
                 return
         }
-        optimizedAdjustPosition()
+        self.adjustPosition()
      }
-
-    @objc internal func optimizedAdjustPosition() {
-        guard UIApplication.shared.applicationState == .active else {
-            return
-        }
-
-        if !hasPendingAdjustRequest {
-            hasPendingAdjustRequest = true
-            DispatchQueue.main.async {
-                self.adjustPosition()
-                self.hasPendingAdjustRequest = false
-            }
-        }
-    }
 
     // swiftlint:disable function_body_length
     /* Adjusting RootViewController's frame according to interface orientation. */
-    private func adjustPosition() {
+    internal func adjustPosition() {
 
         //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
-        guard hasPendingAdjustRequest,
-            let textFieldView = textFieldView,
+        guard UIApplication.shared.applicationState == .active,
+              let textFieldView = textFieldView,
             let rootController = textFieldView.parentContainerViewController(),
             let window = keyWindow(),
             let textFieldViewRectInWindow = textFieldView.superview?.convert(textFieldView.frame, to: window),
@@ -250,7 +225,7 @@ public extension IQKeyboardManager {
             navigationBarAreaHeight = statusBarHeight
         }
 
-        let layoutAreaHeight: CGFloat = rootController.view.directionalLayoutMargins.bottom
+        let layoutAreaHeight: CGFloat = rootController.view.directionalLayoutMargins.top
 
         let isTextView: Bool
         let isNonScrollableTextView: Bool
@@ -325,9 +300,9 @@ public extension IQKeyboardManager {
                     }
                 }
 
-                startingContentInsets = UIEdgeInsets()
-                startingScrollIndicatorInsets = UIEdgeInsets()
-                startingContentOffset = CGPoint.zero
+                startingContentInsets = .zero
+                startingScrollIndicatorInsets = .zero
+                startingContentOffset = .zero
                 self.lastScrollView = nil
             } else if superScrollView != lastScrollView {     // If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
 
@@ -699,7 +674,7 @@ public extension IQKeyboardManager {
 
     internal func restorePosition() {
 
-        hasPendingAdjustRequest = false
+//        hasPendingAdjustRequest = false
 
         //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
         guard topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false, let rootViewController = rootViewController else {

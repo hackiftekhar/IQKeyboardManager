@@ -219,30 +219,9 @@ public extension IQKeyboardManager {
                 textFieldView.isAlertViewTextField() == false {
 
                 //  keyboard is already showing. adjust position.
-                optimizedAdjustPosition()
+                self.adjustPosition()
             }
         }
-
-        let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
-    }
-
-    /*  UIKeyboardDidShowNotification. */
-    @objc internal func keyboardDidShow(_ notification: Notification) {
-
-        guard privateIsEnabled(),
-            let textFieldView = textFieldView,
-            let parentController = textFieldView.parentContainerViewController(),
-              (parentController.modalPresentationStyle == .formSheet || parentController.modalPresentationStyle == .pageSheet),
-            textFieldView.isAlertViewTextField() == false else {
-                return
-        }
-
-        let startTime = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-        showLog("Notification Object:\(notification.object ?? "NULL")")
-
-        self.optimizedAdjustPosition()
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
@@ -348,28 +327,14 @@ public extension IQKeyboardManager {
 
         // Reset all values
         lastScrollView = nil
-        keyboardFrame = CGRect.zero
+        keyboardFrame = .zero
         notifyKeyboardSize(size: keyboardFrame.size)
-        startingContentInsets = UIEdgeInsets()
-        startingScrollIndicatorInsets = UIEdgeInsets()
+        startingContentInsets = .zero
+        startingScrollIndicatorInsets = .zero
         startingContentOffset = CGPoint.zero
-        //    topViewBeginRect = CGRectZero    //Commented due to #82
-
-        let elapsedTime = CACurrentMediaTime() - startTime
-        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
-    }
-
-    @objc internal func keyboardDidHide(_ notification: Notification) {
-
-        let startTime = CACurrentMediaTime()
-        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-        showLog("Notification Object:\(notification.object ?? "NULL")")
-
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         topViewBeginSafeAreaInsets = .zero
 
-        keyboardFrame = CGRect.zero
-        notifyKeyboardSize(size: keyboardFrame.size)
 
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
