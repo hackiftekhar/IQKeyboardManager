@@ -1,8 +1,8 @@
 PODS:
   - IQDropDownTextField (4.0.1)
   - IQDropDownTextFieldSwift (4.0.1)
-  - IQKeyboardManager (6.5.13)
-  - IQKeyboardManagerSwift (6.5.13)
+  - IQKeyboardManager (6.5.15)
+  - IQKeyboardManagerSwift (6.5.15)
   - RSKPlaceholderTextView (6.1.0)
   - SwiftLint (0.52.4)
 
@@ -30,8 +30,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   IQDropDownTextField: c3a149deb3c6c4bba5edd85d88b6e83e90e08f63
   IQDropDownTextFieldSwift: a194ca9853f29cb90c19af31fabe7d899b0049ca
-  IQKeyboardManager: a932e53c5175755c60a3e2ad31a9f3aa5e33dd89
-  IQKeyboardManagerSwift: 69b5fb9960edff37263d45c44fd97427e1f8c22b
+  IQKeyboardManager: 22ffab9bd300ad493485a390a095f5db0c841776
+  IQKeyboardManagerSwift: 79fab21f451441935788dc5d80ded21c32685904
   RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 

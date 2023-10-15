@@ -239,7 +239,6 @@ public extension IQKeyboardManager {
 
         // Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
         let bottomLayoutGuide: CGFloat = isScrollableTextView ? 0 : rootController.view.directionalLayoutMargins.bottom
-        let visibleHeight: CGFloat = window.frame.height-kbSize.height
 
         //  Move positive = textField is hidden.
         //  Move negative = textField is showing.
@@ -247,6 +246,8 @@ public extension IQKeyboardManager {
         var moveUp: CGFloat
 
         do {
+            let visibleHeight: CGFloat = window.frame.height-kbSize.height
+
             let topMovement: CGFloat = textFieldViewRectInRootSuperview.minY-topLayoutGuide
             let bottomMovement: CGFloat = textFieldViewRectInWindow.maxY - visibleHeight + bottomLayoutGuide
             moveUp = min(topMovement, bottomMovement)
@@ -374,7 +375,7 @@ public extension IQKeyboardManager {
                     shouldContinue =  moveUp > (-scrollView.contentOffset.y - scrollView.contentInset.top)
 
                 } else if let tableView = scrollView.superviewOfClassType(UITableView.self) as? UITableView {
-
+                    // Special treatment for UITableView due to their cell reusing logic
                     shouldContinue = scrollView.contentOffset.y > 0
 
                     if shouldContinue, let tableCell = textFieldView.superviewOfClassType(UITableViewCell.self) as? UITableViewCell, let indexPath = tableView.indexPath(for: tableCell), let previousIndexPath = tableView.previousIndexPath(of: indexPath) {
@@ -387,7 +388,7 @@ public extension IQKeyboardManager {
                         }
                     }
                 } else if let collectionView = scrollView.superviewOfClassType(UICollectionView.self) as? UICollectionView {
-
+                    // Special treatment for UITableView due to their cell reusing logic
                     shouldContinue = scrollView.contentOffset.y > 0
 
                     if shouldContinue, let collectionCell = textFieldView.superviewOfClassType(UICollectionViewCell.self) as? UICollectionViewCell, let indexPath = collectionView.indexPath(for: collectionCell), let previousIndexPath = collectionView.previousIndexPath(of: indexPath), let attributes = collectionView.layoutAttributesForItem(at: previousIndexPath) {
@@ -655,8 +656,6 @@ public extension IQKeyboardManager {
     // swiftlint:enable function_body_length
 
     internal func restorePosition() {
-
-//        hasPendingAdjustRequest = false
 
         //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
         guard topViewBeginOrigin.equalTo(IQKeyboardManager.kIQCGPointInvalid) == false, let rootViewController = rootViewController else {
