@@ -760,7 +760,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         navigationBarAreaHeight = statusBarHeight;
     }
 
-    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.bottom;
+    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.top;
 
     BOOL isScrollableTextView;
 
