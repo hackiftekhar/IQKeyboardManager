@@ -67,8 +67,11 @@ public struct IQKeyboardInfo: Equatable {
             }
 
             //  Getting keyboard animation duration
-            let duration: TimeInterval = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.25
-            animationDuration = TimeInterval.maximum(duration, 0.25)
+            if let duration: TimeInterval = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval, duration != 0.0 {
+                animationDuration = duration
+            } else {
+                animationDuration = 0.25
+            }
             let screen: UIScreen = (notification?.object as? UIScreen) ?? UIScreen.main
 
             //  Getting UIKeyboardSize.

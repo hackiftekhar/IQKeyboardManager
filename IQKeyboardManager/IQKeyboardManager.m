@@ -760,7 +760,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         navigationBarAreaHeight = statusBarHeight;
     }
 
-    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.bottom;
+    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.top;
 
     BOOL isScrollableTextView;
 
@@ -947,24 +947,24 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
             while (superScrollView)
             {
-                BOOL shouldContinue = NO;
+                BOOL isContinue = NO;
                 
                 if (moveUp > 0)
                 {
-                    shouldContinue = moveUp > (-superScrollView.contentOffset.y-superScrollView.contentInset.top);
+                    isContinue = moveUp > (-superScrollView.contentOffset.y-superScrollView.contentInset.top);
                 }
                 //Special treatment for UITableView due to their cell reusing logic
                 else if ([superScrollView isKindOfClass:[UITableView class]])
                 {
 
-                    shouldContinue = superScrollView.contentOffset.y>0;
+                    isContinue = superScrollView.contentOffset.y>0;
 
                     UITableView *tableView = (UITableView*)superScrollView;
                     UITableViewCell *tableCell = nil;
                     NSIndexPath *indexPath = nil;
                     NSIndexPath *previousIndexPath = nil;
 
-                    if (shouldContinue &&
+                    if (isContinue &&
                         (tableCell = (UITableViewCell*)[textFieldView superviewOfClassType:[UITableViewCell class]]) &&
                         (indexPath = [tableView indexPathForCell:tableCell]) &&
                         (previousIndexPath = [tableView previousIndexPathOfIndexPath:indexPath]))
@@ -980,14 +980,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 //Special treatment for UICollectionView due to their cell reusing logic
                 else if ([superScrollView isKindOfClass:[UICollectionView class]])
                 {
-                    shouldContinue = superScrollView.contentOffset.y>0;
+                    isContinue = superScrollView.contentOffset.y>0;
 
                     UICollectionView *collectionView = (UICollectionView*)superScrollView;
                     UICollectionViewCell *collectionCell = nil;
                     NSIndexPath *indexPath = nil;
                     NSIndexPath *previousIndexPath = nil;
 
-                    if (shouldContinue &&
+                    if (isContinue &&
                         (collectionCell = (UICollectionViewCell*)[textFieldView superviewOfClassType:[UICollectionViewCell class]]) &&
                         (indexPath = [collectionView indexPathForCell:collectionCell]) &&
                         (previousIndexPath = [collectionView previousIndexPathOfIndexPath:indexPath]))
@@ -1005,15 +1005,15 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 else
                 {
                     //If the textField is hidden at the top
-                    shouldContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide;
+                    isContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide;
 
-                    if (shouldContinue)
+                    if (isContinue)
                     {
                         moveUp = MIN(0, textFieldViewRectInRootSuperview.origin.y - topLayoutGuide);
                     }
                 }
 
-                if (shouldContinue == NO)
+                if (isContinue == NO)
                 {
                     moveUp = 0;
                     break;
@@ -1041,17 +1041,17 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 CGRect lastViewRect = [[lastView superview] convertRect:lastView.frame toView:superScrollView];
                 
                 //Calculating the expected Y offset from move and scrollView's contentOffset.
-                CGFloat shouldOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-moveUp);
+                CGFloat suggestedOffsetY = superScrollView.contentOffset.y - MIN(superScrollView.contentOffset.y,-moveUp);
                 
                 //Rearranging the expected Y offset according to the view.
-                shouldOffsetY = MIN(shouldOffsetY, lastViewRect.origin.y);
+                suggestedOffsetY = MIN(suggestedOffsetY, lastViewRect.origin.y);
                 
                 //[textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                 //[superScrollView superviewOfClassType:[UIScrollView class]] == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierarchy.)
-                //shouldOffsetY >= 0     shouldOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+                //suggestedOffsetY >= 0     suggestedOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
                 if ([textFieldView respondsToSelector:@selector(isEditable)]  && [textFieldView isKindOfClass:[UIScrollView class]] &&
                     nextScrollView == nil &&
-                    (shouldOffsetY >= 0))
+                    (suggestedOffsetY >= 0))
                 {
                     //  Converting Rectangle according to window bounds.
                     CGRect currentTextFieldViewRect = [[textFieldView superview] convertRect:textFieldView.frame toView:keyWindow];
@@ -1059,20 +1059,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     //Calculating expected fix distance which needs to be managed from navigation bar
                     CGFloat expectedFixDistance = CGRectGetMinY(currentTextFieldViewRect) - topLayoutGuide;
                     
-                    //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current shouldOffsetY, which means we're in a position where navigationBar up and hide, then reducing shouldOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
-                    shouldOffsetY = MIN(shouldOffsetY, superScrollView.contentOffset.y + expectedFixDistance);
+                    //Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current suggestedOffsetY, which means we're in a position where navigationBar up and hide, then reducing suggestedOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
+                    suggestedOffsetY = MIN(suggestedOffsetY, superScrollView.contentOffset.y + expectedFixDistance);
                     
                     //Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic. 
                     moveUp = 0;
                 }
                 else
                 {
-                    //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to shouldOffsetY.
-                    moveUp -= (shouldOffsetY-superScrollView.contentOffset.y);
+                    //Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
+                    moveUp -= (suggestedOffsetY-superScrollView.contentOffset.y);
                 }
 
                 
-                CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, shouldOffsetY);
+                CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, suggestedOffsetY);
                 
                 if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
                 {
@@ -1083,7 +1083,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         
                         __strong __typeof__(self) strongSelf = weakSelf;
 
-                        [strongSelf showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-shouldOffsetY),[superScrollView _IQDescription]]];
+                        [strongSelf showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-suggestedOffsetY),[superScrollView _IQDescription]]];
                         [strongSelf showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",moveUp]];
                         
                         BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
@@ -1320,8 +1320,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             UIViewController *strongRootController = strongSelf.rootViewController;
             
             {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@",strongRootController,NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
-                
+                [strongSelf showLog:[NSString stringWithFormat:@"Restoring %@ origin to : %@", NSStringFromClass([strongRootController class]), NSStringFromCGPoint(strongSelf.topViewBeginOrigin)]];
+
                 //Restoring
                 CGRect rect = strongRootController.view.frame;
                 rect.origin = strongSelf.topViewBeginOrigin;
@@ -1433,7 +1433,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _rootViewControllerWhilePopGestureRecognizerActive = nil;
         _topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
         
-        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",rootController,NSStringFromCGPoint(_topViewBeginOrigin)]];
+        [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",NSStringFromClass([rootController class]),NSStringFromCGPoint(_topViewBeginOrigin)]];
     }
 
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
@@ -1479,7 +1479,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
 
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
+    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([aNotification.object class])]];
 
     //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
     //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
@@ -1607,7 +1607,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
 
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", notification.object]];
+    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([notification.object class])]];
 
     //  Getting object
     _textFieldView = object;
@@ -1633,17 +1633,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
 	if ([self privateIsEnableAutoToolbar])
     {
-        //UITextView special case. Keyboard Notification is firing before textView notification so we need to reload it's inputViews.
-        if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]] &&
-            textFieldView.inputAccessoryView == nil)
-        {
-            [self addToolbarIfRequired];
-        }
-        //Else adding toolbar
-        else
-        {
-            [self addToolbarIfRequired];
-        }
+        [self addToolbarIfRequired];
     }
     else
     {
@@ -1681,7 +1671,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             _rootViewControllerWhilePopGestureRecognizerActive = nil;
             _topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
             
-            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",rootController, NSStringFromCGPoint(_topViewBeginOrigin)]];
+            [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",NSStringFromClass([rootController class]), NSStringFromCGPoint(_topViewBeginOrigin)]];
         }
         
         //If textFieldView is inside AlertView then do nothing. (Bug ID: #37, #74, #76)
@@ -1716,7 +1706,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
 
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", notification.object]];
+    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([notification.object class])]];
 
     UIView *textFieldView = _textFieldView;
 
@@ -1815,7 +1805,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
 
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
+    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([aNotification.object class])]];
 
     __strong __typeof__(UIView) *strongTextFieldView = _textFieldView;
 
@@ -2120,32 +2110,32 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 isTableCollectionView = NO;
             }
 
-            BOOL shouldHavePreviousNext = NO;
+            BOOL havePreviousNext = NO;
             switch (self.previousNextDisplayMode)
             {
                 case IQPreviousNextDisplayModeDefault:
                     if (isTableCollectionView)
                     {
-                        shouldHavePreviousNext = YES;
+                        havePreviousNext = YES;
                     }
                     else if (siblings.count <= 1)
                     {
-                        shouldHavePreviousNext = NO;
+                        havePreviousNext = NO;
                     }
                     else
                     {
-                        shouldHavePreviousNext = YES;
+                        havePreviousNext = YES;
                     }
                     break;
                 case IQPreviousNextDisplayModeAlwaysShow:
-                    shouldHavePreviousNext = YES;
+                    havePreviousNext = YES;
                     break;
                 case IQPreviousNextDisplayModeAlwaysHide:
-                    shouldHavePreviousNext = NO;
+                    havePreviousNext = NO;
                     break;
             }
 
-            if (shouldHavePreviousNext)
+            if (havePreviousNext)
             {
                 IQBarButtonItemConfiguration *prevConfiguration = nil;
 

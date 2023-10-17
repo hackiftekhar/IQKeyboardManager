@@ -132,17 +132,7 @@ extension IQKeyboardManager {
 
         // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
         if privateIsEnableAutoToolbar() {
-
-            // UITextView special case. Keyboard Notification is firing before textView notification so we need to resign it first and then again set it as first responder to add toolbar on it.
-            if let textView: UIScrollView = textFieldView as? UIScrollView,
-                textView.responds(to: #selector(getter: UITextView.isEditable)),
-                textView.inputAccessoryView == nil {
-
-                self.addToolbarIfRequired()
-            } else {
-                // Adding toolbar
-                addToolbarIfRequired()
-            }
+            addToolbarIfRequired()
         } else {
             removeToolbarIfRequired()
         }

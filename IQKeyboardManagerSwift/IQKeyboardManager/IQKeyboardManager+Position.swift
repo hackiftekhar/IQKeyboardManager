@@ -577,7 +577,8 @@ public extension IQKeyboardManager {
 
         activeConfiguration.animate(alongsideTransition: {
             if configuration.hasChanged {
-                self.showLog("Restoring \(configuration.rootController) origin to: \(configuration.beginOrigin)")
+                let classNameString: String = "\(type(of: configuration.rootController.self))"
+                self.showLog("Restoring \(classNameString) origin to: \(configuration.beginOrigin)")
             }
             configuration.restore()
 

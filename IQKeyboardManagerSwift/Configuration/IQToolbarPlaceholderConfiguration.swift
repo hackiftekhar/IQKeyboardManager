@@ -46,5 +46,8 @@ import UIKit
      */
     @objc public var buttonColor: UIColor?
 
+    /**
+     Placeholder accessibility Label
+     */
     public override var accessibilityLabel: String? { didSet { } }
 }

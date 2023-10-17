@@ -73,26 +73,26 @@ public extension IQKeyboardManager {
 
         let previousNextDisplayMode: IQPreviousNextDisplayMode = toolbarConfiguration.previousNextDisplayMode
 
-        let shouldHavePreviousNext: Bool
+        let havePreviousNext: Bool
         switch previousNextDisplayMode {
         case .default:
             // If the textField is part of UITableView/UICollectionView then we should be exposing previous/next too
             // Because at this time we don't know the previous or next cell if it contains another textField to move.
             if isTableCollectionView {
-                shouldHavePreviousNext = true
+                havePreviousNext = true
             } else if siblings.count <= 1 {
                 //    If only one object is found, then adding only Done button.
-                shouldHavePreviousNext = false
+                havePreviousNext = false
             } else {
-                shouldHavePreviousNext = true
+                havePreviousNext = true
             }
         case .alwaysShow:
-            shouldHavePreviousNext = true
+            havePreviousNext = true
         case .alwaysHide:
-            shouldHavePreviousNext = false
+            havePreviousNext = false
         }
 
-        if shouldHavePreviousNext {
+        if havePreviousNext {
             let prevConfiguration: IQBarButtonItemConfiguration
             if let configuration: IQBarButtonItemConfiguration = toolbarPreviousBarButtonItemConfiguration {
                 configuration.action = #selector(self.previousAction(_:))
