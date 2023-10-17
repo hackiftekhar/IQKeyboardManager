@@ -204,7 +204,6 @@ f
         <!--UITextView Selection (#56)-->
         <scene sceneID="DlL-B7-fVn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1LS-NN-4qo" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TextSelectionViewController" id="aGy-VH-eDu" customClass="TextSelectionViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K57-tY-6IX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -280,8 +279,27 @@ f
                         <outlet property="tableView" destination="yvg-ll-4ka" id="zCC-d0-xZI"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1LS-NN-4qo" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3041" y="217"/>
+        </scene>
+        <!--Non Scrollable TextView (#1979)-->
+        <scene sceneID="yE9-fb-Jw7">
+            <objects>
+                <viewController storyboardIdentifier="NonScrollTextView1979ViewController" id="CEK-Og-pGd" customClass="NonScrollTextView1979ViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HaP-j4-hld">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="pLD-mj-2F4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Non Scrollable TextView (#1979)" id="b3I-5W-Yrn">
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="QTj-hW-fxS"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ob8-kF-zqG" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-608" y="-49"/>
         </scene>
     </scenes>
     <resources>

@@ -90,9 +90,9 @@ extension BaseViewController {
         navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
         navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
         navController.modalPresentationStyle = style
-        let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        navController.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
         if style == .popover {
+            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+            navController.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
             navController.popoverPresentationController?.barButtonItem = sender
             navController.popoverPresentationController?.delegate = self
         }
