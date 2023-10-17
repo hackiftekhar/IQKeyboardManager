@@ -156,7 +156,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                 toolbar.titleBarButton.accessibilityLabel = titleAccessibilityLabel
                 toolbar.titleBarButton.accessibilityIdentifier = titleAccessibilityLabel
 
-                toolbar.titleBarButton.customView?.frame = CGRect.zero
+                toolbar.titleBarButton.customView?.frame = .zero
 
                 items.append(toolbar.titleBarButton)
 

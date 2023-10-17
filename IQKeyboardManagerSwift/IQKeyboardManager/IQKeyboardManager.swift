@@ -54,7 +54,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
             if enable, !oldValue {
                 // If keyboard is currently showing.
                 if activeConfiguration.keyboardInfo.keyboardShowing {
-                    optimizedAdjustPosition()
+                    adjustPosition()
                 } else {
                     restorePosition()
                 }
@@ -271,7 +271,7 @@ https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_yo
               activeConfiguration.isReady else {
                 return
         }
-        optimizedAdjustPosition()
+        adjustPosition()
     }
 }
 

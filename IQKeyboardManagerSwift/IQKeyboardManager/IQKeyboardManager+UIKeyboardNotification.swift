@@ -52,7 +52,7 @@ public extension IQKeyboardManager {
         if !privateIsEnabled() {
             restorePosition()
         } else {
-            optimizedAdjustPosition()
+            adjustPosition()
         }
 
 //        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
@@ -68,7 +68,7 @@ public extension IQKeyboardManager {
         if !privateIsEnabled() {
             restorePosition()
         } else {
-            optimizedAdjustPosition()
+            adjustPosition()
         }
 
 //        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
