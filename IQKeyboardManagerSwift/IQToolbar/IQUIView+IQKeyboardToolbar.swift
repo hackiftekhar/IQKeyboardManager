@@ -146,8 +146,7 @@ UIView category methods to add IQToolbar on UIKeyboard.
             var width: CGFloat = 0
             
             if #available(iOS 13.0, *) {
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                width = windowScene?.screen.bounds.width ?? .zero
+                width = window?.windowScene?.screen.bounds.width ?? .zero
             } else {
                 width = UIScreen.main.bounds.width
             }
