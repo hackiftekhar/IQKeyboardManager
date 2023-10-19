@@ -23,34 +23,27 @@
 
 import Foundation
 
-internal class IQPropertyObserver<Subject, Value> where Subject: NSObject, Value: Equatable {
+@MainActor
+internal final class IQPropertyObserver<Subject, Value>
+where Subject: NSObject, Value: Equatable {
     let object: Subject
-    private var observation: NSKeyValueObservation?
-    private let debouncer: IQValueDebouncer = IQValueDebouncer<Value>()
+    private let observation: NSKeyValueObservation
 
     init(object: Subject,
          keyPath: KeyPath<Subject, Value>,
-         debounce: TimeInterval? = nil,
-         changeHandler: @escaping ((_ old: Value?, _ new: Value?) -> Void)) {
+         changeHandler: @escaping (_ old: Value?, _ new: Value?) -> Void) {
         self.object = object
 
         observation = object.observe(keyPath,
                                      options: [.old, .new],
-                                     changeHandler: { [weak self] _, change in
+                                     changeHandler: { _, change in
             if change.oldValue != change.newValue {
-
-                if let debounce = debounce {
-                    self?.debouncer.debounce(value: change.newValue, interval: debounce, changeHandler: changeHandler)
-                } else {
-                    changeHandler(change.oldValue, change.newValue)
-                }
+                changeHandler(change.oldValue, change.newValue)
             }
         })
     }
 
     func invalidate() {
-        observation?.invalidate()
-        observation = nil
-        debouncer.invalidate()
+        observation.invalidate()
     }
 }

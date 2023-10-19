@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal struct IQRootControllerConfiguration {
 
     let rootController: UIViewController

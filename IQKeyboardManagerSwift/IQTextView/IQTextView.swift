@@ -25,6 +25,7 @@ import UIKit
 
 /** @abstract UITextView with placeholder support   */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc open class IQTextView: UITextView {
 
     @objc required public init?(coder aDecoder: NSCoder) {

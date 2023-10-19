@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc extension UIViewController {
 
     /**

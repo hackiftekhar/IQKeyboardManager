@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private struct AssociatedKeys {
     static var ignoreScrollingAdjustment: Int = 0
     static var ignoreContentInsetAdjustment: Int = 0
@@ -34,6 +35,7 @@ private struct AssociatedKeys {
 extension UIScrollView: IQKeyboardManagerCompatible {}
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManagerWrapper where Base: UIScrollView {
 
     /**

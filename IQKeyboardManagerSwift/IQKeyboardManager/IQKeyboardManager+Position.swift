@@ -27,6 +27,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
+    @MainActor
     private struct AssociatedKeys {
         static var movedDistance: Int = 0
         static var movedDistanceChanged: Int = 0

@@ -24,8 +24,9 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public struct IQKeyboardInfo: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.frame.equalTo(rhs.frame)
     }
 

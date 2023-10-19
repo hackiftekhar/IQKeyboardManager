@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private struct AssociatedKeys {
     static var toolbar: Int = 0
     static var hidePlaceholder: Int = 0
@@ -31,6 +32,7 @@ private struct AssociatedKeys {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManagerWrapper where Base: UIView {
 
     // MARK: Toolbar

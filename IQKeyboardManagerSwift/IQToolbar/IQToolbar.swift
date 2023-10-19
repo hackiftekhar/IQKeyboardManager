@@ -25,6 +25,7 @@ import UIKit
 
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     override init(frame: CGRect) {

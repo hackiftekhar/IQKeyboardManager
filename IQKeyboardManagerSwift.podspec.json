@@ -1,44 +1,38 @@
 {
-  "name": "IQKeyboardManagerSwift",
-  "version": "7.0.0",
-  "source": {
-    "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
-    "tag": "7.0.0"
-  },
-  "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
-  "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
-  "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png",
-  "license": "MIT",
-  "authors": {
-    "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
-  },
-  "platforms": {
-    "ios": "11.0"
-  },
-  "swift_versions": [
-    "4.2",
-    "5.0",
-    "5.1",
-    "5.2",
-    "5.3",
-    "5.4",
-    "5.5",
-    "5.6",
-    "5.7",
-    "5.8",
-    "5.9"
-  ],
-  "source_files": "IQKeyboardManagerSwift/**/*.{swift, xcprivacy}",
-  "resources": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy",
-  "frameworks": [
-    "UIKit",
-    "Foundation",
-    "CoreGraphics",
-    "QuartzCore"
-  ],
-  "libraries": "swiftCoreGraphics",
-  "xcconfig": {
-      "LIBRARY_SEARCH_PATHS": "$(SDKROOT)/usr/lib/swift"
-  },
-  "requires_arc": true
+    "name": "IQKeyboardManagerSwift",
+    "version": "7.0.0",
+    "source": {
+        "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
+        "tag": "7.0.0"
+    },
+    "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
+    "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
+    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png",
+    "license": "MIT",
+    "authors": {
+        "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
+    },
+    "platforms": {
+        "ios": "13.0"
+    },
+    "swift_versions": [
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "5.9"
+    ],
+    "source_files": "IQKeyboardManagerSwift/**/*.{swift, xcprivacy}",
+    "resources": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy",
+    "frameworks": [
+        "UIKit",
+        "Foundation",
+        "CoreGraphics",
+        "QuartzCore"
+    ],
+    "libraries": "swiftCoreGraphics",
+    "xcconfig": {
+        "LIBRARY_SEARCH_PATHS": "$(SDKROOT)/usr/lib/swift"
+    },
+    "requires_arc": true
 }

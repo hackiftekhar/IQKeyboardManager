@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public class IQKeyboardListener {
 
     private var sizeObservers: [AnyHashable: SizeCompletion] = [:]

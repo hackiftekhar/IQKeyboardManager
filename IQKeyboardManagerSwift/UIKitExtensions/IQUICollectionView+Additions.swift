@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension UICollectionView {
 
     func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {

@@ -27,6 +27,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
+    @MainActor
     private struct AssociatedKeys {
         static var enableDebugging: Int = 0
     }
@@ -41,6 +42,7 @@ public extension IQKeyboardManager {
         }
     }
 
+    @MainActor
     struct Static {
         static var indentation = 0
     }

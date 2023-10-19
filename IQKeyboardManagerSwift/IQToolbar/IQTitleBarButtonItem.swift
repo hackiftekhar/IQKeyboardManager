@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc open class IQTitleBarButtonItem: IQBarButtonItem {
 
     @objc open var titleFont: UIFont? {

@@ -24,13 +24,15 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public struct IQTextFieldViewInfo: Equatable {
 
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.textFieldView == rhs.textFieldView &&
         lhs.name == rhs.name
     }
 
+    @MainActor
     @objc public enum Name: Int {
         case beginEditing
         case endEditing
@@ -38,7 +40,7 @@ public struct IQTextFieldViewInfo: Equatable {
 
     public let name: Name
 
-    public private(set) var textFieldView: UIView
+    public let textFieldView: UIView
 
     public init?(notification: Notification?, name: Name) {
         guard let view: UIView = notification?.object as? UIView else {

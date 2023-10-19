@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public class IQTextFieldViewListener {
 
     private var textFieldViewObservers: [AnyHashable: TextFieldViewCompletion] = [:]

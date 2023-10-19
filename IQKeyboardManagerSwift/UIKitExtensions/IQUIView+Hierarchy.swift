@@ -28,6 +28,7 @@ UIView hierarchy category.
 */
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManagerWrapper where Base: UIView {
 
     // MARK: viewControllers
@@ -194,6 +195,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardManagerWrapper where Base: UIView {
 
     /**

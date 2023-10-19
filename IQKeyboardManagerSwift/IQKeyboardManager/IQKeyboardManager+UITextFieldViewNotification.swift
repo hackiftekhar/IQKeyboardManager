@@ -25,8 +25,10 @@ import UIKit
 
 // MARK: UITextField/UITextView Notifications
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardManager {
 
+    @MainActor
     private struct AssociatedKeys {
         static var rootConfigWhilePopActive: Int = 0
     }

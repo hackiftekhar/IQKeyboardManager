@@ -25,6 +25,7 @@ import Foundation
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public protocol IQPlaceholderable: AnyObject {
 
     var placeholder: String? { get set }

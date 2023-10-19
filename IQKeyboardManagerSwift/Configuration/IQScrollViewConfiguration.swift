@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal struct IQScrollViewConfiguration {
     let scrollView: UIScrollView
     let startingContentOffset: CGPoint

@@ -38,6 +38,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
  Neither need to write any code nor any setup required and much more.
 */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public final class IQKeyboardManager: NSObject {
 
     /**

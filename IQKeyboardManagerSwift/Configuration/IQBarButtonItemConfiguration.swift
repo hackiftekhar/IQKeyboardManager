@@ -27,6 +27,7 @@ import UIKit
  IQBarButtonItemConfiguration for creating toolbar with bar button items
  */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public final class IQBarButtonItemConfiguration: NSObject {
 
     @objc public init(systemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {

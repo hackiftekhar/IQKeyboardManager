@@ -27,6 +27,7 @@ import UIKit
 Manages the return key to work like next/done in a view hierarchy.
 */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public final class IQKeyboardReturnKeyHandler: NSObject {
 
     // MARK: Settings

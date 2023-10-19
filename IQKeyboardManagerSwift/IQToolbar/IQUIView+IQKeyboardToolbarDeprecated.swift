@@ -27,6 +27,7 @@ import UIKit
 // swiftlint:disable line_length
 // swiftlint:disable function_parameter_count
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public extension UIView {
 
     @available(*, unavailable, renamed: "iq.toolbar")

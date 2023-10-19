@@ -24,6 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal final class IQTextFieldViewInfoModel: NSObject {
 
     weak var textFieldDelegate: UITextFieldDelegate?
