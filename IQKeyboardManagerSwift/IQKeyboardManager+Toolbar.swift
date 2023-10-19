@@ -67,7 +67,7 @@ public extension IQKeyboardManager {
 
         let isTableCollectionView: Bool
         if textField.superviewOfClassType(UITableView.self) != nil ||
-            textField.superviewOfClassType(UICollectionView.self) != nil{
+            textField.superviewOfClassType(UICollectionView.self) != nil {
             isTableCollectionView = true
         } else {
             isTableCollectionView = false

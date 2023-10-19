@@ -335,7 +335,6 @@ public extension IQKeyboardManager {
         topViewBeginOrigin = IQKeyboardManager.kIQCGPointInvalid
         topViewBeginSafeAreaInsets = .zero
 
-
         let elapsedTime = CACurrentMediaTime() - startTime
         showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }

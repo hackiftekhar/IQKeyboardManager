@@ -895,7 +895,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             strongLastScrollView = _lastScrollView;
             _startingContentInsets = superScrollView.contentInset;
             _startingContentOffset = superScrollView.contentOffset;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110100
             if (@available(iOS 11.1, *))
             {
                 _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
@@ -903,7 +903,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             else
 #endif
             {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 110100
                 _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
 #endif
             }
@@ -919,7 +919,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         strongLastScrollView = _lastScrollView;
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110100
         if (@available(iOS 11.1, *))
         {
             _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
@@ -927,7 +927,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         else
 #endif
         {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 110100
             _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
 #endif
         }
@@ -1139,7 +1139,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         
                         strongLastScrollView.contentInset = movedInsets;
                         UIEdgeInsets newScrollIndicatorInset;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110100
                         if (@available(iOS 11.1, *))
                         {
                             newScrollIndicatorInset = strongLastScrollView.verticalScrollIndicatorInsets;
@@ -1147,7 +1147,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         else
 #endif
                         {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 110100
                             newScrollIndicatorInset = strongLastScrollView.scrollIndicatorInsets;
 #endif
                         }
@@ -1185,7 +1185,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 {
                     self.startingTextViewContentInsets = textView.contentInset;
                     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110100
                     if (@available(iOS 11.1, *))
                     {
                         self.startingTextViewScrollIndicatorInsets = textView.verticalScrollIndicatorInsets;
@@ -1193,7 +1193,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     else
 #endif
                     {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 110100
                         self.startingTextViewScrollIndicatorInsets = textView.scrollIndicatorInsets;
 #endif
                     }
