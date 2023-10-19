@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+UITextFieldViewNotification.swift
+//  IQTextFieldViewInfoModel.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,22 +23,33 @@
 
 import UIKit
 
-// MARK: UITextField/UITextView Notifications
 @available(iOSApplicationExtension, unavailable)
-internal extension IQKeyboardManager {
+internal final class IQTextFieldViewInfoModel: NSObject {
 
-    private struct AssociatedKeys {
-        static var rootConfigWhilePopActive: Int = 0
+    weak var textFieldDelegate: UITextFieldDelegate?
+    weak var textViewDelegate: UITextViewDelegate?
+    weak var textFieldView: UIView?
+    let originalReturnKeyType: UIReturnKeyType
+
+    init(textField: UITextField) {
+        self.textFieldView = textField
+        self.textFieldDelegate = textField.delegate
+        self.originalReturnKeyType = textField.returnKeyType
     }
 
-    var rootConfigurationWhilePopGestureActive: IQRootControllerConfiguration? {
-        get {
-            return objc_getAssociatedObject(self,
-                                            &AssociatedKeys.rootConfigWhilePopActive) as? IQRootControllerConfiguration
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.rootConfigWhilePopActive,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    init(textView: UITextView) {
+        self.textFieldView = textView
+        self.textViewDelegate = textView.delegate
+        self.originalReturnKeyType = textView.returnKeyType
+    }
+
+    func restore() {
+        if let textField = textFieldView as? UITextField {
+            textField.returnKeyType = originalReturnKeyType
+            textField.delegate = textFieldDelegate
+        } else if let textView = textFieldView as? UITextView {
+            textView.returnKeyType = originalReturnKeyType
+            textView.delegate = textViewDelegate
         }
     }
 }

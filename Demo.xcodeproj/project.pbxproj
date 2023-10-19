@@ -56,6 +56,7 @@
 		C0017B791BAD943400BD1D70 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0017B781BAD943400BD1D70 /* CustomViewController.swift */; };
 		C01955F22ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01955F12ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift */; };
 		C01C943E2ACDF39000540DD6 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C943D2ACDF39000540DD6 /* NavigationController.swift */; };
+		C0382D222AE1632B00EBE4B4 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */; };
 		C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */; };
 		C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */; };
 		C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */; };
@@ -71,6 +72,7 @@
 		C06E24F62ACB3FA7002ECBE4 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F52ACB3FA7002ECBE4 /* TableViewController.swift */; };
 		C06E24F82ACB3FD8002ECBE4 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F72ACB3FD8002ECBE4 /* StackViewController.swift */; };
 		C06E24FA2ACB4015002ECBE4 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F92ACB4015002ECBE4 /* PageViewController.swift */; };
+		C07DF1302AE17BB600698057 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */; };
 		C08372572ACAFE6500416081 /* ReloadLayout1892ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08372562ACAFE6500416081 /* ReloadLayout1892ViewController.swift */; };
 		C08372592ACB046900416081 /* SafeAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08372582ACB046900416081 /* SafeAreaViewController.swift */; };
 		C083725D2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C083725C2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift */; };
@@ -225,6 +227,7 @@
 		C0017B781BAD943400BD1D70 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		C01955F12ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrollTextView1979ViewController.swift; sourceTree = "<group>"; };
 		C01C943D2ACDF39000540DD6 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+TableView.swift"; sourceTree = "<group>"; };
 		C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +245,7 @@
 		C06E24F52ACB3FA7002ECBE4 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C06E24F72ACB3FD8002ECBE4 /* StackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		C06E24F92ACB4015002ECBE4 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		C08372562ACAFE6500416081 /* ReloadLayout1892ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadLayout1892ViewController.swift; sourceTree = "<group>"; };
 		C08372582ACB046900416081 /* SafeAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaViewController.swift; sourceTree = "<group>"; };
 		C083725C2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgesForExtendedLayoutViewController.swift; sourceTree = "<group>"; };
@@ -413,6 +417,7 @@
 			children = (
 				C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */,
 				C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */,
+				C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -427,6 +432,14 @@
 				C03C9476273CF3FF00AF66B5 /* Info.plist */,
 			);
 			path = DemoExtension;
+			sourceTree = "<group>";
+		};
+		C07DF12E2AE17B9900698057 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C0B63B901781FAB0008D3B64 = {
@@ -619,6 +632,7 @@
 				C0CB61D31B884D4100C33368 /* Resources */,
 				C0CB61D71B884D4100C33368 /* Storyboard */,
 				C0CB61D91B884D4100C33368 /* ViewController */,
+				C07DF12E2AE17B9900698057 /* Extension */,
 				4CE6119E1B98B7250020591A /* DemoObjCUITests */,
 			);
 			name = Swift_Demo;
@@ -1089,6 +1103,7 @@
 				C03C87FB1B8DCED400295DFA /* OptionTableViewCell.swift in Sources */,
 				C03C87FF1B8DCEF400295DFA /* SwitchTableViewCell.swift in Sources */,
 				C03C87FD1B8DCEE700295DFA /* StepperTableViewCell.swift in Sources */,
+				C0382D222AE1632B00EBE4B4 /* SettingsViewController+TableView.swift in Sources */,
 				C0CB61EF1B884F2700C33368 /* ExampleTableViewController.swift in Sources */,
 				C0CB61F31B884F2700C33368 /* SpecialCaseViewController.swift in Sources */,
 				C06E24F42ACB3F6F002ECBE4 /* TableViewContainerViewController.swift in Sources */,
@@ -1097,6 +1112,7 @@
 				C08372572ACAFE6500416081 /* ReloadLayout1892ViewController.swift in Sources */,
 				4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */,
+				C07DF1302AE17BB600698057 /* UITableView+Extension.swift in Sources */,
 				C06E24FA2ACB4015002ECBE4 /* PageViewController.swift in Sources */,
 				C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */,
 				C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */,

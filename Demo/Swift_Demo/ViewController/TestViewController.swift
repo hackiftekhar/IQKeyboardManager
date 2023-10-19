@@ -9,8 +9,4 @@
 import UIKit
 
 class TestViewController: BaseViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }

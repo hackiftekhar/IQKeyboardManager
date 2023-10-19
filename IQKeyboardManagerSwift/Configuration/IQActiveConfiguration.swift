@@ -108,7 +108,8 @@ internal class IQActiveConfiguration {
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window || newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation {
+        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window ||
+            newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation {
 
             if rootControllerConfiguration?.rootController != newConfiguration.rootController {
 
@@ -121,7 +122,9 @@ internal class IQActiveConfiguration {
                 }
 
                 windowObserver?.invalidate()
-                windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view, keyPath: \.window, changeHandler: { [self] _, _ in
+                windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view,
+                                                    keyPath: \.window,
+                                                    changeHandler: { [self] _, _ in
                     if let rootControllerConfiguration = rootControllerConfiguration,
                        rootControllerConfiguration.isReady {
                         if lastEvent == .show || lastEvent == .change {
@@ -148,7 +151,9 @@ extension IQActiveConfiguration {
 
             if let info = textFieldViewInfo, keyboardInfo.keyboardShowing {
                 if let rootControllerConfiguration = rootControllerConfiguration {
-                    if rootControllerConfiguration.beginOrientation.isPortrait != rootControllerConfiguration.currentOrientation.isPortrait {
+                    let beginIsPortrait: Bool = rootControllerConfiguration.beginOrientation.isPortrait
+                    let currentIsPortrait: Bool = rootControllerConfiguration.currentOrientation.isPortrait
+                    if beginIsPortrait != currentIsPortrait {
                         updateRootController(info: info)
                     }
                 } else {
@@ -177,7 +182,8 @@ extension IQActiveConfiguration {
     }
 
     private func addTextFieldViewListener() {
-        textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration", changeHandler: { [self] info in
+        textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
+                                                          changeHandler: { [self] info in
             if info.name == .beginEditing {
                 updateRootController(info: info)
                 self.sendEvent()
@@ -189,7 +195,9 @@ extension IQActiveConfiguration {
 @available(iOSApplicationExtension, unavailable)
 extension IQActiveConfiguration {
 
-    typealias ConfigurationCompletion = (_ event: Event, _ keyboardInfo: IQKeyboardInfo, _ textFieldInfo: IQTextFieldViewInfo) -> Void
+    typealias ConfigurationCompletion = (_ event: Event,
+                                         _ keyboardInfo: IQKeyboardInfo,
+                                         _ textFieldInfo: IQTextFieldViewInfo) -> Void
 
     func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler

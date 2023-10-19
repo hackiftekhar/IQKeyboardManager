@@ -43,7 +43,10 @@ internal extension IQKeyboardManager {
             }
         }
 
-        // If there is a superConsideredView in view's hierarchy, then fetching all it's subview that responds. No sorting for superConsideredView, it's by subView position.    (Enhancement ID: #22)
+        // (Enhancement ID: #22)
+        // If there is a superConsideredView in view's hierarchy,
+        // then fetching all it's subview that responds.
+        // No sorting for superConsideredView, it's by subView position.
         if let view: UIView = superConsideredView {
             return view.iq.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
@@ -78,7 +81,7 @@ internal extension IQKeyboardManager {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController: UIViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
@@ -105,7 +108,8 @@ internal extension IQKeyboardManager {
                     let classNameString: String = "\(type(of: textFieldViewController.self))"
 
                     // _UIAlertControllerTextFieldViewController
-                    if classNameString.contains("UIAlertController"), classNameString.hasSuffix("TextFieldViewController") {
+                    if classNameString.contains("UIAlertController"),
+                       classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
                 }
@@ -120,7 +124,7 @@ internal extension IQKeyboardManager {
         var isEnabled: Bool = enableAutoToolbar
 
         guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo,
-              var textFieldViewController: UIViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+              var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
             return isEnabled
         }
 
@@ -171,7 +175,7 @@ internal extension IQKeyboardManager {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController: UIViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
@@ -188,7 +192,8 @@ internal extension IQKeyboardManager {
 
             if isEnabled {
 
-                // If viewController is kind of disable viewController class, then assuming resignOnTouchOutside is disable.
+                // If viewController is kind of disable viewController class,
+                // then assuming resignOnTouchOutside is disable.
                 if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                     isEnabled = false
                 }

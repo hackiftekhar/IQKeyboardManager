@@ -87,7 +87,9 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     Returns the UIViewController object that is actually the parent of this object. Most of the time it's the viewController object which actually contains it, but result may be different if it's viewController is added as childViewController of another viewController.
+     Returns the UIViewController object that is actually the parent of this object.
+     Most of the time it's the viewController object which actually contains it,
+     but result may be different if it's viewController is added as childViewController of another viewController.
      */
     func parentContainerViewController() -> UIViewController? {
 
@@ -103,9 +105,9 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             var parentController: UIViewController = navController
 
             while let parent: UIViewController = parentController.parent,
-                  (!(parent is UINavigationController) &&
+                  !(parent is UINavigationController) &&
                    !(parent is UITabBarController) &&
-                   !(parent is UISplitViewController)) {
+                   !(parent is UISplitViewController) {
 
                         parentController = parent
             }
@@ -116,17 +118,17 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                 parentContainerViewController = parentController
             }
         } else if let tabController: UITabBarController = matchController?.tabBarController {
-
-            if let navController: UINavigationController = tabController.selectedViewController as? UINavigationController {
+            let selectedController = tabController.selectedViewController
+            if let navController: UINavigationController = selectedController as? UINavigationController {
                 parentContainerViewController = navController.topViewController
             } else {
                 parentContainerViewController = tabController.selectedViewController
             }
         } else {
             while let parent: UIViewController = matchController?.parent,
-                  (!(parent is UINavigationController) &&
+                  !(parent is UINavigationController) &&
                    !(parent is UITabBarController) &&
-                   !(parent is UISplitViewController)) {
+                   !(parent is UISplitViewController) {
 
                         matchController = parent
             }
@@ -134,10 +136,11 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             parentContainerViewController = matchController
         }
 
-        let finalController: UIViewController? = parentContainerViewController?.iq_parentContainerViewController() ?? parentContainerViewController
-
-        return finalController
-
+        if let controller: UIViewController = parentContainerViewController?.iq_parentContainerViewController() {
+            return controller
+        } else {
+            return parentContainerViewController
+        }
     }
 
     // MARK: Superviews/Subviews/Siglings
@@ -150,7 +153,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      
      @param belowView view object in upper hierarchy where method should stop searching and return nil
 */
-    func superviewOf(type classType: UIView.Type, belowView: UIView? = nil) -> UIView? {
+    func superviewOf<T: UIView>(type classType: T.Type, belowView: UIView? = nil) -> T? {
 
         var superView: UIView? = base.superview
 
@@ -163,16 +166,21 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
                     let classNameString: String = "\(type(of: unwrappedSuperView.self))"
 
-                    //  If it's not UITableViewWrapperView class, this is internal class which is actually manage in UITableview. The speciality of this class is that it's superview is UITableView.
-                    //  If it's not UITableViewCellScrollView class, this is internal class which is actually manage in UITableviewCell. The speciality of this class is that it's superview is UITableViewCell.
-                    // If it's not _UIQueuingScrollView class, actually we validate for _ prefix which usually used by Apple internal classes
+                    // If it's not UITableViewWrapperView class,
+                    // this is internal class which is actually manage in UITableview.
+                    // The speciality of this class is that it's superview is UITableView.
+                    // If it's not UITableViewCellScrollView class, 
+                    // this is internal class which is actually manage in UITableviewCell.
+                    // The speciality of this class is that it's superview is UITableViewCell.
+                    // If it's not _UIQueuingScrollView class, 
+                    // actually we validate for _ prefix which usually used by Apple internal classes
                     if !(unwrappedSuperView.superview is UITableView),
                         !(unwrappedSuperView.superview is UITableViewCell),
                         !classNameString.hasPrefix("_") {
-                        return superView
+                        return superView as? T
                     }
                 } else {
-                    return superView
+                    return superView as? T
                 }
             } else if unwrappedSuperView == belowView {
                 return nil
@@ -199,7 +207,8 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
         //    Getting all siblings
         if let siblings: [UIView] = base.superview?.subviews {
             for textField in siblings {
-                if (textField == base || !textField.iq.ignoreSwitchingByNextPrevious), textField.iq.canBecomeFirstResponder() {
+                if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
+                    textField.iq.canBecomeFirstResponder() {
                     tempTextFields.append(textField)
                 }
             }
@@ -218,10 +227,12 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
 
         for textField in base.subviews {
 
-            if (textField == base || !textField.iq.ignoreSwitchingByNextPrevious), textField.iq.canBecomeFirstResponder() {
+            if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
+               textField.iq.canBecomeFirstResponder() {
                 textfields.append(textField)
             }
-            // Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
+            // Sometimes there are hidden or disabled views and textField inside them still recorded,
+            // so we added some more validations here (Bug ID: #458)
             // Uncommented else (Bug ID: #625)
             else if textField.subviews.count != 0, base.isUserInteractionEnabled, !base.isHidden, base.alpha != 0.0 {
                 for deepView in textField.iq.deepResponderViews() {
@@ -258,7 +269,11 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
         }
 
         if canBecomeFirstResponder {
-            canBecomeFirstResponder = base.isUserInteractionEnabled && !base.isHidden && base.alpha != 0.0 && !isAlertViewTextField() && textFieldSearchBar() == nil
+            canBecomeFirstResponder = base.isUserInteractionEnabled &&
+            !base.isHidden &&
+            base.alpha != 0.0 &&
+            !isAlertViewTextField() &&
+            textFieldSearchBar() == nil
         }
 
         return canBecomeFirstResponder

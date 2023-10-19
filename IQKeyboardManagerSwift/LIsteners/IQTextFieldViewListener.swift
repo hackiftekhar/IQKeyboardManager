@@ -40,15 +40,20 @@ public class IQTextFieldViewListener {
 
     public init() {
         //  Registering for keyboard notification.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)), name: UITextField.textDidBeginEditingNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)), name: UITextField.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)),
+                                               name: UITextField.textDidBeginEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)),
+                                               name: UITextField.textDidEndEditingNotification, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)),
+                                               name: UITextView.textDidBeginEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)),
+                                               name: UITextView.textDidEndEditingNotification, object: nil)
     }
 
     @objc private func didBeginEditing(_ notification: Notification) {
-        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification, name: .beginEditing) else {
+        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification,
+                                                                  name: .beginEditing) else {
             return
         }
 
@@ -57,7 +62,8 @@ public class IQTextFieldViewListener {
         if #available(iOS 16.0, *),
            let lastTextFieldViewInfo = lastTextFieldViewInfo,
            let textView: UITextView = lastTextFieldViewInfo.textFieldView as? UITextView,
-           textView.findInteraction?.isFindNavigatorVisible == true { // This means the this didBeginEditing call comes due to find interaction
+           textView.findInteraction?.isFindNavigatorVisible == true {
+            // // This means the this didBeginEditing call comes due to find interaction
             textFieldViewInfo = lastTextFieldViewInfo
             sendEvent(info: lastTextFieldViewInfo)
         } else if textFieldViewInfo != info {

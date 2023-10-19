@@ -22,10 +22,12 @@ class ActionViewController: UIViewController {
         var imageFound = false
         let inputItems = self.extensionContext?.inputItems as? [NSExtensionItem]
         for item in inputItems ?? [] {
-            for provider in item.attachments ?? [] where provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+            let attachements = item.attachments ?? []
+            for provider in attachements where provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
                 // This is an image. We'll load it, then place it in our image view.
                 weak var weakImageView = self.imageView
-                provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, _) in
+                let identifier = kUTTypeImage as String
+                provider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (imageURL, _) in
                     OperationQueue.main.addOperation {
                         if let strongImageView = weakImageView {
                             if let imageURL = imageURL as? URL, let data =  try? Data(contentsOf: imageURL) {
@@ -47,7 +49,8 @@ class ActionViewController: UIViewController {
     @IBAction func done() {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems,
+                                               completionHandler: nil)
     }
 
 }

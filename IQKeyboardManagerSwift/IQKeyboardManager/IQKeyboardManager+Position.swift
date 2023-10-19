@@ -23,6 +23,7 @@
 
 import UIKit
 
+// swiftlint:disable file_length
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
@@ -35,7 +36,8 @@ public extension IQKeyboardManager {
     }
 
     /**
-     moved distance to the top used to maintain distance between keyboard and textField. Most of the time this will be a positive value.
+     moved distance to the top used to maintain distance between keyboard and textField.
+     Most of the time this will be a positive value.
      */
     private(set) var movedDistance: CGFloat {
         get {
@@ -55,7 +57,8 @@ public extension IQKeyboardManager {
             return objc_getAssociatedObject(self, &AssociatedKeys.movedDistanceChanged) as? ((CGFloat) -> Void)
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.movedDistanceChanged, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.movedDistanceChanged,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             movedDistanceChanged?(movedDistance)
         }
     }
@@ -63,20 +66,24 @@ public extension IQKeyboardManager {
     /** Variable to save lastScrollView that was scrolled. */
     internal var lastScrollViewConfiguration: IQScrollViewConfiguration? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.lastScrollViewConfiguration) as? IQScrollViewConfiguration
+            return objc_getAssociatedObject(self,
+                                            &AssociatedKeys.lastScrollViewConfiguration) as? IQScrollViewConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.lastScrollViewConfiguration, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.lastScrollViewConfiguration,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /** used to adjust contentInset of UITextView. */
     internal var startingTextViewConfiguration: IQScrollViewConfiguration? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.startingTextViewConfiguration) as? IQScrollViewConfiguration
+            return objc_getAssociatedObject(self,
+                                            &AssociatedKeys.startingTextViewConfiguration) as? IQScrollViewConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.startingTextViewConfiguration, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.startingTextViewConfiguration,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -104,20 +111,23 @@ public extension IQKeyboardManager {
     }
 
     /* Adjusting RootViewController's frame according to interface orientation. */
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     internal func adjustPosition() {
 
         //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         guard UIApplication.shared.applicationState == .active,
               let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               let superview: UIView = textFieldView.superview,
-              let rootControllerConfiguration = activeConfiguration.rootControllerConfiguration,
-              let window: UIWindow = rootControllerConfiguration.rootController.view.window else {
+              let rootConfiguration = activeConfiguration.rootControllerConfiguration,
+              let window: UIWindow = rootConfiguration.rootController.view.window else {
             return
         }
 
-        let rootController: UIViewController = rootControllerConfiguration.rootController
+        let rootController: UIViewController = rootConfiguration.rootController
         let textFieldViewRectInWindow: CGRect = superview.convert(textFieldView.frame, to: window)
-        let textFieldViewRectInRootSuperview: CGRect = superview.convert(textFieldView.frame, to: rootController.view.superview)
+        let textFieldViewRectInRootSuperview: CGRect = superview.convert(textFieldView.frame,
+                                                                         to: rootController.view.superview)
 
         let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog(">>>>> \(#function) started >>>>>", indentation: 1)
@@ -125,16 +135,24 @@ public extension IQKeyboardManager {
         //  Getting RootViewOrigin.
         var rootViewOrigin: CGPoint = rootController.view.frame.origin
 
-        // Maintain keyboardDistanceFromTextField
-        let specialKeyboardDistanceFromTextField: CGFloat
+        let keyboardDistance: CGFloat
 
-        if let searchBar: UIView = textFieldView.iq.textFieldSearchBar() {
-            specialKeyboardDistanceFromTextField = searchBar.iq.distanceFromKeyboard
-        } else {
-            specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
+        do {
+            // Maintain keyboardDistanceFromTextField
+            let specialKeyboardDistanceFromTextField: CGFloat
+
+            if let searchBar: UIView = textFieldView.iq.textFieldSearchBar() {
+                specialKeyboardDistanceFromTextField = searchBar.iq.distanceFromKeyboard
+            } else {
+                specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
+            }
+
+            if specialKeyboardDistanceFromTextField == UIView.defaultKeyboardDistance {
+                keyboardDistance = keyboardDistanceFromTextField
+            } else {
+                keyboardDistance = specialKeyboardDistanceFromTextField
+            }
         }
-
-        let newKeyboardDistanceFromTextField: CGFloat = (specialKeyboardDistanceFromTextField == UIView.defaultKeyboardDistance) ? keyboardDistanceFromTextField : specialKeyboardDistanceFromTextField
 
         let kbSize: CGSize
         let originalKbSize: CGSize = activeConfiguration.keyboardInfo.frame.size
@@ -142,13 +160,15 @@ public extension IQKeyboardManager {
         do {
             var kbFrame: CGRect = activeConfiguration.keyboardInfo.frame
 
-            kbFrame.origin.y -= newKeyboardDistanceFromTextField
-            kbFrame.size.height += newKeyboardDistanceFromTextField
+            kbFrame.origin.y -= keyboardDistance
+            kbFrame.size.height += keyboardDistance
 
-            kbFrame.origin.y -= rootControllerConfiguration.beginSafeAreaInsets.bottom
-            kbFrame.size.height += rootControllerConfiguration.beginSafeAreaInsets.bottom
+            kbFrame.origin.y -= rootConfiguration.beginSafeAreaInsets.bottom
+            kbFrame.size.height += rootConfiguration.beginSafeAreaInsets.bottom
 
-            // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+            // (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+            // Calculating actual keyboard covered size respect to window,
+            // keyboard frame may be different when hardware keyboard is attached
             let intersectRect: CGRect = kbFrame.intersection(window.frame)
 
             if intersectRect.isNull {
@@ -187,7 +207,8 @@ public extension IQKeyboardManager {
 
         let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, rootController.view.directionalLayoutMargins.top)
 
-        // Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+        // Validation of textView for case where there is a tab bar
+        // at the bottom or running on iPhone X and textView is at the bottom.
         let bottomLayoutGuide: CGFloat = isScrollableTextView ? 0 : rootController.view.directionalLayoutMargins.bottom
 
         //  Move positive = textField is hidden.
@@ -207,7 +228,7 @@ public extension IQKeyboardManager {
         showLog("Need to move: \(moveUp), will be moving \(moveUp < 0 ? "down" : "up")")
 
         var superScrollView: UIScrollView?
-        var superView: UIScrollView? = textFieldView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
+        var superView: UIScrollView? = textFieldView.iq.superviewOf(type: UIScrollView.self)
 
         // Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
         while let view: UIScrollView = superView {
@@ -217,62 +238,72 @@ public extension IQKeyboardManager {
                 break
             } else {
                 //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-                superView = view.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
+                superView = view.iq.superviewOf(type: UIScrollView.self)
             }
         }
 
         // If there was a lastScrollView.    //  (Bug ID: #34)
-        if let lastScrollViewConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
+        if let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
             // If we can't find current superScrollView, then setting lastScrollView to it's original form.
             if superScrollView == nil {
 
-                if lastScrollViewConfiguration.hasChanged {
-                    if lastScrollViewConfiguration.scrollView.contentInset != lastScrollViewConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastScrollViewConfiguration.startingContentInsets)")
+                if lastConfiguration.hasChanged {
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
                     }
 
-                    if lastScrollViewConfiguration.scrollView.iq.restoreContentOffset,
-                       !lastScrollViewConfiguration.scrollView.contentOffset.equalTo(lastScrollViewConfiguration.startingContentOffset) {
-                        showLog("Restoring contentOffset to: \(lastScrollViewConfiguration.startingContentOffset)")
+                    if lastConfiguration.scrollView.iq.restoreContentOffset,
+                       !lastConfiguration.scrollView.contentOffset.equalTo(lastConfiguration.startingContentOffset) {
+                        showLog("Restoring contentOffset to: \(lastConfiguration.startingContentOffset)")
                     }
 
                     activeConfiguration.animate(alongsideTransition: {
-                        lastScrollViewConfiguration.restore(for: textFieldView)
+                        lastConfiguration.restore(for: textFieldView)
                     })
                 }
 
                 self.lastScrollViewConfiguration = nil
-            } else if superScrollView != lastScrollViewConfiguration.scrollView {     // If both scrollView's are different, then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
-
-                if lastScrollViewConfiguration.hasChanged {
-                    if lastScrollViewConfiguration.scrollView.contentInset != lastScrollViewConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastScrollViewConfiguration.startingContentInsets)")
+            } else if superScrollView != lastConfiguration.scrollView {
+                // If both scrollView's are different,
+                // then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
+                if lastConfiguration.hasChanged {
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
                     }
 
-                    if lastScrollViewConfiguration.scrollView.iq.restoreContentOffset,
-                       !lastScrollViewConfiguration.scrollView.contentOffset.equalTo(lastScrollViewConfiguration.startingContentOffset) {
-                        showLog("Restoring contentOffset to: \(lastScrollViewConfiguration.startingContentOffset)")
+                    if lastConfiguration.scrollView.iq.restoreContentOffset,
+                       !lastConfiguration.scrollView.contentOffset.equalTo(lastConfiguration.startingContentOffset) {
+                        showLog("Restoring contentOffset to: \(lastConfiguration.startingContentOffset)")
                     }
 
                     activeConfiguration.animate(alongsideTransition: {
-                        lastScrollViewConfiguration.restore(for: textFieldView)
+                        lastConfiguration.restore(for: textFieldView)
                     })
                 }
 
                 if let superScrollView = superScrollView {
-                    let configuration = IQScrollViewConfiguration(scrollView: superScrollView, canRestoreContentOffset: true)
+                    let configuration = IQScrollViewConfiguration(scrollView: superScrollView,
+                                                                  canRestoreContentOffset: true)
                     self.lastScrollViewConfiguration = configuration
-                    showLog("Saving ScrollView New contentInset: \(configuration.startingContentInsets) and contentOffset: \(configuration.startingContentOffset)")
+                    showLog("""
+                            Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                            and contentOffset: \(configuration.startingContentOffset)
+                            """)
                 } else {
                     self.lastScrollViewConfiguration = nil
                 }
             }
-            // Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing, going ahead
-        } else if let superScrollView: UIScrollView = superScrollView {    // If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
+            // Else the case where superScrollView == lastScrollView means we are on same scrollView
+            // after switching to different textField. So doing nothing, going ahead
+        } else if let superScrollView: UIScrollView = superScrollView {
+            // If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
 
             let configuration = IQScrollViewConfiguration(scrollView: superScrollView, canRestoreContentOffset: true)
             self.lastScrollViewConfiguration = configuration
-            showLog("Saving ScrollView New contentInset: \(configuration.startingContentInsets) and contentOffset: \(configuration.startingContentOffset)")
+            showLog("""
+                    Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                    and contentOffset: \(configuration.startingContentOffset)
+                    """)
         }
 
         //  Special case for ScrollView.
@@ -289,37 +320,41 @@ public extension IQKeyboardManager {
                 if moveUp > 0 {
                     isContinue = moveUp > (-scrollView.contentOffset.y - scrollView.contentInset.top)
 
-                } else if let tableView: UITableView = scrollView.iq.superviewOf(type: UITableView.self) as? UITableView {
+                } else if let tableView: UITableView = scrollView.iq.superviewOf(type: UITableView.self) {
                     // Special treatment for UITableView due to their cell reusing logic
 
                     isContinue = scrollView.contentOffset.y > 0
 
                     if isContinue,
-                       let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self) as? UITableViewCell,
+                       let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self),
                        let indexPath: IndexPath = tableView.indexPath(for: tableCell),
                        let previousIndexPath: IndexPath = tableView.previousIndexPath(of: indexPath) {
 
                         let previousCellRect: CGRect = tableView.rectForRow(at: previousIndexPath)
                         if !previousCellRect.isEmpty {
-                            let previousCellRectInRootSuperview: CGRect = tableView.convert(previousCellRect, to: rootController.view.superview)
+                            let superview: UIView? = rootController.view.superview
+                            let previousCellRectInRootSuperview: CGRect = tableView.convert(previousCellRect,
+                                                                                            to: superview)
 
                             moveUp = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
                         }
                     }
-                } else if let collectionView: UICollectionView = scrollView.iq.superviewOf(type: UICollectionView.self) as? UICollectionView {
+                } else if let collectionView = scrollView.iq.superviewOf(type: UICollectionView.self) {
                     // Special treatment for UICollectionView due to their cell reusing logic
 
                     isContinue = scrollView.contentOffset.y > 0
 
                     if isContinue,
-                       let collectionCell: UICollectionViewCell = textFieldView.iq.superviewOf(type: UICollectionViewCell.self) as? UICollectionViewCell,
+                       let collectionCell = textFieldView.iq.superviewOf(type: UICollectionViewCell.self),
                        let indexPath: IndexPath = collectionView.indexPath(for: collectionCell),
                        let previousIndexPath: IndexPath = collectionView.previousIndexPath(of: indexPath),
-                       let attributes: UICollectionViewLayoutAttributes = collectionView.layoutAttributesForItem(at: previousIndexPath) {
+                       let attributes = collectionView.layoutAttributesForItem(at: previousIndexPath) {
 
                         let previousCellRect: CGRect = attributes.frame
                         if !previousCellRect.isEmpty {
-                            let previousCellRectInRootSuperview: CGRect = collectionView.convert(previousCellRect, to: rootController.view.superview)
+                            let superview: UIView? = rootController.view.superview
+                            let previousCellRectInRootSuperview: CGRect = collectionView.convert(previousCellRect,
+                                                                                                 to: superview)
 
                             moveUp = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
                         }
@@ -332,10 +367,11 @@ public extension IQKeyboardManager {
                     }
                 }
 
-                // Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
+                // Looping in upper hierarchy until we don't found any scrollView then
+                // in it's upper hirarchy till UIWindow object.
                 if isContinue {
 
-                    var tempScrollView: UIScrollView? = scrollView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
+                    var tempScrollView: UIScrollView? = scrollView.iq.superviewOf(type: UIScrollView.self)
                     var nextScrollView: UIScrollView?
                     while let view: UIScrollView = tempScrollView {
 
@@ -343,7 +379,7 @@ public extension IQKeyboardManager {
                             nextScrollView = view
                             break
                         } else {
-                            tempScrollView = view.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
+                            tempScrollView = view.iq.superviewOf(type: UIScrollView.self)
                         }
                     }
 
@@ -351,36 +387,49 @@ public extension IQKeyboardManager {
                     if let lastViewRect: CGRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
 
                         // Calculating the expected Y offset from move and scrollView's contentOffset.
-                        var suggestedOffsetY: CGFloat = scrollView.contentOffset.y - min(scrollView.contentOffset.y, -moveUp)
+                        let minimumMovement: CGFloat = min(scrollView.contentOffset.y, -moveUp)
+                        var suggestedOffsetY: CGFloat = scrollView.contentOffset.y - minimumMovement
 
                         // Rearranging the expected Y offset according to the view.
                         suggestedOffsetY = min(suggestedOffsetY, lastViewRect.minY)
 
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        // nextScrollView == nil    If processing scrollView is last scrollView in upper hierarchy (there is no other scrollView upper hierrchy.)
+                        // nextScrollView == nil    If processing scrollView is last scrollView in
+                        // upper hierarchy (there is no other scrollView upper hierrchy.)
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
-                        // suggestedOffsetY >= 0     suggestedOffsetY must be greater than in order to keep distance from navigationBar (Bug ID: #92)
+                        // suggestedOffsetY >= 0     suggestedOffsetY must be greater than in 
+                        // order to keep distance from navigationBar (Bug ID: #92)
                         if isScrollableTextView,
                             nextScrollView == nil,
                             suggestedOffsetY >= 0 {
 
                             // Converting Rectangle according to window bounds.
-                            if let currentTextFieldViewRect: CGRect = textFieldView.superview?.convert(textFieldView.frame, to: window) {
+                            if let superview: UIView = textFieldView.superview {
+
+                                let currentTextFieldViewRect: CGRect = superview.convert(textFieldView.frame,
+                                                                                         to: window)
 
                                 // Calculating expected fix distance which needs to be managed from navigation bar
                                 let expectedFixDistance: CGFloat = currentTextFieldViewRect.minY - topLayoutGuide
 
-                                // Now if expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance) is lower than current suggestedOffsetY, which means we're in a position where navigationBar up and hide, then reducing suggestedOffsetY with expectedOffsetY (superScrollView.contentOffset.y + expectedFixDistance)
-                                suggestedOffsetY = min(suggestedOffsetY, scrollView.contentOffset.y + expectedFixDistance)
+                                // Now if expectedOffsetY (scrollView.contentOffset.y + expectedFixDistance)
+                                // is lower than current suggestedOffsetY, which means we're in a position where
+                                // navigationBar up and hide, then reducing suggestedOffsetY with expectedOffsetY
+                                // (scrollView.contentOffset.y + expectedFixDistance)
+                                let expectedOffsetY: CGFloat = scrollView.contentOffset.y + expectedFixDistance
+                                suggestedOffsetY = min(suggestedOffsetY, expectedOffsetY)
 
-                                // Setting move to 0 because now we don't want to move any view anymore (All will be managed by our contentInset logic.
+                                // Setting move to 0 because now we don't want to move any view anymore
+                                // (All will be managed by our contentInset logic.
                                 moveUp = 0
                             } else {
-                                // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
+                                // Subtracting the Y offset from the move variable,
+                                // because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
                                 moveUp -= (suggestedOffsetY-scrollView.contentOffset.y)
                             }
                         } else {
-                            // Subtracting the Y offset from the move variable, because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
+                            // Subtracting the Y offset from the move variable,
+                            // because we are going to change scrollView's contentOffset.y to suggestedOffsetY.
                             moveUp -= (suggestedOffsetY-scrollView.contentOffset.y)
                         }
 
@@ -388,13 +437,19 @@ public extension IQKeyboardManager {
 
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
-                            showLog("old contentOffset: \(scrollView.contentOffset) new contentOffset: \(newContentOffset)")
+                            showLog("""
+                                    old contentOffset: \(scrollView.contentOffset)
+                                    new contentOffset: \(newContentOffset)
+                                    """)
                             self.showLog("Remaining Move: \(moveUp)")
 
                             // Getting problem while using `setContentOffset:animated:`, So I used animation API.
                             activeConfiguration.animate(alongsideTransition: {
 
-                                let animatedContentOffset: Bool = textFieldView.iq.superviewOf(type: UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+                                //  (Bug ID: #1365, #1508, #1541)
+                                let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
+                                                                                           belowView: scrollView)
+                                let animatedContentOffset: Bool = stackView != nil
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -426,11 +481,14 @@ public extension IQKeyboardManager {
                 !lastScrollView.iq.ignoreContentInsetAdjustment {
 
                 var bottomInset: CGFloat = (kbSize.height)-(window.frame.height-lastScrollViewRect.maxY)
-                var bottomScrollIndicatorInset: CGFloat = bottomInset - newKeyboardDistanceFromTextField - rootControllerConfiguration.beginSafeAreaInsets.bottom
+                let keyboardAndSafeArea: CGFloat = keyboardDistance + rootConfiguration.beginSafeAreaInsets.bottom
+                var bottomScrollIndicatorInset: CGFloat = bottomInset - keyboardAndSafeArea
 
-                // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                // Update the insets so that the scroll vew doesn't shift incorrectly
+                // when the offset is near the bottom of the scroll view.
                 bottomInset = max(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
-                bottomScrollIndicatorInset = max(lastScrollViewConfiguration.startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset)
+                bottomScrollIndicatorInset = max(lastScrollViewConfiguration.startingScrollIndicatorInsets.bottom,
+                                                 bottomScrollIndicatorInset)
 
                 bottomInset -= lastScrollView.safeAreaInsets.bottom
                 bottomScrollIndicatorInset -= lastScrollView.safeAreaInsets.bottom
@@ -464,8 +522,9 @@ public extension IQKeyboardManager {
         }
         // Going ahead. No else if.
 
-        // Special case for UITextView(Readjusting textView.contentInset when textView hight is too big to fit on screen)
-        // _lastScrollView       If not having inside any scrollView, (now contentInset manages the full screen textView.
+        // Special case for UITextView
+        // (Readjusting textView.contentInset when textView hight is too big to fit on screen)
+        // _lastScrollView If not having inside any scrollView, now contentInset manages the full screen textView.
         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
         if isScrollableTextView, let textView = textFieldView as? UIScrollView {
 
@@ -477,12 +536,14 @@ public extension IQKeyboardManager {
 
             let keyboardOverlapping: CGFloat = rootSuperViewFrameInWindow.maxY - keyboardYPosition
 
-            let textViewHeight: CGFloat = min(textView.frame.height, rootSuperViewFrameInWindow.height-topLayoutGuide-keyboardOverlapping)
+            let availableHeight: CGFloat = rootSuperViewFrameInWindow.height-topLayoutGuide-keyboardOverlapping
+            let textViewHeight: CGFloat = min(textView.frame.height, availableHeight)
 
             if textView.frame.size.height-textView.contentInset.bottom>textViewHeight {
                 // If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
                 if startingTextViewConfiguration == nil {
-                    startingTextViewConfiguration = IQScrollViewConfiguration(scrollView: textView, canRestoreContentOffset: false)
+                    startingTextViewConfiguration = IQScrollViewConfiguration(scrollView: textView,
+                                                                              canRestoreContentOffset: false)
                 }
 
                 var newContentInset: UIEdgeInsets = textView.contentInset
@@ -490,7 +551,10 @@ public extension IQKeyboardManager {
                 newContentInset.bottom -= textView.safeAreaInsets.bottom
 
                 if textView.contentInset != newContentInset {
-                    self.showLog("\(textFieldView) Old UITextView.contentInset: \(textView.contentInset) New UITextView.contentInset: \(newContentInset)")
+                    self.showLog("""
+                                \(textFieldView) Old UITextView.contentInset: \(textView.contentInset)
+                                 New UITextView.contentInset: \(newContentInset)
+                                """)
 
                     activeConfiguration.animate(alongsideTransition: {
 
@@ -527,9 +591,9 @@ public extension IQKeyboardManager {
                 })
             }
 
-            movedDistance = (rootControllerConfiguration.beginOrigin.y-rootViewOrigin.y)
+            movedDistance = (rootConfiguration.beginOrigin.y-rootViewOrigin.y)
         } else {  //  -Negative
-            let disturbDistance: CGFloat = rootViewOrigin.y-rootControllerConfiguration.beginOrigin.y
+            let disturbDistance: CGFloat = rootViewOrigin.y-rootConfiguration.beginOrigin.y
 
             //  disturbDistance Negative = frame disturbed.
             //  disturbDistance positive = frame not disturbed.
@@ -560,14 +624,18 @@ public extension IQKeyboardManager {
                     })
                 }
 
-                movedDistance = (rootControllerConfiguration.beginOrigin.y-rootViewOrigin.y)
+                movedDistance = (rootConfiguration.beginOrigin.y-rootViewOrigin.y)
             }
         }
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
+    // swiftlint:enable cyclomatic_complexity
+    // swiftlint:enable function_body_length
 
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     internal func restorePosition() {
 
         //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
@@ -592,30 +660,31 @@ public extension IQKeyboardManager {
 
         // Restoring the contentOffset of the lastScrollView
         if let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-           let lastScrollViewConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
+           let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
 
             activeConfiguration.animate(alongsideTransition: {
 
-                if lastScrollViewConfiguration.hasChanged {
-                    if lastScrollViewConfiguration.scrollView.contentInset != lastScrollViewConfiguration.startingContentInsets {
-                        self.showLog("Restoring contentInset to: \(lastScrollViewConfiguration.startingContentInsets)")
+                if lastConfiguration.hasChanged {
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
+                        self.showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
                     }
 
-                    if lastScrollViewConfiguration.scrollView.iq.restoreContentOffset,
-                       !lastScrollViewConfiguration.scrollView.contentOffset.equalTo(lastScrollViewConfiguration.startingContentOffset) {
-                        self.showLog("Restoring contentOffset to: \(lastScrollViewConfiguration.startingContentOffset)")
+                    if lastConfiguration.scrollView.iq.restoreContentOffset,
+                       !lastConfiguration.scrollView.contentOffset.equalTo(lastConfiguration.startingContentOffset) {
+                        self.showLog("Restoring contentOffset to: \(lastConfiguration.startingContentOffset)")
                     }
 
-                    lastScrollViewConfiguration.restore(for: textFieldView)
+                    lastConfiguration.restore(for: textFieldView)
                 }
 
-                // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView: UIScrollView? = lastScrollViewConfiguration.scrollView
+                var superScrollView: UIScrollView? = lastConfiguration.scrollView
 
                 while let scrollView: UIScrollView = superScrollView {
 
-                    let contentSize: CGSize = CGSize(width: max(scrollView.contentSize.width, scrollView.frame.width), height: max(scrollView.contentSize.height, scrollView.frame.height))
+                    let width: CGFloat = max(scrollView.contentSize.width, scrollView.frame.width)
+                    let height: CGFloat = max(scrollView.contentSize.height, scrollView.frame.height)
+                    let contentSize: CGSize = CGSize(width: width, height: height)
 
                     let minimumY: CGFloat = contentSize.height - scrollView.frame.height
 
@@ -624,7 +693,9 @@ public extension IQKeyboardManager {
                         let newContentOffset: CGPoint = CGPoint(x: scrollView.contentOffset.x, y: minimumY)
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
-                            let animatedContentOffset: Bool = textFieldView.iq.superviewOf(type: UIStackView.self, belowView: scrollView) != nil  //  (Bug ID: #1365, #1508, #1541)
+                            //  (Bug ID: #1365, #1508, #1541)
+                            let animatedContentOffset: Bool = textFieldView.iq.superviewOf(type: UIStackView.self,
+                                                                                           belowView: scrollView) != nil
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -636,11 +707,13 @@ public extension IQKeyboardManager {
                         }
                     }
 
-                    superScrollView = scrollView.iq.superviewOf(type: UIScrollView.self) as? UIScrollView
+                    superScrollView = scrollView.iq.superviewOf(type: UIScrollView.self)
                 }
             })
         }
 
         self.movedDistance = 0
     }
+    // swiftlint:enable cyclomatic_complexity
+    // swiftlint:enable function_body_length
 }

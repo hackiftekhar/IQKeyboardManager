@@ -12,13 +12,16 @@ class CollectionViewDemoController: BaseViewController, UICollectionViewDelegate
 
     @IBOutlet var collectionView: UICollectionView!
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return 10
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextFieldCollectionViewCell",
+                                                      for: indexPath)
 
         let textField = cell.viewWithTag(10) as? UITextField
         textField?.placeholder = "\(indexPath.section) \(indexPath.row)"

@@ -38,26 +38,30 @@ extension UIScrollView: IQKeyboardManagerCompatible {}
 public extension IQKeyboardManagerWrapper where Base: UIScrollView {
 
     /**
-     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
+     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position.
+     Default is NO.
      */
     var ignoreScrollingAdjustment: Bool {
         get {
             return objc_getAssociatedObject(base, &AssociatedKeys.ignoreScrollingAdjustment) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.ignoreScrollingAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.ignoreScrollingAdjustment,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /**
-     If YES, then scrollview will ignore content inset adjustment (simply not updating it) when keyboard is shown. Default is NO.
+     If YES, then scrollview will ignore content inset adjustment (simply not updating it) 
+     when keyboard is shown. Default is NO.
      */
     var ignoreContentInsetAdjustment: Bool {
         get {
             return objc_getAssociatedObject(base, &AssociatedKeys.ignoreContentInsetAdjustment) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.ignoreContentInsetAdjustment, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.ignoreContentInsetAdjustment,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -69,7 +73,8 @@ public extension IQKeyboardManagerWrapper where Base: UIScrollView {
             return objc_getAssociatedObject(base, &AssociatedKeys.restoreContentOffset) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.restoreContentOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.restoreContentOffset,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

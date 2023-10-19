@@ -38,7 +38,9 @@ class ExampleTableViewController: BaseViewController, UITableViewDataSource, UIT
 
             if (indexPath.row % 2) == 0 {
 
-                let textField = UITextField(frame: CGRect(x: 5, y: 5, width: contentView.frame.size.width-10, height: 30))
+                let textField = UITextField(frame: CGRect(x: 5, y: 5,
+                                                          width: contentView.frame.size.width-10,
+                                                          height: 30))
                 textField.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleWidth]
                 textField.placeholder = identifier
                 textField.backgroundColor = UIColor.clear

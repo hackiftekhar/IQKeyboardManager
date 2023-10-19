@@ -39,7 +39,11 @@ internal struct IQRootControllerConfiguration {
         let interfaceOrientation: UIInterfaceOrientation
         #if swift(>=5.1)
         if #available(iOS 13, *) {
-            interfaceOrientation = rootController.view.window?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+            if let scene = rootController.view.window?.windowScene {
+                interfaceOrientation = scene.interfaceOrientation
+            } else {
+                interfaceOrientation = .unknown
+            }
         } else {
             interfaceOrientation = UIApplication.shared.statusBarOrientation
         }
@@ -54,7 +58,11 @@ internal struct IQRootControllerConfiguration {
         let interfaceOrientation: UIInterfaceOrientation
         #if swift(>=5.1)
         if #available(iOS 13, *) {
-            interfaceOrientation = rootController.view.window?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.unknown
+            if let scene = rootController.view.window?.windowScene {
+                interfaceOrientation = scene.interfaceOrientation
+            } else {
+                interfaceOrientation = .unknown
+            }
         } else {
             interfaceOrientation = UIApplication.shared.statusBarOrientation
         }

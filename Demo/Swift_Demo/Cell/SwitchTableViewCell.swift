@@ -13,8 +13,4 @@ class SwitchTableViewCell: UITableViewCell {
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var labelSubtitle: UILabel!
     @IBOutlet var switchEnable: UISwitch!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

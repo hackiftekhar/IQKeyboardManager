@@ -48,22 +48,30 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      */
     var distanceFromKeyboard: CGFloat {
         get {
-            return objc_getAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard) as? CGFloat ?? UIView.defaultKeyboardDistance
+            if let value = objc_getAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard) as? CGFloat {
+                return value
+            } else {
+                return UIView.defaultKeyboardDistance
+            }
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     /**
-     If ignoreSwitchingByNextPrevious is true then library will ignore this textField/textView while moving to other textField/textView using keyboard toolbar next previous buttons. Default is false
+     If ignoreSwitchingByNextPrevious is true then library will ignore this textField/textView
+     while moving to other textField/textView using keyboard toolbar next previous buttons.
+     Default is false
      */
     var ignoreSwitchingByNextPrevious: Bool {
         get {
             return objc_getAssociatedObject(base, &AssociatedKeys.ignoreSwitchingByNextPrevious) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.ignoreSwitchingByNextPrevious, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.ignoreSwitchingByNextPrevious,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -87,7 +95,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return objc_getAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode) as? IQEnableMode ?? .default
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

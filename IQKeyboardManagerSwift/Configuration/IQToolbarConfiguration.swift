@@ -32,7 +32,8 @@ import UIKit
     @objc public var useTextFieldTintColor: Bool = false
 
     /**
-     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If useTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault.
+     If useTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
      */
     @objc public var tintColor: UIColor?
 
@@ -44,7 +45,8 @@ import UIKit
     /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
-     IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+     IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons,
+     if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
      */
     @objc public var previousNextDisplayMode: IQPreviousNextDisplayMode = .default
 
@@ -52,13 +54,21 @@ import UIKit
      /**
       IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hirarchy of Textfield's in view.
       IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextField's.
-      IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+      IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position
+      of textField in it's superview coordinate.
 
       Default is IQAutoToolbarBySubviews.
       */
      AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
      */
     @objc public var manageBehaviour: IQAutoToolbarManageBehaviour = .bySubviews
+
+    /**
+    Buttons configuration displayed on the toolbar, the selector parameter is ignored in below configuration
+    */
+    @objc public var previousBarButtonConfiguration: IQBarButtonItemConfiguration?
+    @objc public var nextBarButtonConfiguration: IQBarButtonItemConfiguration?
+    @objc public var doneBarButtonConfiguration: IQBarButtonItemConfiguration?
 
     @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
 }

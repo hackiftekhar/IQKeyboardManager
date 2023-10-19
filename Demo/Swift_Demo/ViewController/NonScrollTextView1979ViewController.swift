@@ -83,7 +83,8 @@ class NonScrollTextView1979ViewController: UIViewController {
             stackView.addSubview(textView)
             textView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                textView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: (eachHeight + gap) * CGFloat(index-1)),
+                textView.topAnchor.constraint(equalTo: stackView.topAnchor,
+                                              constant: (eachHeight + gap) * CGFloat(index-1)),
                 textView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
                 textView.heightAnchor.constraint(equalToConstant: eachHeight)
             ])

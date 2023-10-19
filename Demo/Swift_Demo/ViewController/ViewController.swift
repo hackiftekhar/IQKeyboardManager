@@ -13,7 +13,7 @@ class ViewController: BaseTableViewController {
 
     @IBAction func shareClicked (_ sender: UIBarButtonItem) {
 
-        let shareString: String = "IQKeyboardManager is really great control for iOS developer to manage keyboard-textField."
+        let shareString: String = "IQKeyboardManager is really great for iOS developer to manage keyboard-textField."
         let shareImage: UIImage = UIImage(named: "IQKeyboardManagerScreenshot")!
         let youtubeUrl: URL = URL(string: "http://youtu.be/6nhLw6hju2A")!
 

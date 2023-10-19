@@ -76,7 +76,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return objc_getAssociatedObject(base, &AssociatedKeys.hidePlaceholder) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.hidePlaceholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKeys.hidePlaceholder,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             toolbar.titleBarButton.title = drawingPlaceholder
         }
     }
@@ -95,7 +96,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. This would either `placeholder` or `toolbarPlaceholder`.
+     `drawingToolbarPlaceholder` will be actual text used to draw on toolbar. 
+     This would either `placeholder` or `toolbarPlaceholder`.
      */
     var drawingPlaceholder: String? {
 
@@ -120,6 +122,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
     // MARK: Common
 
+    // swiftlint:disable cyclomatic_complexity
     func addToolbar(target: AnyObject?,
                     previousConfiguration: IQBarButtonItemConfiguration? = nil,
                     nextConfiguration: IQBarButtonItemConfiguration? = nil,
@@ -192,7 +195,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             }
 
             //  Setting toolbar to keyboard.
-            var reloadInputViews: Bool = base.inputAccessoryView == nil
+            let reloadInputViews: Bool = base.inputAccessoryView == nil
             if let textField: UITextField = base as? UITextField {
                 textField.inputAccessoryView = toolbar
             } else if let textView: UITextView = base as? UITextView {
@@ -203,7 +206,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             }
         }
     }
-    // swiftlint:enable function_body_length
+    // swiftlint:enable cyclomatic_complexity
 
     // MARK: Right
     func addDone(target: AnyObject?,
@@ -230,13 +233,15 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                         configuration: IQBarButtonItemConfiguration,
                         showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
         let title: String? = showPlaceholder ? drawingPlaceholder : nil
-        addRightButton(target: target, configuration: configuration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        addRightButton(target: target, configuration: configuration, title: title,
+                       titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func addRightButton(target: AnyObject?,
                         configuration: IQBarButtonItemConfiguration,
                         title: String?, titleAccessibilityLabel: String? = nil) {
-        addToolbar(target: target, rightConfiguration: configuration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        addToolbar(target: target, rightConfiguration: configuration, title: title,
+                   titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     // MARK: Right/Left
@@ -267,7 +272,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
         let title: String? = showPlaceholder ? drawingPlaceholder : nil
         addPreviousNextRight(target: target,
-                             previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                             previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration,
+                             rightConfiguration: rightConfiguration,
                              title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
@@ -278,26 +284,30 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                               title: String?, titleAccessibilityLabel: String? = nil) {
 
         addToolbar(target: target,
-                   previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                   previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration,
+                   rightConfiguration: rightConfiguration,
                    title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func addPreviousNextDone(target: AnyObject?, previousAction: Selector, nextAction: Selector, doneAction: Selector,
                              showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
         let title: String? = showPlaceholder ? drawingPlaceholder : nil
-        addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction,
+        addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction,
+                            doneAction: doneAction,
                             title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func addPreviousNextDone(target: AnyObject?,
-                              previousAction: Selector, nextAction: Selector, doneAction: Selector,
+                             previousAction: Selector, nextAction: Selector, doneAction: Selector,
                              title: String?, titleAccessibilityLabel: String? = nil) {
 
-        let previousConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardPreviousImage() ?? UIImage(), action: previousAction)
-        let nextConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardNextImage() ?? UIImage(), action: nextAction)
+        let previousConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardPreviousImage,
+                                                                 action: previousAction)
+        let nextConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardNextImage, action: nextAction)
         let rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: doneAction)
 
-        addToolbar(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+        addToolbar(target: target, previousConfiguration: previousConfiguration,
+                   nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
                    title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 }

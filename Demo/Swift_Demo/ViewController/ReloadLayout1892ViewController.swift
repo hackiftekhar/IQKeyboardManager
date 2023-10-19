@@ -11,11 +11,6 @@ import IQKeyboardManagerSwift
 
 class ReloadLayout1892ViewController: BaseViewController {
     @IBOutlet weak var textView: UITextView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 }
 
 extension ViewController: UITextViewDelegate {

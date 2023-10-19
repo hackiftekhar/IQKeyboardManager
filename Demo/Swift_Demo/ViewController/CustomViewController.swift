@@ -46,31 +46,54 @@ class CustomViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        switchDisableViewController.isOn = IQKeyboardManager.shared.disabledDistanceHandlingClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
+        do {
+            let classes = IQKeyboardManager.shared.disabledDistanceHandlingClasses
+            switchDisableViewController.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
 
-        switchEnableViewController.isOn = IQKeyboardManager.shared.enabledDistanceHandlingClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
+        do {
+            let classes = IQKeyboardManager.shared.enabledDistanceHandlingClasses
+            switchEnableViewController.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
 
-        switchDisableToolbar.isOn = IQKeyboardManager.shared.disabledToolbarClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
-        switchEnableToolbar.isOn = IQKeyboardManager.shared.enabledToolbarClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
+        do {
+            let classes = IQKeyboardManager.shared.disabledToolbarClasses
+            switchDisableToolbar.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
 
-        switchDisableTouchResign.isOn = IQKeyboardManager.shared.disabledTouchResignedClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
-        switchEnableTouchResign.isOn = IQKeyboardManager.shared.enabledTouchResignedClasses.contains(where: { element in
-            return element == CustomViewController.self
-        })
+        do {
+            let classes = IQKeyboardManager.shared.enabledToolbarClasses
+            switchEnableToolbar.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
 
-        switchAllowPreviousNext.isOn = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.contains(where: { element in
-            return element == IQPreviousNextView.self
-        })
+        do {
+            let classes = IQKeyboardManager.shared.disabledTouchResignedClasses
+            switchDisableTouchResign.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
+
+        do {
+            let classes = IQKeyboardManager.shared.enabledTouchResignedClasses
+            switchEnableTouchResign.isOn = classes.contains(where: { element in
+                return element == CustomViewController.self
+            })
+        }
+
+        do {
+            let classes = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses
+            switchAllowPreviousNext.isOn = classes.contains(where: { element in
+                return element == IQPreviousNextView.self
+            })
+        }
     }
 
     @IBAction func tapAction(_ sender: UITapGestureRecognizer) {

@@ -11,8 +11,4 @@ import UIKit
 class OptionTableViewCell: UITableViewCell {
 
     @IBOutlet var labelOption: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

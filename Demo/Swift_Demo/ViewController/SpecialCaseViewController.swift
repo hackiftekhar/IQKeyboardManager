@@ -46,7 +46,10 @@ class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UIText
     }
 
     @IBAction func showAlertClicked (_ barButton: UIBarButtonItem!) {
-        let alertController = UIAlertController(title: "IQKeyboardManager", message: "It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField", preferredStyle: .alert)
+        let message = "It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField"
+        let alertController = UIAlertController(title: "IQKeyboardManager",
+                                                message: message,
+                                                preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
         alertController.addTextField(configurationHandler: { (textField: UITextField) in
@@ -74,9 +77,12 @@ class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UIText
     }
 
     func updateUI() {
-        textField6.placeholder = (textField6.isEnabled ? "enabled" : "" ) + "," + (textField6.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
-        textField7.placeholder = (textField7.isEnabled ? "enabled" : "" ) + "," + (textField7.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
-        textField8.placeholder = (textField8.isEnabled ? "enabled" : "" ) + "," + (textField8.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
+        textField6.placeholder = (textField6.isEnabled ? "enabled" : "" ) + "," +
+        (textField6.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
+        textField7.placeholder = (textField7.isEnabled ? "enabled" : "" ) + "," +
+        (textField7.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
+        textField8.placeholder = (textField8.isEnabled ? "enabled" : "" ) + "," +
+        (textField8.isUserInteractionEnabled ? "userInteractionEnabled" : "" )
     }
 
     @IBAction func switch1UserInteractionAction(_ sender: UISwitch) {
@@ -118,7 +124,9 @@ class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UIText
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 
         if textField == customWorkTextField {
-            let alertController = UIAlertController(title: "IQKeyboardManager", message: "Do your custom work here", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "IQKeyboardManager",
+                                                    message: "Do your custom work here",
+                                                    preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
             self.present(alertController, animated: true, completion: nil)

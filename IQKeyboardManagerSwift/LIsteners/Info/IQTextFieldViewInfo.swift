@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 public struct IQTextFieldViewInfo: Equatable {
-    
+
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.textFieldView == rhs.textFieldView &&
         lhs.name == rhs.name

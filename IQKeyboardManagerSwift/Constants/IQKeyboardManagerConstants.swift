@@ -50,7 +50,8 @@ Creates Toolbar according to the y,x position of textField in it's superview coo
  Do not show NextPrevious buttons in any case.
  
  `IQPreviousNextDisplayModeAlwaysShow`
- Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+ Always show nextPrevious buttons,
+ if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
  */
 @available(iOSApplicationExtension, unavailable)
 @objc public enum IQPreviousNextDisplayMode: Int {

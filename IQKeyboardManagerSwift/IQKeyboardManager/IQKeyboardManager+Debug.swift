@@ -36,7 +36,8 @@ public extension IQKeyboardManager {
             return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 

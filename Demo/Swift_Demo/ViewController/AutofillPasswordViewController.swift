@@ -10,10 +10,6 @@ import UIKit
 
 class AutofillPasswordViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     @IBAction private func loginActin(_ sender: UIButton) {
         self.view.endEditing(true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {

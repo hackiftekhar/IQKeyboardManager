@@ -107,29 +107,37 @@ import UIKit
         titleButton?.titleLabel?.font = self.titleFont
         _titleView?.addSubview(titleButton!)
 
-        let layoutDefaultLowPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultLow.rawValue-1)
-        let layoutDefaultHighPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultHigh.rawValue-1)
+        let lowPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultLow.rawValue-1)
+        let highPriority: UILayoutPriority = UILayoutPriority(rawValue: UILayoutPriority.defaultHigh.rawValue-1)
 
         _titleView?.translatesAutoresizingMaskIntoConstraints = false
-        _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
-        _titleView?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
-        _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
-        _titleView?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
+        _titleView?.setContentHuggingPriority(lowPriority, for: .vertical)
+        _titleView?.setContentHuggingPriority(lowPriority, for: .horizontal)
+        _titleView?.setContentCompressionResistancePriority(highPriority, for: .vertical)
+        _titleView?.setContentCompressionResistancePriority(highPriority, for: .horizontal)
 
         titleButton?.translatesAutoresizingMaskIntoConstraints = false
-        titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .vertical)
-        titleButton?.setContentHuggingPriority(layoutDefaultLowPriority, for: .horizontal)
-        titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .vertical)
-        titleButton?.setContentCompressionResistancePriority(layoutDefaultHighPriority, for: .horizontal)
+        titleButton?.setContentHuggingPriority(lowPriority, for: .vertical)
+        titleButton?.setContentHuggingPriority(lowPriority, for: .horizontal)
+        titleButton?.setContentCompressionResistancePriority(highPriority, for: .vertical)
+        titleButton?.setContentCompressionResistancePriority(highPriority, for: .horizontal)
 
-        let top: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .top, relatedBy: .equal,
-                                                         toItem: _titleView, attribute: .top, multiplier: 1, constant: 0)
-        let bottom: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .bottom, relatedBy: .equal,
-                                                            toItem: _titleView, attribute: .bottom, multiplier: 1, constant: 0)
-        let leading: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .leading, relatedBy: .equal,
-                                                             toItem: _titleView, attribute: .leading, multiplier: 1, constant: 0)
-        let trailing: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .trailing, relatedBy: .equal,
-                                                              toItem: _titleView, attribute: .trailing, multiplier: 1, constant: 0)
+        let top: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .top,
+                                                         relatedBy: .equal,
+                                                         toItem: _titleView, attribute: .top,
+                                                         multiplier: 1, constant: 0)
+        let bottom: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .bottom,
+                                                            relatedBy: .equal,
+                                                            toItem: _titleView, attribute: .bottom,
+                                                            multiplier: 1, constant: 0)
+        let leading: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .leading,
+                                                             relatedBy: .equal,
+                                                             toItem: _titleView, attribute: .leading,
+                                                             multiplier: 1, constant: 0)
+        let trailing: NSLayoutConstraint = NSLayoutConstraint(item: titleButton!, attribute: .trailing,
+                                                              relatedBy: .equal,
+                                                              toItem: _titleView, attribute: .trailing,
+                                                              multiplier: 1, constant: 0)
 
         _titleView?.addConstraints([top, bottom, leading, trailing])
 

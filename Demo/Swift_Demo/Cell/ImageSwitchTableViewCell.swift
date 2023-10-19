@@ -9,8 +9,4 @@
 class ImageSwitchTableViewCell: SwitchTableViewCell {
 
     @IBOutlet var arrowImageView: UIImageView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

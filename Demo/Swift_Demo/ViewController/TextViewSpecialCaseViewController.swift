@@ -10,15 +10,6 @@ import UIKit
 
 class TextViewSpecialCaseViewController: BaseViewController, UITextViewDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func viewWillAppear (_ animated: Bool) {
-
-        super.viewWillAppear(animated)
-    }
-
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 
         if text == "\n" {

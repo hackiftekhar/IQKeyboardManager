@@ -10,17 +10,19 @@ import UIKit
 
 class BaseViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         let presentButtonTitle = (self.presentingViewController == nil) ? "Present" : "Dismiss"
-        let presentBarButtonItem = UIBarButtonItem(title: presentButtonTitle, style: .done, target: self, action: #selector(presentAction(_:)))
+        let presentBarButtonItem = UIBarButtonItem(title: presentButtonTitle,
+                                                   style: .done,
+                                                   target: self,
+                                                   action: #selector(presentAction(_:)))
 
-        let settingsBarButtongItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .done, target: self, action: #selector(settingsAction(_:)))
+        let settingsBarButtongItem = UIBarButtonItem(image: UIImage(named: "settings"),
+                                                     style: .done,
+                                                     target: self,
+                                                     action: #selector(settingsAction(_:)))
         self.navigationItem.rightBarButtonItems = [settingsBarButtongItem, presentBarButtonItem]
     }
 
@@ -104,7 +106,7 @@ extension BaseViewController {
 
     @IBAction private func settingsAction(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Settings", bundle: nil)
-        let controller: UIViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
+        let controller = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
         controller.popoverPresentationController?.barButtonItem = sender
 
         let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)

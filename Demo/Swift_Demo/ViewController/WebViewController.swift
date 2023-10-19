@@ -27,7 +27,9 @@ class WebViewController: BaseViewController {
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.webContainerView.addSubview(self.webView)
 
-        let request: URLRequest = URLRequest(url: URL(string: "http://www.google.com")!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 60)
+        let request: URLRequest = URLRequest(url: URL(string: "http://www.google.com")!,
+                                             cachePolicy: .useProtocolCachePolicy,
+                                             timeoutInterval: 60)
         self.webView.load(request)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activity)

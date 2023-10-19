@@ -41,10 +41,6 @@ class SearchViewController: BaseTableViewController, UISearchResultsUpdating, UI
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     func searchForText(_ searchText: String?, scope: Int) {
 
         guard let text = searchText, !text.isEmpty else {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScrollViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate {
+class ScrollViewController: BaseViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet var scrollViewDemo: UIScrollView!
     @IBOutlet var simpleTableView: UITableView!
@@ -28,10 +28,9 @@ class ScrollViewController: BaseViewController, UITableViewDataSource, UITableVi
         topTextView = nil
         bottomTextView = nil
     }
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+extension ScrollViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5

@@ -34,8 +34,9 @@ public extension IQKeyboardManager {
 
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
+            let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
-               gestureConfiguration.rootController == self.activeConfiguration.rootControllerConfiguration?.rootController {
+               gestureConfiguration.rootController == rootConfiguration?.rootController {
                 self.activeConfiguration.rootControllerConfiguration = gestureConfiguration
             }
 
@@ -96,7 +97,7 @@ public extension IQKeyboardManager {
 
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardManager {
-    
+
     internal func setupTextFieldView() {
 
         guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
@@ -104,15 +105,15 @@ extension IQKeyboardManager {
         }
 
         do {
-            if let startingTextViewConfiguration = startingTextViewConfiguration,
-               startingTextViewConfiguration.hasChanged {
+            if let startingConfiguration = startingTextViewConfiguration,
+               startingConfiguration.hasChanged {
 
-                if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {
-                    startingTextViewConfiguration.restore(for: textFieldView)
+                    startingConfiguration.restore(for: textFieldView)
                 })
             }
             startingTextViewConfiguration = nil
@@ -154,15 +155,15 @@ extension IQKeyboardManager {
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
 
         do {
-            if let startingTextViewConfiguration = startingTextViewConfiguration,
-               startingTextViewConfiguration.hasChanged {
+            if let startingConfiguration = startingTextViewConfiguration,
+               startingConfiguration.hasChanged {
 
-                if startingTextViewConfiguration.scrollView.contentInset != startingTextViewConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingTextViewConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {
-                    startingTextViewConfiguration.restore(for: textFieldView)
+                    startingConfiguration.restore(for: textFieldView)
                 })
             }
             startingTextViewConfiguration = nil

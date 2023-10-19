@@ -18,19 +18,43 @@ class SettingsViewController: UITableViewController {
     "UISound handling",
     "IQKeyboardManager Debug"]
 
-    let keyboardManagerProperties = [["Enable", "Keyboard Distance From TextField", "Layout If Needed on Update"],
-    ["Enable AutoToolbar", "Toolbar Manage Behaviour", "Should Toolbar Uses TextField TintColor", "Should Show TextField Placeholder", "Placeholder Font", "Toolbar Tint Color", "Toolbar Done BarButtonItem Image", "Toolbar Done Button Text"],
-    ["Override Keyboard Appearance", "UIKeyboard Appearance"],
-    ["Should Resign On Touch Outside"],
-    ["Should Play Input Clicks"],
-    ["Debugging logs in Console"]]
+    let keyboardManagerProperties = [
+        ["Enable",
+         "Keyboard Distance From TextField",
+         "Layout If Needed on Update"],
+        ["Enable AutoToolbar",
+         "Toolbar Manage Behaviour",
+         "Should Toolbar Uses TextField TintColor",
+         "Should Show TextField Placeholder",
+         "Placeholder Font",
+         "Toolbar Tint Color",
+         "Toolbar Done BarButtonItem Image",
+         "Toolbar Done Button Text"],
+        ["Override Keyboard Appearance",
+         "UIKeyboard Appearance"],
+        ["Should Resign On Touch Outside"],
+        ["Should Play Input Clicks"],
+        ["Debugging logs in Console"]
+    ]
 
-    let keyboardManagerPropertyDetails = [["Enable/Disable IQKeyboardManager", "Set keyboard distance from textField", "Layout the whole view on change"],
-    ["Automatic add the IQToolbar on UIKeyboard", "AutoToolbar previous/next button managing behaviour", "Uses textField's tintColor property for IQToolbar", "Add the textField's placeholder text on IQToolbar", "UIFont for IQToolbar placeholder text", "Override toolbar tintColor property", "Replace toolbar done button text with provided image", "Override toolbar done button text"],
-    ["Override the keyboardAppearance for all UITextField/UITextView", "All the UITextField keyboardAppearance is set using this property"],
-    ["Resigns Keyboard on touching outside of UITextField/View"],
-    ["Plays inputClick sound on next/previous/done click"],
-    ["Setting enableDebugging to YES/No to turn on/off debugging mode"]]
+    let keyboardManagerPropertyDetails = [
+        ["Enable/Disable IQKeyboardManager",
+         "Set keyboard distance from textField",
+         "Layout the whole view on change"],
+        ["Automatic add the IQToolbar on UIKeyboard",
+         "AutoToolbar previous/next button managing behaviour",
+         "Uses textField's tintColor property for IQToolbar",
+         "Add the textField's placeholder text on IQToolbar",
+         "UIFont for IQToolbar placeholder text",
+         "Override toolbar tintColor property",
+         "Replace toolbar done button text with provided image",
+         "Override toolbar done button text"],
+        ["Override the keyboardAppearance for all UITextField/UITextView",
+         "All the UITextField keyboardAppearance is set using this property"],
+        ["Resigns Keyboard on touching outside of UITextField/View"],
+        ["Plays inputClick sound on next/previous/done click"],
+        ["Setting enableDebugging to YES/No to turn on/off debugging mode"]
+    ]
 
     var selectedIndexPathForOptions: IndexPath?
 
@@ -84,9 +108,9 @@ class SettingsViewController: UITableViewController {
 
         if sender.isOn {
             let config = IQBarButtonItemConfiguration(image: UIImage(named: "IQButtonBarArrowDown")!)
-            IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration = config
+            IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
         } else {
-            IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration = nil
+            IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
         }
 
         self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
@@ -118,288 +142,15 @@ class SettingsViewController: UITableViewController {
         IQKeyboardManager.shared.enableDebugging = sender.isOn
     }
 
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        switch section {
-        case 0:
-            if IQKeyboardManager.shared.enable == true {
-
-                let properties = keyboardManagerProperties[section]
-
-                return properties.count
-            } else {
-                return 1
-            }
-
-        case 1:
-            if IQKeyboardManager.shared.enableAutoToolbar == false {
-                return 1
-            } else if IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder == false {
-                return 4
-            } else {
-                let properties = keyboardManagerProperties[section]
-                return properties.count
-            }
-
-        case 2:
-
-            if IQKeyboardManager.shared.keyboardConfiguration.overrideAppearance == true {
-
-                let properties = keyboardManagerProperties[section]
-
-                return properties.count
-            } else {
-                return 1
-            }
-
-        case 3, 4, 5:
-            let properties = keyboardManagerProperties[section]
-
-            return properties.count
-
-        default:
-            return 0
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
-        return sectionTitles[section]
-    }
-
-    override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.enable
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.enableAction(_:)), for: .valueChanged)
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "StepperTableViewCell", for: indexPath) as? StepperTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.stepper.value = Double(IQKeyboardManager.shared.keyboardDistanceFromTextField)
-                cell.labelStepperValue.text = NSString(format: "%.0f", IQKeyboardManager.shared.keyboardDistanceFromTextField) as String
-                cell.stepper.removeTarget(nil, action: nil, for: .allEvents)
-                cell.stepper.addTarget(self, action: #selector(self.keyboardDistanceFromTextFieldAction(_:)), for: .valueChanged)
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.layoutIfNeededOnUpdate
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.layoutIfNeededOnUpdateAction(_:)), for: .valueChanged)
-                return cell
-            default:    break
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.enableAutoToolbar
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.enableAutoToolbarAction(_:)), for: .valueChanged)
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NavigationTableViewCell", for: indexPath) as? NavigationTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.toolbarConfiguration.useTextFieldTintColor
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldToolbarUsesTextFieldTintColorAction(_:)), for: .valueChanged)
-                return cell
-            case 3:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldShowToolbarPlaceholder(_:)), for: .valueChanged)
-                return cell
-            case 4:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NavigationTableViewCell", for: indexPath) as? NavigationTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                return cell
-            case 5:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColorTableViewCell", for: indexPath) as? ColorTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.colorPickerTextField.selectedColor = IQKeyboardManager.shared.toolbarConfiguration.tintColor
-                cell.colorPickerTextField.tag = 15
-                cell.colorPickerTextField.delegate = self
-                return cell
-            case 6:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ImageSwitchTableViewCell", for: indexPath) as? ImageSwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.arrowImageView.image = IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration?.image
-                cell.switchEnable.isOn = IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration?.image != nil
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.toolbarDoneBarButtonItemImage(_:)), for: .valueChanged)
-                return cell
-            case 7:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldTableViewCell", for: indexPath) as? TextFieldTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.textField.text = IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration?.title
-                cell.textField.tag = 17
-                cell.textField.delegate = self
-                return cell
-            default:    break
-            }
-        case 2:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.keyboardConfiguration.overrideAppearance
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.overrideKeyboardAppearanceAction(_:)), for: .valueChanged)
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NavigationTableViewCell", for: indexPath) as? NavigationTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                return cell
-            default:
-                break
-            }
-        case 3:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.resignOnTouchOutside
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldResignOnTouchOutsideAction(_:)), for: .valueChanged)
-                return cell
-            default:    break
-            }
-        case 4:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.playInputClicks
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.shouldPlayInputClicksAction(_:)), for: .valueChanged)
-                return cell
-            default:    break
-            }
-        case 5:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as? SwitchTableViewCell else {
-                    fatalError("Can't dequeue cell")
-                }
-
-                cell.switchEnable.isEnabled = true
-                cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
-                cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.enableDebugging
-                cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
-                cell.switchEnable.addTarget(self, action: #selector(self.enableDebugging(_:)), for: .valueChanged)
-                return cell
-            default:    break
-            }
-        default:    break
-        }
-
-        return UITableViewCell()
-     }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         guard let identifier = segue.identifier else {
             return
         }
 
-        if identifier.elementsEqual("OptionsViewController"), let controller = segue.destination as? OptionsViewController, let cell = sender as? UITableViewCell {
+        if identifier.elementsEqual("OptionsViewController"),
+            let controller = segue.destination as? OptionsViewController,
+           let cell = sender as? UITableViewCell {
 
             controller.delegate = self
 
@@ -421,7 +172,9 @@ class SettingsViewController: UITableViewController {
                 controller.options = ["Bold System Font", "Italic system font", "Regular"]
                 controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour.hashValue
 
-                let fonts = [UIFont.boldSystemFont(ofSize: 12), UIFont.italicSystemFont(ofSize: 12), UIFont.systemFont(ofSize: 12)]
+                let fonts = [UIFont.boldSystemFont(ofSize: 12),
+                             UIFont.italicSystemFont(ofSize: 12),
+                             UIFont.systemFont(ofSize: 12)]
 
                 if let placeholderFont = IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font {
 
@@ -434,7 +187,9 @@ class SettingsViewController: UITableViewController {
             } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
 
                 controller.title = "Keyboard Appearance"
-                controller.options = ["UIKeyboardAppearance Default", "UIKeyboardAppearance Dark", "UIKeyboardAppearance Light"]
+                controller.options = ["UIKeyboardAppearance Default",
+                                      "UIKeyboardAppearance Dark",
+                                      "UIKeyboardAppearance Light"]
                 controller.selectedIndex = IQKeyboardManager.shared.keyboardConfiguration.appearance.hashValue
             }
         }
@@ -442,7 +197,8 @@ class SettingsViewController: UITableViewController {
 }
 
 extension SettingsViewController: ColorPickerTextFieldDelegate {
-    func colorPickerTextField(_ textField: ColorPickerTextField, selectedColorAttributes colorAttributes: [String: Any] = [:]) {
+    func colorPickerTextField(_ textField: ColorPickerTextField,
+                              selectedColorAttributes colorAttributes: [String: Any] = [:]) {
 
         if textField.tag == 15, let color = colorAttributes["color"] as? UIColor {
 
@@ -463,9 +219,9 @@ extension SettingsViewController: ColorPickerTextFieldDelegate {
         if textField.tag == 17 {
             if let title = textField.text, !title.isEmpty {
                 let config = IQBarButtonItemConfiguration(title: title)
-                IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration = config
+                IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
             } else {
-                IQKeyboardManager.shared.toolbarDoneBarButtonItemConfiguration = nil
+                IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
             }
         }
     }
@@ -479,10 +235,13 @@ extension SettingsViewController: OptionsViewControllerDelegate {
         }
 
         if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
-            IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour = IQAutoToolbarManageBehaviour(rawValue: index)!
+            let value = IQAutoToolbarManageBehaviour(rawValue: index)!
+            IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour = value
         } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
-            let fonts = [UIFont.boldSystemFont(ofSize: 12), UIFont.italicSystemFont(ofSize: 12), UIFont.systemFont(ofSize: 12)]
+            let fonts = [UIFont.boldSystemFont(ofSize: 12),
+                         UIFont.italicSystemFont(ofSize: 12),
+                         UIFont.systemFont(ofSize: 12)]
             IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font = fonts[index]
         } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
 

@@ -67,7 +67,8 @@ public struct IQKeyboardInfo: Equatable {
             }
 
             //  Getting keyboard animation duration
-            if let duration: TimeInterval = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval, duration != 0.0 {
+            if let duration: TimeInterval = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
+               duration != 0.0 {
                 animationDuration = duration
             } else {
                 animationDuration = 0.25
@@ -77,7 +78,9 @@ public struct IQKeyboardInfo: Equatable {
             //  Getting UIKeyboardSize.
             if var kbFrame: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
 
-                // Calculating actual keyboard covered size respect to window, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+                // (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+                // Calculating actual keyboard covered size respect to window,
+                // keyboard frame may be different when hardware keyboard is attached
                 let intersectRect: CGRect = kbFrame.intersection(screen.bounds)
 
                 if intersectRect.isNull {
@@ -114,7 +117,10 @@ public struct IQKeyboardInfo: Equatable {
         var animationOptions: UIView.AnimationOptions = .init(rawValue: UInt(animationCurve.rawValue << 16))
         animationOptions.formUnion(.allowUserInteraction)
         animationOptions.formUnion(.beginFromCurrentState)
-        UIView.animate(withDuration: animationDuration, delay: 0, options: animationOptions, animations: transition, completion: { _ in
+        UIView.animate(withDuration: animationDuration, delay: 0,
+                       options: animationOptions,
+                       animations: transition,
+                       completion: { _ in
             completion?()
         })
 //        }

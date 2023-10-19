@@ -13,9 +13,4 @@ class ColorTableViewCell: UITableViewCell {
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var labelSubtitle: UILabel!
     @IBOutlet var colorPickerTextField: ColorPickerTextField!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
 }

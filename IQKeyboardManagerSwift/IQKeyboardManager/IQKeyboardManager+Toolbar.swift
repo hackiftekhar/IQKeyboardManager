@@ -36,16 +36,22 @@ public extension IQKeyboardManager {
     */
     private static let  kIQPreviousNextButtonToolbarTag =   -1005
 
-    /** Add toolbar if it is required to add on textFields and it's siblings. */
+    // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
+    /**
+     Add toolbar if it is required to add on textFields and it's siblings.
+     */
     internal func addToolbarIfRequired() {
 
-        // Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
+        // Either there is no inputAccessoryView or
+        // if accessoryView is not appropriate for current situation
+        // (There is Previous/Next/Done toolbar)
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
               let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
               textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              (textField.inputAccessoryView == nil ||
+              textField.inputAccessoryView == nil ||
                 textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) else {
+                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
             return
         }
 
@@ -55,7 +61,7 @@ public extension IQKeyboardManager {
 //        showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
-        if let configuration: IQBarButtonItemConfiguration = toolbarDoneBarButtonItemConfiguration {
+        if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.doneBarButtonConfiguration {
             rightConfiguration = configuration
             rightConfiguration.action = #selector(self.doneAction(_:))
         } else {
@@ -92,36 +98,41 @@ public extension IQKeyboardManager {
             havePreviousNext = false
         }
 
+        let placeholderConfig: IQToolbarPlaceholderConfiguration = toolbarConfiguration.placeholderConfiguration
         if havePreviousNext {
             let prevConfiguration: IQBarButtonItemConfiguration
-            if let configuration: IQBarButtonItemConfiguration = toolbarPreviousBarButtonItemConfiguration {
+            if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.previousBarButtonConfiguration {
                 configuration.action = #selector(self.previousAction(_:))
                 prevConfiguration = configuration
             } else {
-                prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage() ?? UIImage()), action: #selector(self.previousAction(_:)))
+                prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage),
+                                                                 action: #selector(self.previousAction(_:)))
                 prevConfiguration.accessibilityLabel = "Previous"
             }
 
             let nextConfiguration: IQBarButtonItemConfiguration
-            if let configuration: IQBarButtonItemConfiguration = toolbarNextBarButtonItemConfiguration {
+            if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.nextBarButtonConfiguration {
                 configuration.action = #selector(self.nextAction(_:))
                 nextConfiguration = configuration
             } else {
-                nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage() ?? UIImage()), action: #selector(self.nextAction(_:)))
+                nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage),
+                                                                 action: #selector(self.nextAction(_:)))
                 nextConfiguration.accessibilityLabel = "Next"
             }
 
-            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
+            let titleText: String? = placeholderConfig.showPlaceholder ? textField.iq.drawingPlaceholder : nil
             textField.iq.addToolbar(target: self,
                                     previousConfiguration: prevConfiguration,
                                     nextConfiguration: nextConfiguration,
                                     rightConfiguration: rightConfiguration, title: titleText,
-                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
+                                    titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
 
-            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
+            // (Bug ID: #78)
+            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag
 
             if isTableCollectionView {
-                // In case of UITableView (Special), the next/previous buttons should always be enabled.    (Bug ID: #56)
+                // (Bug ID: #56)
+                // In case of UITableView, the next/previous buttons should always be enabled.
                 textField.iq.toolbar.previousBarButton.isEnabled = true
                 textField.iq.toolbar.nextBarButton.isEnabled = true
             } else {
@@ -133,10 +144,10 @@ public extension IQKeyboardManager {
 
         } else {
 
-            let titleText: String? = toolbarConfiguration.placeholderConfiguration.showPlaceholder ? textField.iq.drawingPlaceholder : nil
+            let titleText: String? = placeholderConfig.showPlaceholder ? textField.iq.drawingPlaceholder : nil
             textField.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
                                     title: titleText,
-                                    titleAccessibilityLabel: toolbarConfiguration.placeholderConfiguration.accessibilityLabel)
+                                    titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
 
             textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
         }
@@ -144,7 +155,11 @@ public extension IQKeyboardManager {
         let toolbar: IQToolbar = textField.iq.toolbar
 
         // Setting toolbar tintColor //  (Enhancement ID: #30)
-        toolbar.tintColor = toolbarConfiguration.useTextFieldTintColor ? textField.tintColor : toolbarConfiguration.tintColor
+        if toolbarConfiguration.useTextFieldTintColor {
+            toolbar.tintColor = textField.tintColor
+        } else {
+            toolbar.tintColor = toolbarConfiguration.tintColor
+        }
 
         //  Setting toolbar to keyboard.
         if let textFieldView: UITextInput = textField as? UITextInput {
@@ -186,12 +201,17 @@ public extension IQKeyboardManager {
 
         // In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
 
-        textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)   //    If firstTextField, then previous should not be enabled.
-        textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)        //    If lastTextField then next should not be enaled.
+        // If firstTextField, then previous should not be enabled.
+        textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)
+
+        // If lastTextField then next should not be enaled.
+        textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
 
 //        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
 //        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
+    // swiftlint:enable function_body_length
+    // swiftlint:enable cyclomatic_complexity
 
     /** Remove any toolbar if it is IQToolbar. */
     internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
@@ -199,9 +219,9 @@ public extension IQKeyboardManager {
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
               let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
                 textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              (textField.inputAccessoryView == nil ||
+              textField.inputAccessoryView == nil ||
                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-               textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) else {
+               textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
             return
         }
 
@@ -214,7 +234,8 @@ public extension IQKeyboardManager {
 
                 // setInputAccessoryView: check   (Bug ID: #307)
                 if view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-                    (toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag || toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
+                    toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag ||
+                    toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
 
                     if let textField: UITextField = view as? UITextField {
                         textField.inputAccessoryView = nil
@@ -239,187 +260,6 @@ public extension IQKeyboardManager {
             self.addToolbarIfRequired()
         } else {
             self.removeToolbarIfRequired()
-        }
-    }
-}
-
-// MARK: Previous next button actions
-@available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
-
-    /**
-    Returns YES if can navigate to previous responder textField/textView, otherwise NO.
-    */
-    @objc var canGoPrevious: Bool {
-        // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-              let index: Int = textFields.firstIndex(of: textFieldRetain),
-              index > 0 else {
-            return false
-        }
-        return true
-    }
-
-    /**
-    Returns YES if can navigate to next responder textField/textView, otherwise NO.
-    */
-    @objc var canGoNext: Bool {
-        // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-              let index: Int = textFields.firstIndex(of: textFieldRetain),
-                index < textFields.count-1 else {
-            return false
-        }
-        return true
-    }
-
-    /**
-    Navigate to previous responder textField/textView.
-    */
-    @discardableResult
-    @objc func goPrevious() -> Bool {
-
-        // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-              let index: Int = textFields.firstIndex(of: textFieldRetain),
-              index > 0 else {
-            return false
-        }
-
-        let nextTextField: UIView = textFields[index-1]
-
-        let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
-
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-        if !isAcceptAsFirstResponder {
-            showLog("Refuses to become first responder: \(nextTextField)")
-        }
-
-        return isAcceptAsFirstResponder
-    }
-
-    /**
-    Navigate to next responder textField/textView.
-    */
-    @discardableResult
-    @objc func goNext() -> Bool {
-
-        // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-              let index: Int = textFields.firstIndex(of: textFieldRetain),
-                index < textFields.count-1 else {
-            return false
-        }
-
-        let nextTextField: UIView = textFields[index+1]
-
-        let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
-
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-        if !isAcceptAsFirstResponder {
-            showLog("Refuses to become first responder: \(nextTextField)")
-        }
-
-        return isAcceptAsFirstResponder
-    }
-
-    /**    previousAction. */
-    @objc internal func previousAction (_ barButton: IQBarButtonItem) {
-
-        // If user wants to play input Click sound.
-        if playInputClicks {
-            // Play Input Click Sound.
-            UIDevice.current.playInputClick()
-        }
-
-        guard canGoPrevious,
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
-            return
-        }
-
-        let isAcceptAsFirstResponder: Bool = goPrevious()
-
-        var invocation: IQInvocation? = barButton.invocation
-        var sender: UIView = textFieldRetain
-
-        // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.previousBarButton.invocation
-                sender = searchBar
-            }
-        }
-
-        if isAcceptAsFirstResponder {
-            invocation?.invoke(from: sender)
-        }
-    }
-
-    /**    nextAction. */
-    @objc internal func nextAction (_ barButton: IQBarButtonItem) {
-
-        // If user wants to play input Click sound.
-        if playInputClicks {
-            // Play Input Click Sound.
-            UIDevice.current.playInputClick()
-        }
-
-        guard canGoNext,
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
-            return
-        }
-
-        let isAcceptAsFirstResponder: Bool = goNext()
-
-        var invocation: IQInvocation? = barButton.invocation
-        var sender: UIView = textFieldRetain
-
-        // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.nextBarButton.invocation
-                sender = searchBar
-            }
-        }
-
-        if isAcceptAsFirstResponder {
-            invocation?.invoke(from: sender)
-        }
-    }
-
-    /**    doneAction. Resigning current textField. */
-    @objc internal func doneAction (_ barButton: IQBarButtonItem) {
-
-        // If user wants to play input Click sound.
-        if playInputClicks {
-            // Play Input Click Sound.
-            UIDevice.current.playInputClick()
-        }
-
-        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
-            return
-        }
-
-        // Resign textFieldView.
-        let isResignedFirstResponder: Bool = resignFirstResponder()
-
-        var invocation: IQInvocation? = barButton.invocation
-        var sender: UIView = textFieldRetain
-
-        // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.doneBarButton.invocation
-                sender = searchBar
-            }
-        }
-
-        if isResignedFirstResponder {
-            invocation?.invoke(from: sender)
         }
     }
 }

@@ -26,10 +26,6 @@ class TableViewInContainerViewController: BaseViewController, UITableViewDataSou
 
     @IBOutlet private var tableView: UITableView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -39,25 +35,14 @@ class TableViewInContainerViewController: BaseViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view: HeaderFooterView
-        if let reusableView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as? HeaderFooterView {
-            view = reusableView
-        } else {
-            view = HeaderFooterView(reuseIdentifier: "HeaderFooterView")
-        }
-
+        let view: HeaderFooterView = tableView.dequeueHeaderFooter(HeaderFooterView.self)
         view.textField.placeholder = "\(section) Section Header"
 
         return view
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view: HeaderFooterView
-        if let reusableView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderFooterView") as? HeaderFooterView {
-            view = reusableView
-        } else {
-            view = HeaderFooterView(reuseIdentifier: "HeaderFooterView")
-        }
+        let view: HeaderFooterView = tableView.dequeueHeaderFooter(HeaderFooterView.self)
 
         view.textField.placeholder = "\(section) Section Footer"
 

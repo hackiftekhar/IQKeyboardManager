@@ -33,6 +33,7 @@ public struct IQKeyboardManagerWrapper<Base> {
     }
 }
 
+// swiftlint:disable identifier_name
 /// Represents an object type that is compatible with IQKeyboardManager. You can use `iq` property to get a
 /// value in the namespace of IQKeyboardManager.
 @available(iOSApplicationExtension, unavailable)
@@ -47,6 +48,7 @@ public protocol IQKeyboardManagerCompatible {
     var iq: IQKeyboardManagerWrapper<Base> { get set }
 }
 
+// swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardManagerCompatible {
 
@@ -62,3 +64,5 @@ extension IQKeyboardManagerCompatible {
         set { }
     }
 }
+// swiftlint:enable unused_setter_value
+// swiftlint:enable identifier_name

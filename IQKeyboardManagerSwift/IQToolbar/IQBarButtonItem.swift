@@ -26,7 +26,8 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @objc open class IQBarButtonItem: UIBarButtonItem {
 
-    public static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    public static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                                                               target: nil, action: nil)
 
     @objc public override init() {
         super.init()
@@ -71,12 +72,16 @@ import UIKit
     }
 
     /**
-     Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
+     Boolean to know if it's a system item or custom item,
+     we are having a limitation that we cannot override a designated initializer,
+     so we are manually setting this property once in initialization
      */
     internal var isSystemItem: Bool = false
 
     /**
-     Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
+     Additional target & action to do get callback action.
+     Note that setting custom target & selector doesn't affect native functionality,
+     this is just an additional target to get a callback.
      
      @param target Target object.
      @param action Target Selector.
@@ -90,7 +95,8 @@ import UIKit
     }
 
     /**
-     Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
+     Customized Invocation to be called when button is pressed.
+     invocation is internally created using setTarget:action: method.
      */
     @objc open var invocation: IQInvocation? {
         didSet {

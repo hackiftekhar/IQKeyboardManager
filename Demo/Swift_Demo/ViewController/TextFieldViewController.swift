@@ -51,7 +51,8 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
         }
 #endif
 
-//        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])
+        // textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too",
+        //                                                      attributes: [.foregroundColor: UIColor.red])
 
         textField3.iq.toolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
         textField3.iq.toolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))

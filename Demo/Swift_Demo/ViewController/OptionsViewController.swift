@@ -27,7 +27,8 @@ class OptionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell", for: indexPath) as? OptionTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTableViewCell",
+                                                       for: indexPath) as? OptionTableViewCell else {
             fatalError("Can't dequeue cell")
         }
 

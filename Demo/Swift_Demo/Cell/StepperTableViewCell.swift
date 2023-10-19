@@ -14,8 +14,4 @@ class StepperTableViewCell: UITableViewCell {
     @IBOutlet var labelSubtitle: UILabel!
     @IBOutlet var stepper: UIStepper!
     @IBOutlet var labelStepperValue: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

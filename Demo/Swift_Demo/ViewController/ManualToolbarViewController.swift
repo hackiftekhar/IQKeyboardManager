@@ -28,15 +28,27 @@ class ManualToolbarViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField1.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
+        textField1.iq.addPreviousNextDone(target: self,
+                                          previousAction: #selector(self.previousAction(_:)),
+                                          nextAction: #selector(self.nextAction(_:)),
+                                          doneAction: #selector(self.doneAction(_:)),
+                                          showPlaceholder: true)
         textField1.iq.toolbar.previousBarButton.isEnabled = false
         textField1.iq.toolbar.nextBarButton.isEnabled = true
 
-        textField2.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
+        textField2.iq.addPreviousNextDone(target: self,
+                                          previousAction: #selector(self.previousAction(_:)),
+                                          nextAction: #selector(self.nextAction(_:)),
+                                          doneAction: #selector(self.doneAction(_:)),
+                                          showPlaceholder: true)
         textField2.iq.toolbar.previousBarButton.isEnabled = true
         textField2.iq.toolbar.nextBarButton.isEnabled = false
 
-        textView3.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
+        textView3.iq.addPreviousNextDone(target: self,
+                                         previousAction: #selector(self.previousAction(_:)),
+                                         nextAction: #selector(self.nextAction(_:)),
+                                         doneAction: #selector(self.doneAction(_:)),
+                                         showPlaceholder: true)
 
         textField4.iq.toolbar.titleBarButton.setTarget(self, action: #selector(self.titleAction(_:)))
         textField4.iq.placeholder = "Saved Passwords"
@@ -72,11 +84,15 @@ class ManualToolbarViewController: BaseViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
-        alertController.addAction(UIAlertAction(title: "test@example.com", style: .default, handler: { (_: UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "test@example.com",
+                                                style: .default,
+                                                handler: { (_: UIAlertAction) in
             self.textField4.text = "test"
         }))
 
-        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .default, handler: { (_: UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "demo@example.com",
+                                                style: .default,
+                                                handler: { (_: UIAlertAction) in
             self.textField4.text = "demo"
         }))
 
