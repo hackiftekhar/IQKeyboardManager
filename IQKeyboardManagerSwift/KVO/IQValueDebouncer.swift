@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQValueDebouncer.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -21,37 +21,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// import Foundation - UIKit contains Foundation
-import UIKit
+import Foundation
 
-/**
-UIView.subviews sorting category.
-*/
-@available(iOSApplicationExtension, unavailable)
-internal extension Array where Element: UIView {
+internal class IQValueDebouncer<Value> where Value: Equatable {
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByTag() -> [Element] {
+    var lastValue: Value?
+    var timer: Timer?
 
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
+    func debounce(value: Value?, interval: TimeInterval,
+                  changeHandler: @escaping ((_ old: Value?, _ new: Value?) -> Void)) {
 
-            return (obj1.tag < obj2.tag)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            if self.lastValue != value {
+                changeHandler(self.lastValue, value)
+                self.lastValue = value
+            }
         })
     }
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedArrayByPosition() -> [Element] {
-
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
+    func invalidate() {
+        timer?.invalidate()
+        timer = nil
     }
 }

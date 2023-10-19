@@ -1,5 +1,5 @@
 //
-//  IQInvocation.swift
+//  IQPropertyObserver.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -21,25 +21,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-@available(iOSApplicationExtension, unavailable)
-@objc public final class IQInvocation: NSObject {
-    @objc public weak var target: AnyObject?
-    @objc public var action: Selector
+internal class IQPropertyObserver<Subject, Value> where Subject: NSObject, Value: Equatable {
+    let object: Subject
+    private var observation: NSKeyValueObservation?
+    private let debouncer: IQValueDebouncer = IQValueDebouncer<Value>()
 
-    @objc public init(_ target: AnyObject, _ action: Selector) {
-        self.target = target
-        self.action = action
+    init(object: Subject,
+         keyPath: KeyPath<Subject, Value>,
+         debounce: TimeInterval? = nil,
+         changeHandler: @escaping ((_ old: Value?, _ new: Value?) -> Void)) {
+        self.object = object
+
+        observation = object.observe(keyPath,
+                                     options: [.old, .new],
+                                     changeHandler: { [weak self] _, change in
+            if change.oldValue != change.newValue {
+
+                if let debounce = debounce {
+                    self?.debouncer.debounce(value: change.newValue, interval: debounce, changeHandler: changeHandler)
+                } else {
+                    changeHandler(change.oldValue, change.newValue)
+                }
+            }
+        })
     }
 
-    @objc public func invoke(from: Any) {
-        if let target: AnyObject = target {
-            UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
-        }
-    }
-
-    deinit {
-        target = nil
+    func invalidate() {
+        observation?.invalidate()
+        observation = nil
+        debouncer.invalidate()
     }
 }

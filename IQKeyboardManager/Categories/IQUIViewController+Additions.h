@@ -33,11 +33,4 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 */
 -(nullable UIViewController*)parentIQContainerViewController;
 
-/**
- Top/Bottom Layout constraint which help library to manage keyboardTextField distance
-
- @deprecated    Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.
-*/
-@property(nullable, nonatomic, strong) IBOutlet NSLayoutConstraint *IQLayoutGuideConstraint __attribute__((deprecated("Due to change in core-logic of handling distance between textField and keyboard distance, this layout contraint tweak is no longer needed and things will just work out of the box regardless of constraint pinned with safeArea/layoutGuide/superview.")));
-
 @end

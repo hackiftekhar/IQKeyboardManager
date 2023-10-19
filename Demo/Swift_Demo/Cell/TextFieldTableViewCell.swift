@@ -6,6 +6,8 @@
 //  Copyright © 2016 Iftekhar. All rights reserved.
 //
 
+import UIKit
+
 class TextFieldTableViewCell: UITableViewCell {
 
     @IBOutlet var labelTitle: UILabel!

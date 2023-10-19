@@ -17,6 +17,8 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet var textView2: UITextView!
     @IBOutlet var textView3: UITextView!
 
+    let keyboardListener = IQKeyboardListener()
+
     @IBOutlet var dropDownTextField: IQDropDownTextField!
 
     @objc func previousAction(_ sender: UITextField) {
@@ -32,16 +34,16 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     }
 
     deinit {
-        textField3 = nil
         textView1 = nil
+        textField3 = nil
         dropDownTextField = nil
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView2.enableMode = .disabled
         textView1.delegate = self
+        textView2.iq.enableMode = .disabled
 
 #if swift(>=5.7)
         if #available(iOS 16.0, *) {
@@ -51,10 +53,10 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
 
 //        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])
 
-        textField3.keyboardToolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
-        textField3.keyboardToolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
-        textField3.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
-        dropDownTextField.keyboardDistanceFromTextField = 150
+        textField3.iq.toolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
+        textField3.iq.toolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
+        textField3.iq.toolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
+        dropDownTextField.iq.distanceFromKeyboard = 150
 
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
@@ -81,14 +83,14 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
-            print(size)
-        })
+        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
+//            print(size)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.shared.unregisterKeyboardSizeChange(identifier: "TextFieldViewController")
+        keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {

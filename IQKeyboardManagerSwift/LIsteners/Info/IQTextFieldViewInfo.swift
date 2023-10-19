@@ -1,7 +1,7 @@
 //
-// IQUIViewController+Additions.m
+//  IQTextFieldViewInfo.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
+import UIKit
 
-#import "IQUIViewController+Additions.h"
+@available(iOSApplicationExtension, unavailable)
+public struct IQTextFieldViewInfo: Equatable {
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.textFieldView == rhs.textFieldView &&
+        lhs.name == rhs.name
+    }
 
+    @objc public enum Name: Int {
+        case beginEditing
+        case endEditing
+    }
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@implementation UIViewController (Additions)
+    public let name: Name
 
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
+    public private(set) var textFieldView: UIView
+
+    public init?(notification: Notification?, name: Name) {
+        guard let view: UIView = notification?.object as? UIView else {
+            return nil
+        }
+
+        guard !view.iq.isAlertViewTextField() else {
+            return nil
+        }
+
+        self.name = name
+        textFieldView = view
+    }
 }
-
-@end

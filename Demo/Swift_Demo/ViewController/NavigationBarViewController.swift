@@ -25,7 +25,7 @@ class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField3.toolbarPlaceholder = "This is the customised placeholder title for displaying as toolbar title"
+        textField3.iq.placeholder = "This is the customised placeholder title for displaying as toolbar title"
 
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
         returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
@@ -40,7 +40,7 @@ class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
     }
 
     @IBAction func shouldHideTitle(_ sender: UISwitch!) {
-        textField2.shouldHideToolbarPlaceholder = !textField2.shouldHideToolbarPlaceholder
+        textField2.iq.hidePlaceholder = !textField2.iq.hidePlaceholder
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

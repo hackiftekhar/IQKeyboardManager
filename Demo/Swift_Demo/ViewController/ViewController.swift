@@ -31,7 +31,7 @@ class ViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        IQKeyboardManager.shared.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
+        IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour = IQAutoToolbarManageBehaviour.byPosition
         // Do any additional setup after loading the view, typically from a nib.
     }
 

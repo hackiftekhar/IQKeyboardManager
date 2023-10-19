@@ -1,5 +1,5 @@
 //
-//  IQInvocation.swift
+//  IQKeyboardManager+Debug.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
 // Copyright (c) 2013-20 Iftekhar Qurashi.
 //
@@ -23,23 +23,46 @@
 
 import UIKit
 
+// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
-@objc public final class IQInvocation: NSObject {
-    @objc public weak var target: AnyObject?
-    @objc public var action: Selector
+public extension IQKeyboardManager {
 
-    @objc public init(_ target: AnyObject, _ action: Selector) {
-        self.target = target
-        self.action = action
+    private struct AssociatedKeys {
+        static var enableDebugging: Int = 0
     }
 
-    @objc public func invoke(from: Any) {
-        if let target: AnyObject = target {
-            UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
+    @objc var enableDebugging: Bool {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
-    deinit {
-        target = nil
+    struct Static {
+        static var indentation = 0
+    }
+
+    internal func showLog(_ logString: String, indentation: Int = 0) {
+
+        guard enableDebugging else {
+            return
+        }
+
+        if indentation < 0 {
+            Static.indentation = max(0, Static.indentation + indentation)
+        }
+
+        var preLog: String = "IQKeyboardManager"
+        for _ in 0 ... Static.indentation {
+            preLog += "|\t"
+        }
+
+        print(preLog + logString)
+
+        if indentation > 0 {
+            Static.indentation += indentation
+        }
     }
 }

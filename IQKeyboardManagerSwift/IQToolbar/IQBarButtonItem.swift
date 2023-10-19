@@ -21,11 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// import Foundation - UIKit contains Foundation
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @objc open class IQBarButtonItem: UIBarButtonItem {
+
+    public static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
     @objc public override init() {
         super.init()
@@ -56,10 +57,10 @@ import UIKit
     @objc override open var tintColor: UIColor? {
         didSet {
 
-            var textAttributes = [NSAttributedString.Key: Any]()
+            var textAttributes: [NSAttributedString.Key: Any] = [:]
             textAttributes[.foregroundColor] = tintColor
 
-            if let attributes = titleTextAttributes(for: .normal) {
+            if let attributes: [NSAttributedString.Key: Any] = titleTextAttributes(for: .normal) {
                 for (key, value) in attributes {
                     textAttributes[key] = value
                 }
@@ -72,7 +73,7 @@ import UIKit
     /**
      Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
      */
-    @objc internal var isSystemItem = false
+    internal var isSystemItem: Bool = false
 
     /**
      Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
@@ -81,7 +82,7 @@ import UIKit
      @param action Target Selector.
      */
     @objc open func setTarget(_ target: AnyObject?, action: Selector?) {
-        if let target = target, let action = action {
+        if let target: AnyObject = target, let action: Selector = action {
             invocation = IQInvocation(target, action)
         } else {
             invocation = nil

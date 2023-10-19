@@ -28,19 +28,19 @@ class ManualToolbarViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField1.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
-        textField1.keyboardToolbar.previousBarButton.isEnabled = false
-        textField1.keyboardToolbar.nextBarButton.isEnabled = true
+        textField1.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
+        textField1.iq.toolbar.previousBarButton.isEnabled = false
+        textField1.iq.toolbar.nextBarButton.isEnabled = true
 
-        textField2.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
-        textField2.keyboardToolbar.previousBarButton.isEnabled = true
-        textField2.keyboardToolbar.nextBarButton.isEnabled = false
+        textField2.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
+        textField2.iq.toolbar.previousBarButton.isEnabled = true
+        textField2.iq.toolbar.nextBarButton.isEnabled = false
 
-        textView3.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
+        textView3.iq.addPreviousNextDone(target: self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), showPlaceholder: true)
 
-        textField4.keyboardToolbar.titleBarButton.setTarget(self, action: #selector(self.titleAction(_:)))
-        textField4.toolbarPlaceholder = "Saved Passwords"
-        textField4.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
+        textField4.iq.toolbar.titleBarButton.setTarget(self, action: #selector(self.titleAction(_:)))
+        textField4.iq.placeholder = "Saved Passwords"
+        textField4.iq.addDone(target: self, action: #selector(self.doneAction(_:)), showPlaceholder: true)
 
         textField5.inputAccessoryView = UIView()
     }

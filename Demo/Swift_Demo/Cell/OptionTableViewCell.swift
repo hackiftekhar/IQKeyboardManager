@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
+import UIKit
+
 class OptionTableViewCell: UITableViewCell {
 
     @IBOutlet var labelOption: UILabel!

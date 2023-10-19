@@ -47,9 +47,9 @@ import UIKit
     }
 
     private var placeholderExpectedFrame: CGRect {
-        let placeholderInsets = self.placeholderInsets
-        let maxWidth = self.frame.width-placeholderInsets.left-placeholderInsets.right
-        let expectedSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
+        let placeholderInsets: UIEdgeInsets = self.placeholderInsets
+        let maxWidth: CGFloat = self.frame.width-placeholderInsets.left-placeholderInsets.right
+        let expectedSize: CGSize = placeholderLabel.sizeThatFits(CGSize(width: maxWidth, height: self.frame.height-placeholderInsets.top-placeholderInsets.bottom))
 
         return CGRect(x: placeholderInsets.left, y: placeholderInsets.top, width: maxWidth, height: expectedSize.height)
     }
@@ -118,7 +118,7 @@ import UIKit
         placeholderLabel.frame = placeholderExpectedFrame
     }
 
-    @objc internal func refreshPlaceholder() {
+    @objc private func refreshPlaceholder() {
 
         let text: String = text ?? attributedText?.string ?? ""
         if text.isEmpty {
@@ -146,7 +146,7 @@ import UIKit
 
         didSet {
 
-            if let unwrappedFont = font {
+            if let unwrappedFont: UIFont = font {
                 placeholderLabel.font = unwrappedFont
             } else {
                 placeholderLabel.font = UIFont.systemFont(ofSize: 12)
@@ -177,8 +177,8 @@ import UIKit
             return super.intrinsicContentSize
         }
 
-        var newSize = super.intrinsicContentSize
-        let placeholderInsets = self.placeholderInsets
+        var newSize: CGSize = super.intrinsicContentSize
+        let placeholderInsets: UIEdgeInsets = self.placeholderInsets
         newSize.height = placeholderExpectedFrame.height + placeholderInsets.top + placeholderInsets.bottom
 
         return newSize

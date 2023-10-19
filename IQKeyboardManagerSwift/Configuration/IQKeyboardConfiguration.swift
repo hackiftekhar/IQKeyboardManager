@@ -1,7 +1,7 @@
 //
-// IQUIViewController+Additions.m
+//  IQKeyboardConfiguration.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
+import UIKit
 
-#import "IQUIViewController+Additions.h"
+@available(iOSApplicationExtension, unavailable)
+@objc public final class IQKeyboardConfiguration: NSObject {
 
+    /**
+    Override the keyboardAppearance for all textField/textView. Default is NO.
+    */
+    @objc public var overrideAppearance: Bool = false
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@implementation UIViewController (Additions)
-
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
+    /**
+    If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+    */
+    @objc public var appearance: UIKeyboardAppearance = UIKeyboardAppearance.default
 }
-
-@end

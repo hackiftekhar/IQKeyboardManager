@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Iftekhar. All rights reserved.
 //
 
+import UIKit
+
 class NavigationTableViewCell: UITableViewCell {
 
     @IBOutlet var labelTitle: UILabel!

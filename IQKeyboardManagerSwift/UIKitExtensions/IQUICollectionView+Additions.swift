@@ -1,7 +1,7 @@
 //
-// IQUIViewController+Additions.m
+//  IQUICollectionView+Additions.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
+import UIKit
 
-#import "IQUIViewController+Additions.h"
+@available(iOSApplicationExtension, unavailable)
+internal extension UICollectionView {
 
+    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
+        var previousRow: Int = indexPath.row - 1
+        var previousSection: Int = indexPath.section
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@implementation UIViewController (Additions)
+        // Fixing indexPath
+        if previousRow < 0 {
+            previousSection -= 1
+            if previousSection >= 0 {
+                previousRow = self.numberOfItems(inSection: previousSection) - 1
+            }
+        }
 
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
+        if previousRow >= 0, previousSection >= 0 {
+            return IndexPath(item: previousRow, section: previousSection)
+        } else {
+            return nil
+        }
+    }
 }
-
-@end

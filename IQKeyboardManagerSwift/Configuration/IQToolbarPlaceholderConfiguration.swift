@@ -1,7 +1,7 @@
 //
-// IQUIViewController+Additions.m
+//  IQToolbarPlaceholderConfiguration.swift
 // https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+// Copyright (c) 2013-20 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
+import UIKit
 
-#import "IQUIViewController+Additions.h"
+@available(iOSApplicationExtension, unavailable)
+@objc public final class IQToolbarPlaceholderConfiguration: NSObject {
 
+    /**
+    If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+    */
+    @objc public var showPlaceholder: Bool = true
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
-@implementation UIViewController (Additions)
+    /**
+    Placeholder Font. Default is nil.
+    */
+    @objc public var font: UIFont?
 
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
+    /**
+     Placeholder Color. Default is nil. Which means lightGray
+     */
+    @objc public var color: UIColor?
+
+    /**
+     Placeholder Button Color when it's treated as button. Default is nil.
+     */
+    @objc public var buttonColor: UIColor?
+
+    /**
+     Placeholder accessibility Label
+     */
+    public override var accessibilityLabel: String? { didSet { } }
 }
-
-@end

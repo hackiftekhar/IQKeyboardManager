@@ -91,6 +91,8 @@ extension BaseTableViewController {
         navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
         navController.modalPresentationStyle = style
         if style == .popover {
+            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+            navController.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
             navController.popoverPresentationController?.barButtonItem = sender
             navController.popoverPresentationController?.delegate = self
         }
