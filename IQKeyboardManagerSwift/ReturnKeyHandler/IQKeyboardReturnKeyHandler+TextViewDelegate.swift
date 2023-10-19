@@ -1,7 +1,7 @@
 //
 //  IQKeyboardReturnKeyHandler+TextViewDelegate.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -222,9 +222,9 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 }
 
 #if swift(>=5.7)
+@available(iOS 16.0, *)
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler {
-    @available(iOS 16.0, *)
     public func textView(_ aTextView: UITextView,
                          editMenuForTextIn range: NSRange,
                          suggestedActions: [UIMenuElement]) -> UIMenu? {
@@ -245,7 +245,6 @@ extension IQKeyboardReturnKeyHandler {
         return nil
     }
 
-    @available(iOS 16.0, *)
     public func textView(_ aTextView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
         var aDelegate: UITextViewDelegate? = delegate
 
@@ -259,7 +258,6 @@ extension IQKeyboardReturnKeyHandler {
         aDelegate?.textView?(aTextView, willPresentEditMenuWith: animator)
     }
 
-    @available(iOS 16.0, *)
     public func textView(_ aTextView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
         var aDelegate: UITextViewDelegate? = delegate
 
@@ -276,10 +274,10 @@ extension IQKeyboardReturnKeyHandler {
 #endif
 
 #if swift(>=5.9)
+@available(iOS 17.0, *)
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler {
 
-    @available(iOS 17.0, *)
     public func textView(_ aTextView: UITextView,
                          primaryActionFor textItem: UITextItem,
                          defaultAction: UIAction) -> UIAction? {
@@ -297,7 +295,6 @@ extension IQKeyboardReturnKeyHandler {
         return nil
     }
 
-    @available(iOS 17.0, *)
     public func textView(_ aTextView: UITextView,
                          menuConfigurationFor textItem: UITextItem,
                          defaultMenu: UIMenu) -> UITextItem.MenuConfiguration? {
@@ -317,7 +314,6 @@ extension IQKeyboardReturnKeyHandler {
         return nil
     }
 
-    @available(iOS 17.0, *)
     public func textView(_ textView: UITextView,
                          textItemMenuWillDisplayFor textItem: UITextItem,
                          animator: UIContextMenuInteractionAnimating) {
@@ -333,7 +329,6 @@ extension IQKeyboardReturnKeyHandler {
         aDelegate?.textView?(textView, textItemMenuWillDisplayFor: textItem, animator: animator)
     }
 
-    @available(iOS 17.0, *)
     public func textView(_ textView: UITextView,
                          textItemMenuWillEndFor textItem: UITextItem,
                          animator: UIContextMenuInteractionAnimating) {

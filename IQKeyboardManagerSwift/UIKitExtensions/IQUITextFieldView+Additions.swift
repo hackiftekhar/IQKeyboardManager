@@ -1,7 +1,7 @@
 //
 //  IQUITextFieldView+Additions.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,10 @@ extension UIView: IQKeyboardManagerCompatible {
 
     public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
 }
+
+@available(iOSApplicationExtension, unavailable)
+@available(*, unavailable, renamed: "UIView.defaultKeyboardDistance")
+public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 /**
 UIView category for managing UITextField/UITextView
@@ -100,3 +104,32 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         }
     }
 }
+
+// swiftlint:disable unused_setter_value
+@available(iOSApplicationExtension, unavailable)
+@objc public extension UIView {
+    @available(*, unavailable, renamed: "iq.distanceFromKeyboard")
+    var keyboardDistanceFromTextField: CGFloat {
+        get { 0 }
+        set { }
+    }
+
+    @available(*, unavailable, renamed: "iq.ignoreSwitchingByNextPrevious")
+    var ignoreSwitchingByNextPrevious: Bool {
+        get { false }
+        set { }
+    }
+
+    @available(*, unavailable, renamed: "iq.enableMode")
+    var enableMode: IQEnableMode {
+        get { .default }
+        set { }
+    }
+
+    @available(*, unavailable, renamed: "iq.resignOnTouchOutsideMode")
+    var shouldResignOnTouchOutsideMode: IQEnableMode {
+        get { .default }
+        set { }
+    }
+}
+// swiftlint:enable unused_setter_value

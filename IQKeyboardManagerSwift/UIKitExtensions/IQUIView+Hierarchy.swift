@@ -1,7 +1,7 @@
 //
 //  IQUIView+Hierarchy.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -333,4 +333,20 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
 
         return depth
     }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@objc public extension UIView {
+
+    @available(*, unavailable, renamed: "iq.viewContainingController()")
+    func viewContainingController() -> UIViewController? { nil }
+
+    @available(*, unavailable, renamed: "iq.topMostController()")
+    func topMostController() -> UIViewController? { nil }
+
+    @available(*, unavailable, renamed: "iq.parentContainerViewController()")
+    func parentContainerViewController() -> UIViewController? { nil }
+
+    @available(*, unavailable, renamed: "iq.superviewOf(type:belowView:)")
+    func superviewOfClassType(_ classType: UIView.Type, belowView: UIView? = nil) -> UIView? { nil }
 }

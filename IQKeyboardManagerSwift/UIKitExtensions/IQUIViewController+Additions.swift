@@ -1,7 +1,7 @@
 //
 //  IQUIViewController+Additions.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-@objc public extension UIViewController {
+@objc extension UIViewController {
 
     /**
      This method is provided to override by viewController's
@@ -33,7 +33,15 @@ import UIKit
      in your app and the library try to lift the side menu controller.
      Overriding this method in side menu class to return correct controller should fix the problem.
     */
-    func iq_parentContainerViewController() -> UIViewController? {
+    open func iq_parentContainerViewController() -> UIViewController? {
+        return self
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@objc extension UIViewController {
+    @available(*, unavailable, renamed: "iq_parentContainerViewController()")
+    open func parentIQContainerViewController() -> UIViewController? {
         return self
     }
 }

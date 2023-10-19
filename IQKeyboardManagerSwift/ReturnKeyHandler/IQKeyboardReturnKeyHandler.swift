@@ -1,7 +1,7 @@
 //
 //  IQKeyboardReturnKeyHandler.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -42,9 +42,7 @@ Manages the return key to work like next/done in a view hierarchy.
     @objc public var lastTextFieldReturnKeyType: UIReturnKeyType = UIReturnKeyType.default {
 
         didSet {
-
             for model in textFieldInfoCache {
-
                 if let view: UIView = model.textFieldView {
                     updateReturnKeyTypeOnTextField(view)
                 }

@@ -1,7 +1,7 @@
 //
 //  IQKeyboardManager+UIKeyboardNotification.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,9 @@ import UIKit
 
 // MARK: UIKeyboard Notifications
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
+internal extension IQKeyboardManager {
 
-    internal func handleKeyboardTextFieldViewVisible() {
+    func handleKeyboardTextFieldViewVisible() {
 //        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 //        let startTime: CFTimeInterval = CACurrentMediaTime()
 //        showLog("UIKeyboard Frame: \(activeConfiguration.keyboardInfo.frame)")
@@ -60,7 +60,7 @@ public extension IQKeyboardManager {
 //        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
-    internal func handleKeyboardTextFieldViewChanged() {
+    func handleKeyboardTextFieldViewChanged() {
 //        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 //        let startTime: CFTimeInterval = CACurrentMediaTime()
 
@@ -76,7 +76,7 @@ public extension IQKeyboardManager {
 //        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
-    internal func handleKeyboardTextFieldViewHide() {
+    func handleKeyboardTextFieldViewHide() {
 //        let startTime: CFTimeInterval = CACurrentMediaTime()
 //        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
@@ -96,9 +96,9 @@ public extension IQKeyboardManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
-extension IQKeyboardManager {
+internal extension IQKeyboardManager {
 
-    internal func setupTextFieldView() {
+    func setupTextFieldView() {
 
         guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return
@@ -142,7 +142,7 @@ extension IQKeyboardManager {
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
 
-    internal func benishTextFieldViewSetup() {
+    func benishTextFieldViewSetup() {
 
         guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return

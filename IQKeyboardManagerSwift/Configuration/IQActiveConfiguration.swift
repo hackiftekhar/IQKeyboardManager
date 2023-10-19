@@ -1,7 +1,7 @@
 //
 //  IQActiveConfiguration.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-internal class IQActiveConfiguration {
+internal final class IQActiveConfiguration {
 
     private let keyboardListener: IQKeyboardListener = IQKeyboardListener()
     private let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
