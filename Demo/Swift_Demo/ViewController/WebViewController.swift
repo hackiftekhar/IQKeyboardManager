@@ -26,7 +26,7 @@ import WebKit
 
 class WebViewController: BaseViewController {
 
-    let activity = UIActivityIndicatorView(style: .gray)
+    let activity = UIActivityIndicatorView(style: .medium)
 
     var webView: WKWebView!
     @IBOutlet var webContainerView: UIView!

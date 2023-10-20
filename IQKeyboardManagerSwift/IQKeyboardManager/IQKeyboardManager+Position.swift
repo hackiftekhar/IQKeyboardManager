@@ -206,11 +206,12 @@ public extension IQKeyboardManager {
             isScrollableTextView = false
         }
 
-        let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, rootController.view.directionalLayoutMargins.top)
+        let directionalLayoutMargin: NSDirectionalEdgeInsets = rootController.view.directionalLayoutMargins
+        let topLayoutGuide: CGFloat = CGFloat.maximum(navigationBarAreaHeight, directionalLayoutMargin.top)
 
         // Validation of textView for case where there is a tab bar
         // at the bottom or running on iPhone X and textView is at the bottom.
-        let bottomLayoutGuide: CGFloat = isScrollableTextView ? 0 : rootController.view.directionalLayoutMargins.bottom
+        let bottomLayoutGuide: CGFloat = isScrollableTextView ? 0 : directionalLayoutMargin.bottom
 
         //  Move positive = textField is hidden.
         //  Move negative = textField is showing.
@@ -222,7 +223,7 @@ public extension IQKeyboardManager {
 
             let topMovement: CGFloat = textFieldViewRectInRootSuperview.minY-topLayoutGuide
             let bottomMovement: CGFloat = textFieldViewRectInWindow.maxY - visibleHeight + bottomLayoutGuide
-            moveUp = min(topMovement, bottomMovement)
+            moveUp = CGFloat.minimum(topMovement, bottomMovement)
             moveUp = CGFloat(Int(moveUp))
         }
 
@@ -337,7 +338,7 @@ public extension IQKeyboardManager {
                             let previousCellRectInRootSuperview: CGRect = tableView.convert(previousCellRect,
                                                                                             to: superview)
 
-                            moveUp = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
+                            moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
                         }
                     }
                 } else if let collectionView = scrollView.iq.superviewOf(type: UICollectionView.self) {
@@ -357,14 +358,14 @@ public extension IQKeyboardManager {
                             let previousCellRectInRootSuperview: CGRect = collectionView.convert(previousCellRect,
                                                                                                  to: superview)
 
-                            moveUp = min(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
+                            moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
                         }
                     }
                 } else {
                     isContinue = textFieldViewRectInRootSuperview.minY < topLayoutGuide
 
                     if isContinue {
-                        moveUp = min(0, textFieldViewRectInRootSuperview.minY - topLayoutGuide)
+                        moveUp = CGFloat.minimum(0, textFieldViewRectInRootSuperview.minY - topLayoutGuide)
                     }
                 }
 
@@ -388,11 +389,11 @@ public extension IQKeyboardManager {
                     if let lastViewRect: CGRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
 
                         // Calculating the expected Y offset from move and scrollView's contentOffset.
-                        let minimumMovement: CGFloat = min(scrollView.contentOffset.y, -moveUp)
+                        let minimumMovement: CGFloat = CGFloat.minimum(scrollView.contentOffset.y, -moveUp)
                         var suggestedOffsetY: CGFloat = scrollView.contentOffset.y - minimumMovement
 
                         // Rearranging the expected Y offset according to the view.
-                        suggestedOffsetY = min(suggestedOffsetY, lastViewRect.minY)
+                        suggestedOffsetY = CGFloat.minimum(suggestedOffsetY, lastViewRect.minY)
 
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         // nextScrollView == nil    If processing scrollView is last scrollView in
@@ -418,7 +419,7 @@ public extension IQKeyboardManager {
                                 // navigationBar up and hide, then reducing suggestedOffsetY with expectedOffsetY
                                 // (scrollView.contentOffset.y + expectedFixDistance)
                                 let expectedOffsetY: CGFloat = scrollView.contentOffset.y + expectedFixDistance
-                                suggestedOffsetY = min(suggestedOffsetY, expectedOffsetY)
+                                suggestedOffsetY = CGFloat.minimum(suggestedOffsetY, expectedOffsetY)
 
                                 // Setting move to 0 because now we don't want to move any view anymore
                                 // (All will be managed by our contentInset logic.
@@ -487,9 +488,10 @@ public extension IQKeyboardManager {
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly
                 // when the offset is near the bottom of the scroll view.
-                bottomInset = max(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
-                bottomScrollIndicatorInset = max(lastScrollViewConfiguration.startingScrollIndicatorInsets.bottom,
-                                                 bottomScrollIndicatorInset)
+                bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
+                let startingScrollInset: UIEdgeInsets = lastScrollViewConfiguration.startingScrollIndicatorInsets
+                bottomScrollIndicatorInset = CGFloat.maximum(startingScrollInset.bottom,
+                                                             bottomScrollIndicatorInset)
 
                 bottomInset -= lastScrollView.safeAreaInsets.bottom
                 bottomScrollIndicatorInset -= lastScrollView.safeAreaInsets.bottom
@@ -538,7 +540,7 @@ public extension IQKeyboardManager {
             let keyboardOverlapping: CGFloat = rootSuperViewFrameInWindow.maxY - keyboardYPosition
 
             let availableHeight: CGFloat = rootSuperViewFrameInWindow.height-topLayoutGuide-keyboardOverlapping
-            let textViewHeight: CGFloat = min(textView.frame.height, availableHeight)
+            let textViewHeight: CGFloat = CGFloat.minimum(textView.frame.height, availableHeight)
 
             if textView.frame.size.height-textView.contentInset.bottom>textViewHeight {
                 // If frame is not change by library in past, then saving user textView properties  (Bug ID: #92)
@@ -569,7 +571,7 @@ public extension IQKeyboardManager {
         // +Positive or zero.
         if moveUp >= 0 {
 
-            rootViewOrigin.y = max(rootViewOrigin.y - moveUp, min(0, -originalKbSize.height))
+            rootViewOrigin.y = CGFloat.maximum(rootViewOrigin.y - moveUp, CGFloat.minimum(0, -originalKbSize.height))
 
             if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
                 showLog("Moving Upward")
@@ -600,7 +602,7 @@ public extension IQKeyboardManager {
             //  disturbDistance positive = frame not disturbed.
             if disturbDistance <= 0 {
 
-                rootViewOrigin.y -= max(moveUp, disturbDistance)
+                rootViewOrigin.y -= CGFloat.maximum(moveUp, disturbDistance)
 
                 if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
                     showLog("Moving Downward")
@@ -683,8 +685,8 @@ public extension IQKeyboardManager {
 
                 while let scrollView: UIScrollView = superScrollView {
 
-                    let width: CGFloat = max(scrollView.contentSize.width, scrollView.frame.width)
-                    let height: CGFloat = max(scrollView.contentSize.height, scrollView.frame.height)
+                    let width: CGFloat = CGFloat.maximum(scrollView.contentSize.width, scrollView.frame.width)
+                    let height: CGFloat = CGFloat.maximum(scrollView.contentSize.height, scrollView.frame.height)
                     let contentSize: CGSize = CGSize(width: width, height: height)
 
                     let minimumY: CGFloat = contentSize.height - scrollView.frame.height

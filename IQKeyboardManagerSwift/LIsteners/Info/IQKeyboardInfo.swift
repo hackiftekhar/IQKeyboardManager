@@ -57,6 +57,13 @@ public struct IQKeyboardInfo: Equatable {
     public init(notification: Notification?, name: Name) {
         self.name = name
 
+        let screenBounds: CGRect
+        if #available(iOS 13.0, *), let screen: UIScreen = notification?.object as? UIScreen {
+            screenBounds = screen.bounds
+        } else {
+            screenBounds = UIScreen.main.bounds
+        }
+
         if let info: [AnyHashable: Any] = notification?.userInfo {
 
             //  Getting keyboard animation.
@@ -74,31 +81,30 @@ public struct IQKeyboardInfo: Equatable {
             } else {
                 animationDuration = 0.25
             }
-            let screen: UIScreen = (notification?.object as? UIScreen) ?? UIScreen.main
 
             //  Getting UIKeyboardSize.
             if var kbFrame: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
 
-                // (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
-                // Calculating actual keyboard covered size respect to window,
-                // keyboard frame may be different when hardware keyboard is attached
-                let intersectRect: CGRect = kbFrame.intersection(screen.bounds)
-
-                if intersectRect.isNull {
+                // If this is floating keyboard
+                if kbFrame.width < screenBounds.width,
+                   kbFrame.maxY < screenBounds.height {
                     kbFrame.size = CGSize(width: kbFrame.size.width, height: 0)
                 } else {
-                    kbFrame.size = intersectRect.size
+                    // (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
+                    // Calculating actual keyboard covered size respect to window,
+                    // keyboard frame may be different when hardware keyboard is attached
+                    let keyboardHeight = CGFloat.maximum(screenBounds.height - kbFrame.minY, 0)
+                    kbFrame.size = CGSize(width: kbFrame.size.width, height: keyboardHeight)
                 }
 
                 frame = kbFrame
             } else {
-                frame = CGRect(x: 0, y: screen.bounds.height, width: screen.bounds.width, height: 0)
+                frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: 0)
             }
         } else {
             animationCurve = .easeOut
             animationDuration = 0.25
-            let screen: UIScreen = UIScreen.main
-            frame = .init(x: 0, y: screen.bounds.height, width: screen.bounds.width, height: 0)
+            frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: 0)
         }
     }
 

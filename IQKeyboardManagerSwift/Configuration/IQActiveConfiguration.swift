@@ -31,7 +31,6 @@ internal final class IQActiveConfiguration {
     private let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
-    private var windowObserver: IQPropertyObserver<UIView, UIWindow?>?
 
     @objc public enum Event: Int {
         case hide
@@ -82,8 +81,6 @@ internal final class IQActiveConfiguration {
                 if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
                     self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
                     self.rootControllerConfiguration = nil
-                    windowObserver?.invalidate()
-                    windowObserver = nil
                 } else if rootControllerConfiguration.hasChanged {
                     animate(alongsideTransition: {
                         rootControllerConfiguration.restore()
@@ -121,18 +118,6 @@ internal final class IQActiveConfiguration {
                         rootControllerConfiguration.restore()
                     }, completion: nil)
                 }
-
-                windowObserver?.invalidate()
-                windowObserver = IQPropertyObserver(object: newConfiguration.rootController.view,
-                                                    keyPath: \.window,
-                                                    changeHandler: { [self] _, _ in
-                    if let rootControllerConfiguration = rootControllerConfiguration,
-                       rootControllerConfiguration.isReady {
-                        if lastEvent == .show || lastEvent == .change {
-                            self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: info)
-                        }
-                    }
-                })
             }
 
             rootControllerConfiguration = newConfiguration

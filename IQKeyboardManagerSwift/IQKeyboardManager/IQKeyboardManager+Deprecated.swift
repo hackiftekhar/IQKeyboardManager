@@ -25,6 +25,7 @@ import UIKit
 
 // swiftlint:disable unused_setter_value
 // swiftlint:disable identifier_name
+// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
@@ -40,15 +41,13 @@ public extension IQKeyboardManager {
         set { }
     }
 
-    @available(*, unavailable,
-                message: "This feature has been removed due to few compatibility problems")
+    @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
     @objc func registerTextFieldViewClass(_ aClass: UIView.Type,
                                           didBeginEditingNotificationName: String,
                                           didEndEditingNotificationName: String) {
     }
 
-    @available(*, unavailable,
-                message: "This feature has been removed due to few compatibility problems")
+    @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
     @objc func unregisterTextFieldViewClass(_ aClass: UIView.Type,
                                             didBeginEditingNotificationName: String,
                                             didEndEditingNotificationName: String) {
@@ -91,66 +90,57 @@ public extension IQKeyboardManager {
 
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.previousBarButtonConfiguration.image",
+    @available(*, unavailable, renamed: "toolbarConfiguration.previousBarButtonConfiguration.image",
                 message: "To change, please assign a new toolbarConfiguration.previousBarButtonConfiguration")
     @objc var toolbarPreviousBarButtonItemImage: UIImage? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.previousBarButtonConfiguration.title",
+    @available(*, unavailable, renamed: "toolbarConfiguration.previousBarButtonConfiguration.title",
                 message: "To change, please assign a new toolbarConfiguration.previousBarButtonConfiguration")
     @objc var toolbarPreviousBarButtonItemText: String? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.previousBarButtonConfiguration.accessibilityLabel",
+    @available(*, unavailable, renamed: "toolbarConfiguration.previousBarButtonConfiguration.accessibilityLabel",
                 message: "To change, please assign a new toolbarConfiguration.previousBarButtonConfiguration")
     @objc var toolbarPreviousBarButtonItemAccessibilityLabel: String? {
         get { nil }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.nextBarButtonConfiguration.image",
+    @available(*, unavailable, renamed: "toolbarConfiguration.nextBarButtonConfiguration.image",
                 message: "To change, please assign a new toolbarConfiguration.nextBarButtonConfiguration")
     @objc var toolbarNextBarButtonItemImage: UIImage? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.nextBarButtonConfiguration.title",
+    @available(*, unavailable, renamed: "toolbarConfiguration.nextBarButtonConfiguration.title",
                 message: "To change, please assign a new toolbarConfiguration.nextBarButtonConfiguration")
     @objc var toolbarNextBarButtonItemText: String? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.nextBarButtonConfiguration.accessibilityLabel",
+    @available(*, unavailable, renamed: "toolbarConfiguration.nextBarButtonConfiguration.accessibilityLabel",
                 message: "To change, please assign a new toolbarConfiguration.nextBarButtonConfiguration")
     @objc var toolbarNextBarButtonItemAccessibilityLabel: String? {
         get { nil }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.doneBarButtonConfiguration.image",
+    @available(*, unavailable, renamed: "toolbarConfiguration.doneBarButtonConfiguration.image",
                 message: "To change, please assign a new toolbarConfiguration.doneBarButtonConfiguration")
     @objc var toolbarDoneBarButtonItemImage: UIImage? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.doneBarButtonConfiguration.title",
+    @available(*, unavailable, renamed: "toolbarConfiguration.doneBarButtonConfiguration.title",
                 message: "To change, please assign a new toolbarConfiguration.doneBarButtonConfiguration")
     @objc var toolbarDoneBarButtonItemText: String? {
         get { nil }
         set { }
     }
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.doneBarButtonConfiguration.accessibilityLabel",
+    @available(*, unavailable, renamed: "toolbarConfiguration.doneBarButtonConfiguration.accessibilityLabel",
                 message: "To change, please assign a new toolbarConfiguration.doneBarButtonConfiguration")
     @objc var toolbarDoneBarButtonItemAccessibilityLabel: String? {
         get { nil }
@@ -161,36 +151,31 @@ public extension IQKeyboardManager {
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.placeholderConfiguration.accessibilityLabel")
+    @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.accessibilityLabel")
     @objc var toolbarTitlBarButtonItemAccessibilityLabel: String? {
         get { nil }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.placeholderConfiguration.showPlaceholder")
+    @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.showPlaceholder")
     @objc var shouldShowToolbarPlaceholder: Bool {
         get { false }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.placeholderConfiguration.font")
+    @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.font")
     @objc var placeholderFont: UIFont? {
         get { nil }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.placeholderConfiguration.color")
+    @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.color")
     @objc var placeholderColor: UIColor? {
         get { nil }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.placeholderConfiguration.buttonColor")
+    @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.buttonColor")
     @objc var placeholderButtonColor: UIColor? {
         get { nil }
         set { }
@@ -200,15 +185,13 @@ public extension IQKeyboardManager {
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.keyboardConfiguration.overrideAppearance")
+    @available(*, unavailable, renamed: "toolbarConfiguration.keyboardConfiguration.overrideAppearance")
     @objc var overrideKeyboardAppearance: Bool {
         get { false }
         set { }
     }
 
-    @available(*, unavailable,
-                renamed: "toolbarConfiguration.keyboardConfiguration.appearance")
+    @available(*, unavailable, renamed: "toolbarConfiguration.keyboardConfiguration.appearance")
     @objc var keyboardAppearance: UIKeyboardAppearance {
         get { .default }
         set { }
@@ -220,21 +203,18 @@ public extension IQKeyboardManager {
 
     typealias SizeBlock = (_ size: CGSize) -> Void
 
-    @available(*, unavailable,
-                message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {}
 
-    @available(*, unavailable,
-                message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {}
 
-    @available(*, unavailable,
-                message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc var keyboardShowing: Bool { false }
 
-    @available(*, unavailable,
-                message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc var keyboardFrame: CGRect { .zero }
 }
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
+// swiftlint:enable line_length
