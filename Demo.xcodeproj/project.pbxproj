@@ -123,6 +123,8 @@
 		C0CB62141B884FA100C33368 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61CA1B884D4100C33368 /* WebViewController.m */; };
 		C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
+		C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F22AF8C43200963B19 /* TextFieldView.swift */; };
+		C0D070F52AF8C59B00963B19 /* TextFieldHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */; };
 		C0F841F82ACAC14300616ECD /* TestCases.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F841F62ACAC14300616ECD /* TestCases.storyboard */; };
 		C0F841FA2ACAC8C400616ECD /* AutofillPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F841F92ACAC8C400616ECD /* AutofillPasswordViewController.swift */; };
 /* End PBXBuildFile section */
@@ -318,6 +320,8 @@
 		C0CB61E51B884D4100C33368 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C0CB61E61B884D4100C33368 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
+		C0D070F22AF8C43200963B19 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldHostingViewController.swift; sourceTree = "<group>"; };
 		C0F841F72ACAC14300616ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TestCases.storyboard; sourceTree = "<group>"; };
 		C0F841F92ACAC8C400616ECD /* AutofillPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutofillPasswordViewController.swift; sourceTree = "<group>"; };
 		ECCAA37FCDF6347632377497 /* Pods_DemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -688,10 +692,20 @@
 				C0F841F42ACABFC500616ECD /* Full Screen */,
 				C0F841F32ACABF4C00616ECD /* Special Cases */,
 				C0F841F22ACABEF500616ECD /* ScrollView */,
+				C0D070F12AF8C3B300963B19 /* SwiftUI View */,
 				C0F841F52ACABFEA00616ECD /* Test Cases */,
 				C0CB61E51B884D4100C33368 /* ViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C0D070F12AF8C3B300963B19 /* SwiftUI View */ = {
+			isa = PBXGroup;
+			children = (
+				C0D070F22AF8C43200963B19 /* TextFieldView.swift */,
+				C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */,
+			);
+			name = "SwiftUI View";
 			sourceTree = "<group>";
 		};
 		C0F841F12ACABE9D00616ECD /* General */ = {
@@ -1098,6 +1112,7 @@
 				C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */,
 				C0CB61F01B884F2700C33368 /* ManualToolbarViewController.swift in Sources */,
 				C0CB61F21B884F2700C33368 /* ScrollViewController.swift in Sources */,
+				C0D070F52AF8C59B00963B19 /* TextFieldHostingViewController.swift in Sources */,
 				C01C943E2ACDF39000540DD6 /* NavigationController.swift in Sources */,
 				C06E24F62ACB3FA7002ECBE4 /* TableViewController.swift in Sources */,
 				C03C87FB1B8DCED400295DFA /* OptionTableViewCell.swift in Sources */,
@@ -1117,6 +1132,7 @@
 				C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */,
 				C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */,
 				4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
+				C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */,
 				4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */,
 				C0F841FA2ACAC8C400616ECD /* AutofillPasswordViewController.swift in Sources */,
 				4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */,

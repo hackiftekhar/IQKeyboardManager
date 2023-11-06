@@ -97,9 +97,9 @@ Manages the return key to work like next/done in a view hierarchy.
         var superConsideredView: UIView?
 
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
+        for allowedClasse in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
-            superConsideredView = view.iq.superviewOf(type: disabledClass)
+            superConsideredView = view.iq.superviewOf(type: allowedClasse)
 
             if superConsideredView != nil {
                 break
@@ -212,9 +212,9 @@ Manages the return key to work like next/done in a view hierarchy.
         var superConsideredView: UIView?
 
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for disabledClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
+        for allowedClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
 
-            superConsideredView = view.iq.superviewOf(type: disabledClass)
+            superConsideredView = view.iq.superviewOf(type: allowedClass)
 
             if superConsideredView != nil {
                 break

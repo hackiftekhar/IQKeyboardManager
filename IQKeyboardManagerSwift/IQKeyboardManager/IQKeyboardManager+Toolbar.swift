@@ -48,11 +48,25 @@ public extension IQKeyboardManager {
         // (There is Previous/Next/Done toolbar)
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
               let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-              textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              textField.inputAccessoryView == nil ||
-                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-                textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
+              textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) else {
             return
+        }
+
+        if let inputAccessoryView: UIView = textField.inputAccessoryView {
+
+            if inputAccessoryView.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
+                inputAccessoryView.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+                // continue
+            } else {
+                let swiftUIAccessoryName: String = "InputAccessoryHost<InputAccessoryBar>"
+                let classNameString: String = "\(type(of: inputAccessoryView.classForCoder))"
+
+                // If it's SwiftUI accessory view but doesn't have a height (fake accessory view), then we should
+                // add our own accessoryView otherwise, keep the SwiftUI accessoryView since user has added it from code
+                guard classNameString.hasPrefix(swiftUIAccessoryName), inputAccessoryView.subviews.isEmpty else {
+                    return
+                }
+            }
         }
 
 //        let startTime: CFTimeInterval = CACurrentMediaTime()
