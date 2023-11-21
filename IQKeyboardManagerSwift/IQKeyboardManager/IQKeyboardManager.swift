@@ -34,7 +34,7 @@ import QuartzCore
 // swiftlint:enable line_length
 
 /**
-Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.
+Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.
  Neither need to write any code nor any setup required and much more.
 */
 @available(iOSApplicationExtension, unavailable)
@@ -64,7 +64,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     restorePosition()
                 }
                 showLog("Enabled")
-            } else if !enable, oldValue {   // If not disable, desable it.
+            } else if !enable, oldValue {   // If not disable, disable it.
                 restorePosition()
                 showLog("Disabled")
             }
@@ -211,33 +211,33 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var disabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
-     Enabled classes to forcefully enable 'resignOnTouchOutsite' property.
+     Enabled classes to forcefully enable 'resignOnTouchOutside' property.
      Class should be kind of UIViewController
      . If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
     @objc public var enabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
-     if resignOnTouchOutside is enabled then you can customise the behaviour
-     to not recognise gesture touches on some specific view subclasses.
+     if resignOnTouchOutside is enabled then you can customize the behavior
+     to not recognize gesture touches on some specific view subclasses.
      Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
     @objc public var touchResignedGestureIgnoreClasses: [UIView.Type] = []
 
     // MARK: Third Party Library support
-    /// Add TextField/TextView Notifications customised Notifications.
+    /// Add TextField/TextView Notifications customized Notifications.
     /// For example while using YYTextView https://github.com/ibireme/YYText
 
    /**************************************************************************************/
 
-    // MARK: Initialization/Deinitialization
+    // MARK: Initialization/De-initialization
 
     /*  Singleton Object Initialization. */
     override init() {
 
         super.init()
 
-        self.addActiveConfiguratinObserver()
+        self.addActiveConfigurationObserver()
 
         // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
         resignFirstResponderGesture.isEnabled = resignOnTouchOutside

@@ -195,28 +195,28 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     return nil;
 }
 
--(BOOL)_IQcanBecomeFirstResponder
+-(BOOL)_IQCanBecomeFirstResponder
 {
-    BOOL _IQcanBecomeFirstResponder = NO;
+    BOOL _IQCanBecomeFirstResponder = NO;
     
     if ([self conformsToProtocol:@protocol(UITextInput)])
     {
         if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
         {
-            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+            _IQCanBecomeFirstResponder = [(UITextView*)self isEditable];
         }
         else if ([self respondsToSelector:@selector(isEnabled)])
         {
-            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+            _IQCanBecomeFirstResponder = [(UITextField*)self isEnabled];
         }
     }
     
-    if (_IQcanBecomeFirstResponder == YES)
+    if (_IQCanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
+        _IQCanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
     }
     
-    return _IQcanBecomeFirstResponder;
+    return _IQCanBecomeFirstResponder;
 }
 
 - (NSArray<UIView*>*)responderSiblings
@@ -228,7 +228,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     NSMutableArray<UIView*> *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UIView *textField in siblings)
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQCanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
@@ -240,7 +240,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     for (UIView *textField in self.subviews)
     {
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQCanBecomeFirstResponder])
         {
             [textFields addObject:textField];
         }
@@ -392,7 +392,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             return (UISearchBar*)searchBar;
         }
-        else if ([searchBar isKindOfClass:[UIViewController class]])    //If found viewcontroller but still not found UISearchBar then it's not the search bar textfield
+        else if ([searchBar isKindOfClass:[UIViewController class]])    //If found viewController but still not found UISearchBar then it's not the search bar textfield
         {
             break;
         }

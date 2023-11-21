@@ -44,13 +44,19 @@ internal extension IQKeyboardManager {
         }
 
         var swiftUIHostingView: UIView?
-        let swiftUIHostingViewwName: String = "_UIHostingView<"
+        let swiftUIHostingViewName: String = "UIHostingView<"
         var superView: UIView? = textFieldView.superview
         while let unwrappedSuperView: UIView = superView {
 
-            let classNameString: String = "\(type(of: unwrappedSuperView.self))"
+            let classNameString: String = {
+                var name: String = "\(type(of: unwrappedSuperView.self))"
+                if name.hasPrefix("_") {
+                    name.removeFirst()
+                }
+                return name
+            }()
 
-            if classNameString.hasPrefix(swiftUIHostingViewwName) {
+            if classNameString.hasPrefix(swiftUIHostingViewName) {
                 swiftUIHostingView = unwrappedSuperView
                 break
             }
@@ -70,15 +76,15 @@ internal extension IQKeyboardManager {
 
             let textFields: [UIView] = textFieldView.iq.responderSiblings()
 
-            // Sorting textFields according to behaviour
-            switch toolbarConfiguration.manageBehaviour {
-            // If autoToolbar behaviour is bySubviews, then returning it.
+            // Sorting textFields according to behavior
+            switch toolbarConfiguration.manageBehavior {
+            // If autoToolbar behavior is bySubviews, then returning it.
             case .bySubviews:   return textFields
 
-            // If autoToolbar behaviour is by tag, then sorting it according to tag property.
+            // If autoToolbar behavior is by tag, then sorting it according to tag property.
             case .byTag:    return textFields.sortedByTag()
 
-            // If autoToolbar behaviour is by tag, then sorting it according to tag property.
+            // If autoToolbar behavior is by tag, then sorting it according to tag property.
             case .byPosition:    return textFields.sortedByPosition()
             }
         }

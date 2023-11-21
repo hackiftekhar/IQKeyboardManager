@@ -81,7 +81,7 @@ internal extension IQKeyboardManager {
 //        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
         self.restorePosition()
-        self.benishTextFieldViewSetup()
+        self.banishTextFieldViewSetup()
 
         if let configuration = self.activeConfiguration.rootControllerConfiguration,
            configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
@@ -142,7 +142,7 @@ internal extension IQKeyboardManager {
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
 
-    func benishTextFieldViewSetup() {
+    func banishTextFieldViewSetup() {
 
         guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return

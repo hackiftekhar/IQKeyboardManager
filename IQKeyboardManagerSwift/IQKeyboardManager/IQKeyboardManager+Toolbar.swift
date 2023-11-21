@@ -152,7 +152,7 @@ public extension IQKeyboardManager {
             } else {
                 // If firstTextField, then previous should not be enabled.
                 textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)
-                // If lastTextField then next should not be enaled.
+                // If lastTextField then next should not be enabled.
                 textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
             }
 
@@ -213,12 +213,12 @@ public extension IQKeyboardManager {
             toolbar.titleBarButton.title = nil
         }
 
-        // In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
+        // In case of UITableView (Special), the next/previous buttons has to be refreshed every-time.    (Bug ID: #56)
 
         // If firstTextField, then previous should not be enabled.
         textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)
 
-        // If lastTextField then next should not be enaled.
+        // If lastTextField then next should not be enabled.
         textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
 
 //        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime

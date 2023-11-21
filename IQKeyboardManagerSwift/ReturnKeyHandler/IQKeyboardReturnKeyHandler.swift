@@ -51,7 +51,7 @@ Manages the return key to work like next/done in a view hierarchy.
         }
     }
 
-    // MARK: Initialization/Deinitialization
+    // MARK: Initialization/De-initialization
 
     @objc public override init() {
         super.init()
@@ -115,8 +115,8 @@ Manages the return key to work like next/done in a view hierarchy.
 
             textFields = view.iq.responderSiblings()
 
-            // Sorting textFields according to behaviour
-            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
+            // Sorting textFields according to behavior
+            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehavior {
                 // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedByTag()
                 // If needs to sort it by Position
@@ -142,8 +142,8 @@ Manages the return key to work like next/done in a view hierarchy.
     // MARK: Registering/Unregistering textFieldView
 
     /**
-    Should pass UITextField/UITextView intance. Assign textFieldView delegate to self, change it's returnKeyType.
-    
+    Should pass UITextField/UITextView instance. Assign textFieldView delegate to self, change it's returnKeyType.
+
     @param view UITextField/UITextView object to register.
     */
     @objc public func addTextFieldView(_ view: UIView) {
@@ -161,7 +161,7 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     /**
-    Should pass UITextField/UITextView intance. Restore it's textFieldView delegate and it's returnKeyType.
+    Should pass UITextField/UITextView instance. Restore it's textFieldView delegate and it's returnKeyType.
     
     @param view UITextField/UITextView object to unregister.
     */
@@ -230,8 +230,8 @@ Manages the return key to work like next/done in a view hierarchy.
 
             textFields = view.iq.responderSiblings()
 
-            // Sorting textFields according to behaviour
-            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour {
+            // Sorting textFields according to behavior
+            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehavior {
                 // If needs to sort it by tag
             case .byTag:        textFields = textFields.sortedByTag()
                 // If needs to sort it by Position

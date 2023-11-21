@@ -53,7 +53,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @property (nullable, nonatomic, readonly, strong) UIViewController *parentContainerViewController;
 
 ///-----------------------------------
-/// @name Superviews/Subviews/Siglings
+/// @name Superviews/Subviews/Siblings
 ///-----------------------------------
 
 /**

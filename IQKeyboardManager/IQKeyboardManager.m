@@ -58,7 +58,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 /*******************************************/
 
-/** To save UITextField/UITextView object voa textField/textView notifications. */
+/** To save UITextField/UITextView object via textField/textView notifications. */
 @property(nullable, nonatomic, weak) UIView       *textFieldView;
 
 /** To save rootViewController.view.frame.origin. */
@@ -153,7 +153,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 //IQToolbar handling
 @synthesize enableAutoToolbar                   =   _enableAutoToolbar;
-@synthesize toolbarManageBehaviour              =   _toolbarManageBehaviour;
+@synthesize toolbarManageBehavior               =   _toolbarManageBehavior;
 
 @synthesize shouldToolbarUsesTextFieldTintColor =   _shouldToolbarUsesTextFieldTintColor;
 @synthesize toolbarTintColor                    =   _toolbarTintColor;
@@ -223,7 +223,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             [strongSelf setKeyboardAppearance:UIKeyboardAppearanceDefault];
             [strongSelf setEnableAutoToolbar:YES];
             [strongSelf setShouldShowToolbarPlaceholder:YES];
-            [strongSelf setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            [strongSelf setToolbarManageBehavior:IQAutoToolbarBySubviews];
             [strongSelf setLayoutIfNeededOnUpdate:NO];
             [strongSelf setShouldToolbarUsesTextFieldTintColor:NO];
 
@@ -293,7 +293,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
         [self showLog:@"Enabled"];
     }
-	//If not disable, desable it.
+	//If not disable, disable it.
     else if (enable == NO &&
              _enable == YES)
     {
@@ -499,7 +499,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 }
 
-/** Enable/disable autotoolbar. Adding and removing toolbar if required. */
+/** Enable/disable autoToolbar. Adding and removing toolbar if required. */
 -(void)setEnableAutoToolbar:(BOOL)enableAutoToolbar
 {
     _enableAutoToolbar = enableAutoToolbar;
@@ -627,7 +627,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         #endif
         }
 
-        //If original key window is not nil and the cached keywindow is also not original keywindow then changing keywindow.
+        //If original key window is not nil and the cached keyWindow is also not original keyWindow then changing keyWindow.
         if (originalKeyWindow)
         {
             cachedKeyWindow = originalKeyWindow;
@@ -944,7 +944,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             UIView *lastView = textFieldView;
             superScrollView = strongLastScrollView;
 
-            //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
+            //Looping in upper hierarchy until we don't found any scrollView in it's upper hierarchy till UIWindow object.
             while (superScrollView)
             {
                 BOOL isContinue = NO;
@@ -1121,7 +1121,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 CGFloat bottomInset = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
                 CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField - _topViewBeginSafeAreaInsets.bottom;
 
-                // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
+                // Update the insets so that the scrollView doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
                 bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
@@ -1236,7 +1236,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -originalKbSize.height));
 
                 [self showLog:@"Moving Upward"];
-                //  Setting adjusted rootViewOrigin.ty
+                //  Setting adjusted rootViewOrigin.y
                 
                 //Used UIViewAnimationOptionBeginFromCurrentState to minimize strange animations.
                 [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -1368,7 +1368,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 }
 
-#pragma mark - UIKeyboad Notification methods
+#pragma mark - UIKeyboard Notification methods
 /*  UIKeyboardWillShowNotification. */
 -(void)keyboardWillShow:(NSNotification*)aNotification
 {
@@ -1436,7 +1436,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [self showLog:[NSString stringWithFormat:@"Saving %@ beginning origin: %@",NSStringFromClass([rootController class]),NSStringFromCGPoint(_topViewBeginOrigin)]];
     }
 
-    //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
+    //If last restored keyboard size is different(any orientation occurs), then refresh. otherwise not.
     if (!CGRectEqualToRect(_kbFrame, oldKBFrame))
     {
         //If _textFieldView is inside AlertView then do nothing. (Bug ID: #37, #74, #76)
@@ -1524,34 +1524,34 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             
             // TODO: restore scrollView state
             // This is temporary solution. Have to implement the save and restore scrollView state
-            UIScrollView *superscrollView = strongLastScrollView;
+            UIScrollView *superScrollView = strongLastScrollView;
             do
             {
-                CGSize contentSize = CGSizeMake(MAX(superscrollView.contentSize.width, CGRectGetWidth(superscrollView.frame)), MAX(superscrollView.contentSize.height, CGRectGetHeight(superscrollView.frame)));
+                CGSize contentSize = CGSizeMake(MAX(superScrollView.contentSize.width, CGRectGetWidth(superScrollView.frame)), MAX(superScrollView.contentSize.height, CGRectGetHeight(superScrollView.frame)));
                 
-                CGFloat minimumY = contentSize.height-CGRectGetHeight(superscrollView.frame);
+                CGFloat minimumY = contentSize.height-CGRectGetHeight(superScrollView.frame);
                 
-                if (minimumY<superscrollView.contentOffset.y)
+                if (minimumY<superScrollView.contentOffset.y)
                 {
-                    CGPoint newContentOffset = CGPointMake(superscrollView.contentOffset.x, minimumY);
-                    if (CGPointEqualToPoint(superscrollView.contentOffset, newContentOffset) == NO)
+                    CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY);
+                    if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
                     {
                         [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
 
-                        BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+                        BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
                         if (animatedContentOffset)
                         {
-                            [superscrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
+                            [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
                         }
                         else
                         {
-                            superscrollView.contentOffset = newContentOffset;
+                            superScrollView.contentOffset = newContentOffset;
                         }
                     }
                 }
             }
-            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
+            while ((superScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]]));
 
         } completion:NULL];
     }
@@ -1640,7 +1640,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [self removeToolbarIfRequired];
     }
     
-    //Adding Geture recognizer to window    (Enhancement ID: #14)
+    //Adding Gesture recognizer to window    (Enhancement ID: #14)
     [_resignFirstResponderGesture setEnabled:[self privateShouldResignOnTouchOutside]];
     [textFieldView.window addGestureRecognizer:_resignFirstResponderGesture];
 
@@ -2034,20 +2034,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         NSArray<UIView*> *textFields = [textFieldView responderSiblings];
         
-        //Sorting textFields according to behaviour
-        switch (_toolbarManageBehaviour)
+        //Sorting textFields according to behavior
+        switch (_toolbarManageBehavior)
         {
-                //If autoToolbar behaviour is bySubviews, then returning it.
+                //If autoToolbar behavior is bySubviews, then returning it.
             case IQAutoToolbarBySubviews:
                 return textFields;
                 break;
                 
-                //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+                //If autoToolbar behavior is by tag, then sorting it according to tag property.
             case IQAutoToolbarByTag:
                 return [textFields sortedArrayByTag];
                 break;
                 
-                //If autoToolbar behaviour is by tag, then sorting it according to tag property.
+                //If autoToolbar behavior is by tag, then sorting it according to tag property.
             case IQAutoToolbarByPosition:
                 return [textFields sortedArrayByPosition];
                 break;
@@ -2187,7 +2187,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 {
                     // If firstTextField, then previous should not be enabled.
                     textField.keyboardToolbar.previousBarButton.enabled = (siblings.firstObject != textField);
-                    // If lastTextField then next should not be enaled.
+                    // If lastTextField then next should not be enabled.
                     textField.keyboardToolbar.nextBarButton.enabled = (siblings.lastObject != textField);
                 }
             }
@@ -2438,10 +2438,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 }
 
-#pragma mark - Customised textField/textView support.
+#pragma mark - Customized textField/textView support.
 
 /**
- Add customised Notification for third party customised TextField/TextView.
+ Add customized Notification for third party customized TextField/TextView.
  */
 -(void)registerTextFieldViewClass:(nonnull Class)aClass
   didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
@@ -2452,7 +2452,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 }
 
 /**
- Remove customised Notification for third party customised TextField/TextView.
+ Remove customized Notification for third party customized TextField/TextView.
  */
 -(void)unregisterTextFieldViewClass:(nonnull Class)aClass
     didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
