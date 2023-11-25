@@ -185,13 +185,13 @@ public extension IQKeyboardManager {
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
-    @available(*, unavailable, renamed: "toolbarConfiguration.keyboardConfiguration.overrideAppearance")
+    @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
     @objc var overrideKeyboardAppearance: Bool {
         get { false }
         set { }
     }
 
-    @available(*, unavailable, renamed: "toolbarConfiguration.keyboardConfiguration.appearance")
+    @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
     @objc var keyboardAppearance: UIKeyboardAppearance {
         get { .default }
         set { }
