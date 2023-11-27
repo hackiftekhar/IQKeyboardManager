@@ -179,13 +179,13 @@ class SettingsViewController: UITableViewController {
 
                 controller.title = "Toolbar Manage Behaviour"
                 controller.options = ["IQAutoToolbar By Subviews", "IQAutoToolbar By Tag", "IQAutoToolbar By Position"]
-                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour.hashValue
+                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehavior.hashValue
 
             } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
                 controller.title = "Fonts"
                 controller.options = ["Bold System Font", "Italic system font", "Regular"]
-                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour.hashValue
+                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehavior.hashValue
 
                 let fonts = [UIFont.boldSystemFont(ofSize: 12),
                              UIFont.italicSystemFont(ofSize: 12),
@@ -250,8 +250,8 @@ extension SettingsViewController: OptionsViewControllerDelegate {
         }
 
         if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
-            let value = IQAutoToolbarManageBehaviour(rawValue: index)!
-            IQKeyboardManager.shared.toolbarConfiguration.manageBehaviour = value
+            let value = IQAutoToolbarManageBehavior(rawValue: index)!
+            IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = value
         } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
             let fonts = [UIFont.boldSystemFont(ofSize: 12),

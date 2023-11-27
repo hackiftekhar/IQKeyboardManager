@@ -144,7 +144,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         }
     }
 
-    // MARK: Superviews/Subviews/Siglings
+    // MARK: Superviews/Subviews/Siblings
 
     /**
     Returns the superView of provided class type.

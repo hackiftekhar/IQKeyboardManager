@@ -82,7 +82,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
+     Override Enable/disable managing distance between keyboard and textField behavior for this particular textField.
      */
     var enableMode: IQEnableMode {
         get {
@@ -94,7 +94,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     Override resigns Keyboard on touching outside of UITextField/View behaviour for this particular textField.
+     Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.
      */
     var resignOnTouchOutsideMode: IQEnableMode {
         get {

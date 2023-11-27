@@ -53,16 +53,16 @@ import UIKit
 
     /**
      /**
-      IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hirarchy of Textfield's in view.
+      IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hierarchy of Textfield's in view.
       IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextField's.
       IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position
       of textField in it's superview coordinate.
 
       Default is IQAutoToolbarBySubviews.
       */
-     AutoToolbar managing behaviour. Default is IQAutoToolbarBySubviews.
+     AutoToolbar managing behavior. Default is IQAutoToolbarBySubviews.
      */
-    @objc public var manageBehaviour: IQAutoToolbarManageBehaviour = .bySubviews
+    @objc public var manageBehavior: IQAutoToolbarManageBehavior = .bySubviews
 
     /**
     Buttons configuration displayed on the toolbar, the selector parameter is ignored in below configuration

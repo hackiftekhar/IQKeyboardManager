@@ -188,8 +188,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         textFields = [textField responderSiblings];
         
-        //Sorting textFields according to behaviour
-        switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
+        //Sorting textFields according to behavior
+        switch ([[IQKeyboardManager sharedManager] toolbarManageBehavior])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:
@@ -237,8 +237,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         textFields = [textField responderSiblings];
         
-        //Sorting textFields according to behaviour
-        switch ([[IQKeyboardManager sharedManager] toolbarManageBehaviour])
+        //Sorting textFields according to behavior
+        switch ([[IQKeyboardManager sharedManager] toolbarManageBehavior])
         {
                 //If needs to sort it by tag
             case IQAutoToolbarByTag:

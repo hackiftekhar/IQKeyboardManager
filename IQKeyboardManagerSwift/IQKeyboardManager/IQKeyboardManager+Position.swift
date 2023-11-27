@@ -88,7 +88,7 @@ public extension IQKeyboardManager {
         }
     }
 
-    internal func addActiveConfiguratinObserver() {
+    internal func addActiveConfigurationObserver() {
         activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
             switch event {
             case .show:
@@ -101,7 +101,7 @@ public extension IQKeyboardManager {
         })
     }
 
-    @objc internal func applicationDidBecomeActive(_ notificatin: Notification) {
+    @objc internal func applicationDidBecomeActive(_ notification: Notification) {
 
         guard privateIsEnabled(),
               activeConfiguration.keyboardInfo.keyboardShowing,
@@ -370,7 +370,7 @@ public extension IQKeyboardManager {
                 }
 
                 // Looping in upper hierarchy until we don't found any scrollView then
-                // in it's upper hirarchy till UIWindow object.
+                // in it's upper hierarchy till UIWindow object.
                 if isContinue {
 
                     var tempScrollView: UIScrollView? = scrollView.iq.superviewOf(type: UIScrollView.self)
@@ -397,7 +397,7 @@ public extension IQKeyboardManager {
 
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         // nextScrollView == nil    If processing scrollView is last scrollView in
-                        // upper hierarchy (there is no other scrollView upper hierrchy.)
+                        // upper hierarchy (there is no other scrollView upper hierarchy.)
                         // [_textFieldView isKindOfClass:[UITextView class]] If is a UITextView type
                         // suggestedOffsetY >= 0     suggestedOffsetY must be greater than in 
                         // order to keep distance from navigationBar (Bug ID: #92)
@@ -486,7 +486,7 @@ public extension IQKeyboardManager {
                 let keyboardAndSafeArea: CGFloat = keyboardDistance + rootConfiguration.beginSafeAreaInsets.bottom
                 var bottomScrollIndicatorInset: CGFloat = bottomInset - keyboardAndSafeArea
 
-                // Update the insets so that the scroll vew doesn't shift incorrectly
+                // Update the insets so that the scrollView doesn't shift incorrectly
                 // when the offset is near the bottom of the scroll view.
                 bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
                 let startingScrollInset: UIEdgeInsets = lastScrollViewConfiguration.startingScrollIndicatorInsets

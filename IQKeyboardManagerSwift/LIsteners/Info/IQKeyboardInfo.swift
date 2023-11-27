@@ -41,7 +41,7 @@ public struct IQKeyboardInfo: Equatable {
 
     public let name: Name
 
-    /** To save keyboard rame. */
+    /** To save keyboard frame. */
     public let frame: CGRect
 
     /** To save keyboard animation duration. */

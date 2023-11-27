@@ -27,12 +27,12 @@
 #import <Foundation/Foundation.h>
 
 ///-----------------------------------
-/// @name IQAutoToolbarManageBehaviour
+/// @name IQAutoToolbarManageBehavior
 ///-----------------------------------
 
 /**
  `IQAutoToolbarBySubviews`
- Creates Toolbar according to subview's hirarchy of Textfield's in view.
+ Creates Toolbar according to subview's hierarchy of Textfield's in view.
  
  `IQAutoToolbarByTag`
  Creates Toolbar according to tag property of TextField's.
@@ -40,7 +40,7 @@
  `IQAutoToolbarByPosition`
  Creates Toolbar according to the y,x position of textField in it's superview coordinate.
  */
-typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
+typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehavior) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,
