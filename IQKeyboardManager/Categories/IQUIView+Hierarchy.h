@@ -1,7 +1,7 @@
 //
-// IQUIView+Hierarchy.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIView+Hierarchy.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@
 /**
  UIView hierarchy category.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (IQ_UIView_Hierarchy)
 
 ///----------------------
@@ -52,7 +53,7 @@
 @property (nullable, nonatomic, readonly, strong) UIViewController *parentContainerViewController;
 
 ///-----------------------------------
-/// @name Superviews/Subviews/Siglings
+/// @name Superviews/Subviews/Siblings
 ///-----------------------------------
 
 /**
@@ -123,6 +124,7 @@
 /**
  NSObject category to used for logging purposes
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface NSObject (IQ_Logging)
 
 /**

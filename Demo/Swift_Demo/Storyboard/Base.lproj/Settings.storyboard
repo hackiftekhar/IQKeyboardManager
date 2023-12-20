@@ -11,7 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="mFY-po-Edv">
             <objects>
-                <navigationController storyboardIdentifier="SettingsNavigationController" id="yh7-P7-TKe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SettingsNavigationController" id="yh7-P7-TKe" customClass="NavigationController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="488"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="sJ5-JV-N2N">
                         <rect key="frame" x="0.0" y="50" width="375" height="96"/>
@@ -36,12 +36,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9e-a2-WWs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-851" y="1704"/>
+            <point key="canvasLocation" x="-1033" y="1704"/>
         </scene>
         <!--Settings-->
         <scene sceneID="zPq-Kx-aQ0">
             <objects>
-                <tableViewController id="a61-Vn-sFg" customClass="SettingsViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="a61-Vn-sFg" customClass="SettingsViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="55" sectionHeaderHeight="10" sectionFooterHeight="10" id="8WJ-D7-NuE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -417,7 +417,7 @@
         <!--Options-->
         <scene sceneID="KAM-fd-clq">
             <objects>
-                <tableViewController id="ZXU-ko-Wbd" customClass="OptionsViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OptionsViewController" id="ZXU-ko-Wbd" customClass="OptionsViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" id="0zd-6T-nzy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

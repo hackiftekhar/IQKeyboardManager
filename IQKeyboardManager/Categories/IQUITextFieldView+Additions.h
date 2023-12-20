@@ -1,7 +1,7 @@
 //
-// IQUITextFieldView+Additions.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUITextFieldView+Additions.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@
  UIView category for managing UITextField/UITextView
  */
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (Additions)
 
 /**
@@ -42,12 +43,12 @@
 @property(nonatomic, assign) BOOL ignoreSwitchingByNextPrevious;
 
 ///**
-// Override Enable/disable managing distance between keyboard and textField behaviour for this particular textField.
+// Override Enable/disable managing distance between keyboard and textField behavior for this particular textField.
 // */
 @property(nonatomic, assign) IQEnableMode enableMode;
 
 /**
- Override resigns Keyboard on touching outside of UITextField/View behaviour for this particular textField.
+ Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.
  */
 @property(nonatomic, assign) IQEnableMode shouldResignOnTouchOutsideMode;
 

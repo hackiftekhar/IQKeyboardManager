@@ -1,10 +1,25 @@
 //
 //  ActionViewController.swift
-//  DemoExtension
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-//  Created by Iftekhar on 11/11/21.
-//  Copyright © 2021 Iftekhar. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 import MobileCoreServices
@@ -22,10 +37,12 @@ class ActionViewController: UIViewController {
         var imageFound = false
         let inputItems = self.extensionContext?.inputItems as? [NSExtensionItem]
         for item in inputItems ?? [] {
-            for provider in item.attachments ?? [] where provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+            let attachements = item.attachments ?? []
+            for provider in attachements where provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
                 // This is an image. We'll load it, then place it in our image view.
                 weak var weakImageView = self.imageView
-                provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, _) in
+                let identifier = kUTTypeImage as String
+                provider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (imageURL, _) in
                     OperationQueue.main.addOperation {
                         if let strongImageView = weakImageView {
                             if let imageURL = imageURL as? URL, let data =  try? Data(contentsOf: imageURL) {
@@ -47,7 +64,8 @@ class ActionViewController: UIViewController {
     @IBAction func done() {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems,
+                                               completionHandler: nil)
     }
 
 }

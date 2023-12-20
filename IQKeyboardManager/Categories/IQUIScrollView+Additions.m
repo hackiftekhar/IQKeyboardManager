@@ -1,7 +1,7 @@
 //
-// IQUIScrollView+Additions.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIScrollView+Additions.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@
 
 #import "IQUIScrollView+Additions.h"
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIScrollView (Additions)
 
 -(void)setShouldIgnoreScrollingAdjustment:(BOOL)shouldIgnoreScrollingAdjustment
@@ -65,6 +66,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UITableView (PreviousNextIndexPath)
 
 -(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath
@@ -113,6 +115,7 @@
 //
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UICollectionView (PreviousNextIndexPath)
 
 -(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath

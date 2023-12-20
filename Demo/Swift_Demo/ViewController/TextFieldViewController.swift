@@ -1,26 +1,40 @@
 //
 //  TextFieldViewController.swift
-//  IQKeyboard
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-//  Created by Iftekhar on 23/09/14.
-//  Copyright (c) 2014 Iftekhar. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 import IQKeyboardManagerSwift
 import IQDropDownTextFieldSwift
 
-class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
+class TextFieldViewController: BaseViewController, UITextViewDelegate {
 
     @IBOutlet var textField3: UITextField!
     @IBOutlet var textView1: IQTextView!
     @IBOutlet var textView2: UITextView!
     @IBOutlet var textView3: UITextView!
 
-    @IBOutlet var dropDownTextField: IQDropDownTextField!
+    let keyboardListener = IQKeyboardListener()
 
-    @IBOutlet var buttonPush: UIButton!
-    @IBOutlet var buttonPresent: UIButton!
+    @IBOutlet var dropDownTextField: IQDropDownTextField!
 
     @objc func previousAction(_ sender: UITextField) {
         print("PreviousAction")
@@ -35,16 +49,16 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     }
 
     deinit {
-        textField3 = nil
         textView1 = nil
+        textField3 = nil
         dropDownTextField = nil
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView2.enableMode = .disabled
         textView1.delegate = self
+        textView2.iq.enableMode = .disabled
 
 #if swift(>=5.7)
         if #available(iOS 16.0, *) {
@@ -52,12 +66,13 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
         }
 #endif
 
-//        textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too", attributes: [.foregroundColor: UIColor.red])
+        // textView1.attributedPlaceholder = NSAttributedString(string: "Attributed string from code is supported too",
+        //                                                      attributes: [.foregroundColor: UIColor.red])
 
-        textField3.keyboardToolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
-        textField3.keyboardToolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
-        textField3.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
-        dropDownTextField.keyboardDistanceFromTextField = 150
+        textField3.iq.toolbar.previousBarButton.setTarget(self, action: #selector(self.previousAction(_:)))
+        textField3.iq.toolbar.nextBarButton.setTarget(self, action: #selector(self.nextAction(_:)))
+        textField3.iq.toolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
+        dropDownTextField.iq.distanceFromKeyboard = 150
 
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
@@ -84,78 +99,18 @@ class TextFieldViewController: UIViewController, UITextViewDelegate, UIPopoverPr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if self.presentingViewController != nil {
-            buttonPush.isHidden = true
-            buttonPresent.setTitle("Dismiss", for: .normal)
+        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
+//            print(size)
         }
-
-        IQKeyboardManager.shared.registerKeyboardSizeChange(identifier: "TextFieldViewController", sizeHandler: { size in
-            print(size)
-        })
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        IQKeyboardManager.shared.unregisterKeyboardSizeChange(identifier: "TextFieldViewController")
-    }
-
-    @IBAction func presentClicked (_ sender: AnyObject!) {
-
-        if self.presentingViewController == nil {
-
-            let controller: UIViewController = (storyboard?.instantiateViewController(withIdentifier: "TextFieldViewController"))!
-            let navController: UINavigationController = UINavigationController(rootViewController: controller)
-            navController.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
-            navController.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
-            navController.navigationBar.titleTextAttributes = self.navigationController?.navigationBar.titleTextAttributes
-            navController.modalTransitionStyle = UIModalTransitionStyle(rawValue: Int.random(in: 0..<4))!
-
-            // TransitionStylePartialCurl can only be presented by FullScreen style.
-            if navController.modalTransitionStyle == UIModalTransitionStyle.partialCurl {
-                navController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-            } else {
-                navController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-            }
-
-            present(navController, animated: true, completion: nil)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
+        keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
 
         print("textViewDidBeginEditing")
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

@@ -12,7 +12,7 @@
         <!--UITableView in Container-->
         <scene sceneID="Wk6-cH-l7E">
             <objects>
-                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" customClass="TableViewContainerViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oJ4-BJ-1kW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,11 +35,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="UITableView in Container" id="f0D-mr-Rzc">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="a3q-Lh-gPg">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="Jpr-PP-pnX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="a3q-Lh-gPg"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUL-G0-Nth" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,7 +45,7 @@
         <!-- Container-->
         <scene sceneID="Md9-V5-6d7">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewInContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="DemoSwift" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0RD-44-m2b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,6 +91,9 @@
 EENvbnRhaW5lcg
 </string>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="va8-7o-UYk" id="uiJ-93-hJc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="csg-dz-Bkz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,11 +153,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UITableView Example" id="ZVF-w5-7zs">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="aHF-H7-Kng">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="Xs1-If-dkg"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="aHF-H7-Kng"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMe-b3-5Es" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -417,11 +412,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UIScrollView Example" id="1XW-VW-7XA">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="6ux-WY-384">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="whr-6p-RSw"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="6ux-WY-384"/>
                     </navigationItem>
                     <connections>
                         <outlet property="bottomTextField" destination="c1U-0a-Jva" id="sMX-3V-FuD"/>
@@ -580,11 +571,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Navigation Bar" id="IWx-4s-DcF">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="kJy-g0-Z2Y">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="RMc-ox-EeG"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="kJy-g0-Z2Y"/>
                     </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="YS6-oO-kvF" id="fIl-LY-xqW"/>
@@ -652,11 +639,7 @@ EENvbnRhaW5lcg
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="UICollectionView" id="Byq-bS-sCQ">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="Sgb-WF-lWI">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="dM1-nA-eFz"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="Sgb-WF-lWI"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="pDc-0F-blt" id="pPb-MQ-Oqv"/>
@@ -669,7 +652,7 @@ EENvbnRhaW5lcg
         <!--UITableViewController-->
         <scene sceneID="f4C-KI-H3s">
             <objects>
-                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" customClass="TableViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="shB-z3-q47">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -803,7 +786,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nj-eG-LrV">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Nj-eG-LrV">
                                                     <rect key="frame" x="5" y="5" width="404" height="340"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
@@ -947,7 +930,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxW-ea-vah">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QxW-ea-vah">
                                                     <rect key="frame" x="5" y="5" width="404" height="340"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
@@ -972,7 +955,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEb-HG-zO3">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEb-HG-zO3">
                                                     <rect key="frame" x="5" y="5" width="404" height="31"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -995,7 +978,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmt-IJ-ajj">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmt-IJ-ajj">
                                                     <rect key="frame" x="5" y="5" width="404" height="340"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
@@ -1020,7 +1003,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DrH-Tb-GC3">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DrH-Tb-GC3">
                                                     <rect key="frame" x="5" y="5" width="404" height="31"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1043,7 +1026,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHL-zT-u6g">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jHL-zT-u6g">
                                                     <rect key="frame" x="5" y="5" width="404" height="340"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
@@ -1070,29 +1053,14 @@ EENvbnRhaW5lcg
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="UITableViewController" id="7ET-Mf-F9b">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="Nhg-d2-hav">
-                            <connections>
-                                <segue destination="wgh-oX-kmF" kind="presentation" identifier="SettingsNavigationController" id="4u1-o5-vXI"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="Nhg-d2-hav"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJg-JT-LAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2843" y="217"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="afW-2d-U8J">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="wgh-oX-kmF" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B59-I0-iLK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2770" y="711"/>
-        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="4u1-o5-vXI"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="settings" width="25" height="25"/>
         <systemColor name="groupTableViewBackgroundColor">

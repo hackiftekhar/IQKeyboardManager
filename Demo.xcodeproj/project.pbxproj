@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -54,6 +54,9 @@
 		74EEE75B8742B346576A7E78 /* Pods_DemoObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF83944ADEC65E0AF10B2E /* Pods_DemoObjC.framework */; };
 		911CB12B36B5FE643ED05549 /* Pods_DemoExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FAE15A8E85986DABA193CC /* Pods_DemoExtension.framework */; };
 		C0017B791BAD943400BD1D70 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0017B781BAD943400BD1D70 /* CustomViewController.swift */; };
+		C01955F22ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01955F12ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift */; };
+		C01C943E2ACDF39000540DD6 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01C943D2ACDF39000540DD6 /* NavigationController.swift */; };
+		C0382D222AE1632B00EBE4B4 /* SettingsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */; };
 		C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */; };
 		C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */; };
 		C03C87F91B8DCEC400295DFA /* NavigationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */; };
@@ -64,6 +67,16 @@
 		C03C9472273CF3FF00AF66B5 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C9471273CF3FF00AF66B5 /* ActionViewController.swift */; };
 		C03C9475273CF3FF00AF66B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03C9473273CF3FF00AF66B5 /* MainInterface.storyboard */; };
 		C03C9479273CF3FF00AF66B5 /* DemoExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C03C946D273CF3FF00AF66B5 /* DemoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C06E24F22ACB3C15002ECBE4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F12ACB3C14002ECBE4 /* BaseTableViewController.swift */; };
+		C06E24F42ACB3F6F002ECBE4 /* TableViewContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F32ACB3F6F002ECBE4 /* TableViewContainerViewController.swift */; };
+		C06E24F62ACB3FA7002ECBE4 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F52ACB3FA7002ECBE4 /* TableViewController.swift */; };
+		C06E24F82ACB3FD8002ECBE4 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F72ACB3FD8002ECBE4 /* StackViewController.swift */; };
+		C06E24FA2ACB4015002ECBE4 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E24F92ACB4015002ECBE4 /* PageViewController.swift */; };
+		C07DF1302AE17BB600698057 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */; };
+		C08372572ACAFE6500416081 /* ReloadLayout1892ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08372562ACAFE6500416081 /* ReloadLayout1892ViewController.swift */; };
+		C08372592ACB046900416081 /* SafeAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08372582ACB046900416081 /* SafeAreaViewController.swift */; };
+		C083725D2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C083725C2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift */; };
+		C083725F2ACB1D3700416081 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C083725E2ACB1D3700416081 /* BaseViewController.swift */; };
 		C0B63BA01781FAB1008D3B64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63B9F1781FAB1008D3B64 /* UIKit.framework */; };
 		C0B63BA21781FAB1008D3B64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA11781FAB1008D3B64 /* Foundation.framework */; };
 		C0B63BA41781FAB1008D3B64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B63BA31781FAB1008D3B64 /* CoreGraphics.framework */; };
@@ -110,6 +123,10 @@
 		C0CB62141B884FA100C33368 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61CA1B884D4100C33368 /* WebViewController.m */; };
 		C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
+		C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F22AF8C43200963B19 /* TextFieldView.swift */; };
+		C0D070F52AF8C59B00963B19 /* TextFieldHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */; };
+		C0F841F82ACAC14300616ECD /* TestCases.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F841F62ACAC14300616ECD /* TestCases.storyboard */; };
+		C0F841FA2ACAC8C400616ECD /* AutofillPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F841F92ACAC8C400616ECD /* AutofillPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +227,9 @@
 		9D9A0FC218C9DB5700585D3F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		B79F5C95BFF3757CA09DA45B /* Pods-DemoObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoObjC/Pods-DemoObjC.debug.xcconfig"; sourceTree = "<group>"; };
 		C0017B781BAD943400BD1D70 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		C01955F12ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonScrollTextView1979ViewController.swift; sourceTree = "<group>"; };
+		C01C943D2ACDF39000540DD6 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+TableView.swift"; sourceTree = "<group>"; };
 		C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		C03C87F81B8DCEC400295DFA /* NavigationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +242,16 @@
 		C03C9474273CF3FF00AF66B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C03C9476273CF3FF00AF66B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C03C947A273CF3FF00AF66B5 /* DemoExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoExtension.entitlements; sourceTree = "<group>"; };
+		C06E24F12ACB3C14002ECBE4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		C06E24F32ACB3F6F002ECBE4 /* TableViewContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewContainerViewController.swift; sourceTree = "<group>"; };
+		C06E24F52ACB3FA7002ECBE4 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		C06E24F72ACB3FD8002ECBE4 /* StackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
+		C06E24F92ACB4015002ECBE4 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		C08372562ACAFE6500416081 /* ReloadLayout1892ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadLayout1892ViewController.swift; sourceTree = "<group>"; };
+		C08372582ACB046900416081 /* SafeAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaViewController.swift; sourceTree = "<group>"; };
+		C083725C2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgesForExtendedLayoutViewController.swift; sourceTree = "<group>"; };
+		C083725E2ACB1D3700416081 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		C0949D9B2735545700D7405E /* DemoSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoSwift.entitlements; sourceTree = "<group>"; };
 		C0ACB0F519CF104B0057B571 /* DemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B63B9B1781FAB1008D3B64 /* IQKeyboardManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQKeyboardManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +320,10 @@
 		C0CB61E51B884D4100C33368 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C0CB61E61B884D4100C33368 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
+		C0D070F22AF8C43200963B19 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldHostingViewController.swift; sourceTree = "<group>"; };
+		C0F841F72ACAC14300616ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TestCases.storyboard; sourceTree = "<group>"; };
+		C0F841F92ACAC8C400616ECD /* AutofillPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutofillPasswordViewController.swift; sourceTree = "<group>"; };
 		ECCAA37FCDF6347632377497 /* Pods_DemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E9B15DB5990F895CB4EB7B /* Pods-DemoObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoObjC/Pods-DemoObjC.release.xcconfig"; sourceTree = "<group>"; };
 		F7C7D2D527E621CDFB9FC681 /* Pods-DemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoSwift/Pods-DemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -387,6 +421,7 @@
 			children = (
 				C03C87F61B8DCC1400295DFA /* OptionsViewController.swift */,
 				C03C87F41B8DCBF100295DFA /* SettingsViewController.swift */,
+				C0382D212AE1632B00EBE4B4 /* SettingsViewController+TableView.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -401,6 +436,14 @@
 				C03C9476273CF3FF00AF66B5 /* Info.plist */,
 			);
 			path = DemoExtension;
+			sourceTree = "<group>";
+		};
+		C07DF12E2AE17B9900698057 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C07DF12F2AE17BB600698057 /* UITableView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C0B63B901781FAB0008D3B64 = {
@@ -593,6 +636,7 @@
 				C0CB61D31B884D4100C33368 /* Resources */,
 				C0CB61D71B884D4100C33368 /* Storyboard */,
 				C0CB61D91B884D4100C33368 /* ViewController */,
+				C07DF12E2AE17B9900698057 /* Extension */,
 				4CE6119E1B98B7250020591A /* DemoObjCUITests */,
 			);
 			name = Swift_Demo;
@@ -631,6 +675,7 @@
 				4C794CED20D5947000502C9B /* Settings.storyboard */,
 				4C794CF220D5947900502C9B /* SpecialCase.storyboard */,
 				4C794CF720D5948600502C9B /* FullScreenControllers.storyboard */,
+				C0F841F62ACAC14300616ECD /* TestCases.storyboard */,
 				4C794CFC20D5948E00502C9B /* Launch.storyboard */,
 			);
 			path = Storyboard;
@@ -640,26 +685,88 @@
 			isa = PBXGroup;
 			children = (
 				C03C87F31B8DCBC900295DFA /* Settings */,
-				C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */,
-				C0017B781BAD943400BD1D70 /* CustomViewController.swift */,
-				C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */,
-				C0CB61DD1B884D4100C33368 /* ManualToolbarViewController.swift */,
-				C0CB61DE1B884D4100C33368 /* NavigationBarViewController.swift */,
-				C0CB61DF1B884D4100C33368 /* ScrollViewController.swift */,
-				C0CB61E01B884D4100C33368 /* SpecialCaseViewController.swift */,
-				C0CB61E11B884D4100C33368 /* TableViewInContainerViewController.swift */,
-				C0CB61E21B884D4100C33368 /* TextFieldViewController.swift */,
-				C0CB61E31B884D4100C33368 /* TextSelectionViewController.swift */,
-				C0CB61E41B884D4100C33368 /* TextViewSpecialCaseViewController.swift */,
+				C083725E2ACB1D3700416081 /* BaseViewController.swift */,
+				C06E24F12ACB3C14002ECBE4 /* BaseTableViewController.swift */,
+				C01C943D2ACDF39000540DD6 /* NavigationController.swift */,
+				C0F841F12ACABE9D00616ECD /* General */,
+				C0F841F42ACABFC500616ECD /* Full Screen */,
+				C0F841F32ACABF4C00616ECD /* Special Cases */,
+				C0F841F22ACABEF500616ECD /* ScrollView */,
+				C0D070F12AF8C3B300963B19 /* SwiftUI View */,
+				C0F841F52ACABFEA00616ECD /* Test Cases */,
 				C0CB61E51B884D4100C33368 /* ViewController.swift */,
-				C0CB61E61B884D4100C33368 /* WebViewController.swift */,
-				4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */,
-				4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */,
-				4C34D9EE1D1319A60013E61D /* SearchViewController.swift */,
-				4C2F12E11D9E8CDF004AF58C /* PopoverViewController.swift */,
-				C0C8A00F2A5C9D0B0015C4EE /* TestViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C0D070F12AF8C3B300963B19 /* SwiftUI View */ = {
+			isa = PBXGroup;
+			children = (
+				C0D070F22AF8C43200963B19 /* TextFieldView.swift */,
+				C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */,
+			);
+			name = "SwiftUI View";
+			sourceTree = "<group>";
+		};
+		C0F841F12ACABE9D00616ECD /* General */ = {
+			isa = PBXGroup;
+			children = (
+				C0CB61E41B884D4100C33368 /* TextViewSpecialCaseViewController.swift */,
+				C0CB61DD1B884D4100C33368 /* ManualToolbarViewController.swift */,
+				C0CB61E21B884D4100C33368 /* TextFieldViewController.swift */,
+				C08372582ACB046900416081 /* SafeAreaViewController.swift */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		C0F841F22ACABEF500616ECD /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				C0CB61DC1B884D4100C33368 /* ExampleTableViewController.swift */,
+				C0CB61E11B884D4100C33368 /* TableViewInContainerViewController.swift */,
+				C0CB61DF1B884D4100C33368 /* ScrollViewController.swift */,
+				C0CB61DB1B884D4100C33368 /* CollectionViewDemoController.swift */,
+				C0CB61DE1B884D4100C33368 /* NavigationBarViewController.swift */,
+				C06E24F32ACB3F6F002ECBE4 /* TableViewContainerViewController.swift */,
+				C06E24F52ACB3FA7002ECBE4 /* TableViewController.swift */,
+			);
+			name = ScrollView;
+			sourceTree = "<group>";
+		};
+		C0F841F32ACABF4C00616ECD /* Special Cases */ = {
+			isa = PBXGroup;
+			children = (
+				C0CB61E01B884D4100C33368 /* SpecialCaseViewController.swift */,
+				C0017B781BAD943400BD1D70 /* CustomViewController.swift */,
+				4C2F12E11D9E8CDF004AF58C /* PopoverViewController.swift */,
+				4C0EFE281CF332BF00C908D3 /* RefreshLayoutViewController.swift */,
+				C0C8A00F2A5C9D0B0015C4EE /* TestViewController.swift */,
+				C0CB61E61B884D4100C33368 /* WebViewController.swift */,
+				C06E24F72ACB3FD8002ECBE4 /* StackViewController.swift */,
+				C06E24F92ACB4015002ECBE4 /* PageViewController.swift */,
+			);
+			name = "Special Cases";
+			sourceTree = "<group>";
+		};
+		C0F841F42ACABFC500616ECD /* Full Screen */ = {
+			isa = PBXGroup;
+			children = (
+				4C0EFE2E1CF332DD00C908D3 /* TextViewController.swift */,
+				4C34D9EE1D1319A60013E61D /* SearchViewController.swift */,
+			);
+			name = "Full Screen";
+			sourceTree = "<group>";
+		};
+		C0F841F52ACABFEA00616ECD /* Test Cases */ = {
+			isa = PBXGroup;
+			children = (
+				C0F841F92ACAC8C400616ECD /* AutofillPasswordViewController.swift */,
+				C0CB61E31B884D4100C33368 /* TextSelectionViewController.swift */,
+				C08372562ACAFE6500416081 /* ReloadLayout1892ViewController.swift */,
+				C083725C2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift */,
+				C01955F12ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift */,
+			);
+			name = "Test Cases";
 			sourceTree = "<group>";
 		};
 		EFA5AFEC00910B83E6A41257 /* Pods */ = {
@@ -773,17 +880,10 @@
 					};
 					C03C946C273CF3FF00AF66B5 = {
 						CreatedOnToolsVersion = 12.5;
-						DevelopmentTeam = 7UUTF6T5P9;
-						ProvisioningStyle = Automatic;
 					};
 					C0ACB0F419CF104B0057B571 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 7UUTF6T5P9;
 						LastSwiftMigration = 1020;
-					};
-					C0B63B9A1781FAB1008D3B64 = {
-						DevelopmentTeam = 7UUTF6T5P9;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -837,6 +937,7 @@
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
 				4C794CE620D5946000502C9B /* ScrollView.storyboard in Resources */,
+				C0F841F82ACAC14300616ECD /* TestCases.storyboard in Resources */,
 				4C794CDC20D593E100502C9B /* Main.storyboard in Resources */,
 				4C794CFA20D5948E00502C9B /* Launch.storyboard in Resources */,
 				4C794CEB20D5947000502C9B /* Settings.storyboard in Resources */,
@@ -875,11 +976,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-DemoSwift/Pods-DemoSwift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/IQDropDownTextFieldSwift/IQDropDownTextFieldSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RSKPlaceholderTextView/RSKPlaceholderTextView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQDropDownTextFieldSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKPlaceholderTextView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -948,6 +1051,7 @@
 		};
 		C0B6F1C124F668D6009A24B2 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1008,31 +1112,47 @@
 				C03C87F71B8DCC1400295DFA /* OptionsViewController.swift in Sources */,
 				C0CB61F01B884F2700C33368 /* ManualToolbarViewController.swift in Sources */,
 				C0CB61F21B884F2700C33368 /* ScrollViewController.swift in Sources */,
+				C0D070F52AF8C59B00963B19 /* TextFieldHostingViewController.swift in Sources */,
+				C01C943E2ACDF39000540DD6 /* NavigationController.swift in Sources */,
+				C06E24F62ACB3FA7002ECBE4 /* TableViewController.swift in Sources */,
 				C03C87FB1B8DCED400295DFA /* OptionTableViewCell.swift in Sources */,
 				C03C87FF1B8DCEF400295DFA /* SwitchTableViewCell.swift in Sources */,
 				C03C87FD1B8DCEE700295DFA /* StepperTableViewCell.swift in Sources */,
+				C0382D222AE1632B00EBE4B4 /* SettingsViewController+TableView.swift in Sources */,
 				C0CB61EF1B884F2700C33368 /* ExampleTableViewController.swift in Sources */,
 				C0CB61F31B884F2700C33368 /* SpecialCaseViewController.swift in Sources */,
+				C06E24F42ACB3F6F002ECBE4 /* TableViewContainerViewController.swift in Sources */,
+				C06E24F22ACB3C15002ECBE4 /* BaseTableViewController.swift in Sources */,
 				4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */,
+				C08372572ACAFE6500416081 /* ReloadLayout1892ViewController.swift in Sources */,
 				4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */,
+				C07DF1302AE17BB600698057 /* UITableView+Extension.swift in Sources */,
+				C06E24FA2ACB4015002ECBE4 /* PageViewController.swift in Sources */,
 				C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */,
 				C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */,
 				4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
+				C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */,
 				4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */,
+				C0F841FA2ACAC8C400616ECD /* AutofillPasswordViewController.swift in Sources */,
 				4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */,
 				4C34D9EF1D1319A60013E61D /* SearchViewController.swift in Sources */,
+				C08372592ACB046900416081 /* SafeAreaViewController.swift in Sources */,
 				4CE74F5F1CF185F70093AC0C /* UIColor+HexColors.m in Sources */,
 				C0C8A0102A5C9D0B0015C4EE /* TestViewController.swift in Sources */,
+				C083725F2ACB1D3700416081 /* BaseViewController.swift in Sources */,
 				C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */,
 				4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */,
 				4CE74F5B1CF185F70093AC0C /* HFColorButton.m in Sources */,
 				C0CB61F71B884F2700C33368 /* TextViewSpecialCaseViewController.swift in Sources */,
 				4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */,
+				C06E24F82ACB3FD8002ECBE4 /* StackViewController.swift in Sources */,
 				C0CB61F61B884F2700C33368 /* TextSelectionViewController.swift in Sources */,
 				C0CB61F11B884F2700C33368 /* NavigationBarViewController.swift in Sources */,
+				C083725D2ACB1C2100416081 /* EdgesForExtendedLayoutViewController.swift in Sources */,
 				C0017B791BAD943400BD1D70 /* CustomViewController.swift in Sources */,
 				C0CB61F41B884F2700C33368 /* TableViewInContainerViewController.swift in Sources */,
+				C01955F22ADB4A3A00012505 /* NonScrollTextView1979ViewController.swift in Sources */,
 				C0CB61F91B884F2700C33368 /* WebViewController.swift in Sources */,
 				C0CB61F51B884F2700C33368 /* TextFieldViewController.swift in Sources */,
 				4C2F12E21D9E8CDF004AF58C /* PopoverViewController.swift in Sources */,
@@ -1224,6 +1344,14 @@
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
+		C0F841F62ACAC14300616ECD /* TestCases.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0F841F72ACAC14300616ECD /* Base */,
+			);
+			name = TestCases.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1236,6 +1364,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1265,6 +1394,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1299,15 +1429,14 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = DemoExtension/DemoExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7UUTF6T5P9;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = DemoExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1318,6 +1447,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1342,17 +1472,16 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = DemoExtension/DemoExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7UUTF6T5P9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = DemoExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1363,6 +1492,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift.extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -1388,20 +1518,18 @@
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = DemoSwift.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6.5.8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Demo/Swift_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 6.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift;
@@ -1434,20 +1562,18 @@
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = DemoSwift.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6.5.8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Demo/Swift_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 6.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift;
@@ -1494,9 +1620,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1526,8 +1651,9 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 6.5.13;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
@@ -1567,9 +1693,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1592,8 +1717,9 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 6.5.13;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
@@ -1616,9 +1742,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "$(inherited)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Iftekhar Qurashi (RFN29V7Q6Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6.5.8;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1629,17 +1752,15 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 6.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManagerDemo;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1662,9 +1783,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "$(inherited)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Iftekhar Qurashi (RFN29V7Q6Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6.5.8;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1675,17 +1793,15 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 6.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.iftekhar.IQKeyboardManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManager;
 				PRODUCT_NAME = IQKeyboardManagerDemo;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

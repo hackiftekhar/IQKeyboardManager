@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,12 +6,13 @@ import PackageDescription
 let package = Package(
     name: "IQKeyboardManagerSwift",
     products: [
-       .library(name: "IQKeyboardManagerSwift", targets: ["IQKeyboardManagerSwift"])
-   ],
-   targets: [
-       .target(
-           name: "IQKeyboardManagerSwift",
-           path: "IQKeyboardManagerSwift"
-       )
-   ]
+        .library(name: "IQKeyboardManagerSwift",
+                 targets: ["IQKeyboardManagerSwift"])
+    ],
+    targets: [
+        .target(
+            name: "IQKeyboardManagerSwift",
+            path: "IQKeyboardManagerSwift"
+        )
+    ]
 )

@@ -1,7 +1,7 @@
 //
 //  IQKeyboardManagerConstants.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,11 @@
 
 import Foundation
 
-// MARK: IQAutoToolbarManageBehaviour
+// MARK: IQAutoToolbarManageBehavior
 
 /**
 `IQAutoToolbarBySubviews`
-Creates Toolbar according to subview's hirarchy of Textfield's in view.
+Creates Toolbar according to subview's hierarchy of Textfield's in view.
 
 `IQAutoToolbarByTag`
 Creates Toolbar according to tag property of TextField's.
@@ -36,7 +36,7 @@ Creates Toolbar according to tag property of TextField's.
 Creates Toolbar according to the y,x position of textField in it's superview coordinate.
 */
 @available(iOSApplicationExtension, unavailable)
-@objc public enum IQAutoToolbarManageBehaviour: Int {
+@objc public enum IQAutoToolbarManageBehavior: Int {
     case bySubviews
     case byTag
     case byPosition
@@ -50,7 +50,8 @@ Creates Toolbar according to the y,x position of textField in it's superview coo
  Do not show NextPrevious buttons in any case.
  
  `IQPreviousNextDisplayModeAlwaysShow`
- Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+ Always show nextPrevious buttons,
+ if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
  */
 @available(iOSApplicationExtension, unavailable)
 @objc public enum IQPreviousNextDisplayMode: Int {

@@ -1,7 +1,7 @@
 //
 //  IQToolbar.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-20 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import UIKit
 
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     override init(frame: CGRect) {
@@ -138,13 +139,8 @@ import UIKit
             if privateFixedSpaceBarButton == nil {
                 privateFixedSpaceBarButton = IQBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             }
-            privateFixedSpaceBarButton!.isSystemItem = true
-
-            if #available(iOS 10, *) {
-                privateFixedSpaceBarButton!.width = 6
-            } else {
-                privateFixedSpaceBarButton!.width = 20
-            }
+            privateFixedSpaceBarButton?.isSystemItem = true
+            privateFixedSpaceBarButton?.width = 6
 
             return privateFixedSpaceBarButton!
         }
@@ -155,7 +151,7 @@ import UIKit
     }
 
     @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        var sizeThatFit = super.sizeThatFits(size)
+        var sizeThatFit: CGSize = super.sizeThatFits(size)
         sizeThatFit.height = 44
         return sizeThatFit
     }
@@ -163,7 +159,7 @@ import UIKit
     @objc override open var tintColor: UIColor! {
 
         didSet {
-            if let unwrappedItems = items {
+            if let unwrappedItems: [UIBarButtonItem] = items {
                 for item in unwrappedItems {
                     item.tintColor = tintColor
                 }

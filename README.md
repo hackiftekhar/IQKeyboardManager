@@ -61,18 +61,25 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 |                        | Language | Minimum iOS Target | Minimum Xcode Version |
 |------------------------|----------|--------------------|-----------------------|
-| IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 9           |
-| IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 9           |
-| Demo Project           |          |                    | Xcode 11             |
+| IQKeyboardManager      | Obj-C    | iOS 11.0            | Xcode 13             |
+| IQKeyboardManagerSwift | Swift    | iOS 13.0            | Xcode 13             |
+| Demo Project           |          |                     | Xcode 15             |
 
 #### Swift versions support
 
 | Swift             | Xcode | IQKeyboardManagerSwift |
 |-------------------|-------|------------------------|
-| 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0               |
-| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1               |
+| 5.9, 5.8, 5.7, 5.6| 15  | >= 7.0.0       |
+| 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.2| 11  | >= 6.5.7       |
+| 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0       |
+| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1           |
 | 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
 | 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
+
+## 7.0.0 version notes
+- In this major release, a lot of variables and functions have been moved here and there. We have mentioned most of the major things in the MIGRATION GUIDE. So please take a look to make changes in your project when upgrading to this version.
+- The 7.0.0 version adopted the latest Swift Concurrency/Actor feature and only available iOS 13.0 and above.
+- Internal keyboard management handling have been updated with a different and better approach than legacy versions. However when adopting 7.0.0, please verify if it is working as expected in your apps, if there are any serious problems with 7.0.0 please open an issue with all the details and switch back to legacy version temporarily.
 
 Installation
 ==========================
@@ -85,13 +92,13 @@ Installation
 it, simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
 ```ruby
-pod 'IQKeyboardManager' #iOS8 and later
+pod 'IQKeyboardManager' #iOS13 and later
 ```
 
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 5.1, 5.0, 4.2, 4.0, 3.2, 3.0 (Xcode 11)*
+*Swift 5.9, 5.8, 5.7, 5.6, 5.5 (Xcode 15)*
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
@@ -173,7 +180,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 [Swift Package Manager(SPM)](https://swift.org/package-manager/) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well. 
 
-To install IQKeyboardManager package into your packages, add a reference to IQKeyboardManager and a targeting release version in the dependencies section in `Package.swift` file:
+To install IQKeyboardManagerSwift package via Xcode
+
+ * Go to File -> Swift Packages -> Add Package Dependency...
+ * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
+ * And choose the version you want
+
+To install IQKeyboardManagerSwift package into your packages, add a reference to IQKeyboardManager and a targeting release version in the dependencies section in `Package.swift` file:
 
 ```swift
 import PackageDescription
@@ -182,20 +195,15 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     products: [],
     dependencies: [
-        .package(url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "6.5.0")
+        .package(url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "7.0.0")
     ]
 )
 ```
 
-To install IQKeyboardManager package via Xcode
-
- * Go to File -> Swift Packages -> Add Package Dependency...
- * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
- * And choose the version you want
-
 Migration Guide
 ==========================
 - [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-6.0.0-Migration-Guide)
+- [IQKeyboardManager 7.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-7.0.0-Migration-Guide)
 
 Other Links
 ==========================

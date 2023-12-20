@@ -1,19 +1,34 @@
 //
 //  ViewController.swift
-//  swift test
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-//  Created by Iftekhar on 22/09/14.
-//  Copyright (c) 2014 Iftekhar. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 import IQKeyboardManagerSwift
 
-class ViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class ViewController: BaseTableViewController {
 
     @IBAction func shareClicked (_ sender: UIBarButtonItem) {
 
-        let shareString: String = "IQKeyboardManager is really great control for iOS developer to manage keyboard-textField."
+        let shareString: String = "IQKeyboardManager is really great for iOS developer to manage keyboard-textField."
         let shareImage: UIImage = UIImage(named: "IQKeyboardManagerScreenshot")!
         let youtubeUrl: URL = URL(string: "http://youtu.be/6nhLw6hju2A")!
 
@@ -31,7 +46,7 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        IQKeyboardManager.shared.toolbarManageBehaviour = IQAutoToolbarManageBehaviour.byPosition
+        IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = .byPosition
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -45,18 +60,7 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
             return
         }
 
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            controller.popoverPresentationController?.sourceView = sender as? UIView
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        } else if identifier == "PopoverViewController" {
+        if identifier == "PopoverViewController" {
             let controller = segue.destination
 
             controller.modalPresentationStyle = .popover
@@ -68,17 +72,5 @@ class ViewController: UITableViewController, UIPopoverPresentationControllerDele
             controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
             controller.popoverPresentationController?.delegate = self
         }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }

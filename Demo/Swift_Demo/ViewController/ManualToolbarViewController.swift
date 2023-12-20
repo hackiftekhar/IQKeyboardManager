@@ -1,15 +1,30 @@
 //
 //  ManualToolbarViewController.swift
-//  IQKeyboardManager
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-//  Created by InfoEnum02 on 20/04/15.
-//  Copyright (c) 2015 Iftekhar. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 import IQKeyboardManagerSwift
 
-class ManualToolbarViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class ManualToolbarViewController: BaseViewController {
 
     @IBOutlet var textField1: UITextField!
     @IBOutlet var textField2: UITextField!
@@ -28,19 +43,31 @@ class ManualToolbarViewController: UIViewController, UIPopoverPresentationContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField1.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
-        textField1.keyboardToolbar.previousBarButton.isEnabled = false
-        textField1.keyboardToolbar.nextBarButton.isEnabled = true
+        textField1.iq.addPreviousNextDone(target: self,
+                                          previousAction: #selector(self.previousAction(_:)),
+                                          nextAction: #selector(self.nextAction(_:)),
+                                          doneAction: #selector(self.doneAction(_:)),
+                                          showPlaceholder: true)
+        textField1.iq.toolbar.previousBarButton.isEnabled = false
+        textField1.iq.toolbar.nextBarButton.isEnabled = true
 
-        textField2.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
-        textField2.keyboardToolbar.previousBarButton.isEnabled = true
-        textField2.keyboardToolbar.nextBarButton.isEnabled = false
+        textField2.iq.addPreviousNextDone(target: self,
+                                          previousAction: #selector(self.previousAction(_:)),
+                                          nextAction: #selector(self.nextAction(_:)),
+                                          doneAction: #selector(self.doneAction(_:)),
+                                          showPlaceholder: true)
+        textField2.iq.toolbar.previousBarButton.isEnabled = true
+        textField2.iq.toolbar.nextBarButton.isEnabled = false
 
-        textView3.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: #selector(self.previousAction(_:)), nextAction: #selector(self.nextAction(_:)), doneAction: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
+        textView3.iq.addPreviousNextDone(target: self,
+                                         previousAction: #selector(self.previousAction(_:)),
+                                         nextAction: #selector(self.nextAction(_:)),
+                                         doneAction: #selector(self.doneAction(_:)),
+                                         showPlaceholder: true)
 
-        textField4.keyboardToolbar.titleBarButton.setTarget(self, action: #selector(self.titleAction(_:)))
-        textField4.toolbarPlaceholder = "Saved Passwords"
-        textField4.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneAction(_:)), shouldShowPlaceholder: true)
+        textField4.iq.toolbar.titleBarButton.setTarget(self, action: #selector(self.titleAction(_:)))
+        textField4.iq.placeholder = "Saved Passwords"
+        textField4.iq.addDone(target: self, action: #selector(self.doneAction(_:)), showPlaceholder: true)
 
         textField5.inputAccessoryView = UIView()
     }
@@ -72,46 +99,19 @@ class ManualToolbarViewController: UIViewController, UIPopoverPresentationContro
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
-        alertController.addAction(UIAlertAction(title: "test@example.com", style: .default, handler: { (_: UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "test@example.com",
+                                                style: .default,
+                                                handler: { (_: UIAlertAction) in
             self.textField4.text = "test"
         }))
 
-        alertController.addAction(UIAlertAction(title: "demo@example.com", style: .default, handler: { (_: UIAlertAction) in
+        alertController.addAction(UIAlertAction(title: "demo@example.com",
+                                                style: .default,
+                                                handler: { (_: UIAlertAction) in
             self.textField4.text = "demo"
         }))
 
         alertController.popoverPresentationController?.sourceView = sender
         self.present(alertController, animated: true, completion: nil)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        if identifier == "SettingsNavigationController" {
-
-            let controller = segue.destination
-
-            controller.modalPresentationStyle = .popover
-            controller.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-
-            let heightWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-            controller.preferredContentSize = CGSize(width: heightWidth, height: heightWidth)
-            controller.popoverPresentationController?.delegate = self
-        }
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        self.view.endEditing(true)
-    }
-
-    override var shouldAutorotate: Bool {
-        return true
     }
 }
