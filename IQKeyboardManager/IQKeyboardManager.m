@@ -1521,37 +1521,38 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
                 }
             }
-
-            // TODO: restore scrollView state
-            // This is temporary solution. Have to implement the save and restore scrollView state
-            UIScrollView *superScrollView = strongLastScrollView;
-            do
-            {
-              CGSize contentSize = CGSizeMake(MAX(superScrollView.contentSize.width, CGRectGetWidth(superScrollView.frame)), MAX(superScrollView.contentSize.height, CGRectGetHeight(superScrollView.frame)));
-
-              CGFloat minimumY = contentSize.height-CGRectGetHeight(superScrollView.frame);
-
-              if (minimumY<superScrollView.contentOffset.y)
-              {
-                CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY);
-                if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
+            if (strongLastScrollView.shouldRestoreScrollViewContentOffset == NO) {
+                // TODO: restore scrollView state
+                // This is temporary solution. Have to implement the save and restore scrollView state
+                UIScrollView *superScrollView = strongLastScrollView;
+                do
                 {
-                  [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
+                  CGSize contentSize = CGSizeMake(MAX(superScrollView.contentSize.width, CGRectGetWidth(superScrollView.frame)), MAX(superScrollView.contentSize.height, CGRectGetHeight(superScrollView.frame)));
 
-                  BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+                  CGFloat minimumY = contentSize.height-CGRectGetHeight(superScrollView.frame);
 
-                  if (animatedContentOffset)
+                  if (minimumY<superScrollView.contentOffset.y)
                   {
-                    [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                  }
-                  else
-                  {
-                    superScrollView.contentOffset = newContentOffset;
+                    CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY);
+                    if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
+                    {
+                      [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
+
+                      BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+
+                      if (animatedContentOffset)
+                      {
+                        [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
+                      }
+                      else
+                      {
+                        superScrollView.contentOffset = newContentOffset;
+                      }
+                    }
                   }
                 }
-              }
+                while ((superScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]]));
             }
-            while ((superScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]]));
         } completion:NULL];
     }
     
