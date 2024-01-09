@@ -69,12 +69,17 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 | Swift             | Xcode | IQKeyboardManagerSwift |
 |-------------------|-------|------------------------|
-| 5.9, 5.8, 5.7, 5.6, 5.5| 15  | >= 7.0.0       |
+| 5.9, 5.8, 5.7, 5.6| 15  | >= 7.0.0       |
 | 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.2| 11  | >= 6.5.7       |
 | 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0       |
 | 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1           |
 | 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
 | 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
+
+## 7.0.0 version notes
+- In this major release, a lot of variables and functions have been moved here and there. We have mentioned most of the major things in the MIGRATION GUIDE. So please take a look to make changes in your project when upgrading to this version.
+- The 7.0.0 version adopted the latest Swift Concurrency/Actor feature and only available iOS 13.0 and above.
+- Internal keyboard management handling have been updated with a different and better approach than legacy versions. However when adopting 7.0.0, please verify if it is working as expected in your apps, if there are any serious problems with 7.0.0 please open an issue with all the details and switch back to legacy version temporarily.
 
 Installation
 ==========================
