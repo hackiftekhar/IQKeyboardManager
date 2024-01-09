@@ -16,7 +16,7 @@
     "ios": "11.0"
   },
   "source_files": "IQKeyboardManager/**/*.{h,m}",
-  "resources": "IQKeyboardManager/PrivacyInfo.xcprivacy",
+  "resource_bundles": {"IQKeyboardManager": "IQKeyboardManager/PrivacyInfo.xcprivacy"},
   "public_header_files": [
       "IQKeyboardManager/IQKeyboardManager.h",
       "IQKeyboardManager/IQKeyboardReturnKeyHandler.h",
