@@ -32,9 +32,6 @@ private struct AssociatedKeys {
 }
 
 @available(iOSApplicationExtension, unavailable)
-extension UIScrollView: IQKeyboardManagerCompatible {}
-
-@available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManagerWrapper where Base: UIScrollView {
 
