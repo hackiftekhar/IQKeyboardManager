@@ -451,7 +451,7 @@ public extension IQKeyboardManager {
                                 //  (Bug ID: #1365, #1508, #1541)
                                 let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                            belowView: scrollView)
-                                let animatedContentOffset: Bool = stackView != nil
+                                let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -697,8 +697,10 @@ public extension IQKeyboardManager {
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
                             //  (Bug ID: #1365, #1508, #1541)
-                            let animatedContentOffset: Bool = textFieldView.iq.superviewOf(type: UIStackView.self,
-                                                                                           belowView: scrollView) != nil
+                            let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
+                                                                                       belowView: scrollView)
+
+                            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
