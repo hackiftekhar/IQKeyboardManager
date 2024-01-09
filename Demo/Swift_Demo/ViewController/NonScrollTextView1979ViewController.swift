@@ -23,7 +23,7 @@
 
 import UIKit
 
-class NonScrollTextView1979ViewController: UIViewController {
+class NonScrollTextView1979ViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

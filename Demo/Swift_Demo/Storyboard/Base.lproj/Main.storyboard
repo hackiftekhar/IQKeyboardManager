@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iFF-SZ-t3m">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iFF-SZ-t3m">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment version="4864" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -669,14 +669,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="383.5" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" text="edgesForExtendedLayout = .all" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qsH-5f-F3x">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="edgesForExtendedLayout = .all" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qsH-5f-F3x">
                                                     <rect key="frame" x="20" y="8" width="230" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" text="#1935" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0qp-T9-839">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="#1935" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0qp-T9-839">
                                                     <rect key="frame" x="20" y="27.5" width="36" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -714,6 +714,33 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="mvp-tr-78k" kind="show" id="I0P-wa-CQs"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="D4O-ad-jfW" detailTextLabel="ChK-x8-G8e" rowHeight="50" style="IBUITableViewCellStyleSubtitle" id="Hox-Gr-7k4">
+                                        <rect key="frame" x="0.0" y="1992" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hox-Gr-7k4" id="pr1-kM-yUM">
+                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" text="enableMode = .disable" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D4O-ad-jfW">
+                                                    <rect key="frame" x="20" y="8" width="168" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" text="#2000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ChK-x8-G8e">
+                                                    <rect key="frame" x="20" y="27.5" width="37.5" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="pt9-Ql-j9D" kind="show" id="IHh-Wg-vxb"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -990,6 +1017,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6d-hl-t59" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5006" y="988"/>
+        </scene>
+        <!--EnableMode2000ViewController-->
+        <scene sceneID="g3A-wi-qxZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TestCases" referencedIdentifier="EnableMode2000ViewController" id="pt9-Ql-j9D" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="XrG-kR-jrn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qwK-Wl-5E7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6270" y="920"/>
         </scene>
     </scenes>
     <resources>

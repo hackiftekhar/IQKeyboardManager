@@ -1,5 +1,5 @@
 //
-//  StackViewController.swift
+//  TextSelectionViewController.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,6 +22,22 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardManagerSwift
 
-class StackViewController: BaseViewController {
+class EnableMode2000ViewController: BaseViewController {
+
+    @IBOutlet private var textField1: UITextField!
+    @IBOutlet private var textField2: UITextField!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    @IBAction private func textField1ModeAction(_ sender: UISwitch) {
+        textField1.iq.enableMode = sender.isOn ? .enabled : .disabled
+    }
+
+    @IBAction private func textField2ModeAction(_ sender: UISwitch) {
+        textField2.iq.enableMode = sender.isOn ? .enabled : .disabled
+    }
 }
