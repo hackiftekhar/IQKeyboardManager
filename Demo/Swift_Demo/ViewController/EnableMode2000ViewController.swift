@@ -29,10 +29,6 @@ class EnableMode2000ViewController: BaseViewController {
     @IBOutlet private var textField1: UITextField!
     @IBOutlet private var textField2: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     @IBAction private func textField1ModeAction(_ sender: UISwitch) {
         textField1.iq.enableMode = sender.isOn ? .enabled : .disabled
     }

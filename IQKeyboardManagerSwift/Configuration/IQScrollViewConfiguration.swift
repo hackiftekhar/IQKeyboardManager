@@ -98,7 +98,9 @@ internal struct IQScrollViewConfiguration {
             let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
                                                                         belowView: scrollView)
             // (Bug ID: #1901, #1996)
-            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
+            let animatedContentOffset: Bool = stackView != nil ||
+            scrollView is UICollectionView ||
+            scrollView is UITableView
 
             if animatedContentOffset {
                 scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)
