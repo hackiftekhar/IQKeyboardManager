@@ -451,6 +451,7 @@ public extension IQKeyboardManager {
                                 //  (Bug ID: #1365, #1508, #1541)
                                 let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                            belowView: scrollView)
+                                // (Bug ID: #1901, #1996)
                                 let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
                                 if animatedContentOffset {
@@ -504,6 +505,7 @@ public extension IQKeyboardManager {
 
                     activeConfiguration.animate(alongsideTransition: {
                         lastScrollView.contentInset = movedInsets
+                        lastScrollView.layoutIfNeeded() // (Bug ID: #1996)
 
                         var newScrollIndicatorInset: UIEdgeInsets
 
@@ -562,6 +564,7 @@ public extension IQKeyboardManager {
                     activeConfiguration.animate(alongsideTransition: {
 
                         textView.contentInset = newContentInset
+                        textView.layoutIfNeeded() // (Bug ID: #1996)
                         textView.scrollIndicatorInsets = newContentInset
                     })
                 }
@@ -700,6 +703,7 @@ public extension IQKeyboardManager {
                             let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                        belowView: scrollView)
 
+                            // (Bug ID: #1901, #1996)
                             let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
                             if animatedContentOffset {

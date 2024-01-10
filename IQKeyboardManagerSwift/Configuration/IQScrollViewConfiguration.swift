@@ -70,6 +70,7 @@ internal struct IQScrollViewConfiguration {
 
         if scrollView.contentInset != self.startingContentInset {
             scrollView.contentInset = self.startingContentInset
+            scrollView.layoutIfNeeded() // (Bug ID: #1996)
             success = true
         }
 
@@ -96,7 +97,7 @@ internal struct IQScrollViewConfiguration {
             //  (Bug ID: #1365, #1508, #1541)
             let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
                                                                         belowView: scrollView)
-
+            // (Bug ID: #1901, #1996)
             let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
             if animatedContentOffset {
