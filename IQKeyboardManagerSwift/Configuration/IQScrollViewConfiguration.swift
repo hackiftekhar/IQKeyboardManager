@@ -29,7 +29,7 @@ internal struct IQScrollViewConfiguration {
     let scrollView: UIScrollView
     let startingContentOffset: CGPoint
     let startingScrollIndicatorInsets: UIEdgeInsets
-    let startingContentInsets: UIEdgeInsets
+    let startingContentInset: UIEdgeInsets
 
     private let canRestoreContentOffset: Bool
 
@@ -38,7 +38,7 @@ internal struct IQScrollViewConfiguration {
         self.canRestoreContentOffset = canRestoreContentOffset
 
         startingContentOffset = scrollView.contentOffset
-        startingContentInsets = scrollView.contentInset
+        startingContentInset = scrollView.contentInset
 
 #if swift(>=5.1)
         if #available(iOS 11.1, *) {
@@ -52,7 +52,7 @@ internal struct IQScrollViewConfiguration {
     }
 
     var hasChanged: Bool {
-        if scrollView.contentInset != self.startingContentInsets {
+        if scrollView.contentInset != self.startingContentInset {
             return true
         }
 
@@ -68,8 +68,8 @@ internal struct IQScrollViewConfiguration {
     func restore(for textFieldView: UIView?) -> Bool {
         var success: Bool = false
 
-        if scrollView.contentInset != self.startingContentInsets {
-            scrollView.contentInset = self.startingContentInsets
+        if scrollView.contentInset != self.startingContentInset {
+            scrollView.contentInset = self.startingContentInset
             success = true
         }
 
@@ -97,7 +97,7 @@ internal struct IQScrollViewConfiguration {
             let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
                                                                         belowView: scrollView)
 
-            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView
+            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
             if animatedContentOffset {
                 scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)

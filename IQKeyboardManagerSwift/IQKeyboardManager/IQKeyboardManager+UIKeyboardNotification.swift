@@ -108,8 +108,8 @@ internal extension IQKeyboardManager {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {
@@ -132,11 +132,7 @@ internal extension IQKeyboardManager {
         }
 
         // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        if privateIsEnableAutoToolbar() {
-            addToolbarIfRequired()
-        } else {
-            removeToolbarIfRequired()
-        }
+        reloadInputViews()
 
         resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
@@ -158,8 +154,8 @@ internal extension IQKeyboardManager {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {

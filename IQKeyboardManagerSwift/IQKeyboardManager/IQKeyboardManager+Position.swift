@@ -250,8 +250,8 @@ public extension IQKeyboardManager {
             if superScrollView == nil {
 
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -269,8 +269,8 @@ public extension IQKeyboardManager {
                 // If both scrollView's are different,
                 // then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -288,7 +288,7 @@ public extension IQKeyboardManager {
                                                                   canRestoreContentOffset: true)
                     self.lastScrollViewConfiguration = configuration
                     showLog("""
-                            Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                            Saving ScrollView New contentInset: \(configuration.startingContentInset)
                             and contentOffset: \(configuration.startingContentOffset)
                             """)
                 } else {
@@ -303,7 +303,7 @@ public extension IQKeyboardManager {
             let configuration = IQScrollViewConfiguration(scrollView: superScrollView, canRestoreContentOffset: true)
             self.lastScrollViewConfiguration = configuration
             showLog("""
-                    Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                    Saving ScrollView New contentInset: \(configuration.startingContentInset)
                     and contentOffset: \(configuration.startingContentOffset)
                     """)
         }
@@ -451,7 +451,7 @@ public extension IQKeyboardManager {
                                 //  (Bug ID: #1365, #1508, #1541)
                                 let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                            belowView: scrollView)
-                                let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView
+                                let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -462,7 +462,7 @@ public extension IQKeyboardManager {
 
                                 if scrollView is UITableView || scrollView is UICollectionView {
                                     // This will update the next/previous states
-                                    self.addToolbarIfRequired()
+                                    self.reloadInputViews()
                                 }
                             })
                         }
@@ -488,7 +488,7 @@ public extension IQKeyboardManager {
 
                 // Update the insets so that the scrollView doesn't shift incorrectly
                 // when the offset is near the bottom of the scroll view.
-                bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
+                bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInset.bottom, bottomInset)
                 let startingScrollInset: UIEdgeInsets = lastScrollViewConfiguration.startingScrollIndicatorInsets
                 bottomScrollIndicatorInset = CGFloat.maximum(startingScrollInset.bottom,
                                                              bottomScrollIndicatorInset)
@@ -668,8 +668,8 @@ public extension IQKeyboardManager {
             activeConfiguration.animate(alongsideTransition: {
 
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        self.showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        self.showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -700,7 +700,7 @@ public extension IQKeyboardManager {
                             let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                        belowView: scrollView)
 
-                            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView
+                            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
