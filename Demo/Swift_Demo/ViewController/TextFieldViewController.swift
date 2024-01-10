@@ -75,7 +75,7 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
         dropDownTextField.iq.distanceFromKeyboard = 150
 
         let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearAction))
-        textField3.iq.toolbar.additionalLTrailingItems = [clearButton]
+        textField3.iq.toolbar.additionalTrailingItems = [clearButton]
 
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")

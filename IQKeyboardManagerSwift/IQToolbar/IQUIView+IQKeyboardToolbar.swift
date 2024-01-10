@@ -182,8 +182,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                 items.append(IQBarButtonItem.flexibleBarButtonItem)
             }
 
-            if !toolbar.additionalLTrailingItems.isEmpty {
-                items.append(contentsOf: toolbar.additionalLTrailingItems)
+            if !toolbar.additionalTrailingItems.isEmpty {
+                items.append(contentsOf: toolbar.additionalTrailingItems)
             }
 
             if let rightConfiguration: IQBarButtonItemConfiguration = rightConfiguration {

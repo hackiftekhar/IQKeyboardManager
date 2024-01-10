@@ -68,7 +68,7 @@ import UIKit
     /**
      Additional bar buttons to show at the trailing side.
      */
-    open var additionalLTrailingItems: [UIBarButtonItem] = []
+    open var additionalTrailingItems: [UIBarButtonItem] = []
 
     /**
      Previous bar button of toolbar.
