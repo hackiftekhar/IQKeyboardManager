@@ -28,10 +28,6 @@ import UIKit
 internal extension IQKeyboardManager {
 
     func handleKeyboardTextFieldViewVisible() {
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("UIKeyboard Frame: \(activeConfiguration.keyboardInfo.frame)")
-
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
@@ -55,14 +51,9 @@ internal extension IQKeyboardManager {
         } else {
             adjustPosition()
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     func handleKeyboardTextFieldViewChanged() {
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
 
         setupTextFieldView()
 
@@ -71,14 +62,9 @@ internal extension IQKeyboardManager {
         } else {
             adjustPosition()
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     func handleKeyboardTextFieldViewHide() {
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
         self.restorePosition()
         self.banishTextFieldViewSetup()
@@ -89,9 +75,6 @@ internal extension IQKeyboardManager {
         }
 
         self.lastScrollViewConfiguration = nil
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }
 
@@ -144,9 +127,6 @@ internal extension IQKeyboardManager {
             return
         }
 
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
 
@@ -164,8 +144,5 @@ internal extension IQKeyboardManager {
             }
             startingTextViewConfiguration = nil
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

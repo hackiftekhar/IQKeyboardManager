@@ -125,13 +125,13 @@ public extension IQKeyboardManager {
             return
         }
 
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        let startTime: CFTimeInterval = CACurrentMediaTime()
+
         let rootController: UIViewController = rootConfiguration.rootController
         let textFieldViewRectInWindow: CGRect = superview.convert(textFieldView.frame, to: window)
         let textFieldViewRectInRootSuperview: CGRect = superview.convert(textFieldView.frame,
                                                                          to: rootController.view.superview)
-
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         //  Getting RootViewOrigin.
         var rootViewOrigin: CGPoint = rootController.view.frame.origin
@@ -452,7 +452,9 @@ public extension IQKeyboardManager {
                                 let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                            belowView: scrollView)
                                 // (Bug ID: #1901, #1996)
-                                let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
+                                let animatedContentOffset: Bool = stackView != nil ||
+                                scrollView is UICollectionView ||
+                                scrollView is UITableView
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -648,6 +650,8 @@ public extension IQKeyboardManager {
         guard let configuration: IQRootControllerConfiguration = activeConfiguration.rootControllerConfiguration else {
             return
         }
+        let startTime: CFTimeInterval = CACurrentMediaTime()
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         activeConfiguration.animate(alongsideTransition: {
             if configuration.hasChanged {
@@ -704,7 +708,9 @@ public extension IQKeyboardManager {
                                                                                        belowView: scrollView)
 
                             // (Bug ID: #1901, #1996)
-                            let animatedContentOffset: Bool = stackView != nil || scrollView is UICollectionView || scrollView is UITableView
+                            let animatedContentOffset: Bool = stackView != nil ||
+                            scrollView is UICollectionView ||
+                            scrollView is UITableView
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -722,6 +728,8 @@ public extension IQKeyboardManager {
         }
 
         self.movedDistance = 0
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable cyclomatic_complexity
     // swiftlint:enable function_body_length
