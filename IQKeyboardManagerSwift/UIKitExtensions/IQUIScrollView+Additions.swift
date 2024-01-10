@@ -36,6 +36,8 @@ private struct AssociatedKeys {
 @available(iOSApplicationExtension, unavailable)
 extension UIScrollView: IQKeyboardManagerCompatible {
 
+    // This property is explicitly written otherwise we were having
+    // compilation error when archiving
     public var iq: IQKeyboardManagerWrapper<UIView> {
         get { IQKeyboardManagerWrapper(self) }
         set {}

@@ -74,6 +74,9 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
         textField3.iq.toolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
         dropDownTextField.iq.distanceFromKeyboard = 150
 
+        let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearAction))
+        textField3.iq.toolbar.additionalLTrailingItems = [clearButton]
+
         var itemLists = [String]()
         itemLists.append("Zero Line Of Code")
         itemLists.append("No More UIScrollView")
@@ -94,6 +97,10 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
         itemLists.append("Play sound on next/prev/done")
 
         dropDownTextField.itemList = itemLists
+    }
+
+    @objc private func clearAction() {
+        textField3.text = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {

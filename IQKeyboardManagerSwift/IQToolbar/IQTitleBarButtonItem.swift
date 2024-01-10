@@ -40,7 +40,7 @@ import UIKit
 
     @objc override open var title: String? {
         didSet {
-                titleButton?.setTitle(title, for: .normal)
+            titleButton?.setTitle(title, for: .normal)
         }
     }
 

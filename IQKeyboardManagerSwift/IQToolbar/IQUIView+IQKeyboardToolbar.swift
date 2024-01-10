@@ -125,6 +125,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     // MARK: Common
 
     // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     func addToolbar(target: AnyObject?,
                     previousConfiguration: IQBarButtonItemConfiguration? = nil,
                     nextConfiguration: IQBarButtonItemConfiguration? = nil,
@@ -138,7 +139,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar: IQToolbar = toolbar
 
-            var items: [IQBarButtonItem] = []
+            var items: [UIBarButtonItem] = []
 
             if let previousConfiguration: IQBarButtonItemConfiguration = previousConfiguration {
 
@@ -159,6 +160,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                 items.append(next)
             }
 
+            if !toolbar.additionalLeadingItems.isEmpty {
+                items.append(contentsOf: toolbar.additionalLeadingItems)
+            }
+
             // Title bar button item
             do {
                 // Flexible space
@@ -175,6 +180,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
                 // Flexible space
                 items.append(IQBarButtonItem.flexibleBarButtonItem)
+            }
+
+            if !toolbar.additionalLTrailingItems.isEmpty {
+                items.append(contentsOf: toolbar.additionalLTrailingItems)
             }
 
             if let rightConfiguration: IQBarButtonItemConfiguration = rightConfiguration {
@@ -208,6 +217,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             }
         }
     }
+    // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
 
     // MARK: Right
