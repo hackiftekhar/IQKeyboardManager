@@ -93,6 +93,7 @@ import UIKit
         _titleView?.backgroundColor = UIColor.clear
 
         titleButton = UIButton(type: .system)
+        titleButton?.accessibilityTraits = .staticText
         titleButton?.isEnabled = false
         titleButton?.titleLabel?.numberOfLines = 3
         titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
