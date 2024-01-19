@@ -186,20 +186,6 @@ To install IQKeyboardManagerSwift package via Xcode
  * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
  * And choose the version you want
 
-To install IQKeyboardManagerSwift package into your packages, add a reference to IQKeyboardManager and a targeting release version in the dependencies section in `Package.swift` file:
-
-```swift
-import PackageDescription
-
-let package = Package(
-    name: "YOUR_PROJECT_NAME",
-    products: [],
-    dependencies: [
-        .package(url: "https://github.com/hackiftekhar/IQKeyboardManager.git", from: "7.0.0")
-    ]
-)
-```
-
 Migration Guide
 ==========================
 - [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-6.0.0-Migration-Guide)
