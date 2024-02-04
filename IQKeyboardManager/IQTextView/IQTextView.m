@@ -210,4 +210,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     return newSize;
 }
 
+- (CGRect)caretRectForPosition:(UITextPosition *)position {
+    
+    CGRect originalRect = [super caretRectForPosition:position];
+        // When placeholder is visible and text alignment is centered
+    if (_placeholderLabel.alpha == 1 && self.textAlignment == NSTextAlignmentCenter) {
+        // Calculate the width of the placeholder text
+        CGSize textSize = [_placeholderLabel.text sizeWithAttributes:@{NSFontAttributeName:_placeholderLabel.font}];
+        // Calculate the starting x position of the centered placeholder text
+        CGFloat centeredTextX = (self.bounds.size.width - textSize.width) / 2;
+        // Update the caret position to match the starting x position of the centered text
+        originalRect.origin.x = centeredTextX;
+    }
+    
+    return originalRect;
+}
+
 @end
