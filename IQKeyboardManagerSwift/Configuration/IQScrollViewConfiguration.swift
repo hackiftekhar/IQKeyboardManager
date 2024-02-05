@@ -39,16 +39,7 @@ internal struct IQScrollViewConfiguration {
 
         startingContentOffset = scrollView.contentOffset
         startingContentInset = scrollView.contentInset
-
-#if swift(>=5.1)
-        if #available(iOS 11.1, *) {
-            startingScrollIndicatorInsets = scrollView.verticalScrollIndicatorInsets
-        } else {
-            startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
-        }
-#else
-        startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
-#endif
+        startingScrollIndicatorInsets = scrollView.verticalScrollIndicatorInsets
     }
 
     var hasChanged: Bool {
@@ -74,21 +65,9 @@ internal struct IQScrollViewConfiguration {
             success = true
         }
 
-#if swift(>=5.1)
-        if #available(iOS 11.1, *) {
-            if scrollView.verticalScrollIndicatorInsets != self.startingScrollIndicatorInsets {
-                scrollView.verticalScrollIndicatorInsets = self.startingScrollIndicatorInsets
-            }
-        } else {
-            if scrollView.scrollIndicatorInsets != self.startingScrollIndicatorInsets {
-                scrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
-            }
+        if scrollView.verticalScrollIndicatorInsets != self.startingScrollIndicatorInsets {
+            scrollView.verticalScrollIndicatorInsets = self.startingScrollIndicatorInsets
         }
-#else
-        if scrollView.scrollIndicatorInsets != self.startingScrollIndicatorInsets {
-            scrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
-        }
-#endif
 
         if canRestoreContentOffset,
            scrollView.iq.restoreContentOffset,

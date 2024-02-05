@@ -69,11 +69,7 @@ import UIKit
             if let color: UIColor = selectableTitleColor {
                 titleButton?.setTitleColor(color, for: .normal)
             } else {
-                #if swift(>=5.1)
                 titleButton?.setTitleColor(UIColor.systemBlue, for: .normal)
-                #else
-                titleButton?.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
-                #endif
             }
         }
     }
@@ -97,11 +93,7 @@ import UIKit
         titleButton?.isEnabled = false
         titleButton?.titleLabel?.numberOfLines = 3
         titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
-        #if swift(>=5.1)
         titleButton?.setTitleColor(UIColor.systemBlue, for: .normal)
-        #else
-        titleButton?.setTitleColor(UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1), for: .normal)
-        #endif
         titleButton?.backgroundColor = UIColor.clear
         titleButton?.titleLabel?.textAlignment = .center
         titleButton?.setTitle(title, for: .normal)

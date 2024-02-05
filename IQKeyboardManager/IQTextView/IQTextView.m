@@ -174,7 +174,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
             if (@available(iOS 13.0, *))
             {
-                _placeholderLabel.textColor = [UIColor systemGrayColor];
+                _placeholderLabel.textColor = [UIColor placeholderTextColor];
             }
             else
         #endif

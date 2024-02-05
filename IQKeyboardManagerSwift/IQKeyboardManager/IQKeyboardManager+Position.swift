@@ -185,15 +185,7 @@ public extension IQKeyboardManager {
         if let navigationController: UINavigationController = rootController.navigationController {
             navigationBarAreaHeight = navigationController.navigationBar.frame.maxY
         } else {
-#if swift(>=5.1)
-            if #available(iOS 13, *) {
-                statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            } else {
-                statusBarHeight = UIApplication.shared.statusBarFrame.height
-            }
-#else
-            statusBarHeight = UIApplication.shared.statusBarFrame.height
-#endif
+            statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
             navigationBarAreaHeight = statusBarHeight
         }
 
@@ -509,17 +501,7 @@ public extension IQKeyboardManager {
                         lastScrollView.contentInset = movedInsets
                         lastScrollView.layoutIfNeeded() // (Bug ID: #1996)
 
-                        var newScrollIndicatorInset: UIEdgeInsets
-
-                        #if swift(>=5.1)
-                        if #available(iOS 11.1, *) {
-                            newScrollIndicatorInset = lastScrollView.verticalScrollIndicatorInsets
-                        } else {
-                            newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
-                        }
-                        #else
-                        newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
-                        #endif
+                        var newScrollIndicatorInset: UIEdgeInsets = lastScrollView.verticalScrollIndicatorInsets
 
                         newScrollIndicatorInset.bottom = bottomScrollIndicatorInset
                         lastScrollView.scrollIndicatorInsets = newScrollIndicatorInset
