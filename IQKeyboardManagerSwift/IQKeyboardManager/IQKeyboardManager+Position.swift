@@ -125,13 +125,13 @@ public extension IQKeyboardManager {
             return
         }
 
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        let startTime: CFTimeInterval = CACurrentMediaTime()
+
         let rootController: UIViewController = rootConfiguration.rootController
         let textFieldViewRectInWindow: CGRect = superview.convert(textFieldView.frame, to: window)
         let textFieldViewRectInRootSuperview: CGRect = superview.convert(textFieldView.frame,
                                                                          to: rootController.view.superview)
-
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         //  Getting RootViewOrigin.
         var rootViewOrigin: CGPoint = rootController.view.frame.origin
@@ -185,15 +185,7 @@ public extension IQKeyboardManager {
         if let navigationController: UINavigationController = rootController.navigationController {
             navigationBarAreaHeight = navigationController.navigationBar.frame.maxY
         } else {
-#if swift(>=5.1)
-            if #available(iOS 13, *) {
-                statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            } else {
-                statusBarHeight = UIApplication.shared.statusBarFrame.height
-            }
-#else
-            statusBarHeight = UIApplication.shared.statusBarFrame.height
-#endif
+            statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
             navigationBarAreaHeight = statusBarHeight
         }
 
@@ -250,8 +242,8 @@ public extension IQKeyboardManager {
             if superScrollView == nil {
 
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -269,8 +261,8 @@ public extension IQKeyboardManager {
                 // If both scrollView's are different,
                 // then reset lastScrollView to it's original frame and setting current scrollView as last scrollView.
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -288,7 +280,7 @@ public extension IQKeyboardManager {
                                                                   canRestoreContentOffset: true)
                     self.lastScrollViewConfiguration = configuration
                     showLog("""
-                            Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                            Saving ScrollView New contentInset: \(configuration.startingContentInset)
                             and contentOffset: \(configuration.startingContentOffset)
                             """)
                 } else {
@@ -303,7 +295,7 @@ public extension IQKeyboardManager {
             let configuration = IQScrollViewConfiguration(scrollView: superScrollView, canRestoreContentOffset: true)
             self.lastScrollViewConfiguration = configuration
             showLog("""
-                    Saving ScrollView New contentInset: \(configuration.startingContentInsets)
+                    Saving ScrollView New contentInset: \(configuration.startingContentInset)
                     and contentOffset: \(configuration.startingContentOffset)
                     """)
         }
@@ -451,7 +443,10 @@ public extension IQKeyboardManager {
                                 //  (Bug ID: #1365, #1508, #1541)
                                 let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
                                                                                            belowView: scrollView)
-                                let animatedContentOffset: Bool = stackView != nil
+                                // (Bug ID: #1901, #1996)
+                                let animatedContentOffset: Bool = stackView != nil ||
+                                scrollView is UICollectionView ||
+                                scrollView is UITableView
 
                                 if animatedContentOffset {
                                     scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -462,7 +457,7 @@ public extension IQKeyboardManager {
 
                                 if scrollView is UITableView || scrollView is UICollectionView {
                                     // This will update the next/previous states
-                                    self.addToolbarIfRequired()
+                                    self.reloadInputViews()
                                 }
                             })
                         }
@@ -488,7 +483,7 @@ public extension IQKeyboardManager {
 
                 // Update the insets so that the scrollView doesn't shift incorrectly
                 // when the offset is near the bottom of the scroll view.
-                bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInsets.bottom, bottomInset)
+                bottomInset = CGFloat.maximum(lastScrollViewConfiguration.startingContentInset.bottom, bottomInset)
                 let startingScrollInset: UIEdgeInsets = lastScrollViewConfiguration.startingScrollIndicatorInsets
                 bottomScrollIndicatorInset = CGFloat.maximum(startingScrollInset.bottom,
                                                              bottomScrollIndicatorInset)
@@ -504,18 +499,9 @@ public extension IQKeyboardManager {
 
                     activeConfiguration.animate(alongsideTransition: {
                         lastScrollView.contentInset = movedInsets
+                        lastScrollView.layoutIfNeeded() // (Bug ID: #1996)
 
-                        var newScrollIndicatorInset: UIEdgeInsets
-
-                        #if swift(>=5.1)
-                        if #available(iOS 11.1, *) {
-                            newScrollIndicatorInset = lastScrollView.verticalScrollIndicatorInsets
-                        } else {
-                            newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
-                        }
-                        #else
-                        newScrollIndicatorInset = lastScrollView.scrollIndicatorInsets
-                        #endif
+                        var newScrollIndicatorInset: UIEdgeInsets = lastScrollView.verticalScrollIndicatorInsets
 
                         newScrollIndicatorInset.bottom = bottomScrollIndicatorInset
                         lastScrollView.scrollIndicatorInsets = newScrollIndicatorInset
@@ -562,6 +548,7 @@ public extension IQKeyboardManager {
                     activeConfiguration.animate(alongsideTransition: {
 
                         textView.contentInset = newContentInset
+                        textView.layoutIfNeeded() // (Bug ID: #1996)
                         textView.scrollIndicatorInsets = newContentInset
                     })
                 }
@@ -645,6 +632,8 @@ public extension IQKeyboardManager {
         guard let configuration: IQRootControllerConfiguration = activeConfiguration.rootControllerConfiguration else {
             return
         }
+        let startTime: CFTimeInterval = CACurrentMediaTime()
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         activeConfiguration.animate(alongsideTransition: {
             if configuration.hasChanged {
@@ -668,8 +657,8 @@ public extension IQKeyboardManager {
             activeConfiguration.animate(alongsideTransition: {
 
                 if lastConfiguration.hasChanged {
-                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInsets {
-                        self.showLog("Restoring contentInset to: \(lastConfiguration.startingContentInsets)")
+                    if lastConfiguration.scrollView.contentInset != lastConfiguration.startingContentInset {
+                        self.showLog("Restoring contentInset to: \(lastConfiguration.startingContentInset)")
                     }
 
                     if lastConfiguration.scrollView.iq.restoreContentOffset,
@@ -697,8 +686,13 @@ public extension IQKeyboardManager {
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
                             //  (Bug ID: #1365, #1508, #1541)
-                            let animatedContentOffset: Bool = textFieldView.iq.superviewOf(type: UIStackView.self,
-                                                                                           belowView: scrollView) != nil
+                            let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
+                                                                                       belowView: scrollView)
+
+                            // (Bug ID: #1901, #1996)
+                            let animatedContentOffset: Bool = stackView != nil ||
+                            scrollView is UICollectionView ||
+                            scrollView is UITableView
 
                             if animatedContentOffset {
                                 scrollView.setContentOffset(newContentOffset, animated: UIView.areAnimationsEnabled)
@@ -716,6 +710,8 @@ public extension IQKeyboardManager {
         }
 
         self.movedDistance = 0
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable cyclomatic_complexity
     // swiftlint:enable function_body_length

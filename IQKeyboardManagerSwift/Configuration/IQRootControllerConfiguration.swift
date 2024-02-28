@@ -38,38 +38,22 @@ internal struct IQRootControllerConfiguration {
         beginSafeAreaInsets = rootController.view.safeAreaInsets
 
         let interfaceOrientation: UIInterfaceOrientation
-        #if swift(>=5.1)
-        if #available(iOS 13, *) {
-            if let scene = rootController.view.window?.windowScene {
-                interfaceOrientation = scene.interfaceOrientation
-            } else {
-                interfaceOrientation = .unknown
-            }
+        if let scene = rootController.view.window?.windowScene {
+            interfaceOrientation = scene.interfaceOrientation
         } else {
-            interfaceOrientation = UIApplication.shared.statusBarOrientation
+            interfaceOrientation = .unknown
         }
-        #else
-        interfaceOrientation = UIApplication.shared.statusBarOrientation
-        #endif
 
         beginOrientation = interfaceOrientation
     }
 
     var currentOrientation: UIInterfaceOrientation {
         let interfaceOrientation: UIInterfaceOrientation
-        #if swift(>=5.1)
-        if #available(iOS 13, *) {
-            if let scene = rootController.view.window?.windowScene {
-                interfaceOrientation = scene.interfaceOrientation
-            } else {
-                interfaceOrientation = .unknown
-            }
+        if let scene = rootController.view.window?.windowScene {
+            interfaceOrientation = scene.interfaceOrientation
         } else {
-            interfaceOrientation = UIApplication.shared.statusBarOrientation
+            interfaceOrientation = .unknown
         }
-        #else
-        interfaceOrientation = UIApplication.shared.statusBarOrientation
-        #endif
         return interfaceOrientation
     }
 

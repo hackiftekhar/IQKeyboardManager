@@ -61,6 +61,16 @@ import UIKit
     }
 
     /**
+     Additional bar buttons to show at the leading side.
+     */
+    open var additionalLeadingItems: [UIBarButtonItem] = []
+
+    /**
+     Additional bar buttons to show at the trailing side.
+     */
+    open var additionalTrailingItems: [UIBarButtonItem] = []
+
+    /**
      Previous bar button of toolbar.
      */
     private var privatePreviousBarButton: IQBarButtonItem?
@@ -102,6 +112,7 @@ import UIKit
         get {
             if privateTitleBarButton == nil {
                 privateTitleBarButton = IQTitleBarButtonItem(title: nil)
+                privateTitleBarButton?.accessibilityTraits = .staticText
                 privateTitleBarButton?.accessibilityLabel = "Title"
                 privateTitleBarButton?.accessibilityIdentifier = privateTitleBarButton?.accessibilityLabel
             }

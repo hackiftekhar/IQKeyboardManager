@@ -41,27 +41,18 @@ public protocol IQKeyboardManagerCompatible {
     /// Type being extended.
     associatedtype Base
 
-    /// Static IQKeyboardManager extension point.
-    static var iq: IQKeyboardManagerWrapper<Base>.Type { get set }
-
     /// Instance IQKeyboardManager extension point.
     var iq: IQKeyboardManagerWrapper<Base> { get set }
 }
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-extension IQKeyboardManagerCompatible {
-
-    /// Static IQKeyboardManager extension point.
-    public static var iq: IQKeyboardManagerWrapper<Self>.Type {
-        get { IQKeyboardManagerWrapper<Self>.self }
-        set {}
-    }
+public extension IQKeyboardManagerCompatible {
 
     /// Instance IQKeyboardManager extension point.
-    public var iq: IQKeyboardManagerWrapper<Self> {
+    var iq: IQKeyboardManagerWrapper<Self> {
         get { IQKeyboardManagerWrapper(self) }
-        set { }
+        set {}
     }
 }
 // swiftlint:enable unused_setter_value

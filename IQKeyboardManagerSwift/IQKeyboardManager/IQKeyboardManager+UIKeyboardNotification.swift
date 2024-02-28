@@ -28,10 +28,6 @@ import UIKit
 internal extension IQKeyboardManager {
 
     func handleKeyboardTextFieldViewVisible() {
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("UIKeyboard Frame: \(activeConfiguration.keyboardInfo.frame)")
-
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
@@ -55,14 +51,9 @@ internal extension IQKeyboardManager {
         } else {
             adjustPosition()
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     func handleKeyboardTextFieldViewChanged() {
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
 
         setupTextFieldView()
 
@@ -71,14 +62,9 @@ internal extension IQKeyboardManager {
         } else {
             adjustPosition()
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     func handleKeyboardTextFieldViewHide() {
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
 
         self.restorePosition()
         self.banishTextFieldViewSetup()
@@ -89,9 +75,6 @@ internal extension IQKeyboardManager {
         }
 
         self.lastScrollViewConfiguration = nil
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("⌨️<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }
 
@@ -108,8 +91,8 @@ internal extension IQKeyboardManager {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {
@@ -132,11 +115,7 @@ internal extension IQKeyboardManager {
         }
 
         // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        if privateIsEnableAutoToolbar() {
-            addToolbarIfRequired()
-        } else {
-            removeToolbarIfRequired()
-        }
+        reloadInputViews()
 
         resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
@@ -148,9 +127,6 @@ internal extension IQKeyboardManager {
             return
         }
 
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog("⌨️>>>>> \(#function) started >>>>>", indentation: 1)
-
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
 
@@ -158,8 +134,8 @@ internal extension IQKeyboardManager {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInsets {
-                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInsets)")
+                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                    showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
                 }
 
                 activeConfiguration.animate(alongsideTransition: {
@@ -168,8 +144,5 @@ internal extension IQKeyboardManager {
             }
             startingTextViewConfiguration = nil
         }
-
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("📝<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 }

@@ -69,10 +69,10 @@ public extension IQKeyboardManager {
             }
         }
 
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        let startTime: CFTimeInterval = CACurrentMediaTime()
 
-//        showLog("Found \(siblings.count) responder sibling(s)")
+        showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
         if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.doneBarButtonConfiguration {
@@ -221,8 +221,8 @@ public extension IQKeyboardManager {
         // If lastTextField then next should not be enabled.
         textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
 
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
@@ -239,9 +239,10 @@ public extension IQKeyboardManager {
             return
         }
 
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
-//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-//        showLog("Found \(siblings.count) responder sibling(s)")
+        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        let startTime: CFTimeInterval = CACurrentMediaTime()
+
+        showLog("Found \(siblings.count) responder sibling(s)")
 
         for view in siblings {
             if let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar {
@@ -262,8 +263,8 @@ public extension IQKeyboardManager {
             }
         }
 
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */

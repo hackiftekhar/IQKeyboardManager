@@ -83,12 +83,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     */
     @objc public var enableAutoToolbar: Bool = true {
         didSet {
-            if privateIsEnableAutoToolbar() {
-                addToolbarIfRequired()
-            } else {
-                removeToolbarIfRequired()
-            }
-
+            reloadInputViews()
             showLog("enableAutoToolbar: \(enableAutoToolbar ? "Yes" : "NO")")
         }
     }

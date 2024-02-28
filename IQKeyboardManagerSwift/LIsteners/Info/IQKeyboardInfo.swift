@@ -58,7 +58,7 @@ public struct IQKeyboardInfo: Equatable {
         self.name = name
 
         let screenBounds: CGRect
-        if #available(iOS 13.0, *), let screen: UIScreen = notification?.object as? UIScreen {
+        if let screen: UIScreen = notification?.object as? UIScreen {
             screenBounds = screen.bounds
         } else {
             screenBounds = UIScreen.main.bounds

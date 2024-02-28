@@ -29,7 +29,7 @@ internal struct IQScrollViewConfiguration {
     let scrollView: UIScrollView
     let startingContentOffset: CGPoint
     let startingScrollIndicatorInsets: UIEdgeInsets
-    let startingContentInsets: UIEdgeInsets
+    let startingContentInset: UIEdgeInsets
 
     private let canRestoreContentOffset: Bool
 
@@ -38,21 +38,12 @@ internal struct IQScrollViewConfiguration {
         self.canRestoreContentOffset = canRestoreContentOffset
 
         startingContentOffset = scrollView.contentOffset
-        startingContentInsets = scrollView.contentInset
-
-#if swift(>=5.1)
-        if #available(iOS 11.1, *) {
-            startingScrollIndicatorInsets = scrollView.verticalScrollIndicatorInsets
-        } else {
-            startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
-        }
-#else
-        startingScrollIndicatorInsets = scrollView.scrollIndicatorInsets
-#endif
+        startingContentInset = scrollView.contentInset
+        startingScrollIndicatorInsets = scrollView.verticalScrollIndicatorInsets
     }
 
     var hasChanged: Bool {
-        if scrollView.contentInset != self.startingContentInsets {
+        if scrollView.contentInset != self.startingContentInset {
             return true
         }
 
@@ -68,34 +59,27 @@ internal struct IQScrollViewConfiguration {
     func restore(for textFieldView: UIView?) -> Bool {
         var success: Bool = false
 
-        if scrollView.contentInset != self.startingContentInsets {
-            scrollView.contentInset = self.startingContentInsets
+        if scrollView.contentInset != self.startingContentInset {
+            scrollView.contentInset = self.startingContentInset
+            scrollView.layoutIfNeeded() // (Bug ID: #1996)
             success = true
         }
 
-#if swift(>=5.1)
-        if #available(iOS 11.1, *) {
-            if scrollView.verticalScrollIndicatorInsets != self.startingScrollIndicatorInsets {
-                scrollView.verticalScrollIndicatorInsets = self.startingScrollIndicatorInsets
-            }
-        } else {
-            if scrollView.scrollIndicatorInsets != self.startingScrollIndicatorInsets {
-                scrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
-            }
+        if scrollView.verticalScrollIndicatorInsets != self.startingScrollIndicatorInsets {
+            scrollView.verticalScrollIndicatorInsets = self.startingScrollIndicatorInsets
         }
-#else
-        if scrollView.scrollIndicatorInsets != self.startingScrollIndicatorInsets {
-            scrollView.scrollIndicatorInsets = self.startingScrollIndicatorInsets
-        }
-#endif
 
         if canRestoreContentOffset,
            scrollView.iq.restoreContentOffset,
            !scrollView.contentOffset.equalTo(startingContentOffset) {
 
             //  (Bug ID: #1365, #1508, #1541)
-            let animatedContentOffset: Bool = textFieldView?.iq.superviewOf(type: UIStackView.self,
-                                                                            belowView: scrollView) != nil
+            let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
+                                                                        belowView: scrollView)
+            // (Bug ID: #1901, #1996)
+            let animatedContentOffset: Bool = stackView != nil ||
+            scrollView is UICollectionView ||
+            scrollView is UITableView
 
             if animatedContentOffset {
                 scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)

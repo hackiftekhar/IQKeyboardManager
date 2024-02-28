@@ -27,9 +27,34 @@ class CollectionViewDemoController: BaseViewController, UICollectionViewDelegate
 
     @IBOutlet var collectionView: UICollectionView!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        do {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                 heightDimension: .fractionalHeight(1.0))
+
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .absolute(50))
+
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                           subitems: [item])
+
+            let section: NSCollectionLayoutSection = NSCollectionLayoutSection(group: group)
+
+            let configuration: UICollectionViewCompositionalLayoutConfiguration = .init()
+            configuration.scrollDirection = .vertical
+
+            collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(section: section,
+                                                                                      configuration: configuration)
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 15
     }
 
     func collectionView(_ collectionView: UICollectionView,
