@@ -51,13 +51,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return unwrappedToolbar
         } else {
 
-            let width: CGFloat
-
-            if #available(iOS 13.0, *) {
-                width = base.window?.windowScene?.screen.bounds.width ?? 0
-            } else {
-                width = UIScreen.main.bounds.width
-            }
+            let width: CGFloat = base.window?.windowScene?.screen.bounds.width ?? 0
 
             let frame = CGRect(origin: .zero, size: .init(width: width, height: 44))
             let newToolbar = IQToolbar(frame: frame)
@@ -125,6 +119,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     // MARK: Common
 
     // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     func addToolbar(target: AnyObject?,
                     previousConfiguration: IQBarButtonItemConfiguration? = nil,
                     nextConfiguration: IQBarButtonItemConfiguration? = nil,
@@ -138,7 +133,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar: IQToolbar = toolbar
 
-            var items: [IQBarButtonItem] = []
+            var items: [UIBarButtonItem] = []
 
             if let previousConfiguration: IQBarButtonItemConfiguration = previousConfiguration {
 
@@ -159,6 +154,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                 items.append(next)
             }
 
+            if !toolbar.additionalLeadingItems.isEmpty {
+                items.append(contentsOf: toolbar.additionalLeadingItems)
+            }
+
             // Title bar button item
             do {
                 // Flexible space
@@ -175,6 +174,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
                 // Flexible space
                 items.append(IQBarButtonItem.flexibleBarButtonItem)
+            }
+
+            if !toolbar.additionalTrailingItems.isEmpty {
+                items.append(contentsOf: toolbar.additionalTrailingItems)
             }
 
             if let rightConfiguration: IQBarButtonItemConfiguration = rightConfiguration {
@@ -198,16 +201,17 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
             //  Setting toolbar to keyboard.
             let reloadInputViews: Bool = base.inputAccessoryView != toolbar
-            if let textField: UITextField = base as? UITextField {
-                textField.inputAccessoryView = toolbar
-            } else if let textView: UITextView = base as? UITextView {
-                textView.inputAccessoryView = toolbar
-            }
             if reloadInputViews {
+                if let textField: UITextField = base as? UITextField {
+                    textField.inputAccessoryView = toolbar
+                } else if let textView: UITextView = base as? UITextView {
+                    textView.inputAccessoryView = toolbar
+                }
                 base.reloadInputViews()
             }
         }
     }
+    // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
 
     // MARK: Right

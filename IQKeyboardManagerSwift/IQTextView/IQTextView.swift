@@ -73,11 +73,7 @@ import UIKit
         label.textAlignment = self.textAlignment
         label.backgroundColor = UIColor.clear
         label.isAccessibilityElement = false
-        #if swift(>=5.1)
-        label.textColor = UIColor.systemGray
-        #else
-        label.textColor = UIColor.lightText
-        #endif
+        label.textColor = UIColor.placeholderText
         label.alpha = 0
         self.addSubview(label)
 
@@ -192,4 +188,21 @@ import UIKit
 
         return newSize
     }
+    
+    @objc override open func caretRect(for position: UITextPosition) -> CGRect {
+        var originalRect = super.caretRect(for: position)
+
+        // When placeholder is visible and text alignment is centered
+        if placeholderLabel.alpha == 1 && self.textAlignment == .center {
+            // Calculate the width of the placeholder text
+            let textSize = placeholderLabel.text?.size(withAttributes: [.font: placeholderLabel.font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)]) ?? .zero
+            // Calculate the starting x position of the centered placeholder text
+            let centeredTextX = (self.bounds.size.width - textSize.width) / 2
+            // Update the caret position to match the starting x position of the centered text
+            originalRect.origin.x = centeredTextX
+        }
+
+        return originalRect
+    } 
+    
 }

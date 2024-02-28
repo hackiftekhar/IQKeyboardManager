@@ -838,8 +838,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, _startingContentOffset) == NO)
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
-                
-                BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+
+                //  (Bug ID: #1365, #1508, #1541)
+                UIStackView *stackView = [textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
+                BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
 
                 if (animatedContentOffset)
                 {
@@ -879,7 +881,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             {
                 [self showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(_startingContentOffset)]];
 
-                BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+                //  (Bug ID: #1365, #1508, #1541)
+                UIStackView *stackView = [textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
+                BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
 
                 if (animatedContentOffset)
                 {
@@ -1085,8 +1089,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                         [strongSelf showLog:[NSString stringWithFormat:@"Adjusting %.2f to %@ ContentOffset",(superScrollView.contentOffset.y-suggestedOffsetY),[superScrollView _IQDescription]]];
                         [strongSelf showLog:[NSString stringWithFormat:@"Remaining Move: %.2f",moveUp]];
-                        
-                        BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+
+                        //  (Bug ID: #1365, #1508, #1541)
+                        UIStackView *stackView = [textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView];
+                        BOOL animatedContentOffset = stackView != nil || [superScrollView isKindOfClass:[UICollectionView class]];
 
                         if (animatedContentOffset)
                         {
@@ -1510,7 +1516,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             {
                 [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
 
-                BOOL animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+                //  (Bug ID: #1365, #1508, #1541)
+                UIStackView *stackView = [strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
+                BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
 
                 if (animatedContentOffset)
                 {
@@ -1538,7 +1546,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     {
                       [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
 
-                      BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
+                        //  (Bug ID: #1365, #1508, #1541)
+                      UIStackView *stackView = [strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView];
+                      BOOL animatedContentOffset = stackView != nil || [superScrollView isKindOfClass:[UICollectionView class]];
 
                       if (animatedContentOffset)
                       {
