@@ -1528,7 +1528,8 @@
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = DemoSwift.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Iftekhar Qurashi (3384BN9735)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Iftekhar Qurashi (3384BN9735)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7UUTF6T5P9;
@@ -1547,7 +1548,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift;
 				PRODUCT_NAME = DemoSwift;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = infoenumapps;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = infoenumapps;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1596,7 +1597,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.infoenumapps.IQKeyboardManagerSwift;
 				PRODUCT_NAME = DemoSwift;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = infoenumapps;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = infoenumapps;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
