@@ -1520,14 +1520,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 UIStackView *stackView = [strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
                 BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
 
-                if (animatedContentOffset)
-                {
-                    [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
-                }
-                else
-                {
-                    strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
-                }
+                strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
             }
             if (strongLastScrollView.shouldRestoreScrollViewContentOffset == NO) {
                 // TODO: restore scrollView state
