@@ -1,6 +1,6 @@
 {
     "name": "IQKeyboardManagerSwift",
-    "version": "7.0.1",
+    "version": "7.0.2",
     "source": {
         "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
         "tag": "7.0.1"
