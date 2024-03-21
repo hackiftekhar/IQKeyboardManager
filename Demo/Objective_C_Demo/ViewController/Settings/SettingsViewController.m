@@ -492,7 +492,7 @@
         {
             controller.title = NSLocalizedString(@"Toolbar Manage Behaviour",nil);
             controller.options = @[@"IQAutoToolbar By Subviews",@"IQAutoToolbar By Tag",@"IQAutoToolbar By Position"];
-            controller.selectedIndex = [[IQKeyboardManager sharedManager] toolbarManageBehaviour];
+            controller.selectedIndex = [[IQKeyboardManager sharedManager] toolbarManageBehavior];
         }
         else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
         {
@@ -522,7 +522,7 @@
 {
     if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 1)
     {
-        [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:(IQAutoToolbarManageBehaviour)index];
+        [[IQKeyboardManager sharedManager] setToolbarManageBehavior:(IQAutoToolbarManageBehavior)index];
     }
     else if (selectedIndexPathForOptions.section == 1 && selectedIndexPathForOptions.row == 4)
     {

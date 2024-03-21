@@ -54,7 +54,7 @@
 {
     [super viewDidLoad];
     
-    [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
+    [[IQKeyboardManager sharedManager] setToolbarManageBehavior:IQAutoToolbarByPosition];
 }
 
 //- (nullable UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style

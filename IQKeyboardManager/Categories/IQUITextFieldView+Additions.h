@@ -23,8 +23,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IQKeyboardManagerConstants.h"
-
+#import <IQKeyboardManager/IQKeyboardManagerConstants.h>
 /**
  UIView category for managing UITextField/UITextView
  */

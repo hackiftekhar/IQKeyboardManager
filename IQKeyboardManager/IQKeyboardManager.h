@@ -25,18 +25,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "IQKeyboardManagerConstants.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQPreviousNextView.h"
-#import "IQUIViewController+Additions.h"
-#import "IQKeyboardReturnKeyHandler.h"
-#import "IQTextView.h"
-#import "IQToolbar.h"
-#import "IQUIScrollView+Additions.h"
-#import "IQUITextFieldView+Additions.h"
-#import "IQBarButtonItem.h"
-#import "IQTitleBarButtonItem.h"
-#import "IQUIView+Hierarchy.h"
+#import <IQKeyboardManager/IQKeyboardManagerConstants.h>
+#import <IQKeyboardManager/IQUIView+IQKeyboardToolbar.h>
+#import <IQKeyboardManager/IQPreviousNextView.h>
+#import <IQKeyboardManager/IQUIViewController+Additions.h>
+#import <IQKeyboardManager/IQKeyboardReturnKeyHandler.h>
+#import <IQKeyboardManager/IQTextView.h>
+#import <IQKeyboardManager/IQToolbar.h>
+#import <IQKeyboardManager/IQUIScrollView+Additions.h>
+#import <IQKeyboardManager/IQUITextFieldView+Additions.h>
+#import <IQKeyboardManager/IQBarButtonItem.h>
+#import <IQKeyboardManager/IQTitleBarButtonItem.h>
+#import <IQKeyboardManager/IQUIView+Hierarchy.h>
 
 @class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
 

@@ -23,7 +23,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IQTitleBarButtonItem.h"
+#import <IQKeyboardManager/IQTitleBarButtonItem.h>
 
 
 /**
