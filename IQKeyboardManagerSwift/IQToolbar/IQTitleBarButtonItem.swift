@@ -41,6 +41,7 @@ import UIKit
     @objc override open var title: String? {
         didSet {
             titleButton?.setTitle(title, for: .normal)
+            updateAccessibility()
         }
     }
 
@@ -89,7 +90,7 @@ import UIKit
         _titleView?.backgroundColor = UIColor.clear
 
         titleButton = UIButton(type: .system)
-        titleButton?.accessibilityTraits = .staticText
+        titleButton?.isAccessibilityElement = false
         titleButton?.isEnabled = false
         titleButton?.titleLabel?.numberOfLines = 3
         titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
@@ -140,5 +141,18 @@ import UIKit
 
     @objc required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    private func updateAccessibility() {
+        if title == nil || title?.isEmpty == true {
+            isAccessibilityElement = false
+            accessibilityTraits = .none
+        } else if titleButton?.isEnabled == true {
+            isAccessibilityElement = true
+            accessibilityTraits = .button
+        } else {
+            isAccessibilityElement = true
+            accessibilityTraits = .staticText
+        }
     }
 }

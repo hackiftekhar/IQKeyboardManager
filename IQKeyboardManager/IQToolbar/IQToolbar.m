@@ -104,8 +104,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     if (_titleBarButton == nil)
     {
         _titleBarButton = [[IQTitleBarButtonItem alloc] initWithTitle:nil];
-        _titleBarButton.accessibilityLabel = @"Title";
-        _titleBarButton.accessibilityIdentifier = _titleBarButton.accessibilityLabel;
     }
     
     return _titleBarButton;
