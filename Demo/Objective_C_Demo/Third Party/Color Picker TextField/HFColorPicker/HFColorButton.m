@@ -23,6 +23,8 @@ static inline float radians(double degrees) { return degrees * M_PI / 180; }
 
 - (void)drawRect:(CGRect)rect
 {
+    [super drawRect: rect];
+
     CGRect parentViewBounds = self.bounds;
     
     CGFloat centerX = CGRectGetWidth(parentViewBounds) / 2;
