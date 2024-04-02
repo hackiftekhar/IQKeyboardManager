@@ -1,4 +1,4 @@
-IQKeyboardManager MIGRATION GUIDE 5.0 TO 6.0
+IQKeyboardManager MIGRATION GUIDE 6.0 TO 7.0
 ==========================
 
 ### 1. Removed IQKeyboardManager functions
