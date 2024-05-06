@@ -1,7 +1,7 @@
 //
-// IQUIView+Hierarchy.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIView+Hierarchy.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIView.h>
-#import <UIKit/UIViewController.h>
-#import "IQKeyboardManagerConstants.h"
+#import <UIKit/UIKit.h>
+
+#import <IQKeyboardManager/IQKeyboardManagerConstants.h>
 
 @class UICollectionView, UIScrollView, UITableView, UISearchBar, NSArray;
 
 /**
  UIView hierarchy category.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (IQ_UIView_Hierarchy)
 
 ///----------------------
@@ -52,7 +53,7 @@
 @property (nullable, nonatomic, readonly, strong) UIViewController *parentContainerViewController;
 
 ///-----------------------------------
-/// @name Superviews/Subviews/Siglings
+/// @name Superviews/Subviews/Siblings
 ///-----------------------------------
 
 /**
@@ -120,15 +121,10 @@
 @end
 
 
-@interface UIViewController (IQ_UIView_Hierarchy)
-
--(nullable UIViewController*)parentIQContainerViewController;
-
-@end
-
 /**
  NSObject category to used for logging purposes
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface NSObject (IQ_Logging)
 
 /**

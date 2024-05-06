@@ -1,7 +1,7 @@
 //
-// IQBarButtonItem.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQBarButtonItem.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,33 +21,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQBarButtonItem.h"
 #import "IQKeyboardManagerConstantsInternal.h"
-#import <UIKit/NSAttributedString.h>
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQBarButtonItem
 
-+(void)initialize
+-(void)initialize
 {
-    [super initialize];
+    NSArray <NSNumber*> *states = @[@(UIControlStateNormal),@(UIControlStateHighlighted),@(UIControlStateDisabled),@(UIControlStateFocused)];
 
-    IQBarButtonItem *appearanceProxy = [self appearance];
-
-    NSArray <NSNumber*> *states = @[@(UIControlStateNormal),@(UIControlStateHighlighted),@(UIControlStateDisabled),@(UIControlStateSelected),@(UIControlStateApplication),@(UIControlStateReserved)];
-    
     for (NSNumber *state in states)
     {
         UIControlState controlState = [state unsignedIntegerValue];
 
-        [appearanceProxy setBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStyleDone barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackgroundImage:nil forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
-        [appearanceProxy setBackButtonBackgroundImage:nil forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:[UIImage new] forState:controlState barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:[UIImage new] forState:controlState style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault];
+        [self setBackButtonBackgroundImage:[UIImage new] forState:controlState barMetrics:UIBarMetricsDefault];
     }
 
-    [appearanceProxy setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
-    [appearanceProxy setBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
-    [appearanceProxy setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+    [self setTitlePositionAdjustment:UIOffsetZero forBarMetrics:UIBarMetricsDefault];
+    [self setBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+    [self setBackButtonBackgroundVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+}
+
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self)
+    {
+        [self initialize];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder: coder];
+
+    if (self)
+    {
+        [self initialize];
+    }
+
+    return self;
 }
 
 -(void)setTintColor:(UIColor *)tintColor

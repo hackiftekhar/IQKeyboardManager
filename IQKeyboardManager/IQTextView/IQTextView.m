@@ -1,7 +1,7 @@
 //
-// IQTextView.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQTextView.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQTextView.h"
 
-#import <UIKit/NSTextContainer.h>
-#import <UIKit/UILabel.h>
-#import <UIKit/UINibLoading.h>
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTextView ()
 
 @property(nullable, nonatomic, strong) UILabel *placeholderLabel;
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQTextView
 
 @synthesize placeholder = _placeholder;
@@ -70,15 +71,19 @@
 {
     if([[self text] length] || [[self attributedText] length])
     {
-        [_placeholderLabel setAlpha:0];
+        if (self.placeholderLabel.alpha != 0)
+        {
+            [self.placeholderLabel setAlpha:0];
+            [self setNeedsLayout];
+            [self layoutIfNeeded];
+        }
     }
-    else
+    else if(self.placeholderLabel.alpha != 1)
     {
-        [_placeholderLabel setAlpha:1];
+        [self.placeholderLabel setAlpha:1];
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
     }
-    
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
 
 - (void)setText:(NSString *)text
@@ -165,15 +170,16 @@
         _placeholderLabel.font = self.font;
         _placeholderLabel.textAlignment = self.textAlignment;
         _placeholderLabel.backgroundColor = [UIColor clearColor];
+        _placeholderLabel.isAccessibilityElement = NO;
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-            if (@available(iOS 13.0, *)) {
-                _placeholderLabel.textColor = [UIColor systemGrayColor];
-            } else
+            if (@available(iOS 13.0, *))
+            {
+                _placeholderLabel.textColor = [UIColor placeholderTextColor];
+            }
+            else
         #endif
             {
-        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
                 _placeholderLabel.textColor = [UIColor lightTextColor];
-        #endif
             }
         _placeholderLabel.alpha = 0;
         [self addSubview:_placeholderLabel];
@@ -191,7 +197,8 @@
 
 -(CGSize)intrinsicContentSize
 {
-    if (self.hasText) {
+    if (self.hasText)
+    {
         return [super intrinsicContentSize];
     }
     
@@ -201,6 +208,22 @@
     newSize.height = [self placeholderExpectedFrame].size.height + placeholderInsets.top + placeholderInsets.bottom;
     
     return newSize;
+}
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position {
+    
+    CGRect originalRect = [super caretRectForPosition:position];
+        // When placeholder is visible and text alignment is centered
+    if (_placeholderLabel.alpha == 1 && self.textAlignment == NSTextAlignmentCenter) {
+        // Calculate the width of the placeholder text
+        CGSize textSize = [_placeholderLabel.text sizeWithAttributes:@{NSFontAttributeName:_placeholderLabel.font}];
+        // Calculate the starting x position of the centered placeholder text
+        CGFloat centeredTextX = (self.bounds.size.width - textSize.width) / 2;
+        // Update the caret position to match the starting x position of the centered text
+        originalRect.origin.x = centeredTextX;
+    }
+    
+    return originalRect;
 }
 
 @end

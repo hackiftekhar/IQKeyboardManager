@@ -1,20 +1,30 @@
 project 'Demo.xcodeproj'
 
-platform :ios, '8.0'
 use_frameworks!
 
 target 'DemoObjC' do
+  platform :ios, '11.0'
 
-    pod "IQDropDownTextField"
-    pod "YYText"
-    pod "IQKeyboardManager", :path => "."
+  pod "IQDropDownTextField"
+  pod "IQKeyboardManager", :path => "."
 
 end
 
 target 'DemoSwift' do
+  platform :ios, '13.0'
 
-    pod "IQDropDownTextField"
-    pod "YYText"
-    pod "IQKeyboardManagerSwift", :path => "."
+  pod 'SwiftLint'
+  pod "IQDropDownTextFieldSwift"
+  pod "IQKeyboardManagerSwift", :path => "."
+
+  pod "RSKPlaceholderTextView"
+end
+
+
+target 'DemoExtension' do
+  platform :ios, '13.0'
+
+  pod 'SwiftLint'
+  pod "IQKeyboardManagerSwift", :path => "."
 
 end

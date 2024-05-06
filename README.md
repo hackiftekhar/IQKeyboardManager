@@ -31,8 +31,11 @@ While developing iOS apps, we often run into issues where the iPhone keyboard sl
 
 
 ## Screenshot
-[![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerScreenshot.png)](http://youtu.be/6nhLw6hju2A)
-[![Settings](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerSettings.png)](http://youtu.be/6nhLw6hju2A)
+[![Screenshot 1](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot1.png)](http://youtu.be/6nhLw6hju2A)
+[![Screenshot 2](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot2.png)](http://youtu.be/6nhLw6hju2A)
+[![Screenshot 3](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot3.png)](http://youtu.be/6nhLw6hju2A)
+[![Screenshot 4](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot4.png)](http://youtu.be/6nhLw6hju2A)
+[![Screenshot 5](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot5.png)](http://youtu.be/6nhLw6hju2A)
 
 ## GIF animation
 [![IQKeyboardManager](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManager.gif)](http://youtu.be/6nhLw6hju2A)
@@ -61,28 +64,25 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 |                        | Language | Minimum iOS Target | Minimum Xcode Version |
 |------------------------|----------|--------------------|-----------------------|
-| IQKeyboardManager      | Obj-C    | iOS 8.0            | Xcode 8.2.1           |
-| IQKeyboardManagerSwift | Swift    | iOS 8.0            | Xcode 8.2.1           |
-| Demo Project           |          |                    | Xcode 10.2             |
-
-**Note**
-- 3.3.7 is the last iOS 7 supported version.
+| IQKeyboardManager      | Obj-C    | iOS 11.0            | Xcode 13             |
+| IQKeyboardManagerSwift | Swift    | iOS 13.0            | Xcode 13             |
+| Demo Project           |          |                     | Xcode 15             |
 
 #### Swift versions support
 
 | Swift             | Xcode | IQKeyboardManagerSwift |
 |-------------------|-------|------------------------|
-| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1               |
+| 5.9, 5.8, 5.7, 5.6| 15  | >= 7.0.0       |
+| 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.2| 11  | >= 6.5.7       |
+| 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0       |
+| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1           |
 | 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
 | 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
-| 3.1               | 8.3   | 4.0.10                 |
-| 3.0 (3.0.2)       | 8.2   | 4.0.8                  |
-| 2.2 or 2.3        | 7.3   | 4.0.5                  |
-| 2.1.1             | 7.2   | 4.0.0                  |
-| 2.1               | 7.2   | 3.3.7                  |
-| 2.0               | 7.0   | 3.3.3.1                |
-| 1.2               | 6.3   | 3.3.1                  |
-| 1.0               | 6.0   | 3.3.2                  |
+
+## 7.0.0 version notes
+- In this major release, a lot of variables and functions have been moved here and there. We have mentioned most of the major things in the MIGRATION GUIDE. So please take a look to make changes in your project when upgrading to this version.
+- The 7.0.0 version adopted the latest Swift Concurrency/Actor feature and only available iOS 13.0 and above.
+- Internal keyboard management handling have been updated with a different and better approach than legacy versions. However when adopting 7.0.0, please verify if it is working as expected in your apps, if there are any serious problems with 7.0.0 please open an issue with all the details and switch back to legacy version temporarily.
 
 Installation
 ==========================
@@ -95,15 +95,13 @@ Installation
 it, simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
 
 ```ruby
-pod 'IQKeyboardManager' #iOS8 and later
-
-pod 'IQKeyboardManager', '3.3.7' #iOS7
+pod 'IQKeyboardManager' #iOS13 and later
 ```
 
 ***IQKeyboardManager (Swift):*** IQKeyboardManagerSwift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
-*Swift 5.0,4.2, 4.0, 3.2, 3.0 (Xcode 10.2)*
+*Swift 5.9, 5.8, 5.7, 5.6, 5.5 (Xcode 15)*
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
@@ -125,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
       IQKeyboardManager.shared.enable = true
 
@@ -172,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
       IQKeyboardManager.shared.enable = true
 
@@ -181,9 +179,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
+#### Installation with Swift Package Manager
+
+[Swift Package Manager(SPM)](https://swift.org/package-manager/) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well. 
+
+To install IQKeyboardManagerSwift package via Xcode
+
+ * Go to File -> Swift Packages -> Add Package Dependency...
+ * Then search for https://github.com/hackiftekhar/IQKeyboardManager.git
+ * And choose the version you want
+
 Migration Guide
 ==========================
 - [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-6.0.0-Migration-Guide)
+- [IQKeyboardManager 7.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/wiki/IQKeyboardManager-7.0.0-Migration-Guide)
 
 Other Links
 ==========================

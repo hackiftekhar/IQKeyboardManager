@@ -1,7 +1,7 @@
 //
-// IQTitleBarButtonItem.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQTitleBarButtonItem.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQKeyboardManagerConstants.h"
-#import "IQBarButtonItem.h"
+#import <Foundation/Foundation.h>
 
-#import <Foundation/NSObjCRuntime.h>
+#import <IQKeyboardManager/IQKeyboardManagerConstants.h>
+#import <IQKeyboardManager/IQBarButtonItem.h>
+
 
 /**
  BarButtonItem with title text.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTitleBarButtonItem : IQBarButtonItem
 
 /**

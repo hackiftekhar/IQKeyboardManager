@@ -26,8 +26,8 @@
 /* Class = "UILabel"; text = "UIStackView example in iOS9"; ObjectID = "7nn-db-1QM"; */
 "7nn-db-1QM.text" = "UIStackView example in iOS9";
 
-/* Class = "UILabel"; text = "UIWebView example"; ObjectID = "8XY-A5-dnk"; */
-"8XY-A5-dnk.text" = "UIWebView example";
+/* Class = "UILabel"; text = "WKWebView example"; ObjectID = "8XY-A5-dnk"; */
+"8XY-A5-dnk.text" = "WKWebView example";
 
 /* Class = "UILabel"; text = "Refreshing Layout on the fly"; ObjectID = "C0s-kb-Bl8"; */
 "C0s-kb-Bl8.text" = "Refreshing Layout on the fly";
@@ -37,9 +37,6 @@
 
 /* Class = "UILabel"; text = "NavigationBar & Toolbar"; ObjectID = "F3P-4I-j2h"; */
 "F3P-4I-j2h.text" = "NavigationBar & Toolbar";
-
-/* Class = "UILabel"; text = "Subclasses that behaves like UITextField or UITextView (YYTextView)"; ObjectID = "FhZ-ZD-n87"; */
-"FhZ-ZD-n87.text" = "Subclasses that behaves like UITextField or UITextView (YYTextView)";
 
 /* Class = "UITableViewSection"; headerTitle = "Full Screen"; ObjectID = "GLu-hg-zhP"; */
 "GLu-hg-zhP.headerTitle" = "Full Screen";
@@ -122,5 +119,5 @@
 /* Class = "UILabel"; text = "UIScrollView+UITableView example"; ObjectID = "xTK-Wa-4qX"; */
 "xTK-Wa-4qX.text" = "UIScrollView+UITableView example";
 
-/* Class = "UILabel"; text = "- Doesn't affect UIWebView default scrolling implementation"; ObjectID = "zU8-4C-nid"; */
-"zU8-4C-nid.text" = "- Doesn't affect UIWebView default scrolling implementation";
+/* Class = "UILabel"; text = "- Doesn't affect WKWebView default scrolling implementation"; ObjectID = "zU8-4C-nid"; */
+"zU8-4C-nid.text" = "- Doesn't affect WKWebView default scrolling implementation";

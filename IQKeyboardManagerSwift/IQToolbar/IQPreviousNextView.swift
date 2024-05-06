@@ -1,7 +1,7 @@
 //
 // IQPreviousNextView.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
 
 import UIKit
 
-@objc public class IQPreviousNextView: UIView {
-
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc open class IQPreviousNextView: UIView {
 }

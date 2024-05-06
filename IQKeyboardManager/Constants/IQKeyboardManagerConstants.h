@@ -1,7 +1,7 @@
 //
-// IQKeyboardManagerConstants.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQKeyboardManagerConstants.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,15 @@
 #ifndef IQKeyboardManagerConstants_h
 #define IQKeyboardManagerConstants_h
 
-#import <Foundation/NSObjCRuntime.h>
+#import <Foundation/Foundation.h>
 
 ///-----------------------------------
-/// @name IQAutoToolbarManageBehaviour
+/// @name IQAutoToolbarManageBehavior
 ///-----------------------------------
 
 /**
  `IQAutoToolbarBySubviews`
- Creates Toolbar according to subview's hirarchy of Textfield's in view.
+ Creates Toolbar according to subview's hierarchy of Textfield's in view.
  
  `IQAutoToolbarByTag`
  Creates Toolbar according to tag property of TextField's.
@@ -40,7 +40,7 @@
  `IQAutoToolbarByPosition`
  Creates Toolbar according to the y,x position of textField in it's superview coordinate.
  */
-typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehaviour) {
+typedef NS_ENUM(NSInteger, IQAutoToolbarManageBehavior) {
     IQAutoToolbarBySubviews,
     IQAutoToolbarByTag,
     IQAutoToolbarByPosition,

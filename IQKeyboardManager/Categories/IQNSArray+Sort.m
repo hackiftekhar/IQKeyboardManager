@@ -1,7 +1,7 @@
 //
-// IQNSArray+Sort.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQNSArray+Sort.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
 #import "IQNSArray+Sort.h"
 #import "IQUIView+Hierarchy.h"
 
-#import <UIKit/UIView.h>
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation NSArray (IQ_NSArray_Sort)
 
 - (NSArray<UIView*>*)sortedArrayByTag

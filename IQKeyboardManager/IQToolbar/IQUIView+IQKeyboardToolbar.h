@@ -1,7 +1,7 @@
 //
-// IQUIView+IQKeyboardToolbar.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIView+IQKeyboardToolbar.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQToolbar.h"
+#import <UIKit/UIKit.h>
 
-#import <UIKit/UIView.h>
-#import <UIKit/UIImage.h>
+#import <IQKeyboardManager/IQToolbar.h>
 
+
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQBarButtonItemConfiguration : NSObject
 
 -(nonnull instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)barButtonSystemItem action:(nullable SEL)action;
@@ -39,12 +40,8 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIImage (IQKeyboardToolbarNextPreviousImage)
-
-+(nullable UIImage*)keyboardPreviousiOS9Image;
-+(nullable UIImage*)keyboardNextiOS9Image;
-+(nullable UIImage*)keyboardPreviousiOS10Image;
-+(nullable UIImage*)keyboardNextiOS10Image;
 
 +(nullable UIImage*)keyboardPreviousImage;
 +(nullable UIImage*)keyboardNextImage;
@@ -54,6 +51,7 @@
 /**
  UIView category methods to add IQToolbar on UIKeyboard.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (IQToolbarAddition)
 
 ///-------------------------

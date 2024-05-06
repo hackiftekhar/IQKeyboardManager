@@ -1,7 +1,7 @@
 //
 //  IQBarButtonItem.swift
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,113 +22,99 @@
 // THE SOFTWARE.
 
 import UIKit
-import Foundation
 
-open class IQBarButtonItem: UIBarButtonItem {
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc open class IQBarButtonItem: UIBarButtonItem {
 
-    private static var _classInitialize: Void = classInitialize()
+    internal static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                                                                 target: nil, action: nil)
 
     @objc public override init() {
-        _ = IQBarButtonItem._classInitialize
-          super.init()
-      }
+        super.init()
+        initialize()
+    }
 
     @objc public required init?(coder aDecoder: NSCoder) {
-        _ = IQBarButtonItem._classInitialize
-           super.init(coder: aDecoder)
-       }
+        super.init(coder: aDecoder)
+        initialize()
+    }
 
-    private class func classInitialize() {
+    private func initialize() {
 
-        let  appearanceProxy = self.appearance()
-
-        #if swift(>=4.2)
-        let states: [UIControl.State]
-        #else
-        let states: [UIControlState]
-        #endif
-
-        states = [.normal, .highlighted, .disabled, .selected, .application, .reserved]
+        let states: [UIControl.State] = [.normal, .highlighted, .disabled, .focused]
 
         for state in states {
 
-            appearanceProxy.setBackgroundImage(nil, for: state, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .done, barMetrics: .default)
-            appearanceProxy.setBackgroundImage(nil, for: state, style: .plain, barMetrics: .default)
-            appearanceProxy.setBackButtonBackgroundImage(nil, for: state, barMetrics: .default)
+            setBackgroundImage(UIImage(), for: state, barMetrics: .default)
+            setBackgroundImage(UIImage(), for: state, style: .plain, barMetrics: .default)
+            setBackButtonBackgroundImage(UIImage(), for: state, barMetrics: .default)
         }
-        
-        appearanceProxy.setTitlePositionAdjustment(UIOffset(), for: .default)
-        appearanceProxy.setBackgroundVerticalPositionAdjustment(0, for: .default)
-        appearanceProxy.setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
+
+        setTitlePositionAdjustment(UIOffset(), for: .default)
+        setBackgroundVerticalPositionAdjustment(0, for: .default)
+        setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
-    
+
     @objc override open var tintColor: UIColor? {
         didSet {
 
-            #if swift(>=4.2)
-            var textAttributes = [NSAttributedString.Key: Any]()
-            let foregroundColorKey = NSAttributedString.Key.foregroundColor
-            #elseif swift(>=4)
-            var textAttributes = [NSAttributedStringKey: Any]()
-            let foregroundColorKey = NSAttributedStringKey.foregroundColor
-            #else
-            var textAttributes = [String: Any]()
-            let foregroundColorKey = NSForegroundColorAttributeName
-            #endif
+            var textAttributes: [NSAttributedString.Key: Any] = [:]
+            textAttributes[.foregroundColor] = tintColor
 
-            textAttributes[foregroundColorKey] = tintColor
-
-            #if swift(>=4)
-
-                if let attributes = titleTextAttributes(for: .normal) {
-                    
-                    for (key, value) in attributes {
-                        #if swift(>=4.2)
-                        textAttributes[key] = value
-                        #else
-                        textAttributes[NSAttributedStringKey.init(key)] = value
-                        #endif
-                    }
+            if let attributes: [NSAttributedString.Key: Any] = titleTextAttributes(for: .normal) {
+                for (key, value) in attributes {
+                    textAttributes[key] = value
                 }
-
-            #else
-
-                if let attributes = titleTextAttributes(for: .normal) {
-                    textAttributes = attributes
-                }
-            #endif
+            }
 
             setTitleTextAttributes(textAttributes, for: .normal)
         }
     }
 
     /**
-     Boolean to know if it's a system item or custom item, we are having a limitation that we cannot override a designated initializer, so we are manually setting this property once in initialization
+     Boolean to know if it's a system item or custom item,
+     we are having a limitation that we cannot override a designated initializer,
+     so we are manually setting this property once in initialization
      */
-    @objc internal var isSystemItem = false
-    
+    internal var isSystemItem: Bool = false
+
     /**
-     Additional target & action to do get callback action. Note that setting custom target & selector doesn't affect native functionality, this is just an additional target to get a callback.
+     Additional target & action to do get callback action.
+     Note that setting custom target & selector doesn't affect native functionality,
+     this is just an additional target to get a callback.
      
      @param target Target object.
      @param action Target Selector.
      */
     @objc open func setTarget(_ target: AnyObject?, action: Selector?) {
-        if let target = target, let action = action {
+        if let target: AnyObject = target, let action: Selector = action {
             invocation = IQInvocation(target, action)
         } else {
             invocation = nil
         }
     }
-    
+
     /**
-     Customized Invocation to be called when button is pressed. invocation is internally created using setTarget:action: method.
+     Customized Invocation to be called when button is pressed.
+     invocation is internally created using setTarget:action: method.
      */
-    @objc open var invocation: IQInvocation?
-    
-    deinit {
-        target = nil
-        invocation = nil
+    @objc open var invocation: IQInvocation? {
+        didSet {
+            // We have to put this condition here because if we override this function then
+            // We were getting "Cannot override '_' which has been marked unavailable" in Xcode 15
+            if let titleBarButton = self as? IQTitleBarButtonItem {
+
+                if let target = invocation?.target, let action = invocation?.action {
+                    titleBarButton.isEnabled = true
+                    titleBarButton.titleButton?.isEnabled = true
+                    titleBarButton.titleButton?.addTarget(target, action: action, for: .touchUpInside)
+                } else {
+                    titleBarButton.isEnabled = false
+                    titleBarButton.titleButton?.isEnabled = false
+                    titleBarButton.titleButton?.removeTarget(nil, action: nil, for: .touchUpInside)
+                }
+            }
+        }
     }
 }

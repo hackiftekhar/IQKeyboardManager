@@ -1,7 +1,7 @@
 //
-// IQUIViewController+Additions.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIViewController+Additions.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQUIViewController+Additions.h"
-#import <UIKit/NSLayoutConstraint.h>
+#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
+#import "IQUIViewController+Additions.h"
+
+
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIViewController (Additions)
 
--(void)setIQLayoutGuideConstraint:(NSLayoutConstraint *)IQLayoutGuideConstraint
+-(nullable UIViewController*)parentIQContainerViewController
 {
-    objc_setAssociatedObject(self, @selector(IQLayoutGuideConstraint), IQLayoutGuideConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSLayoutConstraint *)IQLayoutGuideConstraint
-{
-    return objc_getAssociatedObject(self, @selector(IQLayoutGuideConstraint));
+    return self;
 }
 
 @end

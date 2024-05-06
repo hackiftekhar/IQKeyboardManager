@@ -1,7 +1,7 @@
 //
-// IQBarButtonItem.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQBarButtonItem.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,13 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIBarButtonItem.h>
+#import <UIKit/UIKit.h>
 
 @class NSInvocation;
 
 /**
  IQBarButtonItem used for IQToolbar.
  */
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQBarButtonItem : UIBarButtonItem
 
 /**

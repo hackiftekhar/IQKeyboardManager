@@ -1,12 +1,29 @@
 //
 //  TextFieldViewController.m
-//  KeyboardTextFieldDemo
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "TextFieldViewController.h"
-#import "IQKeyboardManager.h"
-#import "IQDropDownTextField.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQUITextFieldView+Additions.h"
+#import <IQDropDownTextField/IQDropDownTextField.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface TextFieldViewController ()<UIPopoverPresentationControllerDelegate>
 
@@ -15,6 +32,9 @@
 @implementation TextFieldViewController
 {
     IBOutlet UITextField *textField3;
+    IBOutlet UITextView *textView1;
+    IBOutlet UITextView *textView2;
+    IBOutlet UITextView *textView3;
     IBOutlet IQDropDownTextField *dropDownTextField;
 }
 
@@ -45,11 +65,20 @@
 {
     [super viewDidLoad];
     
+    textView2.enableMode = IQEnableModeDisabled;
+    
     textField3.delegate = self;
     [textField3.keyboardToolbar.previousBarButton setTarget:self action:@selector(previousAction:)];
     [textField3.keyboardToolbar.nextBarButton setTarget:self action:@selector(nextAction:)];
     [textField3.keyboardToolbar.doneBarButton setTarget:self action:@selector(doneAction:)];
-    
+
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
+    if (@available(iOS 16.0, *)) {
+        textView3.findInteractionEnabled = YES;
+    }
+#endif
+
     dropDownTextField.keyboardDistanceFromTextField = 150;
     
     [dropDownTextField setItemList:@[@"Zero Line Of Code",
@@ -80,6 +109,17 @@
         [buttonPush setHidden:YES];
         [buttonPresent setTitle:NSLocalizedString(@"Dismiss",nil) forState:UIControlStateNormal];
     }
+
+    [[IQKeyboardManager sharedManager] registerKeyboardSizeChangeWithIdentifier: @"TextFieldViewController" sizeHandler:^(CGSize size) {
+        NSLog(@"%@", NSStringFromCGSize(size));
+    }];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear: animated];
+
+    [[IQKeyboardManager sharedManager] unregisterKeyboardSizeChangeWithIdentifier: @"TextFieldViewController"];
 }
 
 - (IBAction)presentClicked:(id)sender

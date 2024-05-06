@@ -1,7 +1,7 @@
 //
-// IQKeyboardManager.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQKeyboardManager.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +21,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQKeyboardManagerConstants.h"
-#import "IQUIView+IQKeyboardToolbar.h"
-#import "IQPreviousNextView.h"
-#import "IQUIViewController+Additions.h"
-#import "IQKeyboardReturnKeyHandler.h"
-#import "IQTextView.h"
-#import "IQToolbar.h"
-#import "IQUIScrollView+Additions.h"
-#import "IQUITextFieldView+Additions.h"
-#import "IQBarButtonItem.h"
-#import "IQTitleBarButtonItem.h"
-#import "IQUIView+Hierarchy.h"
+#import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import <CoreGraphics/CGBase.h>
-
-#import <Foundation/NSObject.h>
-#import <Foundation/NSObjCRuntime.h>
-#import <Foundation/NSSet.h>
-
-#import <UIKit/UITextInputTraits.h>
+#import <IQKeyboardManager/IQKeyboardManagerConstants.h>
+#import <IQKeyboardManager/IQUIView+IQKeyboardToolbar.h>
+#import <IQKeyboardManager/IQPreviousNextView.h>
+#import <IQKeyboardManager/IQUIViewController+Additions.h>
+#import <IQKeyboardManager/IQKeyboardReturnKeyHandler.h>
+#import <IQKeyboardManager/IQTextView.h>
+#import <IQKeyboardManager/IQToolbar.h>
+#import <IQKeyboardManager/IQUIScrollView+Additions.h>
+#import <IQKeyboardManager/IQUITextFieldView+Additions.h>
+#import <IQKeyboardManager/IQBarButtonItem.h>
+#import <IQKeyboardManager/IQTitleBarButtonItem.h>
+#import <IQKeyboardManager/IQUIView+Hierarchy.h>
 
 @class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
 
@@ -63,8 +59,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
 
 /**
- Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
+ Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
  */
+
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardManager : NSObject
 
 ///--------------------------
@@ -101,6 +99,10 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  */
 @property(nonatomic, assign, readonly) CGFloat movedDistance;
 
+/**
+ Will be called then movedDistance will be changed.
+ */
+@property(nullable, nonatomic, copy) void (^movedDistanceChanged)(CGFloat movedDistance);
 
 ///-------------------------
 /// @name IQToolbar handling
@@ -112,13 +114,13 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign, getter = isEnableAutoToolbar) BOOL enableAutoToolbar;
 
 /**
- IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hirarchy of Textfield's in view.
+ IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hierarchy of Textfield's in view.
  IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextField's.
  IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position of textField in it's superview coordinate.
 
  Default is IQAutoToolbarBySubviews.
 */
-@property(nonatomic, assign) IQAutoToolbarManageBehaviour toolbarManageBehaviour;
+@property(nonatomic, assign) IQAutoToolbarManageBehavior toolbarManageBehavior;
 
 /**
  If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is nil. Default is NO.
@@ -153,8 +155,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
  Toolbar previous/next/done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
  */
 @property(nullable, nonatomic, strong) NSString *toolbarPreviousBarButtonItemText;
+@property(nullable, nonatomic, strong) NSString *toolbarPreviousBarButtonItemAccessibilityLabel;
 @property(nullable, nonatomic, strong) NSString *toolbarNextBarButtonItemText;
+@property(nullable, nonatomic, strong) NSString *toolbarNextBarButtonItemAccessibilityLabel;
 @property(nullable, nonatomic, strong) NSString *toolbarDoneBarButtonItemText;
+@property(nullable, nonatomic, strong) NSString *toolbarDoneBarButtonItemAccessibilityLabel;
 
 /**
  If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
@@ -285,22 +290,36 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *disabledTouchResignedClasses;
 
 /**
- Enabled classes to forcefully enable 'shouldResignOnTouchOutsite' property. Class should be kind of UIViewController. Default is [].
+ Enabled classes to forcefully enable 'shouldResignOnTouchOutside' property. Class should be kind of UIViewController. Default is [].
  */
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *enabledTouchResignedClasses;
 
 /**
- if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
+ if shouldResignOnTouchOutside is enabled then you can customize the behavior to not recognize gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
  */
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *touchResignedGestureIgnoreClasses;
 
+///---------------------------------------------
+/// @name Register for keyboard size events
+///---------------------------------------------
+
+/**
+ register an object to get keyboard size change events
+ */
+-(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler;
+
+/**
+ unregister the object which was registered before
+ */
+-(void)unregisterKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier;
+
 ///-------------------------------------------
 /// @name Third Party Library support
-/// Add TextField/TextView Notifications customised NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
+/// Add TextField/TextView Notifications customized NSNotifications. For example while using YYTextView https://github.com/ibireme/YYText
 ///-------------------------------------------
 
 /**
- Add/Remove customised Notification for third party customised TextField/TextView. Please be aware that the NSNotification object must be idential to UITextField/UITextView NSNotification objects and customised TextField/TextView support must be idential to UITextField/UITextView.
+ Add/Remove customized Notification for third party customized TextField/TextView. Please be aware that the NSNotification object must be identical to UITextField/UITextView NSNotification objects and customized TextField/TextView support must be identical to UITextField/UITextView.
  @param didBeginEditingNotificationName This should be identical to UITextViewTextDidBeginEditingNotification
  @param didEndEditingNotificationName This should be identical to UITextViewTextDidEndEditingNotification
  */
@@ -318,7 +337,7 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nonatomic, assign) BOOL enableDebugging;
 
 /**
- @warning Use these methods to completely enable/disable notifications registered by library internally. Please keep in mind that library is totally dependent on NSNotification of UITextField, UITextField, Keyboard etc. If you do unregisterAllNotifications then library will not work at all. You should only use below methods if you want to completedly disable all library functions. You should use below methods at your own risk.
+ @warning Use these methods to completely enable/disable notifications registered by library internally. Please keep in mind that library is totally dependent on NSNotification of UITextField, UITextField, Keyboard etc. If you do unregisterAllNotifications then library will not work at all. You should only use below methods if you want to completely disable all library functions. You should use below methods at your own risk.
  */
 -(void)registerAllNotifications;
 -(void)unregisterAllNotifications;

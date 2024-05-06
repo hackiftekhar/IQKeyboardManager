@@ -1,7 +1,7 @@
 //
-// IQUIScrollView+Additions.h
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIScrollView+Additions.h
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UITableView.h>
-#import <UIKit/UICollectionView.h>
+#import <UIKit/UIKit.h>
 
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIScrollView (Additions)
 
 /**
  If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position. Default is NO.
  */
 @property(nonatomic, assign) BOOL shouldIgnoreScrollingAdjustment;
+
+/**
+ If YES, then scrollview will ignore content inset adjustment (simply not updating it) when keyboard is shown. Default is NO.
+ */
+@property(nonatomic, assign) BOOL shouldIgnoreContentInsetAdjustment;
 
 /**
  Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
@@ -40,6 +45,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UITableView (PreviousNextIndexPath)
 
 -(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;
@@ -47,6 +53,7 @@
 
 @end
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UICollectionView (PreviousNextIndexPath)
 
 -(nullable NSIndexPath*)previousIndexPathOfIndexPath:(nonnull NSIndexPath*)indexPath;

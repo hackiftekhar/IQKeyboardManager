@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="SLD-W0-iHs">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SLD-W0-iHs">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,24 +13,21 @@
         <scene sceneID="Upz-E2-HnO">
             <objects>
                 <viewController id="SLD-W0-iHs" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hmy-1I-BWH"/>
-                        <viewControllerLayoutGuide type="bottom" id="gFv-gy-qWo"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gvr-2z-xYP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IQKeyboardManager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euj-g8-pdO">
-                                <rect key="frame" x="66.5" y="318.5" width="242" height="30"/>
+                                <rect key="frame" x="67.5" y="318.5" width="240.5" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" red="1" green="0.58823529409999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" name="535353"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="VWm-h2-BcC"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="euj-g8-pdO" firstAttribute="centerX" secondItem="gvr-2z-xYP" secondAttribute="centerX" id="iJN-bo-Q89"/>
+                            <constraint firstItem="euj-g8-pdO" firstAttribute="centerX" secondItem="VWm-h2-BcC" secondAttribute="centerX" id="iJN-bo-Q89"/>
                             <constraint firstItem="euj-g8-pdO" firstAttribute="centerY" secondItem="gvr-2z-xYP" secondAttribute="centerY" id="m0U-S7-a9d"/>
                         </constraints>
                     </view>
@@ -40,4 +37,9 @@
             <point key="canvasLocation" x="84" y="160"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="535353">
+            <color red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

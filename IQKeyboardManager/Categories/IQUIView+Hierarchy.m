@@ -1,7 +1,7 @@
 //
-// IQUIView+Hierarchy.m
-// https://github.com/hackiftekhar/IQKeyboardManager
-// Copyright (c) 2013-16 Iftekhar Qurashi.
+//  IQUIView+Hierarchy.m
+//  https://github.com/hackiftekhar/IQKeyboardManager
+//  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "IQUIView+Hierarchy.h"
-#import "IQUITextFieldView+Additions.h"
-
-#import <UIKit/UICollectionView.h>
-#import <UIKit/UIAlertController.h>
-#import <UIKit/UITableView.h>
-#import <UIKit/UITextView.h>
-#import <UIKit/UITextField.h>
-#import <UIKit/UISearchBar.h>
-#import <UIKit/UINavigationController.h>
-#import <UIKit/UITabBarController.h>
-#import <UIKit/UISplitViewController.h>
-#import <UIKit/UIWindow.h>
-
+#import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
+#import "IQUIView+Hierarchy.h"
+#import "IQUITextFieldView+Additions.h"
+#import "IQUIViewController+Additions.h"
 #import "IQNSArray+Sort.h"
 
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIView (IQ_UIView_Hierarchy)
 
 -(UIViewController*)viewContainingController
@@ -52,7 +43,8 @@
         if ([nextResponder isKindOfClass:[UIViewController class]])
             return (UIViewController*)nextResponder;
 
-    } while (nextResponder);
+    }
+    while (nextResponder);
 
     return nil;
 }
@@ -68,7 +60,8 @@
         [controllersHierarchy addObject:topController];
     }
     
-    while ([topController presentedViewController]) {
+    while ([topController presentedViewController])
+    {
         
         topController = [topController presentedViewController];
         [controllersHierarchy addObject:topController];
@@ -82,7 +75,8 @@
         {
             matchController = (UIViewController*)[matchController nextResponder];
             
-        } while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
+        }
+        while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
     
     return matchController;
@@ -98,7 +92,8 @@
     {
         UINavigationController *navController = matchController.navigationController;
         
-        while (navController.navigationController) {
+        while (navController.navigationController)
+        {
             navController = navController.navigationController;
         }
         
@@ -200,27 +195,28 @@
     return nil;
 }
 
--(BOOL)_IQcanBecomeFirstResponder
+-(BOOL)_IQCanBecomeFirstResponder
 {
-    BOOL _IQcanBecomeFirstResponder = NO;
+    BOOL _IQCanBecomeFirstResponder = NO;
     
-    if ([self conformsToProtocol:@protocol(UITextInput)]) {
+    if ([self conformsToProtocol:@protocol(UITextInput)])
+    {
         if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
         {
-            _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
+            _IQCanBecomeFirstResponder = [(UITextView*)self isEditable];
         }
         else if ([self respondsToSelector:@selector(isEnabled)])
         {
-            _IQcanBecomeFirstResponder = [(UITextField*)self isEnabled];
+            _IQCanBecomeFirstResponder = [(UITextField*)self isEnabled];
         }
     }
     
-    if (_IQcanBecomeFirstResponder == YES)
+    if (_IQCanBecomeFirstResponder == YES)
     {
-        _IQcanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
+        _IQCanBecomeFirstResponder = ([self isUserInteractionEnabled] && ![self isHidden] && [self alpha]!=0.0 && ![self isAlertViewTextField]  && !self.textFieldSearchBar);
     }
     
-    return _IQcanBecomeFirstResponder;
+    return _IQCanBecomeFirstResponder;
 }
 
 - (NSArray<UIView*>*)responderSiblings
@@ -232,7 +228,7 @@
     NSMutableArray<UIView*> *tempTextFields = [[NSMutableArray alloc] init];
     
     for (UIView *textField in siblings)
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQCanBecomeFirstResponder])
             [tempTextFields addObject:textField];
     
     return tempTextFields;
@@ -244,14 +240,13 @@
     
     for (UIView *textField in self.subviews)
     {
-        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQcanBecomeFirstResponder])
+        if ((textField == self || textField.ignoreSwitchingByNextPrevious == NO) && [textField _IQCanBecomeFirstResponder])
         {
             [textFields addObject:textField];
         }
-        
         //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
         //Uncommented else (Bug ID: #625)
-        if (textField.subviews.count && [textField isUserInteractionEnabled] && ![textField isHidden] && [textField alpha]!=0.0)
+        else if (textField.subviews.count && [textField isUserInteractionEnabled] && ![textField isHidden] && [textField alpha]!=0.0)
         {
             [textFields addObjectsFromArray:[textField deepResponderViews]];
         }
@@ -397,7 +392,7 @@
         {
             return (UISearchBar*)searchBar;
         }
-        else if ([searchBar isKindOfClass:[UIViewController class]])    //If found viewcontroller but still not found UISearchBar then it's not the search bar textfield
+        else if ([searchBar isKindOfClass:[UIViewController class]])    //If found viewController but still not found UISearchBar then it's not the search bar textfield
         {
             break;
         }
@@ -429,15 +424,7 @@
 
 @end
 
-@implementation UIViewController (IQ_UIView_Hierarchy)
-
--(nullable UIViewController*)parentIQContainerViewController
-{
-    return self;
-}
-
-@end
-
+NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation NSObject (IQ_Logging)
 
 -(NSString *)_IQDescription
