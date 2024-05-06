@@ -34,12 +34,12 @@
 - (IBAction)shareClicked:(UIBarButtonItem *)sender
 {
     NSString *shareString = @"IQKeyboardManager is really great control for iOS developer to manage keyboard-textField.";
-    UIImage *shareImage = [UIImage imageNamed:@"IQKeyboardManagerScreenshot"];
+//    UIImage *shareImage = [UIImage imageNamed:@"IQKeyboardManagerScreenshot"];
     NSURL *youtubeUrl = [NSURL URLWithString:@"http://youtu.be/6nhLw6hju2A"];
     
     NSArray *activityItems = @[youtubeUrl,
-                              shareString,
-                              shareImage];
+//                               shareImage,
+                               shareString];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     NSArray *excludedActivities = @[UIActivityTypePrint,

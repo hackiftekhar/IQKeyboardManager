@@ -122,8 +122,6 @@
 		C0CB62121B884FA100C33368 /* TextViewSpecialCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61C61B884D4100C33368 /* TextViewSpecialCaseViewController.m */; };
 		C0CB62131B884FA100C33368 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61C81B884D4100C33368 /* ViewController.m */; };
 		C0CB62141B884FA100C33368 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CB61CA1B884D4100C33368 /* WebViewController.m */; };
-		C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
-		C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */; };
 		C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F22AF8C43200963B19 /* TextFieldView.swift */; };
 		C0D070F52AF8C59B00963B19 /* TextFieldHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */; };
 		C0F841F82ACAC14300616ECD /* TestCases.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F841F62ACAC14300616ECD /* TestCases.storyboard */; };
@@ -321,7 +319,6 @@
 		C0CB61E41B884D4100C33368 /* TextViewSpecialCaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewSpecialCaseViewController.swift; sourceTree = "<group>"; };
 		C0CB61E51B884D4100C33368 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C0CB61E61B884D4100C33368 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IQKeyboardManagerScreenshot.png; path = Screenshot/IQKeyboardManagerScreenshot.png; sourceTree = SOURCE_ROOT; };
 		C0D070F22AF8C43200963B19 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		C0D070F42AF8C59B00963B19 /* TextFieldHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldHostingViewController.swift; sourceTree = "<group>"; };
 		C0F841F72ACAC14300616ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TestCases.storyboard; sourceTree = "<group>"; };
@@ -613,7 +610,6 @@
 		C0CB61CB1B884D4100C33368 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C0CB62731B8856B300C33368 /* IQKeyboardManagerScreenshot.png */,
 				C0CB61CC1B884D4100C33368 /* Images.xcassets */,
 				C0CB61CD1B884D4100C33368 /* iTunesArtwork */,
 			);
@@ -935,7 +931,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0CB61EC1B884F1E00C33368 /* Images.xcassets in Resources */,
-				C0CB62751B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				4C794CF520D5948600502C9B /* FullScreenControllers.storyboard in Resources */,
 				C0CB61E81B884F1500C33368 /* iTunesArtwork@2x in Resources */,
 				C0CB61E71B884F1500C33368 /* iTunesArtwork in Resources */,
@@ -955,7 +950,6 @@
 			files = (
 				C0CB61EB1B884F1D00C33368 /* Images.xcassets in Resources */,
 				C0CB61EA1B884F1600C33368 /* iTunesArtwork@2x in Resources */,
-				C0CB62741B8856B300C33368 /* IQKeyboardManagerScreenshot.png in Resources */,
 				C0CB61E91B884F1600C33368 /* iTunesArtwork in Resources */,
 				4C794CFF20D59BBA00502C9B /* Main.storyboard in Resources */,
 				4C794D1D20D59C0500502C9B /* Launch.storyboard in Resources */,
