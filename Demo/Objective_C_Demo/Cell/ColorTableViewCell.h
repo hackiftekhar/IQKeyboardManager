@@ -22,13 +22,12 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "ColorPickerTextField.h"
 
 @interface ColorTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *labelTitle;
 @property (strong, nonatomic) IBOutlet UILabel *labelSubtitle;
 
-@property (strong, nonatomic) IBOutlet ColorPickerTextField *colorPickerTextField;
+@property (strong, nonatomic) IBOutlet UIView *selectedColorView;
 
 @end

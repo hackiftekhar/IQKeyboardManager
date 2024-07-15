@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yh7-P7-TKe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yh7-P7-TKe">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4864" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -182,19 +182,19 @@
                                 <rect key="frame" x="0.0" y="170" width="375" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nwM-SI-X1M" id="Yht-CB-6e6">
-                                    <rect key="frame" x="0.0" y="0.0" width="348.66666666666669" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="344.66666666666669" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9V-pi-3Zf">
-                                            <rect key="frame" x="10" y="10" width="333.66666666666669" height="31"/>
+                                            <rect key="frame" x="10" y="10" width="329.66666666666669" height="31"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" text="Keyboard Distance From TextField" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="eij-19-1a2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="333.66666666666669" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="329.66666666666669" height="19"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set keyboard distance from textField" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-3C-V4P">
-                                                    <rect key="frame" x="0.0" y="19" width="333.66666666666669" height="12"/>
+                                                    <rect key="frame" x="0.0" y="19" width="329.66666666666669" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
@@ -246,20 +246,25 @@
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WkJ-BV-oNN" customClass="ColorPickerTextField">
-                                                    <rect key="frame" x="150.66666666666663" y="0.0" width="209.33333333333337" height="31"/>
-                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOj-zA-Grx">
+                                                    <rect key="frame" x="310" y="0.66666666666666607" width="30" height="30"/>
+                                                    <color key="backgroundColor" name="TouchBarBezel"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="282-Ih-YYR"/>
+                                                        <constraint firstAttribute="height" constant="30" id="hvL-dC-oSC"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="WkJ-BV-oNN" secondAttribute="bottom" id="VTL-Ya-4Zs"/>
+                                                <constraint firstItem="rOj-zA-Grx" firstAttribute="centerY" secondItem="u9c-8r-xQt" secondAttribute="centerY" id="Qlt-IZ-WF8"/>
+                                                <constraint firstAttribute="trailing" secondItem="rOj-zA-Grx" secondAttribute="trailing" constant="20" symbolic="YES" id="VzG-iW-e9G"/>
                                                 <constraint firstAttribute="bottom" secondItem="kpy-XG-RQx" secondAttribute="bottom" id="ZzF-Xv-Nf0"/>
-                                                <constraint firstItem="WkJ-BV-oNN" firstAttribute="top" secondItem="u9c-8r-xQt" secondAttribute="top" id="b72-Ii-h3e"/>
                                                 <constraint firstItem="kpy-XG-RQx" firstAttribute="top" secondItem="gbI-Y1-o9F" secondAttribute="bottom" id="dWR-bs-2UW"/>
-                                                <constraint firstItem="WkJ-BV-oNN" firstAttribute="leading" secondItem="kpy-XG-RQx" secondAttribute="trailing" constant="5" id="h7m-lw-ZOA"/>
-                                                <constraint firstAttribute="trailing" secondItem="WkJ-BV-oNN" secondAttribute="trailing" id="jVS-XN-Pam"/>
                                                 <constraint firstItem="gbI-Y1-o9F" firstAttribute="leading" secondItem="u9c-8r-xQt" secondAttribute="leading" id="rLO-2P-BZI"/>
                                                 <constraint firstItem="kpy-XG-RQx" firstAttribute="leading" secondItem="u9c-8r-xQt" secondAttribute="leading" id="wNZ-gy-hwk"/>
                                                 <constraint firstItem="gbI-Y1-o9F" firstAttribute="top" secondItem="u9c-8r-xQt" secondAttribute="top" id="yOK-s8-m5o"/>
@@ -275,9 +280,9 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <outlet property="colorPickerTextField" destination="WkJ-BV-oNN" id="LKG-gy-k9B"/>
                                     <outlet property="labelSubtitle" destination="kpy-XG-RQx" id="foP-Ib-gA2"/>
                                     <outlet property="labelTitle" destination="gbI-Y1-o9F" id="xX0-Ux-beI"/>
+                                    <outlet property="selectedColorView" destination="rOj-zA-Grx" id="cn9-EN-iqd"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldTableViewCell" rowHeight="86" id="b2w-cq-Hy9" customClass="TextFieldTableViewCell" customModule="DemoSwift">
@@ -430,11 +435,11 @@
                                 <rect key="frame" x="0.0" y="38" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8mo-kC-Wyf" id="NOG-NC-g47">
-                                    <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toolbar Manage Behaviour" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPm-jy-a7o">
-                                            <rect key="frame" x="10" y="16" width="320" height="18"/>
+                                            <rect key="frame" x="10" y="16" width="316" height="18"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -467,6 +472,9 @@
         <image name="IQButtonBarArrowDown" width="21" height="12"/>
         <namedColor name="757677">
             <color red="0.45882352941176469" green="0.46274509803921571" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TouchBarBezel">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

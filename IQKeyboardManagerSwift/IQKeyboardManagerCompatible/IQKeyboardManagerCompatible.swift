@@ -42,6 +42,7 @@ public protocol IQKeyboardManagerCompatible {
     associatedtype Base
 
     /// Instance IQKeyboardManager extension point.
+    @MainActor
     var iq: IQKeyboardManagerWrapper<Base> { get set }
 }
 
@@ -50,6 +51,7 @@ public protocol IQKeyboardManagerCompatible {
 public extension IQKeyboardManagerCompatible {
 
     /// Instance IQKeyboardManager extension point.
+    @MainActor
     var iq: IQKeyboardManagerWrapper<Self> {
         get { IQKeyboardManagerWrapper(self) }
         set {}

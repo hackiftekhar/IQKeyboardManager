@@ -53,15 +53,21 @@ class WebViewController: BaseViewController {
 
 extension WebViewController: WKUIDelegate, WKNavigationDelegate {
 
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        activity.startAnimating()
+    nonisolated func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        DispatchQueue.main.async {
+            self.activity.startAnimating()
+        }
     }
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        activity.stopAnimating()
+    nonisolated func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        DispatchQueue.main.async {
+            self.activity.stopAnimating()
+        }
     }
 
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        activity.stopAnimating()
+    nonisolated func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        DispatchQueue.main.async {
+            self.activity.stopAnimating()
+        }
     }
 }

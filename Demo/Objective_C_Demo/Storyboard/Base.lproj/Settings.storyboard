@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yh7-P7-TKe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yh7-P7-TKe">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,7 +16,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="300" height="488"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sJ5-JV-N2N">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="300" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -165,20 +166,20 @@
                                 <rect key="frame" x="0.0" y="187.5" width="300" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nwM-SI-X1M" id="Yht-CB-6e6">
-                                    <rect key="frame" x="0.0" y="0.0" width="273" height="63"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="273.5" height="63"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9V-pi-3Zf">
-                                            <rect key="frame" x="10" y="10" width="258" height="43"/>
+                                            <rect key="frame" x="10" y="10" width="258.5" height="43"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" text="Toolbar Manage behaviour" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="eij-19-1a2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="258" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="258.5" height="19"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AutoToolbar previous/next button managing behaviour" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-3C-V4P">
-                                                    <rect key="frame" x="0.0" y="19" width="258" height="24"/>
+                                                    <rect key="frame" x="0.0" y="19" width="258.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -220,7 +221,7 @@
                                             <rect key="frame" x="10" y="10" width="285" height="31"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" text="Toolbar Tint Color" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="gbI-Y1-o9F">
-                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="130.5" height="19"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -231,19 +232,25 @@
                                                     <color key="textColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WkJ-BV-oNN" customClass="ColorPickerTextField">
-                                                    <rect key="frame" x="151" y="0.0" width="134" height="31"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnb-SJ-Us2">
+                                                    <rect key="frame" x="235" y="0.5" width="30" height="30"/>
+                                                    <color key="backgroundColor" name="TouchBarBezel"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="1V6-gi-RKo"/>
+                                                        <constraint firstAttribute="width" constant="30" id="64a-hY-3Mg"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="WkJ-BV-oNN" secondAttribute="bottom" id="VTL-Ya-4Zs"/>
+                                                <constraint firstItem="vnb-SJ-Us2" firstAttribute="centerY" secondItem="u9c-8r-xQt" secondAttribute="centerY" id="9kf-y5-ROS"/>
                                                 <constraint firstAttribute="bottom" secondItem="kpy-XG-RQx" secondAttribute="bottom" id="ZzF-Xv-Nf0"/>
-                                                <constraint firstItem="WkJ-BV-oNN" firstAttribute="top" secondItem="u9c-8r-xQt" secondAttribute="top" id="b72-Ii-h3e"/>
                                                 <constraint firstItem="kpy-XG-RQx" firstAttribute="top" secondItem="gbI-Y1-o9F" secondAttribute="bottom" id="dWR-bs-2UW"/>
-                                                <constraint firstItem="WkJ-BV-oNN" firstAttribute="leading" secondItem="kpy-XG-RQx" secondAttribute="trailing" constant="5" id="h7m-lw-ZOA"/>
-                                                <constraint firstAttribute="trailing" secondItem="WkJ-BV-oNN" secondAttribute="trailing" id="jVS-XN-Pam"/>
+                                                <constraint firstAttribute="trailing" secondItem="vnb-SJ-Us2" secondAttribute="trailing" constant="20" symbolic="YES" id="lIF-Hk-aRi"/>
                                                 <constraint firstItem="gbI-Y1-o9F" firstAttribute="leading" secondItem="u9c-8r-xQt" secondAttribute="leading" id="rLO-2P-BZI"/>
                                                 <constraint firstItem="kpy-XG-RQx" firstAttribute="leading" secondItem="u9c-8r-xQt" secondAttribute="leading" id="wNZ-gy-hwk"/>
                                                 <constraint firstItem="gbI-Y1-o9F" firstAttribute="top" secondItem="u9c-8r-xQt" secondAttribute="top" id="yOK-s8-m5o"/>
@@ -259,9 +266,9 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="colorPickerTextField" destination="WkJ-BV-oNN" id="LKG-gy-k9B"/>
                                     <outlet property="labelSubtitle" destination="kpy-XG-RQx" id="foP-Ib-gA2"/>
                                     <outlet property="labelTitle" destination="gbI-Y1-o9F" id="xX0-Ux-beI"/>
+                                    <outlet property="selectedColorView" destination="vnb-SJ-Us2" id="y6g-jd-Qpn"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldTableViewCell" rowHeight="86" id="b2w-cq-Hy9" customClass="TextFieldTableViewCell">
@@ -450,5 +457,8 @@
     </scenes>
     <resources>
         <image name="IQButtonBarArrowDown" width="21" height="12"/>
+        <namedColor name="TouchBarBezel">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -211,19 +211,33 @@ class SettingsViewController: UITableViewController {
     }
 }
 
-extension SettingsViewController: ColorPickerTextFieldDelegate {
-    func colorPickerTextField(_ textField: ColorPickerTextField,
-                              selectedColorAttributes colorAttributes: [String: Any] = [:]) {
+@available(iOS 14.0, *)
+extension SettingsViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        viewController.dismiss(animated: true)
+    }
 
-        if textField.tag == 15, let color = colorAttributes["color"] as? UIColor {
-
-            if color.isEqual(UIColor.clear) {
-                IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil
-            } else {
-                IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
-            }
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        viewController.dismiss(animated: true)
+        let color = viewController.selectedColor
+        if color.isEqual(UIColor.clear) {
+            IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil
+        } else {
+            IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
         }
     }
+
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        viewController.dismiss(animated: true)
+        if color.isEqual(UIColor.clear) {
+            IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil
+        } else {
+            IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
+        }
+    }
+}
+
+extension SettingsViewController: UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -243,24 +257,27 @@ extension SettingsViewController: ColorPickerTextFieldDelegate {
 }
 
 extension SettingsViewController: OptionsViewControllerDelegate {
-    func optionsViewController(_ controller: OptionsViewController, index: NSInteger) {
+    nonisolated func optionsViewController(_ controller: OptionsViewController, index: NSInteger) {
 
-        guard let selectedIndexPath = selectedIndexPathForOptions else {
-            return
-        }
+        DispatchQueue.main.async {
 
-        if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
-            let value = IQAutoToolbarManageBehavior(rawValue: index)!
-            IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = value
-        } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
+            guard let selectedIndexPath = self.selectedIndexPathForOptions else {
+                return
+            }
 
-            let fonts = [UIFont.boldSystemFont(ofSize: 12),
-                         UIFont.italicSystemFont(ofSize: 12),
-                         UIFont.systemFont(ofSize: 12)]
-            IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font = fonts[index]
-        } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
+            if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
+                let value = IQAutoToolbarManageBehavior(rawValue: index)!
+                IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = value
+            } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
-            IQKeyboardManager.shared.keyboardConfiguration.appearance = UIKeyboardAppearance(rawValue: index)!
+                let fonts = [UIFont.boldSystemFont(ofSize: 12),
+                             UIFont.italicSystemFont(ofSize: 12),
+                             UIFont.systemFont(ofSize: 12)]
+                IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font = fonts[index]
+            } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
+
+                IQKeyboardManager.shared.keyboardConfiguration.appearance = UIKeyboardAppearance(rawValue: index)!
+            }
         }
     }
 }

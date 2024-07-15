@@ -33,14 +33,6 @@
 		4CE611A01B98B7250020591A /* DemoObjCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE6119F1B98B7250020591A /* DemoObjCUITests.m */; };
 		4CE74F441CF047610093AC0C /* RefreshLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F431CF047610093AC0C /* RefreshLayoutViewController.m */; };
 		4CE74F4D1CF080C10093AC0C /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F4C1CF080C10093AC0C /* TextViewController.m */; };
-		4CE74F581CF185F70093AC0C /* ColorPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */; };
-		4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */; };
-		4CE74F5A1CF185F70093AC0C /* HFColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F531CF185F70093AC0C /* HFColorButton.m */; };
-		4CE74F5B1CF185F70093AC0C /* HFColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F531CF185F70093AC0C /* HFColorButton.m */; };
-		4CE74F5C1CF185F70093AC0C /* HFColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F551CF185F70093AC0C /* HFColorPickerView.m */; };
-		4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F551CF185F70093AC0C /* HFColorPickerView.m */; };
-		4CE74F5E1CF185F70093AC0C /* UIColor+HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F571CF185F70093AC0C /* UIColor+HexColors.m */; };
-		4CE74F5F1CF185F70093AC0C /* UIColor+HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F571CF185F70093AC0C /* UIColor+HexColors.m */; };
 		4CE74F621CF1864E0093AC0C /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F611CF1864E0093AC0C /* ColorTableViewCell.m */; };
 		4CE74F651CF186720093AC0C /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F641CF186720093AC0C /* TextFieldTableViewCell.m */; };
 		4CE74F681CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE74F671CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m */; };
@@ -201,14 +193,6 @@
 		4CE74F431CF047610093AC0C /* RefreshLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshLayoutViewController.m; sourceTree = "<group>"; };
 		4CE74F4B1CF080C10093AC0C /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4CE74F4C1CF080C10093AC0C /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
-		4CE74F4F1CF185F70093AC0C /* ColorPickerTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerTextField.h; sourceTree = "<group>"; };
-		4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerTextField.m; sourceTree = "<group>"; };
-		4CE74F521CF185F70093AC0C /* HFColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFColorButton.h; sourceTree = "<group>"; };
-		4CE74F531CF185F70093AC0C /* HFColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFColorButton.m; sourceTree = "<group>"; };
-		4CE74F541CF185F70093AC0C /* HFColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFColorPickerView.h; sourceTree = "<group>"; };
-		4CE74F551CF185F70093AC0C /* HFColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFColorPickerView.m; sourceTree = "<group>"; };
-		4CE74F561CF185F70093AC0C /* UIColor+HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColors.h"; sourceTree = "<group>"; };
-		4CE74F571CF185F70093AC0C /* UIColor+HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColors.m"; sourceTree = "<group>"; };
 		4CE74F601CF1864E0093AC0C /* ColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		4CE74F611CF1864E0093AC0C /* ColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		4CE74F631CF186720093AC0C /* TextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -382,29 +366,6 @@
 			path = ../../DemoObjCUITests;
 			sourceTree = "<group>";
 		};
-		4CE74F4E1CF185F70093AC0C /* Color Picker TextField */ = {
-			isa = PBXGroup;
-			children = (
-				4CE74F4F1CF185F70093AC0C /* ColorPickerTextField.h */,
-				4CE74F501CF185F70093AC0C /* ColorPickerTextField.m */,
-				4CE74F511CF185F70093AC0C /* HFColorPicker */,
-				4CE74F561CF185F70093AC0C /* UIColor+HexColors.h */,
-				4CE74F571CF185F70093AC0C /* UIColor+HexColors.m */,
-			);
-			path = "Color Picker TextField";
-			sourceTree = "<group>";
-		};
-		4CE74F511CF185F70093AC0C /* HFColorPicker */ = {
-			isa = PBXGroup;
-			children = (
-				4CE74F521CF185F70093AC0C /* HFColorButton.h */,
-				4CE74F531CF185F70093AC0C /* HFColorButton.m */,
-				4CE74F541CF185F70093AC0C /* HFColorPickerView.h */,
-				4CE74F551CF185F70093AC0C /* HFColorPickerView.m */,
-			);
-			path = HFColorPicker;
-			sourceTree = "<group>";
-		};
 		9D0BB82E18BB1AE100667349 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,7 +456,6 @@
 				C0CB61921B884D4100C33368 /* Cell */,
 				C0CB619B1B884D4100C33368 /* Resources */,
 				C0CB61A11B884D4100C33368 /* Storyboard */,
-				C0CB61A31B884D4100C33368 /* Third Party */,
 				C0CB61A71B884D4100C33368 /* ViewController */,
 			);
 			name = Objective_C_Demo;
@@ -544,14 +504,6 @@
 				4C794D1F20D59C0500502C9B /* Launch.storyboard */,
 			);
 			path = Storyboard;
-			sourceTree = "<group>";
-		};
-		C0CB61A31B884D4100C33368 /* Third Party */ = {
-			isa = PBXGroup;
-			children = (
-				4CE74F4E1CF185F70093AC0C /* Color Picker TextField */,
-			);
-			path = "Third Party";
 			sourceTree = "<group>";
 		};
 		C0CB61A71B884D4100C33368 /* ViewController */ = {
@@ -870,7 +822,7 @@
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = Iftekhar;
 				TargetAttributes = {
 					4CE6119C1B98B7250020591A = {
@@ -1122,13 +1074,11 @@
 				C06E24F22ACB3C15002ECBE4 /* BaseTableViewController.swift in Sources */,
 				4C0EFE2F1CF332DD00C908D3 /* TextViewController.swift in Sources */,
 				C08372572ACAFE6500416081 /* ReloadLayout1892ViewController.swift in Sources */,
-				4CE74F5D1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FC1B884F7900C33368 /* AppDelegate.swift in Sources */,
 				C07DF1302AE17BB600698057 /* UITableView+Extension.swift in Sources */,
 				C06E24FA2ACB4015002ECBE4 /* PageViewController.swift in Sources */,
 				C0CB61EE1B884F2700C33368 /* CollectionViewDemoController.swift in Sources */,
 				C0CB61F81B884F2700C33368 /* ViewController.swift in Sources */,
-				4CE74F591CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
 				C0D070F32AF8C43200963B19 /* TextFieldView.swift in Sources */,
 				C016B6D82B4D990A0005CB07 /* EnableMode2000ViewController.swift in Sources */,
 				4C0EFE1F1CF2F9F500C908D3 /* ColorTableViewCell.swift in Sources */,
@@ -1136,12 +1086,10 @@
 				4C0EFE291CF332BF00C908D3 /* RefreshLayoutViewController.swift in Sources */,
 				4C34D9EF1D1319A60013E61D /* SearchViewController.swift in Sources */,
 				C08372592ACB046900416081 /* SafeAreaViewController.swift in Sources */,
-				4CE74F5F1CF185F70093AC0C /* UIColor+HexColors.m in Sources */,
 				C0C8A0102A5C9D0B0015C4EE /* TestViewController.swift in Sources */,
 				C083725F2ACB1D3700416081 /* BaseViewController.swift in Sources */,
 				C03C87F51B8DCBF100295DFA /* SettingsViewController.swift in Sources */,
 				4C0EFE231CF2FA1200C908D3 /* ImageSwitchTableViewCell.swift in Sources */,
-				4CE74F5B1CF185F70093AC0C /* HFColorButton.m in Sources */,
 				C0CB61F71B884F2700C33368 /* TextViewSpecialCaseViewController.swift in Sources */,
 				4C0EFE211CF2FA0600C908D3 /* TextFieldTableViewCell.swift in Sources */,
 				C06E24F82ACB3FD8002ECBE4 /* StackViewController.swift in Sources */,
@@ -1170,7 +1118,6 @@
 				C0CB620F1B884FA100C33368 /* TableViewInContainerViewController.m in Sources */,
 				4CE74F4D1CF080C10093AC0C /* TextViewController.m in Sources */,
 				C0CB620E1B884FA100C33368 /* SpecialCaseViewController.m in Sources */,
-				4CE74F581CF185F70093AC0C /* ColorPickerTextField.m in Sources */,
 				4CE74F681CF1BBCC0093AC0C /* ImageSwitchTableViewCell.m in Sources */,
 				C0CB62091B884FA100C33368 /* ManualToolbarViewController.m in Sources */,
 				C0CB62071B884FA100C33368 /* CustomViewController.m in Sources */,
@@ -1178,11 +1125,9 @@
 				C0CB62051B884FA100C33368 /* CollectionViewDemoController.m in Sources */,
 				C0CB61FF1B884FA100C33368 /* OptionTableViewCell.m in Sources */,
 				C0CB620D1B884FA100C33368 /* SettingsViewController.m in Sources */,
-				4CE74F5A1CF185F70093AC0C /* HFColorButton.m in Sources */,
 				4C134C811D10758F00C016CA /* SearchViewController.m in Sources */,
 				C0CB62081B884FA100C33368 /* ExampleTableViewController.m in Sources */,
 				C0CB61FD1B884FA100C33368 /* AppDelegate.m in Sources */,
-				4CE74F5C1CF185F70093AC0C /* HFColorPickerView.m in Sources */,
 				C0CB61FE1B884FA100C33368 /* NavigationTableViewCell.m in Sources */,
 				C0CB62021B884FA100C33368 /* main.m in Sources */,
 				C0CB620C1B884FA100C33368 /* OptionsViewController.m in Sources */,
@@ -1192,7 +1137,6 @@
 				C0CB62121B884FA100C33368 /* TextViewSpecialCaseViewController.m in Sources */,
 				4CE74F621CF1864E0093AC0C /* ColorTableViewCell.m in Sources */,
 				C0CB62111B884FA100C33368 /* TextSelectionViewController.m in Sources */,
-				4CE74F5E1CF185F70093AC0C /* UIColor+HexColors.m in Sources */,
 				4CE74F651CF186720093AC0C /* TextFieldTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1549,6 +1493,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Swift_Demo/Resources/IQKeyboardManger-Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
@@ -1597,6 +1542,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Swift_Demo/Resources/IQKeyboardManger-Swift-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
@@ -1607,6 +1553,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
@@ -1672,6 +1619,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1680,6 +1628,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
@@ -1740,6 +1689,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1770,7 +1720,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1816,7 +1766,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = Demo/Objective_C_Demo/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

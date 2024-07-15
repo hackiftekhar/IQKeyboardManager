@@ -1,19 +1,19 @@
-project 'Demo.xcodeproj'
+project "Demo.xcodeproj"
 
 use_frameworks!
 
-target 'DemoObjC' do
-  platform :ios, '11.0'
+target "DemoObjC" do
+  platform :ios, "13.0"
 
   pod "IQDropDownTextField"
   pod "IQKeyboardManager", :path => "."
 
 end
 
-target 'DemoSwift' do
-  platform :ios, '13.0'
+target "DemoSwift" do
+  platform :ios, "13.0"
 
-  pod 'SwiftLint'
+  pod "SwiftLint"
   pod "IQDropDownTextFieldSwift"
   pod "IQKeyboardManagerSwift", :path => "."
 
@@ -21,10 +21,10 @@ target 'DemoSwift' do
 end
 
 
-target 'DemoExtension' do
-  platform :ios, '13.0'
+target "DemoExtension" do
+  platform :ios, "13.0"
 
-  pod 'SwiftLint'
+  pod "SwiftLint"
   pod "IQKeyboardManagerSwift", :path => "."
 
 end

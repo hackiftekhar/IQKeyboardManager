@@ -33,7 +33,7 @@
 #import "TextFieldTableViewCell.h"
 #import "ImageSwitchTableViewCell.h"
 
-@interface SettingsViewController ()<OptionsViewControllerDelegate,ColorPickerTextFieldDelegate>
+@interface SettingsViewController ()<OptionsViewControllerDelegate, UITextFieldDelegate, UIColorPickerViewControllerDelegate>
 
 @end
 
@@ -323,9 +323,9 @@
                     ColorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ColorTableViewCell class])];
                     cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row];
                     cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row];
-                    cell.colorPickerTextField.selectedColor = [[IQKeyboardManager sharedManager] toolbarTintColor];
-                    cell.colorPickerTextField.tag = 15;
-                    cell.colorPickerTextField.delegate = self;
+                    cell.selectedColorView.backgroundColor = [[IQKeyboardManager sharedManager] toolbarTintColor];
+                    cell.selectedColorView.layer.borderColor = UIColor.lightGrayColor.CGColor;
+                    cell.selectedColorView.layer.borderWidth = 1.0;
                     return cell;
                 }
                     break;
@@ -450,23 +450,69 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    switch (indexPath.section)
+    {
+        case 1:
+        {
+            switch (indexPath.row)
+            {
+                case 5:
+                {
+                    if (@available(iOS 14.0, *)) {
+                        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                        UIColorPickerViewController *colorPicker = [[UIColorPickerViewController alloc] init];
+                        
+                        colorPicker.title = @"Background Color";
+                        colorPicker.supportsAlpha = NO;
+                        colorPicker.delegate = self;
+                        colorPicker.modalPresentationStyle = UIModalPresentationPopover;
+                        colorPicker.popoverPresentationController.sourceView = cell;
+                        [self presentViewController:colorPicker animated:YES completion:nil];
+                    }
+                }
+                    break;
+            }
+        }
+            break;
+    }
 }
 
--(void)colorPickerTextField:(ColorPickerTextField*)textField selectedColorAttributes:(NSDictionary*)colorAttributes
-{
-    if (textField.tag == 15)
+-(void)colorPickerViewControllerDidFinish:(UIColorPickerViewController *)viewController
+API_AVAILABLE(ios(14.0)){
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)colorPickerViewController:(UIColorPickerViewController *)viewController didSelectColor:(UIColor *)color continuously:(BOOL)continuously
+API_AVAILABLE(ios(14.0)){
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+
+    if ([color isEqual:[UIColor clearColor]])
     {
-        UIColor *color = colorAttributes[@"color"];
-        
-        if ([color isEqual:[UIColor clearColor]])
-        {
-            [[IQKeyboardManager sharedManager] setToolbarTintColor:nil];
-        }
-        else
-        {
-            [[IQKeyboardManager sharedManager] setToolbarTintColor:colorAttributes[@"color"]];
-        }
+        [[IQKeyboardManager sharedManager] setToolbarTintColor:nil];
     }
+    else
+    {
+        [[IQKeyboardManager sharedManager] setToolbarTintColor: color];
+    }
+    [self.tableView reloadData];
+}
+
+-(void)colorPickerViewControllerDidSelectColor:(UIColorPickerViewController *)viewController
+API_AVAILABLE(ios(14.0)){
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+
+    UIColor *color = viewController.selectedColor;
+
+    if ([color isEqual:[UIColor clearColor]])
+    {
+        [[IQKeyboardManager sharedManager] setToolbarTintColor:nil];
+    }
+    else
+    {
+        [[IQKeyboardManager sharedManager] setToolbarTintColor: color];
+    }
+    [self.tableView reloadData];
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
