@@ -1108,8 +1108,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                         if ([superScrollView isKindOfClass:[UITableView class]] || [superScrollView isKindOfClass:[UICollectionView class]])
                         {
-                            //This will update the next/previous states
-                            [strongSelf addToolbarIfRequired];
+                            if ([strongSelf privateIsEnableAutoToolbar] == YES)
+                            {
+                                //This will update the next/previous states
+                                [strongSelf addToolbarIfRequired];
+                            }
                         }
                     }];
                 }
