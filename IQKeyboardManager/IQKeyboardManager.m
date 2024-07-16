@@ -175,20 +175,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 #pragma mark - Initializing functions
 
-/**
- Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code)
- 
- @Note: If you want to disable `+ (void)load` method, you can add build setting in configurations. Like that:
-       `{ 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) IQ_KEYBOARD_MANAGER_LOAD_METHOD_DISABLE=1' }`
- */
-#if !IQ_KEYBOARD_MANAGER_LOAD_METHOD_DISABLE
-+(void)load
-{
-    //Enabling IQKeyboardManager. Loading asynchronous on main thread
-    [self performSelectorOnMainThread:@selector(sharedManager) withObject:nil waitUntilDone:NO];
-}
-#endif
-
 /*  Singleton Object Initialization. */
 -(instancetype)init
 {

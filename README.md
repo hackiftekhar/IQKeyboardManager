@@ -15,7 +15,7 @@ While developing iOS apps, we often run into issues where the iPhone keyboard sl
 
 #### Key Features
 
-1) `**CODELESS**, Zero Lines of Code`
+1) `One Lines of Code`
 
 2) `Works Automatically`
 
