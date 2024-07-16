@@ -59,7 +59,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
         var controllersHierarchy: [UIViewController] = []
 
-        if var topController: UIViewController = base.window?.rootViewController {
+        if var topController: UIViewController = base?.window?.rootViewController {
             controllersHierarchy.append(topController)
 
             while let presented: UIViewController = topController.presentedViewController {
@@ -156,7 +156,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 */
     func superviewOf<T: UIView>(type classType: T.Type, belowView: UIView? = nil) -> T? {
 
-        var superView: UIView? = base.superview
+        var superView: UIView? = base?.superview
 
         while let unwrappedSuperView: UIView = superView {
 
@@ -207,7 +207,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
         var tempTextFields: [UIView] = []
 
         //    Getting all siblings
-        if let siblings: [UIView] = base.superview?.subviews {
+        if let siblings: [UIView] = base?.superview?.subviews {
             for textField in siblings {
                 if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
                     textField.iq.canBecomeFirstResponder() {
@@ -227,7 +227,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
         // Array of (UITextField/UITextView's).
         var textfields: [UIView] = []
 
-        for textField in base.subviews {
+        for textField in base?.subviews ?? [] {
 
             if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
                textField.iq.canBecomeFirstResponder() {
@@ -236,7 +236,9 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
             // Sometimes there are hidden or disabled views and textField inside them still recorded,
             // so we added some more validations here (Bug ID: #458)
             // Uncommented else (Bug ID: #625)
-            else if textField.subviews.count != 0, base.isUserInteractionEnabled, !base.isHidden, base.alpha != 0.0 {
+            else if textField.subviews.count != 0,
+                    base?.isUserInteractionEnabled == true,
+                    base?.isHidden == false, base?.alpha != 0.0 {
                 for deepView in textField.iq.deepResponderViews() {
                     textfields.append(deepView)
                 }
@@ -261,7 +263,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
 
         var canBecomeFirstResponder: Bool = false
 
-        if base.conforms(to: UITextInput.self) {
+        if base?.conforms(to: UITextInput.self) == true {
             //  Setting toolbar to keyboard.
             if let textView: UITextView = base as? UITextView {
                 canBecomeFirstResponder = textView.isEditable
@@ -271,9 +273,9 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
         }
 
         if canBecomeFirstResponder {
-            canBecomeFirstResponder = base.isUserInteractionEnabled &&
-            !base.isHidden &&
-            base.alpha != 0.0 &&
+            canBecomeFirstResponder = base?.isUserInteractionEnabled == true &&
+            base?.isHidden == false &&
+            base?.alpha != 0.0 &&
             !isAlertViewTextField() &&
             textFieldSearchBar() == nil
         }
@@ -288,7 +290,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
     */
     func textFieldSearchBar() -> UISearchBar? {
 
-        var responder: UIResponder? = base.next
+        var responder: UIResponder? = base?.next
 
         while let bar: UIResponder = responder {
 
@@ -329,7 +331,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
     func depth() -> Int {
         var depth: Int = 0
 
-        if let superView: UIView = base.superview {
+        if let superView: UIView = base?.superview {
             depth = superView.iq.depth()+1
         }
 

@@ -129,7 +129,7 @@ internal extension IQKeyboardManager {
 
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
-
+        removeToolbarIfRequired()
         do {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {

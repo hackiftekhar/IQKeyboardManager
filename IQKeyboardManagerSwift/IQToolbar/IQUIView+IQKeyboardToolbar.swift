@@ -41,9 +41,9 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      IQToolbar references for better customization control.
      */
     var toolbar: IQToolbar {
-        var toolbar: IQToolbar? = base.inputAccessoryView as? IQToolbar
+        var toolbar: IQToolbar? = base?.inputAccessoryView as? IQToolbar
 
-        if toolbar == nil {
+        if toolbar == nil, let base = base {
             toolbar = objc_getAssociatedObject(base, &AssociatedKeys.toolbar) as? IQToolbar
         }
 
@@ -51,12 +51,14 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return unwrappedToolbar
         } else {
 
-            let width: CGFloat = base.window?.windowScene?.screen.bounds.width ?? 0
+            let width: CGFloat = base?.window?.windowScene?.screen.bounds.width ?? 0
 
             let frame = CGRect(origin: .zero, size: .init(width: width, height: 44))
             let newToolbar = IQToolbar(frame: frame)
 
-            objc_setAssociatedObject(base, &AssociatedKeys.toolbar, newToolbar, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            if let base = base {
+                objc_setAssociatedObject(base, &AssociatedKeys.toolbar, newToolbar, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
 
             return newToolbar
         }
@@ -69,12 +71,17 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      */
     var hidePlaceholder: Bool {
         get {
-            return objc_getAssociatedObject(base, &AssociatedKeys.hidePlaceholder) as? Bool ?? false
+            if let base = base {
+                return objc_getAssociatedObject(base, &AssociatedKeys.hidePlaceholder) as? Bool ?? false
+            }
+            return false
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.hidePlaceholder,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            toolbar.titleBarButton.title = drawingPlaceholder
+            if let base = base {
+                objc_setAssociatedObject(base, &AssociatedKeys.hidePlaceholder,
+                                         newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                toolbar.titleBarButton.title = drawingPlaceholder
+            }
         }
     }
 
@@ -83,11 +90,16 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      */
     var placeholder: String? {
         get {
-            return objc_getAssociatedObject(base, &AssociatedKeys.placeholder) as? String
+            if let base = base {
+                return objc_getAssociatedObject(base, &AssociatedKeys.placeholder) as? String
+            }
+            return nil
         }
         set(newValue) {
-            objc_setAssociatedObject(base, &AssociatedKeys.placeholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            toolbar.titleBarButton.title = drawingPlaceholder
+            if let base = base {
+                objc_setAssociatedObject(base, &AssociatedKeys.placeholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                toolbar.titleBarButton.title = drawingPlaceholder
+            }
         }
     }
 
@@ -128,7 +140,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                     titleAccessibilityLabel: String? = nil) {
 
         // If can't set InputAccessoryView. Then return
-        if base.responds(to: #selector(setter: UITextField.inputAccessoryView)) {
+        if base?.responds(to: #selector(setter: UITextField.inputAccessoryView)) == true {
 
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar: IQToolbar = toolbar
@@ -200,14 +212,14 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             }
 
             //  Setting toolbar to keyboard.
-            let reloadInputViews: Bool = base.inputAccessoryView != toolbar
+            let reloadInputViews: Bool = base?.inputAccessoryView != toolbar
             if reloadInputViews {
                 if let textField: UITextField = base as? UITextField {
                     textField.inputAccessoryView = toolbar
                 } else if let textView: UITextView = base as? UITextView {
                     textView.inputAccessoryView = toolbar
                 }
-                base.reloadInputViews()
+                base?.reloadInputViews()
             }
         }
     }

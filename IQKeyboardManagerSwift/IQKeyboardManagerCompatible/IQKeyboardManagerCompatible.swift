@@ -26,8 +26,8 @@ import Foundation
 /// Wrapper for IQKeyboardManager compatible types. This type provides an extension point for
 /// convenience methods in IQKeyboardManager.
 @available(iOSApplicationExtension, unavailable)
-public struct IQKeyboardManagerWrapper<Base> {
-    public let base: Base
+public struct IQKeyboardManagerWrapper<Base: AnyObject> {
+    public private(set) weak var base: Base?
     public init(_ base: Base) {
         self.base = base
     }
@@ -39,7 +39,7 @@ public struct IQKeyboardManagerWrapper<Base> {
 @available(iOSApplicationExtension, unavailable)
 public protocol IQKeyboardManagerCompatible {
     /// Type being extended.
-    associatedtype Base
+    associatedtype Base: AnyObject
 
     /// Instance IQKeyboardManager extension point.
     @MainActor
@@ -48,7 +48,7 @@ public protocol IQKeyboardManagerCompatible {
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManagerCompatible {
+public extension IQKeyboardManagerCompatible where Self: AnyObject {
 
     /// Instance IQKeyboardManager extension point.
     @MainActor

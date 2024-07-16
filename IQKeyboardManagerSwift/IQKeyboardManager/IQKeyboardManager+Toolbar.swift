@@ -230,12 +230,7 @@ public extension IQKeyboardManager {
     /** Remove any toolbar if it is IQToolbar. */
     internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
 
-        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-                textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              textField.inputAccessoryView == nil ||
-               textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-               textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
+        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty else {
             return
         }
 
@@ -245,26 +240,29 @@ public extension IQKeyboardManager {
         showLog("Found \(siblings.count) responder sibling(s)")
 
         for view in siblings {
-            if let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar {
-
-                // setInputAccessoryView: check   (Bug ID: #307)
-                if view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-                    toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag ||
-                    toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag {
-
-                    if let textField: UITextField = view as? UITextField {
-                        textField.inputAccessoryView = nil
-                    } else if let textView: UITextView = view as? UITextView {
-                        textView.inputAccessoryView = nil
-                    }
-
-                    view.reloadInputViews()
-                }
-            }
+            removeToolbarIfRequired(of: view)
         }
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
         showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+    }
+
+    /** Remove any toolbar if it is IQToolbar. */
+    internal func removeToolbarIfRequired(of view: UIView) {    //  (Bug ID: #18)
+
+        guard view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
+              let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar,
+              toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
+                toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
+            return
+        }
+
+        // setInputAccessoryView: check   (Bug ID: #307)
+        if let textField: UITextField = view as? UITextField {
+            textField.inputAccessoryView = nil
+        } else if let textView: UITextView = view as? UITextView {
+            textView.inputAccessoryView = nil
+        }
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */

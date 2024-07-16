@@ -87,6 +87,13 @@ internal final class IQActiveConfiguration {
                     }, completion: nil)
                 }
             }
+        } else if textFieldViewInfo == nil, let rootControllerConfiguration = rootControllerConfiguration {
+            if rootControllerConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootControllerConfiguration.restore()
+                }, completion: nil)
+            }
+            self.rootControllerConfiguration = nil
         }
     }
 
