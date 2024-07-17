@@ -1,16 +1,33 @@
 PODS:
   - IQDropDownTextField (4.0.1)
   - IQDropDownTextFieldSwift (4.0.1)
+  - IQKeyboardListener (1.0.0)
   - IQKeyboardManager (6.5.19)
-  - IQKeyboardManagerSwift (7.1.0)
+  - IQKeyboardManagerBaseWrapper (1.0.0)
+  - IQKeyboardManagerSwift (7.1.0):
+    - IQKeyboardListener
+    - IQKeyboardToolbarManager
+    - IQTextFieldViewListener
+  - IQKeyboardReturnKeyHandler (1.0.0)
+  - IQKeyboardToolbarManager (1.0.0):
+    - IQKeyboardManagerBaseWrapper
+    - IQTextFieldViewListener
+  - IQTextFieldViewListener (1.0.0)
+  - IQTextView (1.0.0)
   - RSKPlaceholderTextView (6.1.0)
   - SwiftLint (0.53.0)
 
 DEPENDENCIES:
   - IQDropDownTextField
   - IQDropDownTextFieldSwift
+  - IQKeyboardListener (from `.`)
   - IQKeyboardManager (from `.`)
+  - IQKeyboardManagerBaseWrapper (from `.`)
   - IQKeyboardManagerSwift (from `.`)
+  - IQKeyboardReturnKeyHandler (from `.`)
+  - IQKeyboardToolbarManager (from `.`)
+  - IQTextFieldViewListener (from `.`)
+  - IQTextView (from `.`)
   - RSKPlaceholderTextView
   - SwiftLint
 
@@ -22,19 +39,37 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
+  IQKeyboardListener:
+    :path: "."
   IQKeyboardManager:
     :path: "."
+  IQKeyboardManagerBaseWrapper:
+    :path: "."
   IQKeyboardManagerSwift:
+    :path: "."
+  IQKeyboardReturnKeyHandler:
+    :path: "."
+  IQKeyboardToolbarManager:
+    :path: "."
+  IQTextFieldViewListener:
+    :path: "."
+  IQTextView:
     :path: "."
 
 SPEC CHECKSUMS:
   IQDropDownTextField: c3a149deb3c6c4bba5edd85d88b6e83e90e08f63
   IQDropDownTextFieldSwift: a194ca9853f29cb90c19af31fabe7d899b0049ca
+  IQKeyboardListener: c606c4140350752dcd3ea215d22c9690ace596e2
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerSwift: 495f69040c27ee118ad2f4180d2c9b27b3ccb2e4
+  IQKeyboardManagerBaseWrapper: c3d91fb886bbfac69049e0a2ce02af7712dca997
+  IQKeyboardManagerSwift: 0ed34408ff317e6f78d39015f5579f4c3ed6fbd6
+  IQKeyboardReturnKeyHandler: 11a0b5a94e00594eef41e714766e00c2c063b432
+  IQKeyboardToolbarManager: ba4d8c2e08c96d7e3dc39ec5882287938e88a310
+  IQTextFieldViewListener: bbedfe814ac17717464cc87620de7919fe2d71ac
+  IQTextView: 46da3d59eeae93c1d5d67f162ddc008f25b409b7
   RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 
-PODFILE CHECKSUM: c835eecb6341cbefce7b793c71f881576f203184
+PODFILE CHECKSUM: 56bf695e59703d30c36b535b2508879ec88387fa
 
 COCOAPODS: 1.15.2

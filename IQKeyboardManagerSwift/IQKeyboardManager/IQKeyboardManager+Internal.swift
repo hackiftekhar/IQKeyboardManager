@@ -22,73 +22,11 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQTextFieldViewListener
+import IQKeyboardManagerBaseWrapper
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
-
-    /**    Get all UITextField/UITextView siblings of textFieldView. */
-    func responderViews() -> [UIView]? {
-
-        guard let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
-            return nil
-        }
-
-        var superConsideredView: UIView?
-
-        // If find any consider responderView in it's upper hierarchy then will get deepResponderView.
-        for allowedClass in toolbarPreviousNextAllowedClasses {
-            superConsideredView = textFieldView.iq.superviewOf(type: allowedClass)
-            if superConsideredView != nil {
-                break
-            }
-        }
-
-        var swiftUIHostingView: UIView?
-        let swiftUIHostingViewName: String = "UIHostingView<"
-        var superView: UIView? = textFieldView.superview
-        while let unwrappedSuperView: UIView = superView {
-
-            let classNameString: String = {
-                var name: String = "\(type(of: unwrappedSuperView.self))"
-                if name.hasPrefix("_") {
-                    name.removeFirst()
-                }
-                return name
-            }()
-
-            if classNameString.hasPrefix(swiftUIHostingViewName) {
-                swiftUIHostingView = unwrappedSuperView
-                break
-            }
-
-            superView = unwrappedSuperView.superview
-        }
-
-        // (Enhancement ID: #22)
-        // If there is a superConsideredView in view's hierarchy,
-        // then fetching all it's subview that responds.
-        // No sorting for superConsideredView, it's by subView position.
-        if let view: UIView = swiftUIHostingView {
-            return view.iq.deepResponderViews()
-        } else if let view: UIView = superConsideredView {
-            return view.iq.deepResponderViews()
-        } else {  // Otherwise fetching all the siblings
-
-            let textFields: [UIView] = textFieldView.iq.responderSiblings()
-
-            // Sorting textFields according to behavior
-            switch toolbarConfiguration.manageBehavior {
-            // If autoToolbar behavior is bySubviews, then returning it.
-            case .bySubviews:   return textFields
-
-            // If autoToolbar behavior is by tag, then sorting it according to tag property.
-            case .byTag:    return textFields.sortedByTag()
-
-            // If autoToolbar behavior is by tag, then sorting it according to tag property.
-            case .byPosition:    return textFields.sortedByPosition()
-            }
-        }
-    }
 
     func privateIsEnabled() -> Bool {
 
@@ -135,48 +73,6 @@ internal extension IQKeyboardManager {
                        classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
-                }
-            }
-        }
-
-        return isEnabled
-    }
-
-    func privateIsEnableAutoToolbar() -> Bool {
-
-        var isEnabled: Bool = enableAutoToolbar
-
-        guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo,
-              var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
-            return isEnabled
-        }
-
-        // If it is searchBar textField embedded in Navigation Bar
-        if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
-           let navController: UINavigationController = textFieldViewController as? UINavigationController,
-           let topController: UIViewController = navController.topViewController {
-            textFieldViewController = topController
-        }
-
-        if !isEnabled, enabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-            isEnabled = true
-        }
-
-        if isEnabled {
-
-            // If found any toolbar disabled classes then return.
-            if disabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                isEnabled = false
-            }
-
-            // Special Controllers
-            if isEnabled {
-
-                let classNameString: String = "\(type(of: textFieldViewController.self))"
-
-                // _UIAlertControllerTextFieldViewController
-                if classNameString.contains("UIAlertController"), classNameString.hasSuffix("TextFieldViewController") {
-                    isEnabled = false
                 }
             }
         }

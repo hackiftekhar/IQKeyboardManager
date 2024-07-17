@@ -457,7 +457,7 @@ public extension IQKeyboardManager {
 
                                 if scrollView is UITableView || scrollView is UICollectionView {
                                     // This will update the next/previous states
-                                    self.reloadInputViews()
+                                    textFieldView.reloadInputViews()
                                 }
                             })
                         }

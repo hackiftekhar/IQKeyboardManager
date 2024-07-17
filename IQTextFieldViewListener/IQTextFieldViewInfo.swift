@@ -1,5 +1,5 @@
 //
-//  NavigationBarViewController.swift
+//  IQTextFieldViewInfo.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,44 +22,32 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerSwift
-import IQKeyboardReturnKeyHandler
 
-class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public struct IQTextFieldViewInfo: Equatable {
 
-    fileprivate var returnKeyHandler: IQKeyboardReturnKeyHandler!
-    @IBOutlet var textField2: UITextField!
-    @IBOutlet var textField3: UITextField!
-    @IBOutlet var scrollView: UIScrollView!
-
-    deinit {
-        returnKeyHandler = nil
-        textField2 = nil
-        textField3 = nil
+    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.textFieldView == rhs.textFieldView &&
+        lhs.name == rhs.name
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        textField3.iq.placeholder = "This is the customised placeholder title for displaying as toolbar title"
-
-        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
+    @MainActor
+    @objc public enum Name: Int {
+        case beginEditing
+        case endEditing
     }
 
-    @IBAction func textFieldClicked(_ sender: UITextField!) {
+    public let name: Name
 
-    }
+    public let textFieldView: UIView
 
-    @IBAction func enableScrollAction(_ sender: UISwitch!) {
-        scrollView.isScrollEnabled = sender.isOn
-    }
+    public init?(notification: Notification?, name: Name) {
+        guard let view: UIView = notification?.object as? UIView else {
+            return nil
+        }
 
-    @IBAction func shouldHideTitle(_ sender: UISwitch!) {
-        textField2.iq.hidePlaceholder = !textField2.iq.hidePlaceholder
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
+        self.name = name
+        textFieldView = view
     }
 }

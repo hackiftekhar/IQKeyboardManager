@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+// IQPreviousNextView.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,36 +22,13 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerSwift
-import IQKeyboardToolbarManager
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc open class IQDeepResponderContainerView: UIView {
+}
 
-    var window: UIWindow?
-
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
-        window?.backgroundColor = UIColor.white
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardToolbarManager.shared.enable = true
-        return true
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
+@available(*, unavailable, renamed: "IQDeepResponderContainerView")
+@MainActor
+@objc open class IQPreviousNextView: UIView {
 }

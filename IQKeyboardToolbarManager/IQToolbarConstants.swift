@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  IQKeyboardManagerConstants.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,37 +21,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-import IQKeyboardManagerSwift
-import IQKeyboardToolbarManager
+import Foundation
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+// MARK: IQAutoToolbarManageBehavior
 
-    var window: UIWindow?
+/**
+`IQAutoToolbarBySubviews`
+Creates Toolbar according to subview's hierarchy of Textfield's in view.
 
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+`IQAutoToolbarByTag`
+Creates Toolbar according to tag property of TextField's.
 
-        window?.backgroundColor = UIColor.white
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardToolbarManager.shared.enable = true
-        return true
-    }
+`IQAutoToolbarByPosition`
+Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+*/
+@available(iOSApplicationExtension, unavailable)
+@objc public enum IQAutoToolbarManageBehavior: Int {
+    case bySubviews
+    case byTag
+    case byPosition
+}
 
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
+/**
+ `IQPreviousNextDisplayModeDefault`
+ Show NextPrevious when there are more than 1 textField otherwise hide.
+ 
+ `IQPreviousNextDisplayModeAlwaysHide`
+ Do not show NextPrevious buttons in any case.
+ 
+ `IQPreviousNextDisplayModeAlwaysShow`
+ Always show nextPrevious buttons,
+ if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+ */
+@available(iOSApplicationExtension, unavailable)
+@objc public enum IQPreviousNextDisplayMode: Int {
+    case `default`
+    case alwaysHide
+    case alwaysShow
 }

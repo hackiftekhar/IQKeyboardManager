@@ -23,6 +23,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 
 class ViewController: BaseTableViewController {
 
@@ -46,7 +47,7 @@ class ViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = .byPosition
+        IQKeyboardToolbarManager.shared.toolbarConfiguration.manageBehavior = .byPosition
         // Do any additional setup after loading the view, typically from a nib.
     }
 

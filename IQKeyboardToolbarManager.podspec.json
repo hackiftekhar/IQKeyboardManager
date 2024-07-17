@@ -1,0 +1,37 @@
+{
+    "name": "IQKeyboardToolbarManager",
+    "version": "1.0.0",
+    "source": {
+        "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
+        "tag": "1.0.0"
+    },
+    "summary": "Used for placeholder support.",
+    "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
+    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png",
+    "license": "MIT",
+    "authors": {
+        "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
+    },
+    "platforms": {
+        "ios": "13.0"
+    },
+    "swift_versions": [
+        "5.6",
+        "5.7",
+        "5.8",
+        "5.9"
+    ],
+    "source_files": [
+        "IQKeyboardToolbarManager/*.{swift}",
+        "IQKeyboardToolbarManager/**/*.{swift}"
+    ],
+    "resource_bundles": {"IQKeyboardToolbarManager": "IQKeyboardToolbarManager/PrivacyInfo.xcprivacy"},
+    "dependencies": {
+        "IQKeyboardManagerBaseWrapper": [],
+        "IQTextFieldViewListener": []
+    },
+    "frameworks": [
+        "UIKit"
+    ],
+    "requires_arc": true
+}

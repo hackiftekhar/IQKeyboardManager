@@ -114,9 +114,6 @@ internal extension IQKeyboardManager {
             textFieldView.reloadInputViews()
         }
 
-        // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        reloadInputViews()
-
         resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
@@ -129,7 +126,6 @@ internal extension IQKeyboardManager {
 
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
-        removeToolbarIfRequired()
         do {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {

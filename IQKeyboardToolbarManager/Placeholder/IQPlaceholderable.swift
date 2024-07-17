@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  IQPlaceholderable.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,37 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
 import UIKit
-import IQKeyboardManagerSwift
-import IQKeyboardToolbarManager
 
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public protocol IQPlaceholderable: AnyObject {
 
-    var window: UIWindow?
-
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
-        window?.backgroundColor = UIColor.white
-        IQKeyboardManager.shared.enable = true
-        IQKeyboardToolbarManager.shared.enable = true
-        return true
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
+    var placeholder: String? { get set }
+    var attributedPlaceholder: NSAttributedString? { get set }
 }
+
+@available(iOSApplicationExtension, unavailable)
+extension UITextField: IQPlaceholderable { }

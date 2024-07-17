@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardManagerBaseWrapper
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor

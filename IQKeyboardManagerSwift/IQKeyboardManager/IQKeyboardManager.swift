@@ -24,6 +24,7 @@
 import UIKit
 import CoreGraphics
 import QuartzCore
+import IQKeyboardToolbarManager
 
 // MARK: IQToolbar tags
 
@@ -79,22 +80,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     // MARK: IQToolbar handling
 
-    /**
-    Automatic add the IQToolbar functionality. Default is YES.
-    */
-    @objc public var enableAutoToolbar: Bool = true {
-        didSet {
-            reloadInputViews()
-            showLog("enableAutoToolbar: \(enableAutoToolbar ? "Yes" : "NO")")
-        }
-    }
-
     internal var activeConfiguration: IQActiveConfiguration = .init()
-
-    /**
-    Configurations related to the toolbar display over the keyboard.
-    */
-    @objc public let toolbarConfiguration: IQToolbarConfiguration = .init()
 
     /**
     Configuration related to keyboard appearance
@@ -151,13 +137,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         return true
     }
 
-    // MARK: UISound handling
-
-    /**
-    If YES, then it plays inputClick sound on next/previous/done click.
-    */
-    @objc public var playInputClicks: Bool = true
-
     // MARK: UIAnimation handling
 
     /**
@@ -180,26 +159,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      then enabledDistanceHandlingClasses will be ignored.
      */
     @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
-
-    /**
-     Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes.
-     Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
-     */
-    @objc public var disabledToolbarClasses: [UIViewController.Type] = []
-
-    /**
-     Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes.
-     Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
-     If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
-     */
-    @objc public var enabledToolbarClasses: [UIViewController.Type] = []
-
-    /**
-     Allowed subclasses of UIView to add all inner textField,
-     this will allow to navigate between textField contains in different superview.
-     Class should be kind of UIView.
-     */
-    @objc public var toolbarPreviousNextAllowedClasses: [UIView.Type] = []
 
     /**
      Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
@@ -242,33 +201,14 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         disabledDistanceHandlingClasses.append(UIInputViewController.self)
         disabledDistanceHandlingClasses.append(UIAlertController.self)
 
-        disabledToolbarClasses.append(UIAlertController.self)
-        disabledToolbarClasses.append(UIInputViewController.self)
-
         disabledTouchResignedClasses.append(UIAlertController.self)
         disabledTouchResignedClasses.append(UIInputViewController.self)
-
-        toolbarPreviousNextAllowedClasses.append(UITableView.self)
-        toolbarPreviousNextAllowedClasses.append(UICollectionView.self)
-        toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
 
         touchResignedGestureIgnoreClasses.append(UIControl.self)
         touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification, object: nil)
-
-        // (Bug ID: #550)
-        // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
-        // If you experience exception breakpoint issue at below line then try these solutions
-        // https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-        DispatchQueue.main.async {
-            let textField: UIView = UITextField()
-            textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
-            textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
-                                             nextAction: #selector(self.nextAction(_:)),
-                                             doneAction: #selector(self.doneAction(_:)))
-        }
     }
 
     deinit {
