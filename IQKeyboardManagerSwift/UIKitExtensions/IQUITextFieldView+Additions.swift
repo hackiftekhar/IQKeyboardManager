@@ -111,10 +111,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      */
     var resignOnTouchOutsideMode: IQEnableMode {
         get {
-            if let base = base {
-                return objc_getAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode) as? IQEnableMode ?? .default
+            guard let base = base else {
+                return .default
             }
-            return .default
+            return objc_getAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode) as? IQEnableMode ?? .default
         }
         set(newValue) {
             if let base = base {

@@ -212,7 +212,7 @@ extension SettingsViewController {
 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.selectedColorView.backgroundColor = IQKeyboardManager.shared.toolbarConfiguration.tintColor;
+                cell.selectedColorView.backgroundColor = IQKeyboardManager.shared.toolbarConfiguration.tintColor
                 cell.selectedColorView.layer.borderColor = UIColor.lightGray.cgColor
                 cell.selectedColorView.layer.borderWidth = 1.0
                 return cell

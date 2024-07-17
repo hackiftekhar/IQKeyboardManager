@@ -146,13 +146,23 @@ import UIKit
     private func updateAccessibility() {
         if title == nil || title?.isEmpty == true {
             isAccessibilityElement = false
-            accessibilityTraits = .none
+            // Swift 6: Reference to static property 'none'
+            // is not concurrency-safe because it involves shared mutable state
+//            accessibilityTraits = .none
+            accessibilityTraits = .init(rawValue: 0)
         } else if titleButton?.isEnabled == true {
             isAccessibilityElement = true
-            accessibilityTraits = .button
+            // Swift 6: Reference to static property 'button'
+            // is not concurrency-safe because it involves shared mutable state
+//            accessibilityTraits = .button
+            accessibilityTraits = .init(rawValue: 1)
         } else {
             isAccessibilityElement = true
-            accessibilityTraits = .staticText
+
+            // Swift 6: Reference to static property 'staticText'
+            // is not concurrency-safe because it involves shared mutable state
+//            accessibilityTraits = .staticText
+            accessibilityTraits = .init(rawValue: 64)
         }
     }
 }

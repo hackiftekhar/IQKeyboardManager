@@ -93,7 +93,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         if delegate == nil {
 
             if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                let selector: Selector = #selector((any UITextViewDelegate).textView(_:shouldChangeTextIn:replacementText:))
+                let selector = #selector((any UITextViewDelegate).textView(_:shouldChangeTextIn:replacementText:))
                 if unwrapDelegate.responds(to: selector) {
                     isReturn = (unwrapDelegate.textView?(textView,
                                                          shouldChangeTextIn: range,
@@ -245,7 +245,8 @@ extension IQKeyboardReturnKeyHandler {
         return nil
     }
 
-    public func textView(_ aTextView: UITextView, willPresentEditMenuWith animator: any UIEditMenuInteractionAnimating) {
+    public func textView(_ aTextView: UITextView,
+                         willPresentEditMenuWith animator: any UIEditMenuInteractionAnimating) {
         var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
@@ -258,7 +259,8 @@ extension IQKeyboardReturnKeyHandler {
         aDelegate?.textView?(aTextView, willPresentEditMenuWith: animator)
     }
 
-    public func textView(_ aTextView: UITextView, willDismissEditMenuWith animator: any UIEditMenuInteractionAnimating) {
+    public func textView(_ aTextView: UITextView,
+                         willDismissEditMenuWith animator: any UIEditMenuInteractionAnimating) {
         var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {

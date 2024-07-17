@@ -227,7 +227,8 @@ extension SettingsViewController: UIColorPickerViewControllerDelegate {
         }
     }
 
-    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController,
+                                   didSelect color: UIColor, continuously: Bool) {
         viewController.dismiss(animated: true)
         if color.isEqual(UIColor.clear) {
             IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil

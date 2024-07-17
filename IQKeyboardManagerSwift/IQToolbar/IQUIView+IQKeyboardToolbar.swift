@@ -97,8 +97,10 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         }
         set(newValue) {
             if let base = base {
+                // swiftlint:disable line_length
                 objc_setAssociatedObject(base, &AssociatedKeys.placeholder, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 toolbar.titleBarButton.title = drawingPlaceholder
+                // swiftlint:enable line_length
             }
         }
     }
