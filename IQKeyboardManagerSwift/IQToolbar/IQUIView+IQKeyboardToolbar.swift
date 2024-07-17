@@ -113,7 +113,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             return nil
         } else if placeholder?.isEmpty == false {
             return placeholder
-        } else if let placeholderable: IQPlaceholderable = base as? IQPlaceholderable {
+        } else if let placeholderable: any IQPlaceholderable = base as? (any IQPlaceholderable) {
 
             if let placeholder = placeholderable.attributedPlaceholder?.string,
                 !placeholder.isEmpty {
@@ -202,7 +202,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             //  Adding button to toolBar.
             toolbar.items = items
 
-            if let textInput: UITextInput = base as? UITextInput {
+            if let textInput: any UITextInput = base as? (any UITextInput) {
                 switch textInput.keyboardAppearance {
                 case .dark?:
                     toolbar.barStyle = .black

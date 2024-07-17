@@ -31,8 +31,8 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldBeginEditing(_:))) {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldBeginEditing(_:))) {
                     return unwrapDelegate.textViewShouldBeginEditing?(textView) ?? false
                 }
             }
@@ -45,8 +45,8 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextViewDelegate.textViewShouldEndEditing(_:))) {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldEndEditing(_:))) {
                     return unwrapDelegate.textViewShouldEndEditing?(textView) ?? false
                 }
             }
@@ -58,7 +58,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
     @objc public func textViewDidBeginEditing(_ textView: UITextView) {
         updateReturnKeyTypeOnTextField(textView)
 
-        var aDelegate: UITextViewDelegate? = delegate
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -72,7 +72,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewDidEndEditing(_ textView: UITextView) {
 
-        var aDelegate: UITextViewDelegate? = delegate
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -92,8 +92,8 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                let selector: Selector = #selector(UITextViewDelegate.textView(_:shouldChangeTextIn:replacementText:))
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+                let selector: Selector = #selector((any UITextViewDelegate).textView(_:shouldChangeTextIn:replacementText:))
                 if unwrapDelegate.responds(to: selector) {
                     isReturn = (unwrapDelegate.textView?(textView,
                                                          shouldChangeTextIn: range,
@@ -111,7 +111,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewDidChange(_ textView: UITextView) {
 
-        var aDelegate: UITextViewDelegate? = delegate
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -125,7 +125,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewDidChangeSelection(_ textView: UITextView) {
 
-        var aDelegate: UITextViewDelegate? = delegate
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -144,7 +144,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 let selector: Selector = #selector(textView as
                                                    (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)
                 if unwrapDelegate.responds(to: selector) {
@@ -166,7 +166,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 let selector: Selector = #selector(textView as
                                                    (UITextView, NSTextAttachment, NSRange, UITextItemInteraction)
                                                    -> Bool)
@@ -189,7 +189,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) {
                     return unwrapDelegate.textView?(aTextView,
                                                     shouldInteractWith: URL,
@@ -208,7 +208,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
                 if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) {
                     return unwrapDelegate.textView?(aTextView,
                                                     shouldInteractWith: textAttachment,
@@ -230,7 +230,7 @@ extension IQKeyboardReturnKeyHandler {
                          suggestedActions: [UIMenuElement]) -> UIMenu? {
         if delegate == nil {
 
-            if let unwrapDelegate: UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
 
                 let selector: Selector = #selector(textView as
                                                    (UITextView, NSRange, [UIMenuElement]) -> UIMenu?)
@@ -245,8 +245,8 @@ extension IQKeyboardReturnKeyHandler {
         return nil
     }
 
-    public func textView(_ aTextView: UITextView, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
-        var aDelegate: UITextViewDelegate? = delegate
+    public func textView(_ aTextView: UITextView, willPresentEditMenuWith animator: any UIEditMenuInteractionAnimating) {
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -258,8 +258,8 @@ extension IQKeyboardReturnKeyHandler {
         aDelegate?.textView?(aTextView, willPresentEditMenuWith: animator)
     }
 
-    public func textView(_ aTextView: UITextView, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
-        var aDelegate: UITextViewDelegate? = delegate
+    public func textView(_ aTextView: UITextView, willDismissEditMenuWith animator: any UIEditMenuInteractionAnimating) {
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -316,8 +316,8 @@ extension IQKeyboardReturnKeyHandler {
 
     public func textView(_ textView: UITextView,
                          textItemMenuWillDisplayFor textItem: UITextItem,
-                         animator: UIContextMenuInteractionAnimating) {
-        var aDelegate: UITextViewDelegate? = delegate
+                         animator: any UIContextMenuInteractionAnimating) {
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -331,8 +331,8 @@ extension IQKeyboardReturnKeyHandler {
 
     public func textView(_ textView: UITextView,
                          textItemMenuWillEndFor textItem: UITextItem,
-                         animator: UIContextMenuInteractionAnimating) {
-        var aDelegate: UITextViewDelegate? = delegate
+                         animator: any UIContextMenuInteractionAnimating) {
+        var aDelegate: (any UITextViewDelegate)? = delegate
 
         if aDelegate == nil {
 

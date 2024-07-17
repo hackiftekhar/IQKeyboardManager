@@ -263,7 +263,7 @@ internal extension IQKeyboardManagerWrapper where Base: UIView {
 
         var canBecomeFirstResponder: Bool = false
 
-        if base?.conforms(to: UITextInput.self) == true {
+        if base?.conforms(to: (any UITextInput).self) == true {
             //  Setting toolbar to keyboard.
             if let textView: UITextView = base as? UITextView {
                 canBecomeFirstResponder = textView.isEditable

@@ -35,7 +35,7 @@ Manages the return key to work like next/done in a view hierarchy.
     /**
     Delegate of textField/textView.
     */
-    @objc public weak var delegate: (UITextFieldDelegate & UITextViewDelegate)?
+    @objc public weak var delegate: (any UITextFieldDelegate & UITextViewDelegate)?
 
     /**
     Set the last textfield return key type. Default is UIReturnKeyDefault.

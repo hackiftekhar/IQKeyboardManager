@@ -31,8 +31,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldBeginEditing(_:))) {
+            if let unwrapDelegate: any UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextFieldDelegate).textFieldShouldBeginEditing(_:))) {
                     return unwrapDelegate.textFieldShouldBeginEditing?(textField) ?? false
                 }
             }
@@ -45,8 +45,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:))) {
+            if let unwrapDelegate: any UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextFieldDelegate).textFieldShouldEndEditing(_:))) {
                     return unwrapDelegate.textFieldShouldEndEditing?(textField) ?? false
                 }
             }
@@ -58,7 +58,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
     @objc public func textFieldDidBeginEditing(_ textField: UITextField) {
         updateReturnKeyTypeOnTextField(textField)
 
-        var aDelegate: UITextFieldDelegate? = delegate
+        var aDelegate: (any UITextFieldDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -72,7 +72,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     @objc public func textFieldDidEndEditing(_ textField: UITextField) {
 
-        var aDelegate: UITextFieldDelegate? = delegate
+        var aDelegate: (any UITextFieldDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -86,7 +86,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
     @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
 
-        var aDelegate: UITextFieldDelegate? = delegate
+        var aDelegate: (any UITextFieldDelegate)? = delegate
 
         if aDelegate == nil {
 
@@ -104,8 +104,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
-                let selector: Selector = #selector(UITextFieldDelegate.textField(_:shouldChangeCharactersIn:
+            if let unwrapDelegate: any UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
+                let selector: Selector = #selector((any UITextFieldDelegate).textField(_:shouldChangeCharactersIn:
                                                                                     replacementString:))
                 if unwrapDelegate.responds(to: selector) {
                     return unwrapDelegate.textField?(textField,
@@ -121,8 +121,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldClear(_:))) {
+            if let unwrapDelegate: any UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextFieldDelegate).textFieldShouldClear(_:))) {
                     return unwrapDelegate.textFieldShouldClear?(textField) ?? false
                 }
             }
@@ -137,8 +137,8 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
-                if unwrapDelegate.responds(to: #selector(UITextFieldDelegate.textFieldShouldReturn(_:))) {
+            if let unwrapDelegate: any UITextFieldDelegate = textFieldViewCachedInfo(textField)?.textFieldDelegate {
+                if unwrapDelegate.responds(to: #selector((any UITextFieldDelegate).textFieldShouldReturn(_:))) {
                     isReturn = unwrapDelegate.textFieldShouldReturn?(textField) ?? false
                 }
             }

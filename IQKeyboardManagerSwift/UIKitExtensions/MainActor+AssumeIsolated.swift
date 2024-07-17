@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfoModel.swift
+//  MainActor+AssumeIsolated.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,36 +21,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-internal final class IQTextFieldViewInfoModel: NSObject {
-
-    weak var textFieldDelegate: (any UITextFieldDelegate)?
-    weak var textViewDelegate: (any UITextViewDelegate)?
-    weak var textFieldView: UIView?
-    let originalReturnKeyType: UIReturnKeyType
-
-    init(textField: UITextField) {
-        self.textFieldView = textField
-        self.textFieldDelegate = textField.delegate
-        self.originalReturnKeyType = textField.returnKeyType
-    }
-
-    init(textView: UITextView) {
-        self.textFieldView = textView
-        self.textViewDelegate = textView.delegate
-        self.originalReturnKeyType = textView.returnKeyType
-    }
-
-    func restore() {
-        if let textField = textFieldView as? UITextField {
-            textField.returnKeyType = originalReturnKeyType
-            textField.delegate = textFieldDelegate
-        } else if let textView = textFieldView as? UITextView {
-            textView.returnKeyType = originalReturnKeyType
-            textView.delegate = textViewDelegate
+extension MainActor {
+    // https://forums.swift.org/t/replacement-for-mainactor-unsafe/65956/2
+    @_unavailableFromAsync
+    static func assumeIsolatedBackDeployed<T: Sendable>(_ body: @MainActor () throws -> T) rethrows -> T {
+#if swift(>=6)  // Xcode 16
+        if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return try assumeIsolated(body)
+        }
+#elseif swift(>=5.9)  // Xcode 15
+        if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
+            return try assumeIsolated(body)
+        }
+#endif
+        dispatchPrecondition(condition: .onQueue(.main))
+        return try withoutActuallyEscaping(body) { function in
+            try unsafeBitCast(function, to: (() throws -> T).self)()
         }
     }
 }

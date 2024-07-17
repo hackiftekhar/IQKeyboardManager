@@ -44,6 +44,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     /**
     Returns the default singleton instance.
     */
+    @MainActor
     @objc public static let shared: IQKeyboardManager = .init()
 
     // MARK: UIKeyboard handling

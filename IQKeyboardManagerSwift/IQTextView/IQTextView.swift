@@ -165,7 +165,7 @@ import UIKit
         }
     }
 
-    @objc override weak open var delegate: UITextViewDelegate? {
+    @objc override weak open var delegate: (any UITextViewDelegate)? {
 
         get {
             refreshPlaceholder()
@@ -205,5 +205,4 @@ import UIKit
 
         return originalRect
     }
-    
 }

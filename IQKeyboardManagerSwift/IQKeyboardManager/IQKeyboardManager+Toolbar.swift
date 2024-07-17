@@ -176,7 +176,7 @@ public extension IQKeyboardManager {
         }
 
         //  Setting toolbar to keyboard.
-        if let textFieldView: UITextInput = textField as? UITextInput {
+        if let textFieldView: any UITextInput = textField as? (any UITextInput) {
 
             // Bar style according to keyboard appearance
             switch textFieldView.keyboardAppearance {
