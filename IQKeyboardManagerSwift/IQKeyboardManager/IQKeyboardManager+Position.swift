@@ -651,8 +651,8 @@ public extension IQKeyboardManager {
         })
 
         // Restoring the contentOffset of the lastScrollView
-        if let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
-           let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
+        if let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
+            let textFieldView: UIView? = activeConfiguration.textFieldViewInfo?.textFieldView
 
             activeConfiguration.animate(alongsideTransition: {
 
@@ -686,8 +686,8 @@ public extension IQKeyboardManager {
                         if !scrollView.contentOffset.equalTo(newContentOffset) {
 
                             //  (Bug ID: #1365, #1508, #1541)
-                            let stackView: UIStackView? = textFieldView.iq.superviewOf(type: UIStackView.self,
-                                                                                       belowView: scrollView)
+                            let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
+                                                                                        belowView: scrollView)
 
                             // (Bug ID: #1901, #1996)
                             let animatedContentOffset: Bool = stackView != nil ||

@@ -68,8 +68,7 @@ internal final class IQActiveConfiguration {
 
     private func sendEvent() {
 
-        if let textFieldViewInfo = textFieldViewInfo,
-           let rootControllerConfiguration = rootControllerConfiguration,
+        if let rootControllerConfiguration = rootControllerConfiguration,
            rootControllerConfiguration.isReady {
             if keyboardInfo.keyboardShowing {
                 if lastEvent == .hide {
@@ -87,13 +86,6 @@ internal final class IQActiveConfiguration {
                     }, completion: nil)
                 }
             }
-        } else if textFieldViewInfo == nil, let rootControllerConfiguration = rootControllerConfiguration {
-            if rootControllerConfiguration.hasChanged {
-                animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
-                }, completion: nil)
-            }
-            self.rootControllerConfiguration = nil
         }
     }
 
@@ -190,7 +182,7 @@ extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,
                                          _ keyboardInfo: IQKeyboardInfo,
-                                         _ textFieldInfo: IQTextFieldViewInfo) -> Void
+                                         _ textFieldInfo: IQTextFieldViewInfo?) -> Void
 
     func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
@@ -200,7 +192,7 @@ extension IQActiveConfiguration {
         changeObservers[identifier] = nil
     }
 
-    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextFieldViewInfo) {
+    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextFieldViewInfo?) {
         lastEvent = event
 
         for block in changeObservers.values {
