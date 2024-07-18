@@ -24,6 +24,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import IQKeyboardToolbarManager
+import IQKeyboardManagerCore
 
 extension SettingsViewController {
 
@@ -325,7 +326,7 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.enableDebugging
+                cell.switchEnable.isOn = IQKeyboardManagerDebug.enableDebugging
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.enableDebugging(_:)), for: .valueChanged)
                 return cell

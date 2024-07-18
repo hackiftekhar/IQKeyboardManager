@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -34,28 +34,28 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardManagerExtension where Base: UIView {
 
     // MARK: Toolbar
 
     /**
-     IQToolbar references for better customization control.
+     IQKeyboardToolbar references for better customization control.
      */
-    var toolbar: IQToolbar {
-        var toolbar: IQToolbar? = base?.inputAccessoryView as? IQToolbar
+    var toolbar: IQKeyboardToolbar {
+        var toolbar: IQKeyboardToolbar? = base?.inputAccessoryView as? IQKeyboardToolbar
 
         if toolbar == nil, let base = base {
-            toolbar = objc_getAssociatedObject(base, &AssociatedKeys.toolbar) as? IQToolbar
+            toolbar = objc_getAssociatedObject(base, &AssociatedKeys.toolbar) as? IQKeyboardToolbar
         }
 
-        if let unwrappedToolbar: IQToolbar = toolbar {
+        if let unwrappedToolbar: IQKeyboardToolbar = toolbar {
             return unwrappedToolbar
         } else {
 
             let width: CGFloat = base?.window?.windowScene?.screen.bounds.width ?? 0
 
             let frame = CGRect(origin: .zero, size: .init(width: width, height: 44))
-            let newToolbar = IQToolbar(frame: frame)
+            let newToolbar = IQKeyboardToolbar(frame: frame)
 
             if let base = base {
                 objc_setAssociatedObject(base, &AssociatedKeys.toolbar, newToolbar, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -146,7 +146,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         if base?.responds(to: #selector(setter: UITextField.inputAccessoryView)) == true {
 
             //  Creating a toolBar for phoneNumber keyboard
-            let toolbar: IQToolbar = toolbar
+            let toolbar: IQKeyboardToolbar = toolbar
 
             var items: [UIBarButtonItem] = []
 

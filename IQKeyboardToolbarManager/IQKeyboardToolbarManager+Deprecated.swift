@@ -22,10 +22,10 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardToolbar
 
 // swiftlint:disable unused_setter_value
 // swiftlint:disable identifier_name
-// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardToolbarManager {
 
@@ -172,4 +172,3 @@ public extension IQKeyboardToolbarManager {
 
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
-// swiftlint:enable line_length

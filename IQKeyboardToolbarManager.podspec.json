@@ -25,7 +25,8 @@
         "IQKeyboardToolbarManager/**/*.{swift}"
     ],
     "dependencies": {
-        "IQKeyboardManagerBaseWrapper": [],
+        "IQKeyboardManagerCore": [],
+        "IQKeyboardToolbar": [],
         "IQTextFieldViewListener": []
     },
     "resource_bundles": {

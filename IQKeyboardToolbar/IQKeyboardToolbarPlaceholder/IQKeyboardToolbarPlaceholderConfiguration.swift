@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+Debug.swift
+//  IQKeyboardToolbarPlaceholderConfiguration.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,49 +23,32 @@
 
 import UIKit
 
-// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
+@MainActor
+@objc public final class IQKeyboardToolbarPlaceholderConfiguration: NSObject {
 
-    @MainActor
-    private struct AssociatedKeys {
-        static var enableDebugging: Int = 0
-    }
+    /**
+    If YES, then it add the textField's placeholder text on IQKeyboardToolbar. Default is YES.
+    */
+    @objc public var showPlaceholder: Bool = true
 
-    @objc var enableDebugging: Bool {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
+    /**
+    Placeholder Font. Default is nil.
+    */
+    @objc public var font: UIFont?
 
-    @MainActor
-    struct Static {
-        static var indentation = 0
-    }
+    /**
+     Placeholder Color. Default is nil. Which means lightGray
+     */
+    @objc public var color: UIColor?
 
-    internal func showLog(_ logString: String, indentation: Int = 0) {
+    /**
+     Placeholder Button Color when it's treated as button. Default is nil.
+     */
+    @objc public var buttonColor: UIColor?
 
-        guard enableDebugging else {
-            return
-        }
-
-        if indentation < 0 {
-            Static.indentation = max(0, Static.indentation + indentation)
-        }
-
-        var preLog: String = "IQKeyboardManager"
-        for _ in 0 ... Static.indentation {
-            preLog += "|\t"
-        }
-
-        print(preLog + logString)
-
-        if indentation > 0 {
-            Static.indentation += indentation
-        }
-    }
+    /**
+     Placeholder accessibility Label
+     */
+    public override var accessibilityLabel: String? { didSet { } }
 }

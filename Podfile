@@ -18,8 +18,9 @@ target "DemoSwift" do
   
   pod "IQKeyboardListener", :path => "."
   pod "IQTextFieldViewListener", :path => "."
+  pod "IQKeyboardToolbar", :path => "."
   pod "IQKeyboardToolbarManager", :path => "."
-  pod "IQKeyboardManagerBaseWrapper", :path => "."
+  pod "IQKeyboardManagerCore", :path => "."
   pod "IQKeyboardManagerSwift", :path => "."
 
 

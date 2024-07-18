@@ -1,5 +1,5 @@
 //
-//  IQToolbarConfiguration.swift
+//  IQKeyboardToolbarConfiguration.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,10 +25,10 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQToolbarConfiguration: NSObject {
+@objc public final class IQKeyboardToolbarConfiguration: NSObject {
 
     /**
-     If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
+     If YES, then uses textField's tintColor property for IQKeyboardToolbar, otherwise tint color is default. Default is NO.
      */
     @objc public var useTextFieldTintColor: Bool = false
 
@@ -71,5 +71,5 @@ import UIKit
     @objc public var nextBarButtonConfiguration: IQBarButtonItemConfiguration?
     @objc public var doneBarButtonConfiguration: IQBarButtonItemConfiguration?
 
-    @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
+    @objc public let placeholderConfiguration: IQKeyboardToolbarPlaceholderConfiguration = .init()
 }

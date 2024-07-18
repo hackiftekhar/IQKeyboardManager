@@ -1,5 +1,5 @@
 //
-// IQPreviousNextView.swift
+//  IQKeyboardManager+Debug.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,12 +23,38 @@
 
 import UIKit
 
+// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQDeepResponderContainerView: UIView {
-}
+public final class IQKeyboardManagerDebug: NSObject {
 
-@available(*, unavailable, renamed: "IQDeepResponderContainerView")
-@MainActor
-@objc open class IQPreviousNextView: UIView {
+    @objc public static var enableDebugging: Bool = false
+
+    private static var indentation = 0
+
+    private override init() {
+        super.init()
+    }
+
+    @objc public static func showLog(_ logString: String, indentation: Int = 0) {
+
+        guard enableDebugging else {
+            return
+        }
+
+        if indentation < 0 {
+            self.indentation = max(0, self.indentation + indentation)
+        }
+
+        var preLog: String = "IQKeyboardManager"
+        for _ in 0 ... self.indentation {
+            preLog += "|\t"
+        }
+
+        print(preLog + logString)
+
+        if indentation > 0 {
+            self.indentation += indentation
+        }
+    }
 }

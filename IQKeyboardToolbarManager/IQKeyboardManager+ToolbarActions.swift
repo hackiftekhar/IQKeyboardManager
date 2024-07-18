@@ -22,7 +22,8 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
+import IQKeyboardToolbar
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
@@ -76,7 +77,7 @@ public extension IQKeyboardToolbarManager {
 
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if !isAcceptAsFirstResponder {
-//            showLog("Refuses to become first responder: \(nextTextField)")
+            IQKeyboardManagerDebug.showLog("Refuses to become first responder: \(nextTextField)")
         }
 
         return isAcceptAsFirstResponder
@@ -102,7 +103,7 @@ public extension IQKeyboardToolbarManager {
 
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if !isAcceptAsFirstResponder {
-//            showLog("Refuses to become first responder: \(nextTextField)")
+            IQKeyboardManagerDebug.showLog("Refuses to become first responder: \(nextTextField)")
         }
 
         return isAcceptAsFirstResponder

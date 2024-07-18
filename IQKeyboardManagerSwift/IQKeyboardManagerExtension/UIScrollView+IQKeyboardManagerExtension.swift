@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -36,14 +36,14 @@ private struct AssociatedKeys {
 // swiftlint:disable identifier_name
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-extension UIScrollView: IQKeyboardManagerCompatible {
+extension UIScrollView: IQKeyboardManagerExtended {
 
     // On DEBUG: Conformance of 'UIScrollView' to protocol 'IQKeyboardManagerCompatible'
     // was already stated in the type's module 'UIKit'
     // This property is explicitly written otherwise we were having
     // compilation error when archiving
-    public var iq: IQKeyboardManagerWrapper<UIView> {
-        get { IQKeyboardManagerWrapper(self) }
+    public var iq: IQKeyboardManagerExtension<UIView> {
+        get { IQKeyboardManagerExtension(self) }
         set {}
     }
 }
@@ -53,7 +53,7 @@ extension UIScrollView: IQKeyboardManagerCompatible {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIScrollView {
+public extension IQKeyboardManagerExtension where Base: UIScrollView {
 
     /**
      If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position.
@@ -94,7 +94,7 @@ public extension IQKeyboardManagerWrapper where Base: UIScrollView {
     }
 
     /**
-     To set customized distance from keyboard for textField/textView. Can't be less than zero
+        If we should restore scrollView contentOffset to it's initial position
      */
     var restoreContentOffset: Bool {
         get {

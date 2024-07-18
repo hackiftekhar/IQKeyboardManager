@@ -22,12 +22,8 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardToolbarManager
 
 // swiftlint:disable unused_setter_value
-// swiftlint:disable identifier_name
-// swiftlint:disable line_length
-@available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
     @available(*, unavailable, renamed: "resignOnTouchOutside")
@@ -65,6 +61,7 @@ public extension IQKeyboardManager {
     }
 }
 
+// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
 
@@ -82,6 +79,5 @@ public extension IQKeyboardManager {
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc var keyboardFrame: CGRect { .zero }
 }
-// swiftlint:enable unused_setter_value
-// swiftlint:enable identifier_name
 // swiftlint:enable line_length
+// swiftlint:enable unused_setter_value

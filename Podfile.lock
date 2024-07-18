@@ -3,15 +3,17 @@ PODS:
   - IQDropDownTextFieldSwift (4.0.1)
   - IQKeyboardListener (1.0.0)
   - IQKeyboardManager (6.5.19)
-  - IQKeyboardManagerBaseWrapper (1.0.0)
+  - IQKeyboardManagerCore (1.0.0)
   - IQKeyboardManagerSwift (7.1.0):
     - IQKeyboardListener
-    - IQKeyboardManagerBaseWrapper
-    - IQKeyboardToolbarManager
+    - IQKeyboardManagerCore
     - IQTextFieldViewListener
   - IQKeyboardReturnKeyHandler (1.0.0)
+  - IQKeyboardToolbar (1.0.0):
+    - IQKeyboardManagerCore
   - IQKeyboardToolbarManager (1.0.0):
-    - IQKeyboardManagerBaseWrapper
+    - IQKeyboardManagerCore
+    - IQKeyboardToolbar
     - IQTextFieldViewListener
   - IQTextFieldViewListener (1.0.0)
   - IQTextView (1.0.0)
@@ -23,9 +25,10 @@ DEPENDENCIES:
   - IQDropDownTextFieldSwift
   - IQKeyboardListener (from `.`)
   - IQKeyboardManager (from `.`)
-  - IQKeyboardManagerBaseWrapper (from `.`)
+  - IQKeyboardManagerCore (from `.`)
   - IQKeyboardManagerSwift (from `.`)
   - IQKeyboardReturnKeyHandler (from `.`)
+  - IQKeyboardToolbar (from `.`)
   - IQKeyboardToolbarManager (from `.`)
   - IQTextFieldViewListener (from `.`)
   - IQTextView (from `.`)
@@ -44,11 +47,13 @@ EXTERNAL SOURCES:
     :path: "."
   IQKeyboardManager:
     :path: "."
-  IQKeyboardManagerBaseWrapper:
+  IQKeyboardManagerCore:
     :path: "."
   IQKeyboardManagerSwift:
     :path: "."
   IQKeyboardReturnKeyHandler:
+    :path: "."
+  IQKeyboardToolbar:
     :path: "."
   IQKeyboardToolbarManager:
     :path: "."
@@ -62,15 +67,16 @@ SPEC CHECKSUMS:
   IQDropDownTextFieldSwift: a194ca9853f29cb90c19af31fabe7d899b0049ca
   IQKeyboardListener: 86cbcd693125dbbe8614983c61147480bc0ebbe9
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerBaseWrapper: 967d91885e117b427ffee2a116e34a7852b5785b
-  IQKeyboardManagerSwift: a80284d3de649be063b9cc03c11c92ffb80eafd4
+  IQKeyboardManagerCore: 450d64dd5d4423b1ca057598ca0a30a94b9c9e86
+  IQKeyboardManagerSwift: f80168bffabde2e19efe98b2f0468fe1b898d610
   IQKeyboardReturnKeyHandler: 3b8983f5d784244800638d8054b614b1760c6472
-  IQKeyboardToolbarManager: 1ffbc113e7f425f26f6c6ff7901cf303e89983f1
+  IQKeyboardToolbar: 8a09bbd4a544272dcfd862889c093e1c3ca7def1
+  IQKeyboardToolbarManager: 90f9a6dc2b395837ef8277cf46a127f57bcb945f
   IQTextFieldViewListener: 7de8dcd6719d975f12c8bfeb7d4232df1d95dddb
   IQTextView: 5aaf78715a7b3474730a3795fbce4ec512696769
   RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 
-PODFILE CHECKSUM: eb1af8d5e654731b45e201ef54814d3e61060258
+PODFILE CHECKSUM: ce108b9569826025fc1c27da1469fa952c85e4bc
 
 COCOAPODS: 1.15.2

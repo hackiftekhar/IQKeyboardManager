@@ -23,7 +23,7 @@
 
 import UIKit
 
-#if canImport(IQKeyboardToolbarManager)
+#if canImport(IQKeyboardToolbar)
 @available(iOSApplicationExtension, unavailable)
 extension IQTextView: IQPlaceholderable { }
 #endif

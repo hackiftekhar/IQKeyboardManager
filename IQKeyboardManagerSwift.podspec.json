@@ -27,8 +27,7 @@
     "dependencies": {
         "IQKeyboardListener": [],
         "IQTextFieldViewListener": [],
-        "IQKeyboardToolbarManager": [],
-        "IQKeyboardManagerBaseWrapper": []
+        "IQKeyboardManagerCore": []
     },
     "resource_bundles": {
         "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"

@@ -29,7 +29,7 @@ UIView hierarchy category.
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardManagerExtension where Base: UIView {
 
     // MARK: viewControllers
 
@@ -104,7 +104,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardManagerExtension where Base: UIView {
 
     // MARK: Special TextFields
 

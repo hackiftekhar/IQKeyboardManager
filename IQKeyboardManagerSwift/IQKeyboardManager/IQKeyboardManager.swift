@@ -24,9 +24,7 @@
 import UIKit
 import CoreGraphics
 import QuartzCore
-import IQKeyboardToolbarManager
-
-// MARK: IQToolbar tags
+import IQKeyboardManagerCore
 
 // swiftlint:disable line_length
 // A generic version of KeyboardManagement. (OLD DOCUMENTATION) LINK
@@ -65,10 +63,10 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
                 } else {
                     restorePosition()
                 }
-                showLog("Enabled")
+                IQKeyboardManagerDebug.showLog("Enabled")
             } else if !enable, oldValue {   // If not disable, disable it.
                 restorePosition()
-                showLog("Disabled")
+                IQKeyboardManagerDebug.showLog("Disabled")
             }
         }
     }
@@ -77,8 +75,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     To set keyboard distance from textField. can't be less than zero. Default is 10.0.
     */
     @objc public var keyboardDistanceFromTextField: CGFloat = 10.0
-
-    // MARK: IQToolbar handling
 
     internal var activeConfiguration: IQActiveConfiguration = .init()
 
@@ -97,7 +93,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         didSet {
             resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
 
-            showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "NO")")
+            IQKeyboardManagerDebug.showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "NO")")
         }
     }
 
@@ -128,7 +124,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
         // Resigning first responder
         guard textFieldRetain.resignFirstResponder() else {
-            showLog("Refuses to resign first responder: \(textFieldRetain)")
+            IQKeyboardManagerDebug.showLog("Refuses to resign first responder: \(textFieldRetain)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             // If it refuses to resign then becoming it first responder again for getting notifications callback.
             textFieldRetain.becomeFirstResponder()
@@ -188,7 +184,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     // MARK: Initialization/De-initialization
 
     /*  Singleton Object Initialization. */
-    override init() {
+    private override init() {
 
         super.init()
 

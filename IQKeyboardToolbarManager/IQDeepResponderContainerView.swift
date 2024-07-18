@@ -1,5 +1,5 @@
 //
-//  IQToolbarPlaceholderConfiguration.swift
+// IQDeepResponderContainerView.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,30 +25,10 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQToolbarPlaceholderConfiguration: NSObject {
+@objc open class IQDeepResponderContainerView: UIView {
+}
 
-    /**
-    If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
-    */
-    @objc public var showPlaceholder: Bool = true
-
-    /**
-    Placeholder Font. Default is nil.
-    */
-    @objc public var font: UIFont?
-
-    /**
-     Placeholder Color. Default is nil. Which means lightGray
-     */
-    @objc public var color: UIColor?
-
-    /**
-     Placeholder Button Color when it's treated as button. Default is nil.
-     */
-    @objc public var buttonColor: UIColor?
-
-    /**
-     Placeholder accessibility Label
-     */
-    public override var accessibilityLabel: String? { didSet { } }
+@available(*, unavailable, renamed: "IQDeepResponderContainerView")
+@MainActor
+@objc open class IQPreviousNextView: UIView {
 }

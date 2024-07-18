@@ -24,15 +24,19 @@
 import UIKit
 import IQKeyboardManagerSwift
 import IQKeyboardToolbarManager
+import IQKeyboardToolbar
+import IQKeyboardManagerCore
 
 class SettingsViewController: UITableViewController {
 
-    let sectionTitles = ["UIKeyboard handling",
-    "IQToolbar handling",
-    "UIKeyboard appearance overriding",
-    "Resign first responder handling",
-    "UISound handling",
-    "IQKeyboardManager Debug"]
+    let sectionTitles = [
+        "UIKeyboard handling",
+        "IQKeyboardToolbar handling",
+        "UIKeyboard appearance overriding",
+        "Resign first responder handling",
+        "UISound handling",
+        "IQKeyboardManager Debug"
+    ]
 
     let keyboardManagerProperties = [
         ["Enable",
@@ -57,11 +61,11 @@ class SettingsViewController: UITableViewController {
         ["Enable/Disable IQKeyboardManager",
          "Set keyboard distance from textField",
          "Layout the whole view on change"],
-        ["Automatic add the IQToolbar on UIKeyboard",
+        ["Automatic add the IQKeyboardToolbar on UIKeyboard",
          "AutoToolbar previous/next button managing behaviour",
-         "Uses textField's tintColor property for IQToolbar",
-         "Add the textField's placeholder text on IQToolbar",
-         "UIFont for IQToolbar placeholder text",
+         "Uses textField's tintColor property for IQKeyboardToolbar",
+         "Add the textField's placeholder text on IQKeyboardToolbar",
+         "UIFont for IQKeyboardToolbar placeholder text",
          "Override toolbar tintColor property",
          "Replace toolbar done button text with provided image",
          "Override toolbar done button text"],
@@ -100,7 +104,7 @@ class SettingsViewController: UITableViewController {
         self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
     }
 
-    /**  IQToolbar handling     */
+    /**  IQKeyboardToolbar handling     */
     @objc func enableAutoToolbarAction (_ sender: UISwitch) {
 
         IQKeyboardToolbarManager.shared.enable = sender.isOn
@@ -155,7 +159,7 @@ class SettingsViewController: UITableViewController {
     /**  Debugging         */
     @objc func enableDebugging (_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.enableDebugging = sender.isOn
+        IQKeyboardManagerDebug.enableDebugging = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -192,10 +196,8 @@ class SettingsViewController: UITableViewController {
                              UIFont.italicSystemFont(ofSize: 12),
                              UIFont.systemFont(ofSize: 12)]
 
-                if let placeholderFont = IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.font {
-
-                    if let index = fonts.firstIndex(of: placeholderFont) {
-
+                if let font = IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.font {
+                    if let index = fonts.firstIndex(of: font) {
                         controller.selectedIndex = index
                     }
                 }

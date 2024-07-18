@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManagerCompatible.swift
+//  IQKeyboardManagerExtended.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -26,7 +26,7 @@ import Foundation
 /// Wrapper for IQKeyboardManager compatible types. This type provides an extension point for
 /// convenience methods in IQKeyboardManager.
 @available(iOSApplicationExtension, unavailable)
-public struct IQKeyboardManagerWrapper<Base: AnyObject> {
+public struct IQKeyboardManagerExtension<Base: AnyObject> {
     public private(set) weak var base: Base?
     public init(_ base: Base) {
         self.base = base
@@ -37,23 +37,23 @@ public struct IQKeyboardManagerWrapper<Base: AnyObject> {
 /// Represents an object type that is compatible with IQKeyboardManager. You can use `iq` property to get a
 /// value in the namespace of IQKeyboardManager.
 @available(iOSApplicationExtension, unavailable)
-public protocol IQKeyboardManagerCompatible {
+public protocol IQKeyboardManagerExtended {
     /// Type being extended.
     associatedtype Base: AnyObject
 
     /// Instance IQKeyboardManager extension point.
     @MainActor
-    var iq: IQKeyboardManagerWrapper<Base> { get set }
+    var iq: IQKeyboardManagerExtension<Base> { get set }
 }
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManagerCompatible where Self: UIView {
+public extension IQKeyboardManagerExtended where Self: UIView {
 
     /// Instance IQKeyboardManager extension point.
     @MainActor
-    var iq: IQKeyboardManagerWrapper<Self> {
-        get { IQKeyboardManagerWrapper(self) }
+    var iq: IQKeyboardManagerExtension<Self> {
+        get { IQKeyboardManagerExtension(self) }
         set {}
     }
 }
@@ -61,5 +61,5 @@ public extension IQKeyboardManagerCompatible where Self: UIView {
 // swiftlint:enable identifier_name
 
 @available(iOSApplicationExtension, unavailable)
-extension UIView: IQKeyboardManagerCompatible {
+extension UIView: IQKeyboardManagerExtended {
 }

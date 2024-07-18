@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardToolbarManager
 
 // swiftlint:disable unused_setter_value
 // swiftlint:disable line_length
@@ -32,7 +31,7 @@ import IQKeyboardToolbarManager
 @objc public extension UIView {
 
     @available(*, unavailable, renamed: "iq.toolbar")
-    var keyboardToolbar: IQToolbar {
+    var keyboardToolbar: IQKeyboardToolbar {
         get { fatalError() }
         set {}
     }

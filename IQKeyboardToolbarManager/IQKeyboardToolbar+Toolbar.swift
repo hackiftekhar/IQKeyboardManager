@@ -22,7 +22,8 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
+import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardToolbarManager {
@@ -70,10 +71,10 @@ public extension IQKeyboardToolbarManager {
             }
         }
 
-//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
         let startTime: CFTimeInterval = CACurrentMediaTime()
 
-//        showLog("Found \(siblings.count) responder sibling(s)")
+        IQKeyboardManagerDebug.showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
         if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.doneBarButtonConfiguration {
@@ -113,7 +114,7 @@ public extension IQKeyboardToolbarManager {
             havePreviousNext = false
         }
 
-        let placeholderConfig: IQToolbarPlaceholderConfiguration = toolbarConfiguration.placeholderConfiguration
+        let placeholderConfig: IQKeyboardToolbarPlaceholderConfiguration = toolbarConfiguration.placeholderConfiguration
         if havePreviousNext {
             let prevConfiguration: IQBarButtonItemConfiguration
             if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.previousBarButtonConfiguration {
@@ -167,7 +168,7 @@ public extension IQKeyboardToolbarManager {
             textField.inputAccessoryView?.tag = IQKeyboardToolbarManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
         }
 
-        let toolbar: IQToolbar = textField.iq.toolbar
+        let toolbar: IQKeyboardToolbar = textField.iq.toolbar
 
         // Setting toolbar tintColor //  (Enhancement ID: #30)
         if toolbarConfiguration.useTextFieldTintColor {
@@ -222,37 +223,37 @@ public extension IQKeyboardToolbarManager {
         // If lastTextField then next should not be enabled.
         textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
 
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
 
-    /** Remove any toolbar if it is IQToolbar. */
+    /** Remove any toolbar if it is IQKeyboardToolbar. */
     internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
 
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty else {
             return
         }
 
-//        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-//        let startTime: CFTimeInterval = CACurrentMediaTime()
+        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        let startTime: CFTimeInterval = CACurrentMediaTime()
 
-//        showLog("Found \(siblings.count) responder sibling(s)")
+        IQKeyboardManagerDebug.showLog("Found \(siblings.count) responder sibling(s)")
 
         for view in siblings {
             removeToolbarIfRequired(of: view)
         }
 
-//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-//        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+        IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 
-    /** Remove any toolbar if it is IQToolbar. */
+    /** Remove any toolbar if it is IQKeyboardToolbar. */
     internal func removeToolbarIfRequired(of view: UIView) {    //  (Bug ID: #18)
 
         guard view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar,
+              let toolbar: IQKeyboardToolbar = view.inputAccessoryView as? IQKeyboardToolbar,
               toolbar.tag == IQKeyboardToolbarManager.kIQPreviousNextButtonToolbarTag ||
                 toolbar.tag == IQKeyboardToolbarManager.kIQDoneButtonToolbarTag else {
             return

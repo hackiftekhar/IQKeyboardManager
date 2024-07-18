@@ -25,7 +25,8 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 import IQTextFieldViewListener
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
+import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -40,19 +41,19 @@ import IQKeyboardManagerBaseWrapper
     @objc public static let shared: IQKeyboardToolbarManager = .init()
 
     /**
-     Automatic add the IQToolbar functionality. Default is YES.
+     Automatic add the IQKeyboardToolbar functionality. Default is YES.
      */
     @objc public var enable: Bool = true {
         didSet {
             reloadInputViews()
-            //            showLog("enable: \(enable ? "Yes" : "NO")")
+            IQKeyboardManagerDebug.showLog("enable: \(enable ? "Yes" : "NO")")
         }
     }
 
     /**
      Configurations related to the toolbar display over the keyboard.
      */
-    @objc public let toolbarConfiguration: IQToolbarConfiguration = .init()
+    @objc public let toolbarConfiguration: IQKeyboardToolbarConfiguration = .init()
 
     // MARK: UISound handling
 
@@ -86,7 +87,7 @@ import IQKeyboardManagerBaseWrapper
         super.init()
 
         addTextFieldViewListener()
-        
+
         disabledToolbarClasses.append(UIAlertController.self)
         disabledToolbarClasses.append(UIInputViewController.self)
 
@@ -95,7 +96,7 @@ import IQKeyboardManagerBaseWrapper
         deepResponderAllowedContainerClasses.append(IQDeepResponderContainerView.self)
 
         // (Bug ID: #550)
-        // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
+        // Loading IQKeyboardToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
         // If you experience exception breakpoint issue at below line then try these solutions
         // https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
         DispatchQueue.main.async {
@@ -124,4 +125,3 @@ import IQKeyboardManagerBaseWrapper
         })
     }
 }
-

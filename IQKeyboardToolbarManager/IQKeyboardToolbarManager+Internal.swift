@@ -23,11 +23,12 @@
 
 import UIKit
 import IQTextFieldViewListener
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardToolbarManager {
 
+    // swiftlint:disable cyclomatic_complexity
     /**    Get all UITextField/UITextView siblings of textFieldView. */
     func responderViews() -> [UIView]? {
 
@@ -91,6 +92,7 @@ internal extension IQKeyboardToolbarManager {
             }
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     func privateIsEnableAutoToolbar() -> Bool {
 

@@ -24,7 +24,7 @@
 import UIKit
 import IQKeyboardListener
 import IQTextFieldViewListener
-import IQKeyboardManagerBaseWrapper
+import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor

@@ -383,7 +383,8 @@ extension IQKeyboardReturnKeyHandler {
         aDelegate?.textViewWritingToolsDidEnd?(textView)
     }
 
-    @objc public func textView(_ textView: UITextView, writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
+    @objc public func textView(_ textView: UITextView,
+                               writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
         if delegate == nil {
 
             if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
@@ -393,7 +394,6 @@ extension IQKeyboardReturnKeyHandler {
                 }
             }
         }
-
         return []
     }
 }

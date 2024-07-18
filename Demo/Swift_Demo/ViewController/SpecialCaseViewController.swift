@@ -62,7 +62,7 @@ class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UIText
     }
 
     @IBAction func showAlertClicked (_ barButton: UIBarButtonItem!) {
-        let message = "It doesn't affect UIAlertController (Doesn't add IQToolbar on it's textField"
+        let message = "It doesn't affect UIAlertController (Doesn't add IQKeyboardToolbar on it's textField"
         let alertController = UIAlertController(title: "IQKeyboardManager",
                                                 message: message,
                                                 preferredStyle: .alert)

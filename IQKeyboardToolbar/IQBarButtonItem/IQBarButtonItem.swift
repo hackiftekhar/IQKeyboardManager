@@ -27,8 +27,8 @@ import UIKit
 @MainActor
 @objc open class IQBarButtonItem: UIBarButtonItem {
 
-    public static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                                                               target: nil, action: nil)
+    internal static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                                                                 target: nil, action: nil)
 
     @objc public override init() {
         super.init()

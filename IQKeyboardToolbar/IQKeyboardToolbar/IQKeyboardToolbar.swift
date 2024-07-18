@@ -1,5 +1,5 @@
 //
-//  IQToolbar.swift
+//  IQKeyboardToolbar.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,10 +23,10 @@
 
 import UIKit
 
-/** @abstract   IQToolbar for IQKeyboardManager.    */
+/** @abstract   IQKeyboardToolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
+@objc open class IQKeyboardToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
