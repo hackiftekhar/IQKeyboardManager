@@ -22,60 +22,17 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardManagerSwift/*.{swift}",
-        "IQKeyboardManagerSwift/Configuration/*.{swift}",
-        "IQKeyboardManagerSwift/Constants/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardManager/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardManagerCompatible/*.{swift}",
-        "IQKeyboardManagerSwift/IQToolbar/*.{swift}",
-        "IQKeyboardManagerSwift/UIKitExtensions/*.{swift}",
-        "IQKeyboardManagerSwift/PlaceholderSupport/*.{swift}"
+        "IQKeyboardManagerSwift/**/*.{swift}"
     ],
     "dependencies": {
         "IQKeyboardListener": [],
         "IQTextFieldViewListener": [],
-        "IQKeyboardToolbarManager": []
+        "IQKeyboardToolbarManager": [],
+        "IQKeyboardManagerBaseWrapper": []
     },
-    "resource_bundles": {"IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"},
-    "subspecs": [
-        {
-            "name": "IQKeyboardManagerBaseWrapper",
-            "source_files": [
-                "IQKeyboardManagerBaseWrapper/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
-        },
-        {
-            "name": "IQKeyboardReturnKeyHandler",
-            "source_files": [
-                "IQKeyboardReturnKeyHandler/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
-        },
-        {
-            "name": "IQTextView",
-            "source_files": [
-                "IQTextView/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
-        }
-    ],
-    "default_subspecs": "none",
+    "resource_bundles": {
+        "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit",
         "Foundation",

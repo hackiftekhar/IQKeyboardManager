@@ -23,6 +23,7 @@
 
 import UIKit
 import IQTextFieldViewListener
+import IQKeyboardManagerBaseWrapper
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardToolbarManager {

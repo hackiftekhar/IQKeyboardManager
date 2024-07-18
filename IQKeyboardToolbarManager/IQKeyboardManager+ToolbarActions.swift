@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardManagerBaseWrapper
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)

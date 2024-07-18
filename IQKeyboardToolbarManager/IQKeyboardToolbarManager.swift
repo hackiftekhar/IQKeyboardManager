@@ -25,6 +25,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 import IQTextFieldViewListener
+import IQKeyboardManagerBaseWrapper
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor

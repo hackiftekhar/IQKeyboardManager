@@ -137,6 +137,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         aDelegate?.textViewDidChangeSelection?(textView)
     }
 
+    @available(iOS, deprecated: 17.0)
     @objc public func textView(_ aTextView: UITextView,
                                shouldInteractWith URL: URL,
                                in characterRange: NSRange,
@@ -159,6 +160,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
         return true
     }
 
+    @available(iOS, deprecated: 17.0)
     @objc public func textView(_ aTextView: UITextView,
                                shouldInteractWith textAttachment: NSTextAttachment,
                                in characterRange: NSRange,
@@ -221,7 +223,7 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
     }
 }
 
-#if swift(>=5.7)
+#if swift(>=5.7)    // Xcode 14
 @available(iOS 16.0, *)
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler {
@@ -275,7 +277,7 @@ extension IQKeyboardReturnKeyHandler {
 }
 #endif
 
-#if swift(>=5.9)
+#if swift(>=5.9)    // Xcode 15
 @available(iOS 17.0, *)
 @available(iOSApplicationExtension, unavailable)
 extension IQKeyboardReturnKeyHandler {
@@ -344,6 +346,55 @@ extension IQKeyboardReturnKeyHandler {
         }
 
         aDelegate?.textView?(textView, textItemMenuWillEndFor: textItem, animator: animator)
+    }
+}
+#endif
+
+#if swift(>=6.0)    // Xcode 16
+@available(iOS 18.0, *)
+@available(iOSApplicationExtension, unavailable)
+extension IQKeyboardReturnKeyHandler {
+
+    @objc public func textViewWritingToolsWillBegin(_ textView: UITextView) {
+
+        var aDelegate: (any UITextViewDelegate)? = delegate
+
+        if aDelegate == nil {
+
+            if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(textView) {
+                aDelegate = model.textViewDelegate
+            }
+        }
+
+        aDelegate?.textViewWritingToolsWillBegin?(textView)
+    }
+
+    @objc public func textViewWritingToolsDidEnd(_ textView: UITextView) {
+
+        var aDelegate: (any UITextViewDelegate)? = delegate
+
+        if aDelegate == nil {
+
+            if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(textView) {
+                aDelegate = model.textViewDelegate
+            }
+        }
+
+        aDelegate?.textViewWritingToolsDidEnd?(textView)
+    }
+
+    @objc public func textView(_ textView: UITextView, writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
+        if delegate == nil {
+
+            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+                if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSRange) -> [NSValue])) {
+                    return unwrapDelegate.textView?(aTextView,
+                                                    writingToolsIgnoredRangesInEnclosingRange: enclosingRange)
+                }
+            }
+        }
+
+        return []
     }
 }
 #endif

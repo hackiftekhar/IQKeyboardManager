@@ -22,9 +22,11 @@
         "5.9"
     ],
     "source_files": [
-        "IQTextView/*.{swift}"
+        "IQTextView/**/*.{swift}"
     ],
-    "resource_bundles": {"IQTextView": "IQTextView/PrivacyInfo.xcprivacy"},
+    "resource_bundles": {
+        "IQTextView": "IQTextView/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit"
     ],

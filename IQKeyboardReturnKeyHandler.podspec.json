@@ -22,9 +22,11 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardReturnKeyHandler/*.{swift}"
+        "IQKeyboardReturnKeyHandler/**/*.{swift}"
     ],
-    "resource_bundles": {"IQTextFieldViewListener": "IQKeyboardReturnKeyHandler/PrivacyInfo.xcprivacy"},
+    "resource_bundles": {
+        "IQKeyboardReturnKeyHandler": "IQKeyboardReturnKeyHandler/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit"
     ],

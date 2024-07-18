@@ -22,9 +22,11 @@
         "5.9"
     ],
     "source_files": [
-        "IQTextFieldViewListener/*.{swift}"
+        "IQTextFieldViewListener/**/*.{swift}"
     ],
-    "resource_bundles": {"IQTextFieldViewListener": "IQTextFieldViewListener/PrivacyInfo.xcprivacy"},
+    "resource_bundles": {
+        "IQTextFieldViewListener": "IQTextFieldViewListener/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit"
     ],

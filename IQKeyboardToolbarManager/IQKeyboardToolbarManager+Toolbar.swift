@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardManagerBaseWrapper
 
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardToolbarManager {
@@ -221,7 +222,7 @@ public extension IQKeyboardToolbarManager {
         // If lastTextField then next should not be enabled.
         textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
 //        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
@@ -235,7 +236,7 @@ public extension IQKeyboardToolbarManager {
         }
 
 //        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
+//        let startTime: CFTimeInterval = CACurrentMediaTime()
 
 //        showLog("Found \(siblings.count) responder sibling(s)")
 
@@ -243,7 +244,7 @@ public extension IQKeyboardToolbarManager {
             removeToolbarIfRequired(of: view)
         }
 
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
+//        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
 //        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
 

@@ -20,13 +20,14 @@ target "DemoSwift" do
   pod "IQTextFieldViewListener", :path => "."
   pod "IQKeyboardToolbarManager", :path => "."
   pod "IQKeyboardManagerBaseWrapper", :path => "."
+  pod "IQKeyboardManagerSwift", :path => "."
+
 
   pod "IQTextView", :path => "."
-  pod "IQKeyboardReturnKeyHandler", :path => "."
+#  pod "IQKeyboardToolbarManager/IQTextView", :path => "."
 
-  pod "IQKeyboardManagerSwift", :path => "."
-#  pod "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler", :path => "."
-#  pod "IQKeyboardManagerSwift/IQTextView", :path => "."
+  pod "IQKeyboardReturnKeyHandler", :path => "."
+  #  pod "IQKeyboardToolbarManager/IQKeyboardReturnKeyHandler", :path => "."
 
   pod "RSKPlaceholderTextView"
 end

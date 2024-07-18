@@ -96,7 +96,7 @@ Manages the return key to work like next/done in a view hierarchy.
     internal func updateReturnKeyTypeOnTextField(_ view: UIView) {
         var superConsideredView: UIView?
 
-#if canImport(IQKeyboardManagerSwift)
+#if canImport(IQKeyboardToolbarManager)
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for allowedClasse in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
             superConsideredView = view.iq.superviewOf(type: allowedClasse)
@@ -185,7 +185,7 @@ Manages the return key to work like next/done in a view hierarchy.
     */
     @objc public func addResponderFromView(_ view: UIView) {
 
-#if canImport(IQKeyboardManagerSwift)
+#if canImport(IQKeyboardToolbarManager)
         let textFields: [UIView] = view.iq.deepResponderViews()
 #else
         let textFields: [UIView] = view.deepResponderViews()
@@ -204,7 +204,7 @@ Manages the return key to work like next/done in a view hierarchy.
     */
     @objc public func removeResponderFromView(_ view: UIView) {
 
-#if canImport(IQKeyboardManagerSwift)
+#if canImport(IQKeyboardToolbarManager)
         let textFields: [UIView] = view.iq.deepResponderViews()
 #else
         let textFields: [UIView] = view.deepResponderViews()
@@ -221,7 +221,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
         var superConsideredView: UIView?
 
-#if canImport(IQKeyboardManagerSwift)
+#if canImport(IQKeyboardToolbarManager)
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
         for allowedClass in IQKeyboardManager.shared.deepResponderAllowedContainerClasses {
 
@@ -274,7 +274,7 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 }
 
-#if !canImport(IQKeyboardManagerSwift)
+#if !canImport(IQKeyboardToolbarManager)
 fileprivate extension UIView {
 
     func deepResponderViews() -> [UIView] {

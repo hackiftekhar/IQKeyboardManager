@@ -28,14 +28,12 @@ import IQKeyboardManagerBaseWrapper
 @MainActor
 private struct AssociatedKeys {
     static var distanceFromKeyboard: Int = 0
-    static var ignoreSwitchingByNextPrevious: Int = 0
     static var enableMode: Int = 0
     static var resignOnTouchOutsideMode: Int = 0
 }
 
 @available(iOSApplicationExtension, unavailable)
-extension UIView: IQKeyboardManagerCompatible {
-
+extension UIView {
     public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
 }
 
@@ -65,26 +63,6 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         set(newValue) {
             if let base = base {
                 objc_setAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard,
-                                         newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-    }
-
-    /**
-     If ignoreSwitchingByNextPrevious is true then library will ignore this textField/textView
-     while moving to other textField/textView using keyboard toolbar next previous buttons.
-     Default is false
-     */
-    var ignoreSwitchingByNextPrevious: Bool {
-        get {
-            if let base = base {
-                return objc_getAssociatedObject(base, &AssociatedKeys.ignoreSwitchingByNextPrevious) as? Bool ?? false
-            }
-            return false
-        }
-        set(newValue) {
-            if let base = base {
-                objc_setAssociatedObject(base, &AssociatedKeys.ignoreSwitchingByNextPrevious,
                                          newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
@@ -132,12 +110,6 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     @available(*, unavailable, renamed: "iq.distanceFromKeyboard")
     var keyboardDistanceFromTextField: CGFloat {
         get { 0 }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "iq.ignoreSwitchingByNextPrevious")
-    var ignoreSwitchingByNextPrevious: Bool {
-        get { false }
         set { }
     }
 

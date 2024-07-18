@@ -22,9 +22,11 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardListener/*.{swift}"
+        "IQKeyboardListener/**/*.{swift}"
     ],
-    "resource_bundles": {"IQKeyboardListener": "IQKeyboardListener/PrivacyInfo.xcprivacy"},
+    "resource_bundles": {
+        "IQKeyboardListener": "IQKeyboardListener/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit"
     ],

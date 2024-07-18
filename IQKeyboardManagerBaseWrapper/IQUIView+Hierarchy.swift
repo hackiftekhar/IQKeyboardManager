@@ -52,41 +52,6 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
         return nil
     }
 
-    /**
-    Returns the topMost UIViewController object in hierarchy.
-    */
-    func topMostController() -> UIViewController? {
-
-        var controllersHierarchy: [UIViewController] = []
-
-        if var topController: UIViewController = base?.window?.rootViewController {
-            controllersHierarchy.append(topController)
-
-            while let presented: UIViewController = topController.presentedViewController {
-
-                topController = presented
-
-                controllersHierarchy.append(presented)
-            }
-
-            var matchController: UIResponder? = viewContainingController()
-
-            while let mController: UIViewController = matchController as? UIViewController,
-                    !controllersHierarchy.contains(mController) {
-
-                repeat {
-                    matchController = matchController?.next
-
-                } while matchController != nil && matchController is UIViewController == false
-            }
-
-            return matchController as? UIViewController
-
-        } else {
-            return viewContainingController()
-        }
-    }
-
     // MARK: Superviews/Subviews/Siblings
 
     /**
@@ -140,91 +105,6 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManagerWrapper where Base: UIView {
-
-    /**
-    Returns all siblings of the receiver which canBecomeFirstResponder.
-    */
-    func responderSiblings() -> [UIView] {
-
-        // Array of (UITextField/UITextView's).
-        var tempTextFields: [UIView] = []
-
-        //    Getting all siblings
-        if let siblings: [UIView] = base?.superview?.subviews {
-            for textField in siblings {
-                if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
-                    textField.iq.canBecomeFirstResponder() {
-                    tempTextFields.append(textField)
-                }
-            }
-        }
-
-        return tempTextFields
-    }
-
-    /**
-    Returns all deep subViews of the receiver which canBecomeFirstResponder.
-    */
-    func deepResponderViews() -> [UIView] {
-
-        // Array of (UITextField/UITextView's).
-        var textfields: [UIView] = []
-
-        for textField in base?.subviews ?? [] {
-
-            if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
-               textField.iq.canBecomeFirstResponder() {
-                textfields.append(textField)
-            }
-            // Sometimes there are hidden or disabled views and textField inside them still recorded,
-            // so we added some more validations here (Bug ID: #458)
-            // Uncommented else (Bug ID: #625)
-            else if textField.subviews.count != 0,
-                    base?.isUserInteractionEnabled == true,
-                    base?.isHidden == false, base?.alpha != 0.0 {
-                for deepView in textField.iq.deepResponderViews() {
-                    textfields.append(deepView)
-                }
-            }
-        }
-
-        // subviews are returning in opposite order. Sorting according the frames 'y'.
-        return textfields.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
-
-            let frame1: CGRect = view1.convert(view1.bounds, to: base)
-            let frame2: CGRect = view2.convert(view2.bounds, to: base)
-
-            if frame1.minY != frame2.minY {
-                return frame1.minY < frame2.minY
-            } else {
-                return frame1.minX < frame2.minX
-            }
-        })
-    }
-
-    private func canBecomeFirstResponder() -> Bool {
-
-        var canBecomeFirstResponder: Bool = false
-
-        if base?.conforms(to: (any UITextInput).self) == true {
-            //  Setting toolbar to keyboard.
-            if let textView: UITextView = base as? UITextView {
-                canBecomeFirstResponder = textView.isEditable
-            } else if let textField: UITextField = base as? UITextField {
-                canBecomeFirstResponder = textField.isEnabled
-            }
-        }
-
-        if canBecomeFirstResponder {
-            canBecomeFirstResponder = base?.isUserInteractionEnabled == true &&
-            base?.isHidden == false &&
-            base?.alpha != 0.0 &&
-            !isAlertViewTextField() &&
-            textFieldSearchBar() == nil
-        }
-
-        return canBecomeFirstResponder
-    }
 
     // MARK: Special TextFields
 

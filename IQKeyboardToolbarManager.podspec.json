@@ -22,14 +22,42 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardToolbarManager/*.{swift}",
         "IQKeyboardToolbarManager/**/*.{swift}"
     ],
-    "resource_bundles": {"IQKeyboardToolbarManager": "IQKeyboardToolbarManager/PrivacyInfo.xcprivacy"},
     "dependencies": {
         "IQKeyboardManagerBaseWrapper": [],
         "IQTextFieldViewListener": []
     },
+    "resource_bundles": {
+        "IQKeyboardToolbarManager": "IQKeyboardToolbarManager/PrivacyInfo.xcprivacy"
+    },
+    "subspecs": [
+        {
+            "name": "IQKeyboardReturnKeyHandler",
+            "source_files": [
+                "IQKeyboardReturnKeyHandler/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "IQTextView",
+            "source_files": [
+                "IQTextView/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        }
+    ],
+    "default_subspecs": ["none"],
     "frameworks": [
         "UIKit"
     ],

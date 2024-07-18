@@ -22,9 +22,11 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardManagerBaseWrapper/*.{swift}"
+        "IQKeyboardManagerBaseWrapper/**/*.{swift}"
     ],
-    "resource_bundles": {"IQKeyboardManagerBaseWrapper": "IQKeyboardManagerBaseWrapper/PrivacyInfo.xcprivacy"},
+    "resource_bundles": {
+        "IQKeyboardManagerBaseWrapper": "IQKeyboardManagerBaseWrapper/PrivacyInfo.xcprivacy"
+    },
     "frameworks": [
         "UIKit"
     ],

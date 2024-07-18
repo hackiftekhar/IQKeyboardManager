@@ -48,7 +48,7 @@ public protocol IQKeyboardManagerCompatible {
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManagerCompatible where Self: AnyObject {
+public extension IQKeyboardManagerCompatible where Self: UIView {
 
     /// Instance IQKeyboardManager extension point.
     @MainActor
@@ -59,3 +59,7 @@ public extension IQKeyboardManagerCompatible where Self: AnyObject {
 }
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
+
+@available(iOSApplicationExtension, unavailable)
+extension UIView: IQKeyboardManagerCompatible {
+}

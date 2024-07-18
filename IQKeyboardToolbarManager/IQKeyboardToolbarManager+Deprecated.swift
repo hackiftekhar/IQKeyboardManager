@@ -140,7 +140,7 @@ public extension IQKeyboardToolbarManager {
 public extension IQKeyboardToolbarManager {
 
     @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.accessibilityLabel")
-    @objc var toolbarTitlBarButtonItemAccessibilityLabel: String? {
+    @objc var toolbarTitleBarButtonItemAccessibilityLabel: String? {
         get { nil }
         set { }
     }
