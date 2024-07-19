@@ -23,6 +23,7 @@
 
 import UIKit
 
+// swiftlint:disable type_name
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objc public final class IQKeyboardToolbarPlaceholderConfiguration: NSObject {
@@ -52,3 +53,4 @@ import UIKit
      */
     public override var accessibilityLabel: String? { didSet { } }
 }
+// swiftlint:enable type_name

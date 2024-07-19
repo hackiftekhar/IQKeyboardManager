@@ -129,11 +129,9 @@ public extension IQKeyboardToolbarManager {
         var sender: UIView = textFieldRetain
 
         // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.previousBarButton.invocation
-                sender = searchBar
-            }
+        if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+            invocation = searchBar.iq.toolbar.previousBarButton.invocation
+            sender = searchBar
         }
 
         if isAcceptAsFirstResponder {
@@ -161,11 +159,9 @@ public extension IQKeyboardToolbarManager {
         var sender: UIView = textFieldRetain
 
         // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.nextBarButton.invocation
-                sender = searchBar
-            }
+        if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+            invocation = searchBar.iq.toolbar.nextBarButton.invocation
+            sender = searchBar
         }
 
         if isAcceptAsFirstResponder {
@@ -193,11 +189,9 @@ public extension IQKeyboardToolbarManager {
         var sender: UIView = textFieldRetain
 
         // Handling search bar special case
-        do {
-            if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
-                invocation = searchBar.iq.toolbar.doneBarButton.invocation
-                sender = searchBar
-            }
+        if let searchBar: UIView = textFieldRetain.iq.textFieldSearchBar() {
+            invocation = searchBar.iq.toolbar.doneBarButton.invocation
+            sender = searchBar
         }
 
         if isResignedFirstResponder {

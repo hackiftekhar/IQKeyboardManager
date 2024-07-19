@@ -29,12 +29,11 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldBeginEditing(_:))) {
-                    return unwrapDelegate.textViewShouldBeginEditing?(textView) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldBeginEditing(_:))) {
+                return textViewDelegate.textViewShouldBeginEditing?(textView) ?? false
             }
         }
 
@@ -43,12 +42,11 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
     @objc public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldEndEditing(_:))) {
-                    return unwrapDelegate.textViewShouldEndEditing?(textView) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector((any UITextViewDelegate).textViewShouldEndEditing(_:))) {
+                return textViewDelegate.textViewShouldEndEditing?(textView) ?? false
             }
         }
 
@@ -92,12 +90,12 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
 
         if delegate == nil {
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
+            if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(textView)?.textViewDelegate {
                 let selector = #selector((any UITextViewDelegate).textView(_:shouldChangeTextIn:replacementText:))
-                if unwrapDelegate.responds(to: selector) {
-                    isReturn = (unwrapDelegate.textView?(textView,
-                                                         shouldChangeTextIn: range,
-                                                         replacementText: text)) ?? false
+                if textViewDelegate.responds(to: selector) {
+                    isReturn = (textViewDelegate.textView?(textView,
+                                                           shouldChangeTextIn: range,
+                                                           replacementText: text)) ?? false
                 }
             }
         }
@@ -143,17 +141,16 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
                                in characterRange: NSRange,
                                interaction: UITextItemInteraction) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                let selector: Selector = #selector(textView as
-                                                   (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)
-                if unwrapDelegate.responds(to: selector) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    shouldInteractWith: URL,
-                                                    in: characterRange,
-                                                    interaction: interaction) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            let selector: Selector = #selector(textView as
+                                               (UITextView, URL, NSRange, UITextItemInteraction) -> Bool)
+            if textViewDelegate.responds(to: selector) {
+                return textViewDelegate.textView?(aTextView,
+                                                  shouldInteractWith: URL,
+                                                  in: characterRange,
+                                                  interaction: interaction) ?? false
             }
         }
 
@@ -166,18 +163,17 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
                                in characterRange: NSRange,
                                interaction: UITextItemInteraction) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                let selector: Selector = #selector(textView as
-                                                   (UITextView, NSTextAttachment, NSRange, UITextItemInteraction)
-                                                   -> Bool)
-                if unwrapDelegate.responds(to: selector) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    shouldInteractWith: textAttachment,
-                                                    in: characterRange,
-                                                    interaction: interaction) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            let selector: Selector = #selector(textView as
+                                               (UITextView, NSTextAttachment, NSRange, UITextItemInteraction)
+                                               -> Bool)
+            if textViewDelegate.responds(to: selector) {
+                return textViewDelegate.textView?(aTextView,
+                                                  shouldInteractWith: textAttachment,
+                                                  in: characterRange,
+                                                  interaction: interaction) ?? false
             }
         }
 
@@ -189,14 +185,13 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
                                shouldInteractWith URL: URL,
                                in characterRange: NSRange) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    shouldInteractWith: URL,
-                                                    in: characterRange) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector(textView as (UITextView, URL, NSRange) -> Bool)) {
+                return textViewDelegate.textView?(aTextView,
+                                                  shouldInteractWith: URL,
+                                                  in: characterRange) ?? false
             }
         }
 
@@ -208,14 +203,13 @@ extension IQKeyboardReturnKeyHandler: UITextViewDelegate {
                                shouldInteractWith textAttachment: NSTextAttachment,
                                in characterRange: NSRange) -> Bool {
 
-        if delegate == nil {
+        guard delegate == nil else { return true }
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    shouldInteractWith: textAttachment,
-                                                    in: characterRange) ?? false
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector(textView as (UITextView, NSTextAttachment, NSRange) -> Bool)) {
+                return textViewDelegate.textView?(aTextView,
+                                                  shouldInteractWith: textAttachment,
+                                                  in: characterRange) ?? false
             }
         }
 
@@ -230,17 +224,17 @@ extension IQKeyboardReturnKeyHandler {
     public func textView(_ aTextView: UITextView,
                          editMenuForTextIn range: NSRange,
                          suggestedActions: [UIMenuElement]) -> UIMenu? {
-        if delegate == nil {
 
-            if let unwrapDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+        guard delegate == nil else { return nil }
 
-                let selector: Selector = #selector(textView as
-                                                   (UITextView, NSRange, [UIMenuElement]) -> UIMenu?)
-                if unwrapDelegate.responds(to: selector) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    editMenuForTextIn: range,
-                                                    suggestedActions: suggestedActions)
-                }
+        if let textViewDelegate: any UITextViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+
+            let selector: Selector = #selector(textView as
+                                               (UITextView, NSRange, [UIMenuElement]) -> UIMenu?)
+            if textViewDelegate.responds(to: selector) {
+                return textViewDelegate.textView?(aTextView,
+                                                  editMenuForTextIn: range,
+                                                  suggestedActions: suggestedActions)
             }
         }
 
@@ -285,14 +279,13 @@ extension IQKeyboardReturnKeyHandler {
     public func textView(_ aTextView: UITextView,
                          primaryActionFor textItem: UITextItem,
                          defaultAction: UIAction) -> UIAction? {
-        if delegate == nil {
+        guard delegate == nil else { return nil }
 
-            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(textView as (UITextView, UITextItem, UIAction) -> UIAction?)) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    primaryActionFor: textItem,
-                                                    defaultAction: defaultAction)
-                }
+        if let textViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector(textView as (UITextView, UITextItem, UIAction) -> UIAction?)) {
+                return textViewDelegate.textView?(aTextView,
+                                                  primaryActionFor: textItem,
+                                                  defaultAction: defaultAction)
             }
         }
 
@@ -302,16 +295,15 @@ extension IQKeyboardReturnKeyHandler {
     public func textView(_ aTextView: UITextView,
                          menuConfigurationFor textItem: UITextItem,
                          defaultMenu: UIMenu) -> UITextItem.MenuConfiguration? {
-        if delegate == nil {
+        guard delegate == nil else { return nil }
 
-            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                let selector: Selector = #selector(textView as (UITextView, UITextItem, UIMenu)
-                                                   -> UITextItem.MenuConfiguration?)
-                if unwrapDelegate.responds(to: selector) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    menuConfigurationFor: textItem,
-                                                    defaultMenu: defaultMenu)
-                }
+        if let textViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            let selector: Selector = #selector(textView as (UITextView, UITextItem, UIMenu)
+                                               -> UITextItem.MenuConfiguration?)
+            if textViewDelegate.responds(to: selector) {
+                return textViewDelegate.textView?(aTextView,
+                                                  menuConfigurationFor: textItem,
+                                                  defaultMenu: defaultMenu)
             }
         }
 
@@ -385,13 +377,12 @@ extension IQKeyboardReturnKeyHandler {
 
     @objc public func textView(_ textView: UITextView,
                                writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
-        if delegate == nil {
+        guard delegate == nil else { return [] }
 
-            if let unwrapDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
-                if unwrapDelegate.responds(to: #selector(textView as (UITextView, NSRange) -> [NSValue])) {
-                    return unwrapDelegate.textView?(aTextView,
-                                                    writingToolsIgnoredRangesInEnclosingRange: enclosingRange)
-                }
+        if let textViewDelegate = textFieldViewCachedInfo(aTextView)?.textViewDelegate {
+            if textViewDelegate.responds(to: #selector(textView as (UITextView, NSRange) -> [NSValue])) {
+                return textViewDelegate.textView?(aTextView,
+                                                  writingToolsIgnoredRangesInEnclosingRange: enclosingRange)
             }
         }
         return []

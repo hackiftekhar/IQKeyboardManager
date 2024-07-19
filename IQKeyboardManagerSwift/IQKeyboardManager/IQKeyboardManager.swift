@@ -55,8 +55,9 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     @objc public var enable: Bool = false {
 
         didSet {
+            guard enable != oldValue else { return }
             // If not enable, enable it.
-            if enable, !oldValue {
+            if enable {
                 // If keyboard is currently showing.
                 if activeConfiguration.keyboardInfo.keyboardShowing {
                     adjustPosition()
@@ -64,7 +65,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
                     restorePosition()
                 }
                 IQKeyboardManagerDebug.showLog("Enabled")
-            } else if !enable, oldValue {   // If not disable, disable it.
+            } else {   // If not disable, disable it.
                 restorePosition()
                 IQKeyboardManagerDebug.showLog("Disabled")
             }

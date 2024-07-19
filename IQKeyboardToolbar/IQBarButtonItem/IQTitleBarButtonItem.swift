@@ -30,8 +30,8 @@ import UIKit
     @objc open var titleFont: UIFont? {
 
         didSet {
-            if let unwrappedFont: UIFont = titleFont {
-                titleButton?.titleLabel?.font = unwrappedFont
+            if let titleFont: UIFont = titleFont {
+                titleButton?.titleLabel?.font = titleFont
             } else {
                 titleButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13)
             }
@@ -52,8 +52,8 @@ import UIKit
 
         didSet {
 
-            if let color: UIColor = titleColor {
-                titleButton?.setTitleColor(color, for: .disabled)
+            if let titleColor: UIColor = titleColor {
+                titleButton?.setTitleColor(titleColor, for: .disabled)
             } else {
                 titleButton?.setTitleColor(UIColor.lightGray, for: .disabled)
             }
@@ -67,8 +67,8 @@ import UIKit
 
         didSet {
 
-            if let color: UIColor = selectableTitleColor {
-                titleButton?.setTitleColor(color, for: .normal)
+            if let selectableTitleColor: UIColor = selectableTitleColor {
+                titleButton?.setTitleColor(selectableTitleColor, for: .normal)
             } else {
                 titleButton?.setTitleColor(UIColor.systemBlue, for: .normal)
             }

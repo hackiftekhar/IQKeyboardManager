@@ -31,9 +31,8 @@ public class IQKeyboardListener {
 
     public private(set) var keyboardInfo: IQKeyboardInfo {
         didSet {
-            if keyboardInfo != oldValue {
-                sendEvent()
-            }
+            guard keyboardInfo != oldValue else { return }
+            sendEvent()
         }
     }
 

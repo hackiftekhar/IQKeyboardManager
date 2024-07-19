@@ -28,7 +28,8 @@ import UIKit
 @objc public final class IQKeyboardToolbarConfiguration: NSObject {
 
     /**
-     If YES, then uses textField's tintColor property for IQKeyboardToolbar, otherwise tint color is default. Default is NO.
+     If YES, then uses textField's tintColor property for IQKeyboardToolbar,
+     otherwise tint color is default. Default is NO.
      */
     @objc public var useTextFieldTintColor: Bool = false
 

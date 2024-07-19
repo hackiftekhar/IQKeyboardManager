@@ -56,7 +56,7 @@ extension SettingsViewController {
         case 1:
             if IQKeyboardToolbarManager.shared.enable == false {
                 return 1
-            } else if IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder == false {
+            } else if !IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder {
                 return 4
             } else {
                 let properties = keyboardManagerProperties[section]
@@ -227,7 +227,8 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                let doneButtonConfiguration = IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration
+                let toolbarConfiguration = IQKeyboardToolbarManager.shared.toolbarConfiguration
+                let doneButtonConfiguration = toolbarConfiguration.doneBarButtonConfiguration
                 cell.arrowImageView.image = doneButtonConfiguration?.image
                 cell.switchEnable.isOn = doneButtonConfiguration?.image != nil
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
@@ -243,7 +244,8 @@ extension SettingsViewController {
 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.textField.text = IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration?.title
+                let toolbarConfiguration = IQKeyboardToolbarManager.shared.toolbarConfiguration
+                cell.textField.text = toolbarConfiguration.doneBarButtonConfiguration?.title
                 cell.textField.tag = 17
                 cell.textField.delegate = self
                 return cell

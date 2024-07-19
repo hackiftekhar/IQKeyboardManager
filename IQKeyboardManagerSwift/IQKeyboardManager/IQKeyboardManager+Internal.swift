@@ -28,6 +28,7 @@ import IQKeyboardManagerCore
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
+    // swiftlint:disable cyclomatic_complexity
     func privateIsEnabled() -> Bool {
 
         var isEnabled: Bool = enable
@@ -38,11 +39,11 @@ internal extension IQKeyboardManager {
 
         let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.enableMode
 
-        if enableMode == .enabled {
-            isEnabled = true
-        } else if enableMode == .disabled {
-            isEnabled = false
-        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        switch enableMode {
+        case .default:
+            guard var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+                return isEnabled
+            }
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
@@ -56,27 +57,29 @@ internal extension IQKeyboardManager {
                 isEnabled = true
             }
 
-            if isEnabled {
+            guard isEnabled else { return isEnabled }
 
-                // If viewController is kind of disabled viewController class, then assuming it's disabled.
-                if disabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                    isEnabled = false
-                }
-
-                // Special Controllers
-                if isEnabled {
-
-                    let classNameString: String = "\(type(of: textFieldViewController.self))"
-
-                    // _UIAlertControllerTextFieldViewController
-                    if classNameString.contains("UIAlertController"),
-                       classNameString.hasSuffix("TextFieldViewController") {
-                        isEnabled = false
-                    }
-                }
+            // If viewController is kind of disabled viewController class, then assuming it's disabled.
+            if disabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                isEnabled = false
             }
-        }
 
-        return isEnabled
+            guard isEnabled else { return isEnabled }
+
+            // Special Controllers
+            let classNameString: String = "\(type(of: textFieldViewController.self))"
+
+            // _UIAlertControllerTextFieldViewController
+            if classNameString.contains("UIAlertController"),
+               classNameString.hasSuffix("TextFieldViewController") {
+                isEnabled = false
+            }
+            return isEnabled
+        case .enabled:
+            return true
+        case .disabled:
+            return false
+        }
     }
+    // swiftlint:enable cyclomatic_complexity
 }

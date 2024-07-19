@@ -54,16 +54,18 @@ internal extension IQKeyboardManager {
 
             if let configuration = self.activeConfiguration.rootControllerConfiguration {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
-                IQKeyboardManagerDebug.showLog("Saving \(classNameString) beginning origin: \(configuration.beginOrigin)")
+                IQKeyboardManagerDebug.showLog("""
+                Saving \(classNameString) beginning origin: \(configuration.beginOrigin)
+                """)
             }
         }
 
         setupTextFieldView()
 
-        if !privateIsEnabled() {
-            restorePosition()
-        } else {
+        if privateIsEnabled() {
             adjustPosition()
+        } else {
+            restorePosition()
         }
     }
 
@@ -71,10 +73,10 @@ internal extension IQKeyboardManager {
 
         setupTextFieldView()
 
-        if !privateIsEnabled() {
-            restorePosition()
-        } else {
+        if privateIsEnabled() {
             adjustPosition()
+        } else {
+            restorePosition()
         }
     }
 
@@ -101,20 +103,20 @@ internal extension IQKeyboardManager {
             return
         }
 
-        do {
-            if let startingConfiguration = startingTextViewConfiguration,
-               startingConfiguration.hasChanged {
+        if let startingConfiguration = startingTextViewConfiguration,
+           startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                    IQKeyboardManagerDebug.showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
-                }
-
-                activeConfiguration.animate(alongsideTransition: {
-                    startingConfiguration.restore(for: textFieldView)
-                })
+            if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                IQKeyboardManagerDebug.showLog("""
+                Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
+                """)
             }
-            startingTextViewConfiguration = nil
+
+            activeConfiguration.animate(alongsideTransition: {
+                startingConfiguration.restore(for: textFieldView)
+            })
         }
+        startingTextViewConfiguration = nil
     }
 
     func banishTextFieldViewSetup() {
@@ -123,19 +125,19 @@ internal extension IQKeyboardManager {
             return
         }
 
-        do {
-            if let startingConfiguration = startingTextViewConfiguration,
-               startingConfiguration.hasChanged {
+        if let startingConfiguration = startingTextViewConfiguration,
+           startingConfiguration.hasChanged {
 
-                if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                    IQKeyboardManagerDebug.showLog("Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)")
-                }
-
-                activeConfiguration.animate(alongsideTransition: {
-                    startingConfiguration.restore(for: textFieldView)
-                })
+            if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
+                IQKeyboardManagerDebug.showLog("""
+                Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
+                """)
             }
-            startingTextViewConfiguration = nil
+
+            activeConfiguration.animate(alongsideTransition: {
+                startingConfiguration.restore(for: textFieldView)
+            })
         }
+        startingTextViewConfiguration = nil
     }
 }

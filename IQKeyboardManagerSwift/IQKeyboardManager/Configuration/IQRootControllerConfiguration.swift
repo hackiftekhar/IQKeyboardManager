@@ -67,13 +67,11 @@ internal struct IQRootControllerConfiguration {
 
     @discardableResult
     func restore() -> Bool {
-        if !rootController.view.frame.origin.equalTo(beginOrigin) {
-            // Setting it's new frame
-            var rect: CGRect = rootController.view.frame
-            rect.origin = beginOrigin
-            rootController.view.frame = rect
-            return true
-        }
-        return false
+        guard !rootController.view.frame.origin.equalTo(beginOrigin) else { return false }
+        // Setting it's new frame
+        var rect: CGRect = rootController.view.frame
+        rect.origin = beginOrigin
+        rootController.view.frame = rect
+        return true
     }
 }

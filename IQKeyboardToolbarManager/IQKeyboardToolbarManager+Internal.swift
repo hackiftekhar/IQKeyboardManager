@@ -28,7 +28,6 @@ import IQKeyboardManagerCore
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardToolbarManager {
 
-    // swiftlint:disable cyclomatic_complexity
     /**    Get all UITextField/UITextView siblings of textFieldView. */
     func responderViews() -> [UIView]? {
 
@@ -46,26 +45,7 @@ internal extension IQKeyboardToolbarManager {
             }
         }
 
-        var swiftUIHostingView: UIView?
-        let swiftUIHostingViewName: String = "UIHostingView<"
-        var superView: UIView? = textFieldView.superview
-        while let unwrappedSuperView: UIView = superView {
-
-            let classNameString: String = {
-                var name: String = "\(type(of: unwrappedSuperView.self))"
-                if name.hasPrefix("_") {
-                    name.removeFirst()
-                }
-                return name
-            }()
-
-            if classNameString.hasPrefix(swiftUIHostingViewName) {
-                swiftUIHostingView = unwrappedSuperView
-                break
-            }
-
-            superView = unwrappedSuperView.superview
-        }
+        let swiftUIHostingView: UIView? = getSwiftUIHostingView(textFieldView: textFieldView)
 
         // (Enhancement ID: #22)
         // If there is a superConsideredView in view's hierarchy,
@@ -92,7 +72,6 @@ internal extension IQKeyboardToolbarManager {
             }
         }
     }
-    // swiftlint:enable cyclomatic_complexity
 
     func privateIsEnableAutoToolbar() -> Bool {
 
@@ -134,5 +113,33 @@ internal extension IQKeyboardToolbarManager {
         }
 
         return isEnabled
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+private extension IQKeyboardToolbarManager {
+
+    private func getSwiftUIHostingView(textFieldView: UIView) -> UIView? {
+        var swiftUIHostingView: UIView?
+        let swiftUIHostingViewName: String = "UIHostingView<"
+        var superView: UIView? = textFieldView.superview
+        while let unwrappedSuperView: UIView = superView {
+
+            let classNameString: String = {
+                var name: String = "\(type(of: unwrappedSuperView.self))"
+                if name.hasPrefix("_") {
+                    name.removeFirst()
+                }
+                return name
+            }()
+
+            if classNameString.hasPrefix(swiftUIHostingViewName) {
+                swiftUIHostingView = unwrappedSuperView
+                break
+            }
+
+            superView = unwrappedSuperView.superview
+        }
+        return swiftUIHostingView
     }
 }

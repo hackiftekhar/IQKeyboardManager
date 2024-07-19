@@ -75,13 +75,13 @@ public extension IQKeyboardManager {
         return gesture
     }
 
+    // swiftlint:disable line_length
     /**
      Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
      */
     @objc var disabledTouchResignedClasses: [UIViewController.Type] {
         get {
-            if let classes = objc_getAssociatedObject(self,
-                                                      &AssociatedKeys.disabledTouchResignedClasses) as? [UIViewController.Type] {
+            if let classes = objc_getAssociatedObject(self, &AssociatedKeys.disabledTouchResignedClasses) as? [UIViewController.Type] {
                 return classes
             } else {
                 return [UIAlertController.self, UIInputViewController.self]
@@ -100,8 +100,7 @@ public extension IQKeyboardManager {
      */
     @objc var enabledTouchResignedClasses: [UIViewController.Type] {
         get {
-            if let classes = objc_getAssociatedObject(self,
-                                                      &AssociatedKeys.enabledTouchResignedClasses) as? [UIViewController.Type] {
+            if let classes = objc_getAssociatedObject(self, &AssociatedKeys.enabledTouchResignedClasses) as? [UIViewController.Type] {
                 return classes
             } else {
                 return []
@@ -113,7 +112,6 @@ public extension IQKeyboardManager {
         }
     }
 
-
     /**
      if resignOnTouchOutside is enabled then you can customize the behavior
      to not recognize gesture touches on some specific view subclasses.
@@ -121,8 +119,7 @@ public extension IQKeyboardManager {
      */
     @objc var touchResignedGestureIgnoreClasses: [UIView.Type] {
         get {
-            if let classes = objc_getAssociatedObject(self,
-                                                      &AssociatedKeys.touchResignedGestureIgnoreClasses) as? [UIView.Type] {
+            if let classes = objc_getAssociatedObject(self, &AssociatedKeys.touchResignedGestureIgnoreClasses) as? [UIView.Type] {
                 return classes
             } else {
                 return [UIControl.self, UINavigationBar.self]
@@ -133,6 +130,7 @@ public extension IQKeyboardManager {
                                      newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    // swiftlint:enable line_length
 
     /**
     Resigns currently first responder field.
@@ -162,11 +160,10 @@ extension IQKeyboardManager: UIGestureRecognizerDelegate {
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/
     @objc private func tapRecognized(_ gesture: UITapGestureRecognizer) {
 
-        if gesture.state == .ended {
+        guard gesture.state == .ended else { return }
 
-            // Resigning currently responder textField.
-            resignFirstResponder()
-        }
+        // Resigning currently responder textField.
+        resignFirstResponder()
     }
 
     /** Note: returning YES is guaranteed to allow simultaneous recognition.

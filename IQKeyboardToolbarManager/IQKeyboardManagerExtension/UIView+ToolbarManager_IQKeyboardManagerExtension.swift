@@ -70,16 +70,15 @@ public extension IQKeyboardManagerExtension where Base: UIView {
     */
     func responderSiblings() -> [UIView] {
 
+        //    Getting all siblings
+        guard let siblings: [UIView] = base?.superview?.subviews else { return [] }
+
         // Array of (UITextField/UITextView's).
         var tempTextFields: [UIView] = []
-
-        //    Getting all siblings
-        if let siblings: [UIView] = base?.superview?.subviews {
-            for textField in siblings {
-                if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
-                    textField.iq.canBecomeFirstResponder() {
-                    tempTextFields.append(textField)
-                }
+        for textField in siblings {
+            if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
+               textField.iq.canBecomeFirstResponder() {
+                tempTextFields.append(textField)
             }
         }
 
@@ -91,10 +90,12 @@ public extension IQKeyboardManagerExtension where Base: UIView {
     */
     func deepResponderViews() -> [UIView] {
 
+        guard let subviews: [UIView] = base?.subviews, !subviews.isEmpty else { return [] }
+
         // Array of (UITextField/UITextView's).
         var textfields: [UIView] = []
 
-        for textField in base?.subviews ?? [] {
+        for textField in subviews {
 
             if textField == base || !textField.iq.ignoreSwitchingByNextPrevious,
                textField.iq.canBecomeFirstResponder() {

@@ -169,13 +169,11 @@ Manages the return key to work like next/done in a view hierarchy.
     */
     @objc public func removeTextFieldView(_ view: UIView) {
 
-        if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(view) {
-            model.restore()
+        guard let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(view) else { return }
+        model.restore()
 
-            if let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) {
-                textFieldInfoCache.remove(at: index)
-            }
-        }
+        guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return }
+        textFieldInfoCache.remove(at: index)
     }
 
     /**
@@ -256,19 +254,16 @@ Manages the return key to work like next/done in a view hierarchy.
 #endif
 
         //  Getting index of current textField.
-        if let index: Int = textFields.firstIndex(of: view) {
-            //  If it is not last textField. then it's next object becomeFirstResponder.
-            if index < (textFields.count - 1) {
+        guard let index: Int = textFields.firstIndex(of: view) else { return true }
 
-                let nextTextField: UIView = textFields[index+1]
-                nextTextField.becomeFirstResponder()
-                return false
-            } else {
+        //  If it is not last textField. then it's next object becomeFirstResponder.
+        if index < (textFields.count - 1) {
 
-                view.resignFirstResponder()
-                return true
-            }
+            let nextTextField: UIView = textFields[index+1]
+            nextTextField.becomeFirstResponder()
+            return false
         } else {
+            view.resignFirstResponder()
             return true
         }
     }

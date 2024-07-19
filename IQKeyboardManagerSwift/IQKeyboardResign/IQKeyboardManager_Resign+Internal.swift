@@ -30,7 +30,7 @@ internal extension IQKeyboardManager {
 
     func registerActiveStateChangeForTouchOutside() {
         self.activeConfiguration.registerChange(identifier: "resignOnTouchOutside",
-                                                changeHandler: { [weak self] event, keyboardInfo, textFieldInfo in
+                                                changeHandler: { [weak self] event, _, textFieldInfo in
             guard let self = self else { return }
             switch event {
             case .hide:
@@ -55,6 +55,7 @@ internal extension IQKeyboardManager {
         resignGesture.isEnabled = privateResignOnTouchOutside()
     }
 
+    // swiftlint:disable cyclomatic_complexity
     private func privateResignOnTouchOutside() -> Bool {
 
         var isEnabled: Bool = resignOnTouchOutside
@@ -65,11 +66,11 @@ internal extension IQKeyboardManager {
 
         let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.resignOnTouchOutsideMode
 
-        if enableMode == .enabled {
-            isEnabled = true
-        } else if enableMode == .disabled {
-            isEnabled = false
-        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        switch enableMode {
+        case .default:
+            guard var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+                return isEnabled
+            }
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
@@ -99,12 +100,17 @@ internal extension IQKeyboardManager {
 
                     // _UIAlertControllerTextFieldViewController
                     if classNameString.contains("UIAlertController"),
-                        classNameString.hasSuffix("TextFieldViewController") {
+                       classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
                 }
             }
+            return isEnabled
+        case .enabled:
+            return true
+        case .disabled:
+            return false
         }
-        return isEnabled
     }
+    // swiftlint:enable cyclomatic_complexity
 }

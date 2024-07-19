@@ -152,13 +152,9 @@ public extension IQKeyboardManagerExtension where Base: UIView {
     }
 
     func depth() -> Int {
-        var depth: Int = 0
+        guard let superView: UIView = base?.superview else { return 0 }
 
-        if let superView: UIView = base?.superview {
-            depth = superView.iq.depth()+1
-        }
-
-        return depth
+        return superView.iq.depth()+1
     }
 }
 

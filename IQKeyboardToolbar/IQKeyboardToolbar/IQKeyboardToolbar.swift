@@ -167,10 +167,9 @@ import UIKit
     @objc override open var tintColor: UIColor! {
 
         didSet {
-            if let unwrappedItems: [UIBarButtonItem] = items {
-                for item in unwrappedItems {
-                    item.tintColor = tintColor
-                }
+            guard let items: [UIBarButtonItem] = items else { return }
+            for item in items {
+                item.tintColor = tintColor
             }
         }
     }

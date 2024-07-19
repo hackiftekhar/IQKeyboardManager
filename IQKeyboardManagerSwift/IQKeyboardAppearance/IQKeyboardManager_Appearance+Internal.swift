@@ -35,17 +35,17 @@ internal extension IQKeyboardManager {
             guard let self = self else { return }
             switch info.name {
             case .beginEditing:
-                if keyboardConfiguration.overrideAppearance,
-                   let textInput: any UITextInput = info.textFieldView as? (any UITextInput),
-                    textInput.keyboardAppearance != keyboardConfiguration.appearance {
-                    // Setting textField keyboard appearance and reloading inputViews.
-                    if let textFieldView: UITextField = info.textFieldView as? UITextField {
-                        textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-                    } else if let textFieldView: UITextView = info.textFieldView as? UITextView {
-                        textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-                    }
-                    info.textFieldView.reloadInputViews()
+                guard keyboardConfiguration.overrideAppearance,
+                      let textInput: any UITextInput = info.textFieldView as? (any UITextInput),
+                      textInput.keyboardAppearance != keyboardConfiguration.appearance else { return }
+
+                // Setting textField keyboard appearance and reloading inputViews.
+                if let textFieldView: UITextField = info.textFieldView as? UITextField {
+                    textFieldView.keyboardAppearance = keyboardConfiguration.appearance
+                } else if let textFieldView: UITextView = info.textFieldView as? UITextView {
+                    textFieldView.keyboardAppearance = keyboardConfiguration.appearance
                 }
+                info.textFieldView.reloadInputViews()
             case .endEditing:
                 break
             }

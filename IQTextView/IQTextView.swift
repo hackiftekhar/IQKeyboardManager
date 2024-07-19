@@ -131,11 +131,7 @@ extension IQTextView: IQPlaceholderable { }
     @objc private func refreshPlaceholder() {
 
         let text: String = text ?? attributedText?.string ?? ""
-        if text.isEmpty {
-            placeholderLabel.alpha = 1
-        } else {
-            placeholderLabel.alpha = 0
-        }
+        placeholderLabel.alpha = text.isEmpty ? 1 : 0
     }
 
     @objc override open var text: String! {
@@ -156,8 +152,8 @@ extension IQTextView: IQPlaceholderable { }
 
         didSet {
 
-            if let unwrappedFont: UIFont = font {
-                placeholderLabel.font = unwrappedFont
+            if let font: UIFont = font {
+                placeholderLabel.font = font
             } else {
                 placeholderLabel.font = UIFont.systemFont(ofSize: 12)
             }
@@ -198,15 +194,15 @@ extension IQTextView: IQPlaceholderable { }
         var originalRect = super.caretRect(for: position)
 
         // When placeholder is visible and text alignment is centered
-        if placeholderLabel.alpha == 1 && self.textAlignment == .center {
-            // Calculate the width of the placeholder text
-            let font = placeholderLabel.font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
-            let textSize = placeholderLabel.text?.size(withAttributes: [.font: font]) ?? .zero
-            // Calculate the starting x position of the centered placeholder text
-            let centeredTextX = (self.bounds.size.width - textSize.width) / 2
-            // Update the caret position to match the starting x position of the centered text
-            originalRect.origin.x = centeredTextX
-        }
+        guard placeholderLabel.alpha == 1 && self.textAlignment == .center else { return originalRect }
+
+        // Calculate the width of the placeholder text
+        let font = placeholderLabel.font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        let textSize = placeholderLabel.text?.size(withAttributes: [.font: font]) ?? .zero
+        // Calculate the starting x position of the centered placeholder text
+        let centeredTextX = (self.bounds.size.width - textSize.width) / 2
+        // Update the caret position to match the starting x position of the centered text
+        originalRect.origin.x = centeredTextX
 
         return originalRect
     }

@@ -23,7 +23,6 @@
 
 import UIKit
 
-// swiftlint:disable unused_setter_value
 public extension IQKeyboardManager {
 
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
@@ -58,4 +57,3 @@ public extension IQKeyboardManager {
     @objc var keyboardFrame: CGRect { .zero }
 }
 // swiftlint:enable line_length
-// swiftlint:enable unused_setter_value

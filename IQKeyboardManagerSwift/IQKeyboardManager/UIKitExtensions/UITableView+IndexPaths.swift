@@ -39,10 +39,7 @@ internal extension UITableView {
             }
         }
 
-        if previousRow >= 0, previousSection >= 0 {
-            return IndexPath(row: previousRow, section: previousSection)
-        } else {
-            return nil
-        }
+        guard previousRow >= 0, previousSection >= 0 else { return nil }
+        return IndexPath(row: previousRow, section: previousSection)
     }
 }

@@ -71,23 +71,23 @@ internal final class IQActiveConfiguration {
 
     private func sendEvent() {
 
-        if let rootControllerConfiguration = rootControllerConfiguration,
-           rootControllerConfiguration.isReady {
-            if keyboardInfo.keyboardShowing {
-                if lastEvent == .hide {
-                    self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                } else {
-                    self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                }
-            } else if lastEvent != .hide {
-                if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
-                    self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                    self.rootControllerConfiguration = nil
-                } else if rootControllerConfiguration.hasChanged {
-                    animate(alongsideTransition: {
-                        rootControllerConfiguration.restore()
-                    }, completion: nil)
-                }
+        guard let rootControllerConfiguration = rootControllerConfiguration,
+              rootControllerConfiguration.isReady else { return }
+
+        if keyboardInfo.keyboardShowing {
+            if lastEvent == .hide {
+                self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+            } else {
+                self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+            }
+        } else if lastEvent != .hide {
+            if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
+                self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+                self.rootControllerConfiguration = nil
+            } else if rootControllerConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootControllerConfiguration.restore()
+                }, completion: nil)
             }
         }
     }
@@ -108,22 +108,21 @@ internal final class IQActiveConfiguration {
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window ||
-            newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation {
+        guard newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window ||
+                newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation else { return }
 
-            if rootControllerConfiguration?.rootController != newConfiguration.rootController {
+        if rootControllerConfiguration?.rootController != newConfiguration.rootController {
 
-                // If there was an old configuration but things are changed
-                if let rootControllerConfiguration = rootControllerConfiguration,
-                   rootControllerConfiguration.hasChanged {
-                    animate(alongsideTransition: {
-                        rootControllerConfiguration.restore()
-                    }, completion: nil)
-                }
+            // If there was an old configuration but things are changed
+            if let rootControllerConfiguration = rootControllerConfiguration,
+               rootControllerConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootControllerConfiguration.restore()
+                }, completion: nil)
             }
-
-            rootControllerConfiguration = newConfiguration
         }
+
+        rootControllerConfiguration = newConfiguration
     }
 }
 
