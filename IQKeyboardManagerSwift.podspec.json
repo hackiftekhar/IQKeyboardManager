@@ -22,7 +22,7 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardManagerSwift/**/*.{swift}"
+        "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}"
     ],
     "dependencies": {
         "IQKeyboardListener": [],
@@ -32,6 +32,33 @@
     "resource_bundles": {
         "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"
     },
+    "subspecs": [
+        {
+            "name": "Resign",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardResign/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "Appearance",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardAppearance/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        }
+    ],
+    "default_subspecs": ["none"],
     "frameworks": [
         "UIKit",
         "Foundation",

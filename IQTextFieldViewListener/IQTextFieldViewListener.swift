@@ -113,7 +113,7 @@ public extension IQTextFieldViewListener {
         textFieldViewObservers[identifier] = changeHandler
     }
 
-    func unregisterSizeChange(identifier: AnyHashable) {
+    func unregisterrTextFieldViewChange(identifier: AnyHashable) {
         textFieldViewObservers[identifier] = nil
     }
 

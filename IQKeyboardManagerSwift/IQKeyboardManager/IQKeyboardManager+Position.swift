@@ -89,19 +89,6 @@ public extension IQKeyboardManager {
         }
     }
 
-    internal func addActiveConfigurationObserver() {
-        activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
-            switch event {
-            case .show:
-                self.handleKeyboardTextFieldViewVisible()
-            case .change:
-                self.handleKeyboardTextFieldViewChanged()
-            case .hide:
-                self.handleKeyboardTextFieldViewHide()
-            }
-        })
-    }
-
     @objc internal func applicationDidBecomeActive(_ notification: Notification) {
 
         guard privateIsEnabled(),

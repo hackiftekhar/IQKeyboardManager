@@ -28,15 +28,42 @@ import IQKeyboardManagerCore
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
-    func privateIsEnabled() -> Bool {
+    func registerActiveStateChangeForTouchOutside() {
+        self.activeConfiguration.registerChange(identifier: "resignOnTouchOutside",
+                                                changeHandler: { [weak self] event, keyboardInfo, textFieldInfo in
+            guard let self = self else { return }
+            switch event {
+            case .hide:
+                // Removing gesture recognizer (Enhancement ID: #14)
+                textFieldInfo?.textFieldView.window?.removeGestureRecognizer(resignGesture)
+            case .show:
+                // Adding gesture recognizer (Enhancement ID: #14)
+                textFieldInfo?.textFieldView.window?.addGestureRecognizer(resignGesture)
 
-        var isEnabled: Bool = enable
+                updateResignGestureState()
+            case .change:
+                updateResignGestureState()
+            }
+        })
+    }
+
+    func unregisterActiveStateChangeForTouchOutside() {
+        self.activeConfiguration.unregisterChange(identifier: "resignOnTouchOutside")
+    }
+
+    func updateResignGestureState() {
+        resignGesture.isEnabled = privateResignOnTouchOutside()
+    }
+
+    private func privateResignOnTouchOutside() -> Bool {
+
+        var isEnabled: Bool = resignOnTouchOutside
 
         guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo else {
             return isEnabled
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.enableMode
+        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.resignOnTouchOutsideMode
 
         if enableMode == .enabled {
             isEnabled = true
@@ -51,15 +78,17 @@ internal extension IQKeyboardManager {
                 textFieldViewController = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming it's enabled.
-            if !isEnabled, enabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+            // If viewController is kind of enable viewController class, then assuming resignOnTouchOutside is enabled.
+            if !isEnabled,
+               enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                 isEnabled = true
             }
 
             if isEnabled {
 
-                // If viewController is kind of disabled viewController class, then assuming it's disabled.
-                if disabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                // If viewController is kind of disable viewController class,
+                // then assuming resignOnTouchOutside is disable.
+                if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                     isEnabled = false
                 }
 
@@ -70,13 +99,12 @@ internal extension IQKeyboardManager {
 
                     // _UIAlertControllerTextFieldViewController
                     if classNameString.contains("UIAlertController"),
-                       classNameString.hasSuffix("TextFieldViewController") {
+                        classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
                 }
             }
         }
-
         return isEnabled
     }
 }

@@ -29,7 +29,6 @@ import IQKeyboardManagerCore
 private struct AssociatedKeys {
     static var distanceFromKeyboard: Int = 0
     static var enableMode: Int = 0
-    static var resignOnTouchOutsideMode: Int = 0
 }
 
 @available(iOSApplicationExtension, unavailable)
@@ -84,24 +83,6 @@ public extension IQKeyboardManagerExtension where Base: UIView {
             }
         }
     }
-
-    /**
-     Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.
-     */
-    var resignOnTouchOutsideMode: IQEnableMode {
-        get {
-            guard let base = base else {
-                return .default
-            }
-            return objc_getAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode) as? IQEnableMode ?? .default
-        }
-        set(newValue) {
-            if let base = base {
-                objc_setAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode,
-                                         newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-    }
 }
 
 // swiftlint:disable unused_setter_value
@@ -115,12 +96,6 @@ public extension IQKeyboardManagerExtension where Base: UIView {
 
     @available(*, unavailable, renamed: "iq.enableMode")
     var enableMode: IQEnableMode {
-        get { .default }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "iq.resignOnTouchOutsideMode")
-    var shouldResignOnTouchOutsideMode: IQEnableMode {
         get { .default }
         set { }
     }

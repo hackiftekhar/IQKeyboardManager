@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConfiguration.swift
+//  IQKeyboardManager+UITextFieldViewNotification.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,18 +22,34 @@
 // THE SOFTWARE.
 
 import UIKit
+import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQKeyboardConfiguration: NSObject {
+public extension IQKeyboardManager {
+
+    @MainActor
+    private struct AssociatedKeys {
+        static var keyboardConfiguration: Int = 0
+    }
 
     /**
-    Override the keyboardAppearance for all textField/textView. Default is NO.
+    Configuration related to keyboard appearance
     */
-    @objc public var overrideAppearance: Bool = false
+    @objc var keyboardConfiguration: IQKeyboardAppearanceConfiguration {
 
-    /**
-    If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
-    */
-    @objc public var appearance: UIKeyboardAppearance = UIKeyboardAppearance.default
+        if let object = objc_getAssociatedObject(self, &AssociatedKeys.keyboardConfiguration)
+            as? IQKeyboardAppearanceConfiguration {
+            return object
+        }
+
+        let object = IQKeyboardAppearanceConfiguration()
+        objc_setAssociatedObject(self, &AssociatedKeys.keyboardConfiguration,
+                                 object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        // Registering one time only
+        registerActiveStateChangeForAppearance()
+
+        return object
+    }
 }

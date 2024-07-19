@@ -8,6 +8,14 @@ PODS:
     - IQKeyboardListener
     - IQKeyboardManagerCore
     - IQTextFieldViewListener
+  - IQKeyboardManagerSwift/Appearance (7.1.0):
+    - IQKeyboardListener
+    - IQKeyboardManagerCore
+    - IQTextFieldViewListener
+  - IQKeyboardManagerSwift/Resign (7.1.0):
+    - IQKeyboardListener
+    - IQKeyboardManagerCore
+    - IQTextFieldViewListener
   - IQKeyboardReturnKeyHandler (1.0.0)
   - IQKeyboardToolbar (1.0.0):
     - IQKeyboardManagerCore
@@ -27,6 +35,8 @@ DEPENDENCIES:
   - IQKeyboardManager (from `.`)
   - IQKeyboardManagerCore (from `.`)
   - IQKeyboardManagerSwift (from `.`)
+  - IQKeyboardManagerSwift/Appearance (from `.`)
+  - IQKeyboardManagerSwift/Resign (from `.`)
   - IQKeyboardReturnKeyHandler (from `.`)
   - IQKeyboardToolbar (from `.`)
   - IQKeyboardToolbarManager (from `.`)
@@ -68,7 +78,7 @@ SPEC CHECKSUMS:
   IQKeyboardListener: 86cbcd693125dbbe8614983c61147480bc0ebbe9
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
   IQKeyboardManagerCore: 450d64dd5d4423b1ca057598ca0a30a94b9c9e86
-  IQKeyboardManagerSwift: f80168bffabde2e19efe98b2f0468fe1b898d610
+  IQKeyboardManagerSwift: 8e3be5795f5621f22654f29d15bd03122df92fa2
   IQKeyboardReturnKeyHandler: 3b8983f5d784244800638d8054b614b1760c6472
   IQKeyboardToolbar: 8a09bbd4a544272dcfd862889c093e1c3ca7def1
   IQKeyboardToolbarManager: 90f9a6dc2b395837ef8277cf46a127f57bcb945f
@@ -77,6 +87,6 @@ SPEC CHECKSUMS:
   RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 
-PODFILE CHECKSUM: ce108b9569826025fc1c27da1469fa952c85e4bc
+PODFILE CHECKSUM: 99f3b22e77a320faa06ab230480eeb9d417870d6
 
 COCOAPODS: 1.15.2

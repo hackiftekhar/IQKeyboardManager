@@ -31,7 +31,7 @@ import IQKeyboardManagerCore
 internal final class IQActiveConfiguration {
 
     private let keyboardListener: IQKeyboardListener = IQKeyboardListener()
-    private let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
+    internal let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 

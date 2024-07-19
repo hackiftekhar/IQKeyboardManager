@@ -28,7 +28,20 @@ import IQKeyboardManagerCore
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
-    func handleKeyboardTextFieldViewVisible() {
+    func addActiveConfigurationObserver() {
+        activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
+            switch event {
+            case .show:
+                self.handleKeyboardTextFieldViewVisible()
+            case .change:
+                self.handleKeyboardTextFieldViewChanged()
+            case .hide:
+                self.handleKeyboardTextFieldViewHide()
+            }
+        })
+    }
+
+    private func handleKeyboardTextFieldViewVisible() {
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
@@ -54,7 +67,7 @@ internal extension IQKeyboardManager {
         }
     }
 
-    func handleKeyboardTextFieldViewChanged() {
+    private func handleKeyboardTextFieldViewChanged() {
 
         setupTextFieldView()
 
@@ -65,7 +78,7 @@ internal extension IQKeyboardManager {
         }
     }
 
-    func handleKeyboardTextFieldViewHide() {
+    private func handleKeyboardTextFieldViewHide() {
 
         self.restorePosition()
         self.banishTextFieldViewSetup()
@@ -102,21 +115,6 @@ internal extension IQKeyboardManager {
             }
             startingTextViewConfiguration = nil
         }
-
-        if keyboardConfiguration.overrideAppearance,
-           let textInput: any UITextInput = textFieldView as? (any UITextInput),
-            textInput.keyboardAppearance != keyboardConfiguration.appearance {
-            // Setting textField keyboard appearance and reloading inputViews.
-            if let textFieldView: UITextField = textFieldView as? UITextField {
-                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-            } else if  let textFieldView: UITextView = textFieldView as? UITextView {
-                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-            }
-            textFieldView.reloadInputViews()
-        }
-
-        resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
-        textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
 
     func banishTextFieldViewSetup() {
@@ -125,8 +123,6 @@ internal extension IQKeyboardManager {
             return
         }
 
-        // Removing gesture recognizer   (Enhancement ID: #14)
-        textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
         do {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {

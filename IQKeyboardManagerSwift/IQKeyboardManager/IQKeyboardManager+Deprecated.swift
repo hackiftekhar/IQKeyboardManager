@@ -26,12 +26,6 @@ import UIKit
 // swiftlint:disable unused_setter_value
 public extension IQKeyboardManager {
 
-    @available(*, unavailable, renamed: "resignOnTouchOutside")
-    @objc var shouldResignOnTouchOutside: Bool {
-        get { false }
-        set { }
-    }
-
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
     @objc func registerTextFieldViewClass(_ aClass: UIView.Type,
                                           didBeginEditingNotificationName: String,
@@ -42,22 +36,6 @@ public extension IQKeyboardManager {
     @objc func unregisterTextFieldViewClass(_ aClass: UIView.Type,
                                             didBeginEditingNotificationName: String,
                                             didEndEditingNotificationName: String) {
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
-    @objc var overrideKeyboardAppearance: Bool {
-        get { false }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
-    @objc var keyboardAppearance: UIKeyboardAppearance {
-        get { .default }
-        set { }
     }
 }
 
