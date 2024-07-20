@@ -24,7 +24,7 @@
 import UIKit
 import CoreGraphics
 import QuartzCore
-import IQTextFieldViewListener
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 import IQKeyboardToolbar
 
@@ -32,7 +32,7 @@ import IQKeyboardToolbar
 @MainActor
 @objc public final class IQKeyboardToolbarManager: NSObject {
 
-    internal let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
+    internal let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
 
     /**
      Returns the default singleton instance.
@@ -86,7 +86,7 @@ import IQKeyboardToolbar
 
         super.init()
 
-        addTextFieldViewListener()
+        addTextInputViewObserver()
 
         disabledToolbarClasses.append(UIAlertController.self)
         disabledToolbarClasses.append(UIInputViewController.self)
@@ -108,11 +108,11 @@ import IQKeyboardToolbar
         }
     }
 
-    private func addTextFieldViewListener() {
-        textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
+    private func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
                                                           changeHandler: { [self] info in
 
-            guard info.textFieldView.iq.isAlertViewTextField() == false else {
+            guard info.textInputView.iq.isAlertViewTextField() == false else {
                 return
             }
 

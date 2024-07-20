@@ -32,16 +32,16 @@ internal extension IQKeyboardManager {
         activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
             switch event {
             case .show:
-                self.handleKeyboardTextFieldViewVisible()
+                self.handleKeyboardTextInputViewVisible()
             case .change:
-                self.handleKeyboardTextFieldViewChanged()
+                self.handleKeyboardTextInputViewChanged()
             case .hide:
-                self.handleKeyboardTextFieldViewHide()
+                self.handleKeyboardTextInputViewHide()
             }
         })
     }
 
-    private func handleKeyboardTextFieldViewVisible() {
+    private func handleKeyboardTextInputViewVisible() {
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
@@ -60,7 +60,7 @@ internal extension IQKeyboardManager {
             }
         }
 
-        setupTextFieldView()
+        setupTextInputView()
 
         if privateIsEnabled() {
             adjustPosition()
@@ -69,9 +69,9 @@ internal extension IQKeyboardManager {
         }
     }
 
-    private func handleKeyboardTextFieldViewChanged() {
+    private func handleKeyboardTextInputViewChanged() {
 
-        setupTextFieldView()
+        setupTextInputView()
 
         if privateIsEnabled() {
             adjustPosition()
@@ -80,10 +80,10 @@ internal extension IQKeyboardManager {
         }
     }
 
-    private func handleKeyboardTextFieldViewHide() {
+    private func handleKeyboardTextInputViewHide() {
 
         self.restorePosition()
-        self.banishTextFieldViewSetup()
+        self.banishTextInputViewSetup()
 
         if let configuration = self.activeConfiguration.rootControllerConfiguration,
            configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
@@ -97,9 +97,9 @@ internal extension IQKeyboardManager {
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
-    func setupTextFieldView() {
+    func setupTextInputView() {
 
-        guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
             return
         }
 
@@ -113,15 +113,15 @@ internal extension IQKeyboardManager {
             }
 
             activeConfiguration.animate(alongsideTransition: {
-                startingConfiguration.restore(for: textFieldView)
+                startingConfiguration.restore(for: textInputView)
             })
         }
         startingTextViewConfiguration = nil
     }
 
-    func banishTextFieldViewSetup() {
+    func banishTextInputViewSetup() {
 
-        guard let textFieldView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
             return
         }
 
@@ -135,7 +135,7 @@ internal extension IQKeyboardManager {
             }
 
             activeConfiguration.animate(alongsideTransition: {
-                startingConfiguration.restore(for: textFieldView)
+                startingConfiguration.restore(for: textInputView)
             })
         }
         startingTextViewConfiguration = nil

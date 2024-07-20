@@ -44,16 +44,16 @@ public extension IQKeyboardManager {
 
     typealias SizeBlock = (_ size: CGSize) -> Void
 
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardNotification, use it directly by creating new instance")
     @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {}
 
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardNotification, use it directly by creating new instance")
     @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {}
 
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardNotification, use it directly by creating new instance")
     @objc var keyboardShowing: Bool { false }
 
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
+    @available(*, unavailable, message: "This feature has been moved to IQKeyboardNotification, use it directly by creating new instance")
     @objc var keyboardFrame: CGRect { .zero }
 }
 // swiftlint:enable line_length

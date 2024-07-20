@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQTextFieldViewListener
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
@@ -33,20 +33,20 @@ internal extension IQKeyboardManager {
 
         var isEnabled: Bool = enable
 
-        guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo else {
+        guard let textFieldViewInfo: IQTextInputViewInfo = activeConfiguration.textInputViewInfo else {
             return isEnabled
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.enableMode
+        let enableMode: IQEnableMode = textFieldViewInfo.textInputView.iq.enableMode
 
         switch enableMode {
         case .default:
-            guard var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+            guard var textFieldViewController = textFieldViewInfo.textInputView.iq.viewContainingController() else {
                 return isEnabled
             }
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
+            if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
                let navController: UINavigationController = textFieldViewController as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController

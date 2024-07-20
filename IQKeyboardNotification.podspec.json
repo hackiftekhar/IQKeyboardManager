@@ -1,5 +1,5 @@
 {
-    "name": "IQKeyboardListener",
+    "name": "IQKeyboardNotification",
     "version": "1.0.0",
     "source": {
         "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
@@ -22,10 +22,10 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardListener/**/*.{swift}"
+        "IQKeyboardNotification/**/*.{swift}"
     ],
     "resource_bundles": {
-        "IQKeyboardListener": "IQKeyboardListener/PrivacyInfo.xcprivacy"
+        "IQKeyboardNotification": "IQKeyboardNotification/PrivacyInfo.xcprivacy"
     },
     "frameworks": [
         "UIKit"

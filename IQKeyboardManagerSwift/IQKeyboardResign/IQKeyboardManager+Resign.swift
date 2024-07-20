@@ -138,7 +138,7 @@ public extension IQKeyboardManager {
     @discardableResult
     @objc func resignFirstResponder() -> Bool {
 
-        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+        guard let textFieldRetain: UIView = activeConfiguration.textInputViewInfo?.textInputView else {
             return false
         }
 

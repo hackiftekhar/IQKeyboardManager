@@ -59,7 +59,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
             // If not enable, enable it.
             if enable {
                 // If keyboard is currently showing.
-                if activeConfiguration.keyboardInfo.keyboardShowing {
+                if activeConfiguration.keyboardInfo.isVisible {
                     adjustPosition()
                 } else {
                     restorePosition()
@@ -136,7 +136,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     @objc public func reloadLayoutIfNeeded() {
 
         guard privateIsEnabled(),
-              activeConfiguration.keyboardInfo.keyboardShowing,
+              activeConfiguration.keyboardInfo.isVisible,
               activeConfiguration.isReady else {
                 return
         }

@@ -60,7 +60,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if aDelegate == nil {
 
-            if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(textField) {
+            if let model: IQTextInputViewInfoModel = textFieldViewCachedInfo(textField) {
                 aDelegate = model.textFieldDelegate
             }
         }
@@ -74,7 +74,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if aDelegate == nil {
 
-            if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(textField) {
+            if let model: IQTextInputViewInfoModel = textFieldViewCachedInfo(textField) {
                 aDelegate = model.textFieldDelegate
             }
         }
@@ -88,7 +88,7 @@ extension IQKeyboardReturnKeyHandler: UITextFieldDelegate {
 
         if aDelegate == nil {
 
-            if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(textField) {
+            if let model: IQTextInputViewInfoModel = textFieldViewCachedInfo(textField) {
                 aDelegate = model.textFieldDelegate
             }
         }

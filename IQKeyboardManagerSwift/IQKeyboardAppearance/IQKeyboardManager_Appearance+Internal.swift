@@ -22,30 +22,30 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQTextFieldViewListener
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
     func registerActiveStateChangeForAppearance() {
-        let listener: IQTextFieldViewListener = self.activeConfiguration.textFieldViewListener
-        listener.registerTextFieldViewChange(identifier: "keyboardAppearance",
+        let observer: IQTextInputViewNotification = self.activeConfiguration.textInputViewObserver
+        observer.subscribe(identifier: "keyboardAppearance",
                                              changeHandler: { [weak self] info in
             guard let self = self else { return }
             switch info.name {
             case .beginEditing:
                 guard keyboardConfiguration.overrideAppearance,
-                      let textInput: any UITextInput = info.textFieldView as? (any UITextInput),
+                      let textInput: any UITextInput = info.textInputView as? (any UITextInput),
                       textInput.keyboardAppearance != keyboardConfiguration.appearance else { return }
 
                 // Setting textField keyboard appearance and reloading inputViews.
-                if let textFieldView: UITextField = info.textFieldView as? UITextField {
+                if let textFieldView: UITextField = info.textInputView as? UITextField {
                     textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-                } else if let textFieldView: UITextView = info.textFieldView as? UITextView {
+                } else if let textFieldView: UITextView = info.textInputView as? UITextView {
                     textFieldView.keyboardAppearance = keyboardConfiguration.appearance
                 }
-                info.textFieldView.reloadInputViews()
+                info.textInputView.reloadInputViews()
             case .endEditing:
                 break
             }

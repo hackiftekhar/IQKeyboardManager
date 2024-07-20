@@ -23,7 +23,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import IQKeyboardListener
+import IQKeyboardNotification
 import IQDropDownTextFieldSwift
 import IQTextView
 import IQKeyboardManagerCore
@@ -35,7 +35,7 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet var textView2: UITextView!
     @IBOutlet var textView3: UITextView!
 
-    let keyboardListener = IQKeyboardListener()
+    let keyboard = IQKeyboardNotification()
 
     @IBOutlet var dropDownTextField: IQDropDownTextField!
 
@@ -109,14 +109,14 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
+        keyboard.subscribe(identifier: "TextFieldViewController") { _, _ in
 //            print(size)
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
+        keyboard.unsubscribe(identifier: "TextFieldViewController")
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {

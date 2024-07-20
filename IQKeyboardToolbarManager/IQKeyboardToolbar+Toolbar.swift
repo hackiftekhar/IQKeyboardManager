@@ -43,7 +43,7 @@ public extension IQKeyboardToolbarManager {
         // if accessoryView is not appropriate for current situation
         // (There is Previous/Next/Done toolbar)
         guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textField: UIView = textFieldViewListener.textFieldView,
+              let textField: UIView = textInputViewObserver.textFieldView,
               textField.responds(to: #selector(setter: UITextField.inputAccessoryView)),
               !hasUserDefinedInputAccessoryView(textField) else {
             return

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQTextFieldViewListener
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
@@ -35,10 +35,10 @@ internal extension IQKeyboardManager {
             switch event {
             case .hide:
                 // Removing gesture recognizer (Enhancement ID: #14)
-                textFieldInfo?.textFieldView.window?.removeGestureRecognizer(resignGesture)
+                textFieldInfo?.textInputView.window?.removeGestureRecognizer(resignGesture)
             case .show:
                 // Adding gesture recognizer (Enhancement ID: #14)
-                textFieldInfo?.textFieldView.window?.addGestureRecognizer(resignGesture)
+                textFieldInfo?.textInputView.window?.addGestureRecognizer(resignGesture)
 
                 updateResignGestureState()
             case .change:
@@ -60,20 +60,20 @@ internal extension IQKeyboardManager {
 
         var isEnabled: Bool = resignOnTouchOutside
 
-        guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo else {
+        guard let textFieldViewInfo: IQTextInputViewInfo = activeConfiguration.textInputViewInfo else {
             return isEnabled
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.resignOnTouchOutsideMode
+        let enableMode: IQEnableMode = textFieldViewInfo.textInputView.iq.resignOnTouchOutsideMode
 
         switch enableMode {
         case .default:
-            guard var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+            guard var textFieldViewController = textFieldViewInfo.textInputView.iq.viewContainingController() else {
                 return isEnabled
             }
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
+            if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
                let navController: UINavigationController = textFieldViewController as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController

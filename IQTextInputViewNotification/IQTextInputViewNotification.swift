@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewListener.swift
+//  IQTextInputViewNotification.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,18 +25,18 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public class IQTextFieldViewListener {
+public class IQTextInputViewNotification {
 
-    private var textFieldViewObservers: [AnyHashable: TextFieldViewCompletion] = [:]
+    private var textFieldViewObservers: [AnyHashable: TextInputViewCompletion] = [:]
 
 #if swift(>=5.7)
-    private(set) var lastTextFieldViewInfo: IQTextFieldViewInfo?
+    private(set) var lastTextFieldViewInfo: IQTextInputViewInfo?
 #endif
 
-    public private(set) var textFieldViewInfo: IQTextFieldViewInfo?
+    public private(set) var textInputViewInfo: IQTextInputViewInfo?
 
     public var textFieldView: UIView? {
-        return textFieldViewInfo?.textFieldView
+        return textInputViewInfo?.textInputView
     }
 
     public init() {
@@ -53,7 +53,7 @@ public class IQTextFieldViewListener {
     }
 
     @objc private func didBeginEditing(_ notification: Notification) {
-        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification,
+        guard let info: IQTextInputViewInfo = IQTextInputViewInfo(notification: notification,
                                                                   name: .beginEditing) else {
             return
         }
@@ -62,62 +62,62 @@ public class IQTextFieldViewListener {
 
         if #available(iOS 16.0, *),
            let lastTextFieldViewInfo = lastTextFieldViewInfo,
-           let textView: UITextView = lastTextFieldViewInfo.textFieldView as? UITextView,
+           let textView: UITextView = lastTextFieldViewInfo.textInputView as? UITextView,
            textView.findInteraction?.isFindNavigatorVisible == true {
             // // This means the this didBeginEditing call comes due to find interaction
-            textFieldViewInfo = lastTextFieldViewInfo
+            textInputViewInfo = lastTextFieldViewInfo
             sendEvent(info: lastTextFieldViewInfo)
-        } else if textFieldViewInfo != info {
-            textFieldViewInfo = info
+        } else if textInputViewInfo != info {
+            textInputViewInfo = info
             lastTextFieldViewInfo = nil
             sendEvent(info: info)
         } else {
             lastTextFieldViewInfo = nil
         }
 #else
-        if textFieldViewInfo != info {
-            textFieldViewInfo = info
+        if textInputViewInfo != info {
+            textInputViewInfo = info
             sendEvent(info: info)
         }
 #endif
     }
 
     @objc private func didEndEditing(_ notification: Notification) {
-        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification, name: .endEditing) else {
+        guard let info: IQTextInputViewInfo = IQTextInputViewInfo(notification: notification, name: .endEditing) else {
             return
         }
 
-        if textFieldViewInfo != info {
+        if textInputViewInfo != info {
 #if swift(>=5.7)
             if #available(iOS 16.0, *),
-               let textView: UITextView = info.textFieldView as? UITextView,
+               let textView: UITextView = info.textInputView as? UITextView,
                 textView.isFindInteractionEnabled {
-                lastTextFieldViewInfo = textFieldViewInfo
+                lastTextFieldViewInfo = textInputViewInfo
             } else {
                 lastTextFieldViewInfo = nil
             }
 #endif
-            textFieldViewInfo = info
+            textInputViewInfo = info
             sendEvent(info: info)
-            textFieldViewInfo = nil
+            textInputViewInfo = nil
         }
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
-public extension IQTextFieldViewListener {
+public extension IQTextInputViewNotification {
 
-    typealias TextFieldViewCompletion = (_ info: IQTextFieldViewInfo) -> Void
+    typealias TextInputViewCompletion = (_ info: IQTextInputViewInfo) -> Void
 
-    func registerTextFieldViewChange(identifier: AnyHashable, changeHandler: @escaping TextFieldViewCompletion) {
+    func subscribe(identifier: AnyHashable, changeHandler: @escaping TextInputViewCompletion) {
         textFieldViewObservers[identifier] = changeHandler
     }
 
-    func unregisterrTextFieldViewChange(identifier: AnyHashable) {
+    func unsubscribe(identifier: AnyHashable) {
         textFieldViewObservers[identifier] = nil
     }
 
-    private func sendEvent(info: IQTextFieldViewInfo) {
+    private func sendEvent(info: IQTextInputViewInfo) {
 
         for block in textFieldViewObservers.values {
             block(info)

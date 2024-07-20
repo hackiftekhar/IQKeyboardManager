@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfo.swift
+//  IQTextInputViewInfoModel.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,29 +25,32 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public struct IQTextFieldViewInfo: Equatable {
+internal final class IQTextInputViewInfoModel: NSObject {
 
-    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.textFieldView == rhs.textFieldView &&
-        lhs.name == rhs.name
+    weak var textFieldDelegate: (any UITextFieldDelegate)?
+    weak var textViewDelegate: (any UITextViewDelegate)?
+    weak var textFieldView: UIView?
+    let originalReturnKeyType: UIReturnKeyType
+
+    init(textField: UITextField) {
+        self.textFieldView = textField
+        self.textFieldDelegate = textField.delegate
+        self.originalReturnKeyType = textField.returnKeyType
     }
 
-    @MainActor
-    @objc public enum Name: Int {
-        case beginEditing
-        case endEditing
+    init(textView: UITextView) {
+        self.textFieldView = textView
+        self.textViewDelegate = textView.delegate
+        self.originalReturnKeyType = textView.returnKeyType
     }
 
-    public let name: Name
-
-    public let textFieldView: UIView
-
-    public init?(notification: Notification?, name: Name) {
-        guard let view: UIView = notification?.object as? UIView else {
-            return nil
+    func restore() {
+        if let textField = textFieldView as? UITextField {
+            textField.returnKeyType = originalReturnKeyType
+            textField.delegate = textFieldDelegate
+        } else if let textView = textFieldView as? UITextView {
+            textView.returnKeyType = originalReturnKeyType
+            textView.delegate = textViewDelegate
         }
-
-        self.name = name
-        textFieldView = view
     }
 }

@@ -22,16 +22,16 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQTextFieldViewListener
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardToolbarManager {
 
-    /**    Get all UITextField/UITextView siblings of textFieldView. */
+    /**    Get all UITextField/UITextView siblings of textInputView. */
     func responderViews() -> [UIView]? {
 
-        guard let textFieldView: UIView = textFieldViewListener.textFieldView else {
+        guard let textFieldView: UIView = textInputViewObserver.textFieldView else {
             return nil
         }
 
@@ -77,13 +77,13 @@ internal extension IQKeyboardToolbarManager {
 
         var isEnabled: Bool = enable
 
-        guard let textFieldViewInfo: IQTextFieldViewInfo = textFieldViewListener.textFieldViewInfo,
-              var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() else {
+        guard let textFieldViewInfo: IQTextInputViewInfo = textInputViewObserver.textInputViewInfo,
+              var textFieldViewController = textFieldViewInfo.textInputView.iq.viewContainingController() else {
             return isEnabled
         }
 
         // If it is searchBar textField embedded in Navigation Bar
-        if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
+        if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
            let navController: UINavigationController = textFieldViewController as? UINavigationController,
            let topController: UIViewController = navController.topViewController {
             textFieldViewController = topController
@@ -106,7 +106,8 @@ internal extension IQKeyboardToolbarManager {
                 let classNameString: String = "\(type(of: textFieldViewController.self))"
 
                 // _UIAlertControllerTextFieldViewController
-                if classNameString.contains("UIAlertController"), classNameString.hasSuffix("TextFieldViewController") {
+                if classNameString.contains("UIAlertController"),
+                   classNameString.hasSuffix("TextFieldViewController") {
                     isEnabled = false
                 }
             }

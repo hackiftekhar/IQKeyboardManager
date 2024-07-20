@@ -92,7 +92,7 @@ public extension IQKeyboardManager {
     @objc internal func applicationDidBecomeActive(_ notification: Notification) {
 
         guard privateIsEnabled(),
-              activeConfiguration.keyboardInfo.keyboardShowing,
+              activeConfiguration.keyboardInfo.isVisible,
               activeConfiguration.isReady else {
             return
         }
@@ -105,7 +105,7 @@ public extension IQKeyboardManager {
 
         //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
         guard UIApplication.shared.applicationState == .active,
-              let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+              let textFieldView: UIView = activeConfiguration.textInputViewInfo?.textInputView,
               let superview: UIView = textFieldView.superview,
               let rootConfiguration = activeConfiguration.rootControllerConfiguration,
               let window: UIWindow = rootConfiguration.rootController.view.window else {
@@ -131,10 +131,10 @@ public extension IQKeyboardManager {
         let keyboardDistance: CGFloat = getSpecialTextFieldDistance(textFieldView: textFieldView)
 
         let kbSize: CGSize = getKeyboardSize(keyboardDistance: keyboardDistance,
-                                             keyboardFrame: activeConfiguration.keyboardInfo.frame,
+                                             keyboardFrame: activeConfiguration.keyboardInfo.endFrame,
                                              safeAreaInsets: rootConfiguration.beginSafeAreaInsets,
                                              window: window)
-        let originalKbSize: CGSize = activeConfiguration.keyboardInfo.frame.size
+        let originalKbSize: CGSize = activeConfiguration.keyboardInfo.endFrame.size
 
         let isScrollableTextView: Bool
 
@@ -234,7 +234,7 @@ public extension IQKeyboardManager {
         })
         // Restoring the contentOffset of the lastScrollView
         if let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
-            let textFieldView: UIView? = activeConfiguration.textFieldViewInfo?.textFieldView
+            let textFieldView: UIView? = activeConfiguration.textInputViewInfo?.textInputView
 
             restoreScrollViewConfigurationIfChanged(configuration: lastConfiguration, textFieldView: textFieldView)
 
@@ -500,11 +500,11 @@ private extension IQKeyboardManager {
                         // Converting Rectangle according to window bounds.
                         if let superview: UIView = textFieldView.superview {
 
-                            let currentTextFieldViewRect: CGRect = superview.convert(textFieldView.frame,
+                            let currentTextInputViewRect: CGRect = superview.convert(textFieldView.frame,
                                                                                      to: window)
 
                             // Calculating expected fix distance which needs to be managed from navigation bar
-                            let expectedFixDistance: CGFloat = currentTextFieldViewRect.minY - layoutGuide.top
+                            let expectedFixDistance: CGFloat = currentTextInputViewRect.minY - layoutGuide.top
 
                             // Now if expectedOffsetY (scrollView.contentOffset.y + expectedFixDistance)
                             // is lower than current suggestedOffsetY, which means we're in a position where

@@ -22,16 +22,16 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardListener
-import IQTextFieldViewListener
+import IQKeyboardNotification
+import IQTextInputViewNotification
 import IQKeyboardManagerCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 internal final class IQActiveConfiguration {
 
-    private let keyboardListener: IQKeyboardListener = IQKeyboardListener()
-    internal let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
+    private let keyboardObserver: IQKeyboardNotification = IQKeyboardNotification()
+    internal let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 
@@ -57,7 +57,7 @@ internal final class IQActiveConfiguration {
     var rootControllerConfiguration: IQRootControllerConfiguration?
 
     var isReady: Bool {
-        if textFieldViewInfo != nil,
+        if textInputViewInfo != nil,
            let rootControllerConfiguration = rootControllerConfiguration {
             return rootControllerConfiguration.isReady
         }
@@ -65,8 +65,8 @@ internal final class IQActiveConfiguration {
     }
 
     init() {
-        addKeyboardListener()
-        addTextFieldViewListener()
+        addKeyboardObserver()
+        addTextInputViewObserver()
     }
 
     private func sendEvent() {
@@ -74,15 +74,15 @@ internal final class IQActiveConfiguration {
         guard let rootControllerConfiguration = rootControllerConfiguration,
               rootControllerConfiguration.isReady else { return }
 
-        if keyboardInfo.keyboardShowing {
+        if keyboardInfo.isVisible {
             if lastEvent == .hide {
-                self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+                self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
             } else {
-                self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+                self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
             }
         } else if lastEvent != .hide {
             if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
-                self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
+                self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
                 self.rootControllerConfiguration = nil
             } else if rootControllerConfiguration.hasChanged {
                 animate(alongsideTransition: {
@@ -92,10 +92,10 @@ internal final class IQActiveConfiguration {
         }
     }
 
-    private func updateRootController(info: IQTextFieldViewInfo?) {
+    private func updateRootController(info: IQTextInputViewInfo?) {
 
         guard let info = info,
-              let controller: UIViewController = info.textFieldView.iq.parentContainerViewController() else {
+              let controller: UIViewController = info.textInputView.iq.parentContainerViewController() else {
             if let rootControllerConfiguration = rootControllerConfiguration,
                rootControllerConfiguration.hasChanged {
                 animate(alongsideTransition: {
@@ -130,13 +130,13 @@ internal final class IQActiveConfiguration {
 extension IQActiveConfiguration {
 
     var keyboardInfo: IQKeyboardInfo {
-        return keyboardListener.keyboardInfo
+        return keyboardObserver.keyboardInfo
     }
 
-    private func addKeyboardListener() {
-        keyboardListener.registerSizeChange(identifier: "IQActiveConfiguration", changeHandler: { [self] name, _ in
+    private func addKeyboardObserver() {
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [self] name, _ in
 
-            if let info = textFieldViewInfo, keyboardInfo.keyboardShowing {
+            if let info = textInputViewInfo, keyboardInfo.isVisible {
                 if let rootControllerConfiguration = rootControllerConfiguration {
                     let beginIsPortrait: Bool = rootControllerConfiguration.beginOrientation.isPortrait
                     let currentIsPortrait: Bool = rootControllerConfiguration.currentOrientation.isPortrait
@@ -157,26 +157,26 @@ extension IQActiveConfiguration {
     }
 
     public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
-        keyboardListener.animate(alongsideTransition: transition, completion: completion)
+        keyboardObserver.animate(alongsideTransition: transition, completion: completion)
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
 extension IQActiveConfiguration {
 
-    var textFieldViewInfo: IQTextFieldViewInfo? {
-        guard textFieldViewListener.textFieldView?.iq.isAlertViewTextField() == false else {
+    var textInputViewInfo: IQTextInputViewInfo? {
+        guard textInputViewObserver.textFieldView?.iq.isAlertViewTextField() == false else {
             return nil
         }
 
-        return textFieldViewListener.textFieldViewInfo
+        return textInputViewObserver.textInputViewInfo
     }
 
-    private func addTextFieldViewListener() {
-        textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
+    private func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
                                                           changeHandler: { [self] info in
 
-            guard info.textFieldView.iq.isAlertViewTextField() == false else {
+            guard info.textInputView.iq.isAlertViewTextField() == false else {
                 return
             }
 
@@ -193,7 +193,7 @@ extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,
                                          _ keyboardInfo: IQKeyboardInfo,
-                                         _ textFieldInfo: IQTextFieldViewInfo?) -> Void
+                                         _ textFieldInfo: IQTextInputViewInfo?) -> Void
 
     func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
@@ -203,7 +203,7 @@ extension IQActiveConfiguration {
         changeObservers[identifier] = nil
     }
 
-    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextFieldViewInfo?) {
+    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextInputViewInfo?) {
         lastEvent = event
 
         for block in changeObservers.values {

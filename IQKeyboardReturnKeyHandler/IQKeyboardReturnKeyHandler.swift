@@ -76,10 +76,10 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     // MARK: Private variables
-    private var textFieldInfoCache: [IQTextFieldViewInfoModel] = []
+    private var textFieldInfoCache: [IQTextInputViewInfoModel] = []
 
     // MARK: Private Functions
-    internal func textFieldViewCachedInfo(_ textField: UIView) -> IQTextFieldViewInfoModel? {
+    internal func textFieldViewCachedInfo(_ textField: UIView) -> IQTextInputViewInfoModel? {
 
         for model in textFieldInfoCache {
 
@@ -141,35 +141,35 @@ Manages the return key to work like next/done in a view hierarchy.
         }
     }
 
-    // MARK: Registering/Unregistering textFieldView
+    // MARK: Registering/Unregistering textInputView
 
     /**
-    Should pass UITextField/UITextView instance. Assign textFieldView delegate to self, change it's returnKeyType.
+    Should pass UITextField/UITextView instance. Assign textInputView delegate to self, change it's returnKeyType.
 
     @param view UITextField/UITextView object to register.
     */
     @objc public func addTextFieldView(_ view: UIView) {
 
         if let textField: UITextField = view as? UITextField {
-            let model = IQTextFieldViewInfoModel(textField: textField)
+            let model = IQTextInputViewInfoModel(textField: textField)
             textFieldInfoCache.append(model)
             textField.delegate = self
 
         } else if let textView: UITextView = view as? UITextView {
-            let model = IQTextFieldViewInfoModel(textView: textView)
+            let model = IQTextInputViewInfoModel(textView: textView)
             textFieldInfoCache.append(model)
             textView.delegate = self
         }
     }
 
     /**
-    Should pass UITextField/UITextView instance. Restore it's textFieldView delegate and it's returnKeyType.
+    Should pass UITextField/UITextView instance. Restore it's textInputView delegate and it's returnKeyType.
     
     @param view UITextField/UITextView object to unregister.
     */
     @objc public func removeTextFieldView(_ view: UIView) {
 
-        guard let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(view) else { return }
+        guard let model: IQTextInputViewInfoModel = textFieldViewCachedInfo(view) else { return }
         model.restore()
 
         guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return }

@@ -35,7 +35,7 @@ public extension IQKeyboardToolbarManager {
     @objc var canGoPrevious: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView,
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -49,7 +49,7 @@ public extension IQKeyboardToolbarManager {
     @objc var canGoNext: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView,
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -65,7 +65,7 @@ public extension IQKeyboardToolbarManager {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView,
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -75,7 +75,7 @@ public extension IQKeyboardToolbarManager {
 
         let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
 
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+        //  If it refuses then becoming previous textInputView as first responder again.    (Bug ID: #96)
         if !isAcceptAsFirstResponder {
             IQKeyboardManagerDebug.showLog("Refuses to become first responder: \(nextTextField)")
         }
@@ -91,7 +91,7 @@ public extension IQKeyboardToolbarManager {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
         guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView,
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView,
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -101,7 +101,7 @@ public extension IQKeyboardToolbarManager {
 
         let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
 
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
+        //  If it refuses then becoming previous textInputView as first responder again.    (Bug ID: #96)
         if !isAcceptAsFirstResponder {
             IQKeyboardManagerDebug.showLog("Refuses to become first responder: \(nextTextField)")
         }
@@ -119,7 +119,7 @@ public extension IQKeyboardToolbarManager {
         }
 
         guard canGoPrevious,
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView else {
             return
         }
 
@@ -149,7 +149,7 @@ public extension IQKeyboardToolbarManager {
         }
 
         guard canGoNext,
-              let textFieldRetain: UIView = textFieldViewListener.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textFieldView else {
             return
         }
 
@@ -178,11 +178,11 @@ public extension IQKeyboardToolbarManager {
             UIDevice.current.playInputClick()
         }
 
-        guard let textFieldRetain: UIView = textFieldViewListener.textFieldView else {
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldView else {
             return
         }
 
-        // Resign textFieldView.
+        // Resign textInputView.
         let isResignedFirstResponder: Bool = textFieldRetain.resignFirstResponder()
 
         var invocation: IQInvocation? = barButton.invocation
