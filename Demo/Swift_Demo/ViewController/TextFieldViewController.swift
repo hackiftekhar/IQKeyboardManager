@@ -26,7 +26,7 @@ import IQKeyboardManagerSwift
 import IQKeyboardNotification
 import IQDropDownTextFieldSwift
 import IQTextView
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 class TextFieldViewController: BaseViewController, UITextViewDelegate {
 

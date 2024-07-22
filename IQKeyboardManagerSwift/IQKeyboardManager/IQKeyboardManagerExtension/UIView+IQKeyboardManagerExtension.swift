@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -45,7 +45,7 @@ UIView category for managing UITextField/UITextView
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
      To set customized distance from keyboard for textField/textView. Can't be less than zero

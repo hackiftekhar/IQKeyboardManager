@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 // swiftlint:disable file_length
 @available(iOSApplicationExtension, unavailable)
@@ -112,12 +112,12 @@ public extension IQKeyboardManager {
             return
         }
 
-        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        IQKeyboardDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
         let startTime: CFTimeInterval = CACurrentMediaTime()
 
         defer {
             let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            IQKeyboardDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
         }
 
         let rootController: UIViewController = rootConfiguration.rootController
@@ -157,7 +157,7 @@ public extension IQKeyboardManager {
                                                      textFieldViewRectInWindow: textFieldViewRectInWindow,
                                                      window: window)
 
-        IQKeyboardManagerDebug.showLog("Need to move: \(moveUp), will be moving \(moveUp < 0 ? "down" : "up")")
+        IQKeyboardDebug.showLog("Need to move: \(moveUp), will be moving \(moveUp < 0 ? "down" : "up")")
 
         var superScrollView: UIScrollView?
         var superView: UIScrollView? = textFieldView.iq.superviewOf(type: UIScrollView.self)
@@ -211,17 +211,17 @@ public extension IQKeyboardManager {
             return
         }
         let startTime: CFTimeInterval = CACurrentMediaTime()
-        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        IQKeyboardDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         defer {
             let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            IQKeyboardDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
         }
 
         activeConfiguration.animate(alongsideTransition: {
             if configuration.hasChanged {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
-                IQKeyboardManagerDebug.showLog("Restoring \(classNameString) origin to: \(configuration.beginOrigin)")
+                IQKeyboardDebug.showLog("Restoring \(classNameString) origin to: \(configuration.beginOrigin)")
             }
             configuration.restore()
 
@@ -340,7 +340,7 @@ private extension IQKeyboardManager {
                 let configuration = IQScrollViewConfiguration(scrollView: superScrollView,
                                                               canRestoreContentOffset: true)
                 self.lastScrollViewConfiguration = configuration
-                IQKeyboardManagerDebug.showLog("""
+                IQKeyboardDebug.showLog("""
                         Saving ScrollView New contentInset: \(configuration.startingContentInset)
                         and contentOffset: \(configuration.startingContentOffset)
                         """)
@@ -363,7 +363,7 @@ private extension IQKeyboardManager {
                 let configuration = IQScrollViewConfiguration(scrollView: superScrollView,
                                                               canRestoreContentOffset: true)
                 self.lastScrollViewConfiguration = configuration
-                IQKeyboardManagerDebug.showLog("""
+                IQKeyboardDebug.showLog("""
                             Saving ScrollView New contentInset: \(configuration.startingContentInset)
                             and contentOffset: \(configuration.startingContentOffset)
                             """)
@@ -379,12 +379,12 @@ private extension IQKeyboardManager {
                                                          textFieldView: UIView?) {
         guard configuration.hasChanged else { return }
         if configuration.scrollView.contentInset != configuration.startingContentInset {
-            IQKeyboardManagerDebug.showLog("Restoring contentInset to: \(configuration.startingContentInset)")
+            IQKeyboardDebug.showLog("Restoring contentInset to: \(configuration.startingContentInset)")
         }
 
         if configuration.scrollView.iq.restoreContentOffset,
            !configuration.scrollView.contentOffset.equalTo(configuration.startingContentOffset) {
-            IQKeyboardManagerDebug.showLog("Restoring contentOffset to: \(configuration.startingContentOffset)")
+            IQKeyboardDebug.showLog("Restoring contentOffset to: \(configuration.startingContentOffset)")
         }
 
         activeConfiguration.animate(alongsideTransition: {
@@ -531,11 +531,11 @@ private extension IQKeyboardManager {
 
                     if !scrollView.contentOffset.equalTo(newContentOffset) {
 
-                        IQKeyboardManagerDebug.showLog("""
+                        IQKeyboardDebug.showLog("""
                                     old contentOffset: \(scrollView.contentOffset)
                                     new contentOffset: \(newContentOffset)
                                     """)
-                        IQKeyboardManagerDebug.showLog("Remaining Move: \(moveUp)")
+                        IQKeyboardDebug.showLog("Remaining Move: \(moveUp)")
 
                         // Getting problem while using `setContentOffset:animated:`, So I used animation API.
                         activeConfiguration.animate(alongsideTransition: {
@@ -608,7 +608,7 @@ private extension IQKeyboardManager {
         movedInsets.bottom = bottomInset
 
         guard lastScrollView.contentInset != movedInsets else { return }
-        IQKeyboardManagerDebug.showLog("""
+        IQKeyboardDebug.showLog("""
                 old ContentInset: \(lastScrollView.contentInset) new ContentInset: \(movedInsets)
                 """)
 
@@ -651,7 +651,7 @@ private extension IQKeyboardManager {
         newContentInset.bottom -= textView.safeAreaInsets.bottom
 
         guard textView.contentInset != newContentInset else { return }
-        IQKeyboardManagerDebug.showLog("""
+        IQKeyboardDebug.showLog("""
                                 \(textFieldView) Old UITextView.contentInset: \(textView.contentInset)
                                  New UITextView.contentInset: \(newContentInset)
                                 """)
@@ -674,7 +674,7 @@ private extension IQKeyboardManager {
             rootViewOrigin.y = CGFloat.maximum(rootViewOrigin.y - moveUp, CGFloat.minimum(0, -originalKbSize.height))
 
             if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
-                IQKeyboardManagerDebug.showLog("Moving Upward")
+                IQKeyboardDebug.showLog("Moving Upward")
 
                 activeConfiguration.animate(alongsideTransition: {
 
@@ -690,7 +690,7 @@ private extension IQKeyboardManager {
                     }
 
                     let classNameString: String = "\(type(of: rootController.self))"
-                    IQKeyboardManagerDebug.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
+                    IQKeyboardDebug.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
                 })
             }
 
@@ -705,7 +705,7 @@ private extension IQKeyboardManager {
                 rootViewOrigin.y -= CGFloat.maximum(moveUp, disturbDistance)
 
                 if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
-                    IQKeyboardManagerDebug.showLog("Moving Downward")
+                    IQKeyboardDebug.showLog("Moving Downward")
                     //  Setting adjusted rootViewRect
                     //  Setting adjusted rootViewRect
 
@@ -723,7 +723,7 @@ private extension IQKeyboardManager {
                         }
 
                         let classNameString: String = "\(type(of: rootController.self))"
-                        IQKeyboardManagerDebug.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
+                        IQKeyboardDebug.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
                     })
                 }
 
@@ -762,7 +762,7 @@ private extension IQKeyboardManager {
                         scrollView.contentOffset = newContentOffset
                     }
 
-                    IQKeyboardManagerDebug.showLog("Restoring contentOffset to: \(newContentOffset)")
+                    IQKeyboardDebug.showLog("Restoring contentOffset to: \(newContentOffset)")
                 }
             }
 

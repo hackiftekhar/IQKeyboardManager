@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 // MARK: UIKeyboard Notifications
 @available(iOSApplicationExtension, unavailable)
@@ -54,7 +54,7 @@ internal extension IQKeyboardManager {
 
             if let configuration = self.activeConfiguration.rootControllerConfiguration {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
-                IQKeyboardManagerDebug.showLog("""
+                IQKeyboardDebug.showLog("""
                 Saving \(classNameString) beginning origin: \(configuration.beginOrigin)
                 """)
             }
@@ -107,7 +107,7 @@ internal extension IQKeyboardManager {
            startingConfiguration.hasChanged {
 
             if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                IQKeyboardManagerDebug.showLog("""
+                IQKeyboardDebug.showLog("""
                 Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
                 """)
             }
@@ -129,7 +129,7 @@ internal extension IQKeyboardManager {
            startingConfiguration.hasChanged {
 
             if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                IQKeyboardManagerDebug.showLog("""
+                IQKeyboardDebug.showLog("""
                 Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
                 """)
             }

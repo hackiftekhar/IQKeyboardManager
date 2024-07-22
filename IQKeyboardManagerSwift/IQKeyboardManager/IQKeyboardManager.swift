@@ -24,7 +24,7 @@
 import UIKit
 import CoreGraphics
 import QuartzCore
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 // swiftlint:disable line_length
 // A generic version of KeyboardManagement. (OLD DOCUMENTATION) LINK
@@ -64,10 +64,10 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
                 } else {
                     restorePosition()
                 }
-                IQKeyboardManagerDebug.showLog("Enabled")
+                IQKeyboardDebug.showLog("Enabled")
             } else {   // If not disable, disable it.
                 restorePosition()
-                IQKeyboardManagerDebug.showLog("Disabled")
+                IQKeyboardDebug.showLog("Disabled")
             }
         }
     }
@@ -101,10 +101,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      then enabledDistanceHandlingClasses will be ignored.
      */
     @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
-
-    // MARK: Third Party Library support
-    /// Add TextField/TextView Notifications customized Notifications.
-    /// For example while using YYTextView https://github.com/ibireme/YYText
 
    /**************************************************************************************/
 

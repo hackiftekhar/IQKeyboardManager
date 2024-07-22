@@ -1,88 +1,79 @@
 PODS:
   - IQDropDownTextField (4.0.4)
   - IQDropDownTextFieldSwift (4.0.4)
+  - IQKeyboardCore (1.0.0)
   - IQKeyboardManager (6.5.19)
-  - IQKeyboardManagerCore (1.0.0)
   - IQKeyboardManagerSwift (7.1.0):
-    - IQKeyboardManagerCore
+    - IQKeyboardCore
     - IQKeyboardNotification
     - IQTextInputViewNotification
   - IQKeyboardManagerSwift/Appearance (7.1.0):
-    - IQKeyboardManagerCore
+    - IQKeyboardCore
     - IQKeyboardNotification
     - IQTextInputViewNotification
   - IQKeyboardManagerSwift/Resign (7.1.0):
-    - IQKeyboardManagerCore
+    - IQKeyboardCore
     - IQKeyboardNotification
     - IQTextInputViewNotification
   - IQKeyboardNotification (1.0.0)
-  - IQKeyboardReturnKeyHandler (1.0.0)
+  - IQKeyboardReturnManager (1.0.0)
   - IQKeyboardToolbar (1.0.0):
-    - IQKeyboardManagerCore
+    - IQKeyboardCore
   - IQKeyboardToolbarManager (1.0.0):
-    - IQKeyboardManagerCore
     - IQKeyboardToolbar
     - IQTextInputViewNotification
   - IQTextInputViewNotification (1.0.0)
   - IQTextView (1.0.0)
-  - RSKPlaceholderTextView (8.0.0)
   - SwiftLint (0.55.1)
 
 DEPENDENCIES:
   - IQDropDownTextField
   - IQDropDownTextFieldSwift
   - IQKeyboardManager (from `.`)
-  - IQKeyboardManagerCore (from `.`)
   - IQKeyboardManagerSwift (from `.`)
   - IQKeyboardManagerSwift/Appearance (from `.`)
   - IQKeyboardManagerSwift/Resign (from `.`)
-  - IQKeyboardReturnKeyHandler (from `.`)
+  - IQKeyboardReturnManager
   - IQKeyboardToolbar (from `.`)
   - IQKeyboardToolbarManager (from `.`)
-  - IQTextView (from `.`)
-  - RSKPlaceholderTextView
+  - IQTextView
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - IQDropDownTextField
     - IQDropDownTextFieldSwift
+    - IQKeyboardCore
     - IQKeyboardNotification
+    - IQKeyboardReturnManager
     - IQTextInputViewNotification
-    - RSKPlaceholderTextView
+    - IQTextView
     - SwiftLint
 
 EXTERNAL SOURCES:
   IQKeyboardManager:
     :path: "."
-  IQKeyboardManagerCore:
-    :path: "."
   IQKeyboardManagerSwift:
-    :path: "."
-  IQKeyboardReturnKeyHandler:
     :path: "."
   IQKeyboardToolbar:
     :path: "."
   IQKeyboardToolbarManager:
     :path: "."
-  IQTextView:
-    :path: "."
 
 SPEC CHECKSUMS:
   IQDropDownTextField: 3cce52d039b32c6cfa44c6a7603e949c1df4c7c3
   IQDropDownTextFieldSwift: fe6cf39c35dae95335a651e0e08a842a49f08b57
+  IQKeyboardCore: 4c107a0b88b63a2808872f14b7faee351e39783d
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerCore: 450d64dd5d4423b1ca057598ca0a30a94b9c9e86
-  IQKeyboardManagerSwift: 65895e8b836f6e9e2db054bd800cb3010f137aab
+  IQKeyboardManagerSwift: 81e2a24ffcd79118607e141fde998dbc058b957b
   IQKeyboardNotification: a0ce0b7247fe764a1678f021141c1f6ad5090d41
-  IQKeyboardReturnKeyHandler: 3b8983f5d784244800638d8054b614b1760c6472
-  IQKeyboardToolbar: 8a09bbd4a544272dcfd862889c093e1c3ca7def1
-  IQKeyboardToolbarManager: 68587c57c35064ab21f3e40bef3daea0d2618a9e
+  IQKeyboardReturnManager: cc4a07e8cf1b85b8f691e14ce7cbaee61a00cde3
+  IQKeyboardToolbar: 0ce33746f9e3ee76a4d4e0e51e7f9db9da17e680
+  IQKeyboardToolbarManager: 6a4025d8e1aaba4534dbe201d80e4058868270bd
   IQTextInputViewNotification: 9e60edd6cd46826315470a897f5b39ba5efd271e
-  IQTextView: 5aaf78715a7b3474730a3795fbce4ec512696769
-  RSKPlaceholderTextView: 85cb165bfbfe160a2e7bfb6bcd77a21100ce1b52
+  IQTextView: 6a7a0c8468b26ee0d08da0dca22a208af7f66fa5
   SwiftLint: 3fe909719babe5537c552ee8181c0031392be933
 
-PODFILE CHECKSUM: 0e6ecdb02957fc9f8944ac6db9d6c409a6dbc762
+PODFILE CHECKSUM: c314386adcde7589d97187e0e80bf5c9fd0937a0
 
 COCOAPODS: 1.15.2

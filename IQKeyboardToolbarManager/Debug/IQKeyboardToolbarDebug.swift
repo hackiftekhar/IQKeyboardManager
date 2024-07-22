@@ -26,7 +26,7 @@ import UIKit
 // MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public final class IQKeyboardManagerDebug: NSObject {
+public final class IQKeyboardToolbarDebug: NSObject {
 
     @objc public static var enableDebugging: Bool = false
 
@@ -46,7 +46,7 @@ public final class IQKeyboardManagerDebug: NSObject {
             self.indentation = max(0, self.indentation + indentation)
         }
 
-        var preLog: String = "IQKeyboardManager"
+        var preLog: String = "IQKeyboardToolbar"
         for _ in 0 ... self.indentation {
             preLog += "|\t"
         }

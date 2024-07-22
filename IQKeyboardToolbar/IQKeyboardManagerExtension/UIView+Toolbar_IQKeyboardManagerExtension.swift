@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -34,7 +34,7 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     // MARK: Toolbar
 
@@ -283,7 +283,7 @@ public extension IQKeyboardManagerExtension where Base: UIView {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-private extension IQKeyboardManagerExtension where Base: UIView {
+private extension IQKeyboardExtension where Base: UIView {
 
     private func constructBarButtonItems(target: AnyObject?,
                                          toolbar: IQKeyboardToolbar,

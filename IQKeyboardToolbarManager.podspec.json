@@ -25,39 +25,12 @@
         "IQKeyboardToolbarManager/**/*.{swift}"
     ],
     "dependencies": {
-        "IQKeyboardManagerCore": [],
         "IQKeyboardToolbar": [],
         "IQTextInputViewNotification": []
     },
     "resource_bundles": {
         "IQKeyboardToolbarManager": "IQKeyboardToolbarManager/PrivacyInfo.xcprivacy"
     },
-    "subspecs": [
-        {
-            "name": "IQKeyboardReturnKeyHandler",
-            "source_files": [
-                "IQKeyboardReturnKeyHandler/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
-        },
-        {
-            "name": "IQTextView",
-            "source_files": [
-                "IQTextView/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
-        }
-    ],
     "default_subspecs": ["none"],
     "frameworks": [
         "UIKit"

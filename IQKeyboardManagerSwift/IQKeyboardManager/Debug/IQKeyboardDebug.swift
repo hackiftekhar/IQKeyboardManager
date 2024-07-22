@@ -1,5 +1,5 @@
 //
-//  IQTextInputViewInfoModel.swift
+//  IQKeyboardManager+Debug.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,34 +23,38 @@
 
 import UIKit
 
+// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal final class IQTextInputViewInfoModel: NSObject {
+public final class IQKeyboardDebug: NSObject {
 
-    weak var textFieldDelegate: (any UITextFieldDelegate)?
-    weak var textViewDelegate: (any UITextViewDelegate)?
-    weak var textFieldView: UIView?
-    let originalReturnKeyType: UIReturnKeyType
+    @objc public static var enableDebugging: Bool = false
 
-    init(textField: UITextField) {
-        self.textFieldView = textField
-        self.textFieldDelegate = textField.delegate
-        self.originalReturnKeyType = textField.returnKeyType
+    private static var indentation = 0
+
+    private override init() {
+        super.init()
     }
 
-    init(textView: UITextView) {
-        self.textFieldView = textView
-        self.textViewDelegate = textView.delegate
-        self.originalReturnKeyType = textView.returnKeyType
-    }
+    @objc public static func showLog(_ logString: String, indentation: Int = 0) {
 
-    func restore() {
-        if let textField = textFieldView as? UITextField {
-            textField.returnKeyType = originalReturnKeyType
-            textField.delegate = textFieldDelegate
-        } else if let textView = textFieldView as? UITextView {
-            textView.returnKeyType = originalReturnKeyType
-            textView.delegate = textViewDelegate
+        guard enableDebugging else {
+            return
+        }
+
+        if indentation < 0 {
+            self.indentation = max(0, self.indentation + indentation)
+        }
+
+        var preLog: String = "IQKeyboardManager"
+        for _ in 0 ... self.indentation {
+            preLog += "|\t"
+        }
+
+        print(preLog + logString)
+
+        if indentation > 0 {
+            self.indentation += indentation
         }
     }
 }

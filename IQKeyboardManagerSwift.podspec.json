@@ -27,7 +27,7 @@
     "dependencies": {
         "IQKeyboardNotification": [],
         "IQTextInputViewNotification": [],
-        "IQKeyboardManagerCore": []
+        "IQKeyboardCore": []
     },
     "resource_bundles": {
         "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"

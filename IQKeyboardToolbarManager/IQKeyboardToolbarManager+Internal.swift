@@ -23,7 +23,7 @@
 
 import UIKit
 import IQTextInputViewNotification
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardToolbarManager {

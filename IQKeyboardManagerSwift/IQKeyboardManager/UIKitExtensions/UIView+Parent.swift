@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 /**
 UIView hierarchy category.
@@ -29,7 +29,7 @@ UIView hierarchy category.
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
      Returns the UIViewController object that is actually the parent of this object.
@@ -87,4 +87,11 @@ public extension IQKeyboardManagerExtension where Base: UIView {
             return parentContainerViewController
         }
     }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@objc public extension UIView {
+
+    @available(*, unavailable, renamed: "iq.parentContainerViewController()")
+    func parentContainerViewController() -> UIViewController? { nil }
 }

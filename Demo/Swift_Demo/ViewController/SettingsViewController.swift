@@ -25,7 +25,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import IQKeyboardToolbarManager
 import IQKeyboardToolbar
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 class SettingsViewController: UITableViewController {
 
@@ -159,7 +159,8 @@ class SettingsViewController: UITableViewController {
     /**  Debugging         */
     @objc func enableDebugging (_ sender: UISwitch) {
 
-        IQKeyboardManagerDebug.enableDebugging = sender.isOn
+        IQKeyboardDebug.enableDebugging = sender.isOn
+        IQKeyboardToolbarDebug.enableDebugging = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

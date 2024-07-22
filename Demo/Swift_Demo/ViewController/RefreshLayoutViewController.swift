@@ -34,7 +34,7 @@ class RefreshLayoutViewController: BaseViewController {
 
         let animationDuration: TimeInterval = 0.3
 
-        UIView.animate(withDuration: animationDuration, delay: 0, options: finalCurve, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: finalCurve, animations: {
 
             self.textViewHeightConstraint.constant = CGFloat(sender.value)
 

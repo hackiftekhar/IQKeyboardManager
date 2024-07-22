@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -35,7 +35,7 @@ UIView category for managing UITextField/UITextView
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
      Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.

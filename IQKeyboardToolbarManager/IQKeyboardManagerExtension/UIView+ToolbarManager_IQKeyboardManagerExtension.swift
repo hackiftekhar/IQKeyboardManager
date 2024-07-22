@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -35,7 +35,7 @@ UIView category for managing UITextField/UITextView
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
      If ignoreSwitchingByNextPrevious is true then library will ignore this textField/textView
@@ -63,7 +63,7 @@ UIView category for managing UITextField/UITextView
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
     Returns all siblings of the receiver which canBecomeFirstResponder.

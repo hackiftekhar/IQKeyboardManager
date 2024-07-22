@@ -25,7 +25,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 import IQTextInputViewNotification
-import IQKeyboardManagerCore
+import IQKeyboardCore
 import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
@@ -46,7 +46,7 @@ import IQKeyboardToolbar
     @objc public var enable: Bool = true {
         didSet {
             reloadInputViews()
-            IQKeyboardManagerDebug.showLog("enable: \(enable ? "Yes" : "NO")")
+            IQKeyboardToolbarDebug.showLog("enable: \(enable ? "Yes" : "NO")")
         }
     }
 

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -42,8 +42,8 @@ extension UIScrollView: IQKeyboardManagerExtended {
     // was already stated in the type's module 'UIKit'
     // This property is explicitly written otherwise we were having
     // compilation error when archiving
-    public var iq: IQKeyboardManagerExtension<UIView> {
-        get { IQKeyboardManagerExtension(self) }
+    public var iq: IQKeyboardExtension<UIView> {
+        get { IQKeyboardExtension(self) }
         set {}
     }
 }
@@ -53,7 +53,7 @@ extension UIScrollView: IQKeyboardManagerExtended {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerExtension where Base: UIScrollView {
+public extension IQKeyboardExtension where Base: UIScrollView {
 
     /**
      If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position.

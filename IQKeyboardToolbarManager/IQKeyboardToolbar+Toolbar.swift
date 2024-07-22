@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQKeyboardManagerCore
+import IQKeyboardCore
 import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
@@ -49,10 +49,10 @@ public extension IQKeyboardToolbarManager {
             return
         }
 
-        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        IQKeyboardToolbarDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
         let startTime: CFTimeInterval = CACurrentMediaTime()
 
-        IQKeyboardManagerDebug.showLog("Found \(siblings.count) responder sibling(s)")
+        IQKeyboardToolbarDebug.showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration = getRightConfiguration()
 
@@ -118,7 +118,7 @@ public extension IQKeyboardToolbarManager {
         applyToolbarConfiguration(textField: textField)
 
         let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+        IQKeyboardToolbarDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
 
@@ -129,15 +129,15 @@ public extension IQKeyboardToolbarManager {
             return
         }
 
-        IQKeyboardManagerDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
+        IQKeyboardToolbarDebug.showLog(">>>>> \(#function) started >>>>>", indentation: 1)
         let startTime: CFTimeInterval = CACurrentMediaTime()
 
         defer {
             let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            IQKeyboardManagerDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            IQKeyboardToolbarDebug.showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
         }
 
-        IQKeyboardManagerDebug.showLog("Found \(siblings.count) responder sibling(s)")
+        IQKeyboardToolbarDebug.showLog("Found \(siblings.count) responder sibling(s)")
 
         for view in siblings {
             removeToolbarIfRequired(of: view)
