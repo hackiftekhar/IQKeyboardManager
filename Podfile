@@ -15,9 +15,6 @@ target "DemoSwift" do
 
   pod "SwiftLint"
   pod "IQDropDownTextFieldSwift"
-  
-  pod "IQKeyboardNotification", :path => "."
-  pod "IQTextInputViewNotification", :path => "."
 
   pod "IQKeyboardToolbar", :path => "."
   pod "IQKeyboardToolbarManager", :path => "."

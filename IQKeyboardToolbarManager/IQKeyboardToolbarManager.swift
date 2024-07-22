@@ -116,7 +116,7 @@ import IQKeyboardToolbar
                 return
             }
 
-            switch info.name {
+            switch info.event {
             case .beginEditing:
                 addToolbarIfRequired()
             case .endEditing:

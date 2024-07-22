@@ -33,7 +33,7 @@ internal extension IQKeyboardManager {
         observer.subscribe(identifier: "keyboardAppearance",
                                              changeHandler: { [weak self] info in
             guard let self = self else { return }
-            switch info.name {
+            switch info.event {
             case .beginEditing:
                 guard keyboardConfiguration.overrideAppearance,
                       let textInput: any UITextInput = info.textInputView as? (any UITextInput),

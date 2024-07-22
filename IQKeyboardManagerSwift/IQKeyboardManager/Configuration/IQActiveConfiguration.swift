@@ -134,7 +134,9 @@ extension IQActiveConfiguration {
     }
 
     private func addKeyboardObserver() {
-        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [self] name, _ in
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [self] name, size in
+
+            guard keyboardObserver.oldKeyboardInfo.endFrame.height != size.height else { return }
 
             if let info = textInputViewInfo, keyboardInfo.isVisible {
                 if let rootControllerConfiguration = rootControllerConfiguration {
@@ -180,7 +182,7 @@ extension IQActiveConfiguration {
                 return
             }
 
-            if info.name == .beginEditing {
+            if info.event == .beginEditing {
                 updateRootController(info: info)
                 self.sendEvent()
             }
