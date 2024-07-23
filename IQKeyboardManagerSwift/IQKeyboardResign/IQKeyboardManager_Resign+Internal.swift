@@ -55,48 +55,37 @@ internal extension IQKeyboardManager {
         resignGesture.isEnabled = privateResignOnTouchOutside()
     }
 
-    // swiftlint:disable cyclomatic_complexity
     private func privateResignOnTouchOutside() -> Bool {
 
-        var isEnabled: Bool = resignOnTouchOutside
-
         guard let textFieldViewInfo: IQTextInputViewInfo = activeConfiguration.textInputViewInfo else {
-            return isEnabled
+            return resignOnTouchOutside
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textInputView.iq.resignOnTouchOutsideMode
-
-        switch enableMode {
+        switch textFieldViewInfo.textInputView.iq.resignOnTouchOutsideMode {
         case .default:
-            guard var textFieldViewController = textFieldViewInfo.textInputView.iq.viewContainingController() else {
-                return isEnabled
+            guard var controller = textFieldViewInfo.textInputView.iq.viewContainingController() else {
+                return resignOnTouchOutside
             }
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = textFieldViewController as? UINavigationController,
+               let navController: UINavigationController = controller as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
-                textFieldViewController = topController
+                controller = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming resignOnTouchOutside is enabled.
-            if !isEnabled,
-               enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                isEnabled = true
-            }
+            // If viewController is in enabledTouchResignedClasses, then assuming resignOnTouchOutside is enabled.
+            let isWithEnabledClass: Bool = enabledTouchResignedClasses.contains(where: { controller.isKind(of: $0) })
+            var isEnabled: Bool = resignOnTouchOutside || isWithEnabledClass
 
             if isEnabled {
 
-                // If viewController is kind of disable viewController class,
+                // If viewController is in disabledTouchResignedClasses,
                 // then assuming resignOnTouchOutside is disable.
-                if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                if disabledTouchResignedClasses.contains(where: { controller.isKind(of: $0) }) {
                     isEnabled = false
-                }
-
-                // Special Controllers
-                if isEnabled {
-
-                    let classNameString: String = "\(type(of: textFieldViewController.self))"
+                } else {
+                    let classNameString: String = "\(type(of: controller.self))"
 
                     // _UIAlertControllerTextFieldViewController
                     if classNameString.contains("UIAlertController"),
@@ -112,5 +101,4 @@ internal extension IQKeyboardManager {
             return false
         }
     }
-    // swiftlint:enable cyclomatic_complexity
 }

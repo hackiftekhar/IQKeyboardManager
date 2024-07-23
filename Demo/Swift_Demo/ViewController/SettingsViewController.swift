@@ -159,8 +159,8 @@ class SettingsViewController: UITableViewController {
     /**  Debugging         */
     @objc func enableDebugging (_ sender: UISwitch) {
 
-        IQKeyboardDebug.enableDebugging = sender.isOn
-        IQKeyboardToolbarDebug.enableDebugging = sender.isOn
+        IQKeyboardManager.shared.enableDebugging = sender.isOn
+        IQKeyboardToolbarManager.shared.enableDebugging = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

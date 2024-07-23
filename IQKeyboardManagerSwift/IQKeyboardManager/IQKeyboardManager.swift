@@ -64,10 +64,10 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
                 } else {
                     restorePosition()
                 }
-                IQKeyboardDebug.showLog("Enabled")
+                showLog("Enabled")
             } else {   // If not disable, disable it.
                 restorePosition()
-                IQKeyboardDebug.showLog("Disabled")
+                showLog("Disabled")
             }
         }
     }
@@ -103,6 +103,10 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
 
    /**************************************************************************************/
+
+    @objc public var enableDebugging: Bool = false
+
+    internal var logIndentation = 0
 
     // MARK: Initialization/De-initialization
 

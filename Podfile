@@ -20,9 +20,7 @@ target "DemoSwift" do
   #  pod "IQKeyboardToolbarManager/IQTextView", :path => "."
 
   pod "IQKeyboardReturnManager"
-
-  pod "IQKeyboardToolbar", :path => "."
-  pod "IQKeyboardToolbarManager", :path => "."
+  pod "IQKeyboardToolbarManager"
 
   pod "IQKeyboardManagerSwift", :path => "."
   pod "IQKeyboardManagerSwift/Resign", :path => "."

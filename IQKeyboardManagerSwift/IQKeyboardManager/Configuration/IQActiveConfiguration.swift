@@ -167,7 +167,7 @@ extension IQActiveConfiguration {
 extension IQActiveConfiguration {
 
     var textInputViewInfo: IQTextInputViewInfo? {
-        guard textInputViewObserver.textFieldView?.iq.isAlertViewTextField() == false else {
+        guard textInputViewObserver.textInputView?.iq.isAlertViewTextField() == false else {
             return nil
         }
 

@@ -54,7 +54,7 @@ internal extension IQKeyboardManager {
 
             if let configuration = self.activeConfiguration.rootControllerConfiguration {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
-                IQKeyboardDebug.showLog("""
+                showLog("""
                 Saving \(classNameString) beginning origin: \(configuration.beginOrigin)
                 """)
             }
@@ -107,7 +107,7 @@ internal extension IQKeyboardManager {
            startingConfiguration.hasChanged {
 
             if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                IQKeyboardDebug.showLog("""
+                showLog("""
                 Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
                 """)
             }
@@ -129,7 +129,7 @@ internal extension IQKeyboardManager {
            startingConfiguration.hasChanged {
 
             if startingConfiguration.scrollView.contentInset != startingConfiguration.startingContentInset {
-                IQKeyboardDebug.showLog("""
+                showLog("""
                 Restoring textView.contentInset to: \(startingConfiguration.startingContentInset)
                 """)
             }

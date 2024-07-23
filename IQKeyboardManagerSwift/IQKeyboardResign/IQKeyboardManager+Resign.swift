@@ -49,7 +49,7 @@ public extension IQKeyboardManager {
             objc_setAssociatedObject(self, &AssociatedKeys.resignOnTouchOutside,
                                      newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             updateResignGestureState()
-            IQKeyboardDebug.showLog("resignOnTouchOutside: \(newValue ? "Yes" : "NO")")
+            showLog("resignOnTouchOutside: \(newValue ? "Yes" : "NO")")
         }
     }
 
@@ -144,7 +144,7 @@ public extension IQKeyboardManager {
 
         // Resigning first responder
         guard textFieldRetain.resignFirstResponder() else {
-            IQKeyboardDebug.showLog("Refuses to resign first responder: \(textFieldRetain)")
+            showLog("Refuses to resign first responder: \(textFieldRetain)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             // If it refuses to resign then becoming it first responder again for getting notifications callback.
             textFieldRetain.becomeFirstResponder()

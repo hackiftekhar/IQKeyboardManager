@@ -28,52 +28,46 @@ import IQKeyboardCore
 @available(iOSApplicationExtension, unavailable)
 internal extension IQKeyboardManager {
 
-    // swiftlint:disable cyclomatic_complexity
     func privateIsEnabled() -> Bool {
 
-        var isEnabled: Bool = enable
-
         guard let textFieldViewInfo: IQTextInputViewInfo = activeConfiguration.textInputViewInfo else {
-            return isEnabled
+            return enable
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textInputView.iq.enableMode
-
-        switch enableMode {
+        switch textFieldViewInfo.textInputView.iq.enableMode {
         case .default:
-            guard var textFieldViewController = textFieldViewInfo.textInputView.iq.viewContainingController() else {
-                return isEnabled
+            guard var controller = textFieldViewInfo.textInputView.iq.viewContainingController() else {
+                return enable
             }
 
             // If it is searchBar textField embedded in Navigation Bar
             if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = textFieldViewController as? UINavigationController,
+               let navController: UINavigationController = controller as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
-                textFieldViewController = topController
+                controller = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming it's enabled.
-            if !isEnabled, enabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                isEnabled = true
+            // If viewController is in enabledDistanceHandlingClasses, then assuming it's enabled.
+            let isWithEnabledClass: Bool = enabledDistanceHandlingClasses.contains(where: { controller.isKind(of: $0) })
+            var isEnabled: Bool = enable || isWithEnabledClass
+
+            if isEnabled {
+                // If viewController is in disabledDistanceHandlingClasses,
+                // then assuming it's disabled.
+                if disabledDistanceHandlingClasses.contains(where: { controller.isKind(of: $0) }) {
+                    isEnabled = false
+                } else {
+                    // Special Controllers
+                    let classNameString: String = "\(type(of: controller.self))"
+
+                    // _UIAlertControllerTextFieldViewController
+                    if classNameString.contains("UIAlertController"),
+                       classNameString.hasSuffix("TextFieldViewController") {
+                        isEnabled = false
+                    }
+                }
             }
 
-            guard isEnabled else { return isEnabled }
-
-            // If viewController is kind of disabled viewController class, then assuming it's disabled.
-            if disabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                isEnabled = false
-            }
-
-            guard isEnabled else { return isEnabled }
-
-            // Special Controllers
-            let classNameString: String = "\(type(of: textFieldViewController.self))"
-
-            // _UIAlertControllerTextFieldViewController
-            if classNameString.contains("UIAlertController"),
-               classNameString.hasSuffix("TextFieldViewController") {
-                isEnabled = false
-            }
             return isEnabled
         case .enabled:
             return true
@@ -81,5 +75,4 @@ internal extension IQKeyboardManager {
             return false
         }
     }
-    // swiftlint:enable cyclomatic_complexity
 }
