@@ -30,6 +30,7 @@ public extension IQKeyboardManager {
     @MainActor
     private struct AssociatedKeys {
         static var enableDebugging: Int = 0
+        static var logIndentation: Int = 0
     }
 
     @objc var enableDebugging: Bool {
@@ -42,9 +43,14 @@ public extension IQKeyboardManager {
         }
     }
 
-    @MainActor
-    struct Static {
-        static var indentation = 0
+    private var logIndentation: Int {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.logIndentation) as? Int ?? 0
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.logIndentation,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
 
     internal func showLog(_ logString: String, indentation: Int = 0) {
@@ -54,18 +60,18 @@ public extension IQKeyboardManager {
         }
 
         if indentation < 0 {
-            Static.indentation = max(0, Static.indentation + indentation)
+            logIndentation = max(0, logIndentation + indentation)
         }
 
         var preLog: String = "IQKeyboardManager"
-        for _ in 0 ... Static.indentation {
+        for _ in 0 ... logIndentation {
             preLog += "|\t"
         }
 
         print(preLog + logString)
 
         if indentation > 0 {
-            Static.indentation += indentation
+            logIndentation += indentation
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager.swift
+//  IQKeyboardManager+ToolbarManagerDeprecated.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,32 +25,13 @@ import UIKit
 
 // swiftlint:disable unused_setter_value
 // swiftlint:disable identifier_name
-// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 public extension IQKeyboardManager {
-
-    @available(*, unavailable, renamed: "resignOnTouchOutside")
-    @objc var shouldResignOnTouchOutside: Bool {
-        get { false }
-        set { }
-    }
 
     @available(*, unavailable, renamed: "playInputClicks")
     @objc var shouldPlayInputClicks: Bool {
         get { false }
         set { }
-    }
-
-    @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
-    @objc func registerTextFieldViewClass(_ aClass: UIView.Type,
-                                          didBeginEditingNotificationName: String,
-                                          didEndEditingNotificationName: String) {
-    }
-
-    @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
-    @objc func unregisterTextFieldViewClass(_ aClass: UIView.Type,
-                                            didBeginEditingNotificationName: String,
-                                            didEndEditingNotificationName: String) {
     }
 }
 
@@ -152,7 +133,7 @@ public extension IQKeyboardManager {
 public extension IQKeyboardManager {
 
     @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.accessibilityLabel")
-    @objc var toolbarTitlBarButtonItemAccessibilityLabel: String? {
+    @objc var toolbarTitleBarButtonItemAccessibilityLabel: String? {
         get { nil }
         set { }
     }
@@ -182,39 +163,6 @@ public extension IQKeyboardManager {
     }
 }
 
-@available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
-    @objc var overrideKeyboardAppearance: Bool {
-        get { false }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
-    @objc var keyboardAppearance: UIKeyboardAppearance {
-        get { .default }
-        set { }
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
-
-    typealias SizeBlock = (_ size: CGSize) -> Void
-
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {}
-
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {}
-
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc var keyboardShowing: Bool { false }
-
-    @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc var keyboardFrame: CGRect { .zero }
-}
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
-// swiftlint:enable line_length
+

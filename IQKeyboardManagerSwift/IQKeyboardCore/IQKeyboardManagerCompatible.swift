@@ -59,3 +59,6 @@ public extension IQKeyboardManagerCompatible where Self: AnyObject {
 }
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
+
+@available(iOSApplicationExtension, unavailable)
+extension UIView: IQKeyboardManagerCompatible {}

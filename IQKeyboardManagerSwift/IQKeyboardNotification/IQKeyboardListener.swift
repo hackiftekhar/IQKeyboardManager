@@ -29,7 +29,7 @@ public class IQKeyboardListener {
 
     private var sizeObservers: [AnyHashable: SizeCompletion] = [:]
 
-    private(set) var keyboardInfo: IQKeyboardInfo {
+    public private(set) var keyboardInfo: IQKeyboardInfo {
         didSet {
             if keyboardInfo != oldValue {
                 sendEvent()

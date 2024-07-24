@@ -225,6 +225,7 @@ extension SettingsViewController: UIColorPickerViewControllerDelegate {
         } else {
             IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
         }
+        self.tableView.reloadData()
     }
 
     func colorPickerViewController(_ viewController: UIColorPickerViewController,
@@ -235,6 +236,7 @@ extension SettingsViewController: UIColorPickerViewControllerDelegate {
         } else {
             IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
         }
+        self.tableView.reloadData()
     }
 }
 
@@ -242,6 +244,17 @@ extension SettingsViewController: UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 && indexPath.row == 5 {
+            if #available(iOS 14.0, *) {
+                let colorPicker = UIColorPickerViewController()
+                colorPicker.title = "Toolbar Tint Color"
+                colorPicker.supportsAlpha = false
+                colorPicker.delegate = self
+                colorPicker.modalPresentationStyle = .popover
+                colorPicker.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+                self.present(colorPicker, animated: true)
+            }
+        }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

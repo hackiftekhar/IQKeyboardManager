@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfo.swift
+//  IQKeyboardToolbarConstants.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,33 +21,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
+// MARK: IQAutoToolbarManageBehavior
+
+/**
+`IQAutoToolbarBySubviews`
+Creates Toolbar according to subview's hierarchy of Textfield's in view.
+
+`IQAutoToolbarByTag`
+Creates Toolbar according to tag property of TextField's.
+
+`IQAutoToolbarByPosition`
+Creates Toolbar according to the y,x position of textField in it's superview coordinate.
+*/
 @available(iOSApplicationExtension, unavailable)
-@MainActor
-public struct IQTextFieldViewInfo: Equatable {
+@objc public enum IQAutoToolbarManageBehavior: Int {
+    case bySubviews
+    case byTag
+    case byPosition
+}
 
-    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.textFieldView == rhs.textFieldView &&
-        lhs.name == rhs.name
-    }
+/**
+ `IQPreviousNextDisplayModeDefault`
+ Show NextPrevious when there are more than 1 textField otherwise hide.
 
-    @MainActor
-    @objc public enum Name: Int {
-        case beginEditing
-        case endEditing
-    }
+ `IQPreviousNextDisplayModeAlwaysHide`
+ Do not show NextPrevious buttons in any case.
 
-    public let name: Name
-
-    public let textFieldView: UIView
-
-    public init?(notification: Notification?, name: Name) {
-        guard let view: UIView = notification?.object as? UIView else {
-            return nil
-        }
-
-        self.name = name
-        textFieldView = view
-    }
+ `IQPreviousNextDisplayModeAlwaysShow`
+ Always show nextPrevious buttons,
+ if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+ */
+@available(iOSApplicationExtension, unavailable)
+@objc public enum IQPreviousNextDisplayMode: Int {
+    case `default`
+    case alwaysHide
+    case alwaysShow
 }

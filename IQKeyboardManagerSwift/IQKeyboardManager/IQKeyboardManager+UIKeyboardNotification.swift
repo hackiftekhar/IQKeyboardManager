@@ -102,21 +102,6 @@ internal extension IQKeyboardManager {
             startingTextViewConfiguration = nil
         }
 
-        if keyboardConfiguration.overrideAppearance,
-           let textInput: any UITextInput = textFieldView as? (any UITextInput),
-            textInput.keyboardAppearance != keyboardConfiguration.appearance {
-            // Setting textField keyboard appearance and reloading inputViews.
-            if let textFieldView: UITextField = textFieldView as? UITextField {
-                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-            } else if  let textFieldView: UITextView = textFieldView as? UITextView {
-                textFieldView.keyboardAppearance = keyboardConfiguration.appearance
-            }
-            textFieldView.reloadInputViews()
-        }
-
-        // If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
-        reloadInputViews()
-
         resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
         textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
@@ -129,7 +114,6 @@ internal extension IQKeyboardManager {
 
         // Removing gesture recognizer   (Enhancement ID: #14)
         textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
-        removeToolbarIfRequired()
         do {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {

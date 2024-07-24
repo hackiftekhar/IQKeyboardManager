@@ -463,7 +463,7 @@
                         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                         UIColorPickerViewController *colorPicker = [[UIColorPickerViewController alloc] init];
                         
-                        colorPicker.title = @"Background Color";
+                        colorPicker.title = @"Toolbar Tint Color";
                         colorPicker.supportsAlpha = NO;
                         colorPicker.delegate = self;
                         colorPicker.modalPresentationStyle = UIModalPresentationPopover;

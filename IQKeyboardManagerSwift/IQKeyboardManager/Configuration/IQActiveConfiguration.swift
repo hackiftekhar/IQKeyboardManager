@@ -163,12 +163,21 @@ extension IQActiveConfiguration {
 extension IQActiveConfiguration {
 
     var textFieldViewInfo: IQTextFieldViewInfo? {
+        guard textFieldViewListener.textFieldView?.iq.isAlertViewTextField() == false else {
+            return nil
+        }
+
         return textFieldViewListener.textFieldViewInfo
     }
 
     private func addTextFieldViewListener() {
         textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
                                                           changeHandler: { [self] info in
+
+            guard info.textFieldView.iq.isAlertViewTextField() == false else {
+                return
+            }
+
             if info.name == .beginEditing {
                 updateRootController(info: info)
                 self.sendEvent()

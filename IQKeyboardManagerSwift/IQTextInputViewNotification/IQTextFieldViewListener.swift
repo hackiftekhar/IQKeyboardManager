@@ -33,7 +33,7 @@ public class IQTextFieldViewListener {
     private(set) var lastTextFieldViewInfo: IQTextFieldViewInfo?
 #endif
 
-    private(set) var textFieldViewInfo: IQTextFieldViewInfo?
+    public private(set) var textFieldViewInfo: IQTextFieldViewInfo?
 
     public var textFieldView: UIView? {
         return textFieldViewInfo?.textFieldView

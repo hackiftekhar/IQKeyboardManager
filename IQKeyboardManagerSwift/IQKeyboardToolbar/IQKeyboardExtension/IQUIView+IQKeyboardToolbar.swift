@@ -321,9 +321,12 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                              previousAction: Selector, nextAction: Selector, doneAction: Selector,
                              title: String?, titleAccessibilityLabel: String? = nil) {
 
-        let previousConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardPreviousImage,
+        let chevronUp: UIImage = UIImage(systemName: "chevron.up") ?? UIImage()
+        let chevronDown: UIImage = UIImage(systemName: "chevron.down") ?? UIImage()
+
+        let previousConfiguration = IQBarButtonItemConfiguration(image: chevronUp,
                                                                  action: previousAction)
-        let nextConfiguration = IQBarButtonItemConfiguration(image: UIImage.keyboardNextImage, action: nextAction)
+        let nextConfiguration = IQBarButtonItemConfiguration(image: chevronDown, action: nextAction)
         let rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: doneAction)
 
         addToolbar(target: target, previousConfiguration: previousConfiguration,

@@ -94,48 +94,22 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     internal func updateReturnKeyTypeOnTextField(_ view: UIView) {
-        var superConsideredView: UIView?
 
-        // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for allowedClasse in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
+        guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return }
 
-            superConsideredView = view.iq.superviewOf(type: allowedClasse)
+        let isLast: Bool = index == textFieldInfoCache.count - 1
 
-            if superConsideredView != nil {
-                break
-            }
-        }
+        let returnKey: UIReturnKeyType = isLast ? lastTextFieldReturnKeyType: UIReturnKeyType.next
+        if let view: UITextField = view as? UITextField, view.returnKeyType != returnKey {
 
-        var textFields: [UIView] = []
+            // If it's the last textInputView in responder view, else next
+            view.returnKeyType = returnKey
+            view.reloadInputViews()
+        } else if let view: UITextView = view as? UITextView, view.returnKeyType != returnKey {
 
-        // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
-        if let unwrappedTableView: UIView = superConsideredView {     //   (Enhancement ID: #22)
-            textFields = unwrappedTableView.iq.deepResponderViews()
-        } else {  // Otherwise fetching all the siblings
-
-            textFields = view.iq.responderSiblings()
-
-            // Sorting textFields according to behavior
-            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehavior {
-                // If needs to sort it by tag
-            case .byTag:        textFields = textFields.sortedByTag()
-                // If needs to sort it by Position
-            case .byPosition:   textFields = textFields.sortedByPosition()
-            default:    break
-            }
-        }
-
-        if let lastView: UIView = textFields.last {
-
-            if let textField: UITextField = view as? UITextField {
-
-                // If it's the last textField in responder view, else next
-                textField.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
-            } else if let textView: UITextView = view as? UITextView {
-
-                // If it's the last textField in responder view, else next
-                textView.returnKeyType = (view == lastView)    ?   lastTextFieldReturnKeyType: UIReturnKeyType.next
-            }
+            // If it's the last textInputView in responder view, else next
+            view.returnKeyType = returnKey
+            view.reloadInputViews()
         }
     }
 
@@ -181,9 +155,14 @@ Manages the return key to work like next/done in a view hierarchy.
     
     @param view UIView object to register all it's responder subviews.
     */
-    @objc public func addResponderFromView(_ view: UIView) {
+    @objc public func addResponderFromView(_ view: UIView, recursive: Bool = true) {
 
-        let textFields: [UIView] = view.iq.deepResponderViews()
+        let textFields: [UIView]
+        if recursive {
+            textFields = view.deepResponderSubviews()
+        } else {
+            textFields = view.responderSubviews()
+        }
 
         for textField in textFields {
 
@@ -196,9 +175,14 @@ Manages the return key to work like next/done in a view hierarchy.
     
     @param view UIView object to unregister all it's responder subviews.
     */
-    @objc public func removeResponderFromView(_ view: UIView) {
+    @objc public func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
 
-        let textFields: [UIView] = view.iq.deepResponderViews()
+        let textFields: [UIView]
+        if recursive {
+            textFields = view.deepResponderSubviews()
+        } else {
+            textFields = view.responderSubviews()
+        }
 
         for textField in textFields {
 
@@ -209,53 +193,107 @@ Manages the return key to work like next/done in a view hierarchy.
     @discardableResult
     internal func goToNextResponderOrResign(_ view: UIView) -> Bool {
 
-        var superConsideredView: UIView?
+        guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return false }
 
-        // If find any consider responderView in it's upper hierarchy then will get deepResponderView. (Bug ID: #347)
-        for allowedClass in IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses {
+        let isNotLast: Bool = index != textFieldInfoCache.count - 1
 
-            superConsideredView = view.iq.superviewOf(type: allowedClass)
-
-            if superConsideredView != nil {
-                break
-            }
-        }
-
-        var textFields: [UIView] = []
-
-        // If there is a tableView in view's hierarchy, then fetching all it's subview that responds.
-        if let unwrappedTableView: UIView = superConsideredView {     //   (Enhancement ID: #22)
-            textFields = unwrappedTableView.iq.deepResponderViews()
-        } else {  // Otherwise fetching all the siblings
-
-            textFields = view.iq.responderSiblings()
-
-            // Sorting textFields according to behavior
-            switch IQKeyboardManager.shared.toolbarConfiguration.manageBehavior {
-                // If needs to sort it by tag
-            case .byTag:        textFields = textFields.sortedByTag()
-                // If needs to sort it by Position
-            case .byPosition:   textFields = textFields.sortedByPosition()
-            default:
-                break
-            }
-        }
-
-        //  Getting index of current textField.
-        if let index: Int = textFields.firstIndex(of: view) {
-            //  If it is not last textField. then it's next object becomeFirstResponder.
-            if index < (textFields.count - 1) {
-
-                let nextTextField: UIView = textFields[index+1]
-                nextTextField.becomeFirstResponder()
-                return false
-            } else {
-
-                view.resignFirstResponder()
-                return true
-            }
+        if isNotLast, let textFieldView = textFieldInfoCache[index+1].textFieldView {
+            textFieldView.becomeFirstResponder()
+            return false
         } else {
+            view.resignFirstResponder()
             return true
         }
+    }
+}
+
+fileprivate extension UIView {
+
+    func responderSubviews() -> [UIView] {
+
+        // Array of TextInputViews.
+        var textInputViews: [UIView] = []
+
+        for view in subviews {
+
+            var canBecomeFirstResponder: Bool = false
+
+            if view.conforms(to: (any UITextInput).self) == true {
+                //  Setting toolbar to keyboard.
+                if let view: UITextView = view as? UITextView {
+                    canBecomeFirstResponder = view.isEditable
+                } else if let view: UITextField = view as? UITextField {
+                    canBecomeFirstResponder = view.isEnabled
+                }
+            }
+
+            // Sometimes there are hidden or disabled views and textInputView inside them still recorded,
+            // so we added some more validations here
+            if canBecomeFirstResponder,
+               self.isUserInteractionEnabled == true,
+               self.isHidden == false, self.alpha != 0.0 {
+                textInputViews.append(view)
+            }
+        }
+
+        // subviews are returning in opposite order. Sorting according the frames 'y'.
+        return textInputViews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
+
+            let frame1: CGRect = view1.convert(view1.bounds, to: self)
+            let frame2: CGRect = view2.convert(view2.bounds, to: self)
+
+            if frame1.minY != frame2.minY {
+                return frame1.minY < frame2.minY
+            } else {
+                return frame1.minX < frame2.minX
+            }
+        })
+    }
+
+    func deepResponderSubviews() -> [UIView] {
+
+        // Array of TextInputViews.
+        var textInputViews: [UIView] = []
+
+        for view in subviews {
+
+            var canBecomeFirstResponder: Bool = false
+
+            if view.conforms(to: (any UITextInput).self) == true {
+                //  Setting toolbar to keyboard.
+                if let view: UITextView = view as? UITextView {
+                    canBecomeFirstResponder = view.isEditable
+                } else if let view: UITextField = view as? UITextField {
+                    canBecomeFirstResponder = view.isEnabled
+                }
+            }
+
+            if canBecomeFirstResponder {
+                textInputViews.append(view)
+            }
+            // Sometimes there are hidden or disabled views and textInputView inside them still recorded,
+            // so we added some more validations here (Bug ID: #458)
+            // Uncommented else (Bug ID: #625)
+            else if view.subviews.count != 0,
+                    self.isUserInteractionEnabled == true,
+                    self.isHidden == false, self.alpha != 0.0 {
+                for deepView in view.deepResponderSubviews() {
+                    textInputViews.append(deepView)
+                }
+            }
+        }
+
+        // subviews are returning in opposite order. Sorting according the frames 'y'.
+        return textInputViews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
+
+            let frame1: CGRect = view1.convert(view1.bounds, to: self)
+            let frame2: CGRect = view2.convert(view2.bounds, to: self)
+
+            if frame1.minY != frame2.minY {
+                return frame1.minY < frame2.minY
+            } else {
+                return frame1.minX < frame2.minX
+            }
+        })
     }
 }

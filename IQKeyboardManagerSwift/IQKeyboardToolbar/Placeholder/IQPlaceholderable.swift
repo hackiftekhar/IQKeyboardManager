@@ -35,5 +35,7 @@ public protocol IQPlaceholderable: AnyObject {
 @available(iOSApplicationExtension, unavailable)
 extension UITextField: IQPlaceholderable { }
 
+#if canImport(IQTextView)
 @available(iOSApplicationExtension, unavailable)
 extension IQTextView: IQPlaceholderable { }
+#endif

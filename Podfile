@@ -21,10 +21,10 @@ target "DemoSwift" do
 end
 
 
-target "DemoExtension" do
-  platform :ios, "13.0"
-
-  pod "SwiftLint"
-  pod "IQKeyboardManagerSwift", :path => "."
-
-end
+#target "DemoExtension" do
+#  platform :ios, "13.0"
+#
+#  pod "SwiftLint"
+#  pod "IQKeyboardManagerSwift", :path => "."
+#
+#end

@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfo.swift
+//  IQKeyboardManager+Appearance.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,31 +23,13 @@
 
 import UIKit
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public struct IQTextFieldViewInfo: Equatable {
+public extension IQKeyboardManager {
 
-    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.textFieldView == rhs.textFieldView &&
-        lhs.name == rhs.name
-    }
-
-    @MainActor
-    @objc public enum Name: Int {
-        case beginEditing
-        case endEditing
-    }
-
-    public let name: Name
-
-    public let textFieldView: UIView
-
-    public init?(notification: Notification?, name: Name) {
-        guard let view: UIView = notification?.object as? UIView else {
-            return nil
-        }
-
-        self.name = name
-        textFieldView = view
+    /**
+    Configuration related to keyboard appearance
+    */
+     @objc var keyboardConfiguration: IQKeyboardConfiguration {
+         get { appearanceManager.keyboardConfiguration }
+         set { appearanceManager.keyboardConfiguration = newValue }
     }
 }

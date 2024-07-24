@@ -24,38 +24,32 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
+internal extension IQKeyboardToolbarManager {
 
     /**
     Default tag for toolbar with Done button   -1002.
     */
-    private static let  kIQDoneButtonToolbarTag         =   -1002
-
-    /**
-    Default tag for toolbar with Previous/Next buttons -1005.
-    */
-    private static let  kIQPreviousNextButtonToolbarTag =   -1005
+    private static let kIQToolbarTag = -1001
 
     // swiftlint:disable function_body_length
     // swiftlint:disable cyclomatic_complexity
     /**
      Add toolbar if it is required to add on textFields and it's siblings.
      */
-    internal func addToolbarIfRequired() {
+    func addToolbarIfRequired(of textField: UIView) {
 
         // Either there is no inputAccessoryView or
         // if accessoryView is not appropriate for current situation
         // (There is Previous/Next/Done toolbar)
-        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textField: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+        guard let siblings: [UIView] = responderViews(of: textField), !siblings.isEmpty,
+              let textField: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
               textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) else {
             return
         }
 
         if let inputAccessoryView: UIView = textField.inputAccessoryView {
 
-            if inputAccessoryView.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-                inputAccessoryView.tag == IQKeyboardManager.kIQDoneButtonToolbarTag {
+            if inputAccessoryView.tag == IQKeyboardToolbarManager.kIQToolbarTag {
                 // continue
             } else {
                 let swiftUIAccessoryName: String = "InputAccessoryHost<InputAccessoryBar>"
@@ -68,11 +62,6 @@ public extension IQKeyboardManager {
                 }
             }
         }
-
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-
-        showLog("Found \(siblings.count) responder sibling(s)")
 
         let rightConfiguration: IQBarButtonItemConfiguration
         if let configuration: IQBarButtonItemConfiguration = toolbarConfiguration.doneBarButtonConfiguration {
@@ -119,7 +108,8 @@ public extension IQKeyboardManager {
                 configuration.action = #selector(self.previousAction(_:))
                 prevConfiguration = configuration
             } else {
-                prevConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardPreviousImage),
+                let chevronUp: UIImage = UIImage(systemName: "chevron.up") ?? UIImage()
+                prevConfiguration = IQBarButtonItemConfiguration(image: chevronUp,
                                                                  action: #selector(self.previousAction(_:)))
                 prevConfiguration.accessibilityLabel = "Previous"
             }
@@ -129,7 +119,8 @@ public extension IQKeyboardManager {
                 configuration.action = #selector(self.nextAction(_:))
                 nextConfiguration = configuration
             } else {
-                nextConfiguration = IQBarButtonItemConfiguration(image: (UIImage.keyboardNextImage),
+                let chevronDown: UIImage = UIImage(systemName: "chevron.down") ?? UIImage()
+                nextConfiguration = IQBarButtonItemConfiguration(image: chevronDown,
                                                                  action: #selector(self.nextAction(_:)))
                 nextConfiguration.accessibilityLabel = "Next"
             }
@@ -140,9 +131,6 @@ public extension IQKeyboardManager {
                                     nextConfiguration: nextConfiguration,
                                     rightConfiguration: rightConfiguration, title: titleText,
                                     titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
-
-            // (Bug ID: #78)
-            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag
 
             if isTableCollectionView {
                 // (Bug ID: #56)
@@ -162,9 +150,10 @@ public extension IQKeyboardManager {
             textField.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
                                     title: titleText,
                                     titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
-
-            textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
         }
+
+        // (Bug ID: #78)
+        textField.inputAccessoryView?.tag = IQKeyboardToolbarManager.kIQToolbarTag
 
         let toolbar: IQToolbar = textField.iq.toolbar
 
@@ -212,55 +201,23 @@ public extension IQKeyboardManager {
         } else {
             toolbar.titleBarButton.title = nil
         }
-
-        // In case of UITableView (Special), the next/previous buttons has to be refreshed every-time.    (Bug ID: #56)
-
-        // If firstTextField, then previous should not be enabled.
-        textField.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textField)
-
-        // If lastTextField then next should not be enabled.
-        textField.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textField)
-
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
 
     /** Remove any toolbar if it is IQToolbar. */
-    internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
+    func removeToolbarIfRequired(of textFieldView: UIView) {    //  (Bug ID: #18)
 
-        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty else {
-            return
-        }
-
-        showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
-
-        showLog("Found \(siblings.count) responder sibling(s)")
-
-        for view in siblings {
-            removeToolbarIfRequired(of: view)
-        }
-
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
-    }
-
-    /** Remove any toolbar if it is IQToolbar. */
-    internal func removeToolbarIfRequired(of view: UIView) {    //  (Bug ID: #18)
-
-        guard view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              let toolbar: IQToolbar = view.inputAccessoryView as? IQToolbar,
-              toolbar.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag ||
-                toolbar.tag == IQKeyboardManager.kIQDoneButtonToolbarTag else {
+        guard textFieldView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
+              let toolbar: IQToolbar = textFieldView.inputAccessoryView as? IQToolbar,
+              toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
             return
         }
 
         // setInputAccessoryView: check   (Bug ID: #307)
-        if let textField: UITextField = view as? UITextField {
+        if let textField: UITextField = textFieldView as? UITextField {
             textField.inputAccessoryView = nil
-        } else if let textView: UITextView = view as? UITextView {
+        } else if let textView: UITextView = textFieldView as? UITextView {
             textView.inputAccessoryView = nil
         }
     }
@@ -268,11 +225,13 @@ public extension IQKeyboardManager {
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
     @objc func reloadInputViews() {
 
+        guard let textFieldView = textInputViewObserver.textFieldView else { return }
+
         // If enabled then adding toolbar.
-        if privateIsEnableAutoToolbar() {
-            self.addToolbarIfRequired()
+        if privateIsEnableAutoToolbar(of: textFieldView) {
+            self.addToolbarIfRequired(of: textFieldView)
         } else {
-            self.removeToolbarIfRequired()
+            self.removeToolbarIfRequired(of: textFieldView)
         }
     }
 }

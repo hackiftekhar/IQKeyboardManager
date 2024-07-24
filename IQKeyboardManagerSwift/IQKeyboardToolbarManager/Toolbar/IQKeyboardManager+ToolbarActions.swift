@@ -25,15 +25,15 @@ import UIKit
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
+internal extension IQKeyboardToolbarManager {
 
     /**
     Returns YES if can navigate to previous responder textField/textView, otherwise NO.
     */
     @objc var canGoPrevious: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldView,
+              let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -46,8 +46,8 @@ public extension IQKeyboardManager {
     */
     @objc var canGoNext: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+              let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -62,8 +62,8 @@ public extension IQKeyboardManager {
     @objc func goPrevious() -> Bool {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+              let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
             return false
@@ -72,11 +72,6 @@ public extension IQKeyboardManager {
         let nextTextField: UIView = textFields[index-1]
 
         let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
-
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-        if !isAcceptAsFirstResponder {
-            showLog("Refuses to become first responder: \(nextTextField)")
-        }
 
         return isAcceptAsFirstResponder
     }
@@ -88,8 +83,8 @@ public extension IQKeyboardManager {
     @objc func goNext() -> Bool {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFields: [UIView] = responderViews(),
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+              let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
             return false
@@ -99,16 +94,11 @@ public extension IQKeyboardManager {
 
         let isAcceptAsFirstResponder: Bool = nextTextField.becomeFirstResponder()
 
-        //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
-        if !isAcceptAsFirstResponder {
-            showLog("Refuses to become first responder: \(nextTextField)")
-        }
-
         return isAcceptAsFirstResponder
     }
 
     /**    previousAction. */
-    @objc internal func previousAction (_ barButton: IQBarButtonItem) {
+    @objc func previousAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -117,7 +107,7 @@ public extension IQKeyboardManager {
         }
 
         guard canGoPrevious,
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
             return
         }
 
@@ -140,7 +130,7 @@ public extension IQKeyboardManager {
     }
 
     /**    nextAction. */
-    @objc internal func nextAction (_ barButton: IQBarButtonItem) {
+    @objc func nextAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -149,7 +139,7 @@ public extension IQKeyboardManager {
         }
 
         guard canGoNext,
-              let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
             return
         }
 
@@ -172,7 +162,7 @@ public extension IQKeyboardManager {
     }
 
     /**    doneAction. Resigning current textField. */
-    @objc internal func doneAction (_ barButton: IQBarButtonItem) {
+    @objc func doneAction (_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -180,12 +170,12 @@ public extension IQKeyboardManager {
             UIDevice.current.playInputClick()
         }
 
-        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
+        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
             return
         }
 
         // Resign textFieldView.
-        let isResignedFirstResponder: Bool = resignFirstResponder()
+        let isResignedFirstResponder: Bool = textFieldRetain.resignFirstResponder()
 
         var invocation: IQInvocation? = barButton.invocation
         var sender: UIView = textFieldRetain
