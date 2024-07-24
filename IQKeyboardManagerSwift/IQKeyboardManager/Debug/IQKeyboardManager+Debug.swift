@@ -28,6 +28,32 @@ import UIKit
 @MainActor
 internal extension IQKeyboardManager {
 
+    @MainActor
+    private struct AssociatedKeys {
+        static var enableDebugging: Int = 0
+        static var logIndentation: Int = 0
+    }
+
+    @objc var enableDebugging: Bool {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    private var logIndentation: Int {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.logIndentation) as? Int ?? 0
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.logIndentation,
+                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     func showLog(_ logString: String, indentation: Int = 0) {
 
         guard enableDebugging else {

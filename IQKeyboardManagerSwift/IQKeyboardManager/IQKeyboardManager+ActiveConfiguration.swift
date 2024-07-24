@@ -26,6 +26,7 @@ import IQKeyboardCore
 
 // MARK: UIKeyboard Notifications
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardManager {
 
     func addActiveConfigurationObserver() {
@@ -95,6 +96,7 @@ internal extension IQKeyboardManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardManager {
 
     func setupTextInputView() {

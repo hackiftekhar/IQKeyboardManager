@@ -1,5 +1,8 @@
 project "Demo.xcodeproj"
 
+install! 'cocoapods',
+         :preserve_pod_file_structure => true
+
 use_frameworks!
 
 target "DemoObjC" do
@@ -15,10 +18,7 @@ target "DemoSwift" do
 
   pod "SwiftLint"
   pod "IQDropDownTextFieldSwift"
-
   pod "IQTextView"
-  #  pod "IQKeyboardToolbarManager/IQTextView", :path => "."
-
   pod "IQKeyboardReturnManager"
   pod "IQKeyboardToolbarManager"
 

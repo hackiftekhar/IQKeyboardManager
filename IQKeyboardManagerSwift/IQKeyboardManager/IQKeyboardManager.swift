@@ -104,10 +104,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
    /**************************************************************************************/
 
-    @objc public var enableDebugging: Bool = false
-
-    internal var logIndentation = 0
-
     // MARK: Initialization/De-initialization
 
     /*  Singleton Object Initialization. */

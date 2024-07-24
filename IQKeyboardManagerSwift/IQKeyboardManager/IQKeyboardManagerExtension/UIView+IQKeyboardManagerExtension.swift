@@ -33,12 +33,12 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 extension UIView {
-    public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
+    nonisolated public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
 }
 
 @available(iOSApplicationExtension, unavailable)
 @available(*, unavailable, renamed: "UIView.defaultKeyboardDistance")
-public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
+nonisolated public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 /**
 UIView category for managing UITextField/UITextView
@@ -87,6 +87,7 @@ public extension IQKeyboardExtension where Base: UIView {
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public extension UIView {
     @available(*, unavailable, renamed: "iq.distanceFromKeyboard")
     var keyboardDistanceFromTextField: CGFloat {

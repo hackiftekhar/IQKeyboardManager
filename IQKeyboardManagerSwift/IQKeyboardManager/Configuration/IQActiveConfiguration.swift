@@ -127,6 +127,7 @@ internal final class IQActiveConfiguration {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
     var keyboardInfo: IQKeyboardInfo {
@@ -134,7 +135,9 @@ extension IQActiveConfiguration {
     }
 
     private func addKeyboardObserver() {
-        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [self] name, size in
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] name, size in
+
+            guard let self = self else { return }
 
             guard keyboardObserver.oldKeyboardInfo.endFrame.height != size.height else { return }
 
@@ -164,6 +167,7 @@ extension IQActiveConfiguration {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
     var textInputViewInfo: IQTextInputViewInfo? {
@@ -176,7 +180,9 @@ extension IQActiveConfiguration {
 
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
-                                                          changeHandler: { [self] info in
+                                                          changeHandler: { [weak self] info in
+
+            guard let self = self else { return }
 
             guard info.textInputView.iq.isAlertViewTextField() == false else {
                 return
@@ -191,6 +197,7 @@ extension IQActiveConfiguration {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,

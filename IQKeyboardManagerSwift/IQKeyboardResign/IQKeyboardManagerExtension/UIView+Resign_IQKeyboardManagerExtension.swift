@@ -58,6 +58,7 @@ public extension IQKeyboardExtension where Base: UIView {
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public extension UIView {
     @available(*, unavailable, renamed: "iq.resignOnTouchOutsideMode")
     var shouldResignOnTouchOutsideMode: IQEnableMode {

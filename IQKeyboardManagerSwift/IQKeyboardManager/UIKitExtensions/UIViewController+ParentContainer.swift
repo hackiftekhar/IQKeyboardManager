@@ -40,6 +40,7 @@ import UIKit
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc extension UIViewController {
     @available(*, unavailable, renamed: "iq_parentContainerViewController()")
     open func parentIQContainerViewController() -> UIViewController? {

@@ -26,6 +26,7 @@ import IQTextInputViewNotification
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardManager {
 
     func registerActiveStateChangeForAppearance() {

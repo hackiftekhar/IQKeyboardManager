@@ -155,6 +155,7 @@ public extension IQKeyboardManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQKeyboardManager: UIGestureRecognizerDelegate {
 
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/

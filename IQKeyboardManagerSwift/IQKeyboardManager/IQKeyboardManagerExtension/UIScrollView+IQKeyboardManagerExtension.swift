@@ -32,25 +32,6 @@ private struct AssociatedKeys {
     static var restoreContentOffset: Int = 0
 }
 
-/*
-// swiftlint:disable identifier_name
-// swiftlint:disable unused_setter_value
-@available(iOSApplicationExtension, unavailable)
-extension UIScrollView: IQKeyboardManagerExtended {
-
-    // On DEBUG: Conformance of 'UIScrollView' to protocol 'IQKeyboardManagerCompatible'
-    // was already stated in the type's module 'UIKit'
-    // This property is explicitly written otherwise we were having
-    // compilation error when archiving
-    public var iq: IQKeyboardExtension<UIView> {
-        get { IQKeyboardExtension(self) }
-        set {}
-    }
-}
-// swiftlint:enable unused_setter_value
-// swiftlint:enable identifier_name
-*/
-
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardExtension where Base: UIScrollView {
@@ -114,6 +95,7 @@ public extension IQKeyboardExtension where Base: UIScrollView {
 
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public extension UIScrollView {
     @available(*, unavailable, renamed: "iq.ignoreScrollingAdjustment")
     var shouldIgnoreScrollingAdjustment: Bool {

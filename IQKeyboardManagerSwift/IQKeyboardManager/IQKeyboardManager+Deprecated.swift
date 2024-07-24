@@ -23,6 +23,8 @@
 
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManager {
 
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
@@ -40,6 +42,7 @@ public extension IQKeyboardManager {
 
 // swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManager {
 
     typealias SizeBlock = (_ size: CGSize) -> Void

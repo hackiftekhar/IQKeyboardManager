@@ -26,7 +26,10 @@ import IQKeyboardCore
 
 // swiftlint:disable file_length
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManager {
+
+    private typealias IQLayoutGuide = (top: CGFloat, bottom: CGFloat)
 
     @MainActor
     private struct AssociatedKeys {
@@ -251,9 +254,8 @@ public extension IQKeyboardManager {
 
 // swiftlint:disable function_parameter_count
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private extension IQKeyboardManager {
-
-    typealias IQLayoutGuide = (top: CGFloat, bottom: CGFloat)
 
     func getSpecialTextFieldDistance(textFieldView: UIView) -> CGFloat {
         // Maintain keyboardDistanceFromTextField
@@ -296,8 +298,8 @@ private extension IQKeyboardManager {
         return kbSize
     }
 
-    static func getLayoutGuides(rootController: UIViewController, window: UIWindow,
-                                isScrollableTextView: Bool) -> IQLayoutGuide {
+    static private func getLayoutGuides(rootController: UIViewController, window: UIWindow,
+                                        isScrollableTextView: Bool) -> IQLayoutGuide {
         let navigationBarAreaHeight: CGFloat
         if let navigationController: UINavigationController = rootController.navigationController {
             navigationBarAreaHeight = navigationController.navigationBar.frame.maxY
@@ -315,11 +317,11 @@ private extension IQKeyboardManager {
         return (topLayoutGuide, bottomLayoutGuide)
     }
 
-    static func getMoveUpDistance(keyboardSize: CGSize,
-                                  layoutGuide: IQLayoutGuide,
-                                  textFieldViewRectInRootSuperview: CGRect,
-                                  textFieldViewRectInWindow: CGRect,
-                                  window: UIWindow) -> CGFloat {
+    static private func getMoveUpDistance(keyboardSize: CGSize,
+                                          layoutGuide: IQLayoutGuide,
+                                          textFieldViewRectInRootSuperview: CGRect,
+                                          textFieldViewRectInWindow: CGRect,
+                                          window: UIWindow) -> CGFloat {
 
         //  Move positive = textField is hidden.
         //  Move negative = textField is showing.
@@ -394,14 +396,14 @@ private extension IQKeyboardManager {
     }
 
     // swiftlint:disable function_body_length
-    func adjustScrollViewContentOffsets(moveUp: inout CGFloat, textFieldView: UIView,
-                                        lastScrollViewConfiguration: IQScrollViewConfiguration,
-                                        rootController: UIViewController,
-                                        layoutGuide: IQLayoutGuide,
-                                        textFieldViewRectInRootSuperview: CGRect,
-                                        isScrollableTextView: Bool, window: UIWindow,
-                                        kbSize: CGSize, keyboardDistance: CGFloat,
-                                        rootConfiguration: IQRootControllerConfiguration) {
+    private func adjustScrollViewContentOffsets(moveUp: inout CGFloat, textFieldView: UIView,
+                                                lastScrollViewConfiguration: IQScrollViewConfiguration,
+                                                rootController: UIViewController,
+                                                layoutGuide: IQLayoutGuide,
+                                                textFieldViewRectInRootSuperview: CGRect,
+                                                isScrollableTextView: Bool, window: UIWindow,
+                                                kbSize: CGSize, keyboardDistance: CGFloat,
+                                                rootConfiguration: IQRootControllerConfiguration) {
         // Saving
         var lastView: UIView = textFieldView
         var superScrollView: UIScrollView? = lastScrollViewConfiguration.scrollView
@@ -491,12 +493,12 @@ private extension IQKeyboardManager {
     }
     // swiftlint:enable function_body_length
 
-    static func handleTableViewCase(moveUp: inout CGFloat, isContinue: Bool, textFieldView: UIView,
-                                    tableView: UITableView, rootController: UIViewController,
-                                    layoutGuide: IQLayoutGuide) {
+    private static func handleTableViewCase(moveUp: inout CGFloat, isContinue: Bool, textFieldView: UIView,
+                                            tableView: UITableView, rootController: UIViewController,
+                                            layoutGuide: IQLayoutGuide) {
         guard isContinue,
-           let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self),
-           let indexPath: IndexPath = tableView.indexPath(for: tableCell),
+              let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self),
+              let indexPath: IndexPath = tableView.indexPath(for: tableCell),
               let previousIndexPath: IndexPath = tableView.previousIndexPath(of: indexPath) else { return }
 
         let previousCellRect: CGRect = tableView.rectForRow(at: previousIndexPath)
@@ -509,9 +511,9 @@ private extension IQKeyboardManager {
         moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - layoutGuide.top)
     }
 
-    static func handleCollectionViewCase(moveUp: inout CGFloat, isContinue: Bool, textFieldView: UIView,
-                                         collectionView: UICollectionView, rootController: UIViewController,
-                                         layoutGuide: IQLayoutGuide) {
+    private static func handleCollectionViewCase(moveUp: inout CGFloat, isContinue: Bool, textFieldView: UIView,
+                                                 collectionView: UICollectionView, rootController: UIViewController,
+                                                 layoutGuide: IQLayoutGuide) {
         guard isContinue,
               let collectionCell = textFieldView.iq.superviewOf(type: UICollectionViewCell.self),
               let indexPath: IndexPath = collectionView.indexPath(for: collectionCell),
@@ -527,11 +529,11 @@ private extension IQKeyboardManager {
         moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - layoutGuide.top)
     }
 
-    func updateSuggestedOffsetYAndMoveUp(suggestedOffsetY: inout CGFloat, moveUp: inout CGFloat,
-                                         isScrollableTextView: Bool, nextScrollView: UIScrollView?,
-                                         textFieldView: UIView, window: UIWindow,
-                                         layoutGuide: IQLayoutGuide,
-                                         scrollView: UIScrollView) {
+    private func updateSuggestedOffsetYAndMoveUp(suggestedOffsetY: inout CGFloat, moveUp: inout CGFloat,
+                                                 isScrollableTextView: Bool, nextScrollView: UIScrollView?,
+                                                 textFieldView: UIView, window: UIWindow,
+                                                 layoutGuide: IQLayoutGuide,
+                                                 scrollView: UIScrollView) {
         // If is a UITextView type
         // [_textFieldView isKindOfClass:[UITextView class]]
         //
@@ -645,10 +647,10 @@ private extension IQKeyboardManager {
         })
     }
 
-    func adjustTextViewContentInset(window: UIWindow, originalKbSize: CGSize,
-                                    rootController: UIViewController,
-                                    layoutGuide: IQLayoutGuide,
-                                    textView: UIScrollView, textFieldView: UIView) {
+    private func adjustTextViewContentInset(window: UIWindow, originalKbSize: CGSize,
+                                            rootController: UIViewController,
+                                            layoutGuide: IQLayoutGuide,
+                                            textView: UIScrollView, textFieldView: UIView) {
         let keyboardYPosition: CGFloat = window.frame.height - originalKbSize.height
         var rootSuperViewFrameInWindow: CGRect = window.frame
         if let rootSuperview: UIView = rootController.view.superview {

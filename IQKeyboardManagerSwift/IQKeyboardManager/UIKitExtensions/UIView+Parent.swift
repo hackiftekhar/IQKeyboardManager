@@ -1,5 +1,6 @@
 //
 //  UIView+Parent.swift
+//  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -90,6 +91,7 @@ public extension IQKeyboardExtension where Base: UIView {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 @objc public extension UIView {
 
     @available(*, unavailable, renamed: "iq.parentContainerViewController()")
