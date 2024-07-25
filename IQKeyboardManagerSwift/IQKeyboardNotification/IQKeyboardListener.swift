@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public class IQKeyboardListener {
+@objc public final class IQKeyboardListener: NSObject {
 
     private var sizeObservers: [AnyHashable: SizeCompletion] = [:]
 
@@ -37,16 +37,17 @@ public class IQKeyboardListener {
         }
     }
 
-    public var keyboardShowing: Bool {
+    @objc public var keyboardShowing: Bool {
         keyboardInfo.keyboardShowing
     }
 
-    public var frame: CGRect {
+    @objc public var frame: CGRect {
         keyboardInfo.frame
     }
 
-    public init() {
+    @objc public override init() {
         keyboardInfo = IQKeyboardInfo(notification: nil, name: .didHide)
+        super.init()
         //  Registering for keyboard notification.
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -86,7 +87,7 @@ public class IQKeyboardListener {
         keyboardInfo = IQKeyboardInfo(notification: notification, name: .didChangeFrame)
     }
 
-    public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
+    @objc public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
         keyboardInfo.animate(alongsideTransition: transition, completion: completion)
     }
 }
@@ -96,11 +97,11 @@ public extension IQKeyboardListener {
 
     typealias SizeCompletion = (_ name: IQKeyboardInfo.Name, _ size: CGSize) -> Void
 
-    func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
+    @objc func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
         sizeObservers[identifier] = changeHandler
     }
 
-    func unregisterSizeChange(identifier: AnyHashable) {
+    @objc func unregisterSizeChange(identifier: AnyHashable) {
         sizeObservers[identifier] = nil
     }
 

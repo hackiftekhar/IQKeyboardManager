@@ -26,7 +26,7 @@ import UIKit
 /** @abstract   IQToolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
+@objc open class IQToolbar: UIToolbar {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -174,8 +174,11 @@ import UIKit
             }
         }
     }
+}
 
-    @objc open var enableInputClicksWhenVisible: Bool {
+extension IQToolbar: UIInputViewAudioFeedback {
+
+    @objc public var enableInputClicksWhenVisible: Bool {
         return true
     }
 }

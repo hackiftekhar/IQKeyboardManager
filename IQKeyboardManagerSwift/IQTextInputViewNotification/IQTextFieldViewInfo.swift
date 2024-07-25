@@ -42,7 +42,7 @@ public struct IQTextFieldViewInfo: Equatable {
 
     public let textFieldView: UIView
 
-    public init?(notification: Notification?, name: Name) {
+    internal init?(notification: Notification?, name: Name) {
         guard let view: UIView = notification?.object as? UIView else {
             return nil
         }

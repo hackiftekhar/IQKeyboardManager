@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+Internal.swift
+//  IQKeyboardResignHandler+Internal.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -24,40 +24,60 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-internal extension IQKeyboardManager {
+internal extension IQKeyboardResignHandler {
 
-    func privateIsEnabled() -> Bool {
+    func removeTextInputViewObserverForResign() {
+        textInputViewObserver.unregisterSizeChange(identifier: "TextInputViewObserverForResign")
+    }
 
-        var isEnabled: Bool = enable
+    func addTextInputViewObserverForResign() {
+        textInputViewObserver.registerTextFieldViewChange(identifier: "TextInputViewObserverForResign",
+                                                          changeHandler: { [weak self] info in
+            guard let self = self else { return }
+            switch info.name {
+            case .beginEditing:
+                resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
+                info.textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)
+            case .endEditing:
+                info.textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
+            }
+        })
+    }
 
-        guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo else {
+    func privateResignOnTouchOutside() -> Bool {
+
+        var isEnabled: Bool = resignOnTouchOutside
+
+        guard let textFieldView: UIView = textInputViewObserver.textFieldView else {
             return isEnabled
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.enableMode
+        let enableMode: IQEnableMode = textFieldView.iq.resignOnTouchOutsideMode
 
         if enableMode == .enabled {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        } else if var textFieldViewController = textFieldView.iq.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
+            if textFieldView.iq.textFieldSearchBar() != nil,
                let navController: UINavigationController = textFieldViewController as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming it's enabled.
-            if !isEnabled, enabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+            // If viewController is kind of enable viewController class, then assuming resignOnTouchOutside is enabled.
+            if !isEnabled,
+               enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                 isEnabled = true
             }
 
             if isEnabled {
 
-                // If viewController is kind of disabled viewController class, then assuming it's disabled.
-                if disabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                // If viewController is kind of disable viewController class,
+                // then assuming resignOnTouchOutside is disable.
+                if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                     isEnabled = false
                 }
 
@@ -68,13 +88,12 @@ internal extension IQKeyboardManager {
 
                     // _UIAlertControllerTextFieldViewController
                     if classNameString.contains("UIAlertController"),
-                       classNameString.hasSuffix("TextFieldViewController") {
+                        classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
                 }
             }
         }
-
         return isEnabled
     }
 }

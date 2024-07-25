@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public class IQTextFieldViewListener {
+@objc public class IQTextFieldViewListener: NSObject {
 
     private var textFieldViewObservers: [AnyHashable: TextFieldViewCompletion] = [:]
 
@@ -39,7 +39,8 @@ public class IQTextFieldViewListener {
         return textFieldViewInfo?.textFieldView
     }
 
-    public init() {
+    @objc public override init() {
+        super.init()
         //  Registering for keyboard notification.
         NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)),
                                                name: UITextField.textDidBeginEditingNotification, object: nil)

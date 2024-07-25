@@ -79,61 +79,15 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     // MARK: IQToolbar handling
 
-    @objc internal let toolbarManager: IQKeyboardToolbarManager = .shared
+    @objc internal let toolbarManager: IQKeyboardToolbarManager = .init()
 
-    @objc internal let appearanceManager: IQKeyboardAppearanceManager = .shared
+    @objc internal let resignHandler: IQKeyboardResignHandler = .init()
+
+    @objc internal let appearanceManager: IQKeyboardAppearanceManager = .init()
 
     internal var activeConfiguration: IQActiveConfiguration = .init()
 
-    // MARK: UITextField/UITextView Next/Previous/Resign handling
-
-    /**
-    Resigns Keyboard on touching outside of UITextField/View. Default is NO.
-    */
-    @objc public var resignOnTouchOutside: Bool = false {
-
-        didSet {
-            resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
-
-            showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "NO")")
-        }
-    }
-
-    /** TapGesture to resign keyboard on view's touch.
-     It's a readonly property and exposed only for adding/removing dependencies
-     if your added gesture does have collision with this one
-     */
-    @objc public lazy var resignFirstResponderGesture: UITapGestureRecognizer = {
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(_:)))
-        tapGesture.cancelsTouchesInView = false
-        tapGesture.delegate = self
-
-        return tapGesture
-    }()
-
     /*******************************************/
-
-    /**
-    Resigns currently first responder field.
-    */
-    @discardableResult
-    @objc public func resignFirstResponder() -> Bool {
-
-        guard let textFieldRetain: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
-            return false
-        }
-
-        // Resigning first responder
-        guard textFieldRetain.resignFirstResponder() else {
-            showLog("Refuses to resign first responder: \(textFieldRetain)")
-            //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
-            // If it refuses to resign then becoming it first responder again for getting notifications callback.
-            textFieldRetain.becomeFirstResponder()
-            return false
-        }
-        return true
-    }
 
     // MARK: UIAnimation handling
 
@@ -148,7 +102,11 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      Disable distance handling within the scope of disabled distance handling viewControllers classes.
      Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = []
+    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = [
+        UITableViewController.self,
+        UIInputViewController.self,
+        UIAlertController.self
+    ]
 
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes.
@@ -157,25 +115,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      then enabledDistanceHandlingClasses will be ignored.
      */
     @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
-
-    /**
-     Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
-     */
-    @objc public var disabledTouchResignedClasses: [UIViewController.Type] = []
-
-    /**
-     Enabled classes to forcefully enable 'resignOnTouchOutside' property.
-     Class should be kind of UIViewController
-     . If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
-     */
-    @objc public var enabledTouchResignedClasses: [UIViewController.Type] = []
-
-    /**
-     if resignOnTouchOutside is enabled then you can customize the behavior
-     to not recognize gesture touches on some specific view subclasses.
-     Class should be kind of UIView. Default is [UIControl, UINavigationBar]
-     */
-    @objc public var touchResignedGestureIgnoreClasses: [UIView.Type] = []
 
     // MARK: Third Party Library support
     /// Add TextField/TextView Notifications customized Notifications.
@@ -191,19 +130,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         super.init()
 
         self.addActiveConfigurationObserver()
-
-        // Creating gesture for resignOnTouchOutside. (Enhancement ID: #14)
-        resignFirstResponderGesture.isEnabled = resignOnTouchOutside
-
-        disabledDistanceHandlingClasses.append(UITableViewController.self)
-        disabledDistanceHandlingClasses.append(UIInputViewController.self)
-        disabledDistanceHandlingClasses.append(UIAlertController.self)
-
-        disabledTouchResignedClasses.append(UIAlertController.self)
-        disabledTouchResignedClasses.append(UIInputViewController.self)
-
-        touchResignedGestureIgnoreClasses.append(UIControl.self)
-        touchResignedGestureIgnoreClasses.append(UINavigationBar.self)
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -226,45 +152,4 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         }
         adjustPosition()
     }
-}
-
-@available(iOSApplicationExtension, unavailable)
-extension IQKeyboardManager: UIGestureRecognizerDelegate {
-
-    /** Resigning on tap gesture.   (Enhancement ID: #14)*/
-    @objc private func tapRecognized(_ gesture: UITapGestureRecognizer) {
-
-        if gesture.state == .ended {
-
-            // Resigning currently responder textField.
-            resignFirstResponder()
-        }
-    }
-
-    /** Note: returning YES is guaranteed to allow simultaneous recognition.
-     returning NO is not guaranteed to prevent simultaneous recognition,
-     as the other gesture's delegate may return YES.
-     */
-    @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                        shouldRecognizeSimultaneouslyWith
-                                        otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-
-    /**
-     To not detect touch events in a subclass of UIControl,
-     these may have added their own selector for specific work
-     */
-    @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                        shouldReceive touch: UITouch) -> Bool {
-        // (Bug ID: #145)
-        // Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)
-
-        for ignoreClass in touchResignedGestureIgnoreClasses where touch.view?.isKind(of: ignoreClass) ?? false {
-            return false
-        }
-
-        return true
-    }
-
 }

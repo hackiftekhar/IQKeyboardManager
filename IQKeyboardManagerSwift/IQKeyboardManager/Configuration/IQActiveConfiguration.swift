@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal final class IQActiveConfiguration {
+@objc internal final class IQActiveConfiguration: NSObject {
 
     private let keyboardListener: IQKeyboardListener = IQKeyboardListener()
     private let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
@@ -61,7 +61,8 @@ internal final class IQActiveConfiguration {
         return false
     }
 
-    init() {
+    @objc public override init() {
+        super.init()
         addKeyboardListener()
         addTextFieldViewListener()
     }
