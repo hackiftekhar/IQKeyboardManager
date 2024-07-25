@@ -35,5 +35,5 @@ import UIKit
     /**
     If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
     */
-    @objc public var appearance: UIKeyboardAppearance = UIKeyboardAppearance.default
+    @objc public var appearance: UIKeyboardAppearance = .default
 }

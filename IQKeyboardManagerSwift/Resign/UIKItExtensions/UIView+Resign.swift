@@ -1,5 +1,5 @@
 //
-//  IQUITextFieldView+Additions.swift
+//  UIView+Resign.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -26,19 +26,8 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 private struct AssociatedKeys {
-    static var distanceFromKeyboard: Int = 0
-    static var enableMode: Int = 0
+    static var resignOnTouchOutsideMode: Int = 0
 }
-
-@available(iOSApplicationExtension, unavailable)
-extension UIView {
-
-    public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
-}
-
-@available(iOSApplicationExtension, unavailable)
-@available(*, unavailable, renamed: "UIView.defaultKeyboardDistance")
-public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
 
 /**
 UIView category for managing UITextField/UITextView
@@ -48,38 +37,19 @@ UIView category for managing UITextField/UITextView
 public extension IQKeyboardManagerWrapper where Base: UIView {
 
     /**
-     To set customized distance from keyboard for textField/textView. Can't be less than zero
+     Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.
      */
-    var distanceFromKeyboard: CGFloat {
+    var resignOnTouchOutsideMode: IQEnableMode {
         get {
-            if let base = base {
-                if let value = objc_getAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard) as? CGFloat {
-                    return value
-                }
+            guard let base = base else {
+                return .default
             }
-            return UIView.defaultKeyboardDistance
+            return objc_getAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode) as? IQEnableMode ?? .default
         }
         set(newValue) {
             if let base = base {
-                objc_setAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard,
+                objc_setAssociatedObject(base, &AssociatedKeys.resignOnTouchOutsideMode,
                                          newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-    }
-
-    /**
-     Override Enable/disable managing distance between keyboard and textField behavior for this particular textField.
-     */
-    var enableMode: IQEnableMode {
-        get {
-            if let base = base {
-                return objc_getAssociatedObject(base, &AssociatedKeys.enableMode) as? IQEnableMode ?? .default
-            }
-            return .default
-        }
-        set(newValue) {
-            if let base = base {
-                objc_setAssociatedObject(base, &AssociatedKeys.enableMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
     }
@@ -88,14 +58,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 @objc public extension UIView {
-    @available(*, unavailable, renamed: "iq.distanceFromKeyboard")
-    var keyboardDistanceFromTextField: CGFloat {
-        get { 0 }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "iq.enableMode")
-    var enableMode: IQEnableMode {
+    @available(*, unavailable, renamed: "iq.resignOnTouchOutsideMode")
+    var shouldResignOnTouchOutsideMode: IQEnableMode {
         get { .default }
         set { }
     }

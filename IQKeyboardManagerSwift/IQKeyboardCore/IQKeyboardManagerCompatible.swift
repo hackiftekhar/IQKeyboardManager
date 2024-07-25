@@ -28,7 +28,7 @@ import UIKit
 @available(iOSApplicationExtension, unavailable)
 public struct IQKeyboardManagerWrapper<Base: AnyObject> {
     public private(set) weak var base: Base?
-    public init(_ base: Base) {
+    fileprivate init(_ base: Base) {
         self.base = base
     }
 }

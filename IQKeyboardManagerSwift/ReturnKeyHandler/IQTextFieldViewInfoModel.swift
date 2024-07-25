@@ -32,16 +32,18 @@ internal final class IQTextFieldViewInfoModel: NSObject {
     weak var textFieldView: UIView?
     let originalReturnKeyType: UIReturnKeyType
 
-    init(textField: UITextField) {
+    @objc public init(textField: UITextField) {
         self.textFieldView = textField
         self.textFieldDelegate = textField.delegate
         self.originalReturnKeyType = textField.returnKeyType
+        super.init()
     }
 
-    init(textView: UITextView) {
+    @objc public init(textView: UITextView) {
         self.textFieldView = textView
         self.textViewDelegate = textView.delegate
         self.originalReturnKeyType = textView.returnKeyType
+        super.init()
     }
 
     func restore() {

@@ -166,7 +166,7 @@ internal extension IQKeyboardToolbarManager {
 
         // If user wants to play input Click sound.
         if playInputClicks {
-            // Play Input Click Sound.
+//             Play Input Click Sound.
             UIDevice.current.playInputClick()
         }
 

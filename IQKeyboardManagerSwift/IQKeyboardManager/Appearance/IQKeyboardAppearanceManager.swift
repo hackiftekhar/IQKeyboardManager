@@ -27,20 +27,14 @@ import UIKit
 @MainActor
 @objc internal final class IQKeyboardAppearanceManager: NSObject {
 
-    internal let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
-
-    /**
-    Returns the default singleton instance.
-    */
-    @MainActor
-    @objc public static let shared: IQKeyboardAppearanceManager = .init()
+    let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
 
     /**
     Configuration related to keyboard appearance
     */
-    @objc public var keyboardConfiguration: IQKeyboardConfiguration = .init()
+    var keyboardConfiguration: IQKeyboardConfiguration = .init()
 
-    private override init() {
+    @objc public override init() {
         super.init()
 
         // Registering one time only

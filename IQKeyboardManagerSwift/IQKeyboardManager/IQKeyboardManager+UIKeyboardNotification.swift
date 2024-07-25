@@ -101,9 +101,6 @@ internal extension IQKeyboardManager {
             }
             startingTextViewConfiguration = nil
         }
-
-        resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
-        textFieldView.window?.addGestureRecognizer(resignFirstResponderGesture)    //   (Enhancement ID: #14)
     }
 
     func banishTextFieldViewSetup() {
@@ -112,8 +109,6 @@ internal extension IQKeyboardManager {
             return
         }
 
-        // Removing gesture recognizer   (Enhancement ID: #14)
-        textFieldView.window?.removeGestureRecognizer(resignFirstResponderGesture)
         do {
             if let startingConfiguration = startingTextViewConfiguration,
                startingConfiguration.hasChanged {

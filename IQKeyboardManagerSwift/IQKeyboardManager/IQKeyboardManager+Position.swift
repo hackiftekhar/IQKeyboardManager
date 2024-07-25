@@ -40,7 +40,7 @@ public extension IQKeyboardManager {
      moved distance to the top used to maintain distance between keyboard and textField.
      Most of the time this will be a positive value.
      */
-    private(set) var movedDistance: CGFloat {
+    @objc private(set) var movedDistance: CGFloat {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.movedDistance) as? CGFloat ?? 0.0
         }

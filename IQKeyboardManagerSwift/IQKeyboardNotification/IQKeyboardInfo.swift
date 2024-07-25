@@ -54,7 +54,7 @@ public struct IQKeyboardInfo: Equatable {
         frame.height > 0
     }
 
-    public init(notification: Notification?, name: Name) {
+    internal init(notification: Notification?, name: Name) {
         self.name = name
 
         let screenBounds: CGRect
