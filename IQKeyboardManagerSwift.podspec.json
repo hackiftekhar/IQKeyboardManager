@@ -25,9 +25,8 @@
         "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}"
     ],
     "dependencies": {
-        "IQKeyboardNotification": ["1.0.0"],
-        "IQTextInputViewNotification": ["1.0.1"],
-        "IQKeyboardCore": ["1.0.0"]
+        "IQKeyboardNotification": ["1.0.1"],
+        "IQTextInputViewNotification": ["1.0.3"]
     },
     "resource_bundles": {
         "IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"

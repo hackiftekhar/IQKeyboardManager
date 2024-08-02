@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+Internal.swift
+//  IQKeyboardResignHandler+Internal.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,54 +22,43 @@
 // THE SOFTWARE.
 
 import UIKit
-import IQTextInputViewNotification
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
-@MainActor
-internal extension IQKeyboardManager {
+internal extension IQKeyboardResignHandler {
 
-    func registerActiveStateChangeForTouchOutside() {
-        self.activeConfiguration.registerChange(identifier: "resignOnTouchOutside",
-                                                changeHandler: { [weak self] event, _, textFieldInfo in
+    func removeTextInputViewObserver() {
+        textInputViewObserver.unsubscribe(identifier: "IQKeyboardResignHandler")
+    }
+
+    func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQKeyboardResignHandler",
+                                                          changeHandler: { [weak self] info in
             guard let self = self else { return }
-            switch event {
-            case .hide:
-                // Removing gesture recognizer (Enhancement ID: #14)
-                textFieldInfo?.textInputView.window?.removeGestureRecognizer(resignGesture)
-            case .show:
-                // Adding gesture recognizer (Enhancement ID: #14)
-                textFieldInfo?.textInputView.window?.addGestureRecognizer(resignGesture)
-
-                updateResignGestureState()
-            case .change:
-                updateResignGestureState()
+            switch info.event {
+            case .beginEditing:
+                resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
+                info.textInputView.window?.addGestureRecognizer(resignFirstResponderGesture)
+            case .endEditing:
+                info.textInputView.window?.removeGestureRecognizer(resignFirstResponderGesture)
             }
         })
     }
 
-    func unregisterActiveStateChangeForTouchOutside() {
-        self.activeConfiguration.unregisterChange(identifier: "resignOnTouchOutside")
-    }
+    func privateResignOnTouchOutside() -> Bool {
 
-    func updateResignGestureState() {
-        resignGesture.isEnabled = privateResignOnTouchOutside()
-    }
-
-    private func privateResignOnTouchOutside() -> Bool {
-
-        guard let textFieldViewInfo: IQTextInputViewInfo = activeConfiguration.textInputViewInfo else {
+        guard let textInputView: any IQTextInputView = textInputViewObserver.textInputView else {
             return resignOnTouchOutside
         }
 
-        switch textFieldViewInfo.textInputView.iq.resignOnTouchOutsideMode {
+        switch textInputView.internalResignOnTouchOutsideMode {
         case .default:
-            guard var controller = textFieldViewInfo.textInputView.iq.viewContainingController() else {
+            guard var controller = (textInputView as UIView).iq.viewContainingController() else {
                 return resignOnTouchOutside
             }
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textInputView.iq.textFieldSearchBar() != nil,
+            if (textInputView as UIView).iq.textFieldSearchBar() != nil,
                let navController: UINavigationController = controller as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
                 controller = topController

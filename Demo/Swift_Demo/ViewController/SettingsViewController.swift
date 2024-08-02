@@ -114,7 +114,7 @@ class SettingsViewController: UITableViewController {
 
     @objc func shouldToolbarUsesTextFieldTintColorAction (_ sender: UISwitch) {
 
-        IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextFieldTintColor = sender.isOn
+        IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextInputViewTintColor = sender.isOn
     }
 
     @objc func shouldShowToolbarPlaceholder (_ sender: UISwitch) {

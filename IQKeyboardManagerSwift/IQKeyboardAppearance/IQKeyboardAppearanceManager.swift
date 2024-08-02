@@ -1,5 +1,5 @@
 //
-//  UITableView+IndexPaths.swift
+//  IQKeyboardAppearanceManager.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,24 +22,23 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension UITableView {
+@objc internal final class IQKeyboardAppearanceManager: NSObject {
 
-    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
-        var previousRow: Int = indexPath.row - 1
-        var previousSection: Int = indexPath.section
+    let textInputViewObserver: IQTextInputViewNotification = .init()
 
-        // Fixing indexPath
-        if previousRow < 0 {
-            previousSection -= 1
-            if previousSection >= 0 {
-                previousRow = self.numberOfRows(inSection: previousSection) - 1
-            }
-        }
+    /**
+    Configuration related to keyboard appearance
+    */
+    var keyboardConfiguration: IQKeyboardAppearanceConfiguration = .init()
 
-        guard previousRow >= 0, previousSection >= 0 else { return nil }
-        return IndexPath(row: previousRow, section: previousSection)
+    @objc public override init() {
+        super.init()
+
+        // Registering one time only
+        addTextInputViewObserver()
     }
 }

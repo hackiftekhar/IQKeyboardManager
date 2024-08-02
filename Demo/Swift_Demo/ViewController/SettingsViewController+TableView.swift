@@ -176,7 +176,7 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextFieldTintColor
+                cell.switchEnable.isOn = IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextInputViewTintColor
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldToolbarUsesTextFieldTintColorAction(_:)),
                                             for: .valueChanged)
