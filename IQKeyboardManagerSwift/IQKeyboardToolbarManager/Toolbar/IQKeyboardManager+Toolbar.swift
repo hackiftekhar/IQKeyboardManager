@@ -36,13 +36,12 @@ internal extension IQKeyboardToolbarManager {
     /**
      Add toolbar if it is required to add on textFields and it's siblings.
      */
-    func addToolbarIfRequired(of textField: UIView) {
+    func addToolbarIfRequired(of textField: some IQTextInputView) {
 
         // Either there is no inputAccessoryView or
         // if accessoryView is not appropriate for current situation
         // (There is Previous/Next/Done toolbar)
         guard let siblings: [UIView] = responderViews(of: textField), !siblings.isEmpty,
-              let textField: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
               textField.responds(to: #selector(setter: UITextField.inputAccessoryView)) else {
             return
         }

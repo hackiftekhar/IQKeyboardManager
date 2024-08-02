@@ -30,20 +30,20 @@ internal extension IQKeyboardManager {
 
         var isEnabled: Bool = enable
 
-        guard let textFieldViewInfo: IQTextFieldViewInfo = activeConfiguration.textFieldViewInfo else {
+        guard let textFieldView: UIView = activeConfiguration.textFieldViewInfo?.textFieldView else {
             return isEnabled
         }
 
-        let enableMode: IQEnableMode = textFieldViewInfo.textFieldView.iq.enableMode
+        let enableMode: IQEnableMode = textFieldView.iq.enableMode
 
         if enableMode == .enabled {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        } else if var textFieldViewController = textFieldView.iq.viewContainingController() {
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
+            if textFieldView.iq.textFieldSearchBar() != nil,
                let navController: UINavigationController = textFieldViewController as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
                 textFieldViewController = topController

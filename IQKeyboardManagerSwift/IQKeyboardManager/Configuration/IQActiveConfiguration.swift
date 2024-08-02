@@ -61,7 +61,7 @@ import UIKit
         return false
     }
 
-    @objc public override init() {
+    override init() {
         super.init()
         addKeyboardListener()
         addTextFieldViewListener()
@@ -93,7 +93,7 @@ import UIKit
     private func updateRootController(info: IQTextFieldViewInfo?) {
 
         guard let info = info,
-              let controller: UIViewController = info.textFieldView.iq.parentContainerViewController() else {
+              let controller: UIViewController = (info.textFieldView as UIView).iq.parentContainerViewController() else {
             if let rootControllerConfiguration = rootControllerConfiguration,
                rootControllerConfiguration.hasChanged {
                 animate(alongsideTransition: {
@@ -164,7 +164,8 @@ extension IQActiveConfiguration {
 extension IQActiveConfiguration {
 
     var textFieldViewInfo: IQTextFieldViewInfo? {
-        guard textFieldViewListener.textFieldView?.iq.isAlertViewTextField() == false else {
+        guard let textFieldView: UIView = textFieldViewListener.textFieldView,
+              textFieldView.iq.isAlertViewTextField() == false else {
             return nil
         }
 
@@ -175,7 +176,7 @@ extension IQActiveConfiguration {
         textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
                                                           changeHandler: { [self] info in
 
-            guard info.textFieldView.iq.isAlertViewTextField() == false else {
+            guard (info.textFieldView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 

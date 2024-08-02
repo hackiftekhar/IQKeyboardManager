@@ -33,7 +33,7 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardManagerWrapper where Base: IQTextInputView {
 
     // MARK: Toolbar
 
@@ -111,20 +111,20 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
      */
     var drawingPlaceholder: String? {
 
-        if hidePlaceholder {
-            return nil
-        } else if placeholder?.isEmpty == false {
-            return placeholder
-        } else if let placeholderable: any IQPlaceholderable = base as? (any IQPlaceholderable) {
+        guard !hidePlaceholder else { return nil }
 
-            if let placeholder = placeholderable.attributedPlaceholder?.string,
-                !placeholder.isEmpty {
-                return placeholder
-            } else if let placeholder = placeholderable.placeholder {
-                return placeholder
-            } else {
-                return nil
-            }
+        if let placeholder = placeholder,
+              !placeholder.isEmpty {
+            return placeholder
+        }
+
+        guard let placeholderable: any IQPlaceholderable = base as? (any IQPlaceholderable) else { return nil }
+
+        if let placeholder = placeholderable.attributedPlaceholder?.string,
+           !placeholder.isEmpty {
+            return placeholder
+        } else if let placeholder = placeholderable.placeholder {
+            return placeholder
         } else {
             return nil
         }
@@ -132,8 +132,6 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
     // MARK: Common
 
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
     func addToolbar(target: AnyObject?,
                     previousConfiguration: IQBarButtonItemConfiguration? = nil,
                     nextConfiguration: IQBarButtonItemConfiguration? = nil,
@@ -142,7 +140,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                     titleAccessibilityLabel: String? = nil) {
 
         // If can't set InputAccessoryView. Then return
-        if base?.responds(to: #selector(setter: UITextField.inputAccessoryView)) == true {
+        if base?.responds(to: #selector(setter: UITextField.inputAccessoryView)) == true,
+            let base = base {
 
             //  Creating a toolBar for phoneNumber keyboard
             let toolbar: IQToolbar = toolbar
@@ -204,29 +203,21 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
             //  Adding button to toolBar.
             toolbar.items = items
 
-            if let textInput: any UITextInput = base as? (any UITextInput) {
-                switch textInput.keyboardAppearance {
-                case .dark?:
-                    toolbar.barStyle = .black
-                default:
-                    toolbar.barStyle = .default
-                }
+            switch base.keyboardAppearance {
+            case .dark:
+                toolbar.barStyle = .black
+            default:
+                toolbar.barStyle = .default
             }
 
             //  Setting toolbar to keyboard.
-            let reloadInputViews: Bool = base?.inputAccessoryView != toolbar
+            let reloadInputViews: Bool = base.inputAccessoryView != toolbar
             if reloadInputViews {
-                if let textField: UITextField = base as? UITextField {
-                    textField.inputAccessoryView = toolbar
-                } else if let textView: UITextView = base as? UITextView {
-                    textView.inputAccessoryView = toolbar
-                }
-                base?.reloadInputViews()
+                base.inputAccessoryView = toolbar
+                base.reloadInputViews()
             }
         }
     }
-    // swiftlint:enable function_body_length
-    // swiftlint:enable cyclomatic_complexity
 
     // MARK: Right
     func addDone(target: AnyObject?,

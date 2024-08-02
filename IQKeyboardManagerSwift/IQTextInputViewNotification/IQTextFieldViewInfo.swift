@@ -40,10 +40,10 @@ public struct IQTextFieldViewInfo: Equatable {
 
     public let name: Name
 
-    public let textFieldView: UIView
+    public let textFieldView: any IQTextInputView
 
-    internal init?(notification: Notification?, name: Name) {
-        guard let view: UIView = notification?.object as? UIView else {
+    internal init?(notification: Notification, name: Name) {
+        guard let view: any IQTextInputView = notification.object as? (any IQTextInputView) else {
             return nil
         }
 

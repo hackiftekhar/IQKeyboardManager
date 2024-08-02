@@ -30,23 +30,31 @@ Manages the return key to work like next/done in a view hierarchy.
 @MainActor
 @objc public final class IQKeyboardReturnKeyHandler: NSObject {
 
+    // MARK: Private variables
+    private var textInputViewInfoCache: [IQTextInputViewInfoModel] = []
+
     // MARK: Settings
 
     /**
-    Delegate of textField/textView.
-    */
+     Delegate of textField/textView.
+     */
     @objc public weak var delegate: (any UITextFieldDelegate & UITextViewDelegate)?
 
+    @objc public var dismissTextViewOnReturn: Bool = false
+
     /**
-    Set the last textfield return key type. Default is UIReturnKeyDefault.
-    */
+     Set the last textfield return key type. Default is UIReturnKeyDefault.
+     */
     @objc public var lastTextFieldReturnKeyType: UIReturnKeyType = UIReturnKeyType.default {
 
         didSet {
-            for model in textFieldInfoCache {
-                if let view: UIView = model.textFieldView {
-                    updateReturnKeyTypeOnTextField(view)
+            if let activeModel = textInputViewInfoCache.first(where: {
+                guard let textInputView = $0.textInputView else {
+                    return false
                 }
+                return textInputView.isFirstResponder
+            }), let view: any IQTextInputView = activeModel.textInputView {
+                updateReturnKey(textInputView: view)
             }
         }
     }
@@ -58,8 +66,8 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     /**
-    Add all the textFields available in UIViewController's view.
-    */
+     Add all the textFields available in UIViewController's view.
+     */
     @objc public init(controller: UIViewController) {
         super.init()
 
@@ -68,223 +76,167 @@ Manages the return key to work like next/done in a view hierarchy.
 
     deinit {
 
-//        for model in textFieldInfoCache {
-//            model.restore()
-//        }
+        //        for model in textFieldInfoCache {
+        //            model.restore()
+        //        }
 
-        textFieldInfoCache.removeAll()
+        textInputViewInfoCache.removeAll()
     }
+}
 
-    // MARK: Private variables
-    private var textFieldInfoCache: [IQTextFieldViewInfoModel] = []
+// MARK: Registering/Unregistering textFieldView
 
-    // MARK: Private Functions
-    internal func textFieldViewCachedInfo(_ textField: UIView) -> IQTextFieldViewInfoModel? {
-
-        for model in textFieldInfoCache {
-
-            if let view: UIView = model.textFieldView {
-                if view == textField {
-                    return model
-                }
-            }
-        }
-
-        return nil
-    }
-
-    internal func updateReturnKeyTypeOnTextField(_ view: UIView) {
-
-        guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return }
-
-        let isLast: Bool = index == textFieldInfoCache.count - 1
-
-        let returnKey: UIReturnKeyType = isLast ? lastTextFieldReturnKeyType: UIReturnKeyType.next
-        if let view: UITextField = view as? UITextField, view.returnKeyType != returnKey {
-
-            // If it's the last textInputView in responder view, else next
-            view.returnKeyType = returnKey
-            view.reloadInputViews()
-        } else if let view: UITextView = view as? UITextView, view.returnKeyType != returnKey {
-
-            // If it's the last textInputView in responder view, else next
-            view.returnKeyType = returnKey
-            view.reloadInputViews()
-        }
-    }
-
-    // MARK: Registering/Unregistering textFieldView
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public extension IQKeyboardReturnKeyHandler {
 
     /**
-    Should pass UITextField/UITextView instance. Assign textFieldView delegate to self, change it's returnKeyType.
+     Should pass UITextField/UITextView instance. Assign textFieldView delegate to self, change it's returnKeyType.
 
-    @param view UITextField/UITextView object to register.
-    */
-    @objc public func addTextFieldView(_ view: UIView) {
+     @param view UITextField/UITextView object to register.
+     */
+    @objc func addTextFieldView(_ textInputView: any IQTextInputView) {
 
-        if let textField: UITextField = view as? UITextField {
-            let model = IQTextFieldViewInfoModel(textField: textField)
-            textFieldInfoCache.append(model)
-            textField.delegate = self
+        let model = IQTextInputViewInfoModel(textInputView: textInputView)
+        textInputViewInfoCache.append(model)
 
-        } else if let textView: UITextView = view as? UITextView {
-            let model = IQTextFieldViewInfoModel(textView: textView)
-            textFieldInfoCache.append(model)
-            textView.delegate = self
+        if let view: UITextField = textInputView as? UITextField {
+            view.delegate = self
+        } else if let view: UITextView = textInputView as? UITextView {
+            view.delegate = self
         }
     }
 
     /**
-    Should pass UITextField/UITextView instance. Restore it's textFieldView delegate and it's returnKeyType.
-    
-    @param view UITextField/UITextView object to unregister.
-    */
-    @objc public func removeTextFieldView(_ view: UIView) {
+     Should pass UITextField/UITextView instance. Restore it's textFieldView delegate and it's returnKeyType.
 
-        if let model: IQTextFieldViewInfoModel = textFieldViewCachedInfo(view) {
-            model.restore()
+     @param view UITextField/UITextView object to unregister.
+     */
+    @objc func removeTextFieldView(_ textInputView: any IQTextInputView) {
 
-            if let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) {
-                textFieldInfoCache.remove(at: index)
-            }
-        }
+        guard let index: Int = textInputViewCachedInfoIndex(textInputView) else { return }
+
+        let model = textInputViewInfoCache.remove(at: index)
+        model.restore()
     }
 
     /**
     Add all the UITextField/UITextView responderView's.
-    
+
     @param view UIView object to register all it's responder subviews.
     */
-    @objc public func addResponderFromView(_ view: UIView, recursive: Bool = true) {
+    @objc func addResponderFromView(_ view: UIView, recursive: Bool = true) {
 
-        let textFields: [UIView]
-        if recursive {
-            textFields = view.deepResponderSubviews()
-        } else {
-            textFields = view.responderSubviews()
-        }
+        let textInputViews: [any IQTextInputView] = view.responderSubviews(recursive: recursive)
 
-        for textField in textFields {
-
-            addTextFieldView(textField)
+        for view in textInputViews {
+            addTextFieldView(view)
         }
     }
 
     /**
     Remove all the UITextField/UITextView responderView's.
-    
+
     @param view UIView object to unregister all it's responder subviews.
     */
-    @objc public func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
+    @objc func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
 
-        let textFields: [UIView]
-        if recursive {
-            textFields = view.deepResponderSubviews()
-        } else {
-            textFields = view.responderSubviews()
+        let textInputViews: [any IQTextInputView] = view.responderSubviews(recursive: recursive)
+
+        for view in textInputViews {
+            removeTextFieldView(view)
+        }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public extension IQKeyboardReturnKeyHandler {
+    @discardableResult
+    func goToNextResponderOrResign(from textInputView: any IQTextInputView) -> Bool {
+
+        guard let textInfoCache: IQTextInputViewInfoModel = nextResponderFromTextInputView(textInputView),
+              let textInputView = textInfoCache.textInputView else {
+            textInputView.resignFirstResponder()
+            return true
         }
 
-        for textField in textFields {
+        textInputView.becomeFirstResponder()
+        return false
+    }
+}
 
-            removeTextFieldView(textField)
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+internal extension IQKeyboardReturnKeyHandler {
+
+    func nextResponderFromTextInputView(_ textInputView: any IQTextInputView) -> IQTextInputViewInfoModel? {
+        guard let currentIndex: Int = textInputViewCachedInfoIndex(textInputView),
+                currentIndex < textInputViewInfoCache.count - 1 else { return nil }
+
+        let candidates: [IQTextInputViewInfoModel] = Array(textInputViewInfoCache[currentIndex+1..<textInputViewInfoCache.count])
+
+        return candidates.first {
+            guard let inputView = $0.textInputView,
+                  inputView.isUserInteractionEnabled,
+                  !inputView.isHidden, inputView.alpha != 0.0
+            else { return false }
+
+            return inputView.iqIsEnabled
         }
     }
 
-    @discardableResult
-    internal func goToNextResponderOrResign(_ view: UIView) -> Bool {
+    func textInputViewCachedInfoIndex(_ textInputView: any IQTextInputView) -> Int? {
+        return textInputViewInfoCache.firstIndex {
+            guard let inputView = $0.textInputView else { return false }
+            return inputView == textInputView
+        }
+    }
 
-        guard let index: Int = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) else { return false }
+    func textInputViewCachedInfo(_ textInputView: any IQTextInputView) -> IQTextInputViewInfoModel? {
+        guard let index: Int = textInputViewCachedInfoIndex(textInputView) else { return nil }
+        return textInputViewInfoCache[index]
+    }
 
-        let isNotLast: Bool = index != textFieldInfoCache.count - 1
+    func updateReturnKey(textInputView: any IQTextInputView) {
 
-        if isNotLast, let textFieldView = textFieldInfoCache[index+1].textFieldView {
-            textFieldView.becomeFirstResponder()
-            return false
+        let returnKey: UIReturnKeyType
+        if nextResponderFromTextInputView(textInputView) != nil {
+            returnKey = .next
         } else {
-            view.resignFirstResponder()
-            return true
+            returnKey = lastTextFieldReturnKeyType
+        }
+
+        if textInputView.returnKeyType != returnKey {
+            // If it's the last textInputView in responder view, else next
+            textInputView.returnKeyType = returnKey
+            textInputView.reloadInputViews()
         }
     }
 }
 
 fileprivate extension UIView {
 
-    func responderSubviews() -> [UIView] {
+    func responderSubviews(recursive: Bool) -> [any IQTextInputView] {
 
         // Array of TextInputViews.
-        var textInputViews: [UIView] = []
-
+        var textInputViews: [any IQTextInputView] = []
         for view in subviews {
 
-            var canBecomeFirstResponder: Bool = false
-
-            if view.conforms(to: (any UITextInput).self) == true {
-                //  Setting toolbar to keyboard.
-                if let view: UITextView = view as? UITextView {
-                    canBecomeFirstResponder = view.isEditable
-                } else if let view: UITextField = view as? UITextField {
-                    canBecomeFirstResponder = view.isEnabled
-                }
-            }
-
-            // Sometimes there are hidden or disabled views and textInputView inside them still recorded,
-            // so we added some more validations here
-            if canBecomeFirstResponder,
-               self.isUserInteractionEnabled == true,
-               self.isHidden == false, self.alpha != 0.0 {
-                textInputViews.append(view)
-            }
-        }
-
-        // subviews are returning in opposite order. Sorting according the frames 'y'.
-        return textInputViews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
-
-            let frame1: CGRect = view1.convert(view1.bounds, to: self)
-            let frame2: CGRect = view2.convert(view2.bounds, to: self)
-
-            if frame1.minY != frame2.minY {
-                return frame1.minY < frame2.minY
-            } else {
-                return frame1.minX < frame2.minX
-            }
-        })
-    }
-
-    func deepResponderSubviews() -> [UIView] {
-
-        // Array of TextInputViews.
-        var textInputViews: [UIView] = []
-
-        for view in subviews {
-
-            var canBecomeFirstResponder: Bool = false
-
-            if view.conforms(to: (any UITextInput).self) == true {
-                //  Setting toolbar to keyboard.
-                if let view: UITextView = view as? UITextView {
-                    canBecomeFirstResponder = view.isEditable
-                } else if let view: UITextField = view as? UITextField {
-                    canBecomeFirstResponder = view.isEnabled
-                }
-            }
-
-            if canBecomeFirstResponder {
+            if let view = view as? IQTextInputView {
                 textInputViews.append(view)
             }
             // Sometimes there are hidden or disabled views and textInputView inside them still recorded,
             // so we added some more validations here (Bug ID: #458)
             // Uncommented else (Bug ID: #625)
-            else if view.subviews.count != 0,
-                    self.isUserInteractionEnabled == true,
-                    self.isHidden == false, self.alpha != 0.0 {
-                for deepView in view.deepResponderSubviews() {
-                    textInputViews.append(deepView)
-                }
+            else if recursive, !view.subviews.isEmpty {
+                let deepResponders = view.responderSubviews(recursive: recursive)
+                textInputViews.append(contentsOf: deepResponders)
             }
         }
 
         // subviews are returning in opposite order. Sorting according the frames 'y'.
-        return textInputViews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
+        return textInputViews.sorted(by: { (view1: any IQTextInputView, view2: any IQTextInputView) -> Bool in
 
             let frame1: CGRect = view1.convert(view1.bounds, to: self)
             let frame2: CGRect = view2.convert(view2.bounds, to: self)

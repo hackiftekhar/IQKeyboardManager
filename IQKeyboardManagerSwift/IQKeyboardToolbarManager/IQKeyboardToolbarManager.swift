@@ -74,7 +74,8 @@ import UIKit
     @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] = [
         UITableView.self,
         UICollectionView.self,
-        IQPreviousNextView.self
+        IQDeepResponderContainerView.self,
+        IQPreviousNextView.self,
     ]
 
     @objc public override init() {
@@ -87,7 +88,7 @@ import UIKit
         // If you experience exception breakpoint issue at below line then try these solutions
         // https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
         DispatchQueue.main.async {
-            let textField: UIView = UITextField()
+            let textField: UITextField = UITextField()
             textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
             textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
                                              nextAction: #selector(self.nextAction(_:)),
@@ -107,7 +108,7 @@ private extension IQKeyboardToolbarManager {
         textInputViewObserver.registerTextFieldViewChange(identifier: "TextInputViewObserverForToolbar",
                                              changeHandler: { [weak self] info in
             guard let self = self else { return }
-            guard info.textFieldView.iq.isAlertViewTextField() == false else {
+            guard (info.textFieldView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 

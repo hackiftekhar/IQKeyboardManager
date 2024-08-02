@@ -47,6 +47,15 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     @MainActor
     @objc public static let shared: IQKeyboardManager = .init()
 
+    @objc internal let toolbarManager: IQKeyboardToolbarManager = .init()
+
+    @objc internal let resignHandler: IQKeyboardResignHandler = .init()
+
+    @objc internal let appearanceManager: IQKeyboardAppearanceManager = .init()
+
+    @objc internal var activeConfiguration: IQActiveConfiguration = .init()
+
+
     // MARK: UIKeyboard handling
 
     /**
@@ -76,16 +85,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     To set keyboard distance from textField. can't be less than zero. Default is 10.0.
     */
     @objc public var keyboardDistanceFromTextField: CGFloat = 10.0
-
-    // MARK: IQToolbar handling
-
-    @objc internal let toolbarManager: IQKeyboardToolbarManager = .init()
-
-    @objc internal let resignHandler: IQKeyboardResignHandler = .init()
-
-    @objc internal let appearanceManager: IQKeyboardAppearanceManager = .init()
-
-    internal var activeConfiguration: IQActiveConfiguration = .init()
 
     /*******************************************/
 

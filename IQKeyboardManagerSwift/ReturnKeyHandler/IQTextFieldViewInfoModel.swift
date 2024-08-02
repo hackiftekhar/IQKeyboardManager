@@ -25,34 +25,31 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal final class IQTextFieldViewInfoModel: NSObject {
+internal final class IQTextInputViewInfoModel: NSObject {
 
     weak var textFieldDelegate: (any UITextFieldDelegate)?
     weak var textViewDelegate: (any UITextViewDelegate)?
-    weak var textFieldView: UIView?
+    weak var textInputView: (any IQTextInputView)?
     let originalReturnKeyType: UIReturnKeyType
 
-    @objc public init(textField: UITextField) {
-        self.textFieldView = textField
-        self.textFieldDelegate = textField.delegate
-        self.originalReturnKeyType = textField.returnKeyType
-        super.init()
-    }
+    @objc init(textInputView: any IQTextInputView) {
+        self.textInputView = textInputView
+        self.originalReturnKeyType = textInputView.returnKeyType
+        if let textInputView = textInputView as? UITextField {
+            self.textFieldDelegate = textInputView.delegate
+        } else if let textInputView = textInputView as? UITextView {
+            self.textViewDelegate = textInputView.delegate
+        }
 
-    @objc public init(textView: UITextView) {
-        self.textFieldView = textView
-        self.textViewDelegate = textView.delegate
-        self.originalReturnKeyType = textView.returnKeyType
         super.init()
     }
 
     func restore() {
-        if let textField = textFieldView as? UITextField {
-            textField.returnKeyType = originalReturnKeyType
-            textField.delegate = textFieldDelegate
-        } else if let textView = textFieldView as? UITextView {
-            textView.returnKeyType = originalReturnKeyType
-            textView.delegate = textViewDelegate
+        textInputView?.returnKeyType = originalReturnKeyType
+        if let textInputView = textInputView as? UITextField {
+            textInputView.delegate = textFieldDelegate
+        } else if let textInputView = textInputView as? UITextView {
+            textInputView.delegate = textViewDelegate
         }
     }
 }
