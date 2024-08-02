@@ -198,7 +198,7 @@ public extension IQKeyboardManager {
 
             adjustTextViewContentInset(window: window, originalKbSize: originalKbSize,
                                        rootController: rootController, layoutGuide: layoutGuide,
-                                       textView: textView, textInputView: textInputView)
+                                       textView: textView)
         }
 
         adjustRootController(moveUp: moveUp, rootViewOrigin: rootViewOrigin, originalKbSize: originalKbSize,
@@ -648,7 +648,7 @@ private extension IQKeyboardManager {
     private func adjustTextViewContentInset(window: UIWindow, originalKbSize: CGSize,
                                             rootController: UIViewController,
                                             layoutGuide: IQLayoutGuide,
-                                            textView: UIScrollView, textInputView: some IQTextInputView) {
+                                            textView: UIScrollView) {
         let keyboardYPosition: CGFloat = window.frame.height - originalKbSize.height
         var rootSuperViewFrameInWindow: CGRect = window.frame
         if let rootSuperview: UIView = rootController.view.superview {
@@ -673,8 +673,8 @@ private extension IQKeyboardManager {
 
         guard textView.contentInset != newContentInset else { return }
         showLog("""
-                                \(textInputView) Old TextInputView.contentInset: \(textView.contentInset)
-                                 New TextInputView.contentInset: \(newContentInset)
+                                \(textView) Old textView.contentInset: \(textView.contentInset)
+                                 New textView.contentInset: \(newContentInset)
                                 """)
 
         activeConfiguration.animate(alongsideTransition: {
