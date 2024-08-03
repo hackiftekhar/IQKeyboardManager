@@ -61,18 +61,18 @@ public extension IQKeyboardManager {
         }
 
         if indentation < 0 {
-            self.logIndentation = max(0, self.logIndentation + indentation)
+            logIndentation = max(0, logIndentation + indentation)
         }
 
         var preLog: String = "IQKeyboardManager"
-        for _ in 0 ... self.logIndentation {
+        for _ in 0 ... logIndentation {
             preLog += "|\t"
         }
 
         print(preLog + logString)
 
         if indentation > 0 {
-            self.logIndentation += indentation
+            logIndentation += indentation
         }
     }
 }

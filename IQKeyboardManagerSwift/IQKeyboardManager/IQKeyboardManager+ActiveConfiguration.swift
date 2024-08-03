@@ -30,9 +30,8 @@ import IQKeyboardCore
 internal extension IQKeyboardManager {
 
     func addActiveConfigurationObserver() {
-        activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { [weak self] event, _, _ in
+        activeConfiguration.subscribe(identifier: "IQKeyboardManager", changeHandler: { [weak self] event, _, _ in
             guard let self = self else { return }
-            showLog(event.name)
 
             switch event {
             case .show:

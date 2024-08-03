@@ -56,6 +56,8 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQTextInputView {
     var internalResignOnTouchOutsideMode: IQEnableMode {
         iq.resignOnTouchOutsideMode

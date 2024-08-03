@@ -93,7 +93,11 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      Disable distance handling within the scope of disabled distance handling viewControllers classes.
      Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = []
+    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = [
+        UITableViewController.self,
+        UIInputViewController.self,
+        UIAlertController.self
+    ]
 
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes.
@@ -113,10 +117,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
         super.init()
 
         self.addActiveConfigurationObserver()
-
-        disabledDistanceHandlingClasses.append(UITableViewController.self)
-        disabledDistanceHandlingClasses.append(UIInputViewController.self)
-        disabledDistanceHandlingClasses.append(UIAlertController.self)
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification, object: nil)

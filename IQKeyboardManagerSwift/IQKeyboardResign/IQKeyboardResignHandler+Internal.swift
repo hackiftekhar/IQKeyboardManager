@@ -25,6 +25,7 @@ import UIKit
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardResignHandler {
 
     func removeTextInputViewObserver() {

@@ -106,7 +106,6 @@ public extension IQKeyboardManager {
     // swiftlint:disable function_body_length
     internal func adjustPosition() {
 
-        //  We are unable to get textInputView object while keyboard showing on WKWebView's textInputView.  (Bug ID: #11)
         guard UIApplication.shared.applicationState == .active,
               let textInputView: any IQTextInputView = activeConfiguration.textInputViewInfo?.textInputView,
               let superview: UIView = textInputView.superview,

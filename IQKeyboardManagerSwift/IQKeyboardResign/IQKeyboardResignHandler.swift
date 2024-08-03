@@ -108,6 +108,7 @@ import IQTextInputViewNotification
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
 
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/

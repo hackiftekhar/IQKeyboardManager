@@ -32,6 +32,7 @@ private struct AssociatedKeys {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension UIView {
     nonisolated public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
 }
@@ -86,6 +87,8 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQTextInputView {
     var internalEnableMode: IQEnableMode {
         return iq.enableMode

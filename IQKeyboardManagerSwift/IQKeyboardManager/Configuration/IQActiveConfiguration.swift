@@ -31,7 +31,7 @@ import IQKeyboardCore
 @objc internal final class IQActiveConfiguration: NSObject {
 
     private let keyboardObserver: IQKeyboardNotification = IQKeyboardNotification()
-    internal let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
+    private let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 
@@ -182,7 +182,7 @@ extension IQActiveConfiguration {
 
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
-                                                          changeHandler: { [weak self] info in
+                                        changeHandler: { [weak self] info in
 
             guard let self = self else { return }
 
@@ -207,11 +207,11 @@ extension IQActiveConfiguration {
                                          _ keyboardInfo: IQKeyboardInfo,
                                          _ textInputViewInfo: IQTextInputViewInfo?) -> Void
 
-    func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
+    func subscribe(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
     }
 
-    func unregisterChange(identifier: AnyHashable) {
+    func unsubscribe(identifier: AnyHashable) {
         changeObservers[identifier] = nil
     }
 
