@@ -28,8 +28,7 @@ import UIKit
 internal extension IQKeyboardManager {
 
     func handleKeyboardTextFieldViewVisible() {
-        if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
-
+        do {
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
                gestureConfiguration.rootController == rootConfiguration?.rootController {
