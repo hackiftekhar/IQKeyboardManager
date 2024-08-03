@@ -3,28 +3,29 @@
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import UIKit
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardToolbarManager {
 
     /**
@@ -32,7 +33,7 @@ internal extension IQKeyboardToolbarManager {
     */
     @objc var canGoPrevious: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFieldRetain: UIView = textInputViewObserver.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textInputView,
               let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
@@ -46,7 +47,7 @@ internal extension IQKeyboardToolbarManager {
     */
     @objc var canGoNext: Bool {
         // If it is not first textField. then it's previous object canBecomeFirstResponder.
-        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textInputView,
               let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
@@ -62,7 +63,7 @@ internal extension IQKeyboardToolbarManager {
     @objc func goPrevious() -> Bool {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textInputView,
               let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
               index > 0 else {
@@ -83,7 +84,7 @@ internal extension IQKeyboardToolbarManager {
     @objc func goNext() -> Bool {
 
         // If it is not first textField. then it's previous object becomeFirstResponder.
-        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView,
+        guard let textFieldRetain: UIView = textInputViewObserver.textInputView,
               let textFields: [UIView] = responderViews(of: textFieldRetain),
               let index: Int = textFields.firstIndex(of: textFieldRetain),
                 index < textFields.count-1 else {
@@ -107,7 +108,7 @@ internal extension IQKeyboardToolbarManager {
         }
 
         guard canGoPrevious,
-              let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textInputView else {
             return
         }
 
@@ -139,7 +140,7 @@ internal extension IQKeyboardToolbarManager {
         }
 
         guard canGoNext,
-              let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
+              let textFieldRetain: UIView = textInputViewObserver.textInputView else {
             return
         }
 
@@ -170,7 +171,7 @@ internal extension IQKeyboardToolbarManager {
             UIDevice.current.playInputClick()
         }
 
-        guard let textFieldRetain: UIView = textInputViewObserver.textFieldViewInfo?.textFieldView else {
+        guard let textFieldRetain: UIView = textInputViewObserver.textInputView else {
             return
         }
 

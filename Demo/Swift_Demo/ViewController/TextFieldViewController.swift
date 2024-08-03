@@ -106,14 +106,14 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        keyboardListener.registerSizeChange(identifier: "TextFieldViewController") { _, _ in
+        keyboardListener.subscribe(identifier: "TextFieldViewController") { _, _ in
 //            print(size)
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        keyboardListener.unregisterSizeChange(identifier: "TextFieldViewController")
+        keyboardListener.unsubscribe(identifier: "TextFieldViewController")
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {

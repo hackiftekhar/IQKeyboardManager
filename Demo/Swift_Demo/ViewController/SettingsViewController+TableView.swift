@@ -116,8 +116,8 @@ extension SettingsViewController {
 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.stepper.value = Double(IQKeyboardManager.shared.keyboardDistanceFromTextField)
-                let distance = IQKeyboardManager.shared.keyboardDistanceFromTextField
+                cell.stepper.value = Double(IQKeyboardManager.shared.keyboardDistance)
+                let distance = IQKeyboardManager.shared.keyboardDistance
                 let text: String = NSString(format: "%.0f", distance) as String
                 cell.labelStepperValue.text = text
                 cell.stepper.removeTarget(nil, action: nil, for: .allEvents)

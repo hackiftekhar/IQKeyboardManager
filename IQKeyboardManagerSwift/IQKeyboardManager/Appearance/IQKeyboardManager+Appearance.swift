@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+Debug.swift
+//  IQKeyboardManager+Appearance.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,56 +23,33 @@
 
 import UIKit
 
-// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
-        static var enableDebugging: Int = 0
-        static var logIndentation: Int = 0
+        static var appearanceManager: Int = 0
     }
 
-    @objc var enableDebugging: Bool {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
+    @objc internal var appearanceManager: IQKeyboardAppearanceManager {
+        if let object = objc_getAssociatedObject(self, &AssociatedKeys.appearanceManager)
+            as? IQKeyboardAppearanceManager {
+            return object
         }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+
+        let object: IQKeyboardAppearanceManager = .init()
+        objc_setAssociatedObject(self, &AssociatedKeys.appearanceManager,
+                                 object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        return object
     }
 
-    private var logIndentation: Int {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.logIndentation) as? Int ?? 0
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.logIndentation,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    internal func showLog(_ logString: String, indentation: Int = 0) {
-
-        guard enableDebugging else {
-            return
-        }
-
-        if indentation < 0 {
-            logIndentation = max(0, logIndentation + indentation)
-        }
-
-        var preLog: String = "IQKeyboardManager"
-        for _ in 0 ... logIndentation {
-            preLog += "|\t"
-        }
-
-        print(preLog + logString)
-
-        if indentation > 0 {
-            logIndentation += indentation
-        }
+    /**
+    Configuration related to keyboard appearance
+    */
+     @objc var keyboardConfiguration: IQKeyboardConfiguration {
+         get { appearanceManager.keyboardConfiguration }
+         set { appearanceManager.keyboardConfiguration = newValue }
     }
 }

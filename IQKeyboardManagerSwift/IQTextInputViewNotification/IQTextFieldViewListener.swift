@@ -3,23 +3,23 @@
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import UIKit
 
@@ -31,10 +31,10 @@ import UIKit
 
     private var findInteractionTextInputViewInfo: IQTextFieldViewInfo?
 
-    public private(set) var textFieldViewInfo: IQTextFieldViewInfo?
+    public private(set) var textInputViewInfo: IQTextFieldViewInfo?
 
-    public var textFieldView: (any IQTextInputView)? {
-        return textFieldViewInfo?.textFieldView
+    public var textInputView: (some IQTextInputView)? {
+        return textInputViewInfo?.textInputView
     }
 
     @objc public override init() {
@@ -53,18 +53,18 @@ import UIKit
 
     @objc private func didBeginEditing(_ notification: Notification) {
         guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification,
-                                                                  name: .beginEditing) else {
+                                                                  event: .beginEditing) else {
             return
         }
 
         if #available(iOS 16.0, *),
            let findInteractionTextInputViewInfo = findInteractionTextInputViewInfo,
-           findInteractionTextInputViewInfo.textFieldView.iqFindInteraction?.isFindNavigatorVisible == true {
+           findInteractionTextInputViewInfo.textInputView.iqFindInteraction?.isFindNavigatorVisible == true {
             // // This means the this didBeginEditing call comes due to find interaction
-            textFieldViewInfo = findInteractionTextInputViewInfo
+            textInputViewInfo = findInteractionTextInputViewInfo
             sendEvent(info: findInteractionTextInputViewInfo)
-        } else if textFieldViewInfo != info {
-            textFieldViewInfo = info
+        } else if textInputViewInfo != info {
+            textInputViewInfo = info
             findInteractionTextInputViewInfo = nil
             sendEvent(info: info)
         } else {
@@ -73,34 +73,35 @@ import UIKit
     }
 
     @objc private func didEndEditing(_ notification: Notification) {
-        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification, name: .endEditing) else {
+        guard let info: IQTextFieldViewInfo = IQTextFieldViewInfo(notification: notification, event: .endEditing) else {
             return
         }
 
-        if textFieldViewInfo != info {
+        if textInputViewInfo != info {
             if #available(iOS 16.0, *),
-               info.textFieldView.iqIsFindInteractionEnabled {
-                findInteractionTextInputViewInfo = textFieldViewInfo
+               info.textInputView.iqIsFindInteractionEnabled {
+                findInteractionTextInputViewInfo = textInputViewInfo
             } else {
                 findInteractionTextInputViewInfo = nil
             }
-            textFieldViewInfo = info
+            textInputViewInfo = info
             sendEvent(info: info)
-            textFieldViewInfo = nil
+            textInputViewInfo = nil
         }
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQTextFieldViewListener {
 
     typealias TextFieldViewCompletion = (_ info: IQTextFieldViewInfo) -> Void
 
-    func registerTextFieldViewChange(identifier: AnyHashable, changeHandler: @escaping TextFieldViewCompletion) {
+    func subscribe(identifier: AnyHashable, changeHandler: @escaping TextFieldViewCompletion) {
         textFieldViewObservers[identifier] = changeHandler
     }
 
-    func unregisterSizeChange(identifier: AnyHashable) {
+    func unsubscribe(identifier: AnyHashable) {
         textFieldViewObservers[identifier] = nil
     }
 
@@ -109,5 +110,26 @@ public extension IQTextFieldViewListener {
         for block in textFieldViewObservers.values {
             block(info)
         }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public extension IQTextFieldViewListener {
+
+    @available(*, deprecated, renamed: "textInputViewInfo")
+    var textFieldViewInfo: IQTextFieldViewInfo? { textInputViewInfo }
+
+    @available(*, deprecated, renamed: "textInputView")
+    var textFieldView: (some IQTextInputView)? { textInputView }
+
+    @available(*, deprecated, renamed: "subscribe(identifier:changeHandler:)")
+    func registerTextFieldViewChange(identifier: AnyHashable, changeHandler: @escaping TextFieldViewCompletion) {
+        subscribe(identifier: identifier, changeHandler: changeHandler)
+    }
+
+    @available(*, deprecated, renamed: "unsubscribe(identifier:)")
+    func unregisterSizeChange(identifier: AnyHashable) {
+        unsubscribe(identifier: identifier)
     }
 }

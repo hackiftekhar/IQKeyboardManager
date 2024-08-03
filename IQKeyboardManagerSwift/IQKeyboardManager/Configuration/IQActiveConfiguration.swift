@@ -3,23 +3,23 @@
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import UIKit
 
@@ -27,8 +27,8 @@ import UIKit
 @MainActor
 @objc internal final class IQActiveConfiguration: NSObject {
 
-    private let keyboardListener: IQKeyboardListener = IQKeyboardListener()
-    private let textFieldViewListener: IQTextFieldViewListener = IQTextFieldViewListener()
+    private let keyboardObserver: IQKeyboardListener = IQKeyboardListener()
+    private let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 
@@ -51,94 +51,98 @@ import UIKit
 
     private var lastEvent: Event = .hide
 
-    var rootControllerConfiguration: IQRootControllerConfiguration?
+    var rootConfiguration: IQRootControllerConfiguration?
 
     var isReady: Bool {
-        if textFieldViewInfo != nil,
-           let rootControllerConfiguration = rootControllerConfiguration {
-            return rootControllerConfiguration.isReady
+        if textInputViewInfo != nil,
+           let rootConfiguration = rootConfiguration {
+            return rootConfiguration.isReady
         }
         return false
     }
 
     override init() {
         super.init()
-        addKeyboardListener()
-        addTextFieldViewListener()
+        addKeyboardObserver()
+        addTextInputViewObserver()
     }
 
     private func sendEvent() {
 
-        if let rootControllerConfiguration = rootControllerConfiguration,
-           rootControllerConfiguration.isReady {
-            if keyboardInfo.keyboardShowing {
-                if lastEvent == .hide {
-                    self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                } else {
-                    self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                }
-            } else if lastEvent != .hide {
-                if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
-                    self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textFieldViewInfo)
-                    self.rootControllerConfiguration = nil
-                } else if rootControllerConfiguration.hasChanged {
-                    animate(alongsideTransition: {
-                        rootControllerConfiguration.restore()
-                    }, completion: nil)
-                }
+        guard let rootConfiguration = rootConfiguration,
+              rootConfiguration.isReady else { return }
+
+        if keyboardInfo.isVisible {
+            if lastEvent == .hide {
+                self.notify(event: .show, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+            } else {
+                self.notify(event: .change, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+            }
+        } else if lastEvent != .hide {
+            if rootConfiguration.beginOrientation == rootConfiguration.currentOrientation {
+                self.notify(event: .hide, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+                self.rootConfiguration = nil
+            } else if rootConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootConfiguration.restore()
+                }, completion: nil)
             }
         }
     }
 
     private func updateRootController(info: IQTextFieldViewInfo?) {
 
-        guard let info = info,
-              let controller: UIViewController = (info.textFieldView as UIView).iq.parentContainerViewController() else {
-            if let rootControllerConfiguration = rootControllerConfiguration,
-               rootControllerConfiguration.hasChanged {
+        guard let textInputView: UIView = info?.textInputView,
+              let controller: UIViewController = textInputView.iq.parentContainerViewController() else {
+            if let rootConfiguration = rootConfiguration,
+               rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
+                    rootConfiguration.restore()
                 }, completion: nil)
             }
-            rootControllerConfiguration = nil
+            rootConfiguration = nil
             return
         }
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        if newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window ||
-            newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation {
+        guard newConfiguration.rootController.view.window != rootConfiguration?.rootController.view.window ||
+                newConfiguration.beginOrientation != rootConfiguration?.beginOrientation else { return }
 
-            if rootControllerConfiguration?.rootController != newConfiguration.rootController {
+        if rootConfiguration?.rootController != newConfiguration.rootController {
 
-                // If there was an old configuration but things are changed
-                if let rootControllerConfiguration = rootControllerConfiguration,
-                   rootControllerConfiguration.hasChanged {
-                    animate(alongsideTransition: {
-                        rootControllerConfiguration.restore()
-                    }, completion: nil)
-                }
+            // If there was an old configuration but things are changed
+            if let rootConfiguration = rootConfiguration,
+               rootConfiguration.hasChanged {
+                animate(alongsideTransition: {
+                    rootConfiguration.restore()
+                }, completion: nil)
             }
-
-            rootControllerConfiguration = newConfiguration
         }
+
+        rootConfiguration = newConfiguration
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
     var keyboardInfo: IQKeyboardInfo {
-        return keyboardListener.keyboardInfo
+        return keyboardObserver.keyboardInfo
     }
 
-    private func addKeyboardListener() {
-        keyboardListener.registerSizeChange(identifier: "IQActiveConfiguration", changeHandler: { [self] name, _ in
+    private func addKeyboardObserver() {
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] event, endFrame in
 
-            if let info = textFieldViewInfo, keyboardInfo.keyboardShowing {
-                if let rootControllerConfiguration = rootControllerConfiguration {
-                    let beginIsPortrait: Bool = rootControllerConfiguration.beginOrientation.isPortrait
-                    let currentIsPortrait: Bool = rootControllerConfiguration.currentOrientation.isPortrait
+            guard let self = self else { return }
+
+            guard keyboardObserver.oldKeyboardInfo.endFrame.height != endFrame.height else { return }
+
+            if let info = textInputViewInfo, keyboardInfo.isVisible {
+                if let rootConfiguration = rootConfiguration {
+                    let beginIsPortrait: Bool = rootConfiguration.beginOrientation.isPortrait
+                    let currentIsPortrait: Bool = rootConfiguration.currentOrientation.isPortrait
                     if beginIsPortrait != currentIsPortrait {
                         updateRootController(info: info)
                     }
@@ -149,38 +153,40 @@ extension IQActiveConfiguration {
 
             self.sendEvent()
 
-            if name == .didHide {
+            if event == .didHide {
                 updateRootController(info: nil)
             }
         })
     }
 
     public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
-        keyboardListener.animate(alongsideTransition: transition, completion: completion)
+        keyboardObserver.animate(alongsideTransition: transition, completion: completion)
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
-    var textFieldViewInfo: IQTextFieldViewInfo? {
-        guard let textFieldView: UIView = textFieldViewListener.textFieldView,
-              textFieldView.iq.isAlertViewTextField() == false else {
+    var textInputViewInfo: IQTextFieldViewInfo? {
+        guard textInputViewObserver.textInputView?.iq.isAlertViewTextField() == false else {
             return nil
         }
 
-        return textFieldViewListener.textFieldViewInfo
+        return textInputViewObserver.textInputViewInfo
     }
 
-    private func addTextFieldViewListener() {
-        textFieldViewListener.registerTextFieldViewChange(identifier: "IQActiveConfiguration",
-                                                          changeHandler: { [self] info in
+    private func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
+                                        changeHandler: { [weak self] info in
 
-            guard (info.textFieldView as UIView).iq.isAlertViewTextField() == false else {
+            guard let self = self else { return }
+
+            guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 
-            if info.name == .beginEditing {
+            if info.event == .beginEditing {
                 updateRootController(info: info)
                 self.sendEvent()
             }
@@ -189,25 +195,26 @@ extension IQActiveConfiguration {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,
                                          _ keyboardInfo: IQKeyboardInfo,
-                                         _ textFieldInfo: IQTextFieldViewInfo?) -> Void
+                                         _ textInputViewInfo: IQTextFieldViewInfo?) -> Void
 
-    func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
+    func subscribe(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
     }
 
-    func unregisterChange(identifier: AnyHashable) {
+    func unsubscribe(identifier: AnyHashable) {
         changeObservers[identifier] = nil
     }
 
-    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextFieldViewInfo?) {
+    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textInputViewInfo: IQTextFieldViewInfo?) {
         lastEvent = event
 
         for block in changeObservers.values {
-            block(event, keyboardInfo, textFieldViewInfo)
+            block(event, keyboardInfo, textInputViewInfo)
         }
     }
 }

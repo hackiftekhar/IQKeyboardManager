@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+Debug.swift
+//  IQKeyboardManager+PopGestureHandling.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,56 +23,24 @@
 
 import UIKit
 
-// MARK: Debugging & Developer options
+// MARK: TextInputView Notifications
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+internal extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
-        static var enableDebugging: Int = 0
-        static var logIndentation: Int = 0
+        static var rootConfigWhilePopActive: Int = 0
     }
 
-    @objc var enableDebugging: Bool {
+    var rootConfigurationWhilePopGestureActive: IQRootControllerConfiguration? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
+            return objc_getAssociatedObject(self,
+                                            &AssociatedKeys.rootConfigWhilePopActive) as? IQRootControllerConfiguration
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
+            objc_setAssociatedObject(self, &AssociatedKeys.rootConfigWhilePopActive,
                                      newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    private var logIndentation: Int {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.logIndentation) as? Int ?? 0
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.logIndentation,
-                                     newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    internal func showLog(_ logString: String, indentation: Int = 0) {
-
-        guard enableDebugging else {
-            return
-        }
-
-        if indentation < 0 {
-            logIndentation = max(0, logIndentation + indentation)
-        }
-
-        var preLog: String = "IQKeyboardManager"
-        for _ in 0 ... logIndentation {
-            preLog += "|\t"
-        }
-
-        print(preLog + logString)
-
-        if indentation > 0 {
-            logIndentation += indentation
         }
     }
 }

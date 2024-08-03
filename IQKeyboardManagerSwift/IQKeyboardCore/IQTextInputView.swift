@@ -46,12 +46,12 @@ import UIKit
 @objc extension UITextField: IQTextInputView {
 
     @available(iOS 16.0, *)
-    @objc public var iqIsFindInteractionEnabled: Bool { false }
+    public var iqIsFindInteractionEnabled: Bool { false }
 
     @available(iOS 16.0, *)
-    @objc public var iqFindInteraction: UIFindInteraction? { nil }
+    public var iqFindInteraction: UIFindInteraction? { nil }
 
-    @objc public var iqIsEnabled: Bool { isEnabled }
+    public var iqIsEnabled: Bool { isEnabled }
 }
 
 @available(iOSApplicationExtension, unavailable)
@@ -71,10 +71,10 @@ import UIKit
 @objc extension UISearchBar: IQTextInputView {
 
     @available(iOS 16.0, *)
-    @objc public var iqIsFindInteractionEnabled: Bool { false }
+    public var iqIsFindInteractionEnabled: Bool { false }
 
     @available(iOS 16.0, *)
-    @objc public var iqFindInteraction: UIFindInteraction? { nil }
+    public var iqFindInteraction: UIFindInteraction? { nil }
 
     public var iqIsEnabled: Bool {
         if #available(iOS 16.4, *) {

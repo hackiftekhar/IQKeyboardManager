@@ -3,29 +3,27 @@
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import UIKit
 import CoreGraphics
 import QuartzCore
-
-// MARK: IQToolbar tags
 
 // swiftlint:disable line_length
 // A generic version of KeyboardManagement. (OLD DOCUMENTATION) LINK
@@ -34,7 +32,7 @@ import QuartzCore
 // swiftlint:enable line_length
 
 /**
-Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.
+Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover TextInputView.
  Neither need to write any code nor any setup required and much more.
 */
 @available(iOSApplicationExtension, unavailable)
@@ -51,30 +49,28 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     @objc internal let resignHandler: IQKeyboardResignHandler = .init()
 
-    @objc internal let appearanceManager: IQKeyboardAppearanceManager = .init()
-
     @objc internal var activeConfiguration: IQActiveConfiguration = .init()
-
 
     // MARK: UIKeyboard handling
 
     /**
-    Enable/disable managing distance between keyboard and textField.
+    Enable/disable managing distance between keyboard and textInputView.
      Default is YES(Enabled when class loads in `+(void)load` method).
     */
     @objc public var enable: Bool = false {
 
         didSet {
+            guard enable != oldValue else { return }
             // If not enable, enable it.
-            if enable, !oldValue {
+            if enable {
                 // If keyboard is currently showing.
-                if activeConfiguration.keyboardInfo.keyboardShowing {
+                if activeConfiguration.keyboardInfo.isVisible {
                     adjustPosition()
                 } else {
                     restorePosition()
                 }
                 showLog("Enabled")
-            } else if !enable, oldValue {   // If not disable, disable it.
+            } else {   // If not disable, disable it.
                 restorePosition()
                 showLog("Disabled")
             }
@@ -82,9 +78,9 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     }
 
     /**
-    To set keyboard distance from textField. can't be less than zero. Default is 10.0.
+    To set keyboard distance from textInputView. can't be less than zero. Default is 10.0.
     */
-    @objc public var keyboardDistanceFromTextField: CGFloat = 10.0
+    @objc public var keyboardDistance: CGFloat = 10.0
 
     /*******************************************/
 
@@ -115,11 +111,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      */
     @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
 
-    // MARK: Third Party Library support
-    /// Add TextField/TextView Notifications customized Notifications.
-    /// For example while using YYTextView https://github.com/ibireme/YYText
-
-   /**************************************************************************************/
+    /**************************************************************************************/
 
     // MARK: Initialization/De-initialization
 
@@ -141,11 +133,11 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     // MARK: Public Methods
 
-    /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
+    /*  Refreshes textInputView position if any external changes is explicitly made by user.   */
     @objc public func reloadLayoutIfNeeded() {
 
         guard privateIsEnabled(),
-              activeConfiguration.keyboardInfo.keyboardShowing,
+              activeConfiguration.keyboardInfo.isVisible,
               activeConfiguration.isReady else {
                 return
         }

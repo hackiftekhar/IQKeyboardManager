@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfoModel.swift
+//  IQKeyboardManager+Appearance_Deprecated.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,33 +23,21 @@
 
 import UIKit
 
+// swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal final class IQTextInputViewInfoModel: NSObject {
+public extension IQKeyboardManager {
 
-    weak var textFieldDelegate: (any UITextFieldDelegate)?
-    weak var textViewDelegate: (any UITextViewDelegate)?
-    weak var textInputView: (any IQTextInputView)?
-    let originalReturnKeyType: UIReturnKeyType
-
-    @objc init(textInputView: any IQTextInputView) {
-        self.textInputView = textInputView
-        self.originalReturnKeyType = textInputView.returnKeyType
-        if let textInputView = textInputView as? UITextField {
-            self.textFieldDelegate = textInputView.delegate
-        } else if let textInputView = textInputView as? UITextView {
-            self.textViewDelegate = textInputView.delegate
-        }
-
-        super.init()
+    @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
+    @objc var overrideKeyboardAppearance: Bool {
+        get { false }
+        set { }
     }
 
-    func restore() {
-        textInputView?.returnKeyType = originalReturnKeyType
-        if let textInputView = textInputView as? UITextField {
-            textInputView.delegate = textFieldDelegate
-        } else if let textInputView = textInputView as? UITextView {
-            textInputView.delegate = textViewDelegate
-        }
+    @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
+    @objc var keyboardAppearance: UIKeyboardAppearance {
+        get { .default }
+        set { }
     }
 }
+// swiftlint:enable unused_setter_value

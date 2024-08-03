@@ -87,7 +87,7 @@ class SettingsViewController: UITableViewController {
 
     @objc func keyboardDistanceFromTextFieldAction (_ sender: UIStepper) {
 
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = CGFloat(sender.value)
+        IQKeyboardManager.shared.keyboardDistance = CGFloat(sender.value)
 
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }

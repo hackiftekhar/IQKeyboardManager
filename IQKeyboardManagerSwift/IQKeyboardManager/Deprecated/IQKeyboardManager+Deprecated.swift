@@ -1,39 +1,43 @@
 //
-//  IQKeyboardManager.swift
+//  IQKeyboardManager+Deprecated.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import UIKit
 
-// swiftlint:disable unused_setter_value
-// swiftlint:disable identifier_name
-// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManager {
 
-    @available(*, unavailable, renamed: "resignOnTouchOutside")
-    @objc var shouldResignOnTouchOutside: Bool {
-        get { false }
-        set { }
+    @available(*, deprecated, renamed: "keyboardDistance")
+    @objc var keyboardDistanceFromTextField: CGFloat {
+        get { keyboardDistance }
+        set { keyboardDistance = newValue }
     }
+}
+
+// swiftlint:disable line_length
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public extension IQKeyboardManager {
 
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
     @objc func registerTextFieldViewClass(_ aClass: UIView.Type,
@@ -49,22 +53,7 @@ public extension IQKeyboardManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardManager {
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
-    @objc var overrideKeyboardAppearance: Bool {
-        get { false }
-        set { }
-    }
-
-    @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
-    @objc var keyboardAppearance: UIKeyboardAppearance {
-        get { .default }
-        set { }
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardManager {
 
     typealias SizeBlock = (_ size: CGSize) -> Void
@@ -81,6 +70,4 @@ public extension IQKeyboardManager {
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
     @objc var keyboardFrame: CGRect { .zero }
 }
-// swiftlint:enable unused_setter_value
-// swiftlint:enable identifier_name
 // swiftlint:enable line_length

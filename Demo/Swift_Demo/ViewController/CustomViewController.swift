@@ -106,7 +106,7 @@ class CustomViewController: BaseViewController {
         do {
             let classes = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses
             switchAllowPreviousNext.isOn = classes.contains(where: { element in
-                return element == IQPreviousNextView.self
+                return element == IQDeepResponderContainerView.self
             })
         }
     }
@@ -217,11 +217,11 @@ class CustomViewController: BaseViewController {
     @IBAction func allowedPreviousNextAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(IQPreviousNextView.self)
+            IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(IQDeepResponderContainerView.self)
         } else {
 
             if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.firstIndex(where: { element in
-                return element == IQPreviousNextView.self
+                return element == IQDeepResponderContainerView.self
             }) {
                 IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.remove(at: index)
             }
