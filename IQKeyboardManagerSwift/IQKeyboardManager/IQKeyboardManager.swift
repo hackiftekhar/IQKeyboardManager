@@ -25,6 +25,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 import IQKeyboardCore
+import Combine
 
 // swiftlint:disable line_length
 // A generic version of KeyboardManagement. (OLD DOCUMENTATION) LINK

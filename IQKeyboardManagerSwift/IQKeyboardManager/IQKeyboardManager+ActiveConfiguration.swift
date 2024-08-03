@@ -46,8 +46,8 @@ internal extension IQKeyboardManager {
     }
 
     private func handleKeyboardTextInputViewVisible() {
-        if self.activeConfiguration.rootConfiguration == nil {    //  (Bug ID: #5)
 
+        do {
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
                gestureConfiguration.rootController == rootConfiguration?.rootController {
@@ -90,7 +90,9 @@ internal extension IQKeyboardManager {
         self.banishTextInputViewSetup()
 
         if let configuration = self.activeConfiguration.rootConfiguration,
-           configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
+           let navigationController: UINavigationController = configuration.rootController.navigationController,
+           let interactiveGestureRecognizer: UIGestureRecognizer = navigationController.interactivePopGestureRecognizer,
+           interactiveGestureRecognizer.state == .began {
             self.rootConfigurationWhilePopGestureActive = configuration
         }
 
