@@ -28,12 +28,12 @@ import UIKit
 @objc public final class IQKeyboardAppearanceConfiguration: NSObject {
 
     /**
-    Override the keyboardAppearance for all textField/textView. Default is NO.
+    Override the keyboardAppearance for all textInputView. Default is NO.
     */
     @objc public var overrideAppearance: Bool = false
 
     /**
-    If overrideKeyboardAppearance is YES, then all the textField keyboardAppearance is set using this property.
+    If overrideKeyboardAppearance is YES, then all the textInputView keyboardAppearance is set using this property.
     */
     @objc public var appearance: UIKeyboardAppearance = UIKeyboardAppearance.default
 }

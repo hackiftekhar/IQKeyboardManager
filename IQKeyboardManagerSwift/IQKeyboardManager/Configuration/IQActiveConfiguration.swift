@@ -54,12 +54,12 @@ import IQKeyboardCore
 
     private var lastEvent: Event = .hide
 
-    var rootControllerConfiguration: IQRootControllerConfiguration?
+    var rootConfiguration: IQRootControllerConfiguration?
 
     var isReady: Bool {
         if textInputViewInfo != nil,
-           let rootControllerConfiguration = rootControllerConfiguration {
-            return rootControllerConfiguration.isReady
+           let rootConfiguration = rootConfiguration {
+            return rootConfiguration.isReady
         }
         return false
     }
@@ -72,22 +72,22 @@ import IQKeyboardCore
 
     private func sendEvent() {
 
-        guard let rootControllerConfiguration = rootControllerConfiguration,
-              rootControllerConfiguration.isReady else { return }
+        guard let rootConfiguration = rootConfiguration,
+              rootConfiguration.isReady else { return }
 
         if keyboardInfo.isVisible {
             if lastEvent == .hide {
-                self.notify(event: .show, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
+                self.notify(event: .show, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
             } else {
-                self.notify(event: .change, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
+                self.notify(event: .change, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
             }
         } else if lastEvent != .hide {
-            if rootControllerConfiguration.beginOrientation == rootControllerConfiguration.currentOrientation {
-                self.notify(event: .hide, keyboardInfo: keyboardInfo, textFieldViewInfo: textInputViewInfo)
-                self.rootControllerConfiguration = nil
-            } else if rootControllerConfiguration.hasChanged {
+            if rootConfiguration.beginOrientation == rootConfiguration.currentOrientation {
+                self.notify(event: .hide, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+                self.rootConfiguration = nil
+            } else if rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
+                    rootConfiguration.restore()
                 }, completion: nil)
             }
         }
@@ -97,33 +97,33 @@ import IQKeyboardCore
 
         guard let textInputView: UIView = info?.textInputView,
               let controller: UIViewController = textInputView.iq.parentContainerViewController() else {
-            if let rootControllerConfiguration = rootControllerConfiguration,
-               rootControllerConfiguration.hasChanged {
+            if let rootConfiguration = rootConfiguration,
+               rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
+                    rootConfiguration.restore()
                 }, completion: nil)
             }
-            rootControllerConfiguration = nil
+            rootConfiguration = nil
             return
         }
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        guard newConfiguration.rootController.view.window != rootControllerConfiguration?.rootController.view.window ||
-                newConfiguration.beginOrientation != rootControllerConfiguration?.beginOrientation else { return }
+        guard newConfiguration.rootController.view.window != rootConfiguration?.rootController.view.window ||
+                newConfiguration.beginOrientation != rootConfiguration?.beginOrientation else { return }
 
-        if rootControllerConfiguration?.rootController != newConfiguration.rootController {
+        if rootConfiguration?.rootController != newConfiguration.rootController {
 
             // If there was an old configuration but things are changed
-            if let rootControllerConfiguration = rootControllerConfiguration,
-               rootControllerConfiguration.hasChanged {
+            if let rootConfiguration = rootConfiguration,
+               rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
-                    rootControllerConfiguration.restore()
+                    rootConfiguration.restore()
                 }, completion: nil)
             }
         }
 
-        rootControllerConfiguration = newConfiguration
+        rootConfiguration = newConfiguration
     }
 }
 
@@ -136,16 +136,17 @@ extension IQActiveConfiguration {
     }
 
     private func addKeyboardObserver() {
-        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] name, endFrame in
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] event, endFrame in
 
             guard let self = self else { return }
 
+//            print(event.notification.rawValue)
             guard keyboardObserver.oldKeyboardInfo.endFrame.height != endFrame.height else { return }
 
             if let info = textInputViewInfo, keyboardInfo.isVisible {
-                if let rootControllerConfiguration = rootControllerConfiguration {
-                    let beginIsPortrait: Bool = rootControllerConfiguration.beginOrientation.isPortrait
-                    let currentIsPortrait: Bool = rootControllerConfiguration.currentOrientation.isPortrait
+                if let rootConfiguration = rootConfiguration {
+                    let beginIsPortrait: Bool = rootConfiguration.beginOrientation.isPortrait
+                    let currentIsPortrait: Bool = rootConfiguration.currentOrientation.isPortrait
                     if beginIsPortrait != currentIsPortrait {
                         updateRootController(info: info)
                     }
@@ -156,7 +157,7 @@ extension IQActiveConfiguration {
 
             self.sendEvent()
 
-            if name == .didHide {
+            if event == .didHide {
                 updateRootController(info: nil)
             }
         })
@@ -185,6 +186,7 @@ extension IQActiveConfiguration {
 
             guard let self = self else { return }
 
+//            print(info.event.name)
             guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
@@ -203,7 +205,7 @@ extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,
                                          _ keyboardInfo: IQKeyboardInfo,
-                                         _ textFieldInfo: IQTextInputViewInfo?) -> Void
+                                         _ textInputViewInfo: IQTextInputViewInfo?) -> Void
 
     func registerChange(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
@@ -213,11 +215,11 @@ extension IQActiveConfiguration {
         changeObservers[identifier] = nil
     }
 
-    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textFieldViewInfo: IQTextInputViewInfo?) {
+    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textInputViewInfo: IQTextInputViewInfo?) {
         lastEvent = event
 
         for block in changeObservers.values {
-            block(event, keyboardInfo, textFieldViewInfo)
+            block(event, keyboardInfo, textInputViewInfo)
         }
     }
 }

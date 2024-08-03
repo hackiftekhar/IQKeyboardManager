@@ -23,6 +23,19 @@
 
 import UIKit
 
+// swiftlint:disable unused_setter_value
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+public extension IQKeyboardManager {
+
+    @available(*, unavailable, renamed: "keyboardDistance")
+    @objc var keyboardDistanceFromTextField: CGFloat {
+        get { 10 }
+        set { }
+    }
+}
+// swiftlint:enable unused_setter_value
+
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManager {

@@ -80,16 +80,16 @@ import IQTextInputViewNotification
     @discardableResult
     @objc public func resignFirstResponder() -> Bool {
 
-        guard let textFieldRetain: any IQTextInputView = textInputViewObserver.textInputView else {
+        guard let textInputView: any IQTextInputView = textInputViewObserver.textInputView else {
             return false
         }
 
         // Resigning first responder
-        guard textFieldRetain.resignFirstResponder() else {
-//            showLog("Refuses to resign first responder: \(textFieldRetain)")
+        guard textInputView.resignFirstResponder() else {
+//            showLog("Refuses to resign first responder: \(textInputView)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             // If it refuses to resign then becoming it first responder again for getting notifications callback.
-            textFieldRetain.becomeFirstResponder()
+            textInputView.becomeFirstResponder()
             return false
         }
         return true
@@ -115,7 +115,7 @@ extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
 
         if gesture.state == .ended {
 
-            // Resigning currently responder textField.
+            // Resigning currently responder textInputView.
             resignFirstResponder()
         }
     }

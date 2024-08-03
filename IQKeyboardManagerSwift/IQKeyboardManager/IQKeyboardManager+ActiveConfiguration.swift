@@ -30,7 +30,10 @@ import IQKeyboardCore
 internal extension IQKeyboardManager {
 
     func addActiveConfigurationObserver() {
-        activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { event, _, _ in
+        activeConfiguration.registerChange(identifier: UUID().uuidString, changeHandler: { [weak self] event, _, _ in
+            guard let self = self else { return }
+            showLog(event.name)
+
             switch event {
             case .show:
                 self.handleKeyboardTextInputViewVisible()
@@ -43,17 +46,17 @@ internal extension IQKeyboardManager {
     }
 
     private func handleKeyboardTextInputViewVisible() {
-        if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
+        if self.activeConfiguration.rootConfiguration == nil {    //  (Bug ID: #5)
 
-            let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
+            let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
                gestureConfiguration.rootController == rootConfiguration?.rootController {
-                self.activeConfiguration.rootControllerConfiguration = gestureConfiguration
+                self.activeConfiguration.rootConfiguration = gestureConfiguration
             }
 
             self.rootConfigurationWhilePopGestureActive = nil
 
-            if let configuration = self.activeConfiguration.rootControllerConfiguration {
+            if let configuration = self.activeConfiguration.rootConfiguration {
                 let classNameString: String = "\(type(of: configuration.rootController.self))"
                 showLog("""
                 Saving \(classNameString) beginning origin: \(configuration.beginOrigin)
@@ -86,7 +89,7 @@ internal extension IQKeyboardManager {
         self.restorePosition()
         self.banishTextInputViewSetup()
 
-        if let configuration = self.activeConfiguration.rootControllerConfiguration,
+        if let configuration = self.activeConfiguration.rootConfiguration,
            configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
             self.rootConfigurationWhilePopGestureActive = configuration
         }

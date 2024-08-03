@@ -37,7 +37,7 @@ private struct AssociatedKeys {
 public extension IQKeyboardExtension where Base: UIScrollView {
 
     /**
-     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position.
+     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textInputView position.
      Default is NO.
      */
     var ignoreScrollingAdjustment: Bool {

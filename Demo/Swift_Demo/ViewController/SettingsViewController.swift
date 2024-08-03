@@ -92,7 +92,7 @@ class SettingsViewController: UITableViewController {
 
     @objc func keyboardDistanceFromTextFieldAction (_ sender: UIStepper) {
 
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = CGFloat(sender.value)
+        IQKeyboardManager.shared.keyboardDistance = CGFloat(sender.value)
 
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
@@ -160,7 +160,7 @@ class SettingsViewController: UITableViewController {
     @objc func enableDebugging (_ sender: UISwitch) {
 
         IQKeyboardManager.shared.enableDebugging = sender.isOn
-        IQKeyboardToolbarManager.shared.enableDebugging = sender.isOn
+//        IQKeyboardToolbarManager.shared.enableDebugging = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

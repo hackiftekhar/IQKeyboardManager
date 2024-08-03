@@ -38,7 +38,7 @@ TextInputView category for managing touch resign
 public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-     Override resigns Keyboard on touching outside of TextInputView behavior for this particular textField.
+     Override resigns Keyboard on touching outside of TextInputView behavior for this particular textInputView.
      */
     var resignOnTouchOutsideMode: IQEnableMode {
         get {

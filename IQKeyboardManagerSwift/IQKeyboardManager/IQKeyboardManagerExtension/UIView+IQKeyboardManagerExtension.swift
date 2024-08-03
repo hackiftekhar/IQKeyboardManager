@@ -48,7 +48,7 @@ nonisolated public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMag
 public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-     To set customized distance from keyboard for textField/textView. Can't be less than zero
+     To set customized distance from keyboard for textInputView. Can't be less than zero
      */
     var distanceFromKeyboard: CGFloat {
         get {
@@ -68,7 +68,8 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
     }
 
     /**
-     Override Enable/disable managing distance between keyboard and textField behavior for this particular textField.
+     Override Enable/disable managing distance between
+     keyboard and textInputView behavior for this particular textInputView.
      */
     var enableMode: IQEnableMode {
         get {
