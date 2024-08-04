@@ -1,5 +1,5 @@
 //
-//  IQNSArray+Sort.swift
+//  IQKeyboardToolbarManager+Debug
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,37 +21,32 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-/**
-UIView.subviews sorting category.
-*/
+// MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension Array where Element: UIView {
+internal extension IQKeyboardToolbarManager {
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedByTag() -> [Element] {
+    func showLog(_ logString: String, indentation: Int = 0) {
 
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
+        guard enableDebugging else {
+            return
+        }
 
-            return (obj1.tag < obj2.tag)
-        })
-    }
+        if indentation < 0 {
+            self.logIndentation = max(0, self.logIndentation + indentation)
+        }
 
-    /**
-    Returns the array by sorting the UIView's by their tag property.
-    */
-    func sortedByPosition() -> [Element] {
+        var preLog: String = "IQKeyboardToolbarManager"
+        for _ in 0 ... self.logIndentation {
+            preLog += "|\t"
+        }
 
-        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
-            if obj1.frame.minY != obj2.frame.minY {
-                return obj1.frame.minY < obj2.frame.minY
-            } else {
-                return obj1.frame.minX < obj2.frame.minX
-            }
-        })
+        print(preLog + logString)
+
+        if indentation > 0 {
+            self.logIndentation += indentation
+        }
     }
 }

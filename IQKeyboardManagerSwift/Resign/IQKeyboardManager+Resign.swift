@@ -27,29 +27,39 @@ import UIKit
 @MainActor
 public extension IQKeyboardManager {
 
+    @MainActor
+    private struct AssociatedKeys {
+        static var resignHandler: Int = 0
+    }
+
+    @objc internal var resignHandler: IQKeyboardResignHandler {
+        if let object = objc_getAssociatedObject(self, &AssociatedKeys.resignHandler)
+            as? IQKeyboardResignHandler {
+            return object
+        }
+
+        let object: IQKeyboardResignHandler = .init()
+        objc_setAssociatedObject(self, &AssociatedKeys.resignHandler,
+                                 object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        return object
+    }
+
     /**
-    Resigns Keyboard on touching outside of UITextField/View. Default is NO.
-    */
+     Resigns Keyboard on touching outside TextInputView. Default is NO.
+     */
     @objc var resignOnTouchOutside: Bool {
         get { resignHandler.resignOnTouchOutside }
         set { resignHandler.resignOnTouchOutside = newValue }
-   }
+    }
 
     /** TapGesture to resign keyboard on view's touch.
      It's a readonly property and exposed only for adding/removing dependencies
      if your added gesture does have collision with this one
      */
-    @objc var resignFirstResponderGesture: UITapGestureRecognizer {
-        get { resignHandler.resignFirstResponderGesture }
-        set { resignHandler.resignFirstResponderGesture = newValue }
-   }
-
-    /**
-    Resigns currently first responder field.
-    */
-    @discardableResult
-    @objc func resignFirstResponder() -> Bool {
-        resignHandler.resignFirstResponder()
+    @objc var resignGesture: UITapGestureRecognizer {
+        get { resignHandler.resignGesture }
+        set { resignHandler.resignGesture = newValue }
     }
 
     /**
@@ -58,7 +68,7 @@ public extension IQKeyboardManager {
     @objc var disabledTouchResignedClasses: [UIViewController.Type] {
         get { resignHandler.disabledTouchResignedClasses }
         set { resignHandler.disabledTouchResignedClasses = newValue }
-   }
+    }
 
     /**
      Enabled classes to forcefully enable 'resignOnTouchOutside' property.
@@ -68,7 +78,7 @@ public extension IQKeyboardManager {
     @objc var enabledTouchResignedClasses: [UIViewController.Type] {
         get { resignHandler.enabledTouchResignedClasses }
         set { resignHandler.enabledTouchResignedClasses = newValue }
-   }
+    }
 
     /**
      if resignOnTouchOutside is enabled then you can customize the behavior
@@ -78,5 +88,13 @@ public extension IQKeyboardManager {
     @objc var touchResignedGestureIgnoreClasses: [UIView.Type] {
         get { resignHandler.touchResignedGestureIgnoreClasses }
         set { resignHandler.touchResignedGestureIgnoreClasses = newValue }
-   }
+    }
+
+    /**
+     Resigns currently first responder field.
+     */
+    @discardableResult
+    @objc func resignFirstResponder() -> Bool {
+        resignHandler.resignFirstResponder()
+    }
 }

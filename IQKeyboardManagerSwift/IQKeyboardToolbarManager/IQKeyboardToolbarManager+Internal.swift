@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+ToolbarManagerInternal.swift
+//  IQKeyboardToolbarManager+Internal.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -27,39 +27,20 @@ import UIKit
 @MainActor
 internal extension IQKeyboardToolbarManager {
 
-    /**    Get all UITextField/UITextView siblings of textFieldView. */
-    func responderViews(of textFieldView: UIView) -> [UIView]? {
+    /**    Get all textInputView siblings of textInputView. */
+    func responderViews(of textInputView: some IQTextInputView) -> [any IQTextInputView]? {
 
         var superConsideredView: UIView?
 
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView.
-        for allowedClass in toolbarPreviousNextAllowedClasses {
-            superConsideredView = textFieldView.iq.superviewOf(type: allowedClass)
+        for allowedClass in deepResponderAllowedContainerClasses {
+            superConsideredView = (textInputView as UIView).iq.superviewOf(type: allowedClass)
             if superConsideredView != nil {
                 break
             }
         }
 
-        var swiftUIHostingView: UIView?
-        let swiftUIHostingViewName: String = "UIHostingView<"
-        var superView: UIView? = textFieldView.superview
-        while let unwrappedSuperView: UIView = superView {
-
-            let classNameString: String = {
-                var name: String = "\(type(of: unwrappedSuperView.self))"
-                if name.hasPrefix("_") {
-                    name.removeFirst()
-                }
-                return name
-            }()
-
-            if classNameString.hasPrefix(swiftUIHostingViewName) {
-                swiftUIHostingView = unwrappedSuperView
-                break
-            }
-
-            superView = unwrappedSuperView.superview
-        }
+        let swiftUIHostingView: UIView? = Self.getSwiftUIHostingView(textInputView: textInputView)
 
         // (Enhancement ID: #22)
         // If there is a superConsideredView in view's hierarchy,
@@ -71,60 +52,90 @@ internal extension IQKeyboardToolbarManager {
             return view.iq.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
 
-            let textFields: [UIView] = textFieldView.iq.responderSiblings()
+            let textInputViews: [any IQTextInputView] = textInputView.iq.responderSiblings()
 
-            // Sorting textFields according to behavior
+            // Sorting textInputViews according to behavior
             switch toolbarConfiguration.manageBehavior {
             // If autoToolbar behavior is bySubviews, then returning it.
-            case .bySubviews:   return textFields
+            case .bySubviews:   return textInputViews
 
             // If autoToolbar behavior is by tag, then sorting it according to tag property.
-            case .byTag:    return textFields.sortedByTag()
+            case .byTag:    return textInputViews.sortedByTag()
 
             // If autoToolbar behavior is by tag, then sorting it according to tag property.
-            case .byPosition:    return textFields.sortedByPosition()
+            case .byPosition:    return textInputViews.sortedByPosition()
             }
         }
     }
 
-    func privateIsEnableAutoToolbar(of textFieldView: UIView) -> Bool {
+    func privateIsEnableAutoToolbar(of textInputView: some IQTextInputView) -> Bool {
 
-        var isEnabled: Bool = enableAutoToolbar
+        var isEnabled: Bool = enable
 
-        guard var textFieldViewController = textFieldView.iq.viewContainingController() else {
+        guard var textInputViewController = (textInputView as UIView).iq.viewContainingController() else {
             return isEnabled
         }
 
-        // If it is searchBar textField embedded in Navigation Bar
-        if textFieldView.iq.textFieldSearchBar() != nil,
-           let navController: UINavigationController = textFieldViewController as? UINavigationController,
+        // If it is searchBar textInputView embedded in Navigation Bar
+        if (textInputView as UIView).iq.textFieldSearchBar() != nil,
+           let navController: UINavigationController = textInputViewController as? UINavigationController,
            let topController: UIViewController = navController.topViewController {
-            textFieldViewController = topController
+            textInputViewController = topController
         }
 
-        if !isEnabled, enabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+        if !isEnabled, enabledToolbarClasses.contains(where: { textInputViewController.isKind(of: $0) }) {
             isEnabled = true
         }
 
         if isEnabled {
 
             // If found any toolbar disabled classes then return.
-            if disabledToolbarClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+            if disabledToolbarClasses.contains(where: { textInputViewController.isKind(of: $0) }) {
                 isEnabled = false
             }
 
             // Special Controllers
             if isEnabled {
 
-                let classNameString: String = "\(type(of: textFieldViewController.self))"
+                let classNameString: String = "\(type(of: textInputViewController.self))"
 
                 // _UIAlertControllerTextFieldViewController
-                if classNameString.contains("UIAlertController"), classNameString.hasSuffix("TextFieldViewController") {
+                if classNameString.contains("UIAlertController"),
+                   classNameString.hasSuffix("TextFieldViewController") {
                     isEnabled = false
                 }
             }
         }
 
         return isEnabled
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+private extension IQKeyboardToolbarManager {
+
+    private static func getSwiftUIHostingView(textInputView: some IQTextInputView) -> UIView? {
+        var swiftUIHostingView: UIView?
+        let swiftUIHostingViewName: String = "UIHostingView<"
+        var superView: UIView? = textInputView.superview
+        while let aSuperview: UIView = superView {
+
+            let classNameString: String = {
+                var name: String = "\(type(of: aSuperview.self))"
+                if name.hasPrefix("_") {
+                    name.removeFirst()
+                }
+                return name
+            }()
+
+            if classNameString.hasPrefix(swiftUIHostingViewName) {
+                swiftUIHostingView = aSuperview
+                break
+            }
+
+            superView = aSuperview.superview
+        }
+        return swiftUIHostingView
     }
 }

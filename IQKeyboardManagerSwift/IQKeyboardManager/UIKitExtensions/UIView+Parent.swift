@@ -29,7 +29,7 @@ UIView hierarchy category.
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     /**
      Returns the UIViewController object that is actually the parent of this object.

@@ -26,7 +26,7 @@ import IQKeyboardManagerSwift
 
 class CustomViewController: BaseViewController {
 
-    fileprivate var returnHandler: IQKeyboardReturnKeyHandler!
+    private let returnHandler: IQKeyboardReturnKeyHandler = .init()
     @IBOutlet var settingsView: UIView!
 
     @IBOutlet var switchDisableViewController: UISwitch!
@@ -42,10 +42,6 @@ class CustomViewController: BaseViewController {
 
     @IBOutlet var settingsTopConstraint: NSLayoutConstraint!
 
-    deinit {
-        returnHandler = nil
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,8 +50,8 @@ class CustomViewController: BaseViewController {
         settingsView.layer.shadowRadius = 5.0
         settingsView.layer.shadowOpacity = 0.5
 
-        returnHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnHandler.lastTextFieldReturnKeyType = .done
+        returnHandler.addResponderSubviews(of: self.view, recursive: true)
+        returnHandler.lastTextInputViewReturnKeyType = .done
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -104,7 +100,7 @@ class CustomViewController: BaseViewController {
         }
 
         do {
-            let classes = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses
+            let classes = IQKeyboardManager.shared.deepResponderAllowedContainerClasses
             switchAllowPreviousNext.isOn = classes.contains(where: { element in
                 return element == IQDeepResponderContainerView.self
             })
@@ -217,13 +213,13 @@ class CustomViewController: BaseViewController {
     @IBAction func allowedPreviousNextAction(_ sender: UISwitch) {
         self.view.endEditing(true)
         if sender.isOn {
-            IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(IQDeepResponderContainerView.self)
+            IQKeyboardManager.shared.deepResponderAllowedContainerClasses.append(IQDeepResponderContainerView.self)
         } else {
 
-            if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.firstIndex(where: { element in
+            if let index = IQKeyboardManager.shared.deepResponderAllowedContainerClasses.firstIndex(where: { element in
                 return element == IQDeepResponderContainerView.self
             }) {
-                IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.remove(at: index)
+                IQKeyboardManager.shared.deepResponderAllowedContainerClasses.remove(at: index)
             }
         }
     }

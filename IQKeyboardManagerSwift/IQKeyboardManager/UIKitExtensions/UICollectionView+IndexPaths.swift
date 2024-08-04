@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManagerConstants.swift
+//  UICollectionView+IndexPaths.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,21 +21,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-/**
- `IQEnableModeDefault`
- Pick default settings.
- 
- `IQEnableModeEnabled`
- setting is enabled.
- 
- `IQEnableModeDisabled`
- setting is disabled.
- */
 @available(iOSApplicationExtension, unavailable)
-@objc public enum IQEnableMode: Int {
-    case `default`
-    case enabled
-    case disabled
+@MainActor
+internal extension UICollectionView {
+
+    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
+        var previousRow: Int = indexPath.row - 1
+        var previousSection: Int = indexPath.section
+
+        // Fixing indexPath
+        if previousRow < 0 {
+            previousSection -= 1
+            if previousSection >= 0 {
+                previousRow = self.numberOfItems(inSection: previousSection) - 1
+            }
+        }
+
+        if previousRow >= 0, previousSection >= 0 {
+            return IndexPath(item: previousRow, section: previousSection)
+        } else {
+            return nil
+        }
+    }
 }

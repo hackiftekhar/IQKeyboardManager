@@ -1,5 +1,5 @@
 //
-//  IQUIView+Hierarchy.swift
+//  UIView+Hierarchy.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -29,7 +29,7 @@ UIView hierarchy category.
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardExtension where Base: UIView {
 
     // MARK: viewControllers
 
@@ -55,6 +55,7 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     /**
      Returns the topMost UIViewController object in hierarchy.
      */
+    @available(*, deprecated, message: "This is no longer useful")
     func topMostController() -> UIViewController? {
 
         var controllersHierarchy: [UIViewController] = []
@@ -90,8 +91,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
-    // MARK: Superviews/Subviews/Siblings
+public extension IQKeyboardExtension where Base: UIView {
+    // MARK: Superviews
 
     /**
     Returns the superView of provided class type.
@@ -105,14 +106,14 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
 
         var superView: UIView? = base?.superview
 
-        while let unwrappedSuperView: UIView = superView {
+        while let aSuperview: UIView = superView {
 
-            if unwrappedSuperView.isKind(of: classType) {
+            if aSuperview.isKind(of: classType) {
 
                 // If it's UIScrollView, then validating for special cases
-                if unwrappedSuperView is UIScrollView {
+                if aSuperview is UIScrollView {
 
-                    let classNameString: String = "\(type(of: unwrappedSuperView.self))"
+                    let classNameString: String = "\(type(of: aSuperview.self))"
 
                     // If it's not UITableViewWrapperView class,
                     // this is internal class which is actually manage in UITableview.
@@ -122,19 +123,19 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                     // The speciality of this class is that it's superview is UITableViewCell.
                     // If it's not _UIQueuingScrollView class, 
                     // actually we validate for _ prefix which usually used by Apple internal classes
-                    if !(unwrappedSuperView.superview is UITableView),
-                        !(unwrappedSuperView.superview is UITableViewCell),
+                    if !(aSuperview.superview is UITableView),
+                        !(aSuperview.superview is UITableViewCell),
                         !classNameString.hasPrefix("_") {
                         return superView as? T
                     }
                 } else {
                     return superView as? T
                 }
-            } else if unwrappedSuperView == belowView {
+            } else if aSuperview == belowView {
                 return nil
             }
 
-            superView = unwrappedSuperView.superview
+            superView = aSuperview.superview
         }
 
         return nil

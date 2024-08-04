@@ -69,6 +69,12 @@ public extension IQKeyboardManager {
         get { .default }
         set { }
     }
+
+    @available(*, deprecated, renamed: "deepResponderAllowedContainerClasses")
+    @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] {
+        get { deepResponderAllowedContainerClasses }
+        set { deepResponderAllowedContainerClasses = newValue }
+    }
 }
 
 @available(iOSApplicationExtension, unavailable)

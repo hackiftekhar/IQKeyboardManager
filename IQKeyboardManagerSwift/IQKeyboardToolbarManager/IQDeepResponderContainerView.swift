@@ -1,5 +1,5 @@
 //
-//  IQUICollectionView+Additions.swift
+//  IQDeepResponderContainerView.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,24 +25,12 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension UICollectionView {
+@objc open class IQDeepResponderContainerView: UIView {
+}
 
-    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
-        var previousRow: Int = indexPath.row - 1
-        var previousSection: Int = indexPath.section
-
-        // Fixing indexPath
-        if previousRow < 0 {
-            previousSection -= 1
-            if previousSection >= 0 {
-                previousRow = self.numberOfItems(inSection: previousSection) - 1
-            }
-        }
-
-        if previousRow >= 0, previousSection >= 0 {
-            return IndexPath(item: previousRow, section: previousSection)
-        } else {
-            return nil
-        }
-    }
+@available(*, deprecated,
+            renamed: "IQDeepResponderContainerView",
+            message: "Deprecated in favor of IQDeepResponderContainerView and will be removed in future release.")
+@MainActor
+@objc open class IQPreviousNextView: UIView {
 }

@@ -31,7 +31,7 @@ SPEC CHECKSUMS:
   IQDropDownTextField: c3a149deb3c6c4bba5edd85d88b6e83e90e08f63
   IQDropDownTextFieldSwift: a194ca9853f29cb90c19af31fabe7d899b0049ca
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerSwift: 24a30da73f0509710a740f191c212a1427520346
+  IQKeyboardManagerSwift: a744b1305c22f984d9ce03d291cb088e2d8086c9
   RSKPlaceholderTextView: 52f26e643b6f9bbf16f45cd2bbe2181b6dfe090c
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 

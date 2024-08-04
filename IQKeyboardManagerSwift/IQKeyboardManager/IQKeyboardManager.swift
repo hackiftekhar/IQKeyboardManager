@@ -45,10 +45,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     @MainActor
     @objc public static let shared: IQKeyboardManager = .init()
 
-    @objc internal let toolbarManager: IQKeyboardToolbarManager = .init()
-
-    @objc internal let resignHandler: IQKeyboardResignHandler = .init()
-
     @objc internal var activeConfiguration: IQActiveConfiguration = .init()
 
     // MARK: UIKeyboard handling

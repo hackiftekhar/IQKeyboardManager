@@ -28,13 +28,14 @@ import UIKit
 @objc public final class IQToolbarConfiguration: NSObject {
 
     /**
-     If YES, then uses textField's tintColor property for IQToolbar, otherwise tint color is default. Default is NO.
+     If YES, then uses textInputView's tintColor property,
+     otherwise tint color is default. Default is NO.
      */
-    @objc public var useTextFieldTintColor: Bool = false
+    @objc public var useTextInputViewTintColor: Bool = false
 
     /**
-     This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault.
-     If useTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+     This is used for toolbar.tintColor when textInputView.keyboardAppearance is UIKeyboardAppearanceDefault.
+     If useTextInputViewTintColor is YES then this property is ignored. Default is nil and uses black color.
      */
     @objc public var tintColor: UIColor?
 
@@ -44,19 +45,19 @@ import UIKit
     @objc public var barTintColor: UIColor?
 
     /**
-     IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
+     IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textInputView otherwise hide.
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons,
-     if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+     if there are more than 1 textInputView then both buttons will be visible but will be shown as disabled.
      */
     @objc public var previousNextDisplayMode: IQPreviousNextDisplayMode = .default
 
     /**
      /**
-      IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hierarchy of Textfield's in view.
-      IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextField's.
+      IQAutoToolbarBySubviews:   Creates Toolbar according to subview's hierarchy of TextInputView's in view.
+      IQAutoToolbarByTag:        Creates Toolbar according to tag property of TextInputView's.
       IQAutoToolbarByPosition:   Creates Toolbar according to the y,x position
-      of textField in it's superview coordinate.
+      of textInputView in it's superview coordinate.
 
       Default is IQAutoToolbarBySubviews.
       */
@@ -73,3 +74,16 @@ import UIKit
 
     @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
 }
+
+// swiftlint:disable unused_setter_value
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc public extension IQToolbarConfiguration {
+
+    @available(*, deprecated, renamed: "useTextInputViewTintColor")
+    var useTextFieldTintColor: Bool {
+        get { fatalError() }
+        set {}
+    }
+}
+// swiftlint:enable unused_setter_value

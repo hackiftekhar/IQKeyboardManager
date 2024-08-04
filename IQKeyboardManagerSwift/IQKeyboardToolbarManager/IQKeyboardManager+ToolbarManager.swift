@@ -27,12 +27,30 @@ import UIKit
 @MainActor
 public extension IQKeyboardManager {
 
+    @MainActor
+    private struct AssociatedKeys {
+        static var toolbarManager: Int = 0
+    }
+
+    @objc internal var toolbarManager: IQKeyboardToolbarManager {
+        if let object = objc_getAssociatedObject(self, &AssociatedKeys.toolbarManager)
+            as? IQKeyboardToolbarManager {
+            return object
+        }
+
+        let object: IQKeyboardToolbarManager = .init()
+        objc_setAssociatedObject(self, &AssociatedKeys.toolbarManager,
+                                 object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        return object
+    }
+
     /**
     Automatic add the IQToolbar functionality. Default is YES.
     */
     @objc var enableAutoToolbar: Bool {
-        get { toolbarManager.enableAutoToolbar }
-        set { toolbarManager.enableAutoToolbar = newValue }
+        get { toolbarManager.enable }
+        set { toolbarManager.enable = newValue }
     }
 
     /**
@@ -76,9 +94,9 @@ public extension IQKeyboardManager {
      this will allow to navigate between textField contains in different superview.
      Class should be kind of UIView.
      */
-    @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] {
-        get { toolbarManager.toolbarPreviousNextAllowedClasses }
-        set { toolbarManager.toolbarPreviousNextAllowedClasses = newValue }
+    @objc var deepResponderAllowedContainerClasses: [UIView.Type] {
+        get { toolbarManager.deepResponderAllowedContainerClasses }
+        set { toolbarManager.deepResponderAllowedContainerClasses = newValue }
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */

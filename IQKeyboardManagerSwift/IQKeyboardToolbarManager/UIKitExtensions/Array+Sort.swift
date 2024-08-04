@@ -1,5 +1,5 @@
 //
-//  IQUITableView+Additions.swift
+//  Array+Sort.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,26 +23,35 @@
 
 import UIKit
 
+/**
+UIView.subviews sorting category.
+*/
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension UITableView {
+internal extension Array where Element: IQTextInputView {
 
-    func previousIndexPath(of indexPath: IndexPath) -> IndexPath? {
-        var previousRow: Int = indexPath.row - 1
-        var previousSection: Int = indexPath.section
+    /**
+    Returns the array by sorting the UIView's by their tag property.
+    */
+    func sortedByTag() -> [Element] {
 
-        // Fixing indexPath
-        if previousRow < 0 {
-            previousSection -= 1
-            if previousSection >= 0 {
-                previousRow = self.numberOfRows(inSection: previousSection) - 1
+        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
+
+            return (obj1.tag < obj2.tag)
+        })
+    }
+
+    /**
+    Returns the array by sorting the UIView's by their tag property.
+    */
+    func sortedByPosition() -> [Element] {
+
+        return sorted(by: { (obj1: Element, obj2: Element) -> Bool in
+            if obj1.frame.minY != obj2.frame.minY {
+                return obj1.frame.minY < obj2.frame.minY
+            } else {
+                return obj1.frame.minX < obj2.frame.minX
             }
-        }
-
-        if previousRow >= 0, previousSection >= 0 {
-            return IndexPath(row: previousRow, section: previousSection)
-        } else {
-            return nil
-        }
+        })
     }
 }

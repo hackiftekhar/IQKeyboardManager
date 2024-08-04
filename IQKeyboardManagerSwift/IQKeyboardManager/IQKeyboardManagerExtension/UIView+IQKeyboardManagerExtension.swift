@@ -1,5 +1,5 @@
 //
-//  IQUITextFieldView+Additions.swift
+//  UIView+IQKeyboardManagerExtension.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -33,23 +33,22 @@ private struct AssociatedKeys {
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 extension UIView {
-
-    public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
+    nonisolated public static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 }
 
 @available(iOSApplicationExtension, unavailable)
 @available(*, unavailable, renamed: "UIView.defaultKeyboardDistance")
-public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
+nonisolated public let kIQUseDefaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 
 /**
-UIView category for managing UITextField/UITextView
+ TextInputView category for managing distance handling
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-     To set customized distance from keyboard for textField/textView. Can't be less than zero
+     To set customized distance from keyboard for textInputView. Can't be less than zero
      */
     var distanceFromKeyboard: CGFloat {
         get {
@@ -69,7 +68,8 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
     }
 
     /**
-     Override Enable/disable managing distance between keyboard and textField behavior for this particular textField.
+     Override Enable/disable managing distance between
+     keyboard and textInputView behavior for this particular textInputView.
      */
     var enableMode: IQEnableMode {
         get {

@@ -1,5 +1,5 @@
 //
-//  IQKeyboardManager+ToolbarManager
+//  IQKeyboardToolbarManager
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -27,34 +27,41 @@ import UIKit
 @MainActor
 @objc internal final class IQKeyboardToolbarManager: NSObject {
 
-    let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
+    private let textInputViewObserver: IQTextFieldViewListener = .init()
+
+    internal var textInputView: (some IQTextInputView)? {
+        textInputViewObserver.textInputView
+    }
 
     /**
      Automatic add the IQToolbar functionality. Default is YES.
      */
-    @objc var enableAutoToolbar: Bool = true {
+    @objc public var enable: Bool = true {
         didSet {
             reloadInputViews()
+            showLog("enable: \(enable ? "Yes" : "NO")")
         }
     }
+
+    @objc public var enableDebugging: Bool = false
 
     /**
      Configurations related to the toolbar display over the keyboard.
      */
-    @objc var toolbarConfiguration: IQToolbarConfiguration = .init()
+    @objc public let toolbarConfiguration: IQToolbarConfiguration = .init()
 
     // MARK: UISound handling
 
     /**
      If YES, then it plays inputClick sound on next/previous/done click.
      */
-    @objc var playInputClicks: Bool = true
+    @objc public var playInputClicks: Bool = true
 
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes.
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
-    @objc var disabledToolbarClasses: [UIViewController.Type] = [
+    @objc public var disabledToolbarClasses: [UIViewController.Type] = [
         UIAlertController.self,
         UIInputViewController.self
     ]
@@ -64,21 +71,23 @@ import UIKit
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
-    @objc var enabledToolbarClasses: [UIViewController.Type] = []
+    @objc public var enabledToolbarClasses: [UIViewController.Type] = []
 
     /**
-     Allowed subclasses of UIView to add all inner textField,
-     this will allow to navigate between textField contains in different superview.
+     Allowed subclasses of UIView to add all inner textInputView,
+     this will allow to navigate between textInputView contains in different superview.
      Class should be kind of UIView.
      */
-    @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] = [
+    @objc public var deepResponderAllowedContainerClasses: [UIView.Type] = [
         UITableView.self,
         UICollectionView.self,
         IQDeepResponderContainerView.self,
         IQPreviousNextView.self
     ]
 
-    @objc public override init() {
+    internal var logIndentation = 0
+
+    @objc internal override init() {
         super.init()
 
         addTextInputViewObserverForToolbar()
@@ -88,11 +97,12 @@ import UIKit
         // If you experience exception breakpoint issue at below line then try these solutions
         // https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
         DispatchQueue.main.async {
-            let textField: UITextField = UITextField()
-            textField.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
-            textField.iq.addPreviousNextDone(target: nil, previousAction: #selector(self.previousAction(_:)),
-                                             nextAction: #selector(self.nextAction(_:)),
-                                             doneAction: #selector(self.doneAction(_:)))
+            let textInputView: UITextField = UITextField()
+            textInputView.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
+            textInputView.iq.addPreviousNextDone(target: nil,
+                                                 previousAction: #selector(self.previousAction(_:)),
+                                                 nextAction: #selector(self.nextAction(_:)),
+                                                 doneAction: #selector(self.doneAction(_:)))
         }
     }
 }
@@ -102,18 +112,18 @@ import UIKit
 private extension IQKeyboardToolbarManager {
 
     private func removeTextInputViewObserverForToolbar() {
-        textInputViewObserver.unregisterSizeChange(identifier: "TextInputViewObserverForToolbar")
+        textInputViewObserver.unsubscribe(identifier: "TextInputViewObserverForToolbar")
     }
 
     private func addTextInputViewObserverForToolbar() {
-        textInputViewObserver.registerTextFieldViewChange(identifier: "TextInputViewObserverForToolbar",
+        textInputViewObserver.subscribe(identifier: "TextInputViewObserverForToolbar",
                                              changeHandler: { [weak self] info in
             guard let self = self else { return }
             guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 
-            switch info.name {
+            switch info.event {
             case .beginEditing:
                 self.reloadInputViews()
             case .endEditing:

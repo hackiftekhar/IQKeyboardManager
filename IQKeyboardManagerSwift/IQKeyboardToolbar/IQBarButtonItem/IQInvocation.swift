@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQInvocation: NSObject {
+@objc public final class IQInvocation: NSObject {
     @objc public weak var target: AnyObject?
     @objc public var action: Selector
 
@@ -35,8 +35,8 @@ import UIKit
     }
 
     @objc public func invoke(from: Any) {
-        if let target: AnyObject = target {
-            UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
-        }
+
+        guard let target: AnyObject = target else { return }
+        UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())
     }
 }

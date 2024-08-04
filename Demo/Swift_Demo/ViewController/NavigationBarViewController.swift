@@ -26,13 +26,12 @@ import IQKeyboardManagerSwift
 
 class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
 
-    fileprivate var returnKeyHandler: IQKeyboardReturnKeyHandler!
+    private let returnHandler: IQKeyboardReturnKeyHandler = .init()
     @IBOutlet var textField2: UITextField!
     @IBOutlet var textField3: UITextField!
     @IBOutlet var scrollView: UIScrollView!
 
     deinit {
-        returnKeyHandler = nil
         textField2 = nil
         textField3 = nil
     }
@@ -42,8 +41,8 @@ class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
 
         textField3.iq.placeholder = "This is the customised placeholder title for displaying as toolbar title"
 
-        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
-        returnKeyHandler.lastTextFieldReturnKeyType = UIReturnKeyType.done
+        returnHandler.addResponderSubviews(of: self.view, recursive: true)
+        returnHandler.lastTextInputViewReturnKeyType = UIReturnKeyType.done
     }
 
     @IBAction func textFieldClicked(_ sender: UITextField!) {

@@ -1,5 +1,5 @@
 //
-//  IQUIView+IQKeyboardToolbar.swift
+//  UIView+IQKeyboardToolbar.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -33,7 +33,7 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: IQTextInputView {
+public extension IQKeyboardExtension where Base: IQTextInputView {
 
     // MARK: Toolbar
 
@@ -47,8 +47,8 @@ public extension IQKeyboardManagerWrapper where Base: IQTextInputView {
             toolbar = objc_getAssociatedObject(base, &AssociatedKeys.toolbar) as? IQToolbar
         }
 
-        if let unwrappedToolbar: IQToolbar = toolbar {
-            return unwrappedToolbar
+        if let toolbar: IQToolbar = toolbar {
+            return toolbar
         } else {
 
             let width: CGFloat = base?.window?.windowScene?.screen.bounds.width ?? 0
@@ -138,85 +138,34 @@ public extension IQKeyboardManagerWrapper where Base: IQTextInputView {
                     rightConfiguration: IQBarButtonItemConfiguration? = nil,
                     title: String?,
                     titleAccessibilityLabel: String? = nil) {
+        guard let base = base else { return }
+        //  Creating a toolBar for phoneNumber keyboard
+        let toolbar: IQToolbar = toolbar
 
-        // If can't set InputAccessoryView. Then return
-        if base?.responds(to: #selector(setter: UITextField.inputAccessoryView)) == true,
-            let base = base {
+        let items: [UIBarButtonItem] = Self.constructBarButtonItems(target: target, toolbar: toolbar,
+                                                                    previousConfiguration: previousConfiguration,
+                                                                    nextConfiguration: nextConfiguration,
+                                                                    rightConfiguration: rightConfiguration,
+                                                                    title: title,
+                                                                    titleAccessibilityLabel: titleAccessibilityLabel)
 
-            //  Creating a toolBar for phoneNumber keyboard
-            let toolbar: IQToolbar = toolbar
+        //  Adding button to toolBar.
+        toolbar.items = items
 
-            var items: [UIBarButtonItem] = []
-
-            if let previousConfiguration: IQBarButtonItemConfiguration = previousConfiguration {
-
-                let prev: IQBarButtonItem = previousConfiguration.apply(on: toolbar.previousBarButton, target: target)
-                toolbar.previousBarButton = prev
-                items.append(prev)
-            }
-
-            if previousConfiguration != nil, nextConfiguration != nil {
-
-                items.append(toolbar.fixedSpaceBarButton)
-            }
-
-            if let nextConfiguration: IQBarButtonItemConfiguration = nextConfiguration {
-
-                let next: IQBarButtonItem = nextConfiguration.apply(on: toolbar.nextBarButton, target: target)
-                toolbar.nextBarButton = next
-                items.append(next)
-            }
-
-            if !toolbar.additionalLeadingItems.isEmpty {
-                items.append(contentsOf: toolbar.additionalLeadingItems)
-            }
-
-            // Title bar button item
-            do {
-                // Flexible space
-                items.append(IQBarButtonItem.flexibleBarButtonItem)
-
-                // Title button
-                toolbar.titleBarButton.title = title
-                toolbar.titleBarButton.accessibilityLabel = titleAccessibilityLabel
-                toolbar.titleBarButton.accessibilityIdentifier = titleAccessibilityLabel
-
-                toolbar.titleBarButton.customView?.frame = .zero
-
-                items.append(toolbar.titleBarButton)
-
-                // Flexible space
-                items.append(IQBarButtonItem.flexibleBarButtonItem)
-            }
-
-            if !toolbar.additionalTrailingItems.isEmpty {
-                items.append(contentsOf: toolbar.additionalTrailingItems)
-            }
-
-            if let rightConfiguration: IQBarButtonItemConfiguration = rightConfiguration {
-
-                let done: IQBarButtonItem = rightConfiguration.apply(on: toolbar.doneBarButton, target: target)
-                toolbar.doneBarButton = done
-                items.append(done)
-            }
-
-            //  Adding button to toolBar.
-            toolbar.items = items
-
-            switch base.keyboardAppearance {
-            case .dark:
-                toolbar.barStyle = .black
-            default:
-                toolbar.barStyle = .default
-            }
-
-            //  Setting toolbar to keyboard.
-            let reloadInputViews: Bool = base.inputAccessoryView != toolbar
-            if reloadInputViews {
-                base.inputAccessoryView = toolbar
-                base.reloadInputViews()
-            }
+        switch base.keyboardAppearance {
+        case .dark:
+            toolbar.barStyle = .black
+        default:
+            toolbar.barStyle = .default
         }
+
+        //  Setting toolbar to keyboard.
+        let reloadInputViews: Bool = base.inputAccessoryView != toolbar
+        guard reloadInputViews else { return }
+
+        base.inputAccessoryView = toolbar
+
+        base.reloadInputViews()
     }
 
     // MARK: Right
@@ -317,11 +266,78 @@ public extension IQKeyboardManagerWrapper where Base: IQTextInputView {
 
         let previousConfiguration = IQBarButtonItemConfiguration(image: chevronUp,
                                                                  action: previousAction)
-        let nextConfiguration = IQBarButtonItemConfiguration(image: chevronDown, action: nextAction)
-        let rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: doneAction)
+        let nextConfiguration = IQBarButtonItemConfiguration(image: chevronDown,
+                                                             action: nextAction)
+        let rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done,
+                                                              action: doneAction)
 
         addToolbar(target: target, previousConfiguration: previousConfiguration,
                    nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
                    title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+private extension IQKeyboardExtension where Base: IQTextInputView {
+
+    private static func constructBarButtonItems(target: AnyObject?,
+                                                toolbar: IQToolbar,
+                                                previousConfiguration: IQBarButtonItemConfiguration? = nil,
+                                                nextConfiguration: IQBarButtonItemConfiguration? = nil,
+                                                rightConfiguration: IQBarButtonItemConfiguration? = nil,
+                                                title: String?,
+                                                titleAccessibilityLabel: String? = nil) -> [UIBarButtonItem] {
+        var items: [UIBarButtonItem] = []
+
+        if let previousConfiguration: IQBarButtonItemConfiguration = previousConfiguration {
+            let prev: IQBarButtonItem = previousConfiguration.apply(on: toolbar.previousBarButton, target: target)
+            toolbar.previousBarButton = prev
+            items.append(prev)
+        }
+
+        if previousConfiguration != nil, nextConfiguration != nil {
+            items.append(toolbar.fixedSpaceBarButton)
+        }
+
+        if let nextConfiguration: IQBarButtonItemConfiguration = nextConfiguration {
+            let next: IQBarButtonItem = nextConfiguration.apply(on: toolbar.nextBarButton, target: target)
+            toolbar.nextBarButton = next
+            items.append(next)
+        }
+
+        if !toolbar.additionalLeadingItems.isEmpty {
+            items.append(contentsOf: toolbar.additionalLeadingItems)
+        }
+
+        // Title bar button item
+        do {
+            // Flexible space
+            items.append(IQBarButtonItem.flexibleBarButtonItem)
+
+            // Title button
+            toolbar.titleBarButton.title = title
+            toolbar.titleBarButton.accessibilityLabel = titleAccessibilityLabel
+            toolbar.titleBarButton.accessibilityIdentifier = titleAccessibilityLabel
+
+            toolbar.titleBarButton.customView?.frame = .zero
+
+            items.append(toolbar.titleBarButton)
+
+            // Flexible space
+            items.append(IQBarButtonItem.flexibleBarButtonItem)
+        }
+
+        if !toolbar.additionalTrailingItems.isEmpty {
+            items.append(contentsOf: toolbar.additionalTrailingItems)
+        }
+
+        if let rightConfiguration: IQBarButtonItemConfiguration = rightConfiguration {
+
+            let done: IQBarButtonItem = rightConfiguration.apply(on: toolbar.doneBarButton, target: target)
+            toolbar.doneBarButton = done
+            items.append(done)
+        }
+        return items
     }
 }

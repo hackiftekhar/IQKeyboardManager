@@ -27,74 +27,68 @@ import UIKit
 @MainActor
 internal extension IQKeyboardResignHandler {
 
-    func removeTextInputViewObserverForResign() {
-        textInputViewObserver.unsubscribe(identifier: "TextInputViewObserverForResign")
+    func removeTextInputViewObserver() {
+        textInputViewObserver.unsubscribe(identifier: "IQKeyboardResignHandler")
     }
 
-    func addTextInputViewObserverForResign() {
-        textInputViewObserver.subscribe(identifier: "TextInputViewObserverForResign",
+    func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQKeyboardResignHandler",
                                         changeHandler: { [weak self] info in
             guard let self = self else { return }
             switch info.event {
             case .beginEditing:
-                resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
-                info.textInputView.window?.addGestureRecognizer(resignFirstResponderGesture)
+                resignGesture.isEnabled = privateResignOnTouchOutside()
+                info.textInputView.window?.addGestureRecognizer(resignGesture)
             case .endEditing:
-                info.textInputView.window?.removeGestureRecognizer(resignFirstResponderGesture)
+                info.textInputView.window?.removeGestureRecognizer(resignGesture)
             }
         })
     }
 
     func privateResignOnTouchOutside() -> Bool {
 
-        var isEnabled: Bool = resignOnTouchOutside
-
-        guard let textFieldView: UIView = textInputViewObserver.textInputView else {
-            return isEnabled
+        guard let textInputView: any IQTextInputView = textInputViewObserver.textInputView else {
+            return resignOnTouchOutside
         }
 
-        let enableMode: IQEnableMode = textFieldView.iq.resignOnTouchOutsideMode
-
-        if enableMode == .enabled {
-            isEnabled = true
-        } else if enableMode == .disabled {
-            isEnabled = false
-        } else if var textFieldViewController = textFieldView.iq.viewContainingController() {
+        switch textInputView.internalResignOnTouchOutsideMode {
+        case .default:
+            guard var controller = (textInputView as UIView).iq.viewContainingController() else {
+                return resignOnTouchOutside
+            }
 
             // If it is searchBar textField embedded in Navigation Bar
-            if textFieldView.iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = textFieldViewController as? UINavigationController,
+            if (textInputView as UIView).iq.textFieldSearchBar() != nil,
+               let navController: UINavigationController = controller as? UINavigationController,
                let topController: UIViewController = navController.topViewController {
-                textFieldViewController = topController
+                controller = topController
             }
 
-            // If viewController is kind of enable viewController class, then assuming resignOnTouchOutside is enabled.
-            if !isEnabled,
-               enabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
-                isEnabled = true
-            }
+            // If viewController is in enabledTouchResignedClasses, then assuming resignOnTouchOutside is enabled.
+            let isWithEnabledClass: Bool = enabledTouchResignedClasses.contains(where: { controller.isKind(of: $0) })
+            var isEnabled: Bool = resignOnTouchOutside || isWithEnabledClass
 
             if isEnabled {
 
-                // If viewController is kind of disable viewController class,
+                // If viewController is in disabledTouchResignedClasses,
                 // then assuming resignOnTouchOutside is disable.
-                if disabledTouchResignedClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
+                if disabledTouchResignedClasses.contains(where: { controller.isKind(of: $0) }) {
                     isEnabled = false
-                }
-
-                // Special Controllers
-                if isEnabled {
-
-                    let classNameString: String = "\(type(of: textFieldViewController.self))"
+                } else {
+                    let classNameString: String = "\(type(of: controller.self))"
 
                     // _UIAlertControllerTextFieldViewController
                     if classNameString.contains("UIAlertController"),
-                        classNameString.hasSuffix("TextFieldViewController") {
+                       classNameString.hasSuffix("TextFieldViewController") {
                         isEnabled = false
                     }
                 }
             }
+            return isEnabled
+        case .enabled:
+            return true
+        case .disabled:
+            return false
         }
-        return isEnabled
     }
 }

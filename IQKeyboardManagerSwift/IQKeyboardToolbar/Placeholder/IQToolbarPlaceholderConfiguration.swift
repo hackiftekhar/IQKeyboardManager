@@ -28,7 +28,7 @@ import UIKit
 @objc public final class IQToolbarPlaceholderConfiguration: NSObject {
 
     /**
-    If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
+     If YES, then it add the textInputView's placeholder text on IQToolbar. Default is YES.
     */
     @objc public var showPlaceholder: Bool = true
 

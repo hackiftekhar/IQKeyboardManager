@@ -28,7 +28,7 @@ import UIKit
 @MainActor
 @objc open class IQToolbar: UIToolbar {
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
 
         initialize()
@@ -167,10 +167,9 @@ import UIKit
     @objc override open var tintColor: UIColor! {
 
         didSet {
-            if let unwrappedItems: [UIBarButtonItem] = items {
-                for item in unwrappedItems {
-                    item.tintColor = tintColor
-                }
+            guard let items: [UIBarButtonItem] = items else { return }
+            for item in items {
+                item.tintColor = tintColor
             }
         }
     }
@@ -180,7 +179,7 @@ import UIKit
 @MainActor
 extension IQToolbar: UIInputViewAudioFeedback {
 
-    @objc public var enableInputClicksWhenVisible: Bool {
+    @objc open var enableInputClicksWhenVisible: Bool {
         return true
     }
 }

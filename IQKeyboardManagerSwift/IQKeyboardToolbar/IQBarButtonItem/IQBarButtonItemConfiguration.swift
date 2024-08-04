@@ -64,7 +64,7 @@ import UIKit
 
     @objc public override var accessibilityLabel: String? { didSet { } } // Accessibility related labels
 
-    public func apply(on oldBarButtonItem: IQBarButtonItem, target: AnyObject?) -> IQBarButtonItem {
+    @objc public func apply(on oldBarButtonItem: IQBarButtonItem, target: AnyObject?) -> IQBarButtonItem {
 
         var newBarButtonItem: IQBarButtonItem = oldBarButtonItem
 

@@ -1,5 +1,5 @@
 //
-//  IQUIScrollView+Additions.swift
+//  UIScrollView+IQKeyboardManagerExtension.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -33,10 +33,10 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIScrollView {
+public extension IQKeyboardExtension where Base: UIScrollView {
 
     /**
-     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textfield position.
+     If YES, then scrollview will ignore scrolling (simply not scroll it) for adjusting textInputView position.
      Default is NO.
      */
     var ignoreScrollingAdjustment: Bool {
@@ -74,7 +74,7 @@ public extension IQKeyboardManagerWrapper where Base: UIScrollView {
     }
 
     /**
-     To set customized distance from keyboard for textField/textView. Can't be less than zero
+     If we should restore scrollView contentOffset to it's initial position
      */
     var restoreContentOffset: Bool {
         get {

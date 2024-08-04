@@ -1,5 +1,5 @@
 //
-//  IQKeyboardReturnKeyHandler+TextViewDelegate.swift
+//  IQKeyboardReturnKeyHandler+UITextViewDelegate.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -276,7 +276,7 @@ extension IQKeyboardReturnKeyHandler {
     }
 }
 
-#if swift(>=5.9)
+#if swift(>=5.9)    // Xcode 15
 @available(iOS 17.0, *)
 @available(iOSApplicationExtension, unavailable)
 @MainActor

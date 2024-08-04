@@ -30,14 +30,14 @@ private struct AssociatedKeys {
 }
 
 /**
-UIView category for managing UITextField/UITextView
+ TextInputView category for managing touch resign
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManagerWrapper where Base: UIView {
+public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-     Override resigns Keyboard on touching outside of UITextField/View behavior for this particular textField.
+     Override resigns Keyboard on touching outside of TextInputView behavior for this particular textInputView.
      */
     var resignOnTouchOutsideMode: IQEnableMode {
         get {
@@ -52,6 +52,14 @@ public extension IQKeyboardManagerWrapper where Base: UIView {
                                          newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+internal extension IQTextInputView {
+    var internalResignOnTouchOutsideMode: IQEnableMode {
+        iq.resignOnTouchOutsideMode
     }
 }
 

@@ -27,17 +27,17 @@ import UIKit
 @MainActor
 @objc internal final class IQKeyboardResignHandler: NSObject {
 
-    let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
+    let textInputViewObserver: IQTextFieldViewListener = .init()
 
     /**
-    Resigns Keyboard on touching outside of UITextField/View. Default is NO.
+     Resigns Keyboard on touching outside of TextInputView. Default is NO.
     */
     @objc public var resignOnTouchOutside: Bool = false {
 
         didSet {
-            resignFirstResponderGesture.isEnabled = privateResignOnTouchOutside()
+            resignGesture.isEnabled = privateResignOnTouchOutside()
 
-//            showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "NO")")
+            IQKeyboardManager.shared.showLog("resignOnTouchOutside: \(resignOnTouchOutside ? "Yes" : "No")")
         }
     }
 
@@ -45,7 +45,7 @@ import UIKit
      It's a readonly property and exposed only for adding/removing dependencies
      if your added gesture does have collision with this one
      */
-    @objc public var resignFirstResponderGesture: UITapGestureRecognizer = .init()
+    @objc public var resignGesture: UITapGestureRecognizer = .init()
 
     /**
      Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
@@ -78,13 +78,13 @@ import UIKit
     @discardableResult
     @objc public func resignFirstResponder() -> Bool {
 
-        guard let textInputView: UIView = textInputViewObserver.textInputView else {
+        guard let textInputView: any IQTextInputView = textInputViewObserver.textInputView else {
             return false
         }
 
         // Resigning first responder
         guard textInputView.resignFirstResponder() else {
-//            showLog("Refuses to resign first responder: \(textFieldRetain)")
+//            showLog("Refuses to resign first responder: \(textInputView)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             // If it refuses to resign then becoming it first responder again for getting notifications callback.
             textInputView.becomeFirstResponder()
@@ -96,12 +96,12 @@ import UIKit
     @objc public override init() {
         super.init()
 
-        resignFirstResponderGesture.addTarget(self, action: #selector(self.tapRecognized(_:)))
-        resignFirstResponderGesture.cancelsTouchesInView = false
-        resignFirstResponderGesture.delegate = self
-        resignFirstResponderGesture.isEnabled = false
+        resignGesture.addTarget(self, action: #selector(self.tapRecognized(_:)))
+        resignGesture.cancelsTouchesInView = false
+        resignGesture.delegate = self
+        resignGesture.isEnabled = false
 
-        addTextInputViewObserverForResign()
+        addTextInputViewObserver()
     }
 }
 
@@ -114,7 +114,7 @@ extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
 
         if gesture.state == .ended {
 
-            // Resigning currently responder textField.
+            // Resigning currently responder textInputView.
             resignFirstResponder()
         }
     }
