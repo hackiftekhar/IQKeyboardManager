@@ -51,7 +51,7 @@ import Foundation
 
  `IQPreviousNextDisplayModeAlwaysShow`
  Always show nextPrevious buttons,
- if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
+ if there are more than 1 textInputView then both buttons will be visible but will be shown as disabled.
  */
 @available(iOSApplicationExtension, unavailable)
 @objc public enum IQPreviousNextDisplayMode: Int {

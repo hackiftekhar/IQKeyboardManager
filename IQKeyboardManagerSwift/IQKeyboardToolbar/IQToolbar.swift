@@ -23,7 +23,7 @@
 
 import UIKit
 
-/** @abstract   IQToolbar for IQKeyboardManager.    */
+/** @abstract   toolbar for IQKeyboardManager.    */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objc open class IQToolbar: UIToolbar {

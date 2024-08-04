@@ -1,5 +1,5 @@
 //
-//  IQKeyboardAppearanceManager.swift
+//  IQTextInputViewInfoModel.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,19 +25,31 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQKeyboardAppearanceManager: NSObject {
+internal final class IQTextInputViewInfoModel: NSObject {
 
-    let textInputViewObserver: IQTextFieldViewListener = .init()
+    weak var textFieldDelegate: (any UITextFieldDelegate)?
+    weak var textViewDelegate: (any UITextViewDelegate)?
+    weak var textInputView: (any IQTextInputView)?
+    let originalReturnKeyType: UIReturnKeyType
 
-    /**
-    Configuration related to keyboard appearance
-    */
-    var keyboardConfiguration: IQKeyboardConfiguration = .init()
+    @objc init(textInputView: any IQTextInputView) {
+        self.textInputView = textInputView
+        self.originalReturnKeyType = textInputView.returnKeyType
+        if let textInputView = textInputView as? UITextField {
+            self.textFieldDelegate = textInputView.delegate
+        } else if let textInputView = textInputView as? UITextView {
+            self.textViewDelegate = textInputView.delegate
+        }
 
-    @objc public override init() {
         super.init()
+    }
 
-        // Registering one time only
-        addTextInputViewObserverForAppearance()
+    func restore() {
+        textInputView?.returnKeyType = originalReturnKeyType
+        if let textInputView = textInputView as? UITextField {
+            textInputView.delegate = textFieldDelegate
+        } else if let textInputView = textInputView as? UITextView {
+            textInputView.delegate = textViewDelegate
+        }
     }
 }

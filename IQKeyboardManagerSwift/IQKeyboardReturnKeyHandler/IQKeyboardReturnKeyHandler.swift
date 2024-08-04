@@ -140,7 +140,7 @@ public extension IQKeyboardReturnKeyHandler {
 
     @param view object to unregister all it's responder subviews.
     */
-    @objc func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
+    @objc func removeResponderSubviews(of view: UIView, recursive: Bool) {
 
         let textInputViews: [any IQTextInputView] = view.responderSubviews(recursive: recursive)
 
@@ -240,6 +240,11 @@ extension IQKeyboardReturnKeyHandler {
     @available(*, deprecated, renamed: "addResponderSubviews(of:recursive:)")
     @objc func addResponderFromView(_ view: UIView, recursive: Bool = true) {
         addResponderSubviews(of: view, recursive: recursive)
+    }
+
+    @available(*, deprecated, renamed: "removeResponderSubviews(of:recursive:)")
+    @objc func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
+        removeResponderSubviews(of: view, recursive: recursive)
     }
 }
 

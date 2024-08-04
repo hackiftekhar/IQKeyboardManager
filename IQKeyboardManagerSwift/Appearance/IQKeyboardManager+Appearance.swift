@@ -46,10 +46,10 @@ public extension IQKeyboardManager {
     }
 
     /**
-    Configuration related to keyboard appearance
-    */
-     @objc var keyboardConfiguration: IQKeyboardConfiguration {
-         get { appearanceManager.keyboardConfiguration }
-         set { appearanceManager.keyboardConfiguration = newValue }
+     Configuration related to keyboard appearance
+     */
+    @objc var keyboardConfiguration: IQKeyboardConfiguration {
+        get { appearanceManager.keyboardConfiguration }
+        set { appearanceManager.keyboardConfiguration = newValue }
     }
 }

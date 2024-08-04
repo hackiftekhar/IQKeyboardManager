@@ -30,7 +30,7 @@ internal extension IQKeyboardToolbarManager {
     /**
     Default tag for toolbar with Done button   -1001
     */
-    private static let kIQToolbarTag = -1001
+    private static let toolbarTag = -1001
 
     // swiftlint:disable function_body_length
     /**
@@ -119,7 +119,7 @@ internal extension IQKeyboardToolbarManager {
                                         titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
         }
         // (Bug ID: #78)
-        textInputView.inputAccessoryView?.tag = IQKeyboardToolbarManager.kIQToolbarTag
+        textInputView.inputAccessoryView?.tag = IQKeyboardToolbarManager.toolbarTag
 
         Self.applyToolbarConfiguration(textInputView: textInputView, toolbarConfiguration: toolbarConfiguration)
     }
@@ -129,7 +129,7 @@ internal extension IQKeyboardToolbarManager {
     func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
 
         guard let toolbar: IQToolbar = textInputView.inputAccessoryView as? IQToolbar,
-              toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
+              toolbar.tag == IQKeyboardToolbarManager.toolbarTag else {
             return
         }
 
@@ -161,7 +161,7 @@ private extension IQKeyboardToolbarManager {
 
     static func hasUserDefinedInputAccessoryView(textInputView: some IQTextInputView) -> Bool {
         guard let inputAccessoryView: UIView = textInputView.inputAccessoryView,
-              inputAccessoryView.tag != IQKeyboardToolbarManager.kIQToolbarTag else { return false }
+              inputAccessoryView.tag != IQKeyboardToolbarManager.toolbarTag else { return false }
 
         let swiftUIAccessoryName: String = "InputAccessoryHost<InputAccessoryBar>"
         let classNameString: String = "\(type(of: inputAccessoryView.classForCoder))"

@@ -1,5 +1,5 @@
 //
-//  IQTextFieldViewInfoModel.swift
+//  IQKeyboardAppearanceManager+Internal.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,31 +25,26 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal final class IQTextInputViewInfoModel: NSObject {
+internal extension IQKeyboardAppearanceManager {
 
-    weak var textFieldDelegate: (any UITextFieldDelegate)?
-    weak var textViewDelegate: (any UITextViewDelegate)?
-    weak var textInputView: (any IQTextInputView)?
-    let originalReturnKeyType: UIReturnKeyType
-
-    @objc init(textInputView: any IQTextInputView) {
-        self.textInputView = textInputView
-        self.originalReturnKeyType = textInputView.returnKeyType
-        if let textInputView = textInputView as? UITextField {
-            self.textFieldDelegate = textInputView.delegate
-        } else if let textInputView = textInputView as? UITextView {
-            self.textViewDelegate = textInputView.delegate
-        }
-
-        super.init()
+    func removeTextInputViewObserver() {
+        textInputViewObserver.unsubscribe(identifier: "IQKeyboardAppearanceManager")
     }
 
-    func restore() {
-        textInputView?.returnKeyType = originalReturnKeyType
-        if let textInputView = textInputView as? UITextField {
-            textInputView.delegate = textFieldDelegate
-        } else if let textInputView = textInputView as? UITextView {
-            textInputView.delegate = textViewDelegate
-        }
+    func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQKeyboardAppearanceManager",
+                                             changeHandler: { [weak self] info in
+            guard let self = self else { return }
+            switch info.event {
+            case .beginEditing:
+                guard keyboardConfiguration.overrideAppearance,
+                      info.textInputView.keyboardAppearance != keyboardConfiguration.appearance else { return }
+
+                info.textInputView.keyboardAppearance = keyboardConfiguration.appearance
+                info.textInputView.reloadInputViews()
+            case .endEditing:
+                break
+            }
+        })
     }
 }

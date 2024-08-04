@@ -99,7 +99,7 @@ import UIKit
      Customized Invocation to be called when button is pressed.
      invocation is internally created using setTarget:action: method.
      */
-    @objc var invocation: IQInvocation? {
+    @objc open var invocation: IQInvocation? {
         didSet {
             // We have to put this condition here because if we override this function then
             // We were getting "Cannot override '_' which has been marked unavailable" in Xcode 15

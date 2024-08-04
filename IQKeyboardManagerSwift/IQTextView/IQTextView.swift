@@ -202,3 +202,7 @@ import UIKit
         return originalRect
     }
 }
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+extension IQTextView: IQPlaceholderable { }

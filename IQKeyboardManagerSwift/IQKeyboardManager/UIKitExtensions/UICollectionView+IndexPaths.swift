@@ -39,10 +39,7 @@ internal extension UICollectionView {
             }
         }
 
-        if previousRow >= 0, previousSection >= 0 {
-            return IndexPath(item: previousRow, section: previousSection)
-        } else {
-            return nil
-        }
+        guard previousRow >= 0, previousSection >= 0 else { return nil }
+        return IndexPath(item: previousRow, section: previousSection)
     }
 }

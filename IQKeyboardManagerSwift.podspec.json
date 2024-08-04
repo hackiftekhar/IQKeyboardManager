@@ -21,7 +21,93 @@
         "5.9"
     ],
     "source_files": [
-        "IQKeyboardManagerSwift/**/*.{swift}"
+        "IQKeyboardManagerSwift/IQKeyboardCore/**/*.{swift}",
+        "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
+        "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
+        "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
+    ],
+    "subspecs": [
+        {
+            "name": "Appearance",
+            "source_files": [
+                "IQKeyboardManagerSwift/Appearance/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "IQKeyboardReturnKeyHandler",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "IQKeyboardToolbarManager",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
+            ],
+            "subspecs": [
+                {
+                    "name": "IQKeyboardToolbar",
+                    "source_files": [
+                        "IQKeyboardManagerSwift/IQKeyboardToolbar/**/*.{swift}"
+                    ],
+                    "platforms":{
+                        "ios":"13.0"
+                    },
+                    "frameworks": [
+                        "UIKit"
+                    ]
+                }
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "IQTextView",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        },
+        {
+            "name": "Resign",
+            "source_files": [
+                "IQKeyboardManagerSwift/Resign/**/*.{swift}"
+            ],
+            "platforms":{
+                "ios":"13.0"
+            },
+            "frameworks": [
+                "UIKit"
+            ]
+        }
+    ],
+    "default_subspecs": [
+        "Appearance",
+        "IQKeyboardReturnKeyHandler",
+        "IQKeyboardToolbarManager",
+        "IQTextView",
+        "Resign"
     ],
     "resource_bundles": {"IQKeyboardManagerSwift": "IQKeyboardManagerSwift/PrivacyInfo.xcprivacy"},
     "frameworks": [

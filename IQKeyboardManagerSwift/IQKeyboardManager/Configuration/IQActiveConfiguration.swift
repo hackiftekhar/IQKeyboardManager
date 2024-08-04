@@ -27,8 +27,8 @@ import UIKit
 @MainActor
 @objc internal final class IQActiveConfiguration: NSObject {
 
-    private let keyboardObserver: IQKeyboardListener = IQKeyboardListener()
-    private let textInputViewObserver: IQTextFieldViewListener = IQTextFieldViewListener()
+    private let keyboardObserver: IQKeyboardListener = .init()
+    private let textInputViewObserver: IQTextFieldViewListener = .init()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 

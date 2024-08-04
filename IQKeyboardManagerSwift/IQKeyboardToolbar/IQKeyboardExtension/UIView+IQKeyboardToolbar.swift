@@ -38,7 +38,7 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
     // MARK: Toolbar
 
     /**
-     IQToolbar references for better customization control.
+     Toolbar references for better customization control.
      */
     var toolbar: IQToolbar {
         var toolbar: IQToolbar? = base?.inputAccessoryView as? IQToolbar

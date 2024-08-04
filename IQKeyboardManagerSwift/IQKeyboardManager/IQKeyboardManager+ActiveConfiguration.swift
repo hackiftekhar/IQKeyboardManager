@@ -31,6 +31,7 @@ internal extension IQKeyboardManager {
     func addActiveConfigurationObserver() {
         activeConfiguration.subscribe(identifier: "IQKeyboardManager", changeHandler: { [weak self] event, _, _ in
             guard let self = self else { return }
+
             switch event {
             case .show:
                 self.handleKeyboardTextInputViewVisible()
@@ -43,6 +44,7 @@ internal extension IQKeyboardManager {
     }
 
     private func handleKeyboardTextInputViewVisible() {
+        
         do {
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,

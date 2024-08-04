@@ -1,5 +1,5 @@
 //
-//  IQKeyboardToolbarManager
+//  IQKeyboardToolbarManager.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -34,7 +34,7 @@ import UIKit
     }
 
     /**
-     Automatic add the IQToolbar functionality. Default is YES.
+     Automatic add the toolbar functionality. Default is YES.
      */
     @objc public var enable: Bool = true {
         didSet {
@@ -90,7 +90,7 @@ import UIKit
     @objc internal override init() {
         super.init()
 
-        addTextInputViewObserverForToolbar()
+        addTextInputViewObserver()
 
         // (Bug ID: #550)
         // Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
@@ -111,13 +111,13 @@ import UIKit
 @MainActor
 private extension IQKeyboardToolbarManager {
 
-    private func removeTextInputViewObserverForToolbar() {
-        textInputViewObserver.unsubscribe(identifier: "TextInputViewObserverForToolbar")
+    private func removeTextInputViewObserver() {
+        textInputViewObserver.unsubscribe(identifier: "IQKeyboardToolbarManager")
     }
 
-    private func addTextInputViewObserverForToolbar() {
-        textInputViewObserver.subscribe(identifier: "TextInputViewObserverForToolbar",
-                                             changeHandler: { [weak self] info in
+    private func addTextInputViewObserver() {
+        textInputViewObserver.subscribe(identifier: "IQKeyboardToolbarManager",
+                                        changeHandler: { [weak self] info in
             guard let self = self else { return }
             guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
@@ -125,7 +125,7 @@ private extension IQKeyboardToolbarManager {
 
             switch info.event {
             case .beginEditing:
-                self.reloadInputViews()
+                reloadInputViews()
             case .endEditing:
                 removeToolbarIfRequired(of: info.textInputView)
             }

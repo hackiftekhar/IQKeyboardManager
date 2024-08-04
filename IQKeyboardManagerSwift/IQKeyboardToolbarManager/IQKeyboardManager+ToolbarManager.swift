@@ -45,8 +45,13 @@ public extension IQKeyboardManager {
         return object
     }
 
+    @objc var enableToolbarDebugging: Bool {
+        get { toolbarManager.enableDebugging }
+        set { toolbarManager.enableDebugging = newValue }
+    }
+
     /**
-    Automatic add the IQToolbar functionality. Default is YES.
+    Automatic add the toolbar functionality. Default is YES.
     */
     @objc var enableAutoToolbar: Bool {
         get { toolbarManager.enable }

@@ -34,7 +34,6 @@ public extension IQKeyboardManager {
     }
 }
 
-// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManager {
@@ -52,6 +51,7 @@ public extension IQKeyboardManager {
     }
 }
 
+// swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardManager {

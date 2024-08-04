@@ -70,10 +70,10 @@ public struct IQKeyboardInfo: Equatable {
 
     public var frame: CGRect { endFrame }
 
-    /** To save keyboard animation duration. */
+    /// `UIKeyboardAnimationDurationUserInfoKey`.
     public let animationDuration: TimeInterval
 
-    /** To mimic the keyboard animation */
+    /// `UIKeyboardAnimationCurveUserInfoKey`.
     public let animationCurve: UIView.AnimationCurve
 
     public var animationOptions: UIView.AnimationOptions {

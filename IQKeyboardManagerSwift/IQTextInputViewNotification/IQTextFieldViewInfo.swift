@@ -36,6 +36,15 @@ public struct IQTextFieldViewInfo: Equatable {
     @objc public enum Event: Int {
         case beginEditing
         case endEditing
+
+        public var name: String {
+            switch self {
+            case .beginEditing:
+                return "BeginEditing"
+            case .endEditing:
+                return "EndEditing"
+            }
+        }
     }
 
     public let event: Event

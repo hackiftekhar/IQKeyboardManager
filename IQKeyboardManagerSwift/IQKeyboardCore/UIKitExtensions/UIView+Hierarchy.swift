@@ -24,8 +24,8 @@
 import UIKit
 
 /**
-UIView hierarchy category.
-*/
+ UIView hierarchy category.
+ */
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -118,10 +118,10 @@ public extension IQKeyboardExtension where Base: UIView {
                     // If it's not UITableViewWrapperView class,
                     // this is internal class which is actually manage in UITableview.
                     // The speciality of this class is that it's superview is UITableView.
-                    // If it's not UITableViewCellScrollView class, 
+                    // If it's not UITableViewCellScrollView class,
                     // this is internal class which is actually manage in UITableviewCell.
                     // The speciality of this class is that it's superview is UITableViewCell.
-                    // If it's not _UIQueuingScrollView class, 
+                    // If it's not _UIQueuingScrollView class,
                     // actually we validate for _ prefix which usually used by Apple internal classes
                     if !(aSuperview.superview is UITableView),
                         !(aSuperview.superview is UITableViewCell),

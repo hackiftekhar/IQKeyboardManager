@@ -1,5 +1,5 @@
 //
-//  IQKeyboardAppearanceManager+Internal.swift
+//  IQKeyboardAppearanceManager.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,26 +25,19 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension IQKeyboardAppearanceManager {
+@objc internal final class IQKeyboardAppearanceManager: NSObject {
 
-    func removeTextInputViewObserverForAppearance() {
-        textInputViewObserver.unsubscribe(identifier: "IQKeyboardAppearanceManager")
-    }
+    let textInputViewObserver: IQTextFieldViewListener = .init()
 
-    func addTextInputViewObserverForAppearance() {
-        textInputViewObserver.subscribe(identifier: "IQKeyboardAppearanceManager",
-                                             changeHandler: { [weak self] info in
-            guard let self = self else { return }
-            switch info.event {
-            case .beginEditing:
-                guard keyboardConfiguration.overrideAppearance,
-                      info.textInputView.keyboardAppearance != keyboardConfiguration.appearance else { return }
+    /**
+    Configuration related to keyboard appearance
+    */
+    var keyboardConfiguration: IQKeyboardConfiguration = .init()
 
-                info.textInputView.keyboardAppearance = keyboardConfiguration.appearance
-                info.textInputView.reloadInputViews()
-            case .endEditing:
-                break
-            }
-        })
+    @objc public override init() {
+        super.init()
+
+        // Registering one time only
+        addTextInputViewObserver()
     }
 }
