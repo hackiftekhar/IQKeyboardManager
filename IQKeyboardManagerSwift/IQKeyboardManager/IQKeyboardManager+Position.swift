@@ -115,11 +115,9 @@ public extension IQKeyboardManager {
         }
 
         showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
 
         defer {
-            let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            showLog("<<<<< \(#function) ended <<<<<", indentation: -1)
         }
 
         let rootController: UIViewController = rootConfiguration.rootController
@@ -212,12 +210,10 @@ public extension IQKeyboardManager {
         guard let configuration: IQRootControllerConfiguration = activeConfiguration.rootConfiguration else {
             return
         }
-        let startTime: CFTimeInterval = CACurrentMediaTime()
         showLog(">>>>> \(#function) started >>>>>", indentation: 1)
 
         defer {
-            let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            showLog("<<<<< \(#function) ended <<<<<", indentation: -1)
         }
 
         activeConfiguration.animate(alongsideTransition: {

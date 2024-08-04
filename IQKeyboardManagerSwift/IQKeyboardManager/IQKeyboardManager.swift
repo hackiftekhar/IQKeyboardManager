@@ -25,13 +25,6 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 import IQKeyboardCore
-import Combine
-
-// swiftlint:disable line_length
-// A generic version of KeyboardManagement. (OLD DOCUMENTATION) LINK
-// https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
-// https://developer.apple.com/documentation/uikit/keyboards_and_input/adjusting_your_layout_with_keyboard_layout_guide
-// swiftlint:enable line_length
 
 /**
 Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover TextInputView.

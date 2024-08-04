@@ -30,8 +30,8 @@ import IQKeyboardCore
 @MainActor
 @objc internal final class IQActiveConfiguration: NSObject {
 
-    private let keyboardObserver: IQKeyboardNotification = IQKeyboardNotification()
-    private let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
+    private let keyboardObserver: IQKeyboardNotification = .init()
+    private let textInputViewObserver: IQTextInputViewNotification = .init()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 

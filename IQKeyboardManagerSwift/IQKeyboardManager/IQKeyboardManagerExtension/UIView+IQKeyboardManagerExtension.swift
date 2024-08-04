@@ -34,12 +34,12 @@ private struct AssociatedKeys {
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 extension UIView {
-    nonisolated public static let defaultKeyboardDistance: CGFloat = CGFloat.greatestFiniteMagnitude
+    nonisolated public static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 }
 
 @available(iOSApplicationExtension, unavailable)
 @available(*, unavailable, renamed: "UIView.defaultKeyboardDistance")
-nonisolated public let kIQUseDefaultKeyboardDistance = CGFloat.greatestFiniteMagnitude
+nonisolated public let kIQUseDefaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 
 /**
  TextInputView category for managing distance handling
