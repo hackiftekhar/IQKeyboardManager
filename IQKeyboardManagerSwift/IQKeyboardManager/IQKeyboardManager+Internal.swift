@@ -77,3 +77,11 @@ internal extension IQKeyboardManager {
         }
     }
 }
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalEnableMode: IQEnableMode {
+        return iq.enableMode
+    }
+}

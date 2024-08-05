@@ -87,14 +87,6 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
     }
 }
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-internal extension IQTextInputView {
-    var internalEnableMode: IQEnableMode {
-        return iq.enableMode
-    }
-}
-
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 @MainActor

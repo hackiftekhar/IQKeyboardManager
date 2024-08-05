@@ -38,7 +38,6 @@ import UIKit
     @objc public var appearance: UIKeyboardAppearance = .default
 }
 
-
 @available(*, unavailable, renamed: "IQKeyboardAppearanceConfiguration")
 @MainActor
 @objc public final class IQKeyboardConfiguration: NSObject {}

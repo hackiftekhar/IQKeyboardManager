@@ -93,3 +93,11 @@ internal extension IQKeyboardResignHandler {
         }
     }
 }
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalResignOnTouchOutsideMode: IQEnableMode {
+        iq.resignOnTouchOutsideMode
+    }
+}
