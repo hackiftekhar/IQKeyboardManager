@@ -166,6 +166,8 @@ private extension IQKeyboardExtension where Base: IQTextInputView {
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
+@MainActor
 fileprivate extension IQTextInputView {
     var internalIgnoreSwitchingByNextPrevious: Bool {
         return iq.ignoreSwitchingByNextPrevious

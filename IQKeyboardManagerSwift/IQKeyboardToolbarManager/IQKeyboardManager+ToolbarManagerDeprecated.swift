@@ -46,7 +46,7 @@ public extension IQKeyboardManager {
         set { }
     }
 
-    @available(*, unavailable, renamed: "toolbarConfiguration.useTextFieldTintColor")
+    @available(*, unavailable, renamed: "toolbarConfiguration.useTextInputViewTintColor")
     @objc var shouldToolbarUsesTextFieldTintColor: Bool {
         get { false }
         set { }
