@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 /**
 UIView.subviews sorting category.

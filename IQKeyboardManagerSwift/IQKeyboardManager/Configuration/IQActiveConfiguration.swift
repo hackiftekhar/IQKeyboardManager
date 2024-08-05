@@ -22,13 +22,16 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
+import IQKeyboardNotification
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objc internal final class IQActiveConfiguration: NSObject {
 
-    private let keyboardObserver: IQKeyboardListener = .init()
-    private let textInputViewObserver: IQTextFieldViewListener = .init()
+    private let keyboardObserver: IQKeyboardNotification = .init()
+    private let textInputViewObserver: IQTextInputViewNotification = .init()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
 
@@ -90,7 +93,7 @@ import UIKit
         }
     }
 
-    private func updateRootController(info: IQTextFieldViewInfo?) {
+    private func updateRootController(info: IQTextInputViewInfo?) {
 
         guard let textInputView: UIView = info?.textInputView,
               let controller: UIViewController = textInputView.iq.parentContainerViewController() else {
@@ -168,7 +171,7 @@ extension IQActiveConfiguration {
 @MainActor
 extension IQActiveConfiguration {
 
-    var textInputViewInfo: IQTextFieldViewInfo? {
+    var textInputViewInfo: IQTextInputViewInfo? {
         guard textInputViewObserver.textInputView?.iq.isAlertViewTextField() == false else {
             return nil
         }
@@ -200,7 +203,7 @@ extension IQActiveConfiguration {
 
     typealias ConfigurationCompletion = (_ event: Event,
                                          _ keyboardInfo: IQKeyboardInfo,
-                                         _ textInputViewInfo: IQTextFieldViewInfo?) -> Void
+                                         _ textInputViewInfo: IQTextInputViewInfo?) -> Void
 
     func subscribe(identifier: AnyHashable, changeHandler: @escaping ConfigurationCompletion) {
         changeObservers[identifier] = changeHandler
@@ -210,7 +213,7 @@ extension IQActiveConfiguration {
         changeObservers[identifier] = nil
     }
 
-    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textInputViewInfo: IQTextFieldViewInfo?) {
+    private func notify(event: Event, keyboardInfo: IQKeyboardInfo, textInputViewInfo: IQTextInputViewInfo?) {
         lastEvent = event
 
         for block in changeObservers.values {

@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -73,5 +74,13 @@ internal extension IQKeyboardManager {
         case .disabled:
             return false
         }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalEnableMode: IQEnableMode {
+        return iq.enableMode
     }
 }

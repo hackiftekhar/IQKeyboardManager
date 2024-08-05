@@ -22,12 +22,14 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objc internal final class IQKeyboardResignHandler: NSObject {
 
-    let textInputViewObserver: IQTextFieldViewListener = .init()
+    let textInputViewObserver: IQTextInputViewNotification = .init()
 
     /**
      Resigns Keyboard on touching outside of TextInputView. Default is NO.

@@ -22,12 +22,14 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objc internal final class IQKeyboardToolbarManager: NSObject {
 
-    private let textInputViewObserver: IQTextFieldViewListener = .init()
+    private let textInputViewObserver: IQTextInputViewNotification = .init()
 
     internal var textInputView: (some IQTextInputView)? {
         textInputViewObserver.textInputView

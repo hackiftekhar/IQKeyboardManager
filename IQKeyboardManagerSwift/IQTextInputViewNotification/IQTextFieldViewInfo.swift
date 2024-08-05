@@ -22,8 +22,12 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
+// swiftlint:disable line_length
+@available(*, deprecated, message: "Please use `IQTextInputViewNotification` independently from https://github.com/hackiftekhar/IQTextInputViewNotification. IQTextFieldViewListener will be removed from this library in future release.")
+// swiftlint:enable line_length
 @MainActor
 public struct IQTextFieldViewInfo: Equatable {
 
@@ -59,11 +63,8 @@ public struct IQTextFieldViewInfo: Equatable {
         self.event = event
         textInputView = view
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public extension IQTextFieldViewInfo {
+    // MARK: Deprecated
 
     @available(*, deprecated, renamed: "event")
     var name: Event { event }

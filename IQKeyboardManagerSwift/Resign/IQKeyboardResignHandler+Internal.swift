@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -90,5 +91,13 @@ internal extension IQKeyboardResignHandler {
         case .disabled:
             return false
         }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalResignOnTouchOutsideMode: IQEnableMode {
+        iq.resignOnTouchOutsideMode
     }
 }

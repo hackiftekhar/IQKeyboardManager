@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 // swiftlint:disable file_length
 @available(iOSApplicationExtension, unavailable)

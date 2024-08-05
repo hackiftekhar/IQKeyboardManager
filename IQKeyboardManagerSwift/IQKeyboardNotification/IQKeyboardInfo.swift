@@ -24,7 +24,10 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-public struct IQKeyboardInfo: Equatable {
+// swiftlint:disable line_length
+@available(*, deprecated, message: "Please use `IQKeyboardNotification` independently from https://github.com/hackiftekhar/IQKeyboardNotification. IQKeyboardListener will be removed from this library in future release.")
+// swiftlint:enable line_length
+public struct IQKeyboardInfoDeprecated: Equatable {
     nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.event == rhs.event &&
         lhs.endFrame.equalTo(rhs.endFrame)
@@ -163,11 +166,8 @@ public struct IQKeyboardInfo: Equatable {
         })
 //        }
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-private extension IQKeyboardInfo {
-    static func getKeyboardFrame(of rect: CGRect, inScreenBounds screenBounds: CGRect) -> CGRect {
+    private static func getKeyboardFrame(of rect: CGRect, inScreenBounds screenBounds: CGRect) -> CGRect {
         var finalFrame: CGRect = rect
         // If this is floating keyboard
         if finalFrame.width < screenBounds.width,
@@ -183,10 +183,8 @@ private extension IQKeyboardInfo {
 
         return finalFrame
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-public extension IQKeyboardInfo {
+    // MARK: Deprecated
 
     @available(*, deprecated, renamed: "event")
     var name: Event { event }

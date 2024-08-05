@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
@@ -181,15 +182,28 @@ internal extension IQKeyboardToolbarManager {
 @MainActor
 private extension IQKeyboardToolbarManager {
     private static func sendInvokeAction(of barButton: IQBarButtonItem, sender: some IQTextInputView) {
-        var invocation: IQInvocation? = barButton.invocation
-
-        var sender: any IQTextInputView = sender
         // Handling search bar special case
-        if let searchBar: UISearchBar = (sender as UIView).iq.textFieldSearchBar() {
-            invocation = searchBar.iq.toolbar.nextBarButton.invocation
-            sender = searchBar
+        if let searchBar: UISearchBar = sender.iq.textFieldSearchBar() {
+            switch barButton {
+            case sender.internalToolbar.nextBarButton:
+                searchBar.internalToolbar.nextBarButton.invocation?.invoke(from: searchBar)
+            case sender.internalToolbar.previousBarButton:
+                searchBar.internalToolbar.previousBarButton.invocation?.invoke(from: searchBar)
+            case sender.internalToolbar.doneBarButton:
+                searchBar.internalToolbar.doneBarButton.invocation?.invoke(from: searchBar)
+            default:
+                break
+            }
+        } else {
+            barButton.invocation?.invoke(from: sender)
         }
+    }
+}
 
-        invocation?.invoke(from: sender)
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalToolbar: IQToolbar {
+        return iq.toolbar
     }
 }
