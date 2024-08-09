@@ -25,14 +25,14 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
         static var resignHandler: Int = 0
     }
 
-    @objc internal var resignHandler: IQKeyboardResignHandler {
+    internal var resignHandler: IQKeyboardResignHandler {
         if let object = objc_getAssociatedObject(self, &AssociatedKeys.resignHandler)
             as? IQKeyboardResignHandler {
             return object
@@ -48,7 +48,7 @@ public extension IQKeyboardManager {
     /**
      Resigns Keyboard on touching outside TextInputView. Default is NO.
      */
-    @objc var resignOnTouchOutside: Bool {
+    var resignOnTouchOutside: Bool {
         get { resignHandler.resignOnTouchOutside }
         set { resignHandler.resignOnTouchOutside = newValue }
     }
@@ -57,7 +57,7 @@ public extension IQKeyboardManager {
      It's a readonly property and exposed only for adding/removing dependencies
      if your added gesture does have collision with this one
      */
-    @objc var resignGesture: UITapGestureRecognizer {
+    var resignGesture: UITapGestureRecognizer {
         get { resignHandler.resignGesture }
         set { resignHandler.resignGesture = newValue }
     }
@@ -65,7 +65,7 @@ public extension IQKeyboardManager {
     /**
      Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
      */
-    @objc var disabledTouchResignedClasses: [UIViewController.Type] {
+    var disabledTouchResignedClasses: [UIViewController.Type] {
         get { resignHandler.disabledTouchResignedClasses }
         set { resignHandler.disabledTouchResignedClasses = newValue }
     }
@@ -75,7 +75,7 @@ public extension IQKeyboardManager {
      Class should be kind of UIViewController
      . If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
-    @objc var enabledTouchResignedClasses: [UIViewController.Type] {
+    var enabledTouchResignedClasses: [UIViewController.Type] {
         get { resignHandler.enabledTouchResignedClasses }
         set { resignHandler.enabledTouchResignedClasses = newValue }
     }
@@ -85,7 +85,7 @@ public extension IQKeyboardManager {
      to not recognize gesture touches on some specific view subclasses.
      Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
-    @objc var touchResignedGestureIgnoreClasses: [UIView.Type] {
+    var touchResignedGestureIgnoreClasses: [UIView.Type] {
         get { resignHandler.touchResignedGestureIgnoreClasses }
         set { resignHandler.touchResignedGestureIgnoreClasses = newValue }
     }
@@ -94,7 +94,7 @@ public extension IQKeyboardManager {
      Resigns currently first responder field.
      */
     @discardableResult
-    @objc func resignFirstResponder() -> Bool {
+    func resignFirstResponder() -> Bool {
         resignHandler.resignFirstResponder()
     }
 }

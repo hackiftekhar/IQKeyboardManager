@@ -25,10 +25,10 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @available(*, deprecated, renamed: "keyboardDistance")
-    @objc var keyboardDistanceFromTextField: CGFloat {
+    var keyboardDistanceFromTextField: CGFloat {
         get { keyboardDistance }
         set { keyboardDistance = newValue }
     }
@@ -36,38 +36,38 @@ public extension IQKeyboardManager {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
-    @objc func registerTextFieldViewClass(_ aClass: UIView.Type,
-                                          didBeginEditingNotificationName: String,
-                                          didEndEditingNotificationName: String) {
+    func registerTextFieldViewClass(_ aClass: UIView.Type,
+                                    didBeginEditingNotificationName: String,
+                                    didEndEditingNotificationName: String) {
     }
 
     @available(*, unavailable, message: "This feature has been removed due to few compatibility problems")
-    @objc func unregisterTextFieldViewClass(_ aClass: UIView.Type,
-                                            didBeginEditingNotificationName: String,
-                                            didEndEditingNotificationName: String) {
+    func unregisterTextFieldViewClass(_ aClass: UIView.Type,
+                                      didBeginEditingNotificationName: String,
+                                      didEndEditingNotificationName: String) {
     }
 }
 
 // swiftlint:disable line_length
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     typealias SizeBlock = (_ size: CGSize) -> Void
 
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {}
+    func registerKeyboardSizeChange(identifier: AnyHashable, sizeHandler: @escaping SizeBlock) {}
 
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc func unregisterKeyboardSizeChange(identifier: AnyHashable) {}
+    func unregisterKeyboardSizeChange(identifier: AnyHashable) {}
 
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc var keyboardShowing: Bool { false }
+    var keyboardShowing: Bool { false }
 
     @available(*, unavailable, message: "This feature has been moved to IQKeyboardListener, use it directly by creating new instance")
-    @objc var keyboardFrame: CGRect { .zero }
+    var keyboardFrame: CGRect { .zero }
 }
 // swiftlint:enable line_length

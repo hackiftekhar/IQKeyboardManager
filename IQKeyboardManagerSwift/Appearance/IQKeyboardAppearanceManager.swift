@@ -26,7 +26,7 @@ import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQKeyboardAppearanceManager: NSObject {
+@objcMembers internal final class IQKeyboardAppearanceManager: NSObject {
 
     let textInputViewObserver: IQTextInputViewNotification = .init()
 
@@ -35,7 +35,7 @@ import IQTextInputViewNotification
     */
     var keyboardConfiguration: IQKeyboardConfiguration = .init()
 
-    @objc public override init() {
+    public override init() {
         super.init()
 
         // Registering one time only

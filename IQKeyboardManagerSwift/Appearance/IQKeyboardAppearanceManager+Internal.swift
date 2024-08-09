@@ -33,15 +33,15 @@ internal extension IQKeyboardAppearanceManager {
 
     func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQKeyboardAppearanceManager",
-                                             changeHandler: { [weak self] info in
+                                        changeHandler: { [weak self] event, textInputView in
             guard let self = self else { return }
-            switch info.event {
+            switch event {
             case .beginEditing:
                 guard keyboardConfiguration.overrideAppearance,
-                      info.textInputView.keyboardAppearance != keyboardConfiguration.appearance else { return }
+                      textInputView.keyboardAppearance != keyboardConfiguration.appearance else { return }
 
-                info.textInputView.keyboardAppearance = keyboardConfiguration.appearance
-                info.textInputView.reloadInputViews()
+                textInputView.keyboardAppearance = keyboardConfiguration.appearance
+                textInputView.reloadInputViews()
             case .endEditing:
                 break
             }

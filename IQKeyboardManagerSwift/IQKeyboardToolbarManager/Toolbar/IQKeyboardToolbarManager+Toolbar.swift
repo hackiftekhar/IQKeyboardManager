@@ -26,6 +26,22 @@ import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
+@objc internal extension IQKeyboardToolbarManager {
+    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    func reloadInputViews() {
+
+        guard let textInputView = textInputView else { return }
+        // If enabled then adding toolbar.
+        if privateIsEnableAutoToolbar(of: textInputView) {
+            self.addToolbarIfRequired(of: textInputView)
+        } else {
+            self.removeToolbarIfRequired(of: textInputView)
+        }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardToolbarManager {
 
     /**
@@ -143,18 +159,6 @@ internal extension IQKeyboardToolbarManager {
         }
 
         textInputView.inputAccessoryView = nil
-    }
-
-    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
-    @objc func reloadInputViews() {
-
-        guard let textInputView = textInputView else { return }
-        // If enabled then adding toolbar.
-        if privateIsEnableAutoToolbar(of: textInputView) {
-            self.addToolbarIfRequired(of: textInputView)
-        } else {
-            self.removeToolbarIfRequired(of: textInputView)
-        }
     }
 }
 

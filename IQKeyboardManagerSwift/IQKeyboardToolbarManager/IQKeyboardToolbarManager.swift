@@ -27,7 +27,7 @@ import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQKeyboardToolbarManager: NSObject {
+@objcMembers internal final class IQKeyboardToolbarManager: NSObject {
 
     private let textInputViewObserver: IQTextInputViewNotification = .init()
 
@@ -38,32 +38,32 @@ import IQTextInputViewNotification
     /**
      Automatic add the toolbar functionality. Default is YES.
      */
-    @objc public var enable: Bool = true {
+    public var enable: Bool = true {
         didSet {
             reloadInputViews()
             showLog("enable: \(enable ? "Yes" : "NO")")
         }
     }
 
-    @objc public var enableDebugging: Bool = false
+    public var enableDebugging: Bool = false
 
     /**
      Configurations related to the toolbar display over the keyboard.
      */
-    @objc public let toolbarConfiguration: IQToolbarConfiguration = .init()
+    public let toolbarConfiguration: IQToolbarConfiguration = .init()
 
     // MARK: UISound handling
 
     /**
      If YES, then it plays inputClick sound on next/previous/done click.
      */
-    @objc public var playInputClicks: Bool = true
+    public var playInputClicks: Bool = true
 
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes.
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledToolbarClasses: [UIViewController.Type] = [
+    public var disabledToolbarClasses: [UIViewController.Type] = [
         UIAlertController.self,
         UIInputViewController.self
     ]
@@ -73,14 +73,14 @@ import IQTextInputViewNotification
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
-    @objc public var enabledToolbarClasses: [UIViewController.Type] = []
+    public var enabledToolbarClasses: [UIViewController.Type] = []
 
     /**
      Allowed subclasses of UIView to add all inner textInputView,
      this will allow to navigate between textInputView contains in different superview.
      Class should be kind of UIView.
      */
-    @objc public var deepResponderAllowedContainerClasses: [UIView.Type] = [
+    public var deepResponderAllowedContainerClasses: [UIView.Type] = [
         UITableView.self,
         UICollectionView.self,
         IQDeepResponderContainerView.self,
@@ -89,7 +89,7 @@ import IQTextInputViewNotification
 
     internal var logIndentation = 0
 
-    @objc internal override init() {
+    internal override init() {
         super.init()
 
         addTextInputViewObserver()
@@ -119,17 +119,17 @@ private extension IQKeyboardToolbarManager {
 
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQKeyboardToolbarManager",
-                                        changeHandler: { [weak self] info in
+                                        changeHandler: { [weak self] event, textInputView in
             guard let self = self else { return }
-            guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
+            guard (textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 
-            switch info.event {
+            switch event {
             case .beginEditing:
                 reloadInputViews()
             case .endEditing:
-                removeToolbarIfRequired(of: info.textInputView)
+                removeToolbarIfRequired(of: textInputView)
             }
         })
     }

@@ -25,9 +25,9 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQTitleBarButtonItem: IQBarButtonItem {
+@objcMembers open class IQTitleBarButtonItem: IQBarButtonItem {
 
-    @objc open var titleFont: UIFont? {
+    open var titleFont: UIFont? {
 
         didSet {
             if let titleFont: UIFont = titleFont {
@@ -38,7 +38,7 @@ import UIKit
         }
     }
 
-    @objc override open var title: String? {
+    override open var title: String? {
         didSet {
             titleButton?.setTitle(title, for: .normal)
             updateAccessibility()
@@ -48,7 +48,7 @@ import UIKit
     /**
      titleColor to be used for displaying button text when displaying title (disabled state).
      */
-    @objc open var titleColor: UIColor? {
+    open var titleColor: UIColor? {
 
         didSet {
 
@@ -63,7 +63,7 @@ import UIKit
     /**
      selectableTitleColor to be used for displaying button text when button is enabled.
      */
-    @objc open var selectableTitleColor: UIColor? {
+    open var selectableTitleColor: UIColor? {
 
         didSet {
 
@@ -82,7 +82,7 @@ import UIKit
         super.init()
     }
 
-    @objc public convenience init(title: String?) {
+    public convenience init(title: String?) {
 
         self.init(title: nil, style: .plain, target: nil, action: nil)
 
@@ -139,7 +139,7 @@ import UIKit
         customView = _titleView
     }
 
-    @objc required public init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 

@@ -26,7 +26,7 @@ import UIKit
 // MARK: Debugging & Developer options
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
@@ -34,7 +34,7 @@ public extension IQKeyboardManager {
         static var logIndentation: Int = 0
     }
 
-    @objc var enableDebugging: Bool {
+    var enableDebugging: Bool {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
         }

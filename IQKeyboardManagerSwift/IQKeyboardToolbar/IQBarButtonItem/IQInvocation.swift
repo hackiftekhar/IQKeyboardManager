@@ -25,16 +25,16 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQInvocation: NSObject {
-    @objc public weak var target: AnyObject?
-    @objc public var action: Selector
+@objcMembers public final class IQInvocation: NSObject {
+    public weak var target: AnyObject?
+    public let action: Selector
 
-    @objc public init(_ target: AnyObject, _ action: Selector) {
+    public init(_ target: AnyObject, _ action: Selector) {
         self.target = target
         self.action = action
     }
 
-    @objc public func invoke(from: Any) {
+    public func invoke(from: Any) {
 
         guard let target: AnyObject = target else { return }
         UIApplication.shared.sendAction(action, to: target, from: from, for: UIEvent())

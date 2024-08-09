@@ -105,7 +105,7 @@ internal extension IQKeyboardManager {
 
     func setupTextInputView() {
 
-        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView = activeConfiguration.textInputView else {
             return
         }
 
@@ -127,7 +127,7 @@ internal extension IQKeyboardManager {
 
     func banishTextInputViewSetup() {
 
-        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView = activeConfiguration.textInputView else {
             return
         }
 

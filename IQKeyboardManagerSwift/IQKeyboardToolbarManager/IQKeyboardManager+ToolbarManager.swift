@@ -29,14 +29,14 @@ import UIKit
             message: "Please disable Toolbar using `IQKeyboardManager.shared.enableAutoToolbar = false` and use `IQKeyboardToolbarManager` independently from https://github.com/hackiftekhar/IQKeyboardToolbarManager")
 // swiftlint:enable line_length
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
         static var toolbarManager: Int = 0
     }
 
-    @objc internal var toolbarManager: IQKeyboardToolbarManager {
+    internal var toolbarManager: IQKeyboardToolbarManager {
         if let object = objc_getAssociatedObject(self, &AssociatedKeys.toolbarManager)
             as? IQKeyboardToolbarManager {
             return object
@@ -49,7 +49,7 @@ public extension IQKeyboardManager {
         return object
     }
 
-    @objc var enableToolbarDebugging: Bool {
+    var enableToolbarDebugging: Bool {
         get { toolbarManager.enableDebugging }
         set { toolbarManager.enableDebugging = newValue }
     }
@@ -57,7 +57,7 @@ public extension IQKeyboardManager {
     /**
     Automatic add the toolbar functionality. Default is YES.
     */
-    @objc var enableAutoToolbar: Bool {
+    var enableAutoToolbar: Bool {
         get { toolbarManager.enable }
         set { toolbarManager.enable = newValue }
     }
@@ -65,7 +65,7 @@ public extension IQKeyboardManager {
     /**
     Configurations related to the toolbar display over the keyboard.
     */
-    @objc var toolbarConfiguration: IQToolbarConfiguration {
+    var toolbarConfiguration: IQToolbarConfiguration {
         toolbarManager.toolbarConfiguration
     }
 
@@ -74,7 +74,7 @@ public extension IQKeyboardManager {
     /**
     If YES, then it plays inputClick sound on next/previous/done click.
     */
-    @objc var playInputClicks: Bool {
+    var playInputClicks: Bool {
         get { toolbarManager.playInputClicks }
         set { toolbarManager.playInputClicks = newValue }
     }
@@ -83,7 +83,7 @@ public extension IQKeyboardManager {
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes.
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      */
-    @objc var disabledToolbarClasses: [UIViewController.Type] {
+    var disabledToolbarClasses: [UIViewController.Type] {
         get { toolbarManager.disabledToolbarClasses }
         set { toolbarManager.disabledToolbarClasses = newValue }
     }
@@ -93,7 +93,7 @@ public extension IQKeyboardManager {
      Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
      If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
-    @objc var enabledToolbarClasses: [UIViewController.Type] {
+    var enabledToolbarClasses: [UIViewController.Type] {
         get { toolbarManager.enabledToolbarClasses }
         set { toolbarManager.enabledToolbarClasses = newValue }
     }
@@ -103,13 +103,13 @@ public extension IQKeyboardManager {
      this will allow to navigate between textField contains in different superview.
      Class should be kind of UIView.
      */
-    @objc var deepResponderAllowedContainerClasses: [UIView.Type] {
+    var deepResponderAllowedContainerClasses: [UIView.Type] {
         get { toolbarManager.deepResponderAllowedContainerClasses }
         set { toolbarManager.deepResponderAllowedContainerClasses = newValue }
     }
 
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
-    @objc func reloadInputViews() {
+    func reloadInputViews() {
         toolbarManager.reloadInputViews()
     }
 }

@@ -187,8 +187,8 @@ public struct IQKeyboardInfoDeprecated: Equatable {
     // MARK: Deprecated
 
     @available(*, deprecated, renamed: "event")
-    var name: Event { event }
+    public var name: Event { event }
 
     @available(*, deprecated, renamed: "isVisible")
-    var keyboardShowing: Bool { isVisible }
+    public var keyboardShowing: Bool { isVisible }
 }

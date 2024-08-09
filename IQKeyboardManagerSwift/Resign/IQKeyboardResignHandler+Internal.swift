@@ -34,14 +34,14 @@ internal extension IQKeyboardResignHandler {
 
     func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQKeyboardResignHandler",
-                                        changeHandler: { [weak self] info in
+                                        changeHandler: { [weak self] event, textInputView in
             guard let self = self else { return }
-            switch info.event {
+            switch event {
             case .beginEditing:
                 resignGesture.isEnabled = privateResignOnTouchOutside()
-                info.textInputView.window?.addGestureRecognizer(resignGesture)
+                textInputView.window?.addGestureRecognizer(resignGesture)
             case .endEditing:
-                info.textInputView.window?.removeGestureRecognizer(resignGesture)
+                textInputView.window?.removeGestureRecognizer(resignGesture)
             }
         })
     }

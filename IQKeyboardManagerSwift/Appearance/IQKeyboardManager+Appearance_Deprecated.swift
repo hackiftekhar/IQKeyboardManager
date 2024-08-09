@@ -26,16 +26,16 @@ import UIKit
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @available(*, unavailable, renamed: "keyboardConfiguration.overrideAppearance")
-    @objc var overrideKeyboardAppearance: Bool {
+    var overrideKeyboardAppearance: Bool {
         get { false }
         set { }
     }
 
     @available(*, unavailable, renamed: "keyboardConfiguration.appearance")
-    @objc var keyboardAppearance: UIKeyboardAppearance {
+    var keyboardAppearance: UIKeyboardAppearance {
         get { .default }
         set { }
     }

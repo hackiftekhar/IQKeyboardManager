@@ -26,21 +26,21 @@ import UIKit
 /** @abstract UITextView with placeholder support   */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQTextView: UITextView {
+@objcMembers open class IQTextView: UITextView {
 
-    @objc required public init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder),
                                                name: UITextView.textDidChangeNotification, object: self)
     }
 
-    @objc override public init(frame: CGRect, textContainer: NSTextContainer?) {
+    override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder),
                                                name: UITextView.textDidChangeNotification, object: self)
     }
 
-    @objc override open func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshPlaceholder),
                                                name: UITextView.textDidChangeNotification, object: self)
@@ -117,7 +117,7 @@ import UIKit
         }
     }
 
-    @objc override open func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
 
         placeholderLabel.frame = placeholderExpectedFrame
@@ -129,7 +129,7 @@ import UIKit
         placeholderLabel.alpha = text.isEmpty ? 1 : 0
     }
 
-    @objc override open var text: String! {
+    override open var text: String! {
 
         didSet {
             refreshPlaceholder()
@@ -143,7 +143,7 @@ import UIKit
         }
     }
 
-    @objc override open var font: UIFont? {
+    override open var font: UIFont? {
 
         didSet {
 
@@ -155,13 +155,13 @@ import UIKit
         }
     }
 
-    @objc override open var textAlignment: NSTextAlignment {
+    override open var textAlignment: NSTextAlignment {
         didSet {
             placeholderLabel.textAlignment = textAlignment
         }
     }
 
-    @objc override weak open var delegate: (any UITextViewDelegate)? {
+    override weak open var delegate: (any UITextViewDelegate)? {
 
         get {
             refreshPlaceholder()
@@ -173,7 +173,7 @@ import UIKit
         }
     }
 
-    @objc override open var intrinsicContentSize: CGSize {
+    override open var intrinsicContentSize: CGSize {
         guard !hasText else {
             return super.intrinsicContentSize
         }
@@ -185,7 +185,7 @@ import UIKit
         return newSize
     }
 
-    @objc override open func caretRect(for position: UITextPosition) -> CGRect {
+    override open func caretRect(for position: UITextPosition) -> CGRect {
         var originalRect = super.caretRect(for: position)
 
         // When placeholder is visible and text alignment is centered
@@ -205,4 +205,4 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-extension IQTextView: IQPlaceholderable { }
+@objc extension IQTextView: IQPlaceholderable { }

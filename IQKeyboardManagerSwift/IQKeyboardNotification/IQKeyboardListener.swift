@@ -29,7 +29,7 @@ import Combine
 @available(*, deprecated, message: "Please use `IQKeyboardNotification` independently from https://github.com/hackiftekhar/IQKeyboardNotification. IQKeyboardListener will be removed from this library in future release.")
 // swiftlint:enable line_length
 @MainActor
-@objc public final class IQKeyboardListener: NSObject {
+@objcMembers public final class IQKeyboardListener: NSObject {
 
     private var storage: Set<AnyCancellable> = []
 
@@ -45,15 +45,15 @@ import Combine
         }
     }
 
-    @objc public var isVisible: Bool {
+    public var isVisible: Bool {
         keyboardInfo.isVisible
     }
 
-    @objc public var frame: CGRect {
+    public var frame: CGRect {
         keyboardInfo.endFrame
     }
 
-    @objc public override init() {
+    public override init() {
         keyboardInfo = IQKeyboardInfoDeprecated(notification: nil, event: .didHide)
         oldKeyboardInfo = keyboardInfo
 
@@ -68,21 +68,21 @@ import Combine
         }
     }
 
-    @objc public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
+    public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
         keyboardInfo.animate(alongsideTransition: transition, completion: completion)
     }
 
     public typealias SizeCompletion = (_ event: IQKeyboardInfoDeprecated.Event, _ endFrame: CGRect) -> Void
 
-    @objc public func subscribe(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
+    public func subscribe(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
         eventObservers[identifier] = changeHandler
     }
 
-    @objc public func unsubscribe(identifier: AnyHashable) {
+    public func unsubscribe(identifier: AnyHashable) {
         eventObservers[identifier] = nil
     }
 
-    @objc public func isSubscribed(identifier: AnyHashable) -> Bool {
+    public func isSubscribed(identifier: AnyHashable) -> Bool {
         eventObservers[identifier] != nil
     }
 
@@ -98,15 +98,15 @@ import Combine
     // MARK: Deprecated
 
     @available(*, deprecated, renamed: "isVisible")
-    var keyboardShowing: Bool { isVisible }
+    public var keyboardShowing: Bool { isVisible }
 
     @available(*, deprecated, renamed: "subscribe(identifier:changeHandler:)")
-    @objc func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
+    public func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
         subscribe(identifier: identifier, changeHandler: changeHandler)
     }
 
     @available(*, deprecated, renamed: "unsubscribe(identifier:)")
-    @objc func unregisterSizeChange(identifier: AnyHashable) {
+    public func unregisterSizeChange(identifier: AnyHashable) {
         unsubscribe(identifier: identifier)
     }
 }

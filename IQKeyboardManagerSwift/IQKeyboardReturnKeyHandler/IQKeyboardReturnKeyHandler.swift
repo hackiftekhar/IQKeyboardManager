@@ -35,7 +35,7 @@ Manages the return key to work like next/done in a view hierarchy.
 // swiftlint:enable line_length
 @MainActor
 // swiftlint:disable type_body_length
-@objc public final class IQKeyboardReturnKeyHandler: NSObject, UITextFieldDelegate, UITextViewDelegate {
+@objcMembers public final class IQKeyboardReturnKeyHandler: NSObject, UITextFieldDelegate, UITextViewDelegate {
 
     // MARK: Private variables
     private var textInputViewInfoCache: [IQTextInputViewInfoModel] = []
@@ -45,12 +45,12 @@ Manages the return key to work like next/done in a view hierarchy.
     /**
      Delegate of textInputView
      */
-    @objc public weak var delegate: (any UITextFieldDelegate & UITextViewDelegate)?
+    public weak var delegate: (any UITextFieldDelegate & UITextViewDelegate)?
 
     /**
      Set the last textInputView return key type. Default is UIReturnKeyDefault.
      */
-    @objc public var lastTextInputViewReturnKeyType: UIReturnKeyType = .default {
+    public var lastTextInputViewReturnKeyType: UIReturnKeyType = .default {
 
         didSet {
             if let activeModel = textInputViewInfoCache.first(where: {
@@ -64,11 +64,11 @@ Manages the return key to work like next/done in a view hierarchy.
         }
     }
 
-    @objc public var dismissTextViewOnReturn: Bool = false
+    public var dismissTextViewOnReturn: Bool = false
 
     // MARK: Initialization/De-initialization
 
-    @objc public override init() {
+    public override init() {
         super.init()
     }
 
@@ -76,7 +76,7 @@ Manages the return key to work like next/done in a view hierarchy.
      Add all the textFields available in UIViewController's view.
      */
     @available(*, deprecated, message: "Please use addResponderSubviews(of:recursive:)")
-    @objc public init(controller: UIViewController) {
+    public init(controller: UIViewController) {
         super.init()
 
         addResponderSubviews(of: controller.view, recursive: true)
@@ -98,7 +98,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
      @param view TextInputView object to register.
      */
-    @objc public func add(textInputView: any IQTextInputView) {
+    public func add(textInputView: any IQTextInputView) {
 
         let model = IQTextInputViewInfoModel(textInputView: textInputView)
         textInputViewInfoCache.append(model)
@@ -115,7 +115,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
      @param view TextInputView object to unregister.
      */
-    @objc public func remove(textInputView: any IQTextInputView) {
+    public func remove(textInputView: any IQTextInputView) {
 
         guard let index: Int = textInputViewCachedInfoIndex(textInputView) else { return }
 
@@ -128,7 +128,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
      @param view object to register all it's responder subviews.
      */
-    @objc public func addResponderSubviews(of view: UIView, recursive: Bool) {
+    public func addResponderSubviews(of view: UIView, recursive: Bool) {
 
         let textInputViews: [any IQTextInputView] = view.responderSubviews(recursive: recursive)
 
@@ -142,7 +142,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
      @param view object to unregister all it's responder subviews.
      */
-    @objc public func removeResponderSubviews(of view: UIView, recursive: Bool) {
+    public func removeResponderSubviews(of view: UIView, recursive: Bool) {
 
         let textInputViews: [any IQTextInputView] = view.responderSubviews(recursive: recursive)
 
@@ -152,7 +152,7 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @discardableResult
-    public func goToNextResponderOrResign(from textInputView: some IQTextInputView) -> Bool {
+    public func goToNextResponderOrResign(from textInputView: any IQTextInputView) -> Bool {
 
         guard let textInfoCache: IQTextInputViewInfoModel = nextResponderFromTextInputView(textInputView),
               let textInputView = textInfoCache.textInputView else {
@@ -213,34 +213,34 @@ Manages the return key to work like next/done in a view hierarchy.
     // MARK: Deprecated
 
     @available(*, deprecated, renamed: "lastTextInputViewReturnKeyType")
-    @objc public var lastTextFieldReturnKeyType: UIReturnKeyType {
+    public var lastTextFieldReturnKeyType: UIReturnKeyType {
         get { lastTextInputViewReturnKeyType }
         set { lastTextInputViewReturnKeyType = newValue }
     }
 
     @available(*, deprecated, renamed: "add(textInputView:)")
-    @objc public func addTextFieldView(_ textInputView: any IQTextInputView) {
+    public func addTextFieldView(_ textInputView: any IQTextInputView) {
         add(textInputView: textInputView)
     }
 
     @available(*, deprecated, renamed: "remove(textInputView:)")
-    @objc public func removeTextFieldView(_ textInputView: any IQTextInputView) {
+    public func removeTextFieldView(_ textInputView: any IQTextInputView) {
         remove(textInputView: textInputView)
     }
 
     @available(*, deprecated, renamed: "addResponderSubviews(of:recursive:)")
-    @objc public func addResponderFromView(_ view: UIView, recursive: Bool = true) {
+    public func addResponderFromView(_ view: UIView, recursive: Bool = true) {
         addResponderSubviews(of: view, recursive: recursive)
     }
 
     @available(*, deprecated, renamed: "removeResponderSubviews(of:recursive:)")
-    @objc public func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
+    public func removeResponderFromView(_ view: UIView, recursive: Bool = true) {
         removeResponderSubviews(of: view, recursive: recursive)
     }
 
     // MARK: UITextFieldDelegate
 
-    @objc public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 
         var returnValue: Bool = true
 
@@ -258,7 +258,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return returnValue
     }
 
-    @objc public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -271,7 +271,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return true
     }
 
-    @objc public func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
 
         var aDelegate: (any UITextFieldDelegate)? = delegate
 
@@ -285,7 +285,7 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textFieldDidBeginEditing?(textField)
     }
 
-    @objc public func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
 
         var aDelegate: (any UITextFieldDelegate)? = delegate
 
@@ -299,7 +299,7 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textFieldDidEndEditing?(textField)
     }
 
-    @objc public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
 
         var aDelegate: (any UITextFieldDelegate)? = delegate
 
@@ -313,9 +313,9 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textFieldDidEndEditing?(textField, reason: reason)
     }
 
-    @objc public func textField(_ textField: UITextField,
-                                shouldChangeCharactersIn range: NSRange,
-                                replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField,
+                          shouldChangeCharactersIn range: NSRange,
+                          replacementString string: String) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -331,7 +331,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return true
     }
 
-    @objc public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -344,7 +344,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return true
     }
 
-    @objc public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -366,7 +366,7 @@ Manages the return key to work like next/done in a view hierarchy.
 
     // MARK: UITextViewDelegate
 
-    @objc public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
 
         var returnValue: Bool = true
 
@@ -384,7 +384,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return returnValue
     }
 
-    @objc public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -397,7 +397,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return true
     }
 
-    @objc public func textViewDidBeginEditing(_ textView: UITextView) {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -411,7 +411,7 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textViewDidBeginEditing?(textView)
     }
 
-    @objc public func textViewDidEndEditing(_ textView: UITextView) {
+    public func textViewDidEndEditing(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -425,9 +425,9 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textViewDidEndEditing?(textView)
     }
 
-    @objc public func textView(_ textView: UITextView,
-                               shouldChangeTextIn range: NSRange,
-                               replacementText text: String) -> Bool {
+    public func textView(_ textView: UITextView,
+                         shouldChangeTextIn range: NSRange,
+                         replacementText text: String) -> Bool {
 
         var shouldChange = true
 
@@ -451,7 +451,7 @@ Manages the return key to work like next/done in a view hierarchy.
         return shouldChange
     }
 
-    @objc public func textViewDidChange(_ textView: UITextView) {
+    public func textViewDidChange(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -465,7 +465,7 @@ Manages the return key to work like next/done in a view hierarchy.
         aDelegate?.textViewDidChange?(textView)
     }
 
-    @objc public func textViewDidChangeSelection(_ textView: UITextView) {
+    public func textViewDidChangeSelection(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -480,10 +480,10 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS, deprecated: 17.0)
-    @objc public func textView(_ aTextView: UITextView,
-                               shouldInteractWith URL: URL,
-                               in characterRange: NSRange,
-                               interaction: UITextItemInteraction) -> Bool {
+    public func textView(_ aTextView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange,
+                         interaction: UITextItemInteraction) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -502,10 +502,10 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS, deprecated: 17.0)
-    @objc public func textView(_ aTextView: UITextView,
-                               shouldInteractWith textAttachment: NSTextAttachment,
-                               in characterRange: NSRange,
-                               interaction: UITextItemInteraction) -> Bool {
+    public func textView(_ aTextView: UITextView,
+                         shouldInteractWith textAttachment: NSTextAttachment,
+                         in characterRange: NSRange,
+                         interaction: UITextItemInteraction) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -525,9 +525,9 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS, deprecated: 10.0)
-    @objc public func textView(_ aTextView: UITextView,
-                               shouldInteractWith URL: URL,
-                               in characterRange: NSRange) -> Bool {
+    public func textView(_ aTextView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -543,9 +543,9 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS, deprecated: 10.0)
-    @objc public func textView(_ aTextView: UITextView,
-                               shouldInteractWith textAttachment: NSTextAttachment,
-                               in characterRange: NSRange) -> Bool {
+    public func textView(_ aTextView: UITextView,
+                         shouldInteractWith textAttachment: NSTextAttachment,
+                         in characterRange: NSRange) -> Bool {
 
         guard delegate == nil else { return true }
 
@@ -689,7 +689,7 @@ Manages the return key to work like next/done in a view hierarchy.
 #if swift(>=6.0)    // Xcode 16
 
     @available(iOS 18.0, *)
-    @objc public func textViewWritingToolsWillBegin(_ textView: UITextView) {
+    public func textViewWritingToolsWillBegin(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -704,7 +704,7 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS 18.0, *)
-    @objc public func textViewWritingToolsDidEnd(_ textView: UITextView) {
+    public func textViewWritingToolsDidEnd(_ textView: UITextView) {
 
         var aDelegate: (any UITextViewDelegate)? = delegate
 
@@ -719,8 +719,8 @@ Manages the return key to work like next/done in a view hierarchy.
     }
 
     @available(iOS 18.0, *)
-    @objc public func textView(_ textView: UITextView,
-                               writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
+    public func textView(_ textView: UITextView,
+                         writingToolsIgnoredRangesInEnclosingRange enclosingRange: NSRange) -> [NSValue] {
         guard delegate == nil else { return [] }
 
         if let textViewDelegate = textInputViewCachedInfo(aTextView)?.textViewDelegate {

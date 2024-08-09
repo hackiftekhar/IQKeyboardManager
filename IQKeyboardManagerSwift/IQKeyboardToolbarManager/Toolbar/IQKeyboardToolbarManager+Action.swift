@@ -27,12 +27,12 @@ import IQKeyboardCore
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension IQKeyboardToolbarManager {
+@objc internal extension IQKeyboardToolbarManager {
 
     /**
      Returns YES if can navigate to previous responder textInputView, otherwise NO.
     */
-    @objc var canGoPrevious: Bool {
+    var canGoPrevious: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
               let textInputViews: [any IQTextInputView] = responderViews(of: textInputView),
@@ -46,7 +46,7 @@ internal extension IQKeyboardToolbarManager {
     /**
      Returns YES if can navigate to next responder textInputViews, otherwise NO.
     */
-    @objc var canGoNext: Bool {
+    var canGoNext: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
               let textInputViews: [any IQTextInputView] = responderViews(of: textInputView),
@@ -61,7 +61,7 @@ internal extension IQKeyboardToolbarManager {
      Navigate to previous responder textInputViews
     */
     @discardableResult
-    @objc func goPrevious() -> Bool {
+    func goPrevious() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
@@ -87,7 +87,7 @@ internal extension IQKeyboardToolbarManager {
      Navigate to next responder textInputView.
     */
     @discardableResult
-    @objc func goNext() -> Bool {
+    func goNext() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
@@ -115,7 +115,7 @@ internal extension IQKeyboardToolbarManager {
 internal extension IQKeyboardToolbarManager {
 
     /**    previousAction. */
-    @objc func previousAction(_ barButton: IQBarButtonItem) {
+    func previousAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -136,7 +136,7 @@ internal extension IQKeyboardToolbarManager {
     }
 
     /**    nextAction. */
-    @objc func nextAction(_ barButton: IQBarButtonItem) {
+    func nextAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -157,7 +157,7 @@ internal extension IQKeyboardToolbarManager {
     }
 
     /**    doneAction. Resigning current textInputView. */
-    @objc func doneAction(_ barButton: IQBarButtonItem) {
+    func doneAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {

@@ -25,17 +25,17 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc open class IQBarButtonItem: UIBarButtonItem {
+@objcMembers open class IQBarButtonItem: UIBarButtonItem {
 
     internal static let flexibleBarButtonItem: IQBarButtonItem = IQBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                                                                  target: nil, action: nil)
 
-    @objc public override init() {
+    public override init() {
         super.init()
         initialize()
     }
 
-    @objc public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
@@ -56,7 +56,7 @@ import UIKit
         setBackButtonBackgroundVerticalPositionAdjustment(0, for: .default)
     }
 
-    @objc override open var tintColor: UIColor? {
+    override open var tintColor: UIColor? {
         didSet {
 
             var textAttributes: [NSAttributedString.Key: Any] = [:]
@@ -87,7 +87,7 @@ import UIKit
      @param target Target object.
      @param action Target Selector.
      */
-    @objc open func setTarget(_ target: AnyObject?, action: Selector?) {
+    open func setTarget(_ target: AnyObject?, action: Selector?) {
         if let target: AnyObject = target, let action: Selector = action {
             invocation = IQInvocation(target, action)
         } else {
@@ -99,7 +99,7 @@ import UIKit
      Customized Invocation to be called when button is pressed.
      invocation is internally created using setTarget:action: method.
      */
-    @objc open var invocation: IQInvocation? {
+    open var invocation: IQInvocation? {
         didSet {
             // We have to put this condition here because if we override this function then
             // We were getting "Cannot override '_' which has been marked unavailable" in Xcode 15

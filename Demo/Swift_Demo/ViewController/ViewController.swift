@@ -39,9 +39,7 @@ class ViewController: BaseTableViewController {
 
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         controller.excludedActivityTypes = [.print, .copyToPasteboard, .assignToContact, .saveToCameraRoll]
-        present(controller, animated: true) { () -> Void in
-
-        }
+        present(controller, animated: true)
     }
 
     override func viewDidLoad() {

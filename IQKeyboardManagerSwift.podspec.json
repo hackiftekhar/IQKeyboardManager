@@ -21,8 +21,8 @@
         "5.9"
     ],
     "dependencies": {
-        "IQKeyboardNotification": ["1.0.2"],
-        "IQTextInputViewNotification": ["1.0.4"]
+        "IQKeyboardNotification": ["1.0.3"],
+        "IQTextInputViewNotification": ["1.0.5"]
     },
     "source_files": [
         "IQKeyboardManagerSwift/IQKeyboardCore/**/*.{swift}",

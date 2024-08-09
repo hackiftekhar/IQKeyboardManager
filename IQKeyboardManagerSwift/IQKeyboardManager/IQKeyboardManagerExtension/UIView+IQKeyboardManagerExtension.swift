@@ -33,8 +33,8 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-extension UIView {
-    nonisolated public static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
+@objc public extension UIView {
+    nonisolated static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 }
 
 @available(iOSApplicationExtension, unavailable)

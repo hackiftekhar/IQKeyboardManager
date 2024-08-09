@@ -30,7 +30,7 @@ internal extension IQKeyboardManager {
 
     func privateIsEnabled() -> Bool {
 
-        guard let textInputView: any IQTextInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView: any IQTextInputView = activeConfiguration.textInputView else {
             return enable
         }
 

@@ -27,14 +27,14 @@ import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQKeyboardResignHandler: NSObject {
+@objcMembers internal final class IQKeyboardResignHandler: NSObject {
 
     let textInputViewObserver: IQTextInputViewNotification = .init()
 
     /**
      Resigns Keyboard on touching outside of TextInputView. Default is NO.
     */
-    @objc public var resignOnTouchOutside: Bool = false {
+    public var resignOnTouchOutside: Bool = false {
 
         didSet {
             resignGesture.isEnabled = privateResignOnTouchOutside()
@@ -47,12 +47,12 @@ import IQTextInputViewNotification
      It's a readonly property and exposed only for adding/removing dependencies
      if your added gesture does have collision with this one
      */
-    @objc public var resignGesture: UITapGestureRecognizer = .init()
+    public var resignGesture: UITapGestureRecognizer = .init()
 
     /**
      Disabled classes to ignore resignOnTouchOutside' property, Class should be kind of UIViewController.
      */
-    @objc public var disabledTouchResignedClasses: [UIViewController.Type] = [
+    public var disabledTouchResignedClasses: [UIViewController.Type] = [
         UIAlertController.self,
         UIInputViewController.self
     ]
@@ -62,14 +62,14 @@ import IQTextInputViewNotification
      Class should be kind of UIViewController
      . If same Class is added in disabledTouchResignedClasses list, then enabledTouchResignedClasses will be ignored.
      */
-    @objc public var enabledTouchResignedClasses: [UIViewController.Type] = []
+    public var enabledTouchResignedClasses: [UIViewController.Type] = []
 
     /**
      if resignOnTouchOutside is enabled then you can customize the behavior
      to not recognize gesture touches on some specific view subclasses.
      Class should be kind of UIView. Default is [UIControl, UINavigationBar]
      */
-    @objc public var touchResignedGestureIgnoreClasses: [UIView.Type] = [
+    public var touchResignedGestureIgnoreClasses: [UIView.Type] = [
         UIControl.self,
         UINavigationBar.self
     ]
@@ -78,7 +78,7 @@ import IQTextInputViewNotification
     Resigns currently first responder field.
     */
     @discardableResult
-    @objc public func resignFirstResponder() -> Bool {
+    public func resignFirstResponder() -> Bool {
 
         guard let textInputView: any IQTextInputView = textInputViewObserver.textInputView else {
             return false
@@ -95,7 +95,7 @@ import IQTextInputViewNotification
         return true
     }
 
-    @objc public override init() {
+    public override init() {
         super.init()
 
         resignGesture.addTarget(self, action: #selector(self.tapRecognized(_:)))
@@ -109,10 +109,10 @@ import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
+@objc extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
 
     /** Resigning on tap gesture.   (Enhancement ID: #14)*/
-    @objc private func tapRecognized(_ gesture: UITapGestureRecognizer) {
+    private func tapRecognized(_ gesture: UITapGestureRecognizer) {
 
         if gesture.state == .ended {
 
@@ -125,9 +125,9 @@ extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
      returning NO is not guaranteed to prevent simultaneous recognition,
      as the other gesture's delegate may return YES.
      */
-    @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                        shouldRecognizeSimultaneouslyWith
-                                        otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                  shouldRecognizeSimultaneouslyWith
+                                  otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
 
@@ -135,8 +135,8 @@ extension IQKeyboardResignHandler: UIGestureRecognizerDelegate {
      To not detect touch events in a subclass of UIControl,
      these may have added their own selector for specific work
      */
-    @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                        shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                  shouldReceive touch: UITouch) -> Bool {
         // (Bug ID: #145)
         // Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)
 

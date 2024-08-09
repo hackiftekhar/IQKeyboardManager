@@ -30,7 +30,7 @@ import IQKeyboardCore
 @available(*, deprecated, message: "Please use `IQTextInputViewNotification` independently from https://github.com/hackiftekhar/IQTextInputViewNotification. IQTextFieldViewListener will be removed from this library in future release.")
 // swiftlint:enable line_length
 @MainActor
-@objc public class IQTextFieldViewListener: NSObject {
+@objcMembers public class IQTextFieldViewListener: NSObject {
 
     private var storage: Set<AnyCancellable> = []
 
@@ -44,7 +44,7 @@ import IQKeyboardCore
         return textInputViewInfo?.textInputView
     }
 
-    @objc public override init() {
+    public override init() {
         super.init()
 
         //  Registering for TextInputView notification.
