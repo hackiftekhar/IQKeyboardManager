@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConfiguration.swift
+//  UIScrollView+IQKeyboardManagerExtensionObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,17 +23,22 @@
 
 import UIKit
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objcMembers public final class IQKeyboardConfiguration: NSObject {
+// MARK:  For ObjectiveC Compatibility
 
-    /**
-    Override the keyboardAppearance for all textInputView. Default is NO.
-    */
-    public var overrideAppearance: Bool = false
+@objc public extension UIScrollView {
 
-    /**
-    If overrideKeyboardAppearance is YES, then all the textInputView keyboardAppearance is set using this property.
-    */
-    public var appearance: UIKeyboardAppearance = .default
+    var iq_ignoreScrollingAdjustment: Bool {
+        get { iq.ignoreScrollingAdjustment }
+        set { iq.ignoreScrollingAdjustment = newValue }
+    }
+
+    var iq_ignoreContentInsetAdjustment: Bool {
+        get { iq.ignoreContentInsetAdjustment }
+        set { iq.ignoreContentInsetAdjustment = newValue }
+    }
+
+    var iq_restoreContentOffset: Bool {
+        get { iq.restoreContentOffset }
+        set { iq.restoreContentOffset = newValue }
+    }
 }

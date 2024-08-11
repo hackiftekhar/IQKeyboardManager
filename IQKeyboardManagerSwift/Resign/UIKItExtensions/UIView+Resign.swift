@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -52,14 +53,6 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
                                          newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-internal extension IQTextInputView {
-    var internalResignOnTouchOutsideMode: IQEnableMode {
-        iq.resignOnTouchOutsideMode
     }
 }
 

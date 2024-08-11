@@ -25,14 +25,14 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @MainActor
     private struct AssociatedKeys {
         static var appearanceManager: Int = 0
     }
 
-    @objc internal var appearanceManager: IQKeyboardAppearanceManager {
+    internal var appearanceManager: IQKeyboardAppearanceManager {
         if let object = objc_getAssociatedObject(self, &AssociatedKeys.appearanceManager)
             as? IQKeyboardAppearanceManager {
             return object
@@ -48,7 +48,7 @@ public extension IQKeyboardManager {
     /**
      Configuration related to keyboard appearance
      */
-    @objc var keyboardConfiguration: IQKeyboardConfiguration {
+    var keyboardConfiguration: IQKeyboardConfiguration {
         get { appearanceManager.keyboardConfiguration }
         set { appearanceManager.keyboardConfiguration = newValue }
     }

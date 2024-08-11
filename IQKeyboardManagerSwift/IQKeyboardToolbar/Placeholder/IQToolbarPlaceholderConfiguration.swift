@@ -25,27 +25,27 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQToolbarPlaceholderConfiguration: NSObject {
+@objcMembers public final class IQToolbarPlaceholderConfiguration: NSObject {
 
     /**
      If YES, then it add the textInputView's placeholder text on toolbar. Default is YES.
     */
-    @objc public var showPlaceholder: Bool = true
+    public var showPlaceholder: Bool = true
 
     /**
     Placeholder Font. Default is nil.
     */
-    @objc public var font: UIFont?
+    public var font: UIFont?
 
     /**
      Placeholder Color. Default is nil. Which means lightGray
      */
-    @objc public var color: UIColor?
+    public var color: UIColor?
 
     /**
      Placeholder Button Color when it's treated as button. Default is nil.
      */
-    @objc public var buttonColor: UIColor?
+    public var buttonColor: UIColor?
 
     /**
      Placeholder accessibility Label

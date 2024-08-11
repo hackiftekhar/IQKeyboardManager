@@ -22,16 +22,17 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 // MARK: Previous next button actions
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension IQKeyboardToolbarManager {
+@objc internal extension IQKeyboardToolbarManager {
 
     /**
      Returns YES if can navigate to previous responder textInputView, otherwise NO.
     */
-    @objc var canGoPrevious: Bool {
+    var canGoPrevious: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
               let textInputViews: [any IQTextInputView] = responderViews(of: textInputView),
@@ -45,7 +46,7 @@ internal extension IQKeyboardToolbarManager {
     /**
      Returns YES if can navigate to next responder textInputViews, otherwise NO.
     */
-    @objc var canGoNext: Bool {
+    var canGoNext: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
               let textInputViews: [any IQTextInputView] = responderViews(of: textInputView),
@@ -60,7 +61,7 @@ internal extension IQKeyboardToolbarManager {
      Navigate to previous responder textInputViews
     */
     @discardableResult
-    @objc func goPrevious() -> Bool {
+    func goPrevious() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
@@ -86,7 +87,7 @@ internal extension IQKeyboardToolbarManager {
      Navigate to next responder textInputView.
     */
     @discardableResult
-    @objc func goNext() -> Bool {
+    func goNext() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
         guard let textInputView: any IQTextInputView = self.textInputView,
@@ -114,7 +115,7 @@ internal extension IQKeyboardToolbarManager {
 internal extension IQKeyboardToolbarManager {
 
     /**    previousAction. */
-    @objc func previousAction(_ barButton: IQBarButtonItem) {
+    func previousAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -135,7 +136,7 @@ internal extension IQKeyboardToolbarManager {
     }
 
     /**    nextAction. */
-    @objc func nextAction(_ barButton: IQBarButtonItem) {
+    func nextAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -156,7 +157,7 @@ internal extension IQKeyboardToolbarManager {
     }
 
     /**    doneAction. Resigning current textInputView. */
-    @objc func doneAction(_ barButton: IQBarButtonItem) {
+    func doneAction(_ barButton: IQBarButtonItem) {
 
         // If user wants to play input Click sound.
         if playInputClicks {
@@ -181,15 +182,28 @@ internal extension IQKeyboardToolbarManager {
 @MainActor
 private extension IQKeyboardToolbarManager {
     private static func sendInvokeAction(of barButton: IQBarButtonItem, sender: some IQTextInputView) {
-        var invocation: IQInvocation? = barButton.invocation
-
-        var sender: any IQTextInputView = sender
         // Handling search bar special case
-        if let searchBar: UISearchBar = (sender as UIView).iq.textFieldSearchBar() {
-            invocation = searchBar.iq.toolbar.nextBarButton.invocation
-            sender = searchBar
+        if let searchBar: UISearchBar = sender.iq.textFieldSearchBar() {
+            switch barButton {
+            case sender.internalToolbar.nextBarButton:
+                searchBar.internalToolbar.nextBarButton.invocation?.invoke(from: searchBar)
+            case sender.internalToolbar.previousBarButton:
+                searchBar.internalToolbar.previousBarButton.invocation?.invoke(from: searchBar)
+            case sender.internalToolbar.doneBarButton:
+                searchBar.internalToolbar.doneBarButton.invocation?.invoke(from: searchBar)
+            default:
+                break
+            }
+        } else {
+            barButton.invocation?.invoke(from: sender)
         }
+    }
+}
 
-        invocation?.invoke(from: sender)
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalToolbar: IQToolbar {
+        return iq.toolbar
     }
 }

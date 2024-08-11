@@ -25,16 +25,19 @@ import UIKit
 import Combine
 
 @available(iOSApplicationExtension, unavailable)
+// swiftlint:disable line_length
+@available(*, deprecated, message: "Please use `IQKeyboardNotification` independently from https://github.com/hackiftekhar/IQKeyboardNotification. IQKeyboardListener will be removed from this library in future release.")
+// swiftlint:enable line_length
 @MainActor
-@objc public final class IQKeyboardListener: NSObject {
+@objcMembers public final class IQKeyboardListener: NSObject {
 
     private var storage: Set<AnyCancellable> = []
 
     private var eventObservers: [AnyHashable: SizeCompletion] = [:]
 
-    public private(set) var oldKeyboardInfo: IQKeyboardInfo
+    public private(set) var oldKeyboardInfo: IQKeyboardInfoDeprecated
 
-    public private(set) var keyboardInfo: IQKeyboardInfo {
+    public private(set) var keyboardInfo: IQKeyboardInfoDeprecated {
         didSet {
             guard keyboardInfo != oldValue else { return }
             oldKeyboardInfo = oldValue
@@ -42,53 +45,48 @@ import Combine
         }
     }
 
-    @objc public var isVisible: Bool {
+    public var isVisible: Bool {
         keyboardInfo.isVisible
     }
 
-    @objc public var frame: CGRect {
+    public var frame: CGRect {
         keyboardInfo.endFrame
     }
 
-    @objc public override init() {
-        keyboardInfo = IQKeyboardInfo(notification: nil, event: .didHide)
+    public override init() {
+        keyboardInfo = IQKeyboardInfoDeprecated(notification: nil, event: .didHide)
         oldKeyboardInfo = keyboardInfo
 
         super.init()
 
         //  Registering for keyboard notification.
-        for event in IQKeyboardInfo.Event.allCases {
+        for event in IQKeyboardInfoDeprecated.Event.allCases {
             NotificationCenter.default.publisher(for: event.notification)
-                .map({ IQKeyboardInfo(notification: $0, event: event) })
+                .map({ IQKeyboardInfoDeprecated(notification: $0, event: event) })
                 .assign(to: \.keyboardInfo, on: self)
                 .store(in: &storage)
         }
     }
 
-    @objc public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
+    public func animate(alongsideTransition transition: @escaping () -> Void, completion: (() -> Void)? = nil) {
         keyboardInfo.animate(alongsideTransition: transition, completion: completion)
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public extension IQKeyboardListener {
+    public typealias SizeCompletion = (_ event: IQKeyboardInfoDeprecated.Event, _ endFrame: CGRect) -> Void
 
-    typealias SizeCompletion = (_ event: IQKeyboardInfo.Event, _ endFrame: CGRect) -> Void
-
-    @objc func subscribe(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
+    public func subscribe(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
         eventObservers[identifier] = changeHandler
     }
 
-    @objc func unsubscribe(identifier: AnyHashable) {
+    public func unsubscribe(identifier: AnyHashable) {
         eventObservers[identifier] = nil
     }
 
-    @objc func isSubscribed(identifier: AnyHashable) -> Bool {
+    public func isSubscribed(identifier: AnyHashable) -> Bool {
         eventObservers[identifier] != nil
     }
 
-    private func sendKeyboardInfo(info: IQKeyboardInfo) {
+    private func sendKeyboardInfo(info: IQKeyboardInfoDeprecated) {
 
         let endFrame: CGRect = info.endFrame
 
@@ -96,27 +94,19 @@ public extension IQKeyboardListener {
             block(info.event, endFrame)
         }
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objc public extension IQKeyboardListener {
+    // MARK: Deprecated
 
     @available(*, deprecated, renamed: "isVisible")
-    var keyboardShowing: Bool { isVisible }
-}
-
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public extension IQKeyboardListener {
+    public var keyboardShowing: Bool { isVisible }
 
     @available(*, deprecated, renamed: "subscribe(identifier:changeHandler:)")
-    @objc func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
+    public func registerSizeChange(identifier: AnyHashable, changeHandler: @escaping SizeCompletion) {
         subscribe(identifier: identifier, changeHandler: changeHandler)
     }
 
     @available(*, deprecated, renamed: "unsubscribe(identifier:)")
-    @objc func unregisterSizeChange(identifier: AnyHashable) {
+    public func unregisterSizeChange(identifier: AnyHashable) {
         unsubscribe(identifier: identifier)
     }
 }

@@ -31,15 +31,15 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQKeyboardManager: NSObject {
+@objcMembers public final class IQKeyboardManager: NSObject {
 
     /**
     Returns the default singleton instance.
     */
     @MainActor
-    @objc public static let shared: IQKeyboardManager = .init()
+    public static let shared: IQKeyboardManager = .init()
 
-    @objc internal var activeConfiguration: IQActiveConfiguration = .init()
+    internal var activeConfiguration: IQActiveConfiguration = .init()
 
     // MARK: UIKeyboard handling
 
@@ -47,7 +47,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     Enable/disable managing distance between keyboard and textInputView.
      Default is YES(Enabled when class loads in `+(void)load` method).
     */
-    @objc public var enable: Bool = false {
+    public var enable: Bool = false {
 
         didSet {
             guard enable != oldValue else { return }
@@ -70,7 +70,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     /**
     To set keyboard distance from textInputView. can't be less than zero. Default is 10.0.
     */
-    @objc public var keyboardDistance: CGFloat = 10.0
+    public var keyboardDistance: CGFloat = 10.0
 
     /*******************************************/
 
@@ -79,7 +79,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     /**
     If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
     */
-    @objc public var layoutIfNeededOnUpdate: Bool = false
+    public var layoutIfNeededOnUpdate: Bool = false
 
     // MARK: Class Level disabling methods
 
@@ -87,7 +87,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      Disable distance handling within the scope of disabled distance handling viewControllers classes.
      Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
      */
-    @objc public var disabledDistanceHandlingClasses: [UIViewController.Type] = [
+    public var disabledDistanceHandlingClasses: [UIViewController.Type] = [
         UITableViewController.self,
         UIInputViewController.self,
         UIAlertController.self
@@ -99,7 +99,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
      If same Class is added in disabledDistanceHandlingClasses list,
      then enabledDistanceHandlingClasses will be ignored.
      */
-    @objc public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
+    public var enabledDistanceHandlingClasses: [UIViewController.Type] = []
 
     /**************************************************************************************/
 
@@ -124,7 +124,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     // MARK: Public Methods
 
     /*  Refreshes textInputView position if any external changes is explicitly made by user.   */
-    @objc public func reloadLayoutIfNeeded() {
+    public func reloadLayoutIfNeeded() {
 
         guard privateIsEnabled(),
               activeConfiguration.keyboardInfo.isVisible,

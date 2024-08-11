@@ -23,10 +23,14 @@
 
 import UIKit
 import Combine
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
+// swiftlint:disable line_length
+@available(*, deprecated, message: "Please use `IQTextInputViewNotification` independently from https://github.com/hackiftekhar/IQTextInputViewNotification. IQTextFieldViewListener will be removed from this library in future release.")
+// swiftlint:enable line_length
 @MainActor
-@objc public class IQTextFieldViewListener: NSObject {
+@objcMembers public class IQTextFieldViewListener: NSObject {
 
     private var storage: Set<AnyCancellable> = []
 
@@ -40,7 +44,7 @@ import Combine
         return textInputViewInfo?.textInputView
     }
 
-    @objc public override init() {
+    public override init() {
         super.init()
 
         //  Registering for TextInputView notification.
@@ -110,15 +114,10 @@ import Combine
             textInputViewInfo = nil
         }
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public extension IQTextFieldViewListener {
+    public typealias TextInputViewCompletion = (_ info: IQTextFieldViewInfo) -> Void
 
-    typealias TextInputViewCompletion = (_ info: IQTextFieldViewInfo) -> Void
-
-    func subscribe(identifier: AnyHashable, changeHandler: @escaping TextInputViewCompletion) {
+    public func subscribe(identifier: AnyHashable, changeHandler: @escaping TextInputViewCompletion) {
         textInputViewObservers[identifier] = changeHandler
 
         if let textInputViewInfo = textInputViewInfo {
@@ -126,11 +125,11 @@ public extension IQTextFieldViewListener {
         }
     }
 
-    func isSubscribed(identifier: AnyHashable) -> Bool {
+    public func isSubscribed(identifier: AnyHashable) -> Bool {
         return textInputViewObservers[identifier] != nil
     }
 
-    func unsubscribe(identifier: AnyHashable) {
+    public func unsubscribe(identifier: AnyHashable) {
         textInputViewObservers[identifier] = nil
     }
 
@@ -140,25 +139,22 @@ public extension IQTextFieldViewListener {
             block(info)
         }
     }
-}
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-public extension IQTextFieldViewListener {
+    // MARK: Deprecated
 
     @available(*, deprecated, renamed: "textInputViewInfo")
-    var textFieldViewInfo: IQTextFieldViewInfo? { textInputViewInfo }
+    public var textFieldViewInfo: IQTextFieldViewInfo? { textInputViewInfo }
 
     @available(*, deprecated, renamed: "textInputView")
-    var textFieldView: (some IQTextInputView)? { textInputView }
+    public var textFieldView: (some IQTextInputView)? { textInputView }
 
     @available(*, deprecated, renamed: "subscribe(identifier:changeHandler:)")
-    func registerTextFieldViewChange(identifier: AnyHashable, changeHandler: @escaping TextInputViewCompletion) {
+    public func registerTextFieldViewChange(identifier: AnyHashable, changeHandler: @escaping TextInputViewCompletion) {
         subscribe(identifier: identifier, changeHandler: changeHandler)
     }
 
     @available(*, deprecated, renamed: "unsubscribe(identifier:)")
-    func unregisterSizeChange(identifier: AnyHashable) {
+    public func unregisterSizeChange(identifier: AnyHashable) {
         unsubscribe(identifier: identifier)
     }
 }

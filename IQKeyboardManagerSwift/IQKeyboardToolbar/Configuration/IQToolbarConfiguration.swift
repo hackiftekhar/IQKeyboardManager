@@ -25,24 +25,24 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQToolbarConfiguration: NSObject {
+@objcMembers public final class IQToolbarConfiguration: NSObject {
 
     /**
      If YES, then uses textInputView's tintColor property,
      otherwise tint color is default. Default is NO.
      */
-    @objc public var useTextInputViewTintColor: Bool = false
+    public var useTextInputViewTintColor: Bool = false
 
     /**
      This is used for toolbar.tintColor when textInputView.keyboardAppearance is UIKeyboardAppearanceDefault.
      If useTextInputViewTintColor is YES then this property is ignored. Default is nil and uses black color.
      */
-    @objc public var tintColor: UIColor?
+    public var tintColor: UIColor?
 
     /**
      This is used for toolbar.barTintColor. Default is nil.
      */
-    @objc public var barTintColor: UIColor?
+    public var barTintColor: UIColor?
 
     /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textInputView otherwise hide.
@@ -50,7 +50,7 @@ import UIKit
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons,
      if there are more than 1 textInputView then both buttons will be visible but will be shown as disabled.
      */
-    @objc public var previousNextDisplayMode: IQPreviousNextDisplayMode = .default
+    public var previousNextDisplayMode: IQPreviousNextDisplayMode = .default
 
     /**
      /**
@@ -63,16 +63,16 @@ import UIKit
       */
      AutoToolbar managing behavior. Default is IQAutoToolbarBySubviews.
      */
-    @objc public var manageBehavior: IQAutoToolbarManageBehavior = .bySubviews
+    public var manageBehavior: IQAutoToolbarManageBehavior = .bySubviews
 
     /**
     Buttons configuration displayed on the toolbar, the selector parameter is ignored in below configuration
     */
-    @objc public var previousBarButtonConfiguration: IQBarButtonItemConfiguration?
-    @objc public var nextBarButtonConfiguration: IQBarButtonItemConfiguration?
-    @objc public var doneBarButtonConfiguration: IQBarButtonItemConfiguration?
+    public var previousBarButtonConfiguration: IQBarButtonItemConfiguration?
+    public var nextBarButtonConfiguration: IQBarButtonItemConfiguration?
+    public var doneBarButtonConfiguration: IQBarButtonItemConfiguration?
 
-    @objc public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
+    public let placeholderConfiguration: IQToolbarPlaceholderConfiguration = .init()
 }
 
 // swiftlint:disable unused_setter_value

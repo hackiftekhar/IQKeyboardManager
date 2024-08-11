@@ -34,4 +34,4 @@ public protocol IQPlaceholderable: AnyObject {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-extension UITextField: IQPlaceholderable { }
+@objc extension UITextField: IQPlaceholderable { }

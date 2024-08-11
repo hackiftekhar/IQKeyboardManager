@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 // MARK: UIKeyboard Notifications
 @available(iOSApplicationExtension, unavailable)
@@ -44,7 +45,7 @@ internal extension IQKeyboardManager {
     }
 
     private func handleKeyboardTextInputViewVisible() {
-        
+
         do {
             let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootConfiguration
             if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
@@ -104,7 +105,7 @@ internal extension IQKeyboardManager {
 
     func setupTextInputView() {
 
-        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView = activeConfiguration.textInputView else {
             return
         }
 
@@ -126,7 +127,7 @@ internal extension IQKeyboardManager {
 
     func banishTextInputViewSetup() {
 
-        guard let textInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView = activeConfiguration.textInputView else {
             return
         }
 

@@ -22,6 +22,23 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc internal extension IQKeyboardToolbarManager {
+    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    func reloadInputViews() {
+
+        guard let textInputView = textInputView else { return }
+        // If enabled then adding toolbar.
+        if privateIsEnableAutoToolbar(of: textInputView) {
+            self.addToolbarIfRequired(of: textInputView)
+        } else {
+            self.removeToolbarIfRequired(of: textInputView)
+        }
+    }
+}
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -33,6 +50,7 @@ internal extension IQKeyboardToolbarManager {
     private static let toolbarTag = -1001
 
     // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     /**
      Add toolbar if it is required to add on textInputViews and it's siblings.
      */
@@ -124,6 +142,7 @@ internal extension IQKeyboardToolbarManager {
         Self.applyToolbarConfiguration(textInputView: textInputView, toolbarConfiguration: toolbarConfiguration)
     }
     // swiftlint:enable function_body_length
+    // swiftlint:enable cyclomatic_complexity
 
     /** Remove any toolbar if it is IQToolbar. */
     func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
@@ -140,18 +159,6 @@ internal extension IQKeyboardToolbarManager {
         }
 
         textInputView.inputAccessoryView = nil
-    }
-
-    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
-    @objc func reloadInputViews() {
-
-        guard let textInputView = textInputView else { return }
-        // If enabled then adding toolbar.
-        if privateIsEnableAutoToolbar(of: textInputView) {
-            self.addToolbarIfRequired(of: textInputView)
-        } else {
-            self.removeToolbarIfRequired(of: textInputView)
-        }
     }
 }
 

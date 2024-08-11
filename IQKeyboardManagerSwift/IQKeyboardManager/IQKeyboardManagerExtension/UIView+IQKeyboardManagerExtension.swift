@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -32,8 +33,8 @@ private struct AssociatedKeys {
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-extension UIView {
-    nonisolated public static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
+@objc public extension UIView {
+    nonisolated static let defaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 }
 
 @available(iOSApplicationExtension, unavailable)
@@ -83,14 +84,6 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
                 objc_setAssociatedObject(base, &AssociatedKeys.enableMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-internal extension IQTextInputView {
-    var internalEnableMode: IQEnableMode {
-        return iq.enableMode
     }
 }
 

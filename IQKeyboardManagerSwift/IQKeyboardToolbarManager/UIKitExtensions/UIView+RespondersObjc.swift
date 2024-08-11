@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConstants.swift
+//  UIView+RespondersObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,21 +21,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-/**
- `IQEnableModeDefault`
- Pick default settings.
- 
- `IQEnableModeEnabled`
- setting is enabled.
- 
- `IQEnableModeDisabled`
- setting is disabled.
- */
-@available(iOSApplicationExtension, unavailable)
-@objc public enum IQEnableMode: Int {
-    case `default`
-    case enabled
-    case disabled
+// MARK:  For ObjectiveC Compatibility
+
+@objc public extension UITextField {
+
+    var iq_ignoreSwitchingByNextPrevious: Bool {
+        get { iq.ignoreSwitchingByNextPrevious }
+        set { iq.ignoreSwitchingByNextPrevious = newValue }
+    }
 }
+
+@objc public extension UITextView {
+
+    var iq_ignoreSwitchingByNextPrevious: Bool {
+        get { iq.ignoreSwitchingByNextPrevious }
+        set { iq.ignoreSwitchingByNextPrevious = newValue }
+    }
+}
+

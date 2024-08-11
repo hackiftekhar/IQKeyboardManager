@@ -22,11 +22,12 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 // swiftlint:disable file_length
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     private typealias IQLayoutGuide = (top: CGFloat, bottom: CGFloat)
 
@@ -43,7 +44,7 @@ public extension IQKeyboardManager {
      moved distance to the top used to maintain distance between keyboard and textInputView.
      Most of the time this will be a positive value.
      */
-    @objc private(set) var movedDistance: CGFloat {
+    private(set) var movedDistance: CGFloat {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.movedDistance) as? CGFloat ?? 0.0
         }
@@ -56,7 +57,7 @@ public extension IQKeyboardManager {
     /**
     Will be called then movedDistance will be changed
      */
-    @objc var movedDistanceChanged: ((CGFloat) -> Void)? {
+    var movedDistanceChanged: ((CGFloat) -> Void)? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.movedDistanceChanged) as? ((CGFloat) -> Void)
         }
@@ -68,6 +69,7 @@ public extension IQKeyboardManager {
     }
 
     /** Variable to save lastScrollView that was scrolled. */
+    @nonobjc
     internal var lastScrollViewConfiguration: IQScrollViewConfiguration? {
         get {
             return objc_getAssociatedObject(self,
@@ -80,6 +82,7 @@ public extension IQKeyboardManager {
     }
 
     /** used to adjust contentInset of UITextView. */
+    @nonobjc
     internal var startingTextViewConfiguration: IQScrollViewConfiguration? {
         get {
             return objc_getAssociatedObject(self,
@@ -91,7 +94,7 @@ public extension IQKeyboardManager {
         }
     }
 
-    @objc internal func applicationDidBecomeActive(_ notification: Notification) {
+    internal func applicationDidBecomeActive(_ notification: Notification) {
 
         guard privateIsEnabled(),
               activeConfiguration.keyboardInfo.isVisible,
@@ -106,7 +109,7 @@ public extension IQKeyboardManager {
     internal func adjustPosition() {
 
         guard UIApplication.shared.applicationState == .active,
-              let textInputView: any IQTextInputView = activeConfiguration.textInputViewInfo?.textInputView,
+              let textInputView: any IQTextInputView = activeConfiguration.textInputView,
               let superview: UIView = textInputView.superview,
               let rootConfiguration = activeConfiguration.rootConfiguration,
               let window: UIWindow = rootConfiguration.rootController.view.window else {
@@ -231,7 +234,7 @@ public extension IQKeyboardManager {
         })
         // Restoring the contentOffset of the lastScrollView
         if let lastConfiguration: IQScrollViewConfiguration = lastScrollViewConfiguration {
-            let textInputView: (any IQTextInputView)? = activeConfiguration.textInputViewInfo?.textInputView
+            let textInputView: (any IQTextInputView)? = activeConfiguration.textInputView
 
             restoreScrollViewConfigurationIfChanged(configuration: lastConfiguration, textInputView: textInputView)
 

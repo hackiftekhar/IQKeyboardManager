@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConfiguration.swift
+//  UIView+IQKeyboardManagerExtensionObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,18 +22,33 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objcMembers public final class IQKeyboardConfiguration: NSObject {
+// MARK:  For ObjectiveC Compatibility
 
-    /**
-    Override the keyboardAppearance for all textInputView. Default is NO.
-    */
-    public var overrideAppearance: Bool = false
+@objc public extension UITextField {
 
-    /**
-    If overrideKeyboardAppearance is YES, then all the textInputView keyboardAppearance is set using this property.
-    */
-    public var appearance: UIKeyboardAppearance = .default
+    var iq_distanceFromKeyboard: CGFloat {
+        get { iq.distanceFromKeyboard }
+        set { iq.distanceFromKeyboard = newValue }
+    }
+
+    var iq_enableMode: IQEnableMode {
+        get { iq.enableMode }
+        set { iq.enableMode = newValue }
+    }
 }
+
+@objc public extension UITextView {
+
+    var iq_distanceFromKeyboard: CGFloat {
+        get { iq.distanceFromKeyboard }
+        set { iq.distanceFromKeyboard = newValue }
+    }
+
+    var iq_enableMode: IQEnableMode {
+        get { iq.enableMode }
+        set { iq.enableMode = newValue }
+    }
+}
+

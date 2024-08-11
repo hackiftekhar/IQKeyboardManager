@@ -26,10 +26,10 @@ import UIKit
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardManager {
+@objc public extension IQKeyboardManager {
 
     @available(*, unavailable, renamed: "resignOnTouchOutside")
-    @objc var shouldResignOnTouchOutside: Bool {
+    var shouldResignOnTouchOutside: Bool {
         get { false }
         set { }
     }

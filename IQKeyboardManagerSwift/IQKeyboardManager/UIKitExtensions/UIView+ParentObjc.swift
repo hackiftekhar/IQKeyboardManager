@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConfiguration.swift
+//  UIView+ParentObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -23,17 +23,9 @@
 
 import UIKit
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objcMembers public final class IQKeyboardConfiguration: NSObject {
+@objc public extension UIView {
 
-    /**
-    Override the keyboardAppearance for all textInputView. Default is NO.
-    */
-    public var overrideAppearance: Bool = false
-
-    /**
-    If overrideKeyboardAppearance is YES, then all the textInputView keyboardAppearance is set using this property.
-    */
-    public var appearance: UIKeyboardAppearance = .default
+    func iq_parentContainerViewController() -> UIViewController? {
+        iq.parentContainerViewController()
+    }
 }

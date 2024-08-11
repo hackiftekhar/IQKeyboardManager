@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -29,7 +30,7 @@ internal extension IQKeyboardManager {
 
     func privateIsEnabled() -> Bool {
 
-        guard let textInputView: any IQTextInputView = activeConfiguration.textInputViewInfo?.textInputView else {
+        guard let textInputView: any IQTextInputView = activeConfiguration.textInputView else {
             return enable
         }
 
@@ -73,5 +74,13 @@ internal extension IQKeyboardManager {
         case .disabled:
             return false
         }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+fileprivate extension IQTextInputView {
+    var internalEnableMode: IQEnableMode {
+        return iq.enableMode
     }
 }

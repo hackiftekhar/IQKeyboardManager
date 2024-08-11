@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -32,7 +33,7 @@ internal final class IQTextInputViewInfoModel: NSObject {
     weak var textInputView: (any IQTextInputView)?
     let originalReturnKeyType: UIReturnKeyType
 
-    @objc init(textInputView: any IQTextInputView) {
+    init(textInputView: any IQTextInputView) {
         self.textInputView = textInputView
         self.originalReturnKeyType = textInputView.returnKeyType
         if let textInputView = textInputView as? UITextField {

@@ -7,7 +7,6 @@ target "DemoObjC" do
 
   pod "IQDropDownTextField"
   pod "IQKeyboardManager", :path => "."
-
 end
 
 target "DemoSwift" do

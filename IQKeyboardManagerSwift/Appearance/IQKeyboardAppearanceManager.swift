@@ -22,19 +22,20 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc internal final class IQKeyboardAppearanceManager: NSObject {
+@objcMembers internal final class IQKeyboardAppearanceManager: NSObject {
 
-    let textInputViewObserver: IQTextFieldViewListener = .init()
+    let textInputViewObserver: IQTextInputViewNotification = .init()
 
     /**
     Configuration related to keyboard appearance
     */
     var keyboardConfiguration: IQKeyboardConfiguration = .init()
 
-    @objc public override init() {
+    public override init() {
         super.init()
 
         // Registering one time only

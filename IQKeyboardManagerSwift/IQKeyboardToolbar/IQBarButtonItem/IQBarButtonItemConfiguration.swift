@@ -28,9 +28,9 @@ import UIKit
  */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public final class IQBarButtonItemConfiguration: NSObject {
+@objcMembers public final class IQBarButtonItemConfiguration: NSObject {
 
-    @objc public init(systemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {
+    public init(systemItem: UIBarButtonItem.SystemItem, action: Selector? = nil) {
         self.systemItem = systemItem
         self.image = nil
         self.title = nil
@@ -38,7 +38,7 @@ import UIKit
         super.init()
     }
 
-    @objc public init(image: UIImage, action: Selector? = nil) {
+    public init(image: UIImage, action: Selector? = nil) {
         self.systemItem = nil
         self.image = image
         self.title = nil
@@ -46,7 +46,7 @@ import UIKit
         super.init()
     }
 
-    @objc public init(title: String, action: Selector? = nil) {
+    public init(title: String, action: Selector? = nil) {
         self.systemItem = nil
         self.image = nil
         self.title = title
@@ -56,15 +56,15 @@ import UIKit
 
     public let systemItem: UIBarButtonItem.SystemItem?    // System Item to be used to instantiate bar button.
 
-    @objc public let image: UIImage?    // Image to show on bar button item if it's not a system item.
+    public let image: UIImage?    // Image to show on bar button item if it's not a system item.
 
-    @objc public let title: String?     // Title to show on bar button item if it's not a system item.
+    public let title: String?     // Title to show on bar button item if it's not a system item.
 
-    @objc public var action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
+    public var action: Selector?  // action for bar button item. Usually 'doneAction:(IQBarButtonItem*)item'.
 
-    @objc public override var accessibilityLabel: String? { didSet { } } // Accessibility related labels
+    public override var accessibilityLabel: String? { didSet { } } // Accessibility related labels
 
-    @objc public func apply(on oldBarButtonItem: IQBarButtonItem, target: AnyObject?) -> IQBarButtonItem {
+    public func apply(on oldBarButtonItem: IQBarButtonItem, target: AnyObject?) -> IQBarButtonItem {
 
         var newBarButtonItem: IQBarButtonItem = oldBarButtonItem
 
