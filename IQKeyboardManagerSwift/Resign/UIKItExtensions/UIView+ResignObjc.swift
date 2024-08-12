@@ -1,5 +1,5 @@
 //
-//  IQPlaceholderable.swift
+//  UIView+ResignObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,15 +22,24 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objc public protocol IQPlaceholderable: AnyObject {
+// MARK: For ObjectiveC Compatibility
 
-    var placeholder: String? { get set }
-    var attributedPlaceholder: NSAttributedString? { get set }
+// swiftlint:disable identifier_name
+@objc public extension UITextField {
+
+    var iq_resignOnTouchOutsideMode: IQEnableMode {
+        get { iq.resignOnTouchOutsideMode }
+        set { iq.resignOnTouchOutsideMode = newValue }
+    }
 }
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objc extension UITextField: IQPlaceholderable { }
+@objc public extension UITextView {
+
+    var iq_resignOnTouchOutsideMode: IQEnableMode {
+        get { iq.resignOnTouchOutsideMode }
+        set { iq.resignOnTouchOutsideMode = newValue }
+    }
+}
+// swiftlint:enable identifier_name

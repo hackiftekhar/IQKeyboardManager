@@ -55,16 +55,16 @@ import UIKit
     }
 
     /**
-    Automatic add the toolbar functionality. Default is YES.
-    */
+     Automatic add the toolbar functionality. Default is YES.
+     */
     var enableAutoToolbar: Bool {
         get { toolbarManager.enable }
         set { toolbarManager.enable = newValue }
     }
 
     /**
-    Configurations related to the toolbar display over the keyboard.
-    */
+     Configurations related to the toolbar display over the keyboard.
+     */
     var toolbarConfiguration: IQToolbarConfiguration {
         toolbarManager.toolbarConfiguration
     }
@@ -72,8 +72,8 @@ import UIKit
     // MARK: UISound handling
 
     /**
-    If YES, then it plays inputClick sound on next/previous/done click.
-    */
+     If YES, then it plays inputClick sound on next/previous/done click.
+     */
     var playInputClicks: Bool {
         get { toolbarManager.playInputClicks }
         set { toolbarManager.playInputClicks = newValue }
@@ -111,5 +111,35 @@ import UIKit
     /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
     func reloadInputViews() {
         toolbarManager.reloadInputViews()
+    }
+
+    /**
+     Returns YES if can navigate to previous responder textInputView, otherwise NO.
+     */
+    var canGoPrevious: Bool {
+        toolbarManager.canGoPrevious
+    }
+
+    /**
+     Returns YES if can navigate to next responder textInputViews, otherwise NO.
+     */
+    var canGoNext: Bool {
+        toolbarManager.canGoNext
+    }
+
+    /**
+     Navigate to previous responder textInputViews
+    */
+    @discardableResult
+    func goPrevious() -> Bool {
+        toolbarManager.goPrevious()
+    }
+
+    /**
+     Navigate to next responder textInputView.
+    */
+    @discardableResult
+    func goNext() -> Bool {
+        toolbarManager.goNext()
     }
 }

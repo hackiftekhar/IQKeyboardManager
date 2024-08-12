@@ -13,12 +13,20 @@ let package = Package(
             targets: ["IQKeyboardManagerSwift"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/hackiftekhar/IQKeyboardNotification.git", from: "1.0.3"),
+        .package(url: "https://github.com/hackiftekhar/IQTextInputViewNotification.git", from: "1.0.5")
+    ],
     targets: [
         .target(name: "IQKeyboardManagerSwift",
-            path: "IQKeyboardManagerSwift",
-            resources: [
-                .copy("PrivacyInfo.xcprivacy")
-            ]
-        )
+                dependencies: ["IQKeyboardNotification", "IQTextInputViewNotification"],
+                path: "IQKeyboardManagerSwift",
+                resources: [
+                    .copy("PrivacyInfo.xcprivacy")
+                ],
+                linkerSettings: [
+                    .linkedFramework("UIKit")
+                ]
+               )
     ]
 )

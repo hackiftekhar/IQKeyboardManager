@@ -1,5 +1,5 @@
 //
-//  UIView+IQKeyboardExtensionObjc.swift
+//  UIView+IQKeyboardToolbarObjc.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -206,7 +206,7 @@ import UIKit
                          rightConfiguration: IQBarButtonItemConfiguration,
                          leftConfiguration: IQBarButtonItemConfiguration,
                          title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration
+        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration,
                         leftConfiguration: leftConfiguration, title: title,
                         titleAccessibilityLabel: titleAccessibilityLabel)
     }

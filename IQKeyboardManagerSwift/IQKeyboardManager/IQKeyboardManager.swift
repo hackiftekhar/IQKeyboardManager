@@ -22,8 +22,6 @@
 //  THE SOFTWARE.
 
 import UIKit
-import CoreGraphics
-import QuartzCore
 
 /**
 Code-less drop-in universal library allows to prevent issues of keyboard sliding up and cover TextInputView.
