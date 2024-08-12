@@ -19,6 +19,10 @@ DerivedData
 #CocoaPods
 Pods/
 
+# Carthage
+Carthage/Checkouts
+Carthage/Build/
+
 # MacOS X
 .DS_Store
 *.DS_Store
