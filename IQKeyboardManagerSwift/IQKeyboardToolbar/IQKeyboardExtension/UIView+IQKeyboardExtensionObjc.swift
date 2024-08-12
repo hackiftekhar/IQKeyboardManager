@@ -23,8 +23,9 @@
 
 import UIKit
 
-// MARK:  For ObjectiveC Compatibility
+// MARK: For ObjectiveC Compatibility
 
+// swiftlint:disable identifier_name
 @objc public extension UITextField {
 
     var iq_toolbar: IQToolbar { iq.toolbar }
@@ -47,13 +48,17 @@ import UIKit
                        rightConfiguration: IQBarButtonItemConfiguration? = nil,
                        title: String?,
                        titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
+                      nextConfiguration: nextConfiguration,
+                      rightConfiguration: rightConfiguration,
+                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addDone(target: AnyObject?,
                     action: Selector,
                     showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addDone(target: target, action: action, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addDone(target: target, action: action, showPlaceholder: showPlaceholder,
+                   titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addDone(target: AnyObject?,
@@ -65,52 +70,71 @@ import UIKit
     func iq_addRightButton(target: AnyObject?,
                            configuration: IQBarButtonItemConfiguration,
                            showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addRightButton(target: target, configuration: configuration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightButton(target: target, configuration: configuration, showPlaceholder: showPlaceholder,
+                          titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightButton(target: AnyObject?,
                            configuration: IQBarButtonItemConfiguration,
                            title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addRightButton(target: target, configuration: configuration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightButton(target: target, configuration: configuration, title: title,
+                          titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightLeft(target: AnyObject?,
-                         rightConfiguration: IQBarButtonItemConfiguration, leftConfiguration: IQBarButtonItemConfiguration,
+                         rightConfiguration: IQBarButtonItemConfiguration,
+                         leftConfiguration: IQBarButtonItemConfiguration,
                          showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration, leftConfiguration: leftConfiguration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration,
+                        leftConfiguration: leftConfiguration, showPlaceholder: showPlaceholder,
+                        titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightLeft(target: AnyObject?,
-                         rightConfiguration: IQBarButtonItemConfiguration, leftConfiguration: IQBarButtonItemConfiguration,
+                         rightConfiguration: IQBarButtonItemConfiguration,
+                         leftConfiguration: IQBarButtonItemConfiguration,
                          title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration, leftConfiguration: leftConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration,
+                        leftConfiguration: leftConfiguration, title: title,
+                        titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextRight(target: AnyObject?,
-                              previousConfiguration: IQBarButtonItemConfiguration? = nil,
-                              nextConfiguration: IQBarButtonItemConfiguration? = nil,
-                              rightConfiguration: IQBarButtonItemConfiguration?,
-                              showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+                                 previousConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 nextConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 rightConfiguration: IQBarButtonItemConfiguration?,
+                                 showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration,
+                                nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                                showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextRight(target: AnyObject?,
-                              previousConfiguration: IQBarButtonItemConfiguration? = nil,
-                              nextConfiguration: IQBarButtonItemConfiguration? = nil,
-                              rightConfiguration: IQBarButtonItemConfiguration?,
-                              title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+                                 previousConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 nextConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 rightConfiguration: IQBarButtonItemConfiguration?,
+                                 title: String?, titleAccessibilityLabel: String? = nil) {
+        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
+                      nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
-    func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector, nextAction: Selector, doneAction: Selector,
-                             showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+    func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector,
+                                nextAction: Selector, doneAction: Selector,
+                                showPlaceholder: Bool = false,
+                                titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextDone(target: target, previousAction: previousAction,
+                               nextAction: nextAction, doneAction: doneAction,
+                               showPlaceholder: showPlaceholder,
+                               titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextDone(target: AnyObject?,
-                             previousAction: Selector, nextAction: Selector, doneAction: Selector,
-                             title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+                                previousAction: Selector, nextAction: Selector, doneAction: Selector,
+                                title: String?, titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextDone(target: target, previousAction: previousAction,
+                               nextAction: nextAction, doneAction: doneAction,
+                               title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 }
 
@@ -136,69 +160,93 @@ import UIKit
                        rightConfiguration: IQBarButtonItemConfiguration? = nil,
                        title: String?,
                        titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
+                      nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addDone(target: AnyObject?,
                     action: Selector,
                     showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addDone(target: target, action: action, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addDone(target: target, action: action, showPlaceholder: showPlaceholder,
+                   titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addDone(target: AnyObject?,
                     action: Selector,
                     title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addDone(target: target, action: action, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addDone(target: target, action: action, title: title,
+                   titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightButton(target: AnyObject?,
                            configuration: IQBarButtonItemConfiguration,
                            showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addRightButton(target: target, configuration: configuration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightButton(target: target, configuration: configuration,
+                          showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightButton(target: AnyObject?,
                            configuration: IQBarButtonItemConfiguration,
                            title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addRightButton(target: target, configuration: configuration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightButton(target: target, configuration: configuration,
+                          title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightLeft(target: AnyObject?,
-                         rightConfiguration: IQBarButtonItemConfiguration, leftConfiguration: IQBarButtonItemConfiguration,
+                         rightConfiguration: IQBarButtonItemConfiguration,
+                         leftConfiguration: IQBarButtonItemConfiguration,
                          showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration, leftConfiguration: leftConfiguration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration,
+                        leftConfiguration: leftConfiguration, showPlaceholder: showPlaceholder,
+                        titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addRightLeft(target: AnyObject?,
-                         rightConfiguration: IQBarButtonItemConfiguration, leftConfiguration: IQBarButtonItemConfiguration,
+                         rightConfiguration: IQBarButtonItemConfiguration,
+                         leftConfiguration: IQBarButtonItemConfiguration,
                          title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration, leftConfiguration: leftConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addRightLeft(target: target, rightConfiguration: rightConfiguration
+                        leftConfiguration: leftConfiguration, title: title,
+                        titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextRight(target: AnyObject?,
-                              previousConfiguration: IQBarButtonItemConfiguration? = nil,
-                              nextConfiguration: IQBarButtonItemConfiguration? = nil,
-                              rightConfiguration: IQBarButtonItemConfiguration?,
-                              showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+                                 previousConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 nextConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 rightConfiguration: IQBarButtonItemConfiguration?,
+                                 showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration,
+                                nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                                showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextRight(target: AnyObject?,
-                              previousConfiguration: IQBarButtonItemConfiguration? = nil,
-                              nextConfiguration: IQBarButtonItemConfiguration? = nil,
-                              rightConfiguration: IQBarButtonItemConfiguration?,
-                              title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration, nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+                                 previousConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 nextConfiguration: IQBarButtonItemConfiguration? = nil,
+                                 rightConfiguration: IQBarButtonItemConfiguration?,
+                                 title: String?, titleAccessibilityLabel: String? = nil) {
+        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
+                      nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
+                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
-    func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector, nextAction: Selector, doneAction: Selector,
-                             showPlaceholder: Bool = false, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, showPlaceholder: showPlaceholder, titleAccessibilityLabel: titleAccessibilityLabel)
+    func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector, nextAction: Selector,
+                                doneAction: Selector, showPlaceholder: Bool = false,
+                                titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextDone(target: target, previousAction: previousAction,
+                               nextAction: nextAction,
+                               doneAction: doneAction, showPlaceholder: showPlaceholder,
+                               titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextDone(target: AnyObject?,
-                             previousAction: Selector, nextAction: Selector, doneAction: Selector,
-                             title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addPreviousNextDone(target: target, previousAction: previousAction, nextAction: nextAction, doneAction: doneAction, title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+                                previousAction: Selector, nextAction: Selector, doneAction: Selector,
+                                title: String?, titleAccessibilityLabel: String? = nil) {
+        iq.addPreviousNextDone(target: target, previousAction: previousAction,
+                               nextAction: nextAction,
+                               doneAction: doneAction, title: title,
+                               titleAccessibilityLabel: titleAccessibilityLabel)
     }
 }
+// swiftlint:enable identifier_name

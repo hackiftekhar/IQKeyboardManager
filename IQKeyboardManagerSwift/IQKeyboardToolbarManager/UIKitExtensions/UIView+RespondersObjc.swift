@@ -23,8 +23,9 @@
 
 import UIKit
 
-// MARK:  For ObjectiveC Compatibility
+// MARK: For ObjectiveC Compatibility
 
+// swiftlint:disable identifier_name
 @objc public extension UITextField {
 
     var iq_ignoreSwitchingByNextPrevious: Bool {
@@ -40,4 +41,4 @@ import UIKit
         set { iq.ignoreSwitchingByNextPrevious = newValue }
     }
 }
-
+// swiftlint:enable identifier_name

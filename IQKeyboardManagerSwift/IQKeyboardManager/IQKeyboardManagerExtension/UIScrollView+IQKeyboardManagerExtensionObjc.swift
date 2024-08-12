@@ -23,8 +23,9 @@
 
 import UIKit
 
-// MARK:  For ObjectiveC Compatibility
+// MARK: For ObjectiveC Compatibility
 
+// swiftlint:disable identifier_name
 @objc public extension UIScrollView {
 
     var iq_ignoreScrollingAdjustment: Bool {
@@ -42,3 +43,4 @@ import UIKit
         set { iq.restoreContentOffset = newValue }
     }
 }
+// swiftlint:enable identifier_name
