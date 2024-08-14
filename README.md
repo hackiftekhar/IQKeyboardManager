@@ -8,7 +8,7 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManagerSwift.svg)](http://cocoadocs.org/docsets/IQKeyboardManagerSwift)
 [![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)](https://github.com/hackiftekhar/IQKeyboardManager/tags)
 
-## Big updates are coming soon
+## Big updates are coming soon!
 
 #### First of all, Thank You for using IQKeyboardManager!
 It's been 11 years since it's first release in 2013. The library has grown a lot and we have added many new features since then.
@@ -55,7 +55,13 @@ Below are the action plans
  - This now only contains functions for handling distance between UITextView/UITextField and their useful functions.
  - This depends on the `IQKeyboardNotification` to get keyboard notification callbacks.
  - This depends on the `IQTextInputViewNotification` to know which textField is currently in focus.
- - Now there are also subspecs like `IQKeyboardManagerSwift/Appearance`,  `IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler`, `IQKeyboardManagerSwift/IQKeyboardToolbarManager`,  `IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar`, `IQKeyboardManagerSwift/IQTextView` , `IQKeyboardManagerSwift/Resign`.
+ - Now there are also subspecs for now as of 7.2.0, but some of them will be removed in 8.0.0 because we already have separate library for this.
+  - `IQKeyboardManagerSwift/Appearance`
+  - `IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler`
+  - `IQKeyboardManagerSwift/IQKeyboardToolbarManager`
+  - `IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar`
+  - `IQKeyboardManagerSwift/IQTextView`
+  - `IQKeyboardManagerSwift/Resign`
 - [ ] Bug fixes which may have arrived due to the library segregation.
  - We need your support on this one.
 - [ ] Publish [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 8.0.0 by marking deprecated classes as unavailable.
@@ -115,7 +121,7 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 |                        | Language | Minimum iOS Target | Minimum Xcode Version |
 |------------------------|----------|--------------------|-----------------------|
-| IQKeyboardManager      | Obj-C    | iOS 11.0            | Xcode 13             |
+| IQKeyboardManager      | Obj-C    | iOS 13.0            | Xcode 13             |
 | IQKeyboardManagerSwift | Swift    | iOS 13.0            | Xcode 13             |
 | Demo Project           |          |                     | Xcode 15             |
 
