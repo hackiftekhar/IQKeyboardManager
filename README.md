@@ -4,27 +4,31 @@
 
 [![LICENSE.md](https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg)]([https://travis-ci.org/hackiftekhar/IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/LICENSE.md))
 [![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
+![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)
+[![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManagerSwift.svg)](http://cocoadocs.org/docsets/IQKeyboardManagerSwift)
+[![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)](https://github.com/hackiftekhar/IQKeyboardManager/tags)
 
 ## Big updates are coming soon
 
-#### Thank You All!
+#### First of all, Thank You for using IQKeyboardManager!
 It's been 11 years since it's first release in 2013. The library has grown a lot and we have added many new features since then.
 
 #### Motivation
 Recently while working on bug fixes, I realized that in 2013 there were only 2 files IQKeyboardManager.{h,m} in Objective-C version, while now in Swift version there are 50+ files which makes the debugging a lot difficult than before. Also some of the features are rarely used in apps.
 
 #### New Idea
-I realized that some of the features of library are not tightly linked to each other and can be moved out of the library easily. For Example:-
-- IQTextView clas
-- IQKeyboardListener class
-- IQTextFieldViewListener class
-- IQReturnKeyHandler class
-- Toolbar related features like IQToolbar and IQBarButtonItem and their support classes.
+I realized that some of the features are not tightly linked to each other and can be moved out of the library easily. For Example:-
+- `IQTextView` clas
+- `IQKeyboardListener` class
+- `IQTextFieldViewListener` class
+- `IQReturnKeyHandler` class
+- Toolbar related features like `IQToolbar` and `IQBarButtonItem` and their support classes.
+- ...
 
-Moving above things out of the library will make the library more lightweight and user can plug-in or plug-out features as per their needs.
+Moving above things out will make the library more lightweight and user can plug in/out features as per their needs.
 
 #### Action Plan
-I have decided to move loosly linked features to out of the library, and publish them to their separate github repo, and use them dependencies separately as per requirements.
+I have decided to move loosly linked features out, and publish them to their separate github repo, and use them as dependencies as per requirements.
 
 Below are the action plans
 - [x] Publish [IQKeyboardCore](https://github.com/hackiftekhar/IQKeyboardCore)
@@ -47,7 +51,7 @@ Below are the action plans
  - This depends on the `IQKeyboardToolbar` to add/remove toolbars over keyboard.
 - [x] Publish [IQKeyboardNotification](https://github.com/hackiftekhar/IQKeyboardNotification)
  - This is a renamed of `IQKeyboardListener`. This can be used independently to subscribe/unsubscribe for keyboard events.
-- [x] Publish [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 7.2.0 for all the current support without any compilation error but by deprecating most of the things which are moved out of the library.
+- [ ] Publish [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 7.2.0 for all the current support without any compilation error but by deprecating most of the things which are moved out of the library.
  - This now only contains functions for handling distance between UITextView/UITextField and their useful functions.
  - This depends on the `IQKeyboardNotification` to get keyboard notification callbacks.
  - This depends on the `IQTextInputViewNotification` to know which textField is currently in focus.
@@ -108,7 +112,6 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 - If **IQKeyboardManager** conflicts with other **third-party library**, then it's **developer responsibility** to **enable/disable IQKeyboardManager** when **presenting/dismissing** third-party library UI. Third-party libraries are not responsible to handle IQKeyboardManager.
 
 ## Requirements
-[![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)]()
 
 |                        | Language | Minimum iOS Target | Minimum Xcode Version |
 |------------------------|----------|--------------------|-----------------------|
@@ -136,8 +139,6 @@ Installation
 ==========================
 
 #### Installation with CocoaPods
-
-[![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManager.svg)](http://cocoadocs.org/docsets/IQKeyboardManager)
 
 ***IQKeyboardManager (Objective-C):*** IQKeyboardManager is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
@@ -201,10 +202,6 @@ Run `carthage` to build the frameworks and drag the appropriate framework (`IQKe
 
 
 #### Installation with Source Code
-
-[![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)]()
-
-
 
 ***IQKeyboardManager (Objective-C):*** Just ***drag and drop*** `IQKeyboardManager` directory from demo project to your project. That's it.
 
