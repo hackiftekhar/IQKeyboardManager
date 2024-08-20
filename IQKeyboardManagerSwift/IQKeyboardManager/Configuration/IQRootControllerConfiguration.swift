@@ -73,5 +73,5 @@ internal struct IQRootControllerConfiguration {
         rect.origin = beginOrigin
         rootController.view.frame = rect
         return true
-     }
+    }
 }

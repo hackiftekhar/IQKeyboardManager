@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C01ED2A22C6A4ED6004BA157"
                BuildableName = "IQKeyboardManager.framework"
-               BlueprintName = "IQKeyboardManager"
+               BlueprintName = "IQKeyboardManager-iOS"
                ReferencedContainer = "container:Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,7 +51,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C01ED2A22C6A4ED6004BA157"
             BuildableName = "IQKeyboardManager.framework"
-            BlueprintName = "IQKeyboardManager"
+            BlueprintName = "IQKeyboardManager-iOS"
             ReferencedContainer = "container:Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

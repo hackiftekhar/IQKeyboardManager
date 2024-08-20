@@ -1,5 +1,5 @@
 //
-//  IQKeyboardConfiguration.swift
+//  IQKeyboardAppearanceConfiguration.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,7 +25,7 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objcMembers public final class IQKeyboardConfiguration: NSObject {
+@objcMembers public final class IQKeyboardAppearanceConfiguration: NSObject {
 
     /**
     Override the keyboardAppearance for all textInputView. Default is NO.
@@ -37,3 +37,7 @@ import UIKit
     */
     public var appearance: UIKeyboardAppearance = .default
 }
+
+@available(*, unavailable, renamed: "IQKeyboardAppearanceConfiguration")
+@MainActor
+@objcMembers public final class IQKeyboardConfiguration: NSObject {}

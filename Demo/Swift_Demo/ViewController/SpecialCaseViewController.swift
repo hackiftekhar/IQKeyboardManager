@@ -23,6 +23,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 
 class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UITextFieldDelegate, UITextViewDelegate {
 
@@ -102,37 +103,37 @@ class SpecialCaseViewController: BaseViewController, UISearchBarDelegate, UIText
 
     @IBAction func switch1UserInteractionAction(_ sender: UISwitch) {
         textField6.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 
     @IBAction func switch2UserInteractionAction(_ sender: UISwitch) {
         textField7.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 
     @IBAction func switch3UserInteractionAction(_ sender: UISwitch) {
         textField8.isUserInteractionEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 
     @IBAction func switch1Action(_ sender: UISwitch) {
         textField6.isEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 
     @IBAction func switch2Action(_ sender: UISwitch) {
         textField7.isEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 
     @IBAction func switch3Action(_ sender: UISwitch) {
         textField8.isEnabled = sender.isOn
-        IQKeyboardManager.shared.reloadInputViews()
+        IQKeyboardToolbarManager.shared.reloadInputViews()
         updateUI()
     }
 

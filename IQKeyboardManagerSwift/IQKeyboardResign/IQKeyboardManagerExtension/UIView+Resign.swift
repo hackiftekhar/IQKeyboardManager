@@ -31,7 +31,7 @@ private struct AssociatedKeys {
 }
 
 /**
- TextInputView category for managing touch resign
+TextInputView category for managing touch resign
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor

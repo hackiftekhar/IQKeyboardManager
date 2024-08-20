@@ -1,5 +1,5 @@
 //
-//  IQToolbarPlaceholderConfiguration.swift
+//  IQKeyboardManager+Appearance.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -25,30 +25,31 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objcMembers public final class IQToolbarPlaceholderConfiguration: NSObject {
+@objc public extension IQKeyboardManager {
+
+    @MainActor
+    private struct AssociatedKeys {
+        static var appearanceManager: Int = 0
+    }
+
+    internal var appearanceManager: IQKeyboardAppearanceManager {
+        if let object = objc_getAssociatedObject(self, &AssociatedKeys.appearanceManager)
+            as? IQKeyboardAppearanceManager {
+            return object
+        }
+
+        let object: IQKeyboardAppearanceManager = .init()
+        objc_setAssociatedObject(self, &AssociatedKeys.appearanceManager,
+                                 object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        return object
+    }
 
     /**
-     If YES, then it add the textInputView's placeholder text on toolbar. Default is YES.
-    */
-    public var showPlaceholder: Bool = true
-
-    /**
-    Placeholder Font. Default is nil.
-    */
-    public var font: UIFont?
-
-    /**
-     Placeholder Color. Default is nil. Which means lightGray
+     Configuration related to keyboard appearance
      */
-    public var color: UIColor?
-
-    /**
-     Placeholder Button Color when it's treated as button. Default is nil.
-     */
-    public var buttonColor: UIColor?
-
-    /**
-     Placeholder accessibility Label
-     */
-    public override var accessibilityLabel: String? { didSet { } }
+    var keyboardConfiguration: IQKeyboardAppearanceConfiguration {
+        get { appearanceManager.keyboardConfiguration }
+        set { appearanceManager.keyboardConfiguration = newValue }
+    }
 }

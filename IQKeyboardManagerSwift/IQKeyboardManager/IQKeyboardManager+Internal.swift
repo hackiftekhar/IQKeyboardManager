@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQTextInputViewNotification
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
@@ -31,13 +32,13 @@ internal extension IQKeyboardManager {
     func privateIsEnabled() -> Bool {
 
         guard let textInputView: any IQTextInputView = activeConfiguration.textInputView else {
-            return enable
+            return isEnabled
         }
 
         switch textInputView.internalEnableMode {
         case .default:
             guard var controller = (textInputView as UIView).iq.viewContainingController() else {
-                return enable
+                return isEnabled
             }
 
             // If it is searchBar textField embedded in Navigation Bar
@@ -49,7 +50,7 @@ internal extension IQKeyboardManager {
 
             // If viewController is in enabledDistanceHandlingClasses, then assuming it's enabled.
             let isWithEnabledClass: Bool = enabledDistanceHandlingClasses.contains(where: { controller.isKind(of: $0) })
-            var isEnabled: Bool = enable || isWithEnabledClass
+            var isEnabled: Bool = isEnabled || isWithEnabledClass
 
             if isEnabled {
                 // If viewController is in disabledDistanceHandlingClasses,

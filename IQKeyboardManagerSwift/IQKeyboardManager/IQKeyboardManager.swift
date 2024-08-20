@@ -45,12 +45,12 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     Enable/disable managing distance between keyboard and textInputView.
      Default is YES(Enabled when class loads in `+(void)load` method).
     */
-    public var enable: Bool = false {
+    public var isEnabled: Bool = false {
 
         didSet {
-            guard enable != oldValue else { return }
+            guard isEnabled != oldValue else { return }
             // If not enable, enable it.
-            if enable {
+            if isEnabled {
                 // If keyboard is currently showing.
                 if activeConfiguration.keyboardInfo.isVisible {
                     adjustPosition()
@@ -71,8 +71,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     public var keyboardDistance: CGFloat = 10.0
 
     /*******************************************/
-
-    // MARK: UIAnimation handling
 
     /**
     If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
@@ -116,7 +114,7 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     deinit {
         //  Disable the keyboard manager.
-        enable = false
+        isEnabled = false
     }
 
     // MARK: Public Methods

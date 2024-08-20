@@ -24,6 +24,8 @@
 import UIKit
 import IQKeyboardManagerSwift
 import IQDropDownTextFieldSwift
+import IQTextView
+import IQKeyboardNotification
 
 class TextFieldViewController: BaseViewController, UITextViewDelegate {
 
@@ -32,7 +34,7 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet var textView2: UITextView!
     @IBOutlet var textView3: UITextView!
 
-    let keyboardListener = IQKeyboardListener()
+    let keyboardListener = IQKeyboardNotification()
 
     @IBOutlet var dropDownTextField: IQDropDownTextField!
 

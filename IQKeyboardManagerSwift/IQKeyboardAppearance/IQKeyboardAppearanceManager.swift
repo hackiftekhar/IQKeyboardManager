@@ -1,5 +1,5 @@
 //
-//  IQPlaceholderable.swift
+//  IQKeyboardAppearanceManager.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -22,15 +22,23 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-@objc public protocol IQPlaceholderable: AnyObject {
+@objcMembers internal final class IQKeyboardAppearanceManager: NSObject {
 
-    var placeholder: String? { get set }
-    var attributedPlaceholder: NSAttributedString? { get set }
+    let textInputViewObserver: IQTextInputViewNotification = .init()
+
+    /**
+    Configuration related to keyboard appearance
+    */
+    var keyboardConfiguration: IQKeyboardAppearanceConfiguration = .init()
+
+    public override init() {
+        super.init()
+
+        // Registering one time only
+        addTextInputViewObserver()
+    }
 }
-
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objc extension UITextField: IQPlaceholderable { }
