@@ -114,9 +114,10 @@ import UIKit
                                  nextConfiguration: IQBarButtonItemConfiguration? = nil,
                                  rightConfiguration: IQBarButtonItemConfiguration?,
                                  title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
-                      nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
-                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration,
+                                nextConfiguration: nextConfiguration,
+                                rightConfiguration: rightConfiguration,
+                                title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector,
@@ -226,9 +227,10 @@ import UIKit
                                  nextConfiguration: IQBarButtonItemConfiguration? = nil,
                                  rightConfiguration: IQBarButtonItemConfiguration?,
                                  title: String?, titleAccessibilityLabel: String? = nil) {
-        iq.addToolbar(target: target, previousConfiguration: previousConfiguration,
-                      nextConfiguration: nextConfiguration, rightConfiguration: rightConfiguration,
-                      title: title, titleAccessibilityLabel: titleAccessibilityLabel)
+        iq.addPreviousNextRight(target: target, previousConfiguration: previousConfiguration,
+                                nextConfiguration: nextConfiguration,
+                                rightConfiguration: rightConfiguration,
+                                title: title, titleAccessibilityLabel: titleAccessibilityLabel)
     }
 
     func iq_addPreviousNextDone(target: AnyObject?, previousAction: Selector, nextAction: Selector,
