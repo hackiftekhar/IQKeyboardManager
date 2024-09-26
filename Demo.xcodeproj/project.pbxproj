@@ -68,7 +68,6 @@
 		C01ED26B2C6A4E57004BA157 /* UICollectionView+IndexPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED21A2C6A4E56004BA157 /* UICollectionView+IndexPaths.swift */; };
 		C01ED26C2C6A4E57004BA157 /* UITableView+IndexPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED21B2C6A4E56004BA157 /* UITableView+IndexPaths.swift */; };
 		C01ED26D2C6A4E57004BA157 /* IQKeyboardManager+ActiveConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED21C2C6A4E56004BA157 /* IQKeyboardManager+ActiveConfiguration.swift */; };
-		C01ED26E2C6A4E57004BA157 /* IQKeyboardManager+PopGestureHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED21D2C6A4E56004BA157 /* IQKeyboardManager+PopGestureHandling.swift */; };
 		C01ED26F2C6A4E57004BA157 /* IQKeyboardManager+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED21F2C6A4E56004BA157 /* IQKeyboardManager+Debug.swift */; };
 		C01ED2702C6A4E57004BA157 /* IQKeyboardManager+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED2212C6A4E56004BA157 /* IQKeyboardManager+Deprecated.swift */; };
 		C01ED2712C6A4E57004BA157 /* IQTextFieldViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED2232C6A4E56004BA157 /* IQTextFieldViewInfo.swift */; };
@@ -220,13 +219,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C01ED2A72C6A4ED6004BA157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C0B63B921781FAB0008D3B64 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C01ED2A22C6A4ED6004BA157;
-			remoteInfo = "IQKeyboardManager-iOS";
-		};
 		C03C9477273CF3FF00AF66B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0B63B921781FAB0008D3B64 /* Project object */;
@@ -348,7 +340,6 @@
 		C01ED21A2C6A4E56004BA157 /* UICollectionView+IndexPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+IndexPaths.swift"; sourceTree = "<group>"; };
 		C01ED21B2C6A4E56004BA157 /* UITableView+IndexPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+IndexPaths.swift"; sourceTree = "<group>"; };
 		C01ED21C2C6A4E56004BA157 /* IQKeyboardManager+ActiveConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQKeyboardManager+ActiveConfiguration.swift"; sourceTree = "<group>"; };
-		C01ED21D2C6A4E56004BA157 /* IQKeyboardManager+PopGestureHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQKeyboardManager+PopGestureHandling.swift"; sourceTree = "<group>"; };
 		C01ED21F2C6A4E56004BA157 /* IQKeyboardManager+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQKeyboardManager+Debug.swift"; sourceTree = "<group>"; };
 		C01ED2212C6A4E56004BA157 /* IQKeyboardManager+Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQKeyboardManager+Deprecated.swift"; sourceTree = "<group>"; };
 		C01ED2232C6A4E56004BA157 /* IQTextFieldViewInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextFieldViewInfo.swift; sourceTree = "<group>"; };
@@ -624,17 +615,9 @@
 				C01ED2582C6A4E57004BA157 /* IQTextView */,
 				C01ED2042C6A4E56004BA157 /* PrivacyInfo.xcprivacy */,
 				C01ED23B2C6A4E57004BA157 /* Resign */,
-				C01ED2032C6A4E56004BA157 /* ReturnKeyHandler */,
 				C01ED1FD2C6A4E33004BA157 /* IQKeyboardManagerSwift.h */,
 			);
 			path = IQKeyboardManagerSwift;
-			sourceTree = "<group>";
-		};
-		C01ED2032C6A4E56004BA157 /* ReturnKeyHandler */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ReturnKeyHandler;
 			sourceTree = "<group>";
 		};
 		C01ED2052C6A4E56004BA157 /* IQKeyboardNotification */ = {
@@ -651,13 +634,11 @@
 			children = (
 				C01ED2092C6A4E56004BA157 /* Configuration */,
 				C01ED20D2C6A4E56004BA157 /* IQKeyboardManager+Internal.swift */,
-				C01ED20E2C6A4E56004BA157 /* Constants */,
 				C01ED20F2C6A4E56004BA157 /* IQKeyboardManager+Position.swift */,
 				C01ED2102C6A4E56004BA157 /* IQKeyboardManagerExtension */,
 				C01ED2152C6A4E56004BA157 /* IQKeyboardManager.swift */,
 				C01ED2162C6A4E56004BA157 /* UIKitExtensions */,
 				C01ED21C2C6A4E56004BA157 /* IQKeyboardManager+ActiveConfiguration.swift */,
-				C01ED21D2C6A4E56004BA157 /* IQKeyboardManager+PopGestureHandling.swift */,
 				C01ED21E2C6A4E56004BA157 /* Debug */,
 				C01ED2202C6A4E56004BA157 /* Deprecated */,
 			);
@@ -672,13 +653,6 @@
 				C01ED20C2C6A4E56004BA157 /* IQScrollViewConfiguration.swift */,
 			);
 			path = Configuration;
-			sourceTree = "<group>";
-		};
-		C01ED20E2C6A4E56004BA157 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		C01ED2102C6A4E56004BA157 /* IQKeyboardManagerExtension */ = {
@@ -1463,7 +1437,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C01ED2A82C6A4ED6004BA157 /* PBXTargetDependency */,
 			);
 			name = DemoObjC;
 			productName = KeyboardTextFieldDemo;
@@ -1732,7 +1705,6 @@
 				C01ED25F2C6A4E57004BA157 /* IQActiveConfiguration.swift in Sources */,
 				C01ED2902C6A4E57004BA157 /* IQKeyboardToolbarManager.swift in Sources */,
 				C01ED2932C6A4E57004BA157 /* UIView+RespondersObjc.swift in Sources */,
-				C01ED26E2C6A4E57004BA157 /* IQKeyboardManager+PopGestureHandling.swift in Sources */,
 				C01ED2792C6A4E57004BA157 /* IQInvocation.swift in Sources */,
 				C01ED25E2C6A4E57004BA157 /* IQRootControllerConfiguration.swift in Sources */,
 				C01ED27E2C6A4E57004BA157 /* IQToolbarPlaceholderConfiguration.swift in Sources */,
@@ -1897,11 +1869,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C01ED2A82C6A4ED6004BA157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C01ED2A22C6A4ED6004BA157 /* IQKeyboardManager */;
-			targetProxy = C01ED2A72C6A4ED6004BA157 /* PBXContainerItemProxy */;
-		};
 		C03C9478273CF3FF00AF66B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C03C946C273CF3FF00AF66B5 /* DemoExtension */;
@@ -2143,7 +2110,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Iftekhar. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2199,7 +2166,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Iftekhar. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2251,7 +2218,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Iftekhar. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2307,7 +2274,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Iftekhar. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2424,7 +2391,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F7C7D2D527E621CDFB9FC681 /* Pods-DemoSwift.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2475,7 +2441,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5FC4E5EE6D1D6932EE354185 /* Pods-DemoSwift.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

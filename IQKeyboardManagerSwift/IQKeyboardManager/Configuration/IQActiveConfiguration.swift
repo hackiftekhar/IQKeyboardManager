@@ -25,6 +25,7 @@ import UIKit
 import IQKeyboardCore
 import IQKeyboardNotification
 import IQTextInputViewNotification
+import Combine
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
@@ -34,6 +35,7 @@ internal final class IQActiveConfiguration: NSObject {
     private let textInputViewObserver: IQTextInputViewNotification = .init()
 
     private var changeObservers: [AnyHashable: ConfigurationCompletion] = [:]
+    var cancellable: Set<AnyCancellable> = []
 
     enum Event: Int {
         case hide
@@ -81,10 +83,45 @@ internal final class IQActiveConfiguration: NSObject {
             } else {
                 self.notify(event: .change, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
             }
+
         } else if lastEvent != .hide {
             if rootConfiguration.beginOrientation == rootConfiguration.currentOrientation {
-                self.notify(event: .hide, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
-                self.rootConfiguration = nil
+
+                // If interactive pop gesture is active then it manipulate viewController.view's frame
+                // To overcome with this, we have to do this workaround.
+                if rootConfiguration.isInteractiveGestureActive,
+                   let rootController: UIViewController = rootConfiguration.rootController {
+
+                    self.cancellable.forEach { $0.cancel() }
+                    self.cancellable.removeAll()
+
+                    // Saving current keyboard info and textInputView
+                    let keyboardInfo = keyboardObserver.keyboardInfo
+                    let textInputViewInfo = textInputViewObserver.textInputViewInfo
+
+                    // Start observing frame changes.
+                    // If pop successful, then we'll not get callbacks here again
+                    // If user cancels the pop, then we'll get frame as .zero at some time
+                    // Also the interactiveGesture becomes inactive (genuinely it's state is .possible)
+                    // At this moment.
+                    rootController.view.publisher(for: \.frame)
+                        .sink(receiveValue: { [self] frame in
+                            print(frame)
+                            guard frame.origin == .zero,
+                                  !rootConfiguration.isInteractiveGestureActive else { return }
+
+                            cancellable.forEach { $0.cancel() }
+                            cancellable.removeAll()
+
+                            // Restore keyboard info and textInputViewInfo
+                            notify(event: .change, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+                        }).store(in: &cancellable)
+
+                } else {
+                    self.notify(event: .hide, keyboardInfo: keyboardInfo, textInputViewInfo: textInputViewInfo)
+                    self.rootConfiguration = nil
+                }
+
             } else if rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
                     rootConfiguration.restore()
@@ -109,7 +146,7 @@ internal final class IQActiveConfiguration: NSObject {
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        guard newConfiguration.rootController.view.window != rootConfiguration?.rootController.view.window ||
+        guard newConfiguration.rootController?.view.window != rootConfiguration?.rootController?.view.window ||
                 newConfiguration.beginOrientation != rootConfiguration?.beginOrientation else { return }
 
         if rootConfiguration?.rootController != newConfiguration.rootController {
@@ -136,7 +173,7 @@ extension IQActiveConfiguration {
     }
 
     private func addKeyboardObserver() {
-        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] event, endFrame in
+        keyboardObserver.subscribe(identifier: "IQActiveConfiguration", changeHandler: { [weak self] _, endFrame in
 
             guard let self = self else { return }
 
@@ -156,7 +193,9 @@ extension IQActiveConfiguration {
 
             self.sendEvent()
 
-            if event == .didHide {
+            // If interactive pop gesture is active then we don't want to remove this textField
+            if endFrame.height == 0,
+               !(rootConfiguration?.isInteractiveGestureActive ?? false) {
                 updateRootController(textInputView: nil)
             }
         })

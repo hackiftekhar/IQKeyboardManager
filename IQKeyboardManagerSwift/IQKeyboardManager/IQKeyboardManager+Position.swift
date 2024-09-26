@@ -112,7 +112,8 @@ import IQKeyboardCore
               let textInputView: any IQTextInputView = activeConfiguration.textInputView,
               let superview: UIView = textInputView.superview,
               let rootConfiguration = activeConfiguration.rootConfiguration,
-              let window: UIWindow = rootConfiguration.rootController.view.window else {
+              let rootController: UIViewController = rootConfiguration.rootController,
+              let window: UIWindow = rootController.view.window else {
             return
         }
 
@@ -122,7 +123,6 @@ import IQKeyboardCore
             showLog("<<<<< \(#function) ended <<<<<", indentation: -1)
         }
 
-        let rootController: UIViewController = rootConfiguration.rootController
         let textInputViewRectInWindow: CGRect = superview.convert(textInputView.frame, to: window)
         let textInputViewRectInRootSuperview: CGRect = superview.convert(textInputView.frame,
                                                                          to: rootController.view.superview)
@@ -228,8 +228,8 @@ import IQKeyboardCore
             // Animating content if needed (Bug ID: #204)
             if self.layoutIfNeededOnUpdate {
                 // Animating content (Bug ID: #160)
-                configuration.rootController.view.setNeedsLayout()
-                configuration.rootController.view.layoutIfNeeded()
+                configuration.rootController?.view.setNeedsLayout()
+                configuration.rootController?.view.layoutIfNeeded()
             }
         })
         // Restoring the contentOffset of the lastScrollView

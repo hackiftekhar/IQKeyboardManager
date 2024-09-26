@@ -23,6 +23,7 @@
 
 import UIKit
 import IQKeyboardCore
+import Combine
 
 // MARK: UIKeyboard Notifications
 @available(iOSApplicationExtension, unavailable)
@@ -45,23 +46,6 @@ internal extension IQKeyboardManager {
     }
 
     private func handleKeyboardTextInputViewVisible() {
-
-        do {
-            let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootConfiguration
-            if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
-               gestureConfiguration.rootController == rootConfiguration?.rootController {
-                self.activeConfiguration.rootConfiguration = gestureConfiguration
-            }
-
-            self.rootConfigurationWhilePopGestureActive = nil
-
-            if let configuration = self.activeConfiguration.rootConfiguration {
-                let classNameString: String = "\(type(of: configuration.rootController.self))"
-                showLog("""
-                Saving \(classNameString) beginning origin: \(configuration.beginOrigin)
-                """)
-            }
-        }
 
         setupTextInputView()
 
@@ -87,13 +71,6 @@ internal extension IQKeyboardManager {
 
         self.restorePosition()
         self.banishTextInputViewSetup()
-
-        if let configuration = self.activeConfiguration.rootConfiguration,
-           let navigationController: UINavigationController = configuration.rootController.navigationController,
-           let interactiveGestureRecognizer: UIGestureRecognizer = navigationController.interactivePopGestureRecognizer,
-           interactiveGestureRecognizer.state == .began {
-            self.rootConfigurationWhilePopGestureActive = configuration
-        }
 
         self.lastScrollViewConfiguration = nil
     }

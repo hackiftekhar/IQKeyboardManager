@@ -24,9 +24,8 @@
 import UIKit
 
 @available(iOSApplicationExtension, unavailable)
-// swiftlint:disable line_length
+// swiftlint:disable:next line_length
 @available(*, deprecated, message: "Please use `IQKeyboardNotification` independently from https://github.com/hackiftekhar/IQKeyboardNotification. IQKeyboardListener will be removed from this library in future release.")
-// swiftlint:enable line_length
 public struct IQKeyboardInfoDeprecated: Equatable {
     nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.event == rhs.event &&

@@ -25,9 +25,8 @@ import UIKit
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
-// swiftlint:disable line_length
+// swiftlint:disable:next line_length
 @available(*, deprecated, message: "Please use `IQTextInputViewNotification` independently from https://github.com/hackiftekhar/IQTextInputViewNotification. IQTextFieldViewListener will be removed from this library in future release.")
-// swiftlint:enable line_length
 @MainActor
 public struct IQTextFieldViewInfo: Equatable {
 

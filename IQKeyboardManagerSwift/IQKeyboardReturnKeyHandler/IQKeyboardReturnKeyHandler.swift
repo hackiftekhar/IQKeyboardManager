@@ -30,9 +30,8 @@ Manages the return key to work like next/done in a view hierarchy.
 */
 
 @available(iOSApplicationExtension, unavailable)
-// swiftlint:disable line_length
+// swiftlint:disable:next line_length
 @available(*, deprecated, message: "Please use `IQKeyboardReturnManager` independently from https://github.com/hackiftekhar/IQKeyboardReturnManager. IQKeyboardReturnKeyHandler will be removed from this library in future release.")
-// swiftlint:enable line_length
 @MainActor
 // swiftlint:disable type_body_length
 @objcMembers public final class IQKeyboardReturnKeyHandler: NSObject, UITextFieldDelegate, UITextViewDelegate {
