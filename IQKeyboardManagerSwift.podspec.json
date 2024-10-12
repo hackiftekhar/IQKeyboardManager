@@ -7,7 +7,7 @@
     },
     "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
     "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
-    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png",
+    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/Social.png",
     "license": "MIT",
     "authors": {
         "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
@@ -24,35 +24,28 @@
         "IQKeyboardNotification": ["1.0.3"],
         "IQTextInputViewNotification": ["1.0.5"]
     },
-    "source_files": [
-        "IQKeyboardManagerSwift/IQKeyboardCore/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
-    ],
     "subspecs": [
         {
             "name": "Appearance",
             "source_files": [
                 "IQKeyboardManagerSwift/Appearance/**/*.{swift}"
             ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            }
+        },
+        {
+            "name": "Core",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
+                "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
+                "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
             ]
         },
         {
             "name": "IQKeyboardReturnKeyHandler",
             "source_files": [
                 "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler/**/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
@@ -60,25 +53,16 @@
             "source_files": [
                 "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
             ],
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            },
             "subspecs": [
                 {
                     "name": "IQKeyboardToolbar",
                     "source_files": [
                         "IQKeyboardManagerSwift/IQKeyboardToolbar/**/*.{swift}"
-                    ],
-                    "platforms":{
-                        "ios":"13.0"
-                    },
-                    "frameworks": [
-                        "UIKit"
                     ]
                 }
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
@@ -86,28 +70,23 @@
             "source_files": [
                 "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
             ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
+            "dependencies": {
+                "IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar": []
+            }
         },
         {
             "name": "Resign",
             "source_files": [
                 "IQKeyboardManagerSwift/Resign/**/*.{swift}"
             ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
-            ]
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            }
         }
     ],
     "default_subspecs": [
         "Appearance",
+        "Core",
         "IQKeyboardReturnKeyHandler",
         "IQKeyboardToolbarManager",
         "IQTextView",
