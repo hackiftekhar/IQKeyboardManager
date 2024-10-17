@@ -35,24 +35,12 @@
             "name": "Appearance",
             "source_files": [
                 "IQKeyboardManagerSwift/Appearance/**/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
             "name": "IQKeyboardReturnKeyHandler",
             "source_files": [
                 "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler/**/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
@@ -65,44 +53,20 @@
                     "name": "IQKeyboardToolbar",
                     "source_files": [
                         "IQKeyboardManagerSwift/IQKeyboardToolbar/**/*.{swift}"
-                    ],
-                    "platforms":{
-                        "ios":"13.0"
-                    },
-                    "frameworks": [
-                        "UIKit"
                     ]
                 }
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
             "name": "IQTextView",
             "source_files": [
                 "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         },
         {
             "name": "Resign",
             "source_files": [
                 "IQKeyboardManagerSwift/Resign/**/*.{swift}"
-            ],
-            "platforms":{
-                "ios":"13.0"
-            },
-            "frameworks": [
-                "UIKit"
             ]
         }
     ],

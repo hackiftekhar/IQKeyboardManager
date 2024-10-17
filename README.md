@@ -18,7 +18,7 @@ Recently while working on bug fixes, I realized that in 2013 there were only 2 f
 
 #### New Idea
 I realized that some of the features are not tightly linked to each other and can be moved out of the library easily. For Example:-
-- `IQTextView` clas
+- `IQTextView` class
 - `IQKeyboardListener` class
 - `IQTextFieldViewListener` class
 - `IQReturnKeyHandler` class
