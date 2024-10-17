@@ -7,7 +7,7 @@
     },
     "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
     "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
-    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerScreenshot.png",
+    "screenshots": "https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/Social.png",
     "license": "MIT",
     "authors": {
         "Iftekhar Qurashi": "hack.iftekhar@gmail.com"
@@ -24,17 +24,22 @@
         "IQKeyboardNotification": ["1.0.3"],
         "IQTextInputViewNotification": ["1.0.5"]
     },
-    "source_files": [
-        "IQKeyboardManagerSwift/IQKeyboardCore/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
-        "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
-    ],
     "subspecs": [
         {
             "name": "Appearance",
             "source_files": [
                 "IQKeyboardManagerSwift/Appearance/**/*.{swift}"
+            ],
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            }
+        },
+        {
+            "name": "Core",
+            "source_files": [
+                "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
+                "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
+                "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
             ]
         },
         {
@@ -48,6 +53,9 @@
             "source_files": [
                 "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
             ],
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            },
             "subspecs": [
                 {
                     "name": "IQKeyboardToolbar",
@@ -61,17 +69,24 @@
             "name": "IQTextView",
             "source_files": [
                 "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
-            ]
+            ],
+            "dependencies": {
+                "IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar": []
+            }
         },
         {
             "name": "Resign",
             "source_files": [
                 "IQKeyboardManagerSwift/Resign/**/*.{swift}"
-            ]
+            ],
+            "dependencies": {
+                "IQKeyboardManagerSwift/Core": []
+            }
         }
     ],
     "default_subspecs": [
         "Appearance",
+        "Core",
         "IQKeyboardReturnKeyHandler",
         "IQKeyboardToolbarManager",
         "IQTextView",
