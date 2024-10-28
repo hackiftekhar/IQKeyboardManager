@@ -23,6 +23,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardToolbar
+import IQKeyboardToolbarManager
 
 class SettingsViewController: UITableViewController {
 
@@ -280,7 +282,7 @@ extension SettingsViewController: OptionsViewControllerDelegate {
             }
 
             if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
-                let value = IQAutoToolbarManageBehavior(rawValue: index)!
+                let value = IQKeyboardToolbarManageBehavior(rawValue: index)!
                 IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = value
             } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 

@@ -54,16 +54,8 @@
                 "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
             ],
             "dependencies": {
-                "IQKeyboardManagerSwift/Core": []
-            },
-            "subspecs": [
-                {
-                    "name": "IQKeyboardToolbar",
-                    "source_files": [
-                        "IQKeyboardManagerSwift/IQKeyboardToolbar/**/*.{swift}"
-                    ]
-                }
-            ]
+                "IQKeyboardToolbarManager": []
+            }
         },
         {
             "name": "IQTextView",
@@ -71,7 +63,8 @@
                 "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
             ],
             "dependencies": {
-                "IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar": []
+                "IQTextView": [],
+                "IQKeyboardToolbar": []
             }
         },
         {

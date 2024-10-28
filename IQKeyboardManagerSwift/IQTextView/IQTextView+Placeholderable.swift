@@ -1,5 +1,5 @@
 //
-//  IQKeyboardToolbarManager+Debug
+//  IQTextView.swift
 //  https://github.com/hackiftekhar/IQKeyboardManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -21,30 +21,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-// MARK: Debugging & Developer options
+import UIKit
+import IQTextView
+import IQKeyboardToolbar
+
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension IQKeyboardToolbarManager {
-
-    func showLog(_ logString: String, indentation: Int = 0) {
-
-        guard enableDebugging else {
-            return
-        }
-
-        if indentation < 0 {
-            self.logIndentation = max(0, self.logIndentation + indentation)
-        }
-
-        var preLog: String = "IQKeyboardToolbarManager"
-        for _ in 0 ... self.logIndentation {
-            preLog += "|\t"
-        }
-
-        print(preLog + logString)
-
-        if indentation > 0 {
-            self.logIndentation += indentation
-        }
-    }
-}
+@objc extension IQTextView: IQPlaceholderable { }

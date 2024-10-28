@@ -23,6 +23,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 
 class CustomViewController: BaseViewController {
 

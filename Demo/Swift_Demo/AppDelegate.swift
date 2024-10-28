@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.backgroundColor = UIColor.white
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
         return true
     }
 
