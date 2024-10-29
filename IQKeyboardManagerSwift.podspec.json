@@ -1,9 +1,9 @@
 {
     "name": "IQKeyboardManagerSwift",
-    "version": "7.2.0",
+    "version": "7.3.0",
     "source": {
         "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
-        "tag": "7.2.0"
+        "tag": "7.3.0"
     },
     "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
     "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
@@ -20,10 +20,6 @@
         "5.8",
         "5.9"
     ],
-    "dependencies": {
-        "IQKeyboardNotification": ["1.0.3"],
-        "IQTextInputViewNotification": ["1.0.5"]
-    },
     "subspecs": [
         {
             "name": "Appearance",
@@ -40,13 +36,20 @@
                 "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
                 "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
                 "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
-            ]
+            ],
+            "dependencies": {
+                "IQKeyboardNotification": [],
+                "IQTextInputViewNotification": []
+            }
         },
         {
             "name": "IQKeyboardReturnKeyHandler",
             "source_files": [
                 "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler/**/*.{swift}"
-            ]
+            ],
+            "dependencies": {
+                "IQKeyboardCore": []
+            }
         },
         {
             "name": "IQKeyboardToolbarManager",
@@ -54,17 +57,14 @@
                 "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
             ],
             "dependencies": {
+                "IQKeyboardManagerSwift/Core": [],
                 "IQKeyboardToolbarManager": []
             }
         },
         {
             "name": "IQTextView",
-            "source_files": [
-                "IQKeyboardManagerSwift/IQTextView/**/*.{swift}"
-            ],
             "dependencies": {
-                "IQTextView": [],
-                "IQKeyboardToolbar": []
+                "IQTextView": []
             }
         },
         {
@@ -89,5 +89,8 @@
     "frameworks": [
         "UIKit"
     ],
+    "xcconfig": {
+        "ENABLE_USER_SCRIPT_SANDBOXING": "NO"
+    },
     "requires_arc": true
 }

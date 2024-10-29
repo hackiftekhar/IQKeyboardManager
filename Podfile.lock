@@ -10,42 +10,38 @@ PODS:
     - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 7.2.0)
     - IQKeyboardManagerSwift/IQTextView (= 7.2.0)
     - IQKeyboardManagerSwift/Resign (= 7.2.0)
-    - IQKeyboardNotification (= 1.0.3)
-    - IQTextInputViewNotification (= 1.0.5)
   - IQKeyboardManagerSwift/Appearance (7.2.0):
     - IQKeyboardManagerSwift/Core
-    - IQKeyboardNotification (= 1.0.3)
-    - IQTextInputViewNotification (= 1.0.5)
   - IQKeyboardManagerSwift/Core (7.2.0):
-    - IQKeyboardNotification (= 1.0.3)
-    - IQTextInputViewNotification (= 1.0.5)
+    - IQKeyboardNotification
+    - IQTextInputViewNotification
   - IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler (7.2.0):
-    - IQKeyboardNotification (= 1.0.3)
-    - IQTextInputViewNotification (= 1.0.5)
+    - IQKeyboardCore
   - IQKeyboardManagerSwift/IQKeyboardToolbarManager (7.2.0):
-    - IQKeyboardNotification (= 1.0.3)
+    - IQKeyboardManagerSwift/Core
     - IQKeyboardToolbarManager
-    - IQTextInputViewNotification (= 1.0.5)
   - IQKeyboardManagerSwift/IQTextView (7.2.0):
-    - IQKeyboardNotification (= 1.0.3)
-    - IQKeyboardToolbar
-    - IQTextInputViewNotification (= 1.0.5)
     - IQTextView
   - IQKeyboardManagerSwift/Resign (7.2.0):
     - IQKeyboardManagerSwift/Core
-    - IQKeyboardNotification (= 1.0.3)
-    - IQTextInputViewNotification (= 1.0.5)
   - IQKeyboardNotification (1.0.3)
-  - IQKeyboardToolbar (1.1.0):
-    - IQKeyboardCore (= 1.0.5)
-  - IQKeyboardToolbarManager (1.1.0):
-    - IQKeyboardToolbar (= 1.1.0)
-    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardToolbar (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Core (= 1.1.1)
+  - IQKeyboardToolbar/Core (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Placeholderable
+  - IQKeyboardToolbar/Placeholderable (1.1.1):
+    - IQKeyboardCore
+  - IQKeyboardToolbarManager (1.1.1):
+    - IQKeyboardToolbar
+    - IQTextInputViewNotification
   - IQTextInputViewNotification (1.0.5):
     - IQKeyboardCore (= 1.0.5)
-  - IQTextView (1.0.1)
+  - IQTextView (1.0.5):
+    - IQKeyboardToolbar/Placeholderable
   - RSKPlaceholderTextView (8.0.0)
-  - SwiftLint (0.56.1)
+  - SwiftLint (0.57.0)
 
 DEPENDENCIES:
   - IQDropDownTextField
@@ -79,15 +75,15 @@ SPEC CHECKSUMS:
   IQDropDownTextFieldSwift: fe6cf39c35dae95335a651e0e08a842a49f08b57
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerSwift: b5b14de113bd98833fd5c3cc76ce93191fa0503d
+  IQKeyboardManagerSwift: cfe8bdf286f04ad9954cb6c28b9b998a97ea0863
   IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
-  IQKeyboardToolbar: 3b2b66a44d9f95c32156bc17af412411073eb693
-  IQKeyboardToolbarManager: a89ff7ace5b90a2767fb457923cbf578b935cb7b
+  IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
+  IQKeyboardToolbarManager: 462d8597c59e73c34c3e7c4b18923f0c49b90e00
   IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
-  IQTextView: a6dac50cd471257bcee8852b638b73044ff5d22c
+  IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
   RSKPlaceholderTextView: 85cb165bfbfe160a2e7bfb6bcd77a21100ce1b52
-  SwiftLint: c5fa0b7eece474d43d2178b581a1242a16267347
+  SwiftLint: eb47480d47c982481592c195c221d11013a679cc
 
-PODFILE CHECKSUM: 3b40fa32174c001e42fb03b0ec3a4357e8233cf5
+PODFILE CHECKSUM: e614b88580b21d28b61be6f469e20fbe893f1525
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.0
