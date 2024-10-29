@@ -1,2 +1,4 @@
 github "hackiftekhar/IQKeyboardNotification"
 github "hackiftekhar/IQTextInputViewNotification"
+github "hackiftekhar/IQKeyboardToolbarManager"
+github "hackiftekhar/IQTextView"

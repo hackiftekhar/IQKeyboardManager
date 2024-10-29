@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardToolbarManager
 
 // swiftlint:disable unused_setter_value
 // swiftlint:disable identifier_name
@@ -41,7 +42,7 @@ import UIKit
 @objc public extension IQKeyboardManager {
 
     @available(*, unavailable, renamed: "toolbarConfiguration.manageBehavior")
-    var toolbarManageBehaviour: IQAutoToolbarManageBehavior {
+    var toolbarManageBehaviour: IQKeyboardToolbarManageBehavior {
         get { .bySubviews }
         set { }
     }
