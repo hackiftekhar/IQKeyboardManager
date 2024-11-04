@@ -33,7 +33,7 @@ import IQTextInputViewNotification
     /**
     Configuration related to keyboard appearance
     */
-    var keyboardConfiguration: IQKeyboardConfiguration = .init()
+    var keyboardConfiguration: IQKeyboardAppearanceConfiguration = .init()
 
     public override init() {
         super.init()

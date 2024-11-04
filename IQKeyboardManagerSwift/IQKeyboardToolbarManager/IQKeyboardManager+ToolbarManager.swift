@@ -27,7 +27,7 @@ import IQKeyboardToolbarManager
 @available(iOSApplicationExtension, unavailable)
 // swiftlint:disable line_length
 @available(*, deprecated,
-            message: "Please disable Toolbar using `IQKeyboardManager.shared.enableAutoToolbar = false` and use `IQKeyboardToolbarManager` independently from https://github.com/hackiftekhar/IQKeyboardToolbarManager")
+            message: "Please use `IQKeyboardToolbarManager` independently from https://github.com/hackiftekhar/IQKeyboardToolbarManager")
 // swiftlint:enable line_length
 @MainActor
 @objc public extension IQKeyboardManager {

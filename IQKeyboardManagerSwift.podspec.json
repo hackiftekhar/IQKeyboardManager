@@ -1,9 +1,9 @@
 {
     "name": "IQKeyboardManagerSwift",
-    "version": "7.3.0",
+    "version": "8.0.0",
     "source": {
         "git": "https://github.com/hackiftekhar/IQKeyboardManager.git",
-        "tag": "7.3.0"
+        "tag": "8.0.0"
     },
     "summary": "Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.",
     "homepage": "https://github.com/hackiftekhar/IQKeyboardManager",
@@ -43,12 +43,9 @@
             }
         },
         {
-            "name": "IQKeyboardReturnKeyHandler",
-            "source_files": [
-                "IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler/**/*.{swift}"
-            ],
+            "name": "IQKeyboardReturnManager",
             "dependencies": {
-                "IQKeyboardCore": []
+                "IQKeyboardReturnManager": []
             }
         },
         {
@@ -80,7 +77,7 @@
     "default_subspecs": [
         "Appearance",
         "Core",
-        "IQKeyboardReturnKeyHandler",
+        "IQKeyboardReturnManager",
         "IQKeyboardToolbarManager",
         "IQTextView",
         "Resign"

@@ -23,11 +23,12 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardReturnManager
 import IQKeyboardToolbarManager
 
 class CustomViewController: BaseViewController {
 
-    private let returnHandler: IQKeyboardReturnKeyHandler = .init()
+    private let returnHandler: IQKeyboardReturnManager = .init()
     @IBOutlet var settingsView: UIView!
 
     @IBOutlet var switchDisableViewController: UISwitch!

@@ -82,7 +82,7 @@ class SettingsViewController: UITableViewController {
     /**  UIKeyboard Handling    */
     @objc func enableAction (_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.enable = sender.isOn
+        IQKeyboardManager.shared.isEnabled = sender.isOn
 
         self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
@@ -156,7 +156,7 @@ class SettingsViewController: UITableViewController {
     /**  Debugging         */
     @objc func enableDebugging (_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.enableDebugging = sender.isOn
+        IQKeyboardManager.shared.isDebuggingEnabled = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

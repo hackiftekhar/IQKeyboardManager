@@ -71,10 +71,10 @@ import IQKeyboardToolbarManager
         set { }
     }
 
-    @available(*, deprecated, renamed: "deepResponderAllowedContainerClasses")
+    @available(*, unavailable, renamed: "deepResponderAllowedContainerClasses")
     var toolbarPreviousNextAllowedClasses: [UIView.Type] {
-        get { deepResponderAllowedContainerClasses }
-        set { deepResponderAllowedContainerClasses = newValue }
+        get { [] }
+        set { }
     }
 }
 

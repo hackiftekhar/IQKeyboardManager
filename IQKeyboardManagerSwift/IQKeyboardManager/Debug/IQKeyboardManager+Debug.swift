@@ -30,16 +30,16 @@ import UIKit
 
     @MainActor
     private struct AssociatedKeys {
-        static var enableDebugging: Int = 0
+        static var isDebuggingEnabled: Int = 0
         static var logIndentation: Int = 0
     }
 
-    var enableDebugging: Bool {
+    var isDebuggingEnabled: Bool {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.enableDebugging) as? Bool ?? false
+            return objc_getAssociatedObject(self, &AssociatedKeys.isDebuggingEnabled) as? Bool ?? false
         }
         set(newValue) {
-            objc_setAssociatedObject(self, &AssociatedKeys.enableDebugging,
+            objc_setAssociatedObject(self, &AssociatedKeys.isDebuggingEnabled,
                                      newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
@@ -56,7 +56,7 @@ import UIKit
 
     internal func showLog(_ logString: String, indentation: Int = 0) {
 
-        guard enableDebugging else {
+        guard isDebuggingEnabled else {
             return
         }
 

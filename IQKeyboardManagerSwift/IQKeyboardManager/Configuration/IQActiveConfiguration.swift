@@ -219,7 +219,7 @@ extension IQActiveConfiguration {
         return textInputViewObserver.textInputView
     }
 
-    private var textInputViewInfo: IQTextInputViewInfo? {
+    var textInputViewInfo: IQTextInputViewInfo? {
         guard let textInputView: UIView = textInputView,
               textInputView.iq.isAlertViewTextField() == false else {
             return nil

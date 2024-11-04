@@ -48,7 +48,7 @@ import UIKit
     /**
      Configuration related to keyboard appearance
      */
-    var keyboardConfiguration: IQKeyboardConfiguration {
+    var keyboardConfiguration: IQKeyboardAppearanceConfiguration {
         get { appearanceManager.keyboardConfiguration }
         set { appearanceManager.keyboardConfiguration = newValue }
     }

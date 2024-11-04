@@ -23,10 +23,11 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardReturnManager
 
 class NavigationBarViewController: BaseViewController, UITextFieldDelegate {
 
-    private let returnHandler: IQKeyboardReturnKeyHandler = .init()
+    private let returnHandler: IQKeyboardReturnManager = .init()
     @IBOutlet var textField2: UITextField!
     @IBOutlet var textField3: UITextField!
     @IBOutlet var scrollView: UIScrollView!
