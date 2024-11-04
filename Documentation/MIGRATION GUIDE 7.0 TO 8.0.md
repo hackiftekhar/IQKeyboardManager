@@ -8,10 +8,10 @@ IQKeyboardManager MIGRATION GUIDE 7.0 TO 8.0
 - `IQReturnKeyHandler` [Link](https://github.com/hackiftekhar/IQKeyboardReturnManager) (Renamed to `IQKeyboardReturnManager`)
 - `IQKeyboardToolbar` [Link](https://github.com/hackiftekhar/IQKeyboardToolbar)
 - `IQTextView` [Link](https://github.com/hackiftekhar/IQTextView)
-- Toolbar related features like `IQToolbar` and `IQBarButtonItem` and their support classes.
 
 ### 2. Features moved to IQKeyboardToolbarManager
 - `IQPreviousNextView` class (Renamed to `IQDeepResponderContainerView`)
+    If you are using `IQPreviousNextView` in your storyboard then you have to change the class to `IQDeepResponderContainerView` and also have to change the module to `IQKeyboardToolbarManager`.
 - `IQToolbarConfiguration` class (Renamed to `IQKeyboardToolbarConfiguration`)
 - `IQToolbarPlaceholderConfiguration` class (Renamed to `IQKeyboardToolbarPlaceholderConfiguration`)
 - `public enum IQAutoToolbarManageBehavior: Int`
@@ -41,8 +41,6 @@ var ignoreSwitchingByNextPrevious: Bool
 - `IQToolbar` class (Renamed to `IQKeyboardToolbar`)
 - `IQToolbarConfiguration` class (Renamed to `IQKeyboardToolbarConfiguration`)
 - `IQToolbarPlaceholderConfiguration` class (Renamed to `IQKeyboardToolbarPlaceholderConfiguration`)
-- `public enum IQAutoToolbarManageBehavior: Int`
-- `public enum IQPreviousNextDisplayMode: Int`
 - `IQBarButtonItemConfiguration` class
 - `IQTitleBarButtonItem` class
 - `IQBarButtonItem` class
@@ -75,6 +73,21 @@ func addPreviousNextDone(...)
 // IQKeyboardManager
 public var overrideAppearance: Bool
 public var appearance: UIKeyboardAppearance
+```
+- `IQKeyboardManagerSwift/IQKeyboardReturnManager`
+```swift
+// https://github.com/hackiftekhar/IQKeyboardReturnManager
+- This subspec add `IQKeyboardReturnManager` as dependency for easier migration.
+```
+- `IQKeyboardManagerSwift/IQKeyboardToolbarManager`
+```swift
+// https://github.com/hackiftekhar/IQKeyboardToolbarManager
+- This subspec add `IQKeyboardToolbarManager` as dependency for easier migration.
+```
+- `IQKeyboardManagerSwift/IQTextView`
+```swift
+// https://github.com/hackiftekhar/IQTextView
+- This subspec add `IQTextView` as dependency for easier migration.
 ```
 - `IQKeyboardManagerSwift/Resign`
 ```swift
