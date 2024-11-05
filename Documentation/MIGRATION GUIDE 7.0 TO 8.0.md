@@ -1,6 +1,11 @@
 IQKeyboardManager MIGRATION GUIDE 7.0 TO 8.0
 ==========================
 
+### Keyboard Toolbar
+`IQKeyboardManager.shared.enableAutoToolbar` is now default to `false`. Actually it's now part of the `IQKeyboardToolbarManager` library. Due to this change, you may not see the toolbar over keyboard.
+- **Solution 1:** Either Add `IQKeyboardManager.shared.enableAutoToolbar = true` in your app delegate
+- **Solution 2:** Or Use `IQKeyboardToolbarManager` directly to enable keyboard toolbar using `IQKeyboardToolbarManager.shared.isEnabled = true`
+
 ### 1. Features removed (Moved to their own independent libraries)
 - All features related to toolbar handling has been moved to `IQKeyboardToolbarManager` [Link](https://github.com/hackiftekhar/IQKeyboardToolbarManager)
 - `IQKeyboardListener` [Link](https://github.com/hackiftekhar/IQKeyboardNotification) (Renamed to `IQKeyboardNotification`)
