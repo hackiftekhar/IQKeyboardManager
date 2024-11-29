@@ -8,13 +8,13 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManagerSwift.svg)](http://cocoadocs.org/docsets/IQKeyboardManagerSwift)
 [![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)](https://github.com/hackiftekhar/IQKeyboardManager/tags)
 
-## Major updates has arrived!
+## Major updates have arrived!
 
 #### First of all, Thank You for using IQKeyboardManager!
 It's been 12 years since it's first release in 2013. The library has grown a lot and we have added many new features since then.
 
 #### Motivation
-Recently while working on bug fixes, I realized that in 2013 there were only 2 files IQKeyboardManager.{h,m} in Objective-C version, while now in Swift version there were 50+ files (version 7.x.x) which makes the debugging a lot difficult than before. Also some of the features are rarely used in apps.
+Recently while working on bug fixes, I realized that in 2013 there were only 2 files IQKeyboardManager.{h,m} in Objective-C version, while now in Swift version there were 50+ files (version 7.x.x) which makes the debugging a lot difficult than before. Also, some of the features are rarely used in apps.
 
 #### New Idea
 I realized that some of the features are not tightly linked to each other and can be moved out of the library easily. For Example:-
@@ -28,13 +28,13 @@ I realized that some of the features are not tightly linked to each other and ca
 Moving above things out will make the library more lightweight and user can plug in/out features as per their needs.
 
 #### Action Plan Execution
-I had decided to move loosly linked features out, and publish them to their separate github repo, and use them as dependencies as per requirements.
+I had decided to move loosely linked features out, and publish them to their separate github repo, and use them as dependencies as per requirements.
 
 - [x] Published [IQKeyboardCore](https://github.com/hackiftekhar/IQKeyboardCore)
  - This contains necessary classes and functions to be used by `IQKeyboardManager` related libraries. Please note that you shouldn't directly install this as dependency
 - [x] Published [IQTextView](https://github.com/hackiftekhar/IQTextView)
- - This is purely separated a separated library now.
- - This usually used for showing placeholder in `UITextView`.
+ - This is purely separated a separate library now.
+ - This is usually used for showing placeholder in `UITextView`.
 - [x] Published [IQKeyboardReturnManager](https://github.com/hackiftekhar/IQKeyboardReturnManager)
  - This is a renamed of `IQReturnKeyHandler`. This is also separated from the library and can be used independently.
  - This depends on `IQKeyboardCore` for `TextInputView` type confirmation.
@@ -61,7 +61,7 @@ I had decided to move loosly linked features out, and publish them to their sepa
   - `IQKeyboardManagerSwift/IQTextView`
   - `IQKeyboardManagerSwift/Resign`
 - [x] Published [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 8.0.0 by marking deprecated classes as unavailable.
- - In this release we removed deprecated classes and marking some of them as unavailable for easier migration.
+ - In this release, we removed deprecated classes and marking some of them as unavailable for easier migration.
 - [ ] Bug fixes which may have arrived due to the library segregation.
  - We need your support on this one.
 
@@ -83,7 +83,7 @@ While developing iOS apps, we often run into issues where the iPhone keyboard sl
 
 6) `No More #imports`
 
-`IQKeyboardManager` works on all orientations, and with the toolbar. It also has nice optional features allowing you to customize the distance from the text field, behaviour of previous, next and done buttons in the keyboard toolbar, play sound when the user navigates through the form and more.
+`IQKeyboardManager` works on all orientations, and with the toolbar. It also has nice optional features allowing you to customize the distance from the text field, behavior of previous, next and done buttons in the keyboard toolbar, play sound when the user navigates through the form and more.
 
 
 ## Screenshot
