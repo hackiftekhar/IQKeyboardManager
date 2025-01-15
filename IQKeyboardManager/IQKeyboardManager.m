@@ -1365,10 +1365,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 #pragma mark - UIKeyboard Notification methods
 /*  UIKeyboardWillShowNotification. */
--(void)keyboardWillShow:(NSNotification*)aNotification
-{
+-(void) c_keyboardWillShow:(NSNotification*)aNotification{
     _kbShowNotification = aNotification;
-	
+    
     //  Boolean to know keyboard is showing/hiding
     _keyboardShowing = YES;
     
@@ -1403,7 +1402,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
         return;
     }
-	
+    
     CFTimeInterval startTime = CACurrentMediaTime();
     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
 
@@ -1447,128 +1446,145 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
+-(void)keyboardWillShow:(NSNotification*)aNotification
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self c_keyboardWillShow:aNotification];
+    });
+ 
+}
 
 /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
+
+- (void)c_keyboardWillHide:(NSNotification*)aNotification{
+    
+     if (aNotification)    _kbShowNotification = nil;
+     
+     //  Boolean to know keyboard is showing/hiding
+     _keyboardShowing = NO;
+     
+     //  Getting keyboard animation duration
+     CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+     if (duration!= 0.0f)
+     {
+         _animationDuration = duration;
+     }
+     else
+     {
+         _animationDuration = 0.25;
+     }
+     
+     //If not enabled then do nothing.
+     if ([self privateIsEnabled] == NO)    return;
+     
+     CFTimeInterval startTime = CACurrentMediaTime();
+     [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
+
+     [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([aNotification.object class])]];
+
+     //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
+     //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
+ //    if (_textFieldView == nil)   return;
+
+     //Restoring the contentOffset of the lastScrollView
+     __strong __typeof__(UIScrollView) *strongLastScrollView = _lastScrollView;
+
+     if (strongLastScrollView)
+     {
+         __weak __typeof__(self) weakSelf = self;
+         __weak __typeof__(UIView) *weakTextFieldView = self.textFieldView;
+
+         [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+             
+             __strong __typeof__(self) strongSelf = weakSelf;
+             __strong __typeof__(UIView) *strongTextFieldView = weakTextFieldView;
+
+             if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, strongSelf.startingContentInsets) == NO)
+             {
+                 [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingContentInsets)]];
+
+                 strongLastScrollView.contentInset = strongSelf.startingContentInsets;
+                 strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
+             }
+             
+             if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, strongSelf.startingContentOffset) == NO)
+             {
+                 [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
+
+                 //  (Bug ID: #1365, #1508, #1541)
+                 UIStackView *stackView = [strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
+                 BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
+
+                 if (animatedContentOffset)
+                 {
+                     [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
+                 }
+                 else
+                 {
+                     strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
+                 }
+             }
+             
+             // TODO: restore scrollView state
+             // This is temporary solution. Have to implement the save and restore scrollView state
+             UIScrollView *superScrollView = strongLastScrollView;
+             do
+             {
+                 CGSize contentSize = CGSizeMake(MAX(superScrollView.contentSize.width, CGRectGetWidth(superScrollView.frame)), MAX(superScrollView.contentSize.height, CGRectGetHeight(superScrollView.frame)));
+                 
+                 CGFloat minimumY = contentSize.height-CGRectGetHeight(superScrollView.frame);
+                 
+                 if (minimumY<superScrollView.contentOffset.y)
+                 {
+                     CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY);
+                     if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
+                     {
+                         [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
+
+                         //  (Bug ID: #1365, #1508, #1541)
+                         UIStackView *stackView = [strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView];
+                         BOOL animatedContentOffset = stackView != nil || [superScrollView isKindOfClass:[UICollectionView class]];
+
+                         if (animatedContentOffset)
+                         {
+                             [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
+                         }
+                         else
+                         {
+                             superScrollView.contentOffset = newContentOffset;
+                         }
+                     }
+                 }
+             }
+             while ((superScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]]));
+
+         } completion:NULL];
+     }
+     
+     [self restorePosition];
+
+     //Reset all values
+     _lastScrollView = nil;
+     _kbFrame = CGRectZero;
+     [self notifyKeyboardSize:_kbFrame.size];
+     _startingContentInsets = UIEdgeInsetsZero;
+     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
+     _startingContentOffset = CGPointZero;
+     _topViewBeginOrigin = kIQCGPointInvalid;
+     _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
+
+     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+     [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+}
+
 - (void)keyboardWillHide:(NSNotification*)aNotification
 {
     //If it's not a fake notification generated by [self setEnable:NO].
-    if (aNotification)	_kbShowNotification = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self c_keyboardWillHide:aNotification];
+    });
     
-    //  Boolean to know keyboard is showing/hiding
-    _keyboardShowing = NO;
-    
-    //  Getting keyboard animation duration
-    CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    if (duration!= 0.0f)
-    {
-        _animationDuration = duration;
-    }
-    else
-    {
-        _animationDuration = 0.25;
-    }
-    
-    //If not enabled then do nothing.
-    if ([self privateIsEnabled] == NO)	return;
-    
-    CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", NSStringFromClass([aNotification.object class])]];
-
-    //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
-    //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
-//    if (_textFieldView == nil)   return;
-
-    //Restoring the contentOffset of the lastScrollView
-    __strong __typeof__(UIScrollView) *strongLastScrollView = _lastScrollView;
-
-    if (strongLastScrollView)
-    {
-        __weak __typeof__(self) weakSelf = self;
-        __weak __typeof__(UIView) *weakTextFieldView = self.textFieldView;
-
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            
-            __strong __typeof__(self) strongSelf = weakSelf;
-            __strong __typeof__(UIView) *strongTextFieldView = weakTextFieldView;
-
-            if (UIEdgeInsetsEqualToEdgeInsets(strongLastScrollView.contentInset, strongSelf.startingContentInsets) == NO)
-            {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentInset to : %@",NSStringFromUIEdgeInsets(strongSelf.startingContentInsets)]];
-
-                strongLastScrollView.contentInset = strongSelf.startingContentInsets;
-                strongLastScrollView.scrollIndicatorInsets = strongSelf.startingScrollIndicatorInsets;
-            }
-            
-            if (strongLastScrollView.shouldRestoreScrollViewContentOffset && CGPointEqualToPoint(strongLastScrollView.contentOffset, strongSelf.startingContentOffset) == NO)
-            {
-                [strongSelf showLog:[NSString stringWithFormat:@"Restoring ScrollView contentOffset to : %@",NSStringFromCGPoint(strongSelf.startingContentOffset)]];
-
-                //  (Bug ID: #1365, #1508, #1541)
-                UIStackView *stackView = [strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView];
-                BOOL animatedContentOffset = stackView != nil || [strongLastScrollView isKindOfClass:[UICollectionView class]];
-
-                if (animatedContentOffset)
-                {
-                    [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
-                }
-                else
-                {
-                    strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
-                }
-            }
-            
-            // TODO: restore scrollView state
-            // This is temporary solution. Have to implement the save and restore scrollView state
-            UIScrollView *superScrollView = strongLastScrollView;
-            do
-            {
-                CGSize contentSize = CGSizeMake(MAX(superScrollView.contentSize.width, CGRectGetWidth(superScrollView.frame)), MAX(superScrollView.contentSize.height, CGRectGetHeight(superScrollView.frame)));
-                
-                CGFloat minimumY = contentSize.height-CGRectGetHeight(superScrollView.frame);
-                
-                if (minimumY<superScrollView.contentOffset.y)
-                {
-                    CGPoint newContentOffset = CGPointMake(superScrollView.contentOffset.x, minimumY);
-                    if (CGPointEqualToPoint(superScrollView.contentOffset, newContentOffset) == NO)
-                    {
-                        [self showLog:[NSString stringWithFormat:@"Restoring contentOffset to : %@",NSStringFromCGPoint(newContentOffset)]];
-
-                        //  (Bug ID: #1365, #1508, #1541)
-                        UIStackView *stackView = [strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView];
-                        BOOL animatedContentOffset = stackView != nil || [superScrollView isKindOfClass:[UICollectionView class]];
-
-                        if (animatedContentOffset)
-                        {
-                            [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                        }
-                        else
-                        {
-                            superScrollView.contentOffset = newContentOffset;
-                        }
-                    }
-                }
-            }
-            while ((superScrollView = (UIScrollView*)[superScrollView superviewOfClassType:[UIScrollView class]]));
-
-        } completion:NULL];
-    }
-    
-    [self restorePosition];
-
-    //Reset all values
-    _lastScrollView = nil;
-    _kbFrame = CGRectZero;
-    [self notifyKeyboardSize:_kbFrame.size];
-    _startingContentInsets = UIEdgeInsetsZero;
-    _startingScrollIndicatorInsets = UIEdgeInsetsZero;
-    _startingContentOffset = CGPointZero;
-    _topViewBeginOrigin = kIQCGPointInvalid;
-    _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
-
-    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+   
 }
 
 -(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler
