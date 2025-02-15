@@ -35,11 +35,11 @@ PODS:
     - IQKeyboardToolbar/Placeholderable
   - IQKeyboardToolbar/Placeholderable (1.1.1):
     - IQKeyboardCore
-  - IQKeyboardToolbarManager (1.1.1):
+  - IQKeyboardToolbarManager (1.1.2):
     - IQKeyboardToolbar
     - IQTextInputViewNotification
-  - IQTextInputViewNotification (1.0.5):
-    - IQKeyboardCore (= 1.0.5)
+  - IQTextInputViewNotification (1.0.8):
+    - IQKeyboardCore
   - IQTextView (1.0.5):
     - IQKeyboardToolbar/Placeholderable
   - RSKPlaceholderTextView (8.0.0)
@@ -82,8 +82,8 @@ SPEC CHECKSUMS:
   IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
   IQKeyboardReturnManager: 972be48528ce9e7508ab3ab15ac7efac803f17f5
   IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
-  IQKeyboardToolbarManager: 462d8597c59e73c34c3e7c4b18923f0c49b90e00
-  IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
+  IQKeyboardToolbarManager: 6f4072ac620c2572d4af8c09f42a801f3e4909f7
+  IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
   RSKPlaceholderTextView: 85cb165bfbfe160a2e7bfb6bcd77a21100ce1b52
   SwiftLint: eb47480d47c982481592c195c221d11013a679cc
