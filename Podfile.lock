@@ -78,7 +78,7 @@ SPEC CHECKSUMS:
   IQDropDownTextFieldSwift: fe6cf39c35dae95335a651e0e08a842a49f08b57
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
-  IQKeyboardManagerSwift: 0c6fbbaa2e60739e48d7cf59f25661471a7a3a65
+  IQKeyboardManagerSwift: 85e13d2b85de6a82fef1eb05f3c5aa0da98864c4
   IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
   IQKeyboardReturnManager: 972be48528ce9e7508ab3ab15ac7efac803f17f5
   IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
@@ -90,4 +90,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e614b88580b21d28b61be6f469e20fbe893f1525
 
-COCOAPODS: 1.16.0
+COCOAPODS: 1.16.2
