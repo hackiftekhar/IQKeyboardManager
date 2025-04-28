@@ -107,10 +107,12 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
         super.init()
 
-        self.addActiveConfigurationObserver()
+        if isEnabled {
+            self.addActiveConfigurationObserver()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)),
+            NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
     }
 
     deinit {
