@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/Social.png" alt="Icon"/>
 </p>
 
-[![LICENSE.md](https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg)]([https://travis-ci.org/hackiftekhar/IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/LICENSE.md))
+[![LICENSE.md](https://img.shields.io/github/license/hackiftekhar/IQKeyboardManager.svg)](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.org/hackiftekhar/IQKeyboardManager.svg)](https://travis-ci.org/hackiftekhar/IQKeyboardManager)
 ![Platform iOS](https://img.shields.io/badge/Platform-iOS-blue.svg?style=fla)
 [![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManagerSwift.svg)](http://cocoadocs.org/docsets/IQKeyboardManagerSwift)
