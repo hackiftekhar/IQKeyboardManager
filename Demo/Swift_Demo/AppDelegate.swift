@@ -34,8 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         window?.backgroundColor = UIColor.white
+        
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardManager.shared.enableAutoToolbar = true
+
+        IQKeyboardManager.shared.shouldAdjustAdditionalSafeAreaInsets = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         return true
     }
 
