@@ -30,13 +30,19 @@ open class IQBarButtonItem: UIBarButtonItem {
 
     @objc public override init() {
         _ = IQBarButtonItem._classInitialize
-          super.init()
-      }
-
+        super.init()
+        if #available(iOS 19.0, *) {
+            hidesSharedBackground = true
+        }
+    }
+    
     @objc public required init?(coder aDecoder: NSCoder) {
         _ = IQBarButtonItem._classInitialize
-           super.init(coder: aDecoder)
-       }
+        super.init(coder: aDecoder)
+        if #available(iOS 19.0, *) {
+            hidesSharedBackground = true
+        }
+    }
 
     private class func classInitialize() {
 
