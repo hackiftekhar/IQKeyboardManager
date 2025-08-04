@@ -1630,6 +1630,15 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         //  Boolean to know keyboard is showing/hiding
         _privateIsKeyboardShowing = false
         
+        if #available(iOS 19.0, *),
+           let textFieldView = _textFieldView {
+            // 检查文本框是否仍然是第一响应者
+            if textFieldView.isFirstResponder {
+                // 强制结束编辑，这将触发textFieldViewDidEndEditing
+                textFieldView.resignFirstResponder()
+            }
+        }
+        
         if let info = notification?.userInfo {
             
             #if swift(>=4.2)
