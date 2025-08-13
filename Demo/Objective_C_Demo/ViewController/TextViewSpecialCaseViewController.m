@@ -41,7 +41,7 @@
     @try {
         if (self.navigationController)
         {
-            UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:"TextViewSpecialCaseViewController"];
+            UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TextViewSpecialCaseViewController"];
 
             [controller setModalTransitionStyle:arc4random()%4];
             

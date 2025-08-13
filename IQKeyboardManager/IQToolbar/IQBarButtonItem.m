@@ -62,6 +62,28 @@
     [self setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        if (@available(iOS 19.0, *)) {
+            self.hidesSharedBackground = YES;
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (@available(iOS 19.0, *)) {
+            self.hidesSharedBackground = YES;
+        }
+    }
+    return self;
+}
+
 - (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(nullable id)target action:(nullable SEL)action
 {
     self = [super initWithBarButtonSystemItem:systemItem target:target action:action];
@@ -69,6 +91,9 @@
     if (self)
     {
         _isSystemItem = YES;
+        if (@available(iOS 19.0, *)) {
+            self.hidesSharedBackground = YES;
+        }
     }
     
     return self;

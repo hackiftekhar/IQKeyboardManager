@@ -148,6 +148,9 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
         
         autoresizingMask = .flexibleWidth
         self.isTranslucent = true
+        
+        // 初始化背景色
+        updateBackgroundColor()
     }
     
     @objc required public init?(coder aDecoder: NSCoder) {
@@ -158,6 +161,16 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
         autoresizingMask = .flexibleWidth
         self.isTranslucent = true
+        
+        // 初始化背景色
+        updateBackgroundColor()
+    }
+    
+    // 添加更新背景色的私有方法
+    private func updateBackgroundColor() {
+        if #available(iOS 19.0, *) {
+            self.backgroundColor = UIColor.systemBackground
+        }
     }
 
     @objc override open func sizeThatFits(_ size: CGSize) -> CGSize {

@@ -1534,6 +1534,16 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     _startingContentInsets = UIEdgeInsetsZero;
     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
+    
+    if (@available(iOS 19.0, *)) {
+        if (_textFieldView) {
+            // 检查文本框是否仍然是第一响应者
+            if ([_textFieldView isFirstResponder]) {
+                // 强制结束编辑，这将触发textFieldViewDidEndEditing
+                [_textFieldView resignFirstResponder];
+            }
+        }
+    }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
     [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];

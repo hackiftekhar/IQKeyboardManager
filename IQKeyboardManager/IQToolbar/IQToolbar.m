@@ -53,11 +53,22 @@
     }
 }
 
+// 实现方法
+- (void)updateBackgroundColor
+{
+    if (@available(iOS 19.0, *)) {
+        self.backgroundColor = [UIColor systemBackgroundColor];
+    }
+}
+
 -(void)initialize
 {
     [self sizeToFit];
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;// | UIViewAutoresizingFlexibleHeight;
     self.translucent = YES;
+    
+    // 调用背景色更新方法
+    [self updateBackgroundColor];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

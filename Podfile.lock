@@ -1,7 +1,7 @@
 PODS:
   - IQDropDownTextField (1.1.1)
-  - IQKeyboardManager (6.5.5)
-  - IQKeyboardManagerSwift (6.5.5)
+  - IQKeyboardManager (6.5.6)
+  - IQKeyboardManagerSwift (6.5.6.2)
 
 DEPENDENCIES:
   - IQDropDownTextField
@@ -20,9 +20,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   IQDropDownTextField: 3d2e5728a2b83ff5dbb14cb9b497a80005124cbe
-  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
-  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  IQKeyboardManagerSwift: e6d6ae2737bfa048322da557a7ff7e9115a60c20
 
 PODFILE CHECKSUM: 8213d203d0ee1c26652ada8ddf82a497746d9712
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.16.2
