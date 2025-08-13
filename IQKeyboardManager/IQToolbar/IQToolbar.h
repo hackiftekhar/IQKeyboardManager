@@ -56,5 +56,10 @@
  */
 @property(nonnull, nonatomic, strong) IQBarButtonItem *fixedSpaceBarButton;
 
+/**
+ Custom background color for the toolbar. When set, this color will override the default background color.
+ */
+@property(nullable, nonatomic, strong) UIColor *customBackgroundColor;
+
 @end
 

@@ -272,6 +272,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     @objc public var toolbarBarTintColor: UIColor?
 
     /**
+     This is used for toolbar background color. Default is nil.
+     */
+    @objc public var toolbarBackgroundColor: UIColor?
+
+    /**
      IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
      IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
      IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.
@@ -2079,6 +2084,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                                 toolbar.barStyle = .default
                                 toolbar.barTintColor = toolbarBarTintColor
                             }
+                        }
+                        
+                        // Setting toolbar background color
+                        if let backgroundColor = toolbarBackgroundColor {
+                            toolbar.customBackgroundColor = backgroundColor
                         }
 
                         //Setting toolbar title font.   //  (Enhancement ID: #30)

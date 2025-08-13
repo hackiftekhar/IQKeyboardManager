@@ -28,6 +28,15 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
 
     private static var _classInitialize: Void = classInitialize()
     
+    /**
+     Custom background color for the toolbar. When set, this color will override the default background color.
+     */
+    @objc open var customBackgroundColor: UIColor? {
+        didSet {
+            updateBackgroundColor()
+        }
+    }
+    
     private class func classInitialize() {
         
         let  appearanceProxy = self.appearance()
@@ -169,7 +178,11 @@ open class IQToolbar: UIToolbar, UIInputViewAudioFeedback {
     // 添加更新背景色的私有方法
     private func updateBackgroundColor() {
         if #available(iOS 19.0, *) {
-            self.backgroundColor = UIColor.systemBackground
+            if let customColor = customBackgroundColor {
+                self.backgroundColor = customColor
+            } else {
+                self.backgroundColor = UIColor.systemBackground
+            }
         }
     }
 

@@ -16,6 +16,7 @@
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [IQKeyboardManager sharedManager].shouldShowToolbarPlaceholder = NO;
     [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemText = @"完成";
+    [IQKeyboardManager sharedManager].toolbarBackgroundColor = [UIColor blueColor];
     return YES;
 }
 

@@ -140,6 +140,11 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 @property(nullable, nonatomic, strong) UIColor *toolbarBarTintColor;
 
 /**
+ This is used for toolbar background color. Default is nil.
+ */
+@property(nullable, nonatomic, strong) UIColor *toolbarBackgroundColor;
+
+/**
  IQPreviousNextDisplayModeDefault:      Show NextPrevious when there are more than 1 textField otherwise hide.
  IQPreviousNextDisplayModeAlwaysHide:   Do not show NextPrevious buttons in any case.
  IQPreviousNextDisplayModeAlwaysShow:   Always show nextPrevious buttons, if there are more than 1 textField then both buttons will be visible but will be shown as disabled.

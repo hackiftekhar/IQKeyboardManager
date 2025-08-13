@@ -35,6 +35,7 @@
 @synthesize titleBarButton = _titleBarButton;
 @synthesize doneBarButton = _doneBarButton;
 @synthesize fixedSpaceBarButton = _fixedSpaceBarButton;
+@synthesize customBackgroundColor = _customBackgroundColor;
 
 +(void)initialize
 {
@@ -54,10 +55,21 @@
 }
 
 // 实现方法
+- (void)setCustomBackgroundColor:(UIColor *)customBackgroundColor
+{
+    _customBackgroundColor = customBackgroundColor;
+    [self updateBackgroundColor];
+}
+
+// 更新现有的updateBackgroundColor方法
 - (void)updateBackgroundColor
 {
     if (@available(iOS 19.0, *)) {
-        self.backgroundColor = [UIColor systemBackgroundColor];
+        if (self.customBackgroundColor) {
+            self.backgroundColor = self.customBackgroundColor;
+        } else {
+            self.backgroundColor = [UIColor systemBackgroundColor];
+        }
     }
 }
 

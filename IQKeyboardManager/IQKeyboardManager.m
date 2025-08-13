@@ -174,6 +174,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 @synthesize shouldToolbarUsesTextFieldTintColor =   _shouldToolbarUsesTextFieldTintColor;
 @synthesize toolbarTintColor                    =   _toolbarTintColor;
 @synthesize toolbarBarTintColor                 =   _toolbarBarTintColor;
+@synthesize toolbarBackgroundColor              =   _toolbarBackgroundColor;
 @synthesize shouldShowToolbarPlaceholder        =   _shouldShowToolbarPlaceholder;
 @synthesize placeholderFont                     =   _placeholderFont;
 @synthesize placeholderColor                    =   _placeholderColor;
@@ -2145,6 +2146,12 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                         toolbar.barTintColor = _toolbarBarTintColor;
                     }
                         break;
+                }
+                
+                //Setting toolbar background color
+                if (_toolbarBackgroundColor)
+                {
+                    toolbar.customBackgroundColor = _toolbarBackgroundColor;
                 }
                 
                 //If need to show placeholder
