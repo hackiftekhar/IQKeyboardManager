@@ -31,17 +31,21 @@ open class IQBarButtonItem: UIBarButtonItem {
     @objc public override init() {
         _ = IQBarButtonItem._classInitialize
         super.init()
+#if compiler(>=6.2)
         if #available(iOS 19.0, *) {
             hidesSharedBackground = true
         }
+#endif
     }
     
     @objc public required init?(coder aDecoder: NSCoder) {
         _ = IQBarButtonItem._classInitialize
         super.init(coder: aDecoder)
+#if compiler(>=6.2)
         if #available(iOS 19.0, *) {
             hidesSharedBackground = true
         }
+#endif
     }
 
     private class func classInitialize() {
