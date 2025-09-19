@@ -228,6 +228,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
 
             //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
+            //Preload toolbar images synchronously to avoid delay on first keyboard appearance
+            [UIImage keyboardPreviousImage];
+            [UIImage keyboardNextImage];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
                 UITextField *view = [[UITextField alloc] init];
