@@ -664,7 +664,17 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRectInWindow = [[textFieldView superview] convertRect:textFieldView.frame toView:keyWindow];
-    CGRect textFieldViewRectInRootSuperview = [[textFieldView superview] convertRect:textFieldView.frame toView:rootController.view.superview];
+    CGRect textFieldViewRectInRootSuperview;
+    
+    // For modal presentations, rootController.view.superview can be nil or point to an incorrect coordinate space
+    // Convert to window coordinates and then to rootController.view coordinates to ensure proper positioning
+    if (rootController.view.superview != nil) {
+        textFieldViewRectInRootSuperview = [[textFieldView superview] convertRect:textFieldView.frame toView:rootController.view.superview];
+    } else {
+        // When superview is nil (common in modal presentations), convert to window then to root view
+        CGRect rectInWindow = [[textFieldView superview] convertRect:textFieldView.frame toView:keyWindow];
+        textFieldViewRectInRootSuperview = [keyWindow convertRect:rectInWindow toView:rootController.view];
+    }
     //  Getting RootView origin.
     CGPoint rootViewOrigin = rootController.view.frame.origin;
 
@@ -962,7 +972,13 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         CGRect previousCellRect = [tableView rectForRowAtIndexPath:previousIndexPath];
                         if (CGRectIsEmpty(previousCellRect) == NO)
                         {
-                            CGRect previousCellRectInRootSuperview = [tableView convertRect:previousCellRect toView:rootController.view.superview];
+                            CGRect previousCellRectInRootSuperview;
+                            if (rootController.view.superview != nil) {
+                                previousCellRectInRootSuperview = [tableView convertRect:previousCellRect toView:rootController.view.superview];
+                            } else {
+                                CGRect rectInWindow = [tableView convertRect:previousCellRect toView:keyWindow];
+                                previousCellRectInRootSuperview = [keyWindow convertRect:rectInWindow toView:rootController.view];
+                            }
                             moveUp = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
                         }
                     }
@@ -987,7 +1003,13 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         CGRect previousCellRect = attributes.frame;
                         if (CGRectIsEmpty(previousCellRect) == NO)
                         {
-                            CGRect previousCellRectInRootSuperview = [collectionView convertRect:previousCellRect toView:rootController.view.superview];
+                            CGRect previousCellRectInRootSuperview;
+                            if (rootController.view.superview != nil) {
+                                previousCellRectInRootSuperview = [collectionView convertRect:previousCellRect toView:rootController.view.superview];
+                            } else {
+                                CGRect rectInWindow = [collectionView convertRect:previousCellRect toView:keyWindow];
+                                previousCellRectInRootSuperview = [keyWindow convertRect:rectInWindow toView:rootController.view];
+                            }
                             moveUp = MIN(0, CGRectGetMaxY(previousCellRectInRootSuperview) - topLayoutGuide);
                         }
                     }
@@ -1167,7 +1189,13 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
             CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-originalKbSize.height;
 
-            CGRect rootSuperViewFrameInWindow = [rootController.view.superview convertRect:rootController.view.superview.bounds toView:keyWindow];
+            CGRect rootSuperViewFrameInWindow;
+            if (rootController.view.superview != nil) {
+                rootSuperViewFrameInWindow = [rootController.view.superview convertRect:rootController.view.superview.bounds toView:keyWindow];
+            } else {
+                // Use the window frame as a fallback for modal presentations
+                rootSuperViewFrameInWindow = keyWindow.frame;
+            }
 
             CGFloat keyboardOverlapping = CGRectGetMaxY(rootSuperViewFrameInWindow) - keyboardYPosition;
 

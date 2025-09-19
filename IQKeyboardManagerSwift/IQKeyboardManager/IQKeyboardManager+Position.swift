@@ -124,8 +124,17 @@ import IQKeyboardCore
         }
 
         let textInputViewRectInWindow: CGRect = superview.convert(textInputView.frame, to: window)
-        let textInputViewRectInRootSuperview: CGRect = superview.convert(textInputView.frame,
-                                                                         to: rootController.view.superview)
+        let textInputViewRectInRootSuperview: CGRect = {
+            // For modal presentations, rootController.view.superview can be nil or point to an incorrect coordinate space
+            // Convert to window coordinates and then to rootController.view coordinates to ensure proper positioning
+            if let rootSuperview = rootController.view.superview {
+                return superview.convert(textInputView.frame, to: rootSuperview)
+            } else {
+                // When superview is nil (common in modal presentations), convert to window then to root view
+                let rectInWindow = superview.convert(textInputView.frame, to: window)
+                return window.convert(rectInWindow, to: rootController.view)
+            }
+        }()
 
         //  Getting RootViewOrigin.
         let rootViewOrigin: CGPoint = rootController.view.frame.origin
