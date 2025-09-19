@@ -2410,7 +2410,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 
     UIView *currentTextFieldView = _textFieldView;
-    BOOL isResignedFirstResponder = [self resignFirstResponder];
     
     NSInvocation *invocation = barButton.invocation;
     UIView *sender = currentTextFieldView;
@@ -2426,6 +2425,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         }
     }
 
+    // Store the parent view controller to ensure proper trait collection context
+    UIViewController *parentViewController = currentTextFieldView.viewContainingController;
+    
+    BOOL isResignedFirstResponder = [self resignFirstResponder];
+    
     if (isResignedFirstResponder == YES && invocation)
     {
         if (invocation.methodSignature.numberOfArguments > 2)
@@ -2433,7 +2437,18 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             [invocation setArgument:&sender atIndex:2];
         }
 
-        [invocation invoke];
+        // Invoke from the context of the text field's view controller to ensure
+        // UITraitCollection.current returns correct values in delegate methods
+        if (parentViewController)
+        {
+            [parentViewController.traitCollection performAsCurrentTraitCollection:^{
+                [invocation invoke];
+            }];
+        }
+        else
+        {
+            [invocation invoke];
+        }
     }
 }
 
