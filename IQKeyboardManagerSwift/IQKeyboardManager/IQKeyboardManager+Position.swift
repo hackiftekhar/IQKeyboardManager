@@ -620,8 +620,8 @@ private extension IQKeyboardManager {
         bottomScrollIndicatorInset = CGFloat.maximum(startingScrollInset.bottom,
                                                      bottomScrollIndicatorInset)
 
-        bottomInset -= lastScrollView.safeAreaInsets.bottom
-        bottomScrollIndicatorInset -= lastScrollView.safeAreaInsets.bottom
+        // Note: Safe area adjustment is already included in kbSize calculation
+        // Removing redundant safe area subtraction to fix extra bottom edge inset (Issue #2112)
 
         var movedInsets: UIEdgeInsets = lastScrollView.contentInset
         movedInsets.bottom = bottomInset
