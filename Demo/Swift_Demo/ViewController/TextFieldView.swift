@@ -23,37 +23,42 @@ struct TextFieldView: View {
     @State private var text10 = ""
 
     var body: some View {
-        VStack(spacing: 40) {
-            TextField("Text Field 1", text: $text1)
-                .background(Color.white)
-            TextField("Text Field 2", text: $text2)
-                .background(Color.white)
-            TextField("Text Field 3", text: $text3)
-                .background(Color.white)
-            TextField("Text Field 4", text: $text4)
-                .background(Color.white)
-            TextField("Text Field 5", text: $text5)
-                .background(Color.white)
-//                .toolbar {
-//                    ToolbarItemGroup(placement: .keyboard) {
-//                        Button("Click me 5!") {
-//                            print("Clicked 5")
-//                        }
-//                    }
-//                }
-            TextField("Text Field 6", text: $text6)
-                .background(Color.white)
-            TextField("Text Field 7", text: $text7)
-                .background(Color.white)
-            TextField("Text Field 8", text: $text8)
-                .background(Color.white)
-            TextField("Text Field 9", text: $text9)
-                .background(Color.white)
-            TextField("Text Field 10", text: $text10)
-                .background(Color.white)
+        ScrollView {
+            VStack(spacing: 40) {
+                Text("SwiftUI Toolbar Demo")
+                    .font(.title2)
+                    .padding()
+                
+                Text("This SwiftUI view demonstrates toolbar management. The toolbar behavior can be controlled by modifying IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                TextField("Text Field 1", text: $text1)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 2", text: $text2)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 3", text: $text3)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 4", text: $text4)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 5", text: $text5)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 6", text: $text6)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 7", text: $text7)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 8", text: $text8)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 9", text: $text9)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Text Field 10", text: $text10)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            .padding()
         }
-        .padding()
-        .background(Color.yellow)
+        .background(Color.yellow.opacity(0.1))
         .navigationTitle("SwiftUI")
 //        .toolbar {
 //            ToolbarItemGroup(placement: .keyboard) {
@@ -63,6 +68,7 @@ struct TextFieldView: View {
 //            }
 //        }
     }
+}
 }
 
 @available(iOS 15.0, *)

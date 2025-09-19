@@ -83,7 +83,25 @@ While developing iOS apps, we often run into issues where the iPhone keyboard sl
 
 6) `No More #imports`
 
+7) `SwiftUI Support` *(New in 7.0)*
+
 `IQKeyboardManager` works on all orientations, and with the toolbar. It also has nice optional features allowing you to customize the distance from the text field, behavior of previous, next and done buttons in the keyboard toolbar, play sound when the user navigates through the form and more.
+
+### SwiftUI Support
+
+Starting with version 7.0, IQKeyboardManager provides basic SwiftUI support for toolbar management:
+
+```swift
+// Disable toolbars for specific SwiftUI view types
+IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.append(MyTextFieldView.self)
+
+// Use the provided custom hosting controller for automatic management
+class MyHostingController: IQSwiftUIHostingController<MyTextFieldView> {
+    // Automatic toolbar management based on SwiftUI content type
+}
+```
+
+For detailed SwiftUI usage, see [SwiftUI Support Documentation](Documentation/SWIFTUI_SUPPORT.md).
 
 
 ## Screenshot
