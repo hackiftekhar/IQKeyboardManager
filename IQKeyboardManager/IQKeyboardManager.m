@@ -1868,6 +1868,13 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         }
     }
 
+    // (Issue #2109) Ignore Apple Pencil touches to prevent conflicts with floating keyboard on iPad
+    if (@available(iOS 9.1, *)) {
+        if (touch.type == UITouchTypePencil) {
+            return NO;
+        }
+    }
+
     return YES;
 }
 
