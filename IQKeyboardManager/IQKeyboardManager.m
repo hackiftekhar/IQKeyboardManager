@@ -527,26 +527,42 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if (enableAutoToolbar == NO)
         {
             //If found any toolbar enabled classes then return.
-            for (Class enabledToolbarClass in _enabledToolbarClasses)
+            //Check the current controller and its parent hierarchy
+            UIViewController *checkController = textFieldViewController;
+            while (checkController && !enableAutoToolbar)
             {
-                if ([textFieldViewController isKindOfClass:enabledToolbarClass])
+                for (Class enabledToolbarClass in _enabledToolbarClasses)
                 {
-                    enableAutoToolbar = YES;
-                    break;
+                    if ([checkController isKindOfClass:enabledToolbarClass])
+                    {
+                        enableAutoToolbar = YES;
+                        break;
+                    }
                 }
+                
+                //Move up the hierarchy to check parent controllers
+                checkController = checkController.parentViewController;
             }
         }
         
         if (enableAutoToolbar)
         {
             //If found any toolbar disabled classes then return.
-            for (Class disabledToolbarClass in _disabledToolbarClasses)
+            //Check the current controller and its parent hierarchy
+            UIViewController *checkController = textFieldViewController;
+            while (checkController && enableAutoToolbar)
             {
-                if ([textFieldViewController isKindOfClass:disabledToolbarClass])
+                for (Class disabledToolbarClass in _disabledToolbarClasses)
                 {
-                    enableAutoToolbar = NO;
-                    break;
+                    if ([checkController isKindOfClass:disabledToolbarClass])
+                    {
+                        enableAutoToolbar = NO;
+                        break;
+                    }
                 }
+                
+                //Move up the hierarchy to check parent controllers
+                checkController = checkController.parentViewController;
             }
             
             
