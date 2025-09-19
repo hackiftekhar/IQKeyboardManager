@@ -319,7 +319,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [items addObject:next];
     }
     
-    //Title
+    //Title section - only add title button if titleText is provided, but always add flexible space for proper layout
+    if(titleText.length > 0)
     {
         //Flexible space
         [items addObject:[[self class] flexibleBarButtonItem]];
@@ -329,6 +330,11 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [items addObject:toolbar.titleBarButton];
         
         //Flexible space
+        [items addObject:[[self class] flexibleBarButtonItem]];
+    }
+    else
+    {
+        //Even without title, we need flexible space to properly position right button
         [items addObject:[[self class] flexibleBarButtonItem]];
     }
     
