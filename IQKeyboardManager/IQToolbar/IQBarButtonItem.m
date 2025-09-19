@@ -98,6 +98,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 -(void)setTarget:(nullable id)target action:(nullable SEL)action
 {
+    // Call parent implementation to ensure native UIBarButtonItem action mechanism works
+    [super setTarget:target action:action];
+    
+    // Also create NSInvocation for backward compatibility with existing IQKeyboardManager code
     NSInvocation *invocation = nil;
     
     if (target && action)
