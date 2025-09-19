@@ -82,10 +82,16 @@ public extension IQKeyboardExtension where Base: UIView {
             parentContainerViewController = matchController
         }
 
-        if let controller: UIViewController = parentContainerViewController?.iq_parentContainerViewController() {
-            return controller
+        // Safely call the parent container method with additional nil checks
+        if let parentController = parentContainerViewController {
+            // Ensure the controller is still valid before calling the method
+            if let finalController = parentController.iq_parentContainerViewController() {
+                return finalController
+            } else {
+                return parentController
+            }
         } else {
-            return parentContainerViewController
+            return nil
         }
     }
 }

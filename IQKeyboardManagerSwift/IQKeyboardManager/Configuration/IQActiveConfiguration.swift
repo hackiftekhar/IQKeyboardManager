@@ -75,7 +75,8 @@ internal final class IQActiveConfiguration: NSObject {
     private func sendEvent() {
 
         guard let rootConfiguration = rootConfiguration,
-              rootConfiguration.isReady else { return }
+              rootConfiguration.isReady,
+              rootConfiguration.rootController != nil else { return }
 
         if keyboardInfo.isVisible {
             if lastEvent == .hide {
@@ -105,11 +106,16 @@ internal final class IQActiveConfiguration: NSObject {
                     // Also the interactiveGesture becomes inactive (genuinely it's state is .possible)
                     // At this moment.
                     rootController.view.publisher(for: \.frame)
-                        .sink(receiveValue: { [weak self] frame in
-                            guard let self = self else { return }
+                        .sink(receiveValue: { [weak self, weak rootController] frame in
+                            guard let self = self,
+                                  let rootController = rootController else { return }
                             print(frame)
-                            guard frame.origin == .zero,
-                                  !rootConfiguration.isInteractiveGestureActive else { return }
+                            
+                            // Ensure we have a valid root configuration and the controller hasn't been deallocated
+                            guard let currentRootConfig = self.rootConfiguration,
+                                  currentRootConfig.rootController === rootController,
+                                  frame.origin == .zero,
+                                  !currentRootConfig.isInteractiveGestureActive else { return }
 
                             self.cancellable.forEach { $0.cancel() }
                             self.cancellable.removeAll()
@@ -135,6 +141,7 @@ internal final class IQActiveConfiguration: NSObject {
 
         guard let textInputView: UIView = textInputView,
               let controller: UIViewController = textInputView.iq.parentContainerViewController() else {
+            // Safely restore any existing configuration before clearing it
             if let rootConfiguration = rootConfiguration,
                rootConfiguration.hasChanged {
                 animate(alongsideTransition: {
@@ -147,7 +154,13 @@ internal final class IQActiveConfiguration: NSObject {
 
         let newConfiguration = IQRootControllerConfiguration(rootController: controller)
 
-        guard newConfiguration.rootController?.view.window != rootConfiguration?.rootController?.view.window ||
+        // Ensure both configurations have valid root controllers before comparing
+        guard let newRootController = newConfiguration.rootController else {
+            rootConfiguration = nil
+            return
+        }
+        
+        guard newRootController.view.window != rootConfiguration?.rootController?.view.window ||
                 newConfiguration.beginOrientation != rootConfiguration?.beginOrientation else { return }
 
         if rootConfiguration?.rootController != newConfiguration.rootController {
