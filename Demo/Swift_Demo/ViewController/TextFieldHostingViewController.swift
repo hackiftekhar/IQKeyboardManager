@@ -25,6 +25,29 @@ import UIKit
 import SwiftUI
 import IQKeyboardManagerSwift
 
+/**
+ Demo hosting controller for SwiftUI TextFieldView.
+ 
+ This demonstrates how to use IQSwiftUIHostingController for automatic toolbar management.
+ The hosting controller will automatically check if its SwiftUI content type (TextFieldView)
+ is in the disabledSwiftUIToolbarTypes or enabledSwiftUIToolbarTypes arrays and
+ manage its toolbar state accordingly.
+ 
+ To test toolbar disabling:
+ 1. Go to "Custom" section in demo
+ 2. Toggle "Disable Toolbar" switch
+ 3. Navigate to this SwiftUI view
+ 4. Notice that toolbars are disabled for the text fields
+ 
+ This can also be controlled programmatically:
+ ```swift
+ // Disable toolbar for this SwiftUI view type
+ IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.append(TextFieldView.self)
+ 
+ // Or enable toolbar for this SwiftUI view type
+ IQKeyboardManager.shared.enabledSwiftUIToolbarTypes.append(TextFieldView.self)
+ ```
+ */
 @available(iOS 15.0, *)
 class TextFieldHostingViewController: IQSwiftUIHostingController<TextFieldView> {
 
