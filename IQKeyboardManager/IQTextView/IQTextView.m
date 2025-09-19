@@ -116,6 +116,22 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [self layoutIfNeeded];
 }
 
+-(void)setTypingAttributes:(NSDictionary<NSAttributedStringKey,id> *)typingAttributes
+{
+    [super setTypingAttributes:typingAttributes];
+    
+    // Update placeholder label font if the typing attributes include a font
+    // This ensures proper layout calculation when typingAttributes change the font,
+    // preventing keyboard overlap issues (Bug ID: #2108)
+    UIFont *typingFont = typingAttributes[NSFontAttributeName];
+    if (typingFont) {
+        self.placeholderLabel.font = typingFont;
+    }
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
