@@ -1097,7 +1097,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                             if ([strongSelf privateIsEnableAutoToolbar] == YES)
                             {
                                 //This will update the next/previous states
-                                [strongSelf addToolbarIfRequired];
+                                // Skip adding toolbar during interactive navigation gesture to prevent toolbar flash (Issue #2102)
+                                BOOL isInteractiveGestureActive = (strongSelf->_rootViewController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan ||
+                                                                   strongSelf->_rootViewController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateChanged);
+                                if (!isInteractiveGestureActive) {
+                                    [strongSelf addToolbarIfRequired];
+                                }
                             }
                         }
                     }];
