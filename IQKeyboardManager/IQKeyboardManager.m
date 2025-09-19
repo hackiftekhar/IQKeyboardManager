@@ -1120,8 +1120,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
                 bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
-                bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
-                bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
+                // Note: Safe area adjustment is already included in kbSize calculation
+                // Removing redundant safe area subtraction to fix extra bottom edge inset (Issue #2112)
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
                 movedInsets.bottom = bottomInset;
