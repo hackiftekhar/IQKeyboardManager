@@ -25,6 +25,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import IQKeyboardReturnManager
 import IQKeyboardToolbarManager
+import SwiftUI
 
 class CustomViewController: BaseViewController {
 
@@ -162,12 +163,25 @@ class CustomViewController: BaseViewController {
         self.view.endEditing(true)
         if sender.isOn {
             IQKeyboardManager.shared.disabledToolbarClasses.append(CustomViewController.self)
+            // Also disable toolbar for SwiftUI TextFieldView as a demo
+            if #available(iOS 13.0, *) {
+                IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.append(TextFieldView.self)
+            }
         } else {
 
             if let index = IQKeyboardManager.shared.disabledToolbarClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.disabledToolbarClasses.remove(at: index)
+            }
+            
+            // Also enable toolbar for SwiftUI TextFieldView as a demo
+            if #available(iOS 13.0, *) {
+                if let index = IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.firstIndex(where: { 
+                    String(describing: $0) == String(describing: TextFieldView.self)
+                }) {
+                    IQKeyboardManager.shared.disabledSwiftUIToolbarTypes.remove(at: index)
+                }
             }
         }
     }
@@ -176,11 +190,24 @@ class CustomViewController: BaseViewController {
         self.view.endEditing(true)
         if sender.isOn {
             IQKeyboardManager.shared.enabledToolbarClasses.append(CustomViewController.self)
+            // Also enable toolbar for SwiftUI TextFieldView as a demo
+            if #available(iOS 13.0, *) {
+                IQKeyboardManager.shared.enabledSwiftUIToolbarTypes.append(TextFieldView.self)
+            }
         } else {
             if let index = IQKeyboardManager.shared.enabledToolbarClasses.firstIndex(where: { element in
                 return element == CustomViewController.self
             }) {
                 IQKeyboardManager.shared.enabledToolbarClasses.remove(at: index)
+            }
+            
+            // Also remove toolbar enablement for SwiftUI TextFieldView as a demo
+            if #available(iOS 13.0, *) {
+                if let index = IQKeyboardManager.shared.enabledSwiftUIToolbarTypes.firstIndex(where: { 
+                    String(describing: $0) == String(describing: TextFieldView.self)
+                }) {
+                    IQKeyboardManager.shared.enabledSwiftUIToolbarTypes.remove(at: index)
+                }
             }
         }
     }

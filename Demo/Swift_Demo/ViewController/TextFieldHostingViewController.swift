@@ -23,9 +23,10 @@
 
 import UIKit
 import SwiftUI
+import IQKeyboardManagerSwift
 
 @available(iOS 15.0, *)
-class TextFieldHostingViewController: UIHostingController<TextFieldView> {
+class TextFieldHostingViewController: IQSwiftUIHostingController<TextFieldView> {
 
     required init?(coder: NSCoder) {
          super.init(coder: coder, rootView: TextFieldView())
