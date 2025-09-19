@@ -89,21 +89,36 @@ Always reference these instructions first and fallback to search or bash command
 **ALWAYS** test these scenarios after making changes to keyboard management:
 
 1. **Basic Keyboard Management**:
-   - Run DemoSwift app in iOS Simulator
+   - Run DemoSwift app in iOS Simulator  
    - Navigate to "UITextField/UITextView example"
    - Tap text fields - verify keyboard shows/hides smoothly
    - Verify toolbar appears above keyboard with Previous/Next/Done buttons
    - Test scrolling behavior when keyboard appears
+   - **Validate**: No text fields are obscured by keyboard
 
-2. **Configuration Testing**:
-   - Open Settings in demo app
+2. **Multi-Field Navigation**:
+   - Use Previous/Next buttons in toolbar to navigate between text fields
+   - Verify focus moves correctly between fields
+   - Test with different keyboard types (number pad, email, etc.)
+   - **Validate**: All fields are accessible via keyboard navigation
+
+3. **Configuration Testing**:
+   - Open Settings in demo app  
    - Toggle "Enable IQKeyboardManager" - verify keyboard behavior changes
    - Test different toolbar management options
    - Verify appearance customization works
+   - **Validate**: Settings changes take effect immediately
 
-3. **Both Platform Testing**:
+4. **Both Platform Testing**:
    - Test identical scenarios in both DemoSwift and DemoObjC apps
    - Ensure Objective-C and Swift versions behave identically
+   - **Validate**: Feature parity between both implementations
+
+5. **Edge Cases**:
+   - Test with collection views and table views containing text fields
+   - Test with modal presentations and popovers
+   - Test device rotation during text input
+   - **Validate**: Keyboard management works in complex UI scenarios
 
 ### CI Validation
 The project uses Travis CI (`.travis.yml`) with these validation steps:
@@ -189,6 +204,40 @@ pod install --repo-update
 
 ## Common Tasks
 
+### Repository Structure Overview
+```
+IQKeyboardManager/
+├── README.md (236 lines) - Main documentation
+├── CONTRIBUTING.md (52 lines) - Contribution guidelines  
+├── Package.swift - Swift Package Manager configuration
+├── Podfile - CocoaPods configuration for demo apps
+├── Demo.xcworkspace - Xcode workspace (use this, not .xcodeproj)
+├── IQKeyboardManager/ - Objective-C version (legacy)
+├── IQKeyboardManagerSwift/ - Swift version (current)
+│   ├── IQKeyboardManager/ - Core keyboard management (~40KB main file)
+│   │   ├── Configuration/ - Runtime configuration classes
+│   │   ├── Debug/ - Debug utilities
+│   │   ├── Deprecated/ - Backward compatibility  
+│   │   ├── IQKeyboardManagerExtension/ - UIKit extensions
+│   │   └── UIKitExtensions/ - Additional UIKit helpers
+│   ├── Appearance/ - UI appearance customization
+│   ├── Resign/ - Keyboard dismissal handling
+│   └── IQKeyboardToolbarManager/ - Toolbar management
+├── Demo/
+│   ├── Swift_Demo/ - Swift demonstration app (45 Swift files)
+│   │   ├── AppDelegate.swift - Shows basic integration
+│   │   └── ViewController/ - Various usage examples
+│   └── Objective_C_Demo/ - Objective-C demonstration app (28 .m files)
+├── DemoObjCUITests/ - UI test suite
+└── Documentation/ - Migration guides for major versions
+```
+
+### Key Files to Check After Changes
+- `IQKeyboardManagerSwift/IQKeyboardManager/IQKeyboardManager.swift` - Main library class
+- `Demo/Swift_Demo/AppDelegate.swift` - Basic integration example
+- `Demo/Objective_C_Demo/AppDelegate.m` - Objective-C integration example  
+- Any files in `IQKeyboardManagerSwift/IQKeyboardManagerExtension/` when modifying UIKit behavior
+
 ### Basic Usage Integration
 **Swift**:
 ```swift
@@ -217,3 +266,61 @@ IQKeyboardManager.shared.enableAutoToolbar = true
 - `README.md` - Installation and basic usage
 - `CONTRIBUTING.md` - Development guidelines
 - Demo apps serve as comprehensive usage examples
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+**"No such module 'UIKit'" error:**
+- Expected on Linux - this is an iOS-only library
+- Build and test only on macOS with Xcode
+
+**CocoaPods installation fails:**
+- Check internet connectivity and firewall restrictions
+- Try `pod install --verbose` for detailed error messages  
+- In sandboxed environments, network access may be limited
+
+**Xcode build fails:**
+- Ensure you're opening `Demo.xcworkspace`, not `Demo.xcodeproj`
+- Clean build folder: `cmd+shift+k` in Xcode
+- Reset simulators if needed
+
+**UI tests fail:**
+- Ensure iOS Simulator is available and running
+- Check that test devices match requirements (iOS 13.0+)
+- Verify simulator has sufficient disk space
+
+## CRITICAL: Timeout and Cancellation Guidelines
+
+### NEVER CANCEL These Commands
+Set appropriate timeouts and wait for completion:
+
+**Swift Package Manager (works on any platform):**
+- `swift package resolve` - Takes ~2 seconds, set 60 second timeout
+- `swift package show-dependencies` - Takes ~1 second, set 30 second timeout
+
+**CocoaPods (macOS only):**  
+- `pod install --repo-update` - Takes 5-10 minutes, set 15+ minute timeout
+- NEVER CANCEL during "Installing" or "Generating Pods project" phases
+
+**Xcode Builds (macOS only):**
+- Clean builds: 10-15 minutes, set 30+ minute timeout
+- Incremental builds: 2-5 minutes, set 15+ minute timeout
+- UI test runs: 15-20 minutes, set 45+ minute timeout
+
+**Expected Command Failures:**
+- `swift build` on Linux - WILL FAIL with UIKit error (this is correct)
+- `pod install` in restricted networks - MAY FAIL due to network access
+
+### Build Command Examples with Timeouts
+```bash
+# Swift Package Manager (any platform)
+timeout 60 swift package resolve
+
+# CocoaPods (macOS only)  
+timeout 900 pod install --repo-update  # 15 minutes
+
+# Xcode builds (macOS only)
+timeout 1800 xcodebuild -workspace Demo.xcworkspace -scheme DemoSwift -sdk iphonesimulator clean build  # 30 minutes
+timeout 2700 xcodebuild -workspace Demo.xcworkspace -scheme DemoObjC -sdk iphonesimulator test  # 45 minutes
+```
