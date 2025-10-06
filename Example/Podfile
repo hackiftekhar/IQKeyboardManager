@@ -1,0 +1,20 @@
+project "IQKeyboardManagerSwiftExample.xcodeproj"
+
+target "IQKeyboardManagerSwiftExample" do
+  use_frameworks!
+  platform :ios, "15.0"
+
+  pod "SwiftLint"
+  pod "IQDropDownTextFieldSwift"
+  pod "IQKeyboardManagerSwift", :path => "../"
+  pod "RSKPlaceholderTextView"
+end
+
+
+#target "IQKeyboardManagerSwiftExampleExtension" do
+#  platform :ios, "13.0"
+#
+#  pod "SwiftLint"
+#  pod "IQKeyboardManagerSwift", :path => "../"
+#
+#end

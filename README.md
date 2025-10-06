@@ -8,6 +8,8 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/IQKeyboardManagerSwift.svg)](http://cocoadocs.org/docsets/IQKeyboardManagerSwift)
 [![Github tag](https://img.shields.io/github/tag/hackiftekhar/iqkeyboardmanager.svg)](https://github.com/hackiftekhar/IQKeyboardManager/tags)
 
+## IQKeyboardManager Objective-C version source code is moved to https://github.com/hackiftekhar/IQKeyboardManagerObjC
+
 ## Major updates have arrived!
 
 #### First of all, Thank You for using IQKeyboardManager!
@@ -117,11 +119,10 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 ## Requirements
 
-|                        | Language | Minimum iOS Target | Minimum Xcode Version |
-|------------------------|----------|--------------------|-----------------------|
-| IQKeyboardManager      | Obj-C    | iOS 13.0            | Xcode 13             |
-| IQKeyboardManagerSwift | Swift    | iOS 13.0            | Xcode 13             |
-| Demo Project           |          |                     | Xcode 15             |
+|                        | Minimum iOS Target | Minimum Xcode Version |
+|------------------------|--------------------|-----------------------|
+| IQKeyboardManagerSwift | iOS 13.0           | Xcode 13              |
+| Demo Project           |                    | Xcode 15              |
 
 #### Swift versions support
 
@@ -141,13 +142,7 @@ Installation
 
 #### CocoaPods
 
-***IQKeyboardManager (Objective-C):*** To install it, simply add the following line to your Podfile: ([#9](https://github.com/hackiftekhar/IQKeyboardManager/issues/9))
-
-```ruby
-pod 'IQKeyboardManager' #iOS13 and later
-```
-
-***IQKeyboardManager (Swift):*** To install it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
+To install it, simply add the following line to your Podfile: ([#236](https://github.com/hackiftekhar/IQKeyboardManager/issues/236))
 
 ```ruby
 pod 'IQKeyboardManagerSwift'
@@ -167,7 +162,7 @@ To integrate `IQKeyboardManger` or `IQKeyboardManagerSwift` into your Xcode proj
 github "hackiftekhar/IQKeyboardManager"
 ```
 
-Run `carthage update --use-xcframeworks` to build the frameworks and drag the appropriate framework (`IQKeyboardManager.xcframework` or `IQKeyboardManagerSwift.xcframework`) into your Xcode project based on your need. Make sure to add only one framework, not both.
+Run `carthage update --use-xcframeworks` to build the frameworks and drag `IQKeyboardManagerSwift.xcframework` into your Xcode project based on your need. Make sure to add only one framework, not both.
 
 #### Swift Package Manager (SPM)
 
@@ -179,9 +174,7 @@ To install `IQKeyboardManagerSwift` package via Xcode
 
 #### Source Code
 
-***IQKeyboardManager (Objective-C):*** Just ***drag and drop*** `IQKeyboardManager` directory from demo project to your project. That's it.
-
-***IQKeyboardManager (Swift):*** Source code installation is not supported (since 7.2.0) because now the library depends on some other independent libraries. Due to this you may face compilation issues.
+***IQKeyboardManagerSwift:*** Source code installation is not supported (since 7.2.0) because now the library depends on some other independent libraries. Due to this you may face compilation issues.
 
 #### Basic Usage
 
@@ -217,11 +210,8 @@ Other Links
 - [Manual Management Tweaks](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Manual-Management)
 - [Properties and functions usage](https://github.com/hackiftekhar/IQKeyboardManager/wiki/Properties-&-Functions)
 
-## Flow Diagram
-[![IQKeyboardManager CFD](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerFlowDiagram.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerFlowDiagram.jpg)
-
-If you would like to see detailed Flow diagram then check [Detailed Flow Diagram](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/v3.3.0/Screenshot/IQKeyboardManagerCFD.jpg).
-
+## Dependency Diagram
+[![IQKeyboardManager Dependency Diagram](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerDependency.jpg)](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/IQKeyboardManagerDependency.jpg)
 
 LICENSE
 ---
