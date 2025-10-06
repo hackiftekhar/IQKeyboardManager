@@ -22,7 +22,6 @@
 //  THE SOFTWARE.
 
 import UIKit
-import IQKeyboardCore
 import IQTextInputViewNotification
 
 @available(iOSApplicationExtension, unavailable)

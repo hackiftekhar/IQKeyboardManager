@@ -27,15 +27,13 @@
                 "IQKeyboardManagerSwift/Appearance/**/*.{swift}"
             ],
             "dependencies": {
-                "IQKeyboardManagerSwift/Core": []
+                "IQTextInputViewNotification": []
             }
         },
         {
             "name": "Core",
             "source_files": [
-                "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}",
-                "IQKeyboardManagerSwift/IQKeyboardNotification/**/*.{swift}",
-                "IQKeyboardManagerSwift/IQTextInputViewNotification/**/*.{swift}"
+                "IQKeyboardManagerSwift/IQKeyboardManager/**/*.{swift}"
             ],
             "dependencies": {
                 "IQKeyboardNotification": [],
@@ -54,7 +52,6 @@
                 "IQKeyboardManagerSwift/IQKeyboardToolbarManager/**/*.{swift}"
             ],
             "dependencies": {
-                "IQKeyboardManagerSwift/Core": [],
                 "IQKeyboardToolbarManager": []
             }
         },
@@ -70,7 +67,7 @@
                 "IQKeyboardManagerSwift/Resign/**/*.{swift}"
             ],
             "dependencies": {
-                "IQKeyboardManagerSwift/Core": []
+                "IQTextInputViewNotification": []
             }
         }
     ],

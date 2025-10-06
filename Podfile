@@ -1,8 +1,7 @@
 project "Demo.xcodeproj"
 
-use_frameworks!
-
 target "DemoObjC" do
+  use_frameworks!
   platform :ios, "15.0"
 
   pod "IQDropDownTextField"
@@ -10,6 +9,7 @@ target "DemoObjC" do
 end
 
 target "DemoSwift" do
+  use_frameworks!
   platform :ios, "15.0"
 
   pod "SwiftLint"
