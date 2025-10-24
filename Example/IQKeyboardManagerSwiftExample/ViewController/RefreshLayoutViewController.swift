@@ -28,7 +28,7 @@ class RefreshLayoutViewController: BaseViewController {
 
     @IBOutlet var textViewHeightConstraint: NSLayoutConstraint!
 
-    @IBAction func stepperChanged (_ sender: UIStepper) {
+    @IBAction func stepperChanged(_ sender: UIStepper) {
 
         let finalCurve = UIView.AnimationOptions.beginFromCurrentState.union(.init(rawValue: 7))
 
@@ -43,7 +43,7 @@ class RefreshLayoutViewController: BaseViewController {
         }, completion: nil)
     }
 
-    @IBAction func reloadLayoutAction (_ sender: UIButton) {
+    @IBAction func reloadLayoutAction(_ sender: UIButton) {
         IQKeyboardManager.shared.reloadLayoutIfNeeded()
     }
 }

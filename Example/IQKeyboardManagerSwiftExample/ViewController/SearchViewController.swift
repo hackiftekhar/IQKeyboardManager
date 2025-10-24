@@ -44,6 +44,7 @@ class SearchViewController: BaseTableViewController, UISearchResultsUpdating, UI
         super.viewDidLoad()
 
         self.searchController = UISearchController(searchResultsController: nil)
+//        self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.scopeButtonTitles = ["All", "Name", "Email"]

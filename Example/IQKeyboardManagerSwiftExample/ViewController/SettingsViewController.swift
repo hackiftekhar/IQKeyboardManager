@@ -75,26 +75,26 @@ class SettingsViewController: UITableViewController {
 
     var selectedIndexPathForOptions: IndexPath?
 
-    @IBAction func doneAction (_ sender: UIBarButtonItem) {
+    @IBAction func doneAction(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
 
     /**  UIKeyboard Handling    */
-    @objc func enableAction (_ sender: UISwitch) {
+    @objc func enableAction(_ sender: UISwitch) {
 
         IQKeyboardManager.shared.isEnabled = sender.isOn
 
         self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 
-    @objc func keyboardDistanceFromTextFieldAction (_ sender: UIStepper) {
+    @objc func keyboardDistanceFromTextFieldAction(_ sender: UIStepper) {
 
         IQKeyboardManager.shared.keyboardDistance = CGFloat(sender.value)
 
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
     }
 
-    @objc func layoutIfNeededOnUpdateAction (_ sender: UISwitch) {
+    @objc func layoutIfNeededOnUpdateAction(_ sender: UISwitch) {
 
         IQKeyboardManager.shared.layoutIfNeededOnUpdate = sender.isOn
 
@@ -102,39 +102,39 @@ class SettingsViewController: UITableViewController {
     }
 
     /**  IQToolbar handling     */
-    @objc func enableAutoToolbarAction (_ sender: UISwitch) {
+    @objc func enableAutoToolbarAction(_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.enableAutoToolbar = sender.isOn
-
-        self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
-    }
-
-    @objc func shouldToolbarUsesTextFieldTintColorAction (_ sender: UISwitch) {
-
-        IQKeyboardManager.shared.toolbarConfiguration.useTextInputViewTintColor = sender.isOn
-    }
-
-    @objc func shouldShowToolbarPlaceholder (_ sender: UISwitch) {
-
-        IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder = sender.isOn
+        IQKeyboardToolbarManager.shared.isEnabled  = sender.isOn
 
         self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
     }
 
-    @objc func toolbarDoneBarButtonItemImage (_ sender: UISwitch) {
+    @objc func shouldToolbarUsesTextFieldTintColorAction(_ sender: UISwitch) {
+
+        IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextInputViewTintColor = sender.isOn
+    }
+
+    @objc func shouldShowToolbarPlaceholder(_ sender: UISwitch) {
+
+        IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder = sender.isOn
+
+        self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+    }
+
+    @objc func toolbarDoneBarButtonItemImage(_ sender: UISwitch) {
 
         if sender.isOn {
             let config = IQBarButtonItemConfiguration(image: UIImage(named: "IQButtonBarArrowDown")!)
-            IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
         } else {
-            IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
         }
 
         self.tableView.reloadSections(IndexSet(integer: 1), with: .fade)
     }
 
     /**  "Keyboard appearance overriding    */
-    @objc func overrideKeyboardAppearanceAction (_ sender: UISwitch) {
+    @objc func overrideKeyboardAppearanceAction(_ sender: UISwitch) {
 
         IQKeyboardManager.shared.keyboardConfiguration.overrideAppearance = sender.isOn
 
@@ -142,21 +142,22 @@ class SettingsViewController: UITableViewController {
     }
 
     /**  Resign first responder handling    */
-    @objc func shouldResignOnTouchOutsideAction (_ sender: UISwitch) {
+    @objc func shouldResignOnTouchOutsideAction(_ sender: UISwitch) {
 
         IQKeyboardManager.shared.resignOnTouchOutside = sender.isOn
     }
 
     /**  Sound handling         */
-    @objc func shouldPlayInputClicksAction (_ sender: UISwitch) {
+    @objc func shouldPlayInputClicksAction(_ sender: UISwitch) {
 
-        IQKeyboardManager.shared.playInputClicks = sender.isOn
+        IQKeyboardToolbarManager.shared.playInputClicks = sender.isOn
     }
 
     /**  Debugging         */
-    @objc func enableDebugging (_ sender: UISwitch) {
+    @objc func enableDebugging(_ sender: UISwitch) {
 
         IQKeyboardManager.shared.isDebuggingEnabled = sender.isOn
+        IQKeyboardToolbarManager.shared.isDebuggingEnabled = sender.isOn
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -181,19 +182,20 @@ class SettingsViewController: UITableViewController {
 
                 controller.title = "Toolbar Manage Behaviour"
                 controller.options = ["IQAutoToolbar By Subviews", "IQAutoToolbar By Tag", "IQAutoToolbar By Position"]
-                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehavior.hashValue
+                controller.selectedIndex = IQKeyboardToolbarManager.shared.toolbarConfiguration.manageBehavior.hashValue
 
             } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
                 controller.title = "Fonts"
                 controller.options = ["Bold System Font", "Italic system font", "Regular"]
-                controller.selectedIndex = IQKeyboardManager.shared.toolbarConfiguration.manageBehavior.hashValue
+                controller.selectedIndex = IQKeyboardToolbarManager.shared.toolbarConfiguration.manageBehavior.hashValue
 
                 let fonts = [UIFont.boldSystemFont(ofSize: 12),
                              UIFont.italicSystemFont(ofSize: 12),
                              UIFont.systemFont(ofSize: 12)]
 
-                if let placeholderFont = IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font {
+                if let placeholderFont = IQKeyboardToolbarManager.shared
+                    .toolbarConfiguration.placeholderConfiguration.font {
 
                     if let index = fonts.firstIndex(of: placeholderFont) {
 
@@ -223,9 +225,9 @@ extension SettingsViewController: UIColorPickerViewControllerDelegate {
         viewController.dismiss(animated: true)
         let color = viewController.selectedColor
         if color.isEqual(UIColor.clear) {
-            IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.tintColor = nil
         } else {
-            IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.tintColor = color
         }
         self.tableView.reloadData()
     }
@@ -234,9 +236,9 @@ extension SettingsViewController: UIColorPickerViewControllerDelegate {
                                    didSelect color: UIColor, continuously: Bool) {
         viewController.dismiss(animated: true)
         if color.isEqual(UIColor.clear) {
-            IQKeyboardManager.shared.toolbarConfiguration.tintColor = nil
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.tintColor = nil
         } else {
-            IQKeyboardManager.shared.toolbarConfiguration.tintColor = color
+            IQKeyboardToolbarManager.shared.toolbarConfiguration.tintColor = color
         }
         self.tableView.reloadData()
     }
@@ -264,9 +266,9 @@ extension SettingsViewController: UITextFieldDelegate {
         if textField.tag == 17 {
             if let title = textField.text, !title.isEmpty {
                 let config = IQBarButtonItemConfiguration(title: title)
-                IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
+                IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration = config
             } else {
-                IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
+                IQKeyboardToolbarManager.shared.toolbarConfiguration.doneBarButtonConfiguration = nil
             }
         }
     }
@@ -283,13 +285,13 @@ extension SettingsViewController: OptionsViewControllerDelegate {
 
             if selectedIndexPath.section == 1 && selectedIndexPath.row == 1 {
                 let value = IQKeyboardToolbarManageBehavior(rawValue: index)!
-                IQKeyboardManager.shared.toolbarConfiguration.manageBehavior = value
+                IQKeyboardToolbarManager.shared.toolbarConfiguration.manageBehavior = value
             } else if selectedIndexPath.section == 1 && selectedIndexPath.row == 4 {
 
                 let fonts = [UIFont.boldSystemFont(ofSize: 12),
                              UIFont.italicSystemFont(ofSize: 12),
                              UIFont.systemFont(ofSize: 12)]
-                IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.font = fonts[index]
+                IQKeyboardToolbarManager.shared.toolbarConfiguration.placeholderConfiguration.font = fonts[index]
             } else if selectedIndexPath.section == 2 && selectedIndexPath.row == 1 {
 
                 IQKeyboardManager.shared.keyboardConfiguration.appearance = UIKeyboardAppearance(rawValue: index)!

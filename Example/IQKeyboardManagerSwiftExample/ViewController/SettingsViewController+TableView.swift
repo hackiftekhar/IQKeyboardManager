@@ -23,6 +23,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 
 extension SettingsViewController {
 
@@ -52,9 +53,10 @@ extension SettingsViewController {
             }
 
         case 1:
-            if IQKeyboardManager.shared.enableAutoToolbar == false {
+            if IQKeyboardToolbarManager.shared.isEnabled == false {
                 return 1
-            } else if IQKeyboardManager.shared.toolbarConfiguration.placeholderConfiguration.showPlaceholder == false {
+            } else if IQKeyboardToolbarManager.shared
+                .toolbarConfiguration.placeholderConfiguration.showPlaceholder == false {
                 return 4
             } else {
                 let properties = keyboardManagerProperties[section]
@@ -151,7 +153,7 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.enableAutoToolbar
+                cell.switchEnable.isOn = IQKeyboardToolbarManager.shared.isEnabled
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.enableAutoToolbarAction(_:)),
                                             for: .valueChanged)
@@ -174,7 +176,7 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.toolbarConfiguration.useTextInputViewTintColor
+                cell.switchEnable.isOn = IQKeyboardToolbarManager.shared.toolbarConfiguration.useTextInputViewTintColor
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldToolbarUsesTextFieldTintColorAction(_:)),
                                             for: .valueChanged)
@@ -189,7 +191,7 @@ extension SettingsViewController {
                 let subtitle = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = subtitle
-                let toolbarConfig = IQKeyboardManager.shared.toolbarConfiguration
+                let toolbarConfig = IQKeyboardToolbarManager.shared.toolbarConfiguration
                 cell.switchEnable.isOn = toolbarConfig.placeholderConfiguration.showPlaceholder
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldShowToolbarPlaceholder(_:)),
@@ -212,7 +214,7 @@ extension SettingsViewController {
 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.selectedColorView.backgroundColor = IQKeyboardManager.shared.toolbarConfiguration.tintColor
+                cell.selectedColorView.backgroundColor = IQKeyboardToolbarManager.shared.toolbarConfiguration.tintColor
                 cell.selectedColorView.layer.borderColor = UIColor.lightGray.cgColor
                 cell.selectedColorView.layer.borderWidth = 1.0
                 return cell
@@ -225,7 +227,8 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                let doneButtonConfiguration = IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration
+                let doneButtonConfiguration = IQKeyboardToolbarManager.shared
+                    .toolbarConfiguration.doneBarButtonConfiguration
                 cell.arrowImageView.image = doneButtonConfiguration?.image
                 cell.switchEnable.isOn = doneButtonConfiguration?.image != nil
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
@@ -241,7 +244,8 @@ extension SettingsViewController {
 
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.textField.text = IQKeyboardManager.shared.toolbarConfiguration.doneBarButtonConfiguration?.title
+                cell.textField.text = IQKeyboardToolbarManager.shared
+                    .toolbarConfiguration.doneBarButtonConfiguration?.title
                 cell.textField.tag = 17
                 cell.textField.delegate = self
                 return cell
@@ -306,7 +310,7 @@ extension SettingsViewController {
                 cell.switchEnable.isEnabled = true
                 cell.labelTitle.text = keyboardManagerProperties[indexPath.section][indexPath.row]
                 cell.labelSubtitle.text = keyboardManagerPropertyDetails[indexPath.section][indexPath.row]
-                cell.switchEnable.isOn = IQKeyboardManager.shared.playInputClicks
+                cell.switchEnable.isOn = IQKeyboardToolbarManager.shared.playInputClicks
                 cell.switchEnable.removeTarget(nil, action: nil, for: .allEvents)
                 cell.switchEnable.addTarget(self, action: #selector(self.shouldPlayInputClicksAction(_:)),
                                             for: .valueChanged)
