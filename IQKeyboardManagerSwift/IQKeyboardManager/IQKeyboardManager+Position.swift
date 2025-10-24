@@ -428,9 +428,18 @@ private extension IQKeyboardManager {
                                               textInputView: textInputView, collectionView: collectionView,
                                               rootSuperview: rootSuperview, layoutGuide: layoutGuide)
             } else {
-                isContinue = textInputViewRectInRootSuperview.minY < layoutGuide.top
+                // For regular scroll views when not in special table/collection view case
+                if moveUp > 0 {
+                    // Text field is hidden above, check if scroll view can handle it
+                    isContinue = moveUp > (-scrollView.contentOffset.y - scrollView.contentInset.top)
+                } else {
+                    // moveUp <= 0, meaning text field needs to scroll down into view
+                    // Check if we have available scroll space to handle this
+                    let availableScrollUpSpace = scrollView.contentOffset.y + scrollView.contentInset.top
+                    isContinue = availableScrollUpSpace > 0 || textInputViewRectInRootSuperview.minY < layoutGuide.top
+                }
 
-                if isContinue {
+                if isContinue && textInputViewRectInRootSuperview.minY < layoutGuide.top {
                     moveUp = CGFloat.minimum(0, textInputViewRectInRootSuperview.minY - layoutGuide.top)
                 }
             }
@@ -455,11 +464,34 @@ private extension IQKeyboardManager {
                 if let lastViewRect: CGRect = lastView.superview?.convert(lastView.frame, to: scrollView) {
 
                     // Calculating the expected Y offset from move and scrollView's contentOffset.
-                    let minimumMovement: CGFloat = CGFloat.minimum(scrollView.contentOffset.y, -moveUp)
-                    var suggestedOffsetY: CGFloat = scrollView.contentOffset.y - minimumMovement
+                    var suggestedOffsetY: CGFloat
+                    if moveUp < 0 {
+                        // When moveUp is negative (need to scroll down), we should try to scroll up first
+                        // by reducing contentOffset.y as much as possible
+                        let availableScrollUpSpace = scrollView.contentOffset.y + scrollView.contentInset.top
+                        let requiredScrollDown = -moveUp
+                        if availableScrollUpSpace >= requiredScrollDown {
+                            // We can accommodate the full requirement by scrolling up
+                            suggestedOffsetY = scrollView.contentOffset.y - requiredScrollDown
+                        } else {
+                            // We can only scroll up by the available space
+                            suggestedOffsetY = -scrollView.contentInset.top
+                        }
+                    } else {
+                        // Original logic for positive moveUp
+                        let minimumMovement: CGFloat = CGFloat.minimum(scrollView.contentOffset.y, -moveUp)
+                        suggestedOffsetY = scrollView.contentOffset.y - minimumMovement
+                    }
 
                     // Rearranging the expected Y offset according to the view.
                     suggestedOffsetY = CGFloat.minimum(suggestedOffsetY, lastViewRect.minY)
+
+                    // Update moveUp based on how much we can actually scroll
+                    if moveUp < 0 {
+                        // When moveUp is negative, adjust it based on how much we can actually scroll
+                        let actualScrollChange = scrollView.contentOffset.y - suggestedOffsetY
+                        moveUp += actualScrollChange
+                    }
 
                     updateSuggestedOffsetYAndMoveUp(suggestedOffsetY: &suggestedOffsetY, moveUp: &moveUp,
                                                     isScrollableTextInputView: isScrollableTextInputView,
