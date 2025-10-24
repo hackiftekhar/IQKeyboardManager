@@ -40,11 +40,16 @@ internal extension IQKeyboardManager {
                 return isEnabled
             }
 
-            // If it is searchBar textField embedded in Navigation Bar
-            if (textInputView as UIView).iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = controller as? UINavigationController,
-               let topController: UIViewController = navController.topViewController {
-                controller = topController
+            if textInputView is UISearchTextField {
+                if let navController: UINavigationController = controller as? UINavigationController,
+                   let topController: UIViewController = navController.topViewController {
+                    controller = topController
+                }
+
+                // Not adjusting for searchTextField inside searchController.
+                if controller.navigationItem.searchController?.searchBar.searchTextField == textInputView {
+                    return false
+                }
             }
 
             // If viewController is in enabledDistanceHandlingClasses, then assuming it's enabled.

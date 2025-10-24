@@ -59,10 +59,12 @@ internal extension IQKeyboardResignHandler {
             }
 
             // If it is searchBar textField embedded in Navigation Bar
-            if (textInputView as UIView).iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = controller as? UINavigationController,
-               let topController: UIViewController = navController.topViewController {
-                controller = topController
+            if textInputView is UISearchTextField {
+                if let navController: UINavigationController = controller as? UINavigationController,
+                   let topController: UIViewController = navController.topViewController,
+                   controller.navigationItem.searchController?.searchBar.searchTextField == textInputView {
+                    controller = topController
+                }
             }
 
             // If viewController is in enabledTouchResignedClasses, then assuming resignOnTouchOutside is enabled.

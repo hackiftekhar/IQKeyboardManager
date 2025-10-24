@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--TextViewController-->
         <scene sceneID="MpH-Uf-nZC">
             <objects>
-                <viewController storyboardIdentifier="TextViewController" automaticallyAdjustsScrollViewInsets="NO" id="P7P-UN-ggT" customClass="TextViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TextViewController" automaticallyAdjustsScrollViewInsets="NO" id="P7P-UN-ggT" customClass="TextViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BLa-72-1s6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +45,7 @@
         <!--UISearchController-->
         <scene sceneID="YrW-53-U1r">
             <objects>
-                <tableViewController storyboardIdentifier="SearchViewController" id="MeU-Ah-guT" customClass="SearchViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchViewController" id="MeU-Ah-guT" customClass="SearchViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zLu-Df-8RT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

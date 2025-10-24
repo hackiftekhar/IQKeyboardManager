@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--UITableView in Container-->
         <scene sceneID="Wk6-cH-l7E">
             <objects>
-                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" customClass="TableViewContainerViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="fq7-4A-8UN" customClass="TableViewContainerViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oJ4-BJ-1kW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
         <!-- Container-->
         <scene sceneID="Md9-V5-6d7">
             <objects>
-                <viewController storyboardIdentifier="TableViewInContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableViewInContainerViewController" automaticallyAdjustsScrollViewInsets="NO" id="M0Y-Zn-cGg" customClass="TableViewInContainerViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0RD-44-m2b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,13 +102,13 @@ EENvbnRhaW5lcg
         <!--UITableView Example-->
         <scene sceneID="7Nm-04-fgV">
             <objects>
-                <viewController storyboardIdentifier="ExampleTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="TgE-bl-CyE" customClass="ExampleTableViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExampleTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="TgE-bl-CyE" customClass="ExampleTableViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dgf-M8-7qw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="X4a-hH-RtK">
-                                <rect key="frame" x="5" y="53" width="199.5" height="399.5"/>
+                                <rect key="frame" x="5" y="101" width="199.5" height="358.5"/>
                                 <color key="backgroundColor" red="1" green="0.99189699983111979" blue="0.64436433270429561" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                                 <connections>
@@ -117,7 +117,7 @@ EENvbnRhaW5lcg
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tMN-jF-Ycr">
-                                <rect key="frame" x="209.5" y="53" width="199.5" height="399.5"/>
+                                <rect key="frame" x="209.5" y="101" width="199.5" height="358.5"/>
                                 <color key="backgroundColor" red="0.73359062758224969" green="0.9668053251231693" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                                 <connections>
@@ -126,7 +126,7 @@ EENvbnRhaW5lcg
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nee-mr-8cC">
-                                <rect key="frame" x="5" y="457.5" width="404" height="399.5"/>
+                                <rect key="frame" x="5" y="464.5" width="404" height="358.5"/>
                                 <color key="backgroundColor" red="0.90226797056185393" green="0.77687381776517395" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                                 <connections>
@@ -163,13 +163,13 @@ EENvbnRhaW5lcg
         <!--UIScrollView Example-->
         <scene sceneID="ipE-dg-0Gf">
             <objects>
-                <viewController storyboardIdentifier="ScrollViewController" automaticallyAdjustsScrollViewInsets="NO" id="0gz-x6-ylR" customClass="ScrollViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScrollViewController" automaticallyAdjustsScrollViewInsets="NO" id="0gz-x6-ylR" customClass="ScrollViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u7r-Hn-wmF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="kBd-DW-TbG">
-                                <rect key="frame" x="0.0" y="53" width="207" height="355"/>
+                                <rect key="frame" x="0.0" y="101" width="207" height="314"/>
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="0gz-x6-ylR" id="vRm-8T-Kph"/>
@@ -177,7 +177,7 @@ EENvbnRhaW5lcg
                                 </connections>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-UX-qkM">
-                                <rect key="frame" x="0.0" y="413" width="207" height="355"/>
+                                <rect key="frame" x="0.0" y="420" width="207" height="314"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uag-N1-p2r">
                                         <rect key="frame" x="5" y="5" width="197" height="34"/>
@@ -259,13 +259,13 @@ EENvbnRhaW5lcg
                                 </constraints>
                             </scrollView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XOB-Kg-cEB">
-                                <rect key="frame" x="207" y="53" width="207" height="34"/>
+                                <rect key="frame" x="207" y="101" width="207" height="34"/>
                                 <color key="backgroundColor" name="EBEDF0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="TextView1" translatesAutoresizingMaskIntoConstraints="NO" id="pMi-TP-eI0">
-                                <rect key="frame" x="207" y="97" width="207" height="30"/>
+                                <rect key="frame" x="207" y="145" width="207" height="30"/>
                                 <color key="backgroundColor" name="EBEDF0"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="pF4-va-Knr"/>
@@ -275,13 +275,13 @@ EENvbnRhaW5lcg
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-0a-Jva">
-                                <rect key="frame" x="0.0" y="778" width="207" height="34"/>
+                                <rect key="frame" x="0.0" y="744" width="207" height="34"/>
                                 <color key="backgroundColor" name="EBEDF0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="TextView2" translatesAutoresizingMaskIntoConstraints="NO" id="Qlj-B6-NJn">
-                                <rect key="frame" x="0.0" y="822" width="207" height="30"/>
+                                <rect key="frame" x="0.0" y="788" width="207" height="30"/>
                                 <color key="backgroundColor" name="EBEDF0"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="T64-Mt-a5i"/>
@@ -291,10 +291,10 @@ EENvbnRhaW5lcg
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVd-yq-x5A">
-                                <rect key="frame" x="207" y="137" width="207" height="715"/>
+                                <rect key="frame" x="207" y="185" width="207" height="633"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="dAh-8f-IR7">
-                                        <rect key="frame" x="5" y="5" width="197" height="347.5"/>
+                                        <rect key="frame" x="5" y="5" width="197" height="306.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="0gz-x6-ylR" id="VYo-KJ-SCM"/>
@@ -302,7 +302,7 @@ EENvbnRhaW5lcg
                                         </connections>
                                     </tableView>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2M-f4-MfB">
-                                        <rect key="frame" x="5" y="362.5" width="197" height="347.5"/>
+                                        <rect key="frame" x="5" y="321.5" width="197" height="306.5"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2sk-dl-B16">
                                                 <rect key="frame" x="5" y="5" width="187" height="34"/>
@@ -433,36 +433,36 @@ EENvbnRhaW5lcg
         <!--Navigation Bar-->
         <scene sceneID="4DZ-Zn-3Xg">
             <objects>
-                <viewController storyboardIdentifier="NavigationBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="Trg-4t-Fsg" customClass="NavigationBarViewController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NavigationBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="Trg-4t-Fsg" customClass="NavigationBarViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eYx-4d-dcj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YS6-oO-kvF">
-                                <rect key="frame" x="0.0" y="48" width="414" height="848"/>
+                                <rect key="frame" x="0.0" y="96" width="414" height="800"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="scrollView.scrollEnabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8j-ee-Y7K">
-                                        <rect key="frame" x="20" y="80" width="315" height="19.5"/>
+                                        <rect key="frame" x="20" y="78.5" width="303" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <color key="textColor" name="535353"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C1G-xr-Ikt">
-                                        <rect key="frame" x="345" y="74" width="51" height="31"/>
+                                        <rect key="frame" x="333" y="74" width="63" height="28"/>
                                         <color key="onTintColor" name="757677"/>
                                         <connections>
                                             <action selector="enableScrollAction:" destination="Trg-4t-Fsg" eventType="valueChanged" id="UuJ-3c-yPZ"/>
                                         </connections>
                                     </switch>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="2HE-8l-pwN">
-                                        <rect key="frame" x="20" y="115" width="374" height="57.5"/>
+                                        <rect key="frame" x="20" y="112" width="374" height="57.5"/>
                                         <string key="text">If you want to always show UINavigationBar, then change the UIView class to UIScrollView. Note that if scrollView.scrollEnabled = NO then library ignore scrollView and behave like as there is no scrollView in the middle</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" name="535353"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Postion: 1, Tag: 4" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wO8-Qd-oOx">
-                                        <rect key="frame" x="20" y="246.5" width="320" height="34"/>
+                                        <rect key="frame" x="20" y="243.5" width="308" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
@@ -471,80 +471,80 @@ EENvbnRhaW5lcg
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 2, Tag: 5" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxS-Ei-dBG">
-                                        <rect key="frame" x="20" y="566.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="563.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LOI-el-lXZ">
-                                        <rect key="frame" x="345" y="248" width="51" height="31"/>
+                                        <rect key="frame" x="333" y="246.5" width="63" height="28"/>
                                         <color key="onTintColor" name="757677"/>
                                         <connections>
                                             <action selector="shouldHideTitle:" destination="Trg-4t-Fsg" eventType="valueChanged" id="Ouy-hV-6So"/>
                                         </connections>
                                     </switch>
                                     <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 3, Tag: 7" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JwK-tl-xro">
-                                        <rect key="frame" x="20" y="310.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="307.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 4, Tag: 2" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cfl-i4-rKq">
-                                        <rect key="frame" x="20" y="182.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="179.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 5, Tag: 6" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="heE-KG-kGl">
-                                        <rect key="frame" x="20" y="438.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="435.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 6, Tag: 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZI-Ur-2uh">
-                                        <rect key="frame" x="20" y="374.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="371.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 7, Tag: 3" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-cQ-2Qp">
-                                        <rect key="frame" x="20" y="502.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="499.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 8, Tag: 8" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="teJ-28-R1b">
-                                        <rect key="frame" x="20" y="630.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="627.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 9, Tag: 9" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H78-v5-vHU">
-                                        <rect key="frame" x="20" y="694.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="691.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 10, Tag: 10" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ruS-TI-tuk">
-                                        <rect key="frame" x="20" y="758.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="755.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 11, Tag: 11" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-w7-Tph">
-                                        <rect key="frame" x="20" y="822.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="819.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subview Position: 12, Tag: 12" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Qj-mt-LV8">
-                                        <rect key="frame" x="20" y="886.5" width="374" height="34"/>
+                                        <rect key="frame" x="20" y="883.5" width="374" height="34"/>
                                         <color key="backgroundColor" name="EBEDF0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Should Hide Title?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="oiz-z1-TuT">
-                                        <rect key="frame" x="291" y="233.5" width="103" height="14.5"/>
+                                        <rect key="frame" x="291" y="232" width="103" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" name="535353"/>
                                         <nil key="highlightedColor"/>
@@ -633,7 +633,7 @@ EENvbnRhaW5lcg
         <!--UICollectionView-->
         <scene sceneID="nN9-Jc-MTo">
             <objects>
-                <viewController storyboardIdentifier="CollectionViewDemoController" automaticallyAdjustsScrollViewInsets="NO" id="QIM-iU-H2P" customClass="CollectionViewDemoController" customModule="DemoSwift" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CollectionViewDemoController" automaticallyAdjustsScrollViewInsets="NO" id="QIM-iU-H2P" customClass="CollectionViewDemoController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GxJ-Cf-XF0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -699,7 +699,7 @@ EENvbnRhaW5lcg
         <!--UITableViewController-->
         <scene sceneID="f4C-KI-H3s">
             <objects>
-                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" customClass="TableViewController" customModule="DemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableViewController" id="fxp-9v-8cZ" customClass="TableViewController" customModule="IQKeyboardManagerSwiftExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="shB-z3-q47">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -833,7 +833,7 @@ EENvbnRhaW5lcg
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Nj-eG-LrV">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nj-eG-LrV">
                                                     <rect key="frame" x="5" y="5" width="404" height="340"/>
                                                     <color key="backgroundColor" name="EBEDF0"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. </string>
