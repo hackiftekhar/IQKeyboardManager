@@ -23,6 +23,7 @@
 
 import UIKit
 import IQTextInputViewNotification
+import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
