@@ -48,8 +48,9 @@ internal struct IQRootControllerConfiguration {
     }
 
     var currentOrientation: UIInterfaceOrientation {
+        guard let rootController = rootController else { return .unknown }
         let interfaceOrientation: UIInterfaceOrientation
-        if let scene = rootController?.view.window?.windowScene {
+        if let scene = rootController.view.window?.windowScene {
             interfaceOrientation = scene.interfaceOrientation
         } else {
             interfaceOrientation = .unknown
@@ -58,11 +59,13 @@ internal struct IQRootControllerConfiguration {
     }
 
     var isReady: Bool {
-        return rootController?.view.window != nil
+        guard let rootController = rootController else { return false }
+        return rootController.view.window != nil
     }
 
     var hasChanged: Bool {
-        let origin: CGPoint = rootController?.view.frame.origin ?? .zero
+        guard let rootController = rootController else { return false }
+        let origin: CGPoint = rootController.view.frame.origin
         return !origin.equalTo(beginOrigin)
     }
 
