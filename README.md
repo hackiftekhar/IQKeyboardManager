@@ -10,62 +10,6 @@
 
 ## IQKeyboardManager Objective-C version source code is moved to https://github.com/hackiftekhar/IQKeyboardManagerObjC
 
-## Major updates have arrived!
-
-#### First of all, Thank You for using IQKeyboardManager!
-It's been 12 years since it's first release in 2013. The library has grown a lot and we have added many new features since then.
-
-#### Motivation
-Recently while working on bug fixes, I realized that in 2013 there were only 2 files IQKeyboardManager.{h,m} in Objective-C version, while now in Swift version there were 50+ files (version 7.x.x) which makes the debugging a lot difficult than before. Also, some of the features are rarely used in apps.
-
-#### New Idea
-I realized that some of the features are not tightly linked to each other and can be moved out of the library easily. For Example:-
-- `IQTextView` class
-- `IQKeyboardListener` class
-- `IQTextFieldViewListener` class
-- `IQReturnKeyHandler` class
-- Toolbar related features like `IQToolbar` and `IQBarButtonItem` and their support classes.
-- ...
-
-Moving above things out will make the library more lightweight and user can plug in/out features as per their needs.
-
-#### Action Plan Execution
-I had decided to move loosely linked features out, and publish them to their separate github repo, and use them as dependencies as per requirements.
-
-- [x] Published [IQKeyboardCore](https://github.com/hackiftekhar/IQKeyboardCore)
- - This contains necessary classes and functions to be used by `IQKeyboardManager` related libraries. Please note that you shouldn't directly install this as dependency
-- [x] Published [IQTextView](https://github.com/hackiftekhar/IQTextView)
- - This is purely separated a separate library now.
- - This is usually used for showing placeholder in `UITextView`.
-- [x] Published [IQKeyboardReturnManager](https://github.com/hackiftekhar/IQKeyboardReturnManager)
- - This is a renamed of `IQReturnKeyHandler`. This is also separated from the library and can be used independently.
- - This depends on `IQKeyboardCore` for `TextInputView` type confirmation.
-- [x] Published [IQTextInputViewNotification](https://github.com/hackiftekhar/IQTextInputViewNotification)
- - This is a renamed of `IQTextFieldViewListener`. This can be used independently to subscribe/unsubscribe for `UITextView`/`UITextField` beginEditing/endEditing events.
- - This depends on the `IQKeyboardCore` to add some additional customized features for `UITextView`/`UITextField`.
-- [x] Published [IQKeyboardToolbar](https://github.com/hackiftekhar/IQKeyboardToolbar)
- - This contains toolbar related classes like `IQKeyboardToolbar`, `IQBarButtonItem`, `IQTitleBarButtonItems`, their configuration classes and other useful functions to add toolbar in keyboard. This can be used independently to add toolbar in keyboard.
- - This depends on the `IQKeyboardCore` to add some additional customized features for `UITextView`/`UITextField`.
-- [x] Published [IQKeyboardToolbarManager](https://github.com/hackiftekhar/IQKeyboardToolbarManager)
- - This is something similar to `IQKeyboardManager`. This has been moved out of the library as a huge update. 
- - This depends on the `IQTextInputViewNotification` to know which textField is currently in focus.
- - This depends on the `IQKeyboardToolbar` to add/remove toolbars over keyboard.
-- [x] Published [IQKeyboardNotification](https://github.com/hackiftekhar/IQKeyboardNotification)
- - This is a renamed of `IQKeyboardListener`. This can be used independently to subscribe/unsubscribe for keyboard events.
-- [x] Published [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 7.2.0 for all the current support without any compilation error but by deprecating most of the things which are moved out of the library.
- - This now only contains functions for handling distance between `UITextView`/`UITextField` and their useful functions.
- - This depends on the `IQKeyboardNotification` to get keyboard notification callbacks.
- - This depends on the `IQTextInputViewNotification` to know which textField is currently in focus.
- - Now there are subspecs support since 7.2.0.
-  - `IQKeyboardManagerSwift/Appearance`
-  - `IQKeyboardManagerSwift/IQKeyboardReturnManager`
-  - `IQKeyboardManagerSwift/IQKeyboardToolbarManager`
-  - `IQKeyboardManagerSwift/IQTextView`
-  - `IQKeyboardManagerSwift/Resign`
-- [x] Published [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) 8.0.0 by marking deprecated classes as unavailable.
- - In this release, we removed deprecated classes and marking some of them as unavailable for easier migration.
-- [ ] Bug fixes which may have arrived due to the library segregation.
- - We need your support on this one.
 
 ## Introduction
 While developing iOS apps, we often run into issues where the iPhone keyboard slides up and covers the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent this issue of keyboard sliding up and covering `UITextField/UITextView` without needing you to write any code or make any additional setup. To use `IQKeyboardManager` you simply need to add source files to your project.
@@ -73,20 +17,49 @@ While developing iOS apps, we often run into issues where the iPhone keyboard sl
 
 ## Key Features
 
-1) `One Lines of Code`
+1. **One Line of Code** - Just enable and it works
+2. **Works Automatically** - No manual setup required
+3. **No More UIScrollView** - Automatically handles scroll views
+4. **No More Subclasses** - Works with standard UIKit components
+5. **No More Manual Work** - Handles all edge cases automatically
+6. **Modular Architecture** - Include only what you need via subspecs
 
-2) `Works Automatically`
+### What's Included
 
-3) `No More UIScrollView`
+- ✅ Automatic keyboard avoidance for UITextField/UITextView
+- ✅ Support for UIScrollView, UITableView, UICollectionView
+- ✅ All interface orientations
+- ✅ Configurable keyboard distance
+- ✅ Class-level enable/disable control
 
-4) `No More Subclasses`
+### Optional Features (via Subspecs)
 
-5) `No More Manual Work`
+- 📦 Toolbar with Previous/Next/Done buttons
+- 📦 Return key handling customization
+- 📦 Tap-to-resign keyboard
+- 📦 Keyboard appearance configuration
+- 📦 UITextView with placeholder supportv
 
-6) `No More #imports`
+## Subspecs
 
-`IQKeyboardManager` works on all orientations, and with the toolbar. It also has nice optional features allowing you to customize the distance from the text field, behavior of previous, next and done buttons in the keyboard toolbar, play sound when the user navigates through the form and more.
+Now IQKeyboardManagerSwift uses a modular architecture with subspecs.
+By default, all subspecs are included, but you can include only what you need:
 
+### Available Subspecs
+
+- **Core** (always included): Basic keyboard distance management
+- **Appearance**: Keyboard appearance configuration
+- **IQKeyboardReturnManager**: Return key handling
+- **IQKeyboardToolbarManager**: Toolbar functionality (Previous/Next/Done buttons)
+- **IQTextView**: UITextView with placeholder support
+- **Resign**: Tap-to-resign keyboard functionality
+
+### Including Specific Subspecs
+
+```ruby
+# Include toolbar example
+pod 'IQKeyboardManagerSwift/IQKeyboardToolbarManager'
+```
 
 ## Screenshot
 [![Screenshot 1](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardManager/master/Screenshot/README_Screenshot1.png)](http://youtu.be/6nhLw6hju2A)
@@ -178,7 +151,9 @@ To install `IQKeyboardManagerSwift` package via Xcode
 
 #### Basic Usage
 
-In `AppDelegate.swift`, just `import IQKeyboardManagerSwift` framework and enable IQKeyboardManager.
+### Minimal Setup (Core Only)
+
+In `AppDelegate.swift`, import and enable IQKeyboardManager:
 
 ```swift
 import IQKeyboardManagerSwift
@@ -188,19 +163,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, 
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-      IQKeyboardManager.shared.isEnabled = true
+        // Enable keyboard management
+        IQKeyboardManager.shared.isEnabled = true
 
-      return true
+        return true
     }
 }
 ```
 
+That's it! The keyboard will now automatically adjust to avoid covering text fields.
+
+### With Toolbar (Requires IQKeyboardToolbarManager Subspec)
+
+```swift
+import IQKeyboardManagerSwift
+
+func application(_ application: UIApplication, 
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    // Enable keyboard management
+    IQKeyboardManager.shared.isEnabled = true
+    
+    // Enable toolbar (@Deprecated: Please use IQKeyboardToolbarManager pod independently)
+    IQKeyboardManager.shared.enableAutoToolbar = true
+
+    return true
+}
+```
+
+### With All Features
+
+```swift
+import IQKeyboardManagerSwift
+
+func application(_ application: UIApplication, 
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    // Core functionality
+    IQKeyboardManager.shared.isEnabled = true
+    IQKeyboardManager.shared.keyboardDistance = 20.0
+    
+    // Toolbar (if using IQKeyboardToolbarManager subspec)
+    IQKeyboardManager.shared.enableAutoToolbar = true
+    
+    // Tap to resign (if using Resign subspec)
+    IQKeyboardManager.shared.resignOnTouchOutside = true
+    
+    // Appearance (if using Appearance subspec)
+    IQKeyboardManager.shared.keyboardConfiguration.overrideKeyboardAppearance = true
+    IQKeyboardManager.shared.keyboardConfiguration.keyboardAppearance = .dark
+
+    return true
+}
+```
 
 
 Migration Guide
 ==========================
+- [IQKeyboardManager 2.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%201.0%20TO%202.0.md)
+- [IQKeyboardManager 3.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%202.0%20TO%203.0.md)
+- [IQKeyboardManager 4.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%203.0%20TO%204.0.md)
+- [IQKeyboardManager 5.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%204.0%20TO%205.0.md)
+- [IQKeyboardManager 6.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%205.0%20TO%206.0.md)
+- [IQKeyboardManager 7.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%206.0%20TO%207.0.md)
 - [IQKeyboardManager 8.0.0 Migration Guide](https://github.com/hackiftekhar/IQKeyboardManager/blob/master/Documentation/MIGRATION%20GUIDE%207.0%20TO%208.0.md)
 
 Other Links

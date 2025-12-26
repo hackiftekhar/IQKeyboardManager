@@ -105,9 +105,9 @@ internal final class IQActiveConfiguration: NSObject {
                     // Also the interactiveGesture becomes inactive (genuinely it's state is .possible)
                     // At this moment.
                     rootController.view.publisher(for: \.frame)
+                        .removeDuplicates()
                         .sink(receiveValue: { [weak self] frame in
                             guard let self = self else { return }
-                            print(frame)
                             guard frame.origin == .zero,
                                   !rootConfiguration.isInteractiveGestureActive else { return }
 
@@ -235,7 +235,6 @@ extension IQActiveConfiguration {
 
             guard let self = self else { return }
 
-//            print(info.event.name)
             guard (textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }

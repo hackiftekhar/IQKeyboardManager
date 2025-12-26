@@ -35,7 +35,8 @@ internal extension UITableView {
         if previousRow < 0 {
             previousSection -= 1
             if previousSection >= 0 {
-                previousRow = self.numberOfRows(inSection: previousSection) - 1
+                let rowCount = self.numberOfRows(inSection: previousSection)
+                previousRow = rowCount > 0 ? rowCount - 1 : -1
             }
         }
 

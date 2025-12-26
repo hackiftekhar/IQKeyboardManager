@@ -86,7 +86,7 @@ import IQKeyboardCore
 
         // Resigning first responder
         guard textInputView.resignFirstResponder() else {
-//            showLog("Refuses to resign first responder: \(textInputView)")
+            IQKeyboardManager.shared.showLog("Warning: Refuses to resign first responder: \(textInputView)")
             //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
             // If it refuses to resign then becoming it first responder again for getting notifications callback.
             textInputView.becomeFirstResponder()

@@ -42,14 +42,42 @@ private struct AssociatedKeys {
 nonisolated public let kIQUseDefaultKeyboardDistance: CGFloat = .greatestFiniteMagnitude
 
 /**
- TextInputView category for managing distance handling
-*/
+ Extension providing keyboard management functionality to UIView instances.
+
+ This extension allows per-view configuration of keyboard behavior, including
+ custom distance and enable/disable modes.
+
+ ## Usage
+ ```swift
+ // Set custom distance for a text field
+ textField.iq.distanceFromKeyboard = 30.0
+
+ // Disable keyboard management for a specific text field
+ textField.iq.enableMode = .disabled
+ ```
+ */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-     To set customized distance from keyboard for textInputView. Can't be less than zero
+     Custom distance from keyboard for this specific text input view.
+
+     If set to `UIView.defaultKeyboardDistance`, the global `keyboardDistance`
+     value from `IQKeyboardManager.shared.keyboardDistance` will be used.
+     Otherwise, this value takes precedence.
+
+     - Default: `UIView.defaultKeyboardDistance` (uses global setting)
+     - Note: Value cannot be negative. Negative values may cause unexpected behavior.
+
+     ## Example
+     ```swift
+     // Use global setting
+     textField.iq.distanceFromKeyboard = UIView.defaultKeyboardDistance
+
+     // Use custom distance
+     textField.iq.distanceFromKeyboard = 50.0
+     ```
      */
     var distanceFromKeyboard: CGFloat {
         get {
@@ -65,12 +93,36 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
                 objc_setAssociatedObject(base, &AssociatedKeys.distanceFromKeyboard,
                                          newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
+
+            if newValue < 0 {
+                IQKeyboardManager.shared.showLog("Warning: distanceFromKeyboard shouldn't be negative.")
+            }
         }
     }
 
     /**
-     Override Enable/disable managing distance between
-     keyboard and textInputView behavior for this particular textInputView.
+     Enable mode for this specific text input view.
+
+     Controls whether keyboard management is enabled, disabled, or uses the default
+     global setting for this view.
+
+     - `.default`: Use global `IQKeyboardManager.shared.isEnabled` setting
+     - `.enabled`: Force enable keyboard management for this view
+     - `.disabled`: Force disable keyboard management for this view
+
+     ## Example
+     ```swift
+     // Use global setting
+     textField.iq.enableMode = .default
+
+     // Always enable for this field
+     textField.iq.enableMode = .enabled
+
+     // Always disable for this field
+     textField.iq.enableMode = .disabled
+     ```
+
+     - SeeAlso: `IQKeyboardManager.isEnabled` for global control
      */
     var enableMode: IQEnableMode {
         get {

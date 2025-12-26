@@ -724,7 +724,6 @@ private extension IQKeyboardManager {
                 if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
                     showLog("Moving Downward")
                     //  Setting adjusted rootViewRect
-                    //  Setting adjusted rootViewRect
 
                     activeConfiguration.animate(alongsideTransition: {
 
