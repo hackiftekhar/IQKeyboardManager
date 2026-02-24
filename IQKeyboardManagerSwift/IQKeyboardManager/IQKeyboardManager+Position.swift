@@ -149,17 +149,6 @@ import IQKeyboardCore
         let layoutGuide: IQLayoutGuide = Self.getLayoutGuides(rootController: rootController, window: window,
                                                               isScrollableTextInputView: isScrollableTextInputView)
 
-        //  Move positive = textInputView is hidden.
-        //  Move negative = textInputView is showing.
-        //  Calculating move position.
-        var moveUp: CGFloat = Self.getMoveUpDistance(keyboardSize: kbSize,
-                                                     layoutGuide: layoutGuide,
-                                                     textInputViewRectInRootSuperview: textInputViewRectInRootSuperview,
-                                                     textInputViewRectInWindow: textInputViewRectInWindow,
-                                                     windowFrame: window.frame)
-
-        showLog("Need to move: \(moveUp), will be moving \(moveUp < 0 ? "down" : "up")")
-
         var superScrollView: UIScrollView?
         var superView: UIScrollView? = (textInputView as UIView).iq.superviewOf(type: UIScrollView.self)
 
@@ -174,6 +163,18 @@ import IQKeyboardCore
                 superView = view.iq.superviewOf(type: UIScrollView.self)
             }
         }
+
+        //  Move positive = textInputView is hidden.
+        //  Move negative = textInputView is showing.
+        //  Calculating move position.
+        var moveUp: CGFloat = Self.getMoveUpDistance(keyboardSize: kbSize,
+                                                     layoutGuide: layoutGuide,
+                                                     textInputViewRectInRootSuperview: textInputViewRectInRootSuperview,
+                                                     textInputViewRectInWindow: textInputViewRectInWindow,
+                                                     windowFrame: window.frame)
+
+        showLog("Need to move: \(moveUp), will be moving \(moveUp < 0 ? "down" : "up")")
+
 
         setupActiveScrollViewConfiguration(superScrollView: superScrollView, textInputView: textInputView)
 
@@ -593,8 +594,11 @@ private extension IQKeyboardManager {
         }, completion: {
 
             if scrollView is UITableView || scrollView is UICollectionView {
-                // This will update the next/previous states
-                textInputView.reloadInputViews()
+                // Skip reloading input views during interactive navigation gesture to prevent toolbar flash (Issue #2102)
+                if self.activeConfiguration.rootConfiguration?.isInteractiveGestureActive == false {
+                    // This will update the next/previous states
+                    textInputView.reloadInputViews()
+                }
             }
         })
     }

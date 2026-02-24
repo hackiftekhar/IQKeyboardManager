@@ -27,7 +27,7 @@ import IQDropDownTextFieldSwift
 import IQKeyboardNotification
 import IQTextView
 
-class TextFieldViewController: BaseViewController, UITextViewDelegate {
+class TextFieldViewController: BaseViewController {
 
     @IBOutlet var textField3: UITextField!
     @IBOutlet var textView1: IQTextView!
@@ -117,9 +117,17 @@ class TextFieldViewController: BaseViewController, UITextViewDelegate {
         super.viewWillDisappear(animated)
         keyboardListener.unsubscribe(identifier: "TextFieldViewController")
     }
+}
+
+extension TextFieldViewController: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-
         print("textViewDidBeginEditing")
+    }
+}
+
+extension TextFieldViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("textFieldDidEndEditing")
     }
 }

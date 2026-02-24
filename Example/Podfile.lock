@@ -1,25 +1,25 @@
 PODS:
   - IQDropDownTextFieldSwift (4.0.4)
   - IQKeyboardCore (1.0.8)
-  - IQKeyboardManagerSwift (8.0.1):
-    - IQKeyboardManagerSwift/Appearance (= 8.0.1)
-    - IQKeyboardManagerSwift/Core (= 8.0.1)
-    - IQKeyboardManagerSwift/IQKeyboardReturnManager (= 8.0.1)
-    - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 8.0.1)
-    - IQKeyboardManagerSwift/IQTextView (= 8.0.1)
-    - IQKeyboardManagerSwift/Resign (= 8.0.1)
-  - IQKeyboardManagerSwift/Appearance (8.0.1):
+  - IQKeyboardManagerSwift (8.0.2):
+    - IQKeyboardManagerSwift/Appearance (= 8.0.2)
+    - IQKeyboardManagerSwift/Core (= 8.0.2)
+    - IQKeyboardManagerSwift/IQKeyboardReturnManager (= 8.0.2)
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 8.0.2)
+    - IQKeyboardManagerSwift/IQTextView (= 8.0.2)
+    - IQKeyboardManagerSwift/Resign (= 8.0.2)
+  - IQKeyboardManagerSwift/Appearance (8.0.2):
     - IQTextInputViewNotification
-  - IQKeyboardManagerSwift/Core (8.0.1):
+  - IQKeyboardManagerSwift/Core (8.0.2):
     - IQKeyboardNotification
     - IQTextInputViewNotification
-  - IQKeyboardManagerSwift/IQKeyboardReturnManager (8.0.1):
+  - IQKeyboardManagerSwift/IQKeyboardReturnManager (8.0.2):
     - IQKeyboardReturnManager
-  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (8.0.1):
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (8.0.2):
     - IQKeyboardToolbarManager
-  - IQKeyboardManagerSwift/IQTextView (8.0.1):
+  - IQKeyboardManagerSwift/IQTextView (8.0.2):
     - IQTextView
-  - IQKeyboardManagerSwift/Resign (8.0.1):
+  - IQKeyboardManagerSwift/Resign (8.0.2):
     - IQTextInputViewNotification
   - IQKeyboardNotification (1.0.6)
   - IQKeyboardReturnManager (1.0.6):
@@ -66,7 +66,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   IQDropDownTextFieldSwift: fe6cf39c35dae95335a651e0e08a842a49f08b57
   IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
-  IQKeyboardManagerSwift: 7107669427f9143754353ec50404c2be186c9695
+  IQKeyboardManagerSwift: cd9c2cf68a12b6ab17462d0dab3ee78be39261b4
   IQKeyboardNotification: eb4910401f5a0e68f97e71c62f8a0c5b7e9d535c
   IQKeyboardReturnManager: fcbf51fc68d7536fc1fbcca5231c4e82576b12ac
   IQKeyboardToolbar: a8aab764a27d55892b951e58ebfffdde14a01ce8
