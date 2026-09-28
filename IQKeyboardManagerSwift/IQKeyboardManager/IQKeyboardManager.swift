@@ -67,7 +67,7 @@ import UIKit
 
     /**
     Enable/disable managing distance between keyboard and textInputView.
-     Default is YES(Enabled when class loads in `+(void)load` method).
+    Default is false. Must be set to true (e.g. in `application(_:didFinishLaunchingWithOptions:)`) to enable.
     */
     public var isEnabled: Bool = false {
         didSet {
@@ -122,7 +122,8 @@ import UIKit
     // MARK: UIAnimation handling
 
     /**
-    If YES, then calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update of to viewController's view.
+    If true, calls 'setNeedsLayout' and 'layoutIfNeeded' on any frame update
+    of the viewController's view. Default is false.
     */
     public var layoutIfNeededOnUpdate: Bool = false
 
@@ -136,6 +137,10 @@ import UIKit
 
      - Precondition: All classes must be subclasses of `UIViewController`
      - Default: `[UITableViewController.self, UIInputViewController.self, UIAlertController.self]`
+     - Note: `UITableViewController` is disabled by default because UIKit already handles scrolling
+       for table view cells when the keyboard appears. If you wish to enable IQKeyboardManager inside
+       a `UITableViewController`, remove it from this list:
+       `IQKeyboardManager.shared.disabledDistanceHandlingClasses.removeAll { $0 == UITableViewController.self }`
      - Note: This takes precedence over `enabledDistanceHandlingClasses`. If a class appears
        in both arrays, it will be disabled.
 
@@ -161,7 +166,7 @@ import UIKit
 
     /**
      Enable distance handling within the scope of enabled distance handling viewControllers classes.
-     Within this scope, 'enabled' property is ignored. Class should be kind of UIViewController.
+     Within this scope, 'isEnabled' property is ignored. Class should be kind of UIViewController.
      If same Class is added in disabledDistanceHandlingClasses list,
      then enabledDistanceHandlingClasses will be ignored.
      */

@@ -12,16 +12,16 @@
 
 
 ## Introduction
-While developing iOS apps, we often run into issues where the iPhone keyboard slides up and covers the `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent this issue of keyboard sliding up and covering `UITextField/UITextView` without needing you to write any code or make any additional setup. To use `IQKeyboardManager` you simply need to add source files to your project.
+While developing iOS apps, we often run into issues where the iPhone software keyboard slides up and covers the active `UITextField/UITextView`. `IQKeyboardManager` allows you to prevent keyboard occlusion with just a single line of setup (`IQKeyboardManager.shared.isEnabled = true`), eliminating the need for boilerplate keyboard notifications, scroll insets, or custom subclasses.
 
 
 ## Key Features
 
-1. **One Line of Code** - Just enable and it works
-2. **Works Automatically** - No manual setup required
-3. **No More UIScrollView** - Automatically handles scroll views
+1. **One Line of Code** - Just enable `IQKeyboardManager.shared.isEnabled = true` and it works
+2. **Works Automatically** - Manages active text fields across your view hierarchy
+3. **No More UIScrollView Boilerplate** - Automatically adjusts scroll view offsets
 4. **No More Subclasses** - Works with standard UIKit components
-5. **No More Manual Work** - Handles all edge cases automatically
+5. **No More Manual Work** - Handles orientation changes and edge cases automatically
 6. **Modular Architecture** - Include only what you need via subspecs
 
 ### What's Included
@@ -92,22 +92,11 @@ https://www.youtube.com/playlist?list=PL_csAAO9PQ8aTL87XnueOXi3RpWE2m_8v
 
 ## Requirements
 
-|                        | Minimum iOS Target | Minimum Xcode Version |
-|------------------------|--------------------|-----------------------|
-| IQKeyboardManagerSwift | iOS 13.0           | Xcode 13              |
-| Demo Project           |                    | Xcode 15              |
+|                        | Minimum iOS Target | Minimum Xcode Version | Swift Versions |
+|------------------------|--------------------|-----------------------|----------------|
+| IQKeyboardManagerSwift | iOS 13.0           | Xcode 13              | 5.7, 5.8, 5.9, 6.0+ |
+| Demo Project           | iOS 15.0           | Xcode 15              | 5.9+ |
 
-#### Swift versions support
-
-| Swift             | Xcode | IQKeyboardManagerSwift |
-|-------------------|-------|------------------------|
-| 5.9, 5.8, 5.7     | 16    | >= 7.0.0       |
-| 5.9, 5.8, 5.7, 5.6| 15    | >= 7.0.0       |
-| 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.2| 11  | >= 6.5.7       |
-| 5.1, 5.0, 4.2, 4.0, 3.2, 3.0| 11  | >= 6.5.0       |
-| 5.0,4.2, 4.0, 3.2, 3.0| 10.2  | >= 6.2.1           |
-| 4.2, 4.0, 3.2, 3.0| 10.0  | >= 6.0.4               |
-| 4.0, 3.2, 3.0     | 9.0   | 5.0.0                  |
 
 
 Installation
@@ -202,8 +191,10 @@ import IQKeyboardManagerSwift
 func application(_ application: UIApplication, 
                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    // Core functionality
+    // Core functionality (isEnabled defaults to false)
     IQKeyboardManager.shared.isEnabled = true
+
+    // Optional: customize distance between keyboard and text field (default is 10.0 points)
     IQKeyboardManager.shared.keyboardDistance = 20.0
     
     // Toolbar (if using IQKeyboardToolbarManager subspec)
@@ -213,12 +204,74 @@ func application(_ application: UIApplication,
     IQKeyboardManager.shared.resignOnTouchOutside = true
     
     // Appearance (if using Appearance subspec)
-    IQKeyboardManager.shared.keyboardConfiguration.overrideKeyboardAppearance = true
-    IQKeyboardManager.shared.keyboardConfiguration.keyboardAppearance = .dark
+    IQKeyboardManager.shared.keyboardConfiguration.overrideAppearance = true
+    IQKeyboardManager.shared.keyboardConfiguration.appearance = .dark
 
     return true
 }
 ```
+
+### Table View Controllers & Default Exclusions
+By default, `UITableViewController`, `UIInputViewController`, and `UIAlertController` are included in `disabledDistanceHandlingClasses` to avoid conflicting with UIKit's native scroll adjustments.
+If you want `IQKeyboardManager` to manage text inputs inside a `UITableViewController`, remove it from the disabled list:
+
+```swift
+IQKeyboardManager.shared.disabledDistanceHandlingClasses.removeAll { $0 == UITableViewController.self }
+```
+
+## SwiftUI Support
+
+For SwiftUI apps (iOS 15+), IQKeyboardManager provides declarative view modifiers that integrate directly with SwiftUI's native `@FocusState`:
+
+```swift
+import SwiftUI
+import IQKeyboardManagerSwift
+
+enum FormField: Hashable, CaseIterable {
+    case firstName, lastName, email
+}
+
+struct RegistrationView: View {
+    @FocusState private var focusedField: FormField?
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var email = ""
+
+    var body: some View {
+        Form {
+            TextField("First Name", text: $firstName)
+                .focused($focusedField, equals: .firstName)
+                .iqFocus(field: .firstName, order: 1, group: "personal")
+
+            TextField("Last Name", text: $lastName)
+                .focused($focusedField, equals: .lastName)
+                .iqFocus(field: .lastName, order: 2, group: "personal")
+
+            TextField("Email", text: $email)
+                .focused($focusedField, equals: .email)
+                .iqFocus(field: .email, order: 3, group: "personal")
+        }
+        // Attaches Previous, Next, and Done buttons connected to your fields
+        .iqFocusScope(focus: $focusedField)
+    }
+}
+```
+
+Or for simple enum-based fields conforming to `CaseIterable`:
+```swift
+Form {
+    // text fields...
+}
+.iqKeyboardToolbar(focus: $focusedField)
+```
+
+## Native Alternatives (Without Third-Party Dependencies)
+
+If your app targets modern iOS versions and you prefer zero third-party dependencies:
+
+- **UIKit (iOS 15+)**: Use Apple's `UIKeyboardLayoutGuide`. Pin your lowest control or scroll view to `view.keyboardLayoutGuide.topAnchor` using a single Auto Layout constraint.
+- **SwiftUI (iOS 15+)**: SwiftUI handles keyboard avoidance automatically inside `ScrollView`, `Form`, and `List`. You can add accessory buttons via `.toolbar { ToolbarItemGroup(placement: .keyboard) { ... } }` and navigate fields using `@FocusState`.
+
 
 
 Migration Guide

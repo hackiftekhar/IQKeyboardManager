@@ -47,7 +47,8 @@ import IQKeyboardToolbarManager
     }
 
     /**
-     Automatic add the toolbar functionality. Default is YES.
+     Automatically add the toolbar functionality.
+     Default is false (forwards to `IQKeyboardToolbarManager.shared.isEnabled`).
      */
     var enableAutoToolbar: Bool {
         get { toolbarManager.isEnabled }

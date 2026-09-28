@@ -30,6 +30,23 @@ import UIKit
 @MainActor
 @objc public extension IQKeyboardManager {
 
+    @available(*, unavailable, renamed: "isEnabled")
+    var enable: Bool {
+        get { fatalError() }
+        set { }
+    }
+
+    @available(*, unavailable, renamed: "shared")
+    static func sharedManager() -> IQKeyboardManager {
+        fatalError()
+    }
+
+    @available(*, unavailable, renamed: "isDebuggingEnabled")
+    var enableDebugging: Bool {
+        get { fatalError() }
+        set { }
+    }
+
     @available(*, unavailable, renamed: "keyboardDistance")
     var keyboardDistanceFromTextField: CGFloat {
         get { fatalError() }
