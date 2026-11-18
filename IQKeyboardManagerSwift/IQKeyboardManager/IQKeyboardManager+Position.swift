@@ -593,6 +593,14 @@ private extension IQKeyboardManager {
             }
         }, completion: {
 
+            // On iOS 27, reloading the input views here makes UIKit announce the keyboard again.
+            // IQKeyboardManager then adjusts the position again, scrolls and reloads once more,
+            // so the main thread never leaves the loop and the app hangs (#2185).
+            // The toolbar's previous/next state is refreshed when the next text input view begins editing.
+            if #available(iOS 27, *) {
+                return
+            }
+
             if scrollView is UITableView || scrollView is UICollectionView {
                 // Skip reloading input views during interactive navigation gesture to prevent toolbar flash (Issue #2102)
                 if self.activeConfiguration.rootConfiguration?.isInteractiveGestureActive == false {
