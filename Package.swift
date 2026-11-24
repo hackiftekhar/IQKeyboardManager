@@ -36,6 +36,7 @@ let package = Package(
                 linkerSettings: [
                     .linkedFramework("UIKit")
                 ]
-               )
+               ),
+        .testTarget(name: "IQKeyboardManagerSwiftTests", dependencies: ["IQKeyboardManagerSwift"])
     ]
 )

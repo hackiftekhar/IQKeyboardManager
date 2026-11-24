@@ -127,9 +127,6 @@ import IQKeyboardCore
         let textInputViewRectInRootSuperview: CGRect = superview.convert(textInputView.frame,
                                                                          to: rootController.view.superview)
 
-        //  Getting RootViewOrigin.
-        let rootViewOrigin: CGPoint = rootController.view.frame.origin
-
         let keyboardDistance: CGFloat = getSpecialTextInputViewDistance(textInputView: textInputView)
 
         let kbSize: CGSize = Self.getKeyboardSize(keyboardDistance: keyboardDistance,
@@ -202,14 +199,12 @@ import IQKeyboardCore
                                             textInputView: textInputView)
         }
 
-        adjustRootController(moveUp: moveUp, rootViewOrigin: rootViewOrigin, originalKbSize: originalKbSize,
-                             rootController: rootController, rootBeginOrigin: rootConfiguration.beginOrigin)
+        adjustRootController(moveUp: moveUp, keyboardHeight: originalKbSize.height, configuration: rootConfiguration)
     }
     // swiftlint:enable function_body_length
 
     internal func restorePosition() {
 
-        //  Setting rootViewController frame to it's original position. //  (Bug ID: #18)
         guard let configuration: IQRootControllerConfiguration = activeConfiguration.rootConfiguration else {
             return
         }
@@ -220,11 +215,9 @@ import IQKeyboardCore
         }
 
         activeConfiguration.animate(alongsideTransition: {
-            if configuration.hasChanged {
-                let classNameString: String = "\(type(of: configuration.rootController.self))"
-                self.showLog("Restoring \(classNameString) origin to: \(configuration.beginOrigin)")
+            if configuration.restore() {
+                self.showLog("Restored root controller position")
             }
-            configuration.restore()
 
             // Animating content if needed (Bug ID: #204)
             if self.layoutIfNeededOnUpdate {
@@ -686,70 +679,16 @@ private extension IQKeyboardManager {
         })
     }
 
-    func adjustRootController(moveUp: CGFloat, rootViewOrigin: CGPoint, originalKbSize: CGSize,
-                              rootController: UIViewController, rootBeginOrigin: CGPoint) {
-        // +Positive or zero.
-        var rootViewOrigin: CGPoint = rootViewOrigin
-        if moveUp >= 0 {
-
-            rootViewOrigin.y = CGFloat.maximum(rootViewOrigin.y - moveUp, CGFloat.minimum(0, -originalKbSize.height))
-
-            if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
-                showLog("Moving Upward")
-
-                activeConfiguration.animate(alongsideTransition: {
-
-                    var rect: CGRect = rootController.view.frame
-                    rect.origin = rootViewOrigin
-                    rootController.view.frame = rect
-
-                    // Animating content if needed (Bug ID: #204)
-                    if self.layoutIfNeededOnUpdate {
-                        // Animating content (Bug ID: #160)
-                        rootController.view.setNeedsLayout()
-                        rootController.view.layoutIfNeeded()
-                    }
-
-                    let classNameString: String = "\(type(of: rootController.self))"
-                    self.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
-                })
+    func adjustRootController(moveUp: CGFloat, keyboardHeight: CGFloat, configuration: IQRootControllerConfiguration) {
+        activeConfiguration.animate(alongsideTransition: {
+            guard configuration.adjust(upBy: moveUp, keyboardHeight: keyboardHeight) else { return }
+            if self.layoutIfNeededOnUpdate {
+                configuration.rootController?.view.setNeedsLayout()
+                configuration.rootController?.view.layoutIfNeeded()
             }
-
-            movedDistance = rootBeginOrigin.y-rootViewOrigin.y
-        } else {  //  -Negative
-            let disturbDistance: CGFloat = rootViewOrigin.y-rootBeginOrigin.y
-
-            //  disturbDistance Negative = frame disturbed.
-            //  disturbDistance positive = frame not disturbed.
-            if disturbDistance <= 0 {
-
-                rootViewOrigin.y -= CGFloat.maximum(moveUp, disturbDistance)
-
-                if !rootController.view.frame.origin.equalTo(rootViewOrigin) {
-                    showLog("Moving Downward")
-                    //  Setting adjusted rootViewRect
-
-                    activeConfiguration.animate(alongsideTransition: {
-
-                        var rect: CGRect = rootController.view.frame
-                        rect.origin = rootViewOrigin
-                        rootController.view.frame = rect
-
-                        // Animating content if needed (Bug ID: #204)
-                        if self.layoutIfNeededOnUpdate {
-                            // Animating content (Bug ID: #160)
-                            rootController.view.setNeedsLayout()
-                            rootController.view.layoutIfNeeded()
-                        }
-
-                        let classNameString: String = "\(type(of: rootController.self))"
-                        self.showLog("Set \(classNameString) origin to: \(rootViewOrigin)")
-                    })
-                }
-
-                movedDistance = rootBeginOrigin.y-rootViewOrigin.y
-            }
-        }
+            self.showLog("Moved root controller up by: \(configuration.movedDistance)")
+        })
+        movedDistance = configuration.movedDistance
     }
 
     func restoreScrollViewContentOffset(superScrollView: UIScrollView, textInputView: (some IQTextInputView)?) {

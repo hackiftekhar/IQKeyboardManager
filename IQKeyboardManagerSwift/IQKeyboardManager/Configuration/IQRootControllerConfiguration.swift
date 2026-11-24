@@ -25,26 +25,20 @@ import UIKit
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal struct IQRootControllerConfiguration {
+internal final class IQRootControllerConfiguration {
 
     weak var rootController: UIViewController?
-    let beginOrigin: CGPoint
     let beginSafeAreaInsets: UIEdgeInsets
     let beginOrientation: UIInterfaceOrientation
 
-    init(rootController: UIViewController) {
+    private weak var adjustedView: UIView?
+    private weak var adjustedSuperview: UIView?
+    private var adjustment: (centerY: CGFloat, height: CGFloat, distance: CGFloat)?
+
+    init(rootController: UIViewController, orientation: UIInterfaceOrientation) {
         self.rootController = rootController
-        beginOrigin = rootController.view.frame.origin
         beginSafeAreaInsets = rootController.view.safeAreaInsets
-
-        let interfaceOrientation: UIInterfaceOrientation
-        if let scene = rootController.view.window?.windowScene {
-            interfaceOrientation = scene.interfaceOrientation
-        } else {
-            interfaceOrientation = .unknown
-        }
-
-        beginOrientation = interfaceOrientation
+        beginOrientation = orientation
     }
 
     var currentOrientation: UIInterfaceOrientation {
@@ -62,8 +56,16 @@ internal struct IQRootControllerConfiguration {
     }
 
     var hasChanged: Bool {
-        let origin: CGPoint = rootController?.view.frame.origin ?? .zero
-        return !origin.equalTo(beginOrigin)
+        return movedDistance != 0
+    }
+
+    var movedDistance: CGFloat {
+        guard let adjustment = adjustment, let view = adjustedView,
+              view === rootController?.viewIfLoaded, view.superview === adjustedSuperview else { return 0 }
+        let heightChange = view.bounds.height - adjustment.height
+        let resizedCenterY = adjustment.centerY + heightChange * view.layer.anchorPoint.y
+        guard view.center.y == adjustment.centerY || view.center.y == resizedCenterY else { return 0 }
+        return adjustment.distance
     }
 
     var isInteractiveGestureActive: Bool {
@@ -82,14 +84,35 @@ internal struct IQRootControllerConfiguration {
             return false
         }
     }
+
+    @discardableResult
+    func adjust(upBy moveUp: CGFloat, keyboardHeight: CGFloat) -> Bool {
+        guard let view = rootController?.viewIfLoaded else { return false }
+
+        let distance = movedDistance
+        var targetDistance = max(0, distance + moveUp)
+        if moveUp >= 0 {
+            let top = view.convert(view.bounds, to: view.superview).minY
+            targetDistance = min(targetDistance, max(0, distance + top + keyboardHeight))
+        }
+        return setMovedDistance(targetDistance, on: view)
+    }
+
     @discardableResult
     func restore() -> Bool {
-        guard let rootController: UIViewController = rootController,
-              !rootController.view.frame.origin.equalTo(beginOrigin) else { return false }
-        // Setting it's new frame
-        var rect: CGRect = rootController.view.frame
-        rect.origin = beginOrigin
-        rootController.view.frame = rect
+        guard let view = rootController?.viewIfLoaded else { return false }
+        return setMovedDistance(0, on: view)
+    }
+
+    private func setMovedDistance(_ distance: CGFloat, on view: UIView) -> Bool {
+        let delta = movedDistance - distance
+        let centerY = view.center.y + delta
+        adjustedView = view
+        adjustedSuperview = view.superview
+        adjustment = distance == 0 ? nil : (centerY, view.bounds.height, distance)
+
+        guard delta != 0 else { return false }
+        view.center.y = centerY
         return true
-     }
+    }
 }
