@@ -145,23 +145,18 @@ internal final class IQActiveConfiguration: NSObject {
             return
         }
 
-        let newConfiguration = IQRootControllerConfiguration(rootController: controller)
+        let window = controller.view.window
+        let orientation = window?.windowScene?.interfaceOrientation ?? .unknown
+        guard window != rootConfiguration?.rootController?.view.window ||
+                orientation != rootConfiguration?.beginOrientation else { return }
 
-        guard newConfiguration.rootController?.view.window != rootConfiguration?.rootController?.view.window ||
-                newConfiguration.beginOrientation != rootConfiguration?.beginOrientation else { return }
-
-        if rootConfiguration?.rootController != newConfiguration.rootController {
-
-            // If there was an old configuration but things are changed
-            if let rootConfiguration = rootConfiguration,
-               rootConfiguration.hasChanged {
-                animate(alongsideTransition: {
-                    rootConfiguration.restore()
-                }, completion: nil)
-            }
+        if let previous = rootConfiguration, previous.hasChanged {
+            animate(alongsideTransition: {
+                previous.restore()
+            }, completion: nil)
         }
 
-        rootConfiguration = newConfiguration
+        rootConfiguration = IQRootControllerConfiguration(rootController: controller, orientation: orientation)
     }
 }
 
